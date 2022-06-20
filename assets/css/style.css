@@ -26,6 +26,11 @@ background-position:center center;
 -o-background-size: cover
 }
 
+#asterisk::after {
+    content: " *";
+    color: red;
+}
+
 
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
