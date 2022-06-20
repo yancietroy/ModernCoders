@@ -2,6 +2,7 @@
 html,
 body {
   height: 100%;
+width: 100%;
 }
 
 body {
@@ -9,8 +10,9 @@ body {
 }
 
 .bg {
-  background-image: url("../img/jru-bg.jpg");
+  background-image: url("../img/camp.jpg");
   height: 100vh;
+   -webkit-backdrop-filter: blur(2px);
   background-attachment: fixed;
    min-height: 100vh;
   backdrop-filter: blur(2px);
@@ -18,7 +20,7 @@ body {
  /* Center and scale the image nicely */
  background-repeat:no-repeat;
 background-size:cover;
-background-position:center;
+background-position:center center;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover
