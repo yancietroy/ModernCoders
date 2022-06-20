@@ -3,6 +3,7 @@ html,
 body {
   height: 100%;
 width: 100%;
+
 }
 
 body {
@@ -31,6 +32,11 @@ background-position:center center;
     color: red;
 }
 
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
 
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
