@@ -11,12 +11,12 @@ body {
 }
 
 .bg {
-  background-image: url("../img/camp.jpg");
+  background-image: url("../img/campusblur.jpg");
   height: 100vh;
-   -webkit-backdrop-filter: blur(2px);
+   /*  -webkit-backdrop-filter: blur(2px);*/
   background-attachment: fixed;
    min-height: 100vh;
-  backdrop-filter: blur(2px);
+ /*   backdrop-filter: blur(2px);
 
  /* Center and scale the image nicely */
  background-repeat:no-repeat;
