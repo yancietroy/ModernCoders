@@ -134,7 +134,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control" name="password" id="password" data-bs-toggle="popover" data-bs-placement="bottom" title="Password Validation" minlength="8" data-bs-content="Must be at least 8 characters long &#013;
+                      <input type="text" class="form-control" name="password" id="password" data-bs-toggle="popover" data-bs-placement="bottom" title="Password Validation" minlength="8" data-bs-content="Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
                       Must contain at least one special character &#013;
                       and must contain at least one uppercase and lowercase letter" required>
@@ -148,7 +148,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="3" required>
+                      <input type="text" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="3" required>
                     </div>
                   </div>
                 </div>
