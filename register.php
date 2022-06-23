@@ -95,7 +95,7 @@
                   <div class="col-4 mb-4">
 
                     <label class="form-label select-label" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" name="course" id="courses" s required>
+                    <select class="form-select form-select-sm" name="course" id="courses" required>
                       <option selected disabled value="" text-muted>Select Course</option>
                       <option value="1">One</option>
                       <option value="2">Two</option>
