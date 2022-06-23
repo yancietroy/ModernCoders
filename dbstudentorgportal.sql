@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2022 at 07:45 AM
+-- Generation Time: Jun 23, 2022 at 09:59 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -285,9 +285,9 @@ CREATE TABLE `tb_students` (
   `EMAIL` varchar(50) NOT NULL,
   `PASSWORD` varchar(50) NOT NULL,
   `COURSE` varchar(10) NOT NULL,
-  `SECTION` varchar(10) NOT NULL,
-  `MORG_ID` int(2) NOT NULL,
-  `ORG_ID` int(2) NOT NULL
+  `SECTION` varchar(10) DEFAULT NULL,
+  `MORG_ID` int(2) DEFAULT NULL,
+  `ORG_ID` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
