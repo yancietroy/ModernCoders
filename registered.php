@@ -31,11 +31,14 @@
 						$query = "INSERT INTO tb_students(FIRST_NAME, LAST_NAME, MIDDLE_NAME, AGE, GENDER, COURSE, EMAIL, PASSWORD) VALUES('$fn', '$ln', '$mn', '$age', '$g', '$course', '$e', SHA('$pass'))";
 					$result = @mysqli_query($conn, $query);
 
-	echo "  <h1 class=\"thanks\">You are now registered</h3>";
+	echo "  <h3>You are now registered</h3>";
 
 
-						mysqli_close($conn);
+						@mysqli_close($conn);
 					}
+					echo "<pre>";
+					print_r($_POST);
+					echo "</pre>";
 
 			?>
 </body>
