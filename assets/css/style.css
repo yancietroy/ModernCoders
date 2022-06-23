@@ -1,0 +1,46 @@
+
+html,
+body {
+  height: 100%;
+width: 100%;
+
+}
+
+body {
+  padding-bottom: 40px;
+}
+
+.bg {
+  background-image: url("../img/campusblur.jpg");
+  height: 100vh;
+   /*  -webkit-backdrop-filter: blur(2px);*/
+  background-attachment: fixed;
+   min-height: 100vh;
+ /*   backdrop-filter: blur(2px);
+
+ /* Center and scale the image nicely */
+ background-repeat:no-repeat;
+background-size:cover;
+background-position:center center;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover
+}
+
+#asterisk::after {
+    content: " *";
+    color: red;
+}
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+
+/* Height for devices larger than 576px */
+@media (min-width: 992px) {
+  .bg-image {
+    margin-top: -58.59px;
+  }
+}
