@@ -64,7 +64,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-6 mb-4">
+                  <div class="col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" type="date" required />
@@ -81,7 +81,7 @@
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-4">
+                  <div class="col-md-4 mb-4">
                     <label class="mb-4 me-5 w-50" for="gender" id="asterisk">Gender: </label>
                     <div class="form-check form-check-inline mb-0 me-4 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
@@ -95,8 +95,6 @@
                     <div class="valid-feedback mv-up">You selected a gender!</div>
                     <div class="invalid-feedback mv-up">Please select a gender!</div>
                   </div>
-                </div>
-
                 </div>
                 <hr>
               <div class="row">
@@ -218,6 +216,8 @@
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
+
+              </div>
             </div>
           </div>
         </div>
