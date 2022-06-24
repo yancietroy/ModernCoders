@@ -13,23 +13,13 @@
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-8">
+        <div class="col-12 col-lg-9 col-xl-7">
           <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <div class="row g-0 justify-content-center align-items-center ">
-                    <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                          </div>
-                        <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-                            </div>
-                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
-                          </div>
-            </div>
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
 
-              <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
+              <img class="mb-3 rounded mx-auto d-block" src="assets/img/jru-logo.png" alt="" width="92" height="90">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
+              <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Account details</h4>
             <!-- <form class="was-validated"> -->
                   <form>
                 <div class="row">
@@ -64,15 +54,6 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                      <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                      <input id="birthDate" class="form-control form-control-lg" type="date" required />
-                      <span id="birthDateSelected"></span>
-                      <div class="valid-feedback">Looks Good!</div>
-                      <div class="invalid-feedback">Age field cannot be blank!</div>
-                    </div>
-                  </div>
                   <div class="col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age" id="asterisk">Age</label>
@@ -81,63 +62,36 @@
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-md-6 mb-4">
-                    <label class="mb-4 me-5 w-50" for="gender" id="asterisk">Gender: </label>
-                    <div class="form-check form-check-inline mb-0 me-4 ">
+                  <div class="col-md-4 mb-4">
+                    <label class="mb-4 me-5 w-100" for="gender" id="asterisk">Gender: </label>
+                    <div class="form-check form-check-inline mb-0 me-2 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
                       <label class="form-check-label" for="maleGender">Male</label>
                     </div>
 
-                    <div class="form-check form-check-inline mb-0 me-4">
+                    <div class="form-check form-check-inline mb-0 me-2">
                       <input class="form-check-input" type="radio" name="gender" id="Female" value="Female" autocomplete="off" />
                       <label class="form-check-label" for="Female">Female</label>
                     </div>
                     <div class="valid-feedback mv-up">You selected a gender!</div>
                     <div class="invalid-feedback mv-up">Please select a gender!</div>
                   </div>
-                </div>
-
-                </div>
-                <hr>
-              <div class="row">
-                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
                   <div class="col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
-                      <input type="text" name="last_name" id="studentid" class="form-control" placeholder="##-###### "required />
+                      <input type="text" name="last_name" id="studentid" class="form-control form-control-lg" placeholder="##-###### "required />
                       <div class="valid-feedback">Looks Good!</div>
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
-                      <div class="col-4 mb-4">
-                        <label class="form-label select-label" id="asterisk">Year Level</label>
-                        <select class=" form-select" name="year" id="select-group" required>
-                          <option class="greyclr" selected disabled value="" >Select Year</option>
-                          <option value="1">First Year</option>
-                          <option value="2">Second Year</option>
-                          <option value="3">Third Year</option>
-                          <option value="4">Fourth Year</option>
-                        </select>
-                        <div class="valid-feedback">Looks Good!</div>
-                        <div class="invalid-feedback">year field cannot be blank!</div>
-                      </div>
-                      <div class="col-md-4 mb-4">
-                        <div class="form-outline">
-
-                          <label class="form-label" for="section" id="asterisk">Section</label>
-                          <input type="text" name="section" id="section" class="form-control" required />
-                          <div class="valid-feedback">Looks Good!</div>
-                          <div class="invalid-feedback">section field cannot be blank!</div>
-                        </div>
-                      </div>
-                  </div>
+                </div>
                 <div class="row">
                   <div class="col-4 mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
-                      <option class="greyclr" selected disabled value="" text-muted>Select College</option>
+                    <select class="form-select form-select-sm" name="college" id="college" required>
+                      <option selected disabled value="" text-muted>Select College</option>
                       <option value="1">One</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
@@ -150,8 +104,8 @@
                   <div class="col-4 mb-4">
 
                     <label class="form-label select-label" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" name="course" id="select-group" required>
-                      <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
+                    <select class="form-select form-select-sm" name="course" id="courses" required>
+                      <option selected disabled value="" text-muted>Select Course</option>
                       <option value="1">One</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
@@ -163,8 +117,8 @@
                   <div class="col-4 mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
-                    <select class="form-select form-select-sm" name="org" id="select-group" required>
-                      <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
+                    <select class="form-select form-select-sm" name="org" id="org" required>
+                      <option selected disabled value="" text-muted>Select Organization</option>
                       <option value="1">One</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
