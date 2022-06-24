@@ -18,7 +18,17 @@
 					<div class="card shadow-lg">
 						<div class="card-body p-4 text-center">
 
-							<img class="mb-3" src="assets/img/jru-logo.png" alt="" width="92" height="90">
+							<div class="row g-0 justify-content-center">
+									<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
+											<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+												</div>
+											<div class="col-xs-12 col-md-4 col-md-offset-3 mb-4">
+											<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+													</div>
+													<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
+											<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+												</div>
+					</div>
 							<p class="h5 mb-2">JRU Student Organizations Portal</p>
 
 							  <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
@@ -63,20 +73,20 @@ if(isset ($_POST['submit']))
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 
-		if($row) 
+		if($row)
 		{
 			echo "<h1>Welcome!....$row[0] $row[1]</h1><br><br>";
 			echo '<a href = "menu.php">Continue';
 			exit();
 		}
-		else 
+		else
 		{
 			echo 'The email address and password entered do not match those on file.';
 		}
 	}
 	else
 	echo 'Please enter email and/or password...';
-	mysqli_close($conn); 
+	mysqli_close($conn);
 }
 ?>
 
