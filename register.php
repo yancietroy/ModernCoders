@@ -14,7 +14,7 @@
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-8">
-          <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
                     <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
@@ -197,7 +197,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-md-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
@@ -206,14 +206,14 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12">
                   <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                 </div>
 
               </form>
-              <hr class="my-4">
-              <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+              <hr class="my-4 mt-4">
+              <p class="text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
 
