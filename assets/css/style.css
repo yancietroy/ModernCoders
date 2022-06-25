@@ -6,8 +6,54 @@ body {
 
 body {
   padding-bottom: 40px;
+  min-height: 100vh;
 }
 
+.d-flex {
+  display: flex !important;
+}
+
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
 .bg {
   background-image: url("../img/campusblur.jpg");
   height: 100vh;
@@ -30,6 +76,21 @@ body {
   color: red;
 }
 
+#layoutAuthentication {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#layoutAuthentication #layoutAuthentication_content {
+  min-width: 0;
+  flex-grow: 1;
+}
+
+#layoutAuthentication #layoutAuthentication_footer {
+  min-width: 0;
+}
+
 .container {
   width: auto;
   max-width: 680px;
@@ -48,6 +109,7 @@ body {
   color: white !important;
   background-color: darkgray;
 }
+
 select {
   -webkit-appearance: menulist-button;
   color: black;
@@ -56,6 +118,7 @@ select {
 select:invalid {
   color: grey;
 }
+
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
   .bg-image {

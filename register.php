@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>JRU Student Organizations Portal Login Page</title>
+  <title>JRU Student Organizations Portal</title>
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-  <form action="registered.php" method="post">
+
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -31,7 +31,7 @@
 
               <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
             <!-- <form class="was-validated"> -->
-                  <form>
+                  <form action="registered.php" method="post">
                 <div class="row">
                   <div class="col-md-4 mb-4">
                     <div class="form-outline">
@@ -82,7 +82,7 @@
                     </div>
                   </div>
                   <div class="col-md-4 mb-4">
-                    <label class="mb-4 me-5 w-50" for="gender" id="asterisk">Gender: </label>
+                    <label class="mb-4 me-5 w-100" for="gender" id="asterisk">Gender: </label>
                     <div class="form-check form-check-inline mb-0 me-4 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
                       <label class="form-check-label" for="maleGender">Male</label>

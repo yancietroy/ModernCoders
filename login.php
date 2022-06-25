@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>JRU Student Organizations Portal Login Page</title>
+	<title>JRU Student Organizations Portal</title>
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -14,11 +14,11 @@
 	<div id="layoutAuthentication">
 			<div id="layoutAuthentication_content">
 					<main>
-							<div class="container">
+							<div class="container ">
 									<div class="row justify-content-center">
 											<div class="col-lg-5">
 													<div class="card shadow-lg border-0 rounded-lg mt-5">
-															<div class="card-body text-center">
+															<div class="card-body p-4 text-center">
 																<div class="row g-0 justify-content-center mt-2">
 																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
@@ -31,7 +31,7 @@
 																					</div>
 														</div>
 																<p class="h5 mb-2">JRU Student Organizations Portal</p>
-																	<form action="registered.php" method="post">
+																	<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
 																		<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase">Login</h1>
 
 																		<div class="form-floating mb-3">
