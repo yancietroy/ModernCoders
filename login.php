@@ -15,7 +15,7 @@
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
-					<div class="card shadow-lg">
+					<div class="card shadow-lg mb-4">
 						<div class="card-body p-4 text-center">
 
 							<div class="row g-0 justify-content-center">
@@ -54,12 +54,21 @@
 
 						</div>
 					</div>
-					<div class="text-center mt-5 text-light">
-					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
+		<!--
+		<div id="layoutAuthentication_footer">
+				<footer class="py-2 bg-light mt-5">
+						<div class="container-fluid px-4">
+								<div class="d-flex align-items-center justify-content-between small">
+										<div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+								</div>
+						</div>
+				</footer>
+		</div>
+	!-->
 		<script src="js/login.js"></script>
 		<?php
 if(isset ($_POST['submit']))
