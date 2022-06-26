@@ -71,11 +71,11 @@ if(isset ($_POST['submit']))
 		}
 		else
 		{
-			echo 'The email address and password entered do not match those on file.';
+			 echo '<script>alert("The email address and password entered do not match those on file.")</script>';
 		}
 	}
 	else
-	echo 'Please enter email and/or password...';
+	echo '<script>alert("Please enter email and/or password")</script>';
 	mysqli_close($conn);
 }
 ?>
