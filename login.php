@@ -76,7 +76,7 @@ if(isset ($_POST['submit']))
 		if($row)
 		{
 			echo "<h1>Welcome!....$row[0] $row[1]</h1><br><br>";
-			echo '<a href = "menu.php">Continue';
+			echo '<a href = "index.html">Continue';
 			exit();
 		}
 		else
