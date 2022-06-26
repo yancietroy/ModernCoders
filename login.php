@@ -17,7 +17,7 @@
 							<div class="container ">
 									<div class="row justify-content-center">
 											<div class="col-lg-5">
-													<div class="card shadow-lg border-0 rounded-lg mt-5">
+													<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
 															<div class="card-body p-4 text-center">
 																<div class="row g-0 justify-content-center mt-2">
 																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
@@ -103,7 +103,7 @@
 				</div>
 			</div>
 
-		</div>!-->
+		</div>
 
 		<div id="layoutAuthentication_footer">
 				<footer class="py-2 bg-light mt-5">
@@ -113,7 +113,7 @@
 								</div>
 						</div>
 				</footer>
-		</div>
+		</div>!-->
 		<script src="js/login.js"></script>
 		<?php
 if(isset ($_POST['submit']))
@@ -130,7 +130,7 @@ if(isset ($_POST['submit']))
 		if($row)
 		{
 			echo "<h1>Welcome!....$row[0] $row[1]</h1><br><br>";
-			echo '<a href = "menu.php">Continue';
+			echo '<a href = "index.html">Continue';
 			exit();
 		}
 		else
