@@ -13,7 +13,7 @@
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-8">
+        <div class="col-12 col-lg-9 col-xl-10">
           <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
@@ -213,7 +213,7 @@
 
               </form>
               <hr class="my-4">
-              <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+              <p class="mt-5 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
 
