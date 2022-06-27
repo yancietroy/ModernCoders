@@ -14,7 +14,7 @@
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-8">
-          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
                     <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
