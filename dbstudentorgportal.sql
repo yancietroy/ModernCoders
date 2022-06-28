@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2022 at 09:59 AM
+-- Generation Time: Jun 28, 2022 at 05:09 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -85,8 +85,45 @@ CREATE TABLE `tb_candidate` (
 
 CREATE TABLE `tb_course` (
   `course_id` int(2) NOT NULL,
-  `course` varchar(30) NOT NULL
+  `course` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_course`
+--
+
+INSERT INTO `tb_course` (`course_id`, `course`) VALUES
+(1, 'Bachelor of Arts (AB) Major in Economics'),
+(2, 'Bachelor of Arts (AB) Major in English'),
+(3, 'Bachelor of Arts (AB) Major in History'),
+(4, 'Bachelor of Arts (AB) Major in Mathematics'),
+(5, 'Bachelor of Arts in Psychology (ABPsy)'),
+(6, 'Bachelor of Science in Psychology (BSPsy)'),
+(7, 'Bachelor of Science in Criminology (BSCrim)'),
+(8, 'Bachelor of Secondary Education (BSED) Major in English'),
+(9, 'Bachelor of Secondary Education (BSED) Major in Mathematics'),
+(10, 'Bachelor of Secondary Education (BSED) Major in Social Studies'),
+(11, 'Bachelor of Elementary Education (BEED)'),
+(12, 'Certificate in Teaching Education (CTE)'),
+(13, 'Bachelor of Science in Accountancy (BSA)'),
+(14, 'Bachelor of Science in Business Administration (BSBA) Major in Accounting'),
+(15, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance'),
+(16, 'Bachelor of Science in Business Administration (BSBA) Major in Computer Science'),
+(17, 'Bachelor of Science in Business Administration (BSBA) Major in Economics'),
+(18, 'Bachelor of Science in Business Administration (BSBA) Major in Management'),
+(19, 'Bachelor of Science in Business Administration (BSBA) Major in Marketing'),
+(20, 'Bachelor of Science in Business Administration (BSBA) Major in Supply Management'),
+(21, 'Bachelor of Science in Legal Management (BSLgM)'),
+(22, 'Bachelor of Science in Computer Engineering (BSCpE)'),
+(23, 'Bachelor of Science in Electronics Engineering (BSEcE)'),
+(24, 'Bachelor of Science in Information Technology (BSIT)'),
+(25, 'Bachelor of Science in Information Technology (BSIT-BA) Major in Business Analytics'),
+(26, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC) Major in Digital Animation Tech'),
+(27, 'Bachelor of Science in Information Technology (BSIT-AGD) Major in Animation and Game Development'),
+(28, 'Bachelor of Science in Hospitality Management (BSHM)'),
+(29, 'Bachelor of Science in Hospitality Management (BSHM – CM) Major in Cruise Management '),
+(30, 'Bachelor of Science in Tourism Management (BSTM)'),
+(31, 'Bachelor of Science in Nursing (BSN)');
 
 -- --------------------------------------------------------
 
@@ -203,8 +240,38 @@ CREATE TABLE `tb_officers` (
 
 CREATE TABLE `tb_orgs` (
   `ORG_ID` int(2) NOT NULL,
-  `ORG` varchar(30) NOT NULL
+  `ORG` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_orgs`
+--
+
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`) VALUES
+(1, 'Association of Students of History (ASH)'),
+(2, 'Criminal Justice Students Society (CJSS)'),
+(3, 'Liberal Arts Students Organization (LASO)'),
+(4, 'Mathematics Society (MATHSOC)'),
+(5, 'Young, Educators Society (YES)'),
+(6, 'Junior Finance and Economics Society (JFINECS)'),
+(7, 'Junior Philippine Institute of Accountants (JPIA)'),
+(8, 'Management Society (MANSOC)'),
+(9, 'Supply Management Society (SMS)'),
+(10, 'Young Marketers Association (YMA)'),
+(11, 'Auxiliary of Computer Engineering Students (ACES)'),
+(12, 'Computer Society (COMSOC)'),
+(13, 'Electronics Engineering League (ECEL)'),
+(14, 'Association of Tourism Management Students (ATOMS)'),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)'),
+(16, 'Nursing Society (NURSOC)'),
+(17, 'José Rizal University Book Buddies'),
+(18, 'Young Rizalian Servant Leaders (YRSL)'),
+(19, 'Golden Z Club'),
+(20, 'International Students Association (ISA)'),
+(21, 'José Rizal University Chorale'),
+(22, 'José Rizal University Dance Troupe'),
+(23, 'Teatro Rizal'),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)');
 
 -- --------------------------------------------------------
 
@@ -215,7 +282,7 @@ CREATE TABLE `tb_orgs` (
 CREATE TABLE `tb_pkanswerkey` (
   `question_id` int(9) NOT NULL,
   `answer` varchar(8000) NOT NULL,
-  `student_id` int(2) NOT NULL,
+  `student_id` int(9) NOT NULL,
   `survey_id` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -280,15 +347,24 @@ CREATE TABLE `tb_students` (
   `LAST_NAME` varchar(50) NOT NULL,
   `FIRST_NAME` varchar(50) NOT NULL,
   `MIDDLE_NAME` varchar(30) NOT NULL,
+  `BIRTHDATE` date NOT NULL,
   `AGE` int(3) NOT NULL,
   `GENDER` varchar(7) NOT NULL,
+  `YEAR_LEVEL` varchar(20) NOT NULL,
   `EMAIL` varchar(50) NOT NULL,
   `PASSWORD` varchar(50) NOT NULL,
-  `COURSE` varchar(10) NOT NULL,
+  `COURSE` varchar(100) NOT NULL,
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_students`
+--
+
+INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
+(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -374,7 +450,14 @@ ALTER TABLE `tb_audit_trail`
 ALTER TABLE `tb_candidate`
   ADD PRIMARY KEY (`CANDIDATE_ID`),
   ADD KEY `candidate_org_id_fk` (`ORG_ID`),
-  ADD KEY `candidate_position_id_fk` (`POSITION_ID`);
+  ADD KEY `candidate_position_id_fk` (`POSITION_ID`),
+  ADD KEY `candidate_studentid_fk` (`STUDENT_NO`);
+
+--
+-- Indexes for table `tb_course`
+--
+ALTER TABLE `tb_course`
+  ADD PRIMARY KEY (`course_id`);
 
 --
 -- Indexes for table `tb_disc`
@@ -531,7 +614,8 @@ ALTER TABLE `tb_audit_trail`
 --
 ALTER TABLE `tb_candidate`
   ADD CONSTRAINT `candidate_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `candidate_position_id_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`);
+  ADD CONSTRAINT `candidate_position_id_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `candidate_studentid_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_disc`
