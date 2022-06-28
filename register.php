@@ -67,7 +67,7 @@
                   <div class="col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                      <input id="birthDate" class="form-control form-control-lg" type="date" required />
+                      <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
                       <span id="birthDateSelected"></span>
                       <div class="valid-feedback">Looks Good!</div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
@@ -85,7 +85,7 @@
                     <label class="mb-4 me-5 w-100" for="gender" id="asterisk">Gender: </label>
                     <div class="form-check form-check-inline mb-0 me-4 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
-                      <label class="form-check-label" for="maleGender">Male</label>
+                      <label class="form-check-label" for="Male">Male</label>
                     </div>
 
                     <div class="form-check form-check-inline mb-0 me-4">
@@ -103,14 +103,14 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
-                      <input type="text" name="last_name" id="studentid" class="form-control" placeholder="##-###### "required />
+                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### "required />
                       <div class="valid-feedback">Looks Good!</div>
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
                       <div class="col-4 mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
-                        <select class=" form-select" name="year" id="select-group" required>
+                        <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
                           <option value="1">First Year</option>
                           <option value="2">Second Year</option>
