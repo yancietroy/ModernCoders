@@ -116,9 +116,15 @@
                     <label class="form-label select-label" id="asterisk">Organization</label>
                     <select class="form-select form-select-sm" name="org" id="org" required>
                       <option selected disabled value="" text-muted>Select Organization</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <?php 
+                            include('mysql_connect.php');
+                            $query = "SELECT ORG FROM tb_orgs";
+                            $result = @mysqli_query($conn, $query);
+                            while($data = @mysqli_fetch_array($result)) {           
+                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                            }
+                            @mysqli_close($conn);
+                      ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Organization
