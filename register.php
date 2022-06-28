@@ -212,16 +212,14 @@
                 </div>
 
               </form>
-              <hr class="my-4">
-              <p class="mt-5 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+              <hr class="">
+              <p class="mt-4 p-1 m-0 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
 
               </div>
             </div>
           </div>
-        </div>
-        <div class="text-center mt-5 text-light">
         </div>
       </div>
     </div>
