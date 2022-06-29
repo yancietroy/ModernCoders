@@ -9,11 +9,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-
+  <form action="registered.php" method="post">
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-10">
+        <div class="col-12 col-lg-9 col-xl-8">
           <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
@@ -67,7 +67,7 @@
                   <div class="col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                      <input id="birthDate" class="form-control form-control-lg" type="date" required />
+                      <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
                       <span id="birthDateSelected"></span>
                       <div class="valid-feedback">Looks Good!</div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
@@ -85,7 +85,7 @@
                     <label class="mb-4 me-5 w-100" for="gender" id="asterisk">Gender: </label>
                     <div class="form-check form-check-inline mb-0 me-4 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
-                      <label class="form-check-label" for="maleGender">Male</label>
+                      <label class="form-check-label" for="Male">Male</label>
                     </div>
 
                     <div class="form-check form-check-inline mb-0 me-4">
@@ -103,14 +103,14 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
-                      <input type="text" name="last_name" id="studentid" class="form-control" placeholder="##-###### "required />
+                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### "required />
                       <div class="valid-feedback">Looks Good!</div>
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
                       <div class="col-4 mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
-                        <select class=" form-select" name="year" id="select-group" required>
+                        <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
                           <option value="1">First Year</option>
                           <option value="2">Second Year</option>
@@ -150,9 +150,15 @@
                     <label class="form-label select-label" id="asterisk">Course</label>
                     <select class="form-select form-select-sm" name="course" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <?php 
+                            include('mysql_connect.php');
+                            $query = "SELECT course FROM tb_course";
+                            $result = @mysqli_query($conn, $query);
+                            while($data = @mysqli_fetch_array($result)) {           
+                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                            }
+                            @mysqli_close($conn);
+                      ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -163,9 +169,15 @@
                     <label class="form-label select-label" id="asterisk">Organization</label>
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <?php 
+                            include('mysql_connect.php');
+                            $query = "SELECT ORG FROM tb_orgs";
+                            $result = @mysqli_query($conn, $query);
+                            while($data = @mysqli_fetch_array($result)) {           
+                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                            }
+                            @mysqli_close($conn);
+                      ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Organization
@@ -212,14 +224,16 @@
                 </div>
 
               </form>
-              <hr class="">
-              <p class="mt-4 p-1 m-0 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+              <hr class="my-4">
+              <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
 
               </div>
             </div>
           </div>
+        </div>
+        <div class="text-center mt-5 text-light">
         </div>
       </div>
     </div>

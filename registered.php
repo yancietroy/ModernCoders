@@ -10,9 +10,13 @@
 	$fn = $_POST['first_name'];
 	$ln = $_POST['last_name'];
 	$mn = $_POST['middle_name'];
+	$date = $_POST['birthdate'];
 	$age = $_POST['age'];
 	$g = $_POST['gender'];
+	$si = $_POST['studentid'];
+	$yl = $_POST['school_year'];
 	$course = $_POST['course'];
+	$section = $_POST['section'];
 	$org = $_POST['org'];
 	$e = $_POST['email'];
 	$pass = $_POST['password'];
@@ -28,7 +32,7 @@
 		else if (isset ($_POST['submit']))
 		{
 			include('mysql_connect.php');
-			$query = "INSERT INTO tb_students(FIRST_NAME, LAST_NAME, MIDDLE_NAME, AGE, GENDER, COURSE, EMAIL, PASSWORD) VALUES('$fn', '$ln', '$mn', '$age', '$g', '$course', '$e', SHA('$pass'))";
+			$query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
 			$result = @mysqli_query($conn, $query);
 
 			echo "  <h3>You are now registered</h3>";
