@@ -38,6 +38,7 @@ a:focus {
     box-shadow: none;
     outline: none !important;
     border: none;
+        background: #00226C;
 }
 
 .line {
@@ -45,6 +46,10 @@ a:focus {
     height: 1px;
     border-bottom: 1px dashed #ddd;
     margin: 40px 0;
+}
+.btn-info,
+  .btn-info:focus {
+      background: #00226C;
 }
 
 /* ---------------------------------------------------
@@ -77,7 +82,7 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    background: #6d7fcc;
+    background: #00226C;
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
 }
@@ -106,7 +111,7 @@ a:focus {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: lightgrey;
 }
 
 a[data-toggle="collapse"] {
@@ -114,12 +119,13 @@ a[data-toggle="collapse"] {
 }
 
 .dropdown-toggle::after {
+
 }
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #00226C;
 }
 
 ul.CTAs {
@@ -141,7 +147,7 @@ a.download {
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
+    background: #00226C !important;
     color: #fff !important;
 }
 
