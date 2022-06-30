@@ -13,8 +13,8 @@
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-8">
-          <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
+          <div class="col-12 col-lg-9 col-xl-9">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
                     <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
@@ -147,15 +147,15 @@
 
                   <div class="col-4 mb-4">
 
-                    <label class="form-label select-label" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" name="course" id="select-group" required>
+                    <label class="form-label select-label" size="5" id="asterisk">Course</label>
+                    <select class="form-select form-select-sm"  style="width:100%;" name="course" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                      <?php 
+                      <?php
                             include('mysql_connect.php');
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {           
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                            while($data = @mysqli_fetch_array($result)) {
+                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                             }
                             @mysqli_close($conn);
                       ?>
@@ -169,12 +169,12 @@
                     <label class="form-label select-label" id="asterisk">Organization</label>
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
-                      <?php 
+                      <?php
                             include('mysql_connect.php');
                             $query = "SELECT ORG FROM tb_orgs";
                             $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {           
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                            while($data = @mysqli_fetch_array($result)) {
+                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                             }
                             @mysqli_close($conn);
                       ?>
