@@ -79,14 +79,7 @@ background:#F2AC1B;
 
 #sidebar.active {
     margin-left: -250px;
-<<<<<<< Updated upstream
-
-}
-=======
-      color: #F2AC1B;
-    background:  #00226C;
   }
->>>>>>> Stashed changes
 
 #sidebar .sidebar-header {
     background: #F2AC1B;
@@ -118,10 +111,6 @@ background:#F2AC1B;
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #F2AC1B;
-<<<<<<< Updated upstream
-    background: #fff;
-=======
->>>>>>> Stashed changes
 }
 
 a[data-toggle="collapse"] {
@@ -192,18 +181,12 @@ a.article:hover {
     }
     #sidebar.active {
         margin-left: 0;
+
     }
     #sidebarCollapse span {
         display: none;
     }
-<<<<<<< Updated upstream
-    #sidebarCollapse i {
-        display: none;
-    }
-    #navbarDropdown i {
-=======
     #navbarSupportedContent i {
->>>>>>> Stashed changes
         display: none;
     }
 }
