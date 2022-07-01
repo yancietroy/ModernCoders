@@ -23,11 +23,14 @@
   <div class="d-flex" id="wrapper">
     <!-- Sidebar  -->
     <nav id="sidebar">
-      <div class="sidebar-heading mt-3 text-center">
+      <div class="sidebar-header text-center">
         <a class="navbar-brand" href="index.html">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
-        <h5 class="mt-2 mb-3">JRU Student Organizations Portal</h5>
+      </div>
+      <div class="sidebar-heading mt-3 text-center">
+
+        <h5 class="mt-2 mb-3 p-0">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -60,34 +63,36 @@
     </button>
     <!-- Page Content  -->
     <div id="content">
-      <nav class="navbar navbar-expand navbar-light bg-light" aria-label="navbar">
+      <nav class="navbar navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info">
             <i class="fas fa-align-justify"></i>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+          </button>
+          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+          </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample02">
+            <div class="collapse navbar-collapse" id="#navbarSupportedContent">
                   <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="fa fa-bell me-lg-2"></i>
+                  <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell me-lg-2 mt-1" style="width:  30px; height: 30px;"></i>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                  <i class="fa fa-envelope me-lg-2"></i>
+                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-envelope me-lg-2 mt-1" style="width:  30px; height:  30px;"></i>
                   </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static"  aria-haspopup="true" aria-expanded="false">
                       <img class="rounded-circle me-lg-2" src="assets/img/csc-logo.png" alt="" style="width: 40px; height: 40px;">
                       <span class="d-none d-lg-inline-flex">John Doe</span></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Profile</a></li>
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
+                          <li><a class="dropdown-item" href="#!">About</a></li>
                         <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>

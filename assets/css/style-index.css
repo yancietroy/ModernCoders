@@ -51,7 +51,9 @@ a:focus {
   .btn-info:focus {
       background: #00226C;
 }
-
+.btn-info:hover {
+background:#F2AC1B;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -69,8 +71,7 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: rgb(242,172,27);
-    background: linear-gradient(0deg, rgba(242,172,27,1) 0%, rgba(0,34,108,1) 100%);
+    background:  #00226C;
     color: #fff;
     transition: all 0.3s;
     box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .2);
@@ -82,7 +83,7 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    background: #00226C;
+    background: #F2AC1B;
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
 }
@@ -104,14 +105,14 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #00226C;
+    color: #F2AC1B;
     background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: lightgrey;
+    color: #F2AC1B;
+    background: #fff;
 }
 
 a[data-toggle="collapse"] {
@@ -121,7 +122,17 @@ a[data-toggle="collapse"] {
 .dropdown-toggle::after {
 
 }
+#topbar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+     overflow:hidden;
+}
 
+#topbar ul li a:hover {
+    color: #F2AC1B;
+  background: 0 0 2rem 0 rgba(0, 0, 0, .2);
+}
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -177,6 +188,9 @@ a.article:hover {
         display: none;
     }
     #sidebarCollapse i {
+        display: none;
+    }
+    #navbarDropdown i {
         display: none;
     }
 }
