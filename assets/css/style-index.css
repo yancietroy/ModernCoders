@@ -55,12 +55,17 @@ span {
 .btn-info,
 .btn-info:focus {
   background: #00226C;
+  color: white;
 }
 
 .btn-info:hover {
   background: #F2AC1B;
 }
 
+.btn-info:active {
+  color: white;
+  background: #F2AC1B;
+}
 
 
 /* ---------------------------------------------------
@@ -192,7 +197,10 @@ a.article:hover {
   background: #00226C !important;
   color: #fff !important;
 }
-
+#orgs img{
+  width: 35%;
+  height: 35%;
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
