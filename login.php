@@ -16,17 +16,17 @@
 					<main>
 							<div class="container ">
 									<div class="row justify-content-center">
-											<div class="col-lg-5">
+										    <div class="col-10 col-lg-5 col-xl-5">
 													<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
 															<div class="card-body p-4 text-center">
 																<div class="row g-0 justify-content-center mt-2">
-																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
+																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
 																					</div>
-																				<div class="col-xs-12 col-md-4 col-md-offset-3 mb-4">
+																				<div class="col-xs-12 col-md-4 col-md-offset-3 mb-4 d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
 																						</div>
-																						<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
+																						<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
 																					</div>
 														</div>

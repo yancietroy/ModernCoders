@@ -17,14 +17,14 @@
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <div class="row g-0 justify-content-center align-items-center ">
-                    <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+                    <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
+                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
                           </div>
-                        <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+                        <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
+                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
                             </div>
-                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
+                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
                           </div>
             </div>
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
@@ -33,7 +33,7 @@
             <!-- <form class="was-validated"> -->
                   <form action="registered.php" method="post">
                 <div class="row">
-                  <div class="col-md-4 mb-4">
+                  <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
                       <input type="text" name="first_name" id="FirstName" class="form-control form-control-lg" required />
@@ -42,7 +42,7 @@
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-4 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
@@ -53,7 +53,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-4 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
@@ -64,7 +64,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 mb-4">
+                  <div class="col-4 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
@@ -73,7 +73,7 @@
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-3 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age" id="asterisk">Age</label>
                       <input type="text" name="age" id="age" class="form-control form-control-lg" required />
@@ -81,8 +81,8 @@
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-md-4 mb-4">
-                    <label class="mb-4 me-5 w-100" for="gender" id="asterisk">Gender: </label>
+                  <div class="col-3 col-md-4 mb-4">
+                    <label class="mb-4 me-5 min-vw-100" for="gender" id="asterisk">Gender: </label>
                     <div class="form-check form-check-inline mb-0 me-4 ">
                       <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
                       <label class="form-check-label" for="Male">Male</label>
@@ -99,7 +99,7 @@
                 <hr>
               <div class="row">
                   <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-4 col-md-4  col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
@@ -108,7 +108,7 @@
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
-                      <div class="col-4 mb-4">
+                      <div class="col-4 col-md-4   mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
                         <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
@@ -120,7 +120,7 @@
                         <div class="valid-feedback">Looks Good!</div>
                         <div class="invalid-feedback">year field cannot be blank!</div>
                       </div>
-                      <div class="col-md-4 mb-4">
+                      <div class="col-3 col-md-4 mb-4">
                         <div class="form-outline">
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
@@ -131,7 +131,7 @@
                       </div>
                   </div>
                 <div class="row">
-                  <div class="col-4 mb-4">
+                  <div class="col-3 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
@@ -145,7 +145,7 @@
                     </div>
                   </div>
 
-                  <div class="col-4 mb-4">
+                  <div class="col-3 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="select-group" required>
@@ -164,7 +164,7 @@
                       Please select a Course
                     </div>
                   </div>
-                  <div class="col-4 mb-4">
+                  <div class="col-5 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
@@ -185,7 +185,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 mb-4">
+                  <div class="col-12 col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
@@ -195,7 +195,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4 mb-4">
+                  <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
@@ -209,7 +209,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 mb-4">
+                  <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
@@ -218,7 +218,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 mb-4">
+                <div class="col-12 col-md-12 mb-4">
                   <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                 </div>
@@ -232,8 +232,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="text-center mt-5 text-light">
         </div>
       </div>
     </div>

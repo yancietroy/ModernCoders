@@ -251,5 +251,6 @@ a.article:hover {
     }
     #sidebarCollapse span {
         display: none;
+      transition: 0.26s ease;
     }
 }

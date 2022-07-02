@@ -215,6 +215,9 @@ a.article:hover {
     margin-left: 0;
   }
 
+    #sidebar.active span{
+      display: none;
+    }
   #navbarSupportedContent i {
     display: none;
   }
