@@ -259,8 +259,9 @@
 
                       echo "<script type='text/javascript'>
                             alert('You are now registered!')
+                            window.location = 'login.php'
                             </script>";
-                      header("location:login.php");
+                      //header("location:login.php");
                       die;
                           @mysqli_close($conn);       
                 }
