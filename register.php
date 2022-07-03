@@ -199,7 +199,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control" name="password" id="password" data-bs-toggle="popover" data-bs-placement="bottom" title="Password Validation" minlength="8" data-bs-content="Must be at least 8 characters long &#013;
+                      <input type="text" class="form-control" name="password" id="password" data-bs-toggle="popover" data-bs-placement="bottom" title="Password Validation" minlength="8" data-bs-content="Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
                       Must contain at least one special character &#013;
                       and must contain at least one uppercase and lowercase letter" required>
@@ -213,7 +213,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="3" required>
+                      <input type="text" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="3" required>
                     </div>
                   </div>
                 </div>
@@ -230,44 +230,45 @@
 
               <?php
 
-                $fn = $_POST['first_name'];
-                $ln = $_POST['last_name'];
-                $mn = $_POST['middle_name'];
-                $date = $_POST['birthdate'];
-                $age = $_POST['age'];
-                $g = $_POST['gender'];
-                $si = $_POST['studentid'];
-                $yl = $_POST['school_year'];
-                $course = $_POST['course'];
-                $section = $_POST['section'];
-                $org = $_POST['org'];
-                $e = $_POST['email'];
-                $pass = $_POST['password'];
+                if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset(pass)) 
+                {  
+                  $fn = $_POST['first_name'];
+                  $ln = $_POST['last_name'];
+                  $mn = $_POST['middle_name'];
+                  $date = $_POST['birthdate'];
+                  $age = $_POST['age'];
+                  $g = $_POST['gender'];
+                  $si = $_POST['studentid'];
+                  $yl = $_POST['school_year'];
+                  $course = $_POST['course'];
+                  $section = $_POST['section'];
+                  $org = $_POST['org'];
+                  $e = $_POST['email'];
+                  $pass = $_POST['password'];
 
-                  if ($_POST['password'] !== $_POST['confirmpassword'])
-                  {
-                    echo "Password must MATCH!
-                        <br><br>
-                        <a href='register.php'>
-                        <input type='button' name='back' value='Back to registration.'>
-                        </a>";
-                  } 
-                  else if (isset ($_POST['submit']))
-                  {
-                    include('mysql_connect.php');
-                    $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
-                    $result = @mysqli_query($conn, $query);
+                    if ($_POST['password'] !== $_POST['confirmpassword'])
+                    {
+                      echo "Password must MATCH!
+                          <br><br>
+                          <a href='register.php'>
+                          <input type='button' name='back' value='Back to registration.'>
+                          </a>";
+                    } 
+                    else if (isset($_POST['submit']))
+                    {
+                      include('mysql_connect.php');
+                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
+                      $result = @mysqli_query($conn, $query);
 
-                    echo "<script type='text/javascript'>
-                          alert('You are now registered!')
-                          </script>";
-                    header("location:login.php");
-                    die;
-                        @mysqli_close($conn);
-                  }   
-
+                      echo "<script type='text/javascript'>
+                            alert('You are now registered!')
+                            </script>";
+                      header("location:login.php");
+                          @mysqli_close($conn);
+                    }   
+                }
               ?>
-              
+
               </div>
             </div>
           </div>
