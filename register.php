@@ -228,7 +228,46 @@
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
 
+              <?php
 
+                $fn = $_POST['first_name'];
+                $ln = $_POST['last_name'];
+                $mn = $_POST['middle_name'];
+                $date = $_POST['birthdate'];
+                $age = $_POST['age'];
+                $g = $_POST['gender'];
+                $si = $_POST['studentid'];
+                $yl = $_POST['school_year'];
+                $course = $_POST['course'];
+                $section = $_POST['section'];
+                $org = $_POST['org'];
+                $e = $_POST['email'];
+                $pass = $_POST['password'];
+
+                  if ($_POST['password'] !== $_POST['confirmpassword'])
+                  {
+                    echo "Password must MATCH!
+                        <br><br>
+                        <a href='register.php'>
+                        <input type='button' name='back' value='Back to registration.'>
+                        </a>";
+                  } 
+                  else if (isset ($_POST['submit']))
+                  {
+                    include('mysql_connect.php');
+                    $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
+                    $result = @mysqli_query($conn, $query);
+
+                    echo "<script type='text/javascript'>
+                          alert('You are now registered!')
+                          </script>";
+                    header("location:login.php");
+                    die;
+                        @mysqli_close($conn);
+                  }   
+
+              ?>
+              
               </div>
             </div>
           </div>
