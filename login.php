@@ -164,7 +164,7 @@ if(isset ($_POST['submit']))
 		if($row)
 		{
 			session_start();
-			$_SESSION['msg'] = '<script>alert("Login Succesful")</script>';
+			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
 		header("Location:index.php");
 					@mysqli_close($conn);
 			exit();
