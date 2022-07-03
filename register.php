@@ -227,10 +227,17 @@
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
-
               <?php
 
-                if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass)) 
+              if ($_POST['password'] !== $_POST['confirmpassword'])
+              {
+                echo "Password must MATCH!
+                      <br><br>
+                      <a href='register.php'>
+                      <input type='button' name='back' value='Back to registration.'>
+                      </a>";                    
+              }
+                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass) || isset($_POST['submit'])) 
                 {  
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -246,16 +253,6 @@
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
-                    if ($_POST['password'] !== $_POST['confirmpassword'])
-                    {
-                      echo "Password must MATCH!
-                          <br><br>
-                          <a href='register.php'>
-                          <input type='button' name='back' value='Back to registration.'>
-                          </a>";
-                    } 
-                    else if (isset($_POST['submit']))
-                    {
                       include('mysql_connect.php');
                       $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
                       $result = @mysqli_query($conn, $query);
@@ -265,11 +262,10 @@
                             </script>";
                       header("location:login.php");
                       die;
-                          @mysqli_close($conn);
-                    }   
+                          @mysqli_close($conn);       
                 }
+              
               ?>
-
               </div>
             </div>
           </div>
