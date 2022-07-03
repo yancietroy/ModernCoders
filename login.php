@@ -1,6 +1,8 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -123,14 +125,20 @@ if(isset ($_POST['submit']))
 	$p = $_POST['password'];
 
 	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-		$query = "Select FIRST_NAME , LAST_NAME FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+		$query = "SELECT STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 
 		if($row)
 		{
-			header('location: index.html');
-			exit();
+			$_SESSION['use']=$row[0];
+			if(isset($_SESSION['use']))   // Checking whether the session is already there or not if
+  					                              // true then header redirect it to the home page directly
+  			{
+				echo "<script type='text/javascript'>
+                      window.location = 'index.html'
+                      </script>";
+  			}
 		}
 		else
 		{
