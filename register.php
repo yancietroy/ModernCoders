@@ -230,7 +230,7 @@
 
               <?php
 
-                if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset(pass)) 
+                if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass)) 
                 {  
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
