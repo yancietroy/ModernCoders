@@ -9,7 +9,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-  <form>
+
+        <form action="registered.php" method="post" class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -31,7 +32,6 @@
 
               <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
             <!-- <form class="was-validated"> -->
-                  <form action="registered.php" method="post" class="requires-validation" novalidate>
                 <div class="row">
                   <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -87,7 +87,7 @@
 
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
-                               <div class="valid-feedback mv-up">Looks Good!</div>
+                               <div class="valid-feedback mv-up"></div>
                                 <div class="invalid-feedback mv-up">Please select a gender!</div>
                             </div>
 
@@ -185,7 +185,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                       <div class="valid-feedback">Email field is valid!</div>
                       <div class="invalid-feedback">Email field invalid!</div>
                     </div>
@@ -196,7 +196,7 @@
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
                       <input type="text" class="form-control" name="password" id="password" minlength="8" required>
-                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="valid-feedback"> </div>
                       <div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
                       Must contain at least one special character &#013;
@@ -255,7 +255,6 @@ Array.from(forms)
   })
 })()
   </script>
-  </form>
 </body>
 
 </html>

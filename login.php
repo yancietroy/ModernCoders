@@ -46,14 +46,14 @@ if(isset($_SESSION['message'])){
 																		<div class="form-floating mb-3">
 																			<input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
 																			<label class="text-muted" for="email">Email address</label>
-																			<div class="valid-feedback">Email field is valid!</div>
+																			<div class="valid-feedback"></div>
 																			<div class="invalid-feedback">Email field invalid!</div>
 																		</div>
 
 																		<div class="form-floating mb-2">
 																			<input type="password" class="form-control" name="password" id="password" minlength="8" value="" placeholder="password" required>
 																			<label class=" text-muted " for="password">Password</label>
-																			<div class="valid-feedback">Password field is valid!</div>
+																			<div class="valid-feedback"></div>
 																			<div class="invalid-feedback">Password field invalid!</div>
 																		</div>
 
