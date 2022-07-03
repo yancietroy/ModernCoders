@@ -166,7 +166,7 @@ if(isset($_SESSION['msg'])){
         </div>
         <div class="col-6  col-md-5 " id="orgs">
           <div class="card shadow-sm display: inline-block cards">
-            <img src="assets/img/csc-logo.png" class="card-img-top rounded mx-auto d-block mt-4 " alt="...">
+            <img src="assets/img/CSC-logo.png" class="card-img-top rounded mx-auto d-block mt-4 " alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Central Student Council</h5>
 
