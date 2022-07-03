@@ -30,7 +30,7 @@
 			$query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
 			$result = @mysqli_query($conn, $query);
 			session_start();
-			$_SESSION['message'] = '<script>alert("Register Succesful")</script>';
+			$_SESSION['message'] = '<script>alert("Register Successful")</script>';
 
 header("Location:login.php");
 					@mysqli_close($conn);
