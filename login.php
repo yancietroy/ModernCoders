@@ -27,7 +27,7 @@ if(isset($_SESSION['message'])){
 									<div class="row justify-content-center">
 										    <div class="col-10 col-lg-5 col-xl-5">
 													<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
-															<div class="card-body p-4 text-center">
+															<div class="card-body p-4 ">
 																<div class="row g-0 justify-content-center mt-2">
 																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
@@ -39,9 +39,9 @@ if(isset($_SESSION['message'])){
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
 																					</div>
 														</div>
-																<p class="h5 mb-2">JRU Student Organizations Portal</p>
+																<p class="h4 mb-4 text-center">JRU Student Organizations Portal</p>
 																	<form method="POST" class="requires-validation" novalidate autocomplete="off">
-																		<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase">Login</h1>
+																	<!--	<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Login</h1>-->
 
 																		<div class="form-floating mb-3">
 																			<input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
@@ -60,7 +60,7 @@ if(isset($_SESSION['message'])){
 																		<button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
 
 																		<hr class="my-4">
-																		<p class="mt-3">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
+																		<p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
 																		</p>
 																	</form>
 															</div>

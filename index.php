@@ -125,7 +125,7 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow-sm border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-3  d-none d-sm-block ">
+                <div class="col-md-2 mb-2 mt-3  d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <div class="col-12 col-md-3 mt-2">
