@@ -9,6 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
+  <form>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -61,7 +62,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4 col-md-4 mb-4">
+                  <div class="col-3 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
@@ -78,14 +79,14 @@
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-4 col-md-4 mb-4">
-                    <label class="mb-4 me-5 min-vw-100" for="gender" id="asterisk">Gender: </label>
+                  <div class="col-6 col-md-4 mb-4 ">
+                    <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender: </label>
 
                     <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
-                    <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
+                    <label class="btn btn-md me-2 btn-outline-secondary" for="male">Male</label>
 
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
-                    <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
+                    <label class="btn btn-md me-2 btn-outline-secondary" for="female">Female</label>
                                <div class="valid-feedback mv-up">Looks Good!</div>
                                 <div class="invalid-feedback mv-up">Please select a gender!</div>
                             </div>
@@ -215,11 +216,11 @@
                   <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                 </div>
-              </form>
+
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
-
+          </form>
 
               </div>
             </div>
