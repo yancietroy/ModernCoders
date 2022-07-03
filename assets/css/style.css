@@ -111,14 +111,26 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 select {
-  -webkit-appearance: menulist-button;
   color: black;
+  max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 500px;
+            margin: 20px;
 }
-
+select:hover::after {
+   color: #23b499;
+}
 select:invalid {
   color: grey;
 }
-
+select::-ms-expand {
+   display: none;
+}
+option {
+           min-width: 500px;
+       }
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
   .bg-image {
