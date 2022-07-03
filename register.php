@@ -229,7 +229,7 @@
               </p>
               <?php
 
-              if ($_POST['password'] !== $_POST['confirmpassword'])
+              if (isset($_POST['password']) !== isset($_POST['confirmpassword']))
               {
                 echo "Password must MATCH!
                       <br><br>
@@ -237,7 +237,7 @@
                       <input type='button' name='back' value='Back to registration.'>
                       </a>";                    
               }
-                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass) || isset($_POST['password']) || isset($_POST['confirmpassword']) || isset($_POST['submit'])) 
+                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass) || isset($_POST['submit'])) 
                 {  
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
