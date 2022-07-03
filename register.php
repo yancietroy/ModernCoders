@@ -258,8 +258,8 @@
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
-                            alert('You are now registered!')
                             window.location = 'login.php'
+                            alert('You are now registered!')
                             </script>";
                       //header("location:login.php");
                       die;
