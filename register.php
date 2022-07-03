@@ -9,7 +9,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-  <form action="registered.php" method="post">
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -31,7 +30,7 @@
 
               <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
             <!-- <form class="was-validated"> -->
-                  <form action="registered.php" method="post">
+                  <form action="registered.php" method="post" class="requires-validation" novalidate>
                 <div class="row">
                   <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -39,7 +38,6 @@
                       <input type="text" name="first_name" id="FirstName" class="form-control form-control-lg" required />
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback">First name field cannot be blank!</div>
-                      <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="col-4 col-md-4  mb-4">
@@ -48,7 +46,6 @@
                       <label class="form-label" for="middleName">Middle name</label>
                       <input type="text" name="middle_name" id="middleName" class="form-control form-control-lg" />
                       <div class="valid-feedback">
-                        Looks good!
                       </div>
                     </div>
 
@@ -58,7 +55,7 @@
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
                       <input type="text" name="last_name" id="lastName" class="form-control form-control-lg" required />
-                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Last name field cannot be blank!</div>
                     </div>
                   </div>
@@ -69,7 +66,7 @@
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
                       <span id="birthDateSelected"></span>
-                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
@@ -77,24 +74,22 @@
                     <div class="form-outline">
                       <label class="form-label" for="age" id="asterisk">Age</label>
                       <input type="text" name="age" id="age" class="form-control form-control-lg" required />
-                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-3 col-md-4 mb-4">
+                  <div class="col-4 col-md-4 mb-4">
                     <label class="mb-4 me-5 min-vw-100" for="gender" id="asterisk">Gender: </label>
-                    <div class="form-check form-check-inline mb-0 me-4 ">
-                      <input class="form-check-input" type="radio" name="gender" id="Male" value="Male" autocomplete="off" />
-                      <label class="form-check-label" for="Male">Male</label>
-                    </div>
 
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <input class="form-check-input" type="radio" name="gender" id="Female" value="Female" autocomplete="off" />
-                      <label class="form-check-label" for="Female">Female</label>
-                    </div>
-                    <div class="valid-feedback mv-up">You selected a gender!</div>
-                    <div class="invalid-feedback mv-up">Please select a gender!</div>
-                  </div>
+                    <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
+                    <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
+
+                    <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
+                    <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
+                               <div class="valid-feedback mv-up">Looks Good!</div>
+                                <div class="invalid-feedback mv-up">Please select a gender!</div>
+                            </div>
+
                 </div>
                 <hr>
               <div class="row">
@@ -104,7 +99,7 @@
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
                       <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### "required />
-                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
@@ -117,7 +112,7 @@
                           <option value="3">Third Year</option>
                           <option value="4">Fourth Year</option>
                         </select>
-                        <div class="valid-feedback">Looks Good!</div>
+                        <div class="valid-feedback">  </div>
                         <div class="invalid-feedback">year field cannot be blank!</div>
                       </div>
                       <div class="col-3 col-md-4 mb-4">
@@ -125,7 +120,7 @@
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
                           <input type="text" name="section" id="section" class="form-control" required />
-                          <div class="valid-feedback">Looks Good!</div>
+                          <div class="valid-feedback">  </div>
                           <div class="invalid-feedback">section field cannot be blank!</div>
                         </div>
                       </div>
@@ -199,21 +194,19 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control" name="password" id="password" data-bs-toggle="popover" data-bs-placement="bottom" title="Password Validation" minlength="8" data-bs-content="Must be at least 8 characters long &#013;
+                      <input type="text" class="form-control" name="password" id="password" minlength="8" required>
+                      <div class="valid-feedback">Looks Good!</div>
+                      <div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
                       Must contain at least one special character &#013;
-                      and must contain at least one uppercase and lowercase letter" required>
-
-                      <div class="valid-feedback">
-                        Password looks good!
-                      </div>
+                      and must contain at least one uppercase and lowercase letter!</div>
                     </div>
                   </div>
                   <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="3" required>
+                      <input type="text" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="8" required>
                     </div>
                   </div>
                 </div>
@@ -222,7 +215,6 @@
                   <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                 </div>
-
               </form>
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
@@ -242,6 +234,25 @@
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+  </script>
+  <!-- JavaScript validation -->
+
+  <script>
+  (function () {
+'use strict'
+const forms = document.querySelectorAll('.requires-validation')
+Array.from(forms)
+  .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
   </script>
   </form>
 </body>

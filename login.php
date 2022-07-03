@@ -1,3 +1,12 @@
+<?php
+ob_start();
+
+session_start();
+if(isset($_SESSION['message'])){
+    print_r($_SESSION['message']);#display message
+    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
+}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,17 +40,21 @@
 																					</div>
 														</div>
 																<p class="h5 mb-2">JRU Student Organizations Portal</p>
-																	<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+																	<form method="POST" class="requires-validation" novalidate autocomplete="off">
 																		<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase">Login</h1>
 
 																		<div class="form-floating mb-3">
-																			<input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+																			<input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
 																			<label class="text-muted" for="email">Email address</label>
+																			<div class="valid-feedback">Email field is valid!</div>
+																			<div class="invalid-feedback">Email field invalid!</div>
 																		</div>
 
 																		<div class="form-floating mb-2">
-																			<input type="password" class="form-control" id="password" name="password" value="" placeholder="password" required>
+																			<input type="password" class="form-control" name="password" id="password" minlength="8" value="" placeholder="password" required>
 																			<label class=" text-muted " for="password">Password</label>
+																			<div class="valid-feedback">Password field is valid!</div>
+																			<div class="invalid-feedback">Password field invalid!</div>
 																		</div>
 
 																		<button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
@@ -115,6 +128,25 @@
 				</footer>
 		</div>!-->
 		<script src="js/login.js"></script>
+		<!-- JavaScript validation -->
+
+		<script>
+		(function () {
+	'use strict'
+	const forms = document.querySelectorAll('.requires-validation')
+	Array.from(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false)
+		})
+	})()
+		</script>
 		<?php
 if(isset ($_POST['submit']))
 {
@@ -123,24 +155,31 @@ if(isset ($_POST['submit']))
 	$p = $_POST['password'];
 
 	if(!empty($_POST['email']) || !empty($_POST['password'])) {
+		ob_start();
+
 		$query = "Select FIRST_NAME , LAST_NAME FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 
 		if($row)
 		{
-			echo "<h1>Welcome!....$row[0] $row[1]</h1><br><br>";
-			echo '<a href = "index.html">Continue';
+			session_start();
+			$_SESSION['msg'] = '<script>alert("Login Succesful")</script>';
+		header("Location:index.php");
+					@mysqli_close($conn);
 			exit();
 		}
 		else
 		{
-			echo 'The email address and password entered do not match those on file.';
+			echo '<script>alert("The email address and password entered do not match those on file.")</script>';
+
 		}
 	}
 	else
-	echo 'Please enter email and/or password...';
+	echo '<script>alert("Please enter email and/or password!")</script>';
 	mysqli_close($conn);
+
+	ob_end_flush();
 }
 ?>
 
