@@ -264,6 +264,7 @@
                             alert('You are now registered!')
                             </script>";
                       header("location:login.php");
+                      die;
                           @mysqli_close($conn);
                     }   
                 }
