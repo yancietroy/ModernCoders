@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-  <form action="registered.php" method="post">
+  <form action="register.php" method="post">
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
