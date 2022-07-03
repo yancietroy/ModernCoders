@@ -1,32 +1,136 @@
-
 html,
 body {
   height: 100%;
-width: 100%;
+  width: 100%;
 }
 
 body {
   padding-bottom: 40px;
+  min-height: 100vh;
 }
 
+.d-flex {
+  display: flex !important;
+}
+
+#wrapper {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
 .bg {
-  background-image: url("../img/camp.jpg");
+  background-image: url("../img/campusblur.jpg");
   height: 100vh;
-   -webkit-backdrop-filter: blur(2px);
+  /*  -webkit-backdrop-filter: blur(2px);*/
   background-attachment: fixed;
-   min-height: 100vh;
-  backdrop-filter: blur(2px);
+  min-height: 100vh;
+  /*   backdrop-filter: blur(2px);
 
  /* Center and scale the image nicely */
- background-repeat:no-repeat;
-background-size:cover;
-background-position:center center;
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover
 }
 
+#asterisk::after {
+  content: " *";
+  color: red;
+}
 
+#layoutAuthentication {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#layoutAuthentication #layoutAuthentication_content {
+  min-width: 0;
+  flex-grow: 1;
+}
+
+#layoutAuthentication #layoutAuthentication_footer {
+  min-width: 0;
+}
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+
+/* #year, #college, #course, #org{
+  color: gray;
+}
+
+#year option, #college option, #course option, #org option {
+  color: black;
+}
+*/
+.greyclr {
+  color: white !important;
+  background-color: darkgray;
+}
+
+select {
+  color: black;
+  max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 500px;
+            margin: 20px;
+}
+select:hover::after {
+   color: #23b499;
+}
+select:invalid {
+  color: grey;
+}
+select::-ms-expand {
+   display: none;
+}
+option {
+           min-width: 500px;
+       }
 /* Height for devices larger than 576px */
 @media (min-width: 992px) {
   .bg-image {
