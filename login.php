@@ -14,12 +14,12 @@ if(isset($_SESSION['message'])){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>JRU Student Organizations Portal</title>
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
-<body class="bg">
+<body class="bg min-vh-100">
 	<div id="layoutAuthentication">
 			<div id="layoutAuthentication_content">
 					<main>
@@ -27,7 +27,7 @@ if(isset($_SESSION['message'])){
 									<div class="row justify-content-center">
 										    <div class="col-10 col-lg-5 col-xl-5">
 													<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
-															<div class="card-body p-4 ">
+															<div class="card-body px-4 ">
 																<div class="row g-0 justify-content-center mt-2">
 																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
@@ -39,7 +39,7 @@ if(isset($_SESSION['message'])){
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
 																					</div>
 														</div>
-																<p class="h4 mb-4 text-center">JRU Student Organizations Portal</p>
+																<h4 class=" mb-4 text-center">JRU Student Organizations Portal</h4>
 																	<form method="POST" class="requires-validation" novalidate autocomplete="off">
 																	<!--	<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Login</h1>-->
 
