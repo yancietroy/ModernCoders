@@ -45,7 +45,6 @@ span {
 ----------------------------------------------------- */
 .navbar {
   padding: 15px 10px;
-  background: yellow;
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
@@ -64,6 +63,7 @@ span {
   background: yellow;
 }
 */
+
 #topbar ul li a {
   padding: 10px;
   font-size: 1.1em;
