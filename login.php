@@ -1,5 +1,37 @@
 <?php
 session_start();
+if(isset ($_POST['submit']))
+{
+	include('mysql_connect.php');
+	$e = $_POST['email'];
+	$p = $_POST['password'];
+
+	if(!empty($_POST['email']) || !empty($_POST['password'])) {
+		$query = "SELECT STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+		$result = @mysqli_query($conn, $query);
+		$row = mysqli_fetch_array ($result);
+
+		if($row)
+		{
+			$_SESSION['use']=$row[0];
+			if(isset($_SESSION['use']))   // Checking whether the session is already there or not if
+  					                              // true then header redirect it to the home page directly
+  			{
+				/**echo "<script type='text/javascript'>
+					  window.location = 'index.php'
+                      </script>";**/
+                header("Location:index.php");
+  			}
+		}
+		else
+		{
+			echo 'The email address and password entered do not match those on file.';
+		}
+	}
+	else
+	echo 'Please enter email and/or password...';
+	mysqli_close($conn);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,40 +149,6 @@ session_start();
 				</footer>
 		</div>!-->
 		<script src="js/login.js"></script>
-		<?php
-if(isset ($_POST['submit']))
-{
-	include('mysql_connect.php');
-	$e = $_POST['email'];
-	$p = $_POST['password'];
-
-	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-		$query = "SELECT STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-		$result = @mysqli_query($conn, $query);
-		$row = mysqli_fetch_array ($result);
-
-		if($row)
-		{
-			$_SESSION['use']=$row[0];
-			if(isset($_SESSION['use']))   // Checking whether the session is already there or not if
-  					                              // true then header redirect it to the home page directly
-  			{
-				echo "<script type='text/javascript'>
-                      </script>";
-                header("location:index.php");
-  			}
-		}
-		else
-		{
-			echo 'The email address and password entered do not match those on file.';
-		}
-	}
-	else
-	echo 'Please enter email and/or password...';
-	mysqli_close($conn);
-}
-?>
-
 </body>
 
 </html>
