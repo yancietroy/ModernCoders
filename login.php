@@ -136,9 +136,8 @@ if(isset ($_POST['submit']))
   					                              // true then header redirect it to the home page directly
   			{
 				echo "<script type='text/javascript'>
-                      window.location = 'index.html'
                       </script>";
-                //header("location:login.php");
+                header("location:index.php");
   			}
 		}
 		else
