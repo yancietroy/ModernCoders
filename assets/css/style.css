@@ -48,11 +48,6 @@ span {
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.navbar {
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .1);
 }
 
 /*
@@ -262,9 +257,24 @@ a.article:hover {
   -o-background-size: cover;
   overflow-x: hidden;
     min-height: 100vh;
-
 }
+.bg-admin {
+  background-image: url("../img/camp-blur.jpg");
+  /*   -webkit-backdrop-filter: blur(2px);
 
+ backdrop-filter: blur(2px);*/
+
+ /* Center and scale the image nicely */
+   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  overflow-x: hidden;
+    min-height: 100vh;
+}
 #asterisk::after {
   content: " *";
   color: red;

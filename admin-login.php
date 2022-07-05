@@ -19,7 +19,7 @@ if(isset($_SESSION['message'])){
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
-<body class="bg min-vh-100">
+<body class="bg-admin min-vh-100">
 	<div id="layoutAuthentication">
 			<div id="layoutAuthentication_content">
 					<main>
@@ -28,20 +28,21 @@ if(isset($_SESSION['message'])){
 										    <div class="col-10 col-lg-5 col-xl-5">
 													<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
 															<div class="card-body px-4 ">
-																<div class="row g-0 justify-content-center align-items-center mt-2">
-																		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
+																<div class="row g-0 justify-content-center mt-2">
+																			<!--	<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-																					</div>
-																				<div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
-																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+                                      </div>-->
+																				<div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 justify-content-center text-center align-items-center">
+																				<img class="mb-2 mx-auto text-center" src="assets/img/jru-logo.png" alt="" width="110" height="110">
 																						</div>
-																						<div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
+																						<!--		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
-																					</div>
+                                      </div>-->
+                                      		<h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
 														</div>
-																<h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+
 																	<form method="POST" class="requires-validation" novalidate autocomplete="off">
-																		<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Student Login</h1>
+																<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Admin Login</h1>
 
 																		<div class="form-floating mb-3">
 																			<input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
@@ -60,7 +61,7 @@ if(isset($_SESSION['message'])){
 																		<button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
 
 																		<hr class="my-4">
-																		<p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
+																		<p class="mt-3 text-center">Don't have an account? <a href="admin-register.php" class="text-blue-50 fw-bold">Register</a>
 																		</p>
 																	</form>
 															</div>

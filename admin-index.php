@@ -44,7 +44,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Administrator</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -54,13 +54,13 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="#"> <i class="bi bi-people-fill"></i> <span>Orgs Management</span></a>
         </li>
         <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>User Management</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Admin Management</span></a>
         </li>
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -109,7 +109,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
                 </ul>
               </li>
             </ul>
@@ -118,7 +118,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4>Student Profile</h4>
+      <h4>Admin Profile</h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
