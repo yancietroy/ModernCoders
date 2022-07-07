@@ -41,8 +41,9 @@ span {
 }
 
 .breadcrumb {
-  background:#fff;
+  background: #fff;
 }
+
 /* ---------------------------------------------------
     NAVBAR STYLE
 ----------------------------------------------------- */
@@ -61,7 +62,6 @@ span {
   background: yellow;
 }
 */
-
 #topbar ul li a {
   padding: 10px;
   font-size: 1.1em;
@@ -72,6 +72,11 @@ span {
 #topbar ul li a:hover {
   color: #F2AC1B;
   background: 0 0 2rem 0 rgba(0, 0, 0, .2);
+}
+#topbar ul li.active>a,
+a[aria-expanded="true"] {
+  background: #fff !important;
+  color: #F2AC1B !important;
 }
 
 ul ul a {
@@ -162,12 +167,13 @@ ul ul a {
 
 #sidebar ul li a:hover {
   color: #F2AC1B;
-  background: #fff;
+  background: white;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
   color: #F2AC1B;
+  background: #004A90;
 }
 
 a[data-toggle="collapse"] {
@@ -258,16 +264,16 @@ a.article:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   overflow-x: hidden;
-    min-height: 100vh;
+  min-height: 100vh;
 }
+
 .bg-admin {
   background-image: url("../img/camp-blur.jpg");
   /*   -webkit-backdrop-filter: blur(2px);
 
  backdrop-filter: blur(2px);*/
-
- /* Center and scale the image nicely */
-   background-attachment: fixed;
+  /* Center and scale the image nicely */
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -275,8 +281,9 @@ a.article:hover {
   -moz-background-size: cover;
   -o-background-size: cover;
   overflow-x: hidden;
-    min-height: 100vh;
+  min-height: 100vh;
 }
+
 #asterisk::after {
   content: " *";
   color: red;
@@ -318,16 +325,14 @@ select::-ms-expand {
 option {
   min-width: 500px;
 }
+
 /*----
 USER Management
 ----*/
-
-
 .table-users table h2 {
   text-align: center;
   padding: 20px 0;
 }
-
 
 table.dataTable th,
 table.dataTable td {
@@ -339,41 +344,42 @@ table.dataTable td {
   padding-top: 140px;
   font-size: 14px;
 }
-  /* ---------------------------------------------------
+
+/* ---------------------------------------------------
   FOOTER
 ----------------------------------------------------- */
-  #layoutAuthentication {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+#layoutAuthentication {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  #layoutAuthentication #layoutAuthentication_content {
-    min-width: 0;
-    flex-grow: 1;
-  }
+#layoutAuthentication #layoutAuthentication_content {
+  min-width: 0;
+  flex-grow: 1;
+}
 
-  #layoutAuthentication #layoutAuthentication_footer {
-    min-width: 0;
-  }
+#layoutAuthentication #layoutAuthentication_footer {
+  min-width: 0;
+}
 
-  /* ---------------------------------------------------
+/* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
-  @media (max-width: 768px) {
-    #sidebar {
-      margin-left: -250px;
-    }
-
-    #sidebar.active {
-      margin-left: 0;
-    }
-
-    #sidebar.active span {
-      display: none;
-    }
-
-    #navbarSupportedContent i {
-      display: none;
-    }
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
   }
+
+  #sidebar.active {
+    margin-left: 0;
+  }
+
+  #sidebar.active span {
+    display: none;
+  }
+
+  #navbarSupportedContent i {
+    display: none;
+  }
+}

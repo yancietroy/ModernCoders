@@ -142,8 +142,8 @@ if(isset($_SESSION['msg'])){
                 <div class="col-12 col-md-3 mt-2">
                   <label>Student ID:</label>
                   <h5>19-255322</h5>
-                  <label>Year Level:</label>
-                  <h5>Fourth Year</h5>
+                  <label>Position:</label>
+                  <h5>President</h5>
                 </div>
               </div>
 
