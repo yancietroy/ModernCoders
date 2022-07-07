@@ -57,7 +57,7 @@ if(isset($_SESSION['msg'])){
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Orgs Management</span></a>
         </li>
         <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>User Management</span></a>
+          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>User Management</span></a>
         </li>
         <li>
           <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Admin Management</span></a>

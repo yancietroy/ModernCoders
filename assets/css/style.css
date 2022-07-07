@@ -40,6 +40,9 @@ span {
   display: inline-block;
 }
 
+.breadcrumb {
+  background:#fff;
+}
 /* ---------------------------------------------------
     NAVBAR STYLE
 ----------------------------------------------------- */
@@ -113,7 +116,6 @@ ul ul a {
   background: #00226C;
   color: #fff;
   transition: opacity 0.3s ease-out;
-  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .2);
 }
 
 #sidebar.active {
@@ -315,7 +317,28 @@ select::-ms-expand {
 
 option {
   min-width: 500px;
+}
+/*----
+USER Management
+----*/
 
+
+.table-users table h2 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
   /* ---------------------------------------------------
   FOOTER
 ----------------------------------------------------- */
