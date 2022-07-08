@@ -1,6 +1,5 @@
 <?php
 ob_start();
-
 session_start();
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -133,24 +132,39 @@ if(isset($_SESSION['msg'])){
                 <div class="col-md-2 mb-2 mt-3  d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Name:</label>
-                  <h5>John Doe</h5>
-                  <label>Course:</label>
-                  <h5>BSIT</h5>
-                </div>
-                <div class="col-12 col-md-4 mt-2">
-                  <label>Email:</label>
-                  <h5>Johndoe@my.jru.edu</h5>
-                  <label>Section:</label>
-                  <h5>402I</h5>
-                </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Student ID:</label>
-                  <h5>19-255322</h5>
-                  <label>Year Level:</label>
-                  <h5>Fourth Year</h5>
-                </div>
+                
+                  <?php
+                  include('mysql_connect.php');
+                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_Name, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = " . $_SESSION['use'];
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+
+
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Name:</label>
+                            <h5>$row[1]</h5>
+                            <label>Course:</label>
+                            <h5>$row[2]</h5>
+                          </div>
+                          <div class='col-12 col-md-4 mt-2'>
+                            <label>Email:</label>
+                            <h5>$row[3]</h5>
+                            <label>Section:</label>
+                            <h5>$row[4]</h5>
+                          </div>
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Student ID:</label>
+                            <h5>$row[0]</h5>
+                            <label>Year Level:</label>
+                            <h5>$row[5]</h5>
+                          </div>";
+                  }
+                  ?>
+                
+                
               </div>
 
             </div>
