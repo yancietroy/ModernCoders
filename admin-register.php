@@ -19,14 +19,15 @@
             <div class="card-body px-5 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center align-items-center ">
                     <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                          </div>
-                        <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+                      <!--	<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
+                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+                      </div>-->
+                        <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 justify-content-center text-center align-items-center">
+                        <img class="mb-2 mx-auto text-center" src="assets/img/jru-logo.png" alt="" width="110" height="110">
                             </div>
-                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                        <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
-                          </div>
+                            <!--		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
+                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+                      </div>-->
             </div>
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
 

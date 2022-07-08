@@ -26,7 +26,8 @@ if(isset($_SESSION['msg'])){
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 
 </head>
@@ -38,7 +39,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="admin-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -50,17 +51,41 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li class="active">
-          <a href="#homeSubmenu"> <i class="bi bi-house-door-fill"></i> <span>Home</span></a>
-
+          <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Orgs Management</span></a>
+          <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+              </li>
+          </ul>
         </li>
         <li>
-          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>User Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <ul class="collapse list-unstyled" id="orgsSubmenu">
+              <li>
+                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              </li>
+          </ul>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Admin Management</span></a>
+          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>
+        <li>
+          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>

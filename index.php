@@ -38,7 +38,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -50,7 +50,7 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li class="active">
-          <a href="#homeSubmenu"> <i class="bi bi-house-door-fill"></i> <span>Home</span></a>
+          <a href="#homeSubmenu"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>

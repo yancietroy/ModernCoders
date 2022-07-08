@@ -12,13 +12,15 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-<!-- Datatable Default-->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-html5-2.2.3/b-print-2.2.3/date-1.1.2/fh-3.2.4/kt-2.7.0/r-2.3.0/sc-2.0.7/sl-1.4.0/datatables.min.css"/>
 
-  <!-- Font Awesome JS -->
+<!-- Datatable Default-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
+
+  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 
 </head>
@@ -30,7 +32,7 @@
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="admin-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -42,26 +44,41 @@
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="admin-index.php"> <i class="bi bi-house-door-fill"></i> <span>Home</span></a>
-
+          <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Orgs Management</span></a>
-        </li>
-        <li  class="active">
-          <a href="users.php"><i class="bi bi-check2-square"></i> <span>User Management</span></a>
+          <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+              </li>
+          </ul>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Admin Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <ul class="collapse list-unstyled" id="orgsSubmenu">
+              <li>
+                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              </li>
+          </ul>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey Manage</span></a>
+          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Election Manage</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Forum Manage</span></a>
+          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -511,92 +528,6 @@
                        </tr>
                        <tr>
                            <td>Serge Baldwin</td>
-                           <td>Data Coordinator</td>
-                           <td>Singapore</td>
-                           <td>64</td>
-                           <td>2012-04-09</td>
-                           <td>$138,575</td>
-                       </tr>
-                       <tr>
-                           <td>Zenaida Frank</td>
-                           <td>Software Engineer</td>
-                           <td>New York</td>
-                           <td>63</td>
-                           <td>2010-01-04</td>
-                           <td>$125,250</td>
-                       </tr>
-                       <tr>
-                           <td>Zorita Serrano</td>
-                           <td>Software Engineer</td>
-                           <td>San Francisco</td>
-                           <td>56</td>
-                           <td>2012-06-01</td>
-                           <td>$115,000</td>
-                       </tr>
-                       <tr>
-                           <td>Jennifer Acosta</td>
-                           <td>Junior Javascript Developer</td>
-                           <td>Edinburgh</td>
-                           <td>43</td>
-                           <td>2013-02-01</td>
-                           <td>$75,650</td>
-                       </tr>
-                       <tr>
-                           <td>Cara Stevens</td>
-                           <td>Sales Assistant</td>
-                           <td>New York</td>
-                           <td>46</td>
-                           <td>2011-12-06</td>
-                           <td>$145,600</td>
-                       </tr>
-                       <tr>
-                           <td>Hermione Butler</td>
-                           <td>Regional Director</td>
-                           <td>London</td>
-                           <td>47</td>
-                           <td>2011-03-21</td>
-                           <td>$356,250</td>
-                       </tr>
-                       <tr>
-                           <td>Lael Greer</td>
-                           <td>Systems Administrator</td>
-                           <td>London</td>
-                           <td>21</td>
-                           <td>2009-02-27</td>
-                           <td>$103,500</td>
-                       </tr>
-                       <tr>
-                           <td>Jonas Alexander</td>
-                           <td>Developer</td>
-                           <td>San Francisco</td>
-                           <td>30</td>
-                           <td>2010-07-14</td>
-                           <td>$86,500</td>
-                       </tr>
-                       <tr>
-                           <td>Shad Decker</td>
-                           <td>Regional Director</td>
-                           <td>Edinburgh</td>
-                           <td>51</td>
-                           <td>2008-11-13</td>
-                           <td>$183,000</td>
-                       </tr>
-                       <tr>
-                           <td>Michael Bruce</td>
-                           <td>Javascript Developer</td>
-                           <td>Singapore</td>
-                           <td>29</td>
-                           <td>2011-06-27</td>
-                           <td>$183,000</td>
-                       </tr>
-                       <tr>
-                           <td>Donna Snider</td>
-                           <td>Customer Support</td>
-                           <td>New York</td>
-                           <td>27</td>
-                           <td>2011-01-25</td>
-                           <td>$112,000</td>
-                       </tr>
                    </tbody>
                    <tfoot>
                        <tr>
@@ -609,6 +540,15 @@
                        </tr>
                    </tfoot>
                </table>
+                  </tbody>
+                  <tfoot>
+                          <th>Name</th>
+                          <th>Position</th>
+                          <th>Office</th>
+                          <th>Age</th>
+                          <th>Start date</th>
+                          <th>Salary</th>
+                      </tr>
          </div>
        </div>
         <!--   <div class="col">
@@ -667,7 +607,9 @@
            fixedHeader: true,
             keys: true,
              select: true,
-            dom: 'Bfrtip',
+      [5, 10, 15, 20, 50, 100, -1],
+      [5, 10, 15, 20, 50, 100, "All"]
+    ],
             buttons: [
               'pageLength',
                 'copyHtml5',
@@ -675,7 +617,7 @@
                 'csvHtml5',
                 'pdfHtml5',
                 'print'
-            ]
+       ],
         } );
     } );
 
