@@ -5,7 +5,11 @@ session_start();
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
+} 
+  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:login.php");
+  }
  ?>
 
 <!DOCTYPE html>
@@ -21,7 +25,7 @@ if(isset($_SESSION['msg'])){
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style-index.css">
 
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -38,7 +42,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -50,7 +54,7 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li class="active">
-          <a href="#homeSubmenu"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="#homeSubmenu"> <i class="bi bi-house-door-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
@@ -77,10 +81,11 @@ if(isset($_SESSION['msg'])){
         </li>
       </ul> -->
     </nav>
+
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
+      <nav class="navbar navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>
@@ -109,7 +114,8 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+
                 </ul>
               </li>
             </ul>
@@ -121,7 +127,7 @@ if(isset($_SESSION['msg'])){
       <h4>Student Profile</h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
+          <div class="card shadow-sm border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
                 <div class="col-md-2 mb-2 mt-3  d-none d-sm-block text-center ">
@@ -142,8 +148,8 @@ if(isset($_SESSION['msg'])){
                 <div class="col-12 col-md-3 mt-2">
                   <label>Student ID:</label>
                   <h5>19-255322</h5>
-                  <label>Position:</label>
-                  <h5>President</h5>
+                  <label>Year Level:</label>
+                  <h5>Fourth Year</h5>
                 </div>
               </div>
 
@@ -154,7 +160,7 @@ if(isset($_SESSION['msg'])){
       <h4>My Organizations</h4>
       <div class="row justify-content-center align-items-center mb-4 mt-4">
         <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
+          <div class="card shadow-sm display: inline-block cards">
             <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
@@ -164,7 +170,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
         <div class="col-6  col-md-5 " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
+          <div class="card shadow-sm display: inline-block cards">
             <img src="assets/img/CSC-logo.png" class="card-img-top rounded mx-auto d-block mt-4 " alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Central Student Council</h5>
@@ -198,8 +204,6 @@ if(isset($_SESSION['msg'])){
         </footer>
       </div>
     </div>
-    </div>
-
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
