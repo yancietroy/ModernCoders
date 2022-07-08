@@ -46,10 +46,10 @@
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-        <li>
+      <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li>
+            <li class="active">
                 <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -688,8 +688,8 @@
              select: true,
             dom: 'Bfrtip',"bFilter": true,
     "aLengthMenu": [
-      [5, 10, 15, 20, 50, 100, -1],
-      [5, 10, 15, 20, 50, 100, "All"]
+      [10, 20, 50, 100, -1],
+      [10, 20, 50, 100, "All"]
     ],
             buttons: [
               'pageLength',
