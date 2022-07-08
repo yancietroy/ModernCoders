@@ -158,16 +158,19 @@ if(isset ($_POST['submit']))
 	if(!empty($_POST['email']) || !empty($_POST['password'])) {
 		ob_start();
 
-		$query = "Select FIRST_NAME , LAST_NAME FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 
 		if($row)
 		{
 			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
-		header("Location:index.php");
-					@mysqli_close($conn);
-			exit();
+			$_SESSION['use'] = $row[0];
+  			if(isset($_SESSION['use'])){
+				header("Location:index.php");
+				@mysqli_close($conn);
+				exit();
+			}
 		}
 		else
 		{
