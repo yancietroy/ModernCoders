@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2022 at 05:09 PM
+-- Generation Time: Jul 09, 2022 at 12:16 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -80,50 +80,73 @@ CREATE TABLE `tb_candidate` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_collegedept`
+--
+
+CREATE TABLE `tb_collegedept` (
+  `college_id` int(11) NOT NULL,
+  `college` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_collegedept`
+--
+
+INSERT INTO `tb_collegedept` (`college_id`, `college`) VALUES
+(1, 'College of Liberal Arts, Criminology and Education'),
+(2, 'College of Business Administration'),
+(3, 'College of Computer Studies and Engineering'),
+(4, 'College of Hospitality and Tourism Management'),
+(5, 'College of Nursing and Health Sciences');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_course`
 --
 
 CREATE TABLE `tb_course` (
   `course_id` int(2) NOT NULL,
-  `course` varchar(150) NOT NULL
+  `course` varchar(150) NOT NULL,
+  `college_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_course`
 --
 
-INSERT INTO `tb_course` (`course_id`, `course`) VALUES
-(1, 'Bachelor of Arts (AB) Major in Economics'),
-(2, 'Bachelor of Arts (AB) Major in English'),
-(3, 'Bachelor of Arts (AB) Major in History'),
-(4, 'Bachelor of Arts (AB) Major in Mathematics'),
-(5, 'Bachelor of Arts in Psychology (ABPsy)'),
-(6, 'Bachelor of Science in Psychology (BSPsy)'),
-(7, 'Bachelor of Science in Criminology (BSCrim)'),
-(8, 'Bachelor of Secondary Education (BSED) Major in English'),
-(9, 'Bachelor of Secondary Education (BSED) Major in Mathematics'),
-(10, 'Bachelor of Secondary Education (BSED) Major in Social Studies'),
-(11, 'Bachelor of Elementary Education (BEED)'),
-(12, 'Certificate in Teaching Education (CTE)'),
-(13, 'Bachelor of Science in Accountancy (BSA)'),
-(14, 'Bachelor of Science in Business Administration (BSBA) Major in Accounting'),
-(15, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance'),
-(16, 'Bachelor of Science in Business Administration (BSBA) Major in Computer Science'),
-(17, 'Bachelor of Science in Business Administration (BSBA) Major in Economics'),
-(18, 'Bachelor of Science in Business Administration (BSBA) Major in Management'),
-(19, 'Bachelor of Science in Business Administration (BSBA) Major in Marketing'),
-(20, 'Bachelor of Science in Business Administration (BSBA) Major in Supply Management'),
-(21, 'Bachelor of Science in Legal Management (BSLgM)'),
-(22, 'Bachelor of Science in Computer Engineering (BSCpE)'),
-(23, 'Bachelor of Science in Electronics Engineering (BSEcE)'),
-(24, 'Bachelor of Science in Information Technology (BSIT)'),
-(25, 'Bachelor of Science in Information Technology (BSIT-BA) Major in Business Analytics'),
-(26, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC) Major in Digital Animation Tech'),
-(27, 'Bachelor of Science in Information Technology (BSIT-AGD) Major in Animation and Game Development'),
-(28, 'Bachelor of Science in Hospitality Management (BSHM)'),
-(29, 'Bachelor of Science in Hospitality Management (BSHM – CM) Major in Cruise Management '),
-(30, 'Bachelor of Science in Tourism Management (BSTM)'),
-(31, 'Bachelor of Science in Nursing (BSN)');
+INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
+(1, 'Bachelor of Arts (AB) Major in Economics', 1),
+(2, 'Bachelor of Arts (AB) Major in English', 1),
+(3, 'Bachelor of Arts (AB) Major in History', 1),
+(4, 'Bachelor of Arts (AB) Major in Mathematics', 1),
+(5, 'Bachelor of Arts in Psychology (ABPsy)', 1),
+(6, 'Bachelor of Science in Psychology (BSPsy)', 1),
+(7, 'Bachelor of Science in Criminology (BSCrim)', 1),
+(8, 'Bachelor of Secondary Education (BSED) Major in English', 1),
+(9, 'Bachelor of Secondary Education (BSED) Major in Mathematics', 1),
+(10, 'Bachelor of Secondary Education (BSED) Major in Social Studies', 1),
+(11, 'Bachelor of Elementary Education (BEED)', 1),
+(12, 'Certificate in Teaching Education (CTE)', 1),
+(13, 'Bachelor of Science in Accountancy (BSA)', 2),
+(14, 'Bachelor of Science in Business Administration (BSBA) Major in Accounting', 2),
+(15, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance', 2),
+(16, 'Bachelor of Science in Business Administration (BSBA) Major in Computer Science', 2),
+(17, 'Bachelor of Science in Business Administration (BSBA) Major in Economics', 2),
+(18, 'Bachelor of Science in Business Administration (BSBA) Major in Management', 2),
+(19, 'Bachelor of Science in Business Administration (BSBA) Major in Marketing', 2),
+(20, 'Bachelor of Science in Business Administration (BSBA) Major in Supply Management', 2),
+(21, 'Bachelor of Science in Legal Management (BSLgM)', 2),
+(22, 'Bachelor of Science in Computer Engineering (BSCpE)', 3),
+(23, 'Bachelor of Science in Electronics Engineering (BSEcE)', 3),
+(24, 'Bachelor of Science in Information Technology (BSIT)', 3),
+(25, 'Bachelor of Science in Information Technology (BSIT-BA) Major in Business Analytics', 3),
+(26, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC) Major in Digital Animation Tech', 3),
+(27, 'Bachelor of Science in Information Technology (BSIT-AGD) Major in Animation and Game Development', 3),
+(28, 'Bachelor of Science in Hospitality Management (BSHM)', 4),
+(29, 'Bachelor of Science in Hospitality Management (BSHM – CM) Major in Cruise Management ', 4),
+(30, 'Bachelor of Science in Tourism Management (BSTM)', 4),
+(31, 'Bachelor of Science in Nursing (BSN)', 5);
 
 -- --------------------------------------------------------
 
@@ -189,8 +212,31 @@ CREATE TABLE `tb_event` (
 
 CREATE TABLE `tb_morg` (
   `MORG_ID` int(2) NOT NULL,
-  `MOTHER_ORGS` varchar(30) NOT NULL
+  `MOTHER_ORG` varchar(100) NOT NULL,
+  `college_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_morg`
+--
+
+INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`) VALUES
+(1, 'Association of Students of History (ASH)', 1),
+(2, 'Criminal Justice Students Society (CJSS)', 1),
+(3, 'Liberal Arts Students Organization (LASO)', 1),
+(4, 'Mathematics Society (MATHSOC)', 1),
+(5, 'Young, Educators Society (YES)', 2),
+(6, 'Junior Finance and Economics Society (JFINECS)', 2),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 2),
+(8, 'Management Society (MANSOC)', 2),
+(9, 'Supply Management Society (SMS)', 2),
+(10, 'Young Marketers Association (YMA)', 2),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 3),
+(12, 'Computer Society (COMSOC)', 3),
+(13, 'Electronics Engineering League (ECEL)', 3),
+(14, 'Association of Tourism Management Students (ATOMS)', 4),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
+(16, 'Nursing Society (NURSOC)', 5);
 
 -- --------------------------------------------------------
 
@@ -240,38 +286,39 @@ CREATE TABLE `tb_officers` (
 
 CREATE TABLE `tb_orgs` (
   `ORG_ID` int(2) NOT NULL,
-  `ORG` varchar(100) NOT NULL
+  `ORG` varchar(100) NOT NULL,
+  `college_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_orgs`
 --
 
-INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`) VALUES
-(1, 'Association of Students of History (ASH)'),
-(2, 'Criminal Justice Students Society (CJSS)'),
-(3, 'Liberal Arts Students Organization (LASO)'),
-(4, 'Mathematics Society (MATHSOC)'),
-(5, 'Young, Educators Society (YES)'),
-(6, 'Junior Finance and Economics Society (JFINECS)'),
-(7, 'Junior Philippine Institute of Accountants (JPIA)'),
-(8, 'Management Society (MANSOC)'),
-(9, 'Supply Management Society (SMS)'),
-(10, 'Young Marketers Association (YMA)'),
-(11, 'Auxiliary of Computer Engineering Students (ACES)'),
-(12, 'Computer Society (COMSOC)'),
-(13, 'Electronics Engineering League (ECEL)'),
-(14, 'Association of Tourism Management Students (ATOMS)'),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)'),
-(16, 'Nursing Society (NURSOC)'),
-(17, 'José Rizal University Book Buddies'),
-(18, 'Young Rizalian Servant Leaders (YRSL)'),
-(19, 'Golden Z Club'),
-(20, 'International Students Association (ISA)'),
-(21, 'José Rizal University Chorale'),
-(22, 'José Rizal University Dance Troupe'),
-(23, 'Teatro Rizal'),
-(24, 'Junior Photographic Editors and Graphic Artists (JPEG)');
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
+(1, 'Association of Students of History (ASH)', 1),
+(2, 'Criminal Justice Students Society (CJSS)', 1),
+(3, 'Liberal Arts Students Organization (LASO)', 1),
+(4, 'Mathematics Society (MATHSOC)', 1),
+(5, 'Young, Educators Society (YES)', 1),
+(6, 'Junior Finance and Economics Society (JFINECS)', 2),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 2),
+(8, 'Management Society (MANSOC)', 2),
+(9, 'Supply Management Society (SMS)', 2),
+(10, 'Young Marketers Association (YMA)', 2),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 3),
+(12, 'Computer Society (COMSOC)', 3),
+(13, 'Electronics Engineering League (ECEL)', 3),
+(14, 'Association of Tourism Management Students (ATOMS)', 4),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
+(16, 'Nursing Society (NURSOC)', 4),
+(17, 'José Rizal University Book Buddies', NULL),
+(18, 'Young Rizalian Servant Leaders (YRSL)', NULL),
+(19, 'Golden Z Club', NULL),
+(20, 'International Students Association (ISA)', NULL),
+(21, 'José Rizal University Chorale', NULL),
+(22, 'José Rizal University Dance Troupe', NULL),
+(23, 'Teatro Rizal', NULL),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', NULL);
 
 -- --------------------------------------------------------
 
@@ -454,10 +501,17 @@ ALTER TABLE `tb_candidate`
   ADD KEY `candidate_studentid_fk` (`STUDENT_NO`);
 
 --
+-- Indexes for table `tb_collegedept`
+--
+ALTER TABLE `tb_collegedept`
+  ADD PRIMARY KEY (`college_id`);
+
+--
 -- Indexes for table `tb_course`
 --
 ALTER TABLE `tb_course`
-  ADD PRIMARY KEY (`course_id`);
+  ADD PRIMARY KEY (`course_id`),
+  ADD KEY `course_college_id_fk` (`college_id`);
 
 --
 -- Indexes for table `tb_disc`
@@ -496,7 +550,8 @@ ALTER TABLE `tb_event`
 -- Indexes for table `tb_morg`
 --
 ALTER TABLE `tb_morg`
-  ADD PRIMARY KEY (`MORG_ID`);
+  ADD PRIMARY KEY (`MORG_ID`),
+  ADD KEY `morg_college_id_fk` (`college_id`);
 
 --
 -- Indexes for table `tb_msg`
@@ -521,7 +576,8 @@ ALTER TABLE `tb_officers`
 -- Indexes for table `tb_orgs`
 --
 ALTER TABLE `tb_orgs`
-  ADD PRIMARY KEY (`ORG_ID`);
+  ADD PRIMARY KEY (`ORG_ID`),
+  ADD KEY `orgs_college_id_fk` (`college_id`);
 
 --
 -- Indexes for table `tb_pkanswerkey`
@@ -618,6 +674,12 @@ ALTER TABLE `tb_candidate`
   ADD CONSTRAINT `candidate_studentid_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `tb_course`
+--
+ALTER TABLE `tb_course`
+  ADD CONSTRAINT `course_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tb_disc`
 --
 ALTER TABLE `tb_disc`
@@ -647,10 +709,22 @@ ALTER TABLE `tb_event`
   ADD CONSTRAINT `event_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `tb_morg`
+--
+ALTER TABLE `tb_morg`
+  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
   ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_orgs`
+--
+ALTER TABLE `tb_orgs`
+  ADD CONSTRAINT `orgs_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_pkanswerkey`
