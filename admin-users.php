@@ -1,6 +1,18 @@
+<?php
+ob_start();
+session_start();
+$id = $_SESSION['use'];
+include('mysql_connect.php');
+if(isset($_SESSION['msg'])){
+    print_r($_SESSION['msg']);#display message
+    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:admin-login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -151,6 +163,68 @@
     <div class="row">
    <div class="col-xs-12">
           <table id="example" class="table table-striped table-hover" style="width:100%">
+                  <?php
+                  $id = $_SESSION['use'];
+                  $sql = "SELECT projects.project_id,
+                       Concat(users.first_name,' ', users.last_name) as 'Name',
+                          users.email,
+                      projects.project_name,
+                          projects.project_desc,
+                          DATE_FORMAT(projects.`project_registered`,'%M %d, %Y') as 'Date Registered'
+                      FROM projects
+                          INNER JOIN users
+                              ON projects.user_id = users.user_id
+                      WHERE projects.user_id = '$id';
+                      ";
+                  $result = @mysqli_query($conn,$sql);
+                  $i = 0;
+                  $pid = " ";
+                  $uid = " ";
+                  $uemail = " ";
+                  $pname = " ";
+                  $pdesc = " ";
+                  $pdate = " ";
+                  echo " <table border='1' cellpadding='15' class=\"viewproject\">
+                    <tr>
+                      <td>Project ID</td>
+                      <td>Name</td>
+                      <td>Email</td>
+
+                      <td>Project Title:</td>
+                      <td>Project Description:</td>
+                      <td>Date Registered:</td>
+                      ";
+                  if ($result->num_rows > 0)
+                  {
+                      // output data of each row
+                      while($row = $result->fetch_assoc())
+                      {
+                      $pid = $row["project_id"];
+                      $uname = $row["Name"];
+                      $uemail = $row["email"];
+                      $pname = $row["project_name"];
+                      $pdesc =  $row["project_desc"];
+                      $pdate =$row["Date Registered"];
+
+                      echo "<tr>
+                            <td> $pid  </td>
+                            <td> $uname  </td>
+                            <td> $uemail  </td>
+                            <td>  $pname  </td>
+                            <td>  $pdesc  </td>
+                            <td>  $pdate  </td>
+                          ";
+
+                       /**   echo "<br>Project ID:". $row["project_id"]. " User: ".$row["Name"]. " Email: ". $row["email"]." Project: " .$row["project_name"].
+                      " Description: ". $row["project_desc"]." Date Registered: " .$row["Date Registered"]. "<br>"; */
+                      // echo $i++;
+                      }
+                  echo "</tr></table>";
+                  } else {
+                    echo "<center><h1 class=\"ask\">no available projects</h1></center>";
+                  }
+                  $conn->close();
+                  ?>
                   <thead>
                       <tr>
                           <th>Name</th>
