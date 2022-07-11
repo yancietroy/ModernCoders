@@ -162,79 +162,82 @@ if(isset($_SESSION['msg'])){
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-          <table id="example" class="table table-striped table-hover" style="width:100%">
                   <?php
-                  $id = $_SESSION['use'];
-                  $sql = "SELECT projects.project_id,
-                       Concat(users.first_name,' ', users.last_name) as 'Name',
-                          users.email,
-                      projects.project_name,
-                          projects.project_desc,
-                          DATE_FORMAT(projects.`project_registered`,'%M %d, %Y') as 'Date Registered'
-                      FROM projects
-                          INNER JOIN users
-                              ON projects.user_id = users.user_id
-                      WHERE projects.user_id = '$id';
-                      ";
-                  $result = @mysqli_query($conn,$sql);
+                  $query = "SELECT STUDENT_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL, YEAR_LEVEL, DATE_FORMAT(`BIRTHDATE`,'%M %d, %Y') AS 'Birth Date', AGE FROM tb_students";
+                  $result = @mysqli_query($conn,$query);
                   $i = 0;
-                  $pid = " ";
-                  $uid = " ";
-                  $uemail = " ";
-                  $pname = " ";
-                  $pdesc = " ";
-                  $pdate = " ";
-                  echo " <table border='1' cellpadding='15' class=\"viewproject\">
-                    <tr>
-                      <td>Project ID</td>
-                      <td>Name</td>
-                      <td>Email</td>
-
-                      <td>Project Title:</td>
-                      <td>Project Description:</td>
-                      <td>Date Registered:</td>
+                  $sid = " ";
+                  $name = " ";
+                  $email = " ";
+                  $ylevel = " ";
+                  $bdate = " ";
+                  $age = " ";
+                  echo "<table id='example' class='table table-striped table-hover' style='width:100%'>
+                    <thead>
+                      <tr>
+                          <th>Student ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Year Level</th>
+                          <th>Birth date</th>
+                          <th>Age</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       ";
-                  if ($result->num_rows > 0)
+                  if ($result !== false && $result->num_rows > 0)
                   {
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                      $pid = $row["project_id"];
-                      $uname = $row["Name"];
-                      $uemail = $row["email"];
-                      $pname = $row["project_name"];
-                      $pdesc =  $row["project_desc"];
-                      $pdate =$row["Date Registered"];
+                      $sid = $row["STUDENT_ID"];
+                      $name = $row["NAME"];
+                      $email = $row["EMAIL"];
+                      $ylevel = $row["YEAR_LEVEL"];
+                      $bdate =  $row["Birth Date"];
+                      $age =$row["AGE"];
 
                       echo "<tr>
-                            <td> $pid  </td>
-                            <td> $uname  </td>
-                            <td> $uemail  </td>
-                            <td>  $pname  </td>
-                            <td>  $pdesc  </td>
-                            <td>  $pdate  </td>
+                            <td> $sid  </td>
+                            <td> $name  </td>
+                            <td> $email  </td>
+                            <td> $ylevel  </td>
+                            <td> $bdate  </td>
+                            <td> $age  </td>
+                            </tr>
                           ";
 
                        /**   echo "<br>Project ID:". $row["project_id"]. " User: ".$row["Name"]. " Email: ". $row["email"]." Project: " .$row["project_name"].
                       " Description: ". $row["project_desc"]." Date Registered: " .$row["Date Registered"]. "<br>"; */
                       // echo $i++;
                       }
-                  echo "</tr></table>";
+                  echo "</tbody>
+                  <tfoot>
+                      <tr>
+                          <th>Student ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Year Level</th>
+                          <th>Birth date</th>
+                          <th>Age</th>
+                      </tr>
+                  </tfoot>
+                  </table>";
                   } else {
                     echo "<center><h1 class=\"ask\">no available projects</h1></center>";
                   }
                   $conn->close();
                   ?>
-                  <thead>
+                  <!--<thead>
                       <tr>
+                          <th>Student ID</th>
                           <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
+                          <th>Email</th>
+                          <th>Year Level</th>
+                          <th>Birth date</th>
                           <th>Age</th>
-                          <th>Start date</th>
-                          <th>Salary</th>
                       </tr>
-                  </thead>
+                      </thead>
                   <tbody>
                       <tr>
                           <td>Tiger Nixon</td>
@@ -703,7 +706,7 @@ if(isset($_SESSION['msg'])){
                           <th>Salary</th>
                       </tr>
                   </tfoot>
-              </table>
+              </table>-->
          </div>
        </div>
      </div>
