@@ -173,17 +173,17 @@ if(isset($_SESSION['msg'])){
                   $bdate = " ";
                   $age = " ";
                   echo "<table id='example' class='table table-striped table-hover' style='width:100%'>
-                    <thead>
-                      <tr>
-                          <th>Student ID</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Year Level</th>
-                          <th>Birth date</th>
-                          <th>Age</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                        <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Birth date</th>
+                              <th>Age</th>
+                          </tr>
+                        </thead>
+                        <tbody>
                       ";
                   if ($result !== false && $result->num_rows > 0)
                   {
@@ -208,17 +208,17 @@ if(isset($_SESSION['msg'])){
                           ";
                       }
                   echo "</tbody>
-                  <tfoot>
-                      <tr>
-                          <th>Student ID</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Year Level</th>
-                          <th>Birth date</th>
-                          <th>Age</th>
-                      </tr>
-                  </tfoot>
-                  </table>";
+                        <tfoot>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Year Level</th>
+                                <th>Birth date</th>
+                                <th>Age</th>
+                            </tr>
+                        </tfoot>
+                        </table>";
                   }
                   $conn->close();
                   ?>
