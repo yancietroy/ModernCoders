@@ -165,11 +165,13 @@ if(isset ($_POST['submit']))
 
 		if($row)
 		{
-			session_start();
 			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
-		header("Location:index.php");
-					@mysqli_close($conn);
-			exit();
+			$_SESSION['use'] = $row[0];
+  			if(isset($_SESSION['use'])){
+				header("Location:admin-index.php");
+				@mysqli_close($conn);
+				exit();
+			}
 		}
 		else
 		{
