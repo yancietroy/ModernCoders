@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2022 at 12:16 PM
+-- Generation Time: Jul 11, 2022 at 10:41 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -43,8 +43,16 @@ CREATE TABLE `tb_admin` (
   `FIRST_NAME` varchar(50) NOT NULL,
   `LAST_NAME` varchar(50) NOT NULL,
   `MIDDLE_INITIAL` char(2) NOT NULL,
+  `EMAIL` varchar(100) NOT NULL,
   `PASSWORD` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
+(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d');
 
 -- --------------------------------------------------------
 
@@ -275,7 +283,8 @@ CREATE TABLE `tb_officers` (
   `course` varchar(20) NOT NULL,
   `section` varchar(10) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -366,8 +375,33 @@ CREATE TABLE `tb_pkcastkey` (
 
 CREATE TABLE `tb_position` (
   `POSITION_ID` int(2) NOT NULL,
-  `position` varchar(20) NOT NULL
+  `position` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_position`
+--
+
+INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
+(1, 'President'),
+(2, 'Vice President - Internal'),
+(3, 'Vice President - External'),
+(4, 'Secretary'),
+(5, 'Assistant Secretary'),
+(6, 'Treasurer'),
+(7, 'Auditor'),
+(8, 'P.R.O'),
+(9, 'P.R.O Internal'),
+(10, 'P.R.O External'),
+(11, 'Assistant P.R.O'),
+(12, 'Business Manager'),
+(13, 'Overall Chairman'),
+(14, 'Overall Co-Chairman'),
+(15, '1st Year Representative'),
+(16, '2nd Year Representative'),
+(17, '3rd Year Representative'),
+(18, '4th Year Representative'),
+(19, 'Musical Director/Conductor');
 
 -- --------------------------------------------------------
 
@@ -411,7 +445,8 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', NULL, NULL);
+(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL),
+(17402211, 'Doe', 'John', '', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -570,7 +605,8 @@ ALTER TABLE `tb_msg_reply`
 --
 ALTER TABLE `tb_officers`
   ADD PRIMARY KEY (`officer_id`),
-  ADD KEY `officers_position_id_fk` (`position_id`);
+  ADD KEY `officers_position_id_fk` (`position_id`),
+  ADD KEY `officers_org_id_fk` (`org_id`);
 
 --
 -- Indexes for table `tb_orgs`
@@ -718,6 +754,7 @@ ALTER TABLE `tb_morg`
 -- Constraints for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
+  ADD CONSTRAINT `officers_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
