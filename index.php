@@ -162,11 +162,9 @@ if(isset($_SESSION['msg'])){
                             <label>Year Level:</label>
                             <h5>$row[5]</h5>
                           </div>";
-                          @mysqli_close($conn);
                   }
                   ?>
               </div>
-
             </div>
           </div>
         </div>
@@ -177,8 +175,18 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow-sm display: inline-block cards">
             <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
+              <h5 class="card-title text-center mt-2">
+                <?php
+              $sql = "SELECT tb_morg.MOTHER_ORG FROM tb_morg
+                      INNER JOIN tb_students
+                      ON tb_morg.MORG_ID = tb_students.MORG_ID
+                      WHERE tb_students.STUDENT_ID = '$id'";
+              $result = @mysqli_query($conn,$sql) or die(mysqli_error($conn));;
+              $row = @mysqli_fetch_array($result);
+              if ($row)
+                  { echo "$row[0]"; } @mysqli_close($conn); 
+              ?>
+              </h5>
               <a href="#" class="stretched-link"></a>
             </div>
           </div>
