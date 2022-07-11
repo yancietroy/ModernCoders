@@ -37,7 +37,7 @@
                   <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
-                      <input type="text" name="first_name" id="txtTest" class="form-control form-control-lg" required />
+                      <input type="text" name="first_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest" class="form-control form-control-lg" required />
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback">First name field cannot be blank!</div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
-                      <input type="text" name="middle_name" id="txtTest2" class="form-control form-control-lg" />
+                      <input type="text" name="middle_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest2" class="form-control form-control-lg" />
                       <div class="valid-feedback">
                       </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                      <input type="text" name="last_name" id="txtTest3" class="form-control form-control-lg" required />
+                      <input type="text" name="last_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Last name field cannot be blank!</div>
                     </div>
@@ -75,7 +75,7 @@
                   <div class="col-3 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age" id="asterisk">Age</label>
-                      <input type="text" name="age" id="age" class="form-control form-control-lg" required />
+                      <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
@@ -134,14 +134,14 @@
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                            include('mysql_connect.php');
-                            $query = "SELECT college FROM tb_collegedept";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
+                           include('mysql_connect.php');
+                           $query = "SELECT college FROM tb_collegedept";
+                           $result = @mysqli_query($conn, $query);
+                           while($data = @mysqli_fetch_array($result)) {
+                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                           }
+                                           @mysqli_close($conn);
+                                           ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a college program
@@ -159,9 +159,9 @@
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {
                                 echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
+                                            }
+                                            @mysqli_close($conn);
+                                            ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -173,14 +173,15 @@
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
-                            include('mysql_connect.php');
-                            $query = "SELECT ORG FROM tb_orgs";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
+                           include('mysql_connect.php');
+                           $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
+                           $result = @mysqli_query($conn, $query);
+                           while($data = @mysqli_fetch_array($result)) {
+                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+
+                                           }
+                                           @mysqli_close($conn);
+                                           ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Organization
@@ -202,7 +203,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="text" class="form-control" name="password" id="txtNewPassword" minlength="8" required>
+                      <input type="password" class="form-control" name="password" id="txtNewPassword" minlength="8" required>
                       <div class="valid-feedback"> </div>
                       <div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
@@ -214,7 +215,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="text" class="form-control" name="confirmpassword" id="txtConfirmPassword" minlength="8" onChange="checkPasswordMatch();" required>
+                      <input type="password" class="form-control" name="confirmpassword" id="txtConfirmPassword" minlength="8" onChange="checkPasswordMatch();" required>
                     </div>
                         <div class="registrationFormAlert" id="divCheckPasswordMatch">
                     </div>
@@ -363,6 +364,7 @@ $(document).ready(function () {
 });
 
   </script>
+  
 </body>
 
 </html>
