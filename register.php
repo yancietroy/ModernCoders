@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
 </head>
 <body class="bg">
 
-        <form action="registered.php" method="post" class="requires-validation" novalidate>
+        <form action="register.php" method="post" class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -228,6 +229,40 @@
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
+              <?php
+              if (isset($_POST['password']) !== isset($_POST['confirmpassword']))
+              {
+              	echo '<script>alert("Password must match!")</script>';
+              }
+                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+                {
+                  $fn = $_POST['first_name'];
+                  $ln = $_POST['last_name'];
+                  $mn = $_POST['middle_name'];
+                  $date = $_POST['birthdate'];
+                  $age = $_POST['age'];
+                  $g = $_POST['gender'];
+                  $si = $_POST['studentid'];
+                  $yl = $_POST['school_year'];
+                  $course = $_POST['course'];
+                  $morgid = $_POST['org'];
+                  $section = $_POST['section'];
+                  $e = $_POST['email'];
+                  $pass = $_POST['password'];
+
+                      include('mysql_connect.php');
+                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
+                      $result = @mysqli_query($conn, $query);
+
+                      echo "<script type='text/javascript'>
+                            window.location = 'login.php'
+                            alert('You are now registered!')
+                            </script>";
+                      //header("location:login.php");
+                      die;
+                          @mysqli_close($conn);
+                }
+              ?>
           </form>
 
               </div>

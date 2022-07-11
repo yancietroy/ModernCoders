@@ -17,11 +17,7 @@
 
 		if ($_POST['password'] !== $_POST['confirmpassword'])
 		{
-			echo "Password must MATCH!
-					<br><br>
-					<a href='register.php'>
-					<input type='button' name='back' value='Back to registration.'>
-					</a>";
+			echo '<script>alert("Password must match!")</script>';
 		}
 		else if (isset ($_POST['submit']))
 		{
