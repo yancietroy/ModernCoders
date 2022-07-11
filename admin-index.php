@@ -10,7 +10,6 @@ else if(!isset($_SESSION['use'])) // If session is not set then redirect to Logi
     header("Location:admin-login.php");
   }
  ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
