@@ -206,10 +206,6 @@ if(isset($_SESSION['msg'])){
                             <td> $age  </td>
                             </tr>
                           ";
-
-                       /**   echo "<br>Project ID:". $row["project_id"]. " User: ".$row["Name"]. " Email: ". $row["email"]." Project: " .$row["project_name"].
-                      " Description: ". $row["project_desc"]." Date Registered: " .$row["Date Registered"]. "<br>"; */
-                      // echo $i++;
                       }
                   echo "</tbody>
                   <tfoot>
@@ -223,8 +219,6 @@ if(isset($_SESSION['msg'])){
                       </tr>
                   </tfoot>
                   </table>";
-                  } else {
-                    echo "<center><h1 class=\"ask\">no available projects</h1></center>";
                   }
                   $conn->close();
                   ?>
