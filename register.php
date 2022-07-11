@@ -36,7 +36,7 @@
                   <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
-                      <input type="text" name="first_name" id="FirstName" class="form-control form-control-lg" required />
+                      <input type="text" name="first_name" id="txtTest" class="form-control form-control-lg" required />
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback">First name field cannot be blank!</div>
                     </div>
@@ -45,7 +45,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
-                      <input type="text" name="middle_name" id="middleName" class="form-control form-control-lg" />
+                      <input type="text" name="middle_name" id="txtTest2" class="form-control form-control-lg" />
                       <div class="valid-feedback">
                       </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                      <input type="text" name="last_name" id="lastName" class="form-control form-control-lg" required />
+                      <input type="text" name="last_name" id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Last name field cannot be blank!</div>
                     </div>
@@ -99,7 +99,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
-                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### "required />
+                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-######" required />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
@@ -120,7 +120,7 @@
                         <div class="form-outline">
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
-                          <input type="text" name="section" id="section" class="form-control" required />
+                          <input type="text" name="section" id="section" class="form-control" placeholder="####" required />
                           <div class="valid-feedback">  </div>
                           <div class="invalid-feedback">section field cannot be blank!</div>
                         </div>
@@ -132,9 +132,10 @@
                     <label class="form-label select-label" id="asterisk">College</label>
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option value="1">option</option>
+                      <option value="2">option</option>
+                      <option value="3">option</option>
+                      <option value="4">option</option>
                     </select>
                     <div class="invalid-feedback">
                       Please select a college program
@@ -193,9 +194,9 @@
 
                   <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
-
+<i class="fas fa-lock prefix grey-text d-flex"></i>
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="text" class="form-control" name="password" id="password" minlength="8" required>
+                      <input type="password" class="form-control validate" name="password" id="password" minlength="8" required>
                       <div class="valid-feedback"> </div>
                       <div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
@@ -206,8 +207,10 @@
                   <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
 
-                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="text" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="8" required>
+                      <label class="form-label" for="confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
+                    </div>
+                        <div class="registrationFormAlert" id="divCheckPasswordMatch">
                     </div>
                   </div>
                 </div>
@@ -261,10 +264,65 @@ Array.from(forms)
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
   <script type='text/javascript'>
-    $(document).ready(function(){
-      $("#studentid").inputmask("99-999999");
-
+  $(document).ready(function(){
+    $("#studentid").inputmask("99-999999", {
+      autoUnmask: true,
+      removeMaskOnSubmit: true
+  });
 });
+  </script>
+  <script type='text/javascript'>
+  $(document).ready(function(){
+    $("#section").inputmask("999a", {
+      autoUnmask: true,
+      removeMaskOnSubmit: true
+  });
+});
+  </script>
+
+  <!--Uppercase first letter !-->
+  <script>
+  // Get a reference to the input and wire it up to an input event handler that
+// calls the fixer function
+document.getElementById("txtTest").addEventListener("input", forceLower);
+document.getElementById("txtTest2").addEventListener("input", forceLower);
+document.getElementById("txtTest3").addEventListener("input", forceLower);
+// Event handling functions are automatically passed a reference to the
+// event that triggered them as the first argument (evt)
+function forceLower(evt) {
+  // Get an array of all the words (in all lower case)
+  var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+  // Loop through the array and replace the first letter with a cap
+  var newWords = words.map(function(element){
+    // As long as we're not dealing with an empty array element, return the first letter
+    // of the word, converted to upper case and add the rest of the letters from this word.
+    // Return the final word to a new array
+    return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
+  });
+
+ // Replace the original value with the updated array of capitalized words.
+ evt.target.value = newWords.join(" ");
+}
+  </script>
+
+  <!-- Confirm Password !-->
+  <script>
+  $("#password").on("focusout", function () {
+    if ($(this).val() != $("#confirmpassword").val()) {
+      $("#confirmpassword").removeClass("valid").addClass("invalid");
+    } else {
+      $("#confirmpassword").removeClass("invalid").addClass("valid");
+    }
+  });
+
+  $("#confirmpassword").on("keyup", function () {
+    if ($("#password").val() != $(this).val()) {
+      $(this).removeClass("valid").addClass("invalid");
+    } else {
+      $(this).removeClass("invalid").addClass("valid");
+    }
+  });
   </script>
 </body>
 
