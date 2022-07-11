@@ -105,7 +105,7 @@ if(isset($_SESSION['msg'])){
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
+      <nav class="navbar shadow navbar-expand navbar-light" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>

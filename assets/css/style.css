@@ -90,6 +90,7 @@ ul ul a {
 ----------------------------------------------------- */
 .btn-info,
 .btn-info:focus {
+  margin-left: 10px;
   background: #00226C;
   color: white;
 }
