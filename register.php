@@ -37,7 +37,7 @@
                   <div class="col-4 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
-                      <input type="text" name="first_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest" class="form-control form-control-lg" required />
+                      <input type="text" name="first_name" onkeypress="return /[a-z, ]/i.test(event.key)" maxlength="20" id="txtTest" class="form-control form-control-lg" required />
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback">First name field cannot be blank!</div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
-                      <input type="text" name="middle_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest2" class="form-control form-control-lg" />
+                      <input type="text" name="middle_name" onkeypress="return /[a-z, ]/i.test(event.key)"   maxlength="20" id="txtTest2" class="form-control form-control-lg" />
                       <div class="valid-feedback">
                       </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                      <input type="text" name="last_name" onkeypress="return /[a-z]/i.test(event.key)" id="txtTest3" class="form-control form-control-lg" required />
+                      <input type="text" name="last_name" onkeypress="return /[a-z, ]/i.test(event.key)"  maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Last name field cannot be blank!</div>
                     </div>
@@ -364,7 +364,7 @@ $(document).ready(function () {
 });
 
   </script>
-  
+
 </body>
 
 </html>
