@@ -1,6 +1,6 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -177,10 +177,11 @@
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php 
                             include('mysql_connect.php');
-                            $query = "SELECT ORG FROM tb_orgs";
+                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {           
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';  
+                                echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>'; 
+                                
                             }
                             @mysqli_close($conn);
                       ?>
@@ -234,7 +235,6 @@
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
               <?php
-
               if (isset($_POST['password']) !== isset($_POST['confirmpassword']))
               {
                 echo "Password must MATCH!
@@ -243,7 +243,7 @@
                       <input type='button' name='back' value='Back to registration.'>
                       </a>";                    
               }
-                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($section) || isset($org) || isset($e) || isset($pass) || isset($_POST['submit'])) 
+                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit'])) 
                 {  
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -254,13 +254,13 @@
                   $si = $_POST['studentid'];
                   $yl = $_POST['school_year'];
                   $course = $_POST['course'];
+                  $morgid = $_POST['org'];
                   $section = $_POST['section'];
-                  $org = $_POST['org'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
                       include('mysql_connect.php');
-                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
+                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
@@ -271,7 +271,6 @@
                       die;
                           @mysqli_close($conn);       
                 }
-              
               ?>
               </div>
             </div>
