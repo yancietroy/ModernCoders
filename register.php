@@ -194,9 +194,9 @@
 
                   <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
-<i class="fas fa-lock prefix grey-text d-flex"></i>
+
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control validate" name="password" id="password" minlength="8" required>
+                      <input type="text" class="form-control" name="password" id="txtNewPassword" minlength="8" required>
                       <div class="valid-feedback"> </div>
                       <div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
@@ -207,8 +207,8 @@
                   <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
 
-                      <label class="form-label" for="confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
+                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="text" class="form-control" name="confirmpassword" id="txtConfirmPassword" minlength="8" onChange="checkPasswordMatch();" required>
                     </div>
                         <div class="registrationFormAlert" id="divCheckPasswordMatch">
                     </div>
@@ -308,21 +308,20 @@ function forceLower(evt) {
 
   <!-- Confirm Password !-->
   <script>
-  $("#password").on("focusout", function () {
-    if ($(this).val() != $("#confirmpassword").val()) {
-      $("#confirmpassword").removeClass("valid").addClass("invalid");
-    } else {
-      $("#confirmpassword").removeClass("invalid").addClass("valid");
-    }
-  });
+  function checkPasswordMatch() {
+    var password = $("#txtNewPassword").val();
+    var confirmPassword = $("#txtConfirmPassword").val();
 
-  $("#confirmpassword").on("keyup", function () {
-    if ($("#password").val() != $(this).val()) {
-      $(this).removeClass("valid").addClass("invalid");
-    } else {
-      $(this).removeClass("invalid").addClass("valid");
-    }
-  });
+    if (password != confirmPassword)
+        $("#divCheckPasswordMatch").html("Passwords do not match!");
+    else
+        $("#divCheckPasswordMatch").html("Passwords match.");
+}
+
+$(document).ready(function () {
+   $("#txtConfirmPassword").keyup(checkPasswordMatch);
+});
+
   </script>
 </body>
 
