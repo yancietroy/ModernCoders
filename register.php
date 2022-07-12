@@ -266,7 +266,7 @@ include('mysql_connect.php');
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Dependent Dropdown -->
   <script>
-    $.(document).ready(function(){
+    $(document).ready(function(){
       $('#college').on('change', function(){
         var college_id = this.value;
         $.ajax({
