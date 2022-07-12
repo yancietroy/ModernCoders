@@ -1,5 +1,5 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 include('mysql_connect.php');
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ include('mysql_connect.php');
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-          <div class="col-12 col-lg-9 col-xl-9">
+          <div class="col-11 col-lg-9 col-xl-9">
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body px-5 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center align-items-center ">
@@ -28,7 +28,7 @@ include('mysql_connect.php');
                         <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
                         <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
                             </div>
-                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
+                            <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block d-sm-block">
                         <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
                           </div>
             </div>
@@ -37,7 +37,7 @@ include('mysql_connect.php');
               <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
             <!-- <form class="was-validated"> -->
                 <div class="row">
-                  <div class="col-4 col-md-4 col-sm-3 mb-4">
+                  <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
                       <input type="text" name="first_name" onkeypress="return /[a-z, ]/i.test(event.key)" maxlength="20" id="txtTest" class="form-control form-control-lg" required />
@@ -45,7 +45,7 @@ include('mysql_connect.php');
                       <div class="invalid-feedback">First name field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-4 col-md-4  mb-4">
+                  <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
@@ -55,7 +55,7 @@ include('mysql_connect.php');
                     </div>
 
                   </div>
-                  <div class="col-4 col-md-4  mb-4">
+                  <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
@@ -66,7 +66,7 @@ include('mysql_connect.php');
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4 col-md-4 mb-4">
+                  <div class="col-8 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
@@ -74,7 +74,7 @@ include('mysql_connect.php');
                       <div class="invalid-feedback">Birthdate field invalid!</div>
                     </div>
                   </div>
-                  <div class="col-3 col-md-4 mb-4">
+                  <div class="col-4 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age">Age</label>
                       <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -82,7 +82,7 @@ include('mysql_connect.php');
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-4 col-md-4 mb-4 ">
+                  <div class="col-8 col-md-4 mb-4 ">
                     <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
 
                     <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
@@ -98,7 +98,7 @@ include('mysql_connect.php');
                 <hr>
               <div class="row">
                   <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
-                  <div class="col-4 col-md-4  col-md-4 mb-4">
+                  <div class="col-12 col-md-4  col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
@@ -107,7 +107,7 @@ include('mysql_connect.php');
                       <div class="invalid-feedback">student id field cannot be blank!</div>
                     </div>
                   </div>
-                      <div class="col-4 col-md-4   mb-4">
+                      <div class="col-6 col-md-4   mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
                         <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
@@ -119,7 +119,7 @@ include('mysql_connect.php');
                         <div class="valid-feedback">  </div>
                         <div class="invalid-feedback">year field cannot be blank!</div>
                       </div>
-                      <div class="col-3 col-md-4 mb-4">
+                      <div class="col-6 col-md-4 mb-4">
                         <div class="form-outline">
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
@@ -130,7 +130,7 @@ include('mysql_connect.php');
                       </div>
                   </div>
                 <div class="row">
-                  <div class="col-3 col-md-4   mb-4">
+                  <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
@@ -148,7 +148,7 @@ include('mysql_connect.php');
                     </div>
                   </div>
 
-                  <div class="col-3 col-md-4  mb-4">
+                  <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="select-group" required>
@@ -165,7 +165,7 @@ include('mysql_connect.php');
                       Please select a Course
                     </div>
                   </div>
-                  <div class="col-5 col-md-4  mb-4">
+                  <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
