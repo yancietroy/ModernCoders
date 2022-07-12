@@ -226,11 +226,7 @@ include('mysql_connect.php');
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
               <?php
-              if (isset($_POST['password']) !== isset($_POST['confirmpassword']))
-              {
-              	echo '<script>alert("Password must match!")</script>';
-              }
-                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
                 {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
