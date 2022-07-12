@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include('mysql_connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,13 +136,11 @@
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           include('mysql_connect.php');
                            $query = "SELECT college FROM tb_collegedept";
                            $result = @mysqli_query($conn, $query);
                            while($data = @mysqli_fetch_array($result)) {
                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                                            }
-                                           @mysqli_close($conn);
                                            ?>
                     </select>
                     <div class="invalid-feedback">
@@ -153,13 +154,11 @@
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
-                            include('mysql_connect.php');
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {
                                 echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                                             }
-                                            @mysqli_close($conn);
                                             ?>
                     </select>
                     <div class="invalid-feedback">
@@ -172,14 +171,11 @@
                     <select class="form-select form-select-sm" name="org" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
-                           include('mysql_connect.php');
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
                            $result = @mysqli_query($conn, $query);
                            while($data = @mysqli_fetch_array($result)) {
                                echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
-
                                            }
-                                           @mysqli_close($conn);
                                            ?>
                     </select>
                     <div class="invalid-feedback">
@@ -230,11 +226,7 @@
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
               <?php
-              if (isset($_POST['password']) !== isset($_POST['confirmpassword']))
-              {
-              	echo '<script>alert("Password must match!")</script>';
-              }
-                else if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
                 {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -250,7 +242,6 @@
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
-                      include('mysql_connect.php');
                       $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
                       $result = @mysqli_query($conn, $query);
 
