@@ -316,7 +316,7 @@ Array.from(forms)
   });
 });
   $(document).ready(function(){
-    $("#section").inputmask("999a", {
+    $("#section").inputmask("999A", {
       autoUnmask: true,
       removeMaskOnSubmit: true,
       showMaskOnFocus: false,
