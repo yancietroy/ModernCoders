@@ -88,7 +88,7 @@ if(isset($_SESSION['msg'])){
 
         <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
             <div class="container-fluid">
-                <button type="btn btn-light d-inline-block d-lg-none" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
+                <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
                     <i class="fas fa-align-justify"></i>
                 </button>
 
@@ -153,7 +153,7 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class='col-12 col-md-4 mt-2'>
                             <label>Email:</label>
-                            <h5>$row[3]</h5>
+                            <h6>$row[3]</h6>
                             <label>Section:</label>
                             <h5>$row[4]</h5>
                         </div>

@@ -66,16 +66,14 @@
                   <div class="col-4 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                      <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
-                      <span id="birthDateSelected"></span>
-
+                      <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback">Age field cannot be blank!</div>
+                      <div class="invalid-feedback">Birthdate field invalid!</div>
                     </div>
                   </div>
                   <div class="col-3 col-md-4 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="age" id="asterisk">Age</label>
+                      <label class="form-label" for="age">Age</label>
                       <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
@@ -89,7 +87,7 @@
 
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
-                               <div class="valid-feedback mv-up"></div>
+                               <div class="valid-feedback check"> &#x2713;</div>
                                 <div class="invalid-feedback mv-up">Please select a gender!</div>
                             </div>
 
@@ -309,17 +307,26 @@ Array.from(forms)
   $(document).ready(function(){
     $("#studentid").inputmask("99-999999", {
       autoUnmask: true,
-      removeMaskOnSubmit: true
+      removeMaskOnSubmit: true,
+      showMaskOnFocus: false,
+      showMaskOnHover: false,
+      onincomplete: function () {
+        alert('student id field incomplete');
+      }
   });
 });
-  </script>
-  <script type='text/javascript'>
   $(document).ready(function(){
     $("#section").inputmask("999a", {
       autoUnmask: true,
-      removeMaskOnSubmit: true
+      removeMaskOnSubmit: true,
+      showMaskOnFocus: false,
+      showMaskOnHover: false,
+      onincomplete: function () {
+        alert('section field incomplete');
+      }
   });
 });
+
   </script>
 
   <!--Uppercase first letter !-->
