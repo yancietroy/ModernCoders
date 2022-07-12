@@ -138,7 +138,7 @@ include('mysql_connect.php');
                            while($row = @mysqli_fetch_array($result)) {
                                echo '<option value="'.$row['college'] . 'hidden ="' . $row['college_id'] . '">'.$row['college'] . '</option>';
                             }
-                                           ?>
+                      ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a college program
@@ -150,13 +150,13 @@ include('mysql_connect.php');
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                      <?php
+                      <!-- <?php
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($row = @mysqli_fetch_array($result)) {
                                 echo '<option value="'.$row[0].'">'.$row[0].'</option>';
                                             }
-                                            ?>
+                      ?> -->
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -260,32 +260,11 @@ include('mysql_connect.php');
       </div>
     </div>
   </section>
-  <!-- <?php 
-include('mysql_connect.php');
-if(!empty($_POST["college_id"])){
-  $coid = $_POST['college_id'];
-  // Fetch college data based on specific course
-  $query = "SELECT * FROM tb_course WHERE college_id = '$coid'";
-  $result = @mysqli_query($conn, $query);
-
-  // Generate HTML of state options list
-  if($result->num_rows > 0){
-    echo '<option class="greyclr" selected disabled value="" text-muted>Select Course</option>';
-    while($row = @mysqli_fetch_array($result)){
-      echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
-    }
-  }
-  else {
-    echo 'option class="greyclr" selected disabled value="" text-muted>Select Course</option>';
-  }
-}
-@mysqli_close($conn);
-?>-->
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <!-- jQuery library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- Dependent Dropdown 
+  <!-- Dependent Dropdown -->
   <script>
     function getcourse(val){
         $.ajax({
@@ -298,7 +277,7 @@ if(!empty($_POST["college_id"])){
         });
       }    
     ;
-  </script>-->
+  </script>
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
