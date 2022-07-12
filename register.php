@@ -130,7 +130,7 @@ include('mysql_connect.php');
                 <div class="row">
                   <div class="col-3 col-md-4   mb-4">
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select onChange="getcourse(this.value);" class="form-select form-select-sm" name="college" id="college" required>
+                    <select class="form-select form-select-sm" name="college" id="college" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
                            $query = "SELECT * FROM tb_collegedept";
@@ -155,7 +155,7 @@ include('mysql_connect.php');
                             $result = @mysqli_query($conn, $query);
                             while($row = @mysqli_fetch_array($result)) {
                                 echo '<option value="'.$row[0].'">'.$row[0].'</option>';
-                                            }
+                            }
                       ?> -->
                     </select>
                     <div class="invalid-feedback">
@@ -266,16 +266,20 @@ include('mysql_connect.php');
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Dependent Dropdown -->
   <script>
-    function getcourse(val){
+    $.(document).ready(function(){
+      $('#college').on('change', function(){
+        var college_id = this.value;
         $.ajax({
           type: 'POST',
           url: 'action.php',
-          data: 'college_id = '+val,
+          data: {college_id: college_id},
+          cache: false,
           success: function(data) {
             $('#course').html(data);
           }
         });
-      }    
+      });
+    });
     ;
   </script>
   <script>
