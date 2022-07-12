@@ -85,11 +85,13 @@ ul ul a {
   background: #00226C;
 }
 
+
 /* ---------------------------------------------------
     NAVBAR BUTTON STYLE
 ----------------------------------------------------- */
 .btn-info,
 .btn-info:focus {
+  margin-left: 10px;
   background: #00226C;
   color: white;
 }
@@ -333,6 +335,10 @@ option {
   min-width: 500px;
 }
 
+.check {
+  font-size:50px;
+  font-weight: bolder;
+}
 /*----
 USER Management
 ----*/
