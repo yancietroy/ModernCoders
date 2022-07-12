@@ -154,7 +154,7 @@ include('mysql_connect.php');
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($row = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$row[0].'">'.$row[0].'</option>';
+                                echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
                             }
                       ?> -->
                     </select>
