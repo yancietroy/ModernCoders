@@ -193,7 +193,7 @@
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
-                      <div class="valid-feedback">Email field is valid!</div>
+                      <div class="valid-feedback"></div>
                       <div class="invalid-feedback">Email field invalid!</div>
                     </div>
                   </div>
