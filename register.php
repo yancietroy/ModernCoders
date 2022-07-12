@@ -4,7 +4,6 @@ include('mysql_connect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,8 +12,7 @@ include('mysql_connect.php');
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
-
-        <form action="register.php" method="post" class="requires-validation" novalidate>
+        <form action="" method="post" class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -131,16 +129,15 @@ include('mysql_connect.php');
                   </div>
                 <div class="row">
                   <div class="col-3 col-md-4   mb-4">
-
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
+                    <select onChange="getcourse(this.value);" class="form-select form-select-sm" name="college" id="college" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
+                           $query = "SELECT * FROM tb_collegedept";
                            $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
+                           while($row = @mysqli_fetch_array($result)) {
+                               echo '<option value="'.$row['college'] . 'hidden ="' . $row['college_id'] . '">'.$row['college'] . '</option>';
+                            }
                                            ?>
                     </select>
                     <div class="invalid-feedback">
@@ -151,13 +148,13 @@ include('mysql_connect.php');
                   <div class="col-3 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm"  style="width:100%;" name="course" id="select-group" required>
+                    <select class="form-select form-select-sm"  style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                            while($row = @mysqli_fetch_array($result)) {
+                                echo '<option value="'.$row[0].'">'.$row[0].'</option>';
                                             }
                                             ?>
                     </select>
@@ -168,13 +165,13 @@ include('mysql_connect.php');
                   <div class="col-5 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
-                    <select class="form-select form-select-sm" name="org" id="select-group" required>
+                    <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
                            $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+                           while($row = @mysqli_fetch_array($result)) {
+                               echo '<option value="' . $row[1] .  '" >'. $row[0] . '</option>';
                                            }
                                            ?>
                     </select>
@@ -263,11 +260,45 @@ include('mysql_connect.php');
       </div>
     </div>
   </section>
+  <!-- <?php 
+include('mysql_connect.php');
+if(!empty($_POST["college_id"])){
+  $coid = $_POST['college_id'];
+  // Fetch college data based on specific course
+  $query = "SELECT * FROM tb_course WHERE college_id = '$coid'";
+  $result = @mysqli_query($conn, $query);
 
+  // Generate HTML of state options list
+  if($result->num_rows > 0){
+    echo '<option class="greyclr" selected disabled value="" text-muted>Select Course</option>';
+    while($row = @mysqli_fetch_array($result)){
+      echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
+    }
+  }
+  else {
+    echo 'option class="greyclr" selected disabled value="" text-muted>Select Course</option>';
+  }
+}
+@mysqli_close($conn);
+?>-->
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Dependent Dropdown 
+  <script>
+    function getcourse(val){
+        $.ajax({
+          type: 'POST',
+          url: 'action.php',
+          data: 'college_id = '+val,
+          success: function(data) {
+            $('#course').html(data);
+          }
+        });
+      }    
+    ;
+  </script>-->
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -317,9 +348,7 @@ Array.from(forms)
       }
   });
 });
-
   </script>
-
   <!--Uppercase first letter !-->
   <script>
   // Get a reference to the input and wire it up to an input event handler that
