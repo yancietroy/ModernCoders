@@ -9,6 +9,6 @@ Description: To connect to the MySQL server and database
 $username ="root";
 $password="";
 $database="dbstudentorgportal";
-$conn = mysqli_connect("localhost",$username,$password);
+$connect = mysqli_connect("localhost",$username,$password);
 mysqli_select_db($conn, $database) or die ("Unable to select database");
 ?>
