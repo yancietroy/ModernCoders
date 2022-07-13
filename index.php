@@ -151,13 +151,13 @@ if(isset($_SESSION['msg'])){
                             <label>Course:</label>
                             <h6>$row[2]</h6>
                         </div>
-                        <div class='col-12 col-md-4 mt-2'>
+                        <div class='col-8 col-md-4 mt-2'>
                             <label>Email:</label>
                             <h6>$row[3]</h6>
                             <label>Section:</label>
                             <h5>$row[4]</h5>
                         </div>
-                        <div class='col-12 col-md-3 mt-2'>
+                        <div class='col-4 col-md-3 mt-2'>
                             <label>Student ID:</label>
                             <h5>$row[0]</h5>
                             <label>Year Level:</label>
