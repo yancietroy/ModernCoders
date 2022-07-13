@@ -150,13 +150,13 @@ include('mysql_connect.php');
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                      <!-- <?php
+                      <?php
                             $query = "SELECT course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($row = @mysqli_fetch_array($result)) {
                                 echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
                             }
-                      ?> -->
+                      ?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -263,12 +263,13 @@ include('mysql_connect.php');
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <!-- jQuery library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Dependent Dropdown -->
-  <script>
+   </script>
+  <!--<script>
     $(document).ready(function(){
       $('#college').on('change', function(){
-        var college_id = this.value;
+        var college_id = $(this).val();
         $.ajax({
           type: 'POST',
           url: 'action.php',
@@ -281,7 +282,7 @@ include('mysql_connect.php');
       });
     });
     ;
-  </script>
+  </script> -->
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -398,8 +399,8 @@ $(document).ready(function () {
           $.prop(this, 'value', oldVal);
       });
   });
-
   </script>
+
 </body>
 
 </html>

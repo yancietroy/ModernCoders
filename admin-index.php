@@ -4,8 +4,7 @@ session_start();
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} 
-else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:admin-login.php");
   }
