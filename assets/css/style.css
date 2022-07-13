@@ -337,9 +337,8 @@ option {
   min-width: 500px;
 }
 
-.check {
-  font-size:50px;
-  font-weight: bolder;
+#displayError2 {
+  display:none;
 }
 /*----
 USER Management

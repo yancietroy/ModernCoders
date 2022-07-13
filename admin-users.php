@@ -1,6 +1,18 @@
+<?php
+ob_start();
+session_start();
+$id = $_SESSION['use'];
+include('mysql_connect.php');
+if(isset($_SESSION['msg'])){
+    print_r($_SESSION['msg']);#display message
+    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:admin-login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -150,17 +162,76 @@
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-          <table id="example" class="table table-striped table-hover" style="width:100%">
-                  <thead>
+                  <?php
+                  $query = "SELECT STUDENT_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL, YEAR_LEVEL, DATE_FORMAT(`BIRTHDATE`,'%M %d, %Y') AS 'Birth Date', AGE FROM tb_students";
+                  $result = @mysqli_query($conn,$query);
+                  $i = 0;
+                  $sid = " ";
+                  $name = " ";
+                  $email = " ";
+                  $ylevel = " ";
+                  $bdate = " ";
+                  $age = " ";
+                  echo "<table id='example' class='table table-striped table-hover' style='width:100%'>
+                        <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Birth date</th>
+                              <th>Age</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      ";
+                  if ($result !== false && $result->num_rows > 0)
+                  {
+                      // output data of each row
+                      while($row = $result->fetch_assoc())
+                      {
+                      $sid = $row["STUDENT_ID"];
+                      $name = $row["NAME"];
+                      $email = $row["EMAIL"];
+                      $ylevel = $row["YEAR_LEVEL"];
+                      $bdate =  $row["Birth Date"];
+                      $age =$row["AGE"];
+
+                      echo "<tr>
+                            <td> $sid  </td>
+                            <td> $name  </td>
+                            <td> $email  </td>
+                            <td> $ylevel  </td>
+                            <td> $bdate  </td>
+                            <td> $age  </td>
+                            </tr>
+                          ";
+                      }
+                  echo "</tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Year Level</th>
+                                <th>Birth date</th>
+                                <th>Age</th>
+                            </tr>
+                        </tfoot>
+                        </table>";
+                  }
+                  $conn->close();
+                  ?>
+                  <!--<thead>
                       <tr>
+                          <th>Student ID</th>
                           <th>Name</th>
-                          <th>Position</th>
-                          <th>Office</th>
+                          <th>Email</th>
+                          <th>Year Level</th>
+                          <th>Birth date</th>
                           <th>Age</th>
-                          <th>Start date</th>
-                          <th>Salary</th>
                       </tr>
-                  </thead>
+                      </thead>
                   <tbody>
                       <tr>
                           <td>Tiger Nixon</td>
@@ -629,7 +700,7 @@
                           <th>Salary</th>
                       </tr>
                   </tfoot>
-              </table>
+              </table>-->
          </div>
        </div>
      </div>
