@@ -15,7 +15,7 @@ include('mysql_connect.php');
 </head>
 <body class="bg">
 
-        <form action="register.php" method="post" id="form" name="form" class="requires-validation" novalidate>
+        <form method="post" id="form" name="form" class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -41,18 +41,21 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
-                      <input type="text" name="first_name" onkeypress="return /[a-z, ]/i.test(event.key)" maxlength="20" id="txtTest" class="form-control form-control-lg" required />
+                      <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$" maxlength="20" id="txtTest" class="form-control form-control-lg" required />
                       <div class="valid-feedback"></div>
-                      <div class="invalid-feedback">First name field cannot be blank!</div>
+                      <div class="invalid-feedback">First name field invalid!</div>
                     </div>
                   </div>
                   <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
-                      <input type="text" name="middle_name" onkeypress="return /[a-z, ]/i.test(event.key)"   maxlength="20" id="txtTest2" class="form-control form-control-lg" />
-                      <div class="valid-feedback">
-                      </div>
+                      <input type="text" name="middle_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$"    maxlength="20" id="txtTest2" class="form-control form-control-lg" />
+                      <div class="valid-feedback"> </div>
+                      <div class="invalid-feedback">Middle name field invalid!</div>
+
                     </div>
 
                   </div>
@@ -60,9 +63,10 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                      <input type="text" name="last_name" onkeypress="return /[a-z, ]/i.test(event.key)"  maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
+                      <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$"   maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback">Last name field cannot be blank!</div>
+                      <div class="invalid-feedback">Last name field invalid!</div>
                     </div>
                   </div>
                 </div>
@@ -221,14 +225,14 @@ include('mysql_connect.php');
                 </div>
 
                 <div class="col-12 col-md-12 mb-4">
-                  <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
+                  <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="Validate!">Register</button>
 
                 </div>
 
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
-              <?php
+             <?php
 
 
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
@@ -249,7 +253,7 @@ include('mysql_connect.php');
                   $pass = $_POST['password'];
                   $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
-                if( strlen($pass) < 8 ) {
+                /*if( strlen($pass) < 8 ) {
               $error .= "Password too short!
               ";
               }
@@ -286,7 +290,7 @@ include('mysql_connect.php');
 
               if($error){
               echo "Password validation failure: $error";
-              } else {
+            } else {*/
 
 
                       $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course',
@@ -302,7 +306,7 @@ include('mysql_connect.php');
                           @mysqli_close($conn);
                 }
 
-                  }
+                  //}
               ?>
           </form>
 
@@ -317,8 +321,7 @@ include('mysql_connect.php');
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
+<!--<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script> -->
   <!-- Popover -->
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
@@ -328,7 +331,12 @@ include('mysql_connect.php');
   <!-- JavaScript validation -->
   <script src="assets/js/bootstrap-validation.js"></script>
   <script src="js/form-validation.js"></script>
-
+<script>  $(document).ready(function(){
+    $('input:text').bind('cut copy paste', function(e) {
+        e.preventDefault();
+         return false;
+    });
+});</script>
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
   <script src="assets/js/inputmask-validation.js"></script>

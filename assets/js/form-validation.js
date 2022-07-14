@@ -1,4 +1,4 @@
-$(document).ready(function() {
+  /*$(document).ready(function() {
   $("form[name='form']").validate({
           rules: {
                 first_name: "required",
@@ -17,7 +17,7 @@ $(document).ready(function() {
                 confirmpassword: "required": {
                   required: true,
               },
-              /*
+
               txtConfirmPassword: {
                                 required: true,
                                 minlength: 8,
@@ -28,7 +28,7 @@ $(document).ready(function() {
                                 email: true
                             }
                           }
-*/
+
 
           messages: {
              first_name: "Please provide a valid name.",
@@ -59,4 +59,5 @@ $(document).ready(function() {
                  form.submit();
           }
       });
-          });
+    });
+*/

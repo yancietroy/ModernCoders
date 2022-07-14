@@ -46,11 +46,38 @@ function checkPasswordMatch() {
   var confirmPassword = $("#txtConfirmPassword").val();
 
   if (password != confirmPassword)
-      $("#divCheckPasswordMatch").html("Passwords do not match!").css('color', 'red');
+      $("#divCheckPasswordMatch").text("Passwords do not match!").css('color', 'red');
   else
-      $("#divCheckPasswordMatch").html("Passwords match.").css('color', 'green');
+      $("#divCheckPasswordMatch").text("Passwords match.").css('color', 'green');
 }
 
 $(document).ready(function () {
  $("#txtConfirmPassword").keyup(checkPasswordMatch);
 });
+/*Wait for the DOM to be ready
+$(function() {
+// Initialize form validation on the registration form.
+// It has the name attribute "registration"
+$("#form").validate({
+  // Specify validation rules
+  rules: {
+    password: {
+      required: true,
+      minlength: 5,
+      pwcheck: true
+    }
+  },
+  // Specify validation error messages
+  messages: {
+    password: "Passwords must contain at least eight characters, including uppercase, lowercase letters, numbers, and special characters."
+  },
+  submitHandler: function(form) {
+    form.submit();
+  }
+});
+ $.validator.addMethod("pwcheck", function(value) {
+      return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+         && /[a-z]/.test(value) // has a lowercase letter
+         && /\d/.test(value) // has a digit
+    });
+});*/
