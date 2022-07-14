@@ -273,7 +273,7 @@ include('mysql_connect.php');
         $.ajax({
           type: 'POST',
           url: 'action.php',
-          data: 'college_id ='+ college_id,
+          data: {college_id: college_id},
           success: function(html) {
             $('#course').html(html);
           }
