@@ -4,6 +4,7 @@ $(document).ready(function(){
     onincomplete: function () {
       $("#errorstudid").show();
     },
+    clearIncomplete: true,
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,
@@ -18,6 +19,8 @@ $(document).ready(function(){
     onincomplete: function () {
       $("#errorsection").show();
     },
+
+    clearIncomplete: true,
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,

@@ -68,7 +68,7 @@ if(isset($_SESSION['msg'])){
                 <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
             </li>
             <li>
-                <a href="#"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+                <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
               </li>
           </ul>
         </li>

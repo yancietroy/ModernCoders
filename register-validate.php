@@ -247,6 +247,7 @@ include('mysql_connect.php');
                   $section = $_POST['section'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
+                  $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
                 if( strlen($pass) < 8 ) {
               $error .= "Password too short!
@@ -289,7 +290,7 @@ include('mysql_connect.php');
 
 
                       $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course',
-                        '$morgid', '$section', '$e', SHA('$pass'))";
+                        '$morgid', '$section', '$e','hashed_password'))";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
