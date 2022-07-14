@@ -210,7 +210,7 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                                <th>Student ID</th>
+                                <th>Admin ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Year Level</th>
