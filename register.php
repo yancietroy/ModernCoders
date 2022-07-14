@@ -104,7 +104,7 @@ include('mysql_connect.php');
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
                       <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-######" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback">student id field cannot be blank!</div>
+                      <div class="invalid-feedback" id="errorstudid">student id field incomplete!</div>
                     </div>
                   </div>
                       <div class="col-6 col-md-4   mb-4">
@@ -125,7 +125,7 @@ include('mysql_connect.php');
                           <label class="form-label" for="section" id="asterisk">Section</label>
                           <input type="text" name="section" id="section" class="form-control" placeholder="####" required />
                           <div class="valid-feedback">  </div>
-                          <div class="invalid-feedback">section field cannot be blank!</div>
+                          <div class="invalid-feedback" id="errorsection">section field incomplete!</div>
                         </div>
                       </div>
                   </div>
@@ -268,6 +268,8 @@ include('mysql_connect.php');
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
 
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
@@ -292,60 +294,12 @@ Array.from(forms)
   })
 })()
   </script>
-
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
-  <script type='text/javascript'>
-  $(document).ready(function(){
-    $("#studentid").inputmask("99-999999", {
-      autoUnmask: true,
-      removeMaskOnSubmit: true,
-      showMaskOnFocus: false,
-      showMaskOnHover: false,
-      onincomplete: function () {
-        alert('student id field incomplete');
-      }
-  });
-});
-  $(document).ready(function(){
-    $("#section").inputmask("999A", {
-      autoUnmask: true,
-      removeMaskOnSubmit: true,
-      showMaskOnFocus: false,
-      showMaskOnHover: false,
-      onincomplete: function () {
-        alert('section field incomplete');
-      }
-  });
-});
-
-  </script>
+  <script src="assets/js/inputmask-validation.js"></script>
 
   <!--Uppercase first letter !-->
-  <script>
-  // Get a reference to the input and wire it up to an input event handler that
-// calls the fixer function
-document.getElementById("txtTest").addEventListener("input", forceLower);
-document.getElementById("txtTest2").addEventListener("input", forceLower);
-document.getElementById("txtTest3").addEventListener("input", forceLower);
-// Event handling functions are automatically passed a reference to the
-// event that triggered them as the first argument (evt)
-function forceLower(evt) {
-  // Get an array of all the words (in all lower case)
-  var words = evt.target.value.toLowerCase().split(/\s+/g);
-
-  // Loop through the array and replace the first letter with a cap
-  var newWords = words.map(function(element){
-    // As long as we're not dealing with an empty array element, return the first letter
-    // of the word, converted to upper case and add the rest of the letters from this word.
-    // Return the final word to a new array
-    return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-  });
-
- // Replace the original value with the updated array of capitalized words.
- evt.target.value = newWords.join(" ");
-}
-  </script>
+  <script src="assets/js/uppercase-firstletter.js"></script>
 
   <!-- Confirm Password !-->
   <script>
@@ -365,30 +319,9 @@ $(document).ready(function () {
 
   </script>
 
-
   <!-- age validation !-->
-  <script type="text/javascript">
+  <script src="assets/js/age-validation.js"></script>
 
-  function getAge(){
-      var dob = document.getElementById('birthDate').value;
-      dob = new Date(dob);
-      var today = new Date();
-      var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-      document.getElementById('age').value=age;
-  }
-
-  $(function () {
-      $('input[data-relmax]').each(function () {
-          var oldVal = $(this).prop('value');
-          var relmax = $(this).data('relmax');
-          var max = new Date();
-          max.setFullYear(max.getFullYear() + relmax);
-          $.prop(this, 'max', $(this).prop('valueAsDate', max).val());
-          $.prop(this, 'value', oldVal);
-      });
-  });
-
-  </script>
 </body>
 
 </html>
