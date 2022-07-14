@@ -136,7 +136,7 @@ include('mysql_connect.php');
                            $query = "SELECT * FROM tb_collegedept";
                            $result = @mysqli_query($conn, $query);
                            while($row = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$row['college'] . 'hidden ="' . $row['college_id'] . '">'.$row['college'] . '</option>';
+                               echo '<option value="'.$row['college_id'] . '">'.$row['college'] . '</option>';
                             }
                       ?>
                     </select>
@@ -150,13 +150,13 @@ include('mysql_connect.php');
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
                     <select class="form-select form-select-sm"  style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                      <?php
-                            $query = "SELECT course FROM tb_course";
-                            $result = @mysqli_query($conn, $query);
-                            while($row = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
-                            }
-                      ?>
+                      <!-- <?php
+                            //$query = "SELECT course FROM tb_course";
+                            //$result = @mysqli_query($conn, $query);
+                            //while($row = @mysqli_fetch_array($result)) {
+                                //echo '<option value="'.$row['course']. 'hidden ="' . $row['course_id'] . '">'.$row['course'].'</option>';
+                            //}
+                      ?> -->
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -223,7 +223,7 @@ include('mysql_connect.php');
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
               <?php
-              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($morg) || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
                 {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -263,27 +263,24 @@ include('mysql_connect.php');
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <!-- jQuery library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- Dependent Dropdown -->
-   </script>
-  <!--<script>
+  <script>
     $(document).ready(function(){
       $('#college').on('change', function(){
         var college_id = $(this).val();
         $.ajax({
           type: 'POST',
           url: 'action.php',
-          data: {college_id: college_id},
-          cache: false,
-          success: function(data) {
-            $('#course').html(data);
+          data: 'college_id ='+ college_id,
+          success: function(html) {
+            $('#course').html(html);
           }
-        });
-      });
-    });
-    ;
-  </script> -->
+        })
+      })
+    })
+  </script> 
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
