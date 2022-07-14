@@ -163,7 +163,7 @@ if(isset($_SESSION['msg'])){
     <div class="row">
    <div class="col-xs-12">
                   <?php
-                  $query = "SELECT STUDENT_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL, YEAR_LEVEL, DATE_FORMAT(`BIRTHDATE`,'%M %d, %Y') AS 'Birth Date', AGE FROM tb_students";
+                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL FROM tb_admin";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
                   $sid = " ";
@@ -175,12 +175,9 @@ if(isset($_SESSION['msg'])){
                   echo "<table id='example' class='table table-striped table-hover' style='width:100%'>
                         <thead>
                           <tr>
-                              <th>Student ID</th>
+                              <th>Admin ID</th>
                               <th>Name</th>
                               <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Birth date</th>
-                              <th>Age</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -190,32 +187,23 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                      $sid = $row["STUDENT_ID"];
+                      $sid = $row["ADMIN_ID"];
                       $name = $row["NAME"];
                       $email = $row["EMAIL"];
-                      $ylevel = $row["YEAR_LEVEL"];
-                      $bdate =  $row["Birth Date"];
-                      $age =$row["AGE"];
 
                       echo "<tr>
                             <td> $sid  </td>
                             <td> $name  </td>
                             <td> $email  </td>
-                            <td> $ylevel  </td>
-                            <td> $bdate  </td>
-                            <td> $age  </td>
                             </tr>
                           ";
                       }
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                                <th>Admin ID</th>
+                                <th>ADMIN ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Year Level</th>
-                                <th>Birth date</th>
-                                <th>Age</th>
                             </tr>
                         </tfoot>
                         </table>";
