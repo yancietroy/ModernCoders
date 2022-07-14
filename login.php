@@ -52,7 +52,7 @@ if(isset($_SESSION['message'])){
                                     </div>
 
                                     <div class="form-floating mb-2">
-                                        <input type="password" class="form-control" name="password" id="password" minlength="8" value="" placeholder="password" required>
+                                        <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="20" value="" placeholder="password" required>
                                         <label class=" text-muted " for="password">Password</label>
                                         <div class="valid-feedback"></div>
                                         <div class="invalid-feedback">Password field invalid!</div>

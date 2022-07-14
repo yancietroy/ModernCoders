@@ -1,5 +1,5 @@
 //pass weakness checker
-
+/*
 $(document).ready(function() {
 $('#txtNewPassword').keyup(function() {
 $('#result').html(checkStrength($('#txtNewPassword').val()))
@@ -53,31 +53,52 @@ function checkPasswordMatch() {
 
 $(document).ready(function () {
  $("#txtConfirmPassword").keyup(checkPasswordMatch);
-});
-/*Wait for the DOM to be ready
-$(function() {
-// Initialize form validation on the registration form.
-// It has the name attribute "registration"
-$("#form").validate({
-  // Specify validation rules
-  rules: {
-    password: {
-      required: true,
-      minlength: 5,
-      pwcheck: true
-    }
+});*/
+
+//has uppercase
+window.Parsley.addValidator('uppercase', {
+  requirementType: 'number',
+  validateString: function(value, requirement) {
+    var uppercases = value.match(/[A-Z]/g) || [];
+    return uppercases.length >= requirement;
   },
-  // Specify validation error messages
   messages: {
-    password: "Passwords must contain at least eight characters, including uppercase, lowercase letters, numbers, and special characters."
-  },
-  submitHandler: function(form) {
-    form.submit();
+    en: 'Your password must contain at least (%s) uppercase letter.'
   }
 });
- $.validator.addMethod("pwcheck", function(value) {
-      return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-         && /[a-z]/.test(value) // has a lowercase letter
-         && /\d/.test(value) // has a digit
-    });
-});*/
+
+//has lowercase
+window.Parsley.addValidator('lowercase', {
+  requirementType: 'number',
+  validateString: function(value, requirement) {
+    var lowecases = value.match(/[a-z]/g) || [];
+    return lowecases.length >= requirement;
+  },
+  messages: {
+    en: 'Your password must contain at least (%s) lowercase letter.'
+  }
+});
+
+//has number
+window.Parsley.addValidator('number', {
+  requirementType: 'number',
+  validateString: function(value, requirement) {
+    var numbers = value.match(/[0-9]/g) || [];
+    return numbers.length >= requirement;
+  },
+  messages: {
+    en: 'Your password must contain at least (%s) number.'
+  }
+});
+
+//has special char
+window.Parsley.addValidator('special', {
+  requirementType: 'number',
+  validateString: function(value, requirement) {
+    var specials = value.match(/[^a-zA-Z0-9]/g) || [];
+    return specials.length >= requirement;
+  },
+  messages: {
+    en: 'Your password must contain at least (%s) special characters.'
+  }
+});
