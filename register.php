@@ -188,7 +188,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                      <input type="email" class="form-control" onkeypress="return /[a-z@.]/i.test(event.key)" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback">Email field invalid!</div>
                     </div>
