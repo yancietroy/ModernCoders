@@ -2,6 +2,7 @@
 session_start();
 include('mysql_connect.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@ include('mysql_connect.php');
 </head>
 <body class="bg">
 
-        <form action="register.php" method="post" class="requires-validation" novalidate>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate  data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -40,18 +41,21 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
-                      <input type="text" name="first_name" onkeypress="return /[a-z, ]/i.test(event.key)" maxlength="20" id="txtTest" class="form-control form-control-lg" required />
+                      <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required=""/>
                       <div class="valid-feedback"></div>
-                      <div class="invalid-feedback">First name field cannot be blank!</div>
+                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
                     </div>
                   </div>
                   <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="middleName">Middle name</label>
-                      <input type="text" name="middle_name" onkeypress="return /[a-z, ]/i.test(event.key)"   maxlength="20" id="txtTest2" class="form-control form-control-lg" />
-                      <div class="valid-feedback">
-                      </div>
+                      <input type="text" name="middle_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$"    maxlength="20" id="txtTest2" class="form-control form-control-lg" />
+                      <div class="valid-feedback"> </div>
+                      <!--<div class="invalid-feedback">Middle name field invalid!</div>-->
+
                     </div>
 
                   </div>
@@ -59,30 +63,32 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                      <input type="text" name="last_name" onkeypress="return /[a-z, ]/i.test(event.key)"  maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
+                      <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$"   maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback">Last name field cannot be blank!</div>
+                      <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-8 col-md-4 mb-4">
+                  <div class="col-12 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback">Birthdate field invalid!</div>
+                    <!--  <div class="invalid-feedback">Birthdate field invalid!</div>-->
                     </div>
                   </div>
-                  <div class="col-4 col-md-4 mb-4">
+                  <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age">Age</label>
-                      <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                      <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly/>
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-8 col-md-4 mb-4 ">
+                  <div class="col-6 col-md-4 mb-4 ">
+                      <div class="form-outline">
                     <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
 
                     <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
@@ -90,24 +96,24 @@ include('mysql_connect.php');
 
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
-                               <div class="valid-feedback check"> &#x2713;</div>
-                                <div class="invalid-feedback mv-up">Please select a gender!</div>
+                    <!--<div class="valid-feedback check"> &#x2713;</div>
+                      <div class="invalid-feedback mv-up">Please select a gender!</div>-->
                             </div>
-
+                            </div>
                 </div>
                 <hr>
               <div class="row">
-                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
+                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-4">Academic Profile</h4>
                   <div class="col-12 col-md-4  col-md-4 mb-4">
                     <div class="form-outline">
 
                       <label class="form-label" for="studentid" id="asterisk">Student ID</label>
                       <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-######" required />
                       <div class="valid-feedback">  </div>
-                      <div class="invalid-feedback" id="errorstudid">student id field incomplete!</div>
+                    <!--   <div class="invalid-feedback" id="errorstudid">student id field invalid!</div>-->
                     </div>
                   </div>
-                      <div class="col-6 col-md-4   mb-4">
+                      <div class="col-7 col-md-4   mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
                         <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
@@ -117,15 +123,15 @@ include('mysql_connect.php');
                           <option value="4">Fourth Year</option>
                         </select>
                         <div class="valid-feedback">  </div>
-                        <div class="invalid-feedback">year field cannot be blank!</div>
+                        <!-- <div class="invalid-feedback">year field cannot be blank!</div>-->
                       </div>
-                      <div class="col-6 col-md-4 mb-4">
+                      <div class="col-5 col-md-4 mb-4">
                         <div class="form-outline">
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
                           <input type="text" name="section" id="section" class="form-control" placeholder="####" required />
                           <div class="valid-feedback">  </div>
-                          <div class="invalid-feedback" id="errorsection">section field incomplete!</div>
+                            <!--<div class="invalid-feedback" id="errorsection">section field invalid!</div>-->
                         </div>
                       </div>
                   </div>
@@ -143,9 +149,7 @@ include('mysql_connect.php');
                                            }
                                            ?>
                     </select>
-                    <div class="invalid-feedback">
-                      Please select a college program
-                    </div>
+                      <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>
 
                   <div class="col-12 col-md-4  mb-4">
@@ -161,9 +165,7 @@ include('mysql_connect.php');
                                             }
                                             ?>
                     </select>
-                    <div class="invalid-feedback">
-                      Please select a Course
-                    </div>
+                      <!--<div class="invalid-feedback">Please select a course</div>-->
                   </div>
                   <div class="col-12 col-md-4  mb-4">
 
@@ -178,9 +180,7 @@ include('mysql_connect.php');
                                            }
                                            ?>
                     </select>
-                    <div class="invalid-feedback">
-                      Please select a Organization
-                    </div>
+                    <!--<div class="invalid-feedback">Please select a organization</div>-->
                   </div>
                 </div>
                 <div class="row">
@@ -188,9 +188,9 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" onkeypress="return /[a-z@.]/i.test(event.key)" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;" readonly>
                       <div class="valid-feedback"></div>
-                      <div class="invalid-feedback">Email field invalid!</div>
+                        <!--<div class="invalid-feedback">Student ID field invalid</div>-->
                     </div>
                   </div>
 
@@ -198,28 +198,40 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control" name="password" id="txtNewPassword" minlength="8" required>
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20"
+                        data-parsley-errors-container=".errorspannewpassinput"
+                        data-parsley-required-message="Please enter your password."
+                        data-parsley-uppercase="1"
+                        data-parsley-lowercase="1"
+                        data-parsley-number="1"
+                        data-parsley-special="1"
+                        data-parsley-required required/>
+                      <span class="errorspannewpassinput"></span>
                       <div class="valid-feedback"> </div>
-                      <div class="invalid-feedback">Must be at least 8 characters long &#013;
+                        <!--<div class="invalid-feedback">Must be at least 8 characters long &#013;
                 Must contain at least one number &#013;
                       Must contain at least one special character &#013;
                       and must contain at least one uppercase and lowercase letter!</div>
                     </div>
-                  </div>
-                  <div class="col-6 col-md-4 mb-4">
-                    <div class="form-outline">
-
-                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control" name="confirmpassword" id="txtConfirmPassword" minlength="8" onChange="checkPasswordMatch();" required>
-                    </div>
-                        <div class="registrationFormAlert" id="divCheckPasswordMatch">
-                    </div>
+                      <span id="result"></span>!-->
                   </div>
                 </div>
-
+                  <div class="col-6 col-md-4 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                        data-parsley-errors-container=".errorspanconfirmnewpassinput"
+                        data-parsley-required-message="Please re-enter your password."
+                        data-parsley-equalto="#txtNewPassword"
+                        data-parsley-required required/>
+                        <span class="errorspanconfirmnewpassinput"></span>
+                        <div class="valid-feedback"> </div>
+                      <!--  <div class="invalid-feedback">Invalid Field!</div>-->
+                      </div>
+                  </div>
+              </div>
                 <div class="col-12 col-md-12 mb-4">
-                  <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
-
+                  <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit" value="Validate!">Register</button>
                 </div>
 
               <hr class="my-4">
@@ -265,35 +277,39 @@ include('mysql_connect.php');
     </div>
   </section>
 
-  <!-- JavaScript Bundle with Popper -->
+  <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
-
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>!-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+  <!-- Popover
   <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-  </script>
+  </script>-->
+
   <!-- JavaScript validation -->
+  <script src="assets/js/bootstrap-validation.js"></script>
+  <script src="js/form-validation.js"></script>
+  <!-- Prevent Cut Copy Paste -->
+<script>
+$(document).ready(function(){
+    $('input:text').bind('cut copy paste', function(e) {
+        e.preventDefault();
+         return false;
+    });
 
-  <script>
-  (function () {
-'use strict'
-const forms = document.querySelectorAll('.requires-validation')
-Array.from(forms)
-  .forEach(function (form) {
-    form.addEventListener('submit', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+});</script>
+  <!--email generator-->
+<script>
 
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-  </script>
+    $("#txtTest, #txtTest3").on('input', function() {
+    var fname = $("#txtTest").val().toLowerCase().replace(/\s/g,'');
+    var lname = $("#txtTest3").val().toLowerCase().replace(/\s/g,'');
+    $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
+});
+</script>
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
   <script src="assets/js/inputmask-validation.js"></script>
@@ -301,23 +317,8 @@ Array.from(forms)
   <!--Uppercase first letter !-->
   <script src="assets/js/uppercase-firstletter.js"></script>
 
-  <!-- Confirm Password !-->
-  <script>
-  function checkPasswordMatch() {
-    var password = $("#txtNewPassword").val();
-    var confirmPassword = $("#txtConfirmPassword").val();
-
-    if (password != confirmPassword)
-        $("#divCheckPasswordMatch").html("Passwords do not match!");
-    else
-        $("#divCheckPasswordMatch").html("Passwords match.");
-}
-
-$(document).ready(function () {
-   $("#txtConfirmPassword").keyup(checkPasswordMatch);
-});
-
-  </script>
+  <!--password validation!-->
+  <script src="assets/js/pass-validation.js"></script>
 
   <!-- age validation !-->
   <script src="assets/js/age-validation.js"></script>

@@ -2,39 +2,40 @@
     FONT
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Open+Sans:wght@300&display=swap');
 /* ---------------------------------------------------
     PAGE STYLE
 ----------------------------------------------------- */
 html,
 body {
-  font-family: 'Poppins', sans-serif;
-  height: 100%;
-  width: 100%;
-  padding-bottom: 40px;
-  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+    width: 100vw;
+    margin: 0!important;
+    padding: 0!important;
+    background-size: 100% 100%;
+  overflow-x: hidden ;
 }
 
 p {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1em;
   font-weight: 300;
   line-height: 1.7em;
 }
 
 h3, h4, h5 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 a,
 a:hover,
 a:focus {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: inherit;
   text-decoration: none;
   transition: all 0.3s;
 }
-
 i,
 span {
   display: inline-block;
@@ -68,7 +69,10 @@ span {
   display: block;
   overflow: hidden;
 }
+#topbar a:active {
 
+    background-color: white;
+}
 #topbar ul li a:hover {
   color: #F2AC1B;
   background: 0 0 2rem 0 rgba(0, 0, 0, .2);
@@ -77,6 +81,7 @@ span {
 a[aria-expanded="true"] {
   background: #fff !important;
   color: #F2AC1B !important;
+
 }
 
 ul ul a {
@@ -335,10 +340,46 @@ option {
   min-width: 500px;
 }
 
-.check {
-  font-size:50px;
-  font-weight: bolder;
+#displayError2 {
+  display:none;
 }
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  /*color: #468847;
+  background-color: #DFF0D8;
+  border: 1px solid #D6E9C6;*/
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  /*color: #B94A48;
+  background-color: #F2DEDE;
+  border: 1px solid #EED3D7;*/
+}
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 3px;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  opacity: 0;
+  color: #B94A48;
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.parsley-errors-list.filled {
+  opacity: 1;
+}
+.errorspannewpassinput, .errorspanconfirmnewpassinput{
+  color: red;
+}
+
 /*----
 USER Management
 ----*/
