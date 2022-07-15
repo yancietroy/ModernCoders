@@ -2,13 +2,13 @@
     FONT
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Open+Sans:wght@300&display=swap');
 /* ---------------------------------------------------
     PAGE STYLE
 ----------------------------------------------------- */
 html,
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   height: 100vh;
     width: 100vw;
     margin: 0!important;
@@ -18,25 +18,24 @@ body {
 }
 
 p {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1em;
   font-weight: 300;
   line-height: 1.7em;
 }
 
 h3, h4, h5 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 a,
 a:hover,
 a:focus {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: inherit;
   text-decoration: none;
   transition: all 0.3s;
 }
-
 i,
 span {
   display: inline-block;
@@ -70,7 +69,10 @@ span {
   display: block;
   overflow: hidden;
 }
+#topbar a:active {
 
+    background-color: white;
+}
 #topbar ul li a:hover {
   color: #F2AC1B;
   background: 0 0 2rem 0 rgba(0, 0, 0, .2);
@@ -79,6 +81,7 @@ span {
 a[aria-expanded="true"] {
   background: #fff !important;
   color: #F2AC1B !important;
+
 }
 
 ul ul a {

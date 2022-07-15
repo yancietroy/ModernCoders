@@ -15,7 +15,7 @@ include('mysql_connect.php');
 </head>
 <body class="bg">
 
-        <form method="post" id="form" name="form" data-parsley-validate  data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate  data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
   <section class="h-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -42,7 +42,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
                       <label class="form-label" for="firstName" id="asterisk">First name</label>
                       <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)"
-                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$" maxlength="20" id="txtTest" class="form-control form-control-lg" required=""/>
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required=""/>
                       <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                     </div>
@@ -52,9 +52,9 @@ include('mysql_connect.php');
 
                       <label class="form-label" for="middleName">Middle name</label>
                       <input type="text" name="middle_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
-                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$"    maxlength="20" id="txtTest2" class="form-control form-control-lg" />
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$"    maxlength="20" id="txtTest2" class="form-control form-control-lg" />
                       <div class="valid-feedback"> </div>
-                      <div class="invalid-feedback">Middle name field invalid!</div>
+                      <!--<div class="invalid-feedback">Middle name field invalid!</div>-->
 
                     </div>
 
@@ -64,14 +64,14 @@ include('mysql_connect.php');
 
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
                       <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)"
-                      pattern="^[A-Z](?=.{1,20}$)[A-Za-z]*(?:\h+[A-Z][A-Za-z]*)*$"   maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
+                      pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$"   maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
                       <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-8 col-md-4 mb-4">
+                  <div class="col-12 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
                       <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
@@ -79,15 +79,15 @@ include('mysql_connect.php');
                     <!--  <div class="invalid-feedback">Birthdate field invalid!</div>-->
                     </div>
                   </div>
-                  <div class="col-4 col-md-4 mb-4">
+                  <div class="col-6 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="age">Age</label>
-                      <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                      <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly/>
                       <div class="valid-feedback">  </div>
                       <div class="invalid-feedback">Age field cannot be blank!</div>
                     </div>
                   </div>
-                  <div class="col-8 col-md-4 mb-4 ">
+                  <div class="col-6 col-md-4 mb-4 ">
                       <div class="form-outline">
                     <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
 
@@ -96,14 +96,14 @@ include('mysql_connect.php');
 
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
-                    <div class="valid-feedback check"> &#x2713;</div>
-                    <!--  <div class="invalid-feedback mv-up">Please select a gender!</div>-->
+                    <!--<div class="valid-feedback check"> &#x2713;</div>
+                      <div class="invalid-feedback mv-up">Please select a gender!</div>-->
                             </div>
                             </div>
                 </div>
                 <hr>
               <div class="row">
-                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
+                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-4">Academic Profile</h4>
                   <div class="col-12 col-md-4  col-md-4 mb-4">
                     <div class="form-outline">
 
@@ -113,7 +113,7 @@ include('mysql_connect.php');
                     <!--   <div class="invalid-feedback" id="errorstudid">student id field invalid!</div>-->
                     </div>
                   </div>
-                      <div class="col-6 col-md-4   mb-4">
+                      <div class="col-7 col-md-4   mb-4">
                         <label class="form-label select-label" id="asterisk">Year Level</label>
                         <select class=" form-select" name="school_year" id="select-group" required>
                           <option class="greyclr" selected disabled value="" >Select Year</option>
@@ -125,7 +125,7 @@ include('mysql_connect.php');
                         <div class="valid-feedback">  </div>
                         <!-- <div class="invalid-feedback">year field cannot be blank!</div>-->
                       </div>
-                      <div class="col-6 col-md-4 mb-4">
+                      <div class="col-5 col-md-4 mb-4">
                         <div class="form-outline">
 
                           <label class="form-label" for="section" id="asterisk">Section</label>
@@ -188,7 +188,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;" readonly>
                       <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">Student ID field invalid</div>-->
                     </div>
@@ -237,9 +237,7 @@ include('mysql_connect.php');
               <hr class="my-4">
               <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
               </p>
-             <?php
-
-
+              <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
                || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
                 {
@@ -256,50 +254,8 @@ include('mysql_connect.php');
                   $section = $_POST['section'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
-                  $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
-                /*if( strlen($pass) < 8 ) {
-              $error .= "Password too short!
-              ";
-              }
-
-              if( strlen($pass) > 20 ) {
-              $error .= "Password too long!
-              ";
-              }
-
-              if( strlen($pass) < 8 ) {
-              $error .= "Password too short!
-              ";
-              }
-
-              if( !preg_match("#[0-9]+#", $pass) ) {
-              $error .= "Password must include at least one number!
-              ";
-              }
-
-              if( !preg_match("#[a-z]+#", $pass) ) {
-              $error .= "Password must include at least one letter!
-              ";
-              }
-
-              if( !preg_match("#[A-Z]+#", $pass) ) {
-              $error .= "Password must include at least one CAPS!
-              ";
-              }
-
-              if( !preg_match("#\W+#", $pass) ) {
-              $error .= "Password must include at least one symbol!
-              ";
-              }
-
-              if($error){
-              echo "Password validation failure: $error";
-            } else {*/
-
-
-                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course',
-                        '$morgid', '$section', '$e','hashed_password'))";
+                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
@@ -310,8 +266,6 @@ include('mysql_connect.php');
                       die;
                           @mysqli_close($conn);
                 }
-
-                  //}
               ?>
           </form>
 
@@ -345,7 +299,17 @@ $(document).ready(function(){
         e.preventDefault();
          return false;
     });
+
 });</script>
+  <!--email generator-->
+<script>
+
+    $("#txtTest, #txtTest3").on('input', function() {
+    var fname = $("#txtTest").val().toLowerCase().replace(/\s/g,'');
+    var lname = $("#txtTest3").val().toLowerCase().replace(/\s/g,'');
+    $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
+});
+</script>
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
   <script src="assets/js/inputmask-validation.js"></script>
