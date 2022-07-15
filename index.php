@@ -146,21 +146,21 @@ if(isset($_SESSION['msg'])){
                   {
                     echo "
                           <div class='col-12 col-md-3 mt-2'>
-                            <label>Name:</label>
+                            <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
-                            <label>Section:</label>
+                            <label class='text-muted'>Section:</label>
                             <h5>$row[4]</h5>
                         </div>
                         <div class='col-8 col-md-4 mt-2'>
-                            <label>Email:</label>
+                            <label class='text-muted'>Email:</label>
                             <h6>$row[3]</h6>
-                            <label>Course:</label>
+                            <label class='text-muted'>Course:</label>
                             <h6>$row[2]</h6>
                         </div>
                         <div class='col-4 col-md-3 mt-2'>
-                            <label>Student ID:</label>
+                            <label class='text-muted'>Student ID:</label>
                             <h5>$row[0]</h5>
-                            <label>Year Level:</label>
+                            <label class='text-muted'>Year Level:</label>
                             <h5>Year $row[5] </h5>
                         </div>";
                         @mysqli_close($conn);
