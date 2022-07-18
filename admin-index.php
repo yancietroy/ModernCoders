@@ -150,7 +150,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4>Admin Profile</h4>
+      <h4 class="ms-3">Admin Profile</h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
@@ -183,7 +183,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <h4>My Organizations</h4>
+      <h4 class="ms-3">My Organizations</h4>
       <div class="row justify-content-center align-items-center mb-4 mt-4">
         <div class="col-6  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">

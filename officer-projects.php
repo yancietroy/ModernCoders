@@ -42,24 +42,27 @@ if(isset($_SESSION['msg'])){
     <!-- Sidebar  -->
     <nav id="sidebar">
 
-        <div class="sidebar-header text-center">
+        <div class="sidebar-header text-center justify-content-center align-items-center">
             <a class="navbar-brand" href="index.html">
-                <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
+                <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
             </a>
         </div>
         <div class="sidebar-heading mt-3 text-center">
 
-            <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+            <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
         </div>
 
         <ul class="list-unstyled components p-2">
 
-            <li class="active">
-                <a href="#homeSubmenu"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+            <li>
+                <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
             </li>
             <li>
                 <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+            </li>
+            <li class="active">
+                <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
             </li>
             <li>
                 <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
@@ -128,64 +131,156 @@ if(isset($_SESSION['msg'])){
             </div>
         </nav>
 
+        <!-- breadcrumb -->
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+            <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-folder-fill"></i> Projects</li>
+          </ol>
+        </nav>
+
         <!-- Page content -->
-        <h4 class="ms-3">Student Profile</h4>
-        <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-lg-10 col-xl-11">
-                <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-                    <div class="card-body p-4">
-                        <div class="row g-0">
-                            <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                                <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                            </div>
-                            <?php
-                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
-                            <label class='text-muted'>Section:</label>
-                            <h5>$row[4]</h5>
-                        </div>
-                        <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>Email:</label>
-                            <h6>$row[3]</h6>
-                            <label class='text-muted'>Course:</label>
-                            <h6>$row[2]</h6>
-                        </div>
-                        <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Student ID:</label>
-                            <h5>$row[0]</h5>
-                            <label class='text-muted'>Year Level:</label>
-                            <h5>Year $row[5] </h5>
-                        </div>";
-                        @mysqli_close($conn);
-                        }
-                        ?>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+            <h4>Project Monitoring</h4>
         </div>
-        <h4 class="ms-3">My Organizations</h4>
-        <div class="row ms-3 mb-4 mt-4">
-          <div class="col-6  col-md-5  " id="orgs">
-            <div class="card shadow-md display: inline-block cards">
-              <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-              <div class="card-body">
-                <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
-                <a href="#" class="stretched-link"></a>
-              </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+            <a class="btn btn-default btn-circle px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
+        </div>
+      </div>
+        <div class="row ms-3 me-3 mt-2">
+           <div class="col-lg-3 col-sm-6">
+             <div class="card-counter primary">
+               <div class="inner">
+                      <h3>12</h3>
+                      <p>Pending</p>
+                  </div>
+                   <div class="icon">
+              <i class="bi bi-hourglass-top" aria-hidden="true"></i>
             </div>
-          </div>
+            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+             </div>
+             <div class="col-lg-3 col-sm-6">
+               <div class="card-counter bg-warning">
+                 <div class="inner">
+                        <h3>5</h3>
+                        <p>For Approval</p>
+                    </div>
+                     <div class="icon">
+                <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
+              </div>
+              <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+               </div>
+
+               <div class="col-lg-3 col-sm-6">
+                 <div class="card-counter success">
+                   <div class="inner">
+                          <h3>50</h3>
+                          <p>Approved</p>
+                      </div>
+                       <div class="icon">
+                  <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                </div>
+                <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                  </div>
+                 </div>
+
+                 <div class="col-lg-3 col-sm-6">
+                   <div class="card-counter danger">
+                     <div class="inner">
+                            <h3>10</h3>
+                            <p>Rejected</p>
+                        </div>
+                         <div class="icon">
+                    <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
+                  </div>
+                  <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="card-counter bg-info">
+                      <div class="inner">
+                             <h3>2</h3>
+                             <p>Ongoing</p>
+                         </div>
+                          <div class="icon">
+                     <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
+                   </div>
+                   <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                     </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                      <div class="card-counter done">
+                        <div class="inner">
+                               <h3>150</h3>
+                               <p>Implemented</p>
+                           </div>
+                            <div class="icon">
+                       <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
+                     </div>
+                     <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                       </div>
+                      </div>
+
+                      <div class="col-lg-3 col-sm-6">
+                        <div class="card-counter masterlist">
+                          <div class="inner">
+                                 <h3><i class="bi bi-list-ul"></i></h3>
+                                 <p>Masterlist</p>
+                             </div>
+                              <div class="icon">
+                         <i class="bi bi-card-list" aria-hidden="true"></i>
+                       </div>
+                       <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                         </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 mb-4">
+                          <div class="card-counter events">
+                            <div class="inner">
+                                   <h3><i class="bi bi-calendar-event"></i></h3>
+                                   <p>Event Calendar</p>
+                               </div>
+                                <div class="icon">
+                           <i class="bi bi-calendar3" aria-hidden="true"></i>
+                         </div>
+                         <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                           </div>
+                         </div>
+                   <!--
+           <div class="col-lg-3 col-sm-6">
+             <div class="card-counter bg-warning">
+               <i class="bi bi-exclamation-circle-fill"></i>
+               <span class="count-numbers">35</span>
+               <span class="count-name">For Approval</span>
+                 <a href="#" class="stretched-link"></a>
+             </div>
+           </div>
 
 
+           <div class="col-lg-3 col-sm-6">
+             <div class="card-counter success">
+               <i class="bi bi-check-circle-fill"></i>
+               <span class="count-numbers">6875</span>
+               <span class="count-name">Approved</span>
+                 <a href="#" class="stretched-link"></a>
+             </div>
+           </div>
+
+           <div class="col-lg-3 col-sm-6">
+             <div class="card-counter danger">
+               <i class="bi bi-x-circle-fill"></i>
+               <span class="count-numbers">599</span>
+               <span class="count-name">Rejected</span>
+                 <a href="#" class="stretched-link"></a>
+             </div>
+           </div>
+
+         </div>!-->
             <!--   <div class="col">
             Card with right text alignment
               <div class="card text-end">
@@ -197,9 +292,8 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
           </div> -->
-
+</div>
             <!-- Footer -->
-        </div>
         <div id="layoutAuthentication_footer">
             <footer class="py-2 bg-light">
                 <div class="container-fluid px-4">
@@ -210,7 +304,6 @@ if(isset($_SESSION['msg'])){
             </footer>
         </div>
     </div>
-
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

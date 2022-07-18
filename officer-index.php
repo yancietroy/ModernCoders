@@ -55,11 +55,14 @@ if(isset($_SESSION['msg'])){
         <ul class="list-unstyled components p-2">
 
             <li class="active">
-                <a href="#homeSubmenu"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+                <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
             </li>
             <li>
                 <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+            </li>
+            <li>
+                <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
             </li>
             <li>
                 <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
@@ -129,7 +132,7 @@ if(isset($_SESSION['msg'])){
         </nav>
 
         <!-- Page content -->
-        <h4 class="ms-3">Student Profile</h4>
+        <h4 class="ms-3">Student Officer Profile</h4>
         <div class="row justify-content-center align-items-center">
             <div class="col-12 col-lg-10 col-xl-11">
                 <div class="card shadow border-0 rounded-lg mt-4 mb-5">
@@ -138,34 +141,24 @@ if(isset($_SESSION['msg'])){
                             <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
                                 <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                             </div>
-                            <?php
-                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
-                            <label class='text-muted'>Section:</label>
-                            <h5>$row[4]</h5>
-                        </div>
-                        <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>Email:</label>
-                            <h6>$row[3]</h6>
-                            <label class='text-muted'>Course:</label>
-                            <h6>$row[2]</h6>
-                        </div>
-                        <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Student ID:</label>
-                            <h5>$row[0]</h5>
-                            <label class='text-muted'>Year Level:</label>
-                            <h5>Year $row[5] </h5>
-                        </div>";
-                        @mysqli_close($conn);
-                        }
-                        ?>
+                            <div class="col-12 col-md-3 mt-2">
+                              <label>Name:</label>
+                              <h5>John Doe</h5>
+                              <label>Position:</label>
+                              <h5>President</h5>
+                            </div>
+                            <div class="col-12 col-md-4 mt-2">
+                              <label>Email:</label>
+                              <h5>Johndoe@my.jru.edu</h5>
+                              <label>Course:</label>
+                              <h5>BSIT</h5>
+                            </div>
+                            <div class="col-12 col-md-3 mt-2">
+                              <label>Student ID:</label>
+                              <h5>19-255322</h5>
+                              <label>Year Level:</label>
+                              <h5>Fourth Year</h5>
+                            </div>
                         </div>
 
                     </div>
@@ -173,7 +166,7 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
         <h4 class="ms-3">My Organizations</h4>
-        <div class="row ms-3 mb-4 mt-4">
+        <div class="row ms-4 mb-4 mt-4">
           <div class="col-6  col-md-5  " id="orgs">
             <div class="card shadow-md display: inline-block cards">
               <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">

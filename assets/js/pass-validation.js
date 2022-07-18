@@ -99,6 +99,6 @@ window.Parsley.addValidator('special', {
     return specials.length >= requirement;
   },
   messages: {
-    en: 'Your password must contain at least (%s) special characters.'
+    en: 'Your password must contain at least (%s) special character.'
   }
 });

@@ -43,7 +43,7 @@ if(isset($_SESSION['message'])){
 														</div>
 
 																	<form method="POST" class="requires-validation" novalidate autocomplete="off">
-																<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Admin Login</h1>
+																<h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Admin Login</h1>
 
 																		<div class="form-floating mb-3">
 																			<input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
