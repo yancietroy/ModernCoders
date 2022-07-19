@@ -7,10 +7,10 @@ if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:login.php");
-  }
+  //else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  //{
+    //header("Location:login.php");
+  //}
  ?>
 
 <!DOCTYPE html>
@@ -150,7 +150,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3>12</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Pending</p>
             </div>
             <div class="icon">
@@ -162,7 +166,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-warning">
             <div class="inner">
-              <h3>5</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Approval')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>For Approval</p>
             </div>
             <div class="icon">
@@ -175,7 +183,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h3>50</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Approved</p>
             </div>
             <div class="icon">
@@ -188,7 +200,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
-              <h3>10</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Rejected</p>
             </div>
             <div class="icon">
@@ -201,7 +217,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3>2</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Ongoing</p>
             </div>
             <div class="icon">
@@ -213,7 +233,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Implemented')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Implemented</p>
             </div>
             <div class="icon">
