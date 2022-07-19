@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 10:41 AM
+-- Generation Time: Jul 19, 2022 at 11:27 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -221,30 +221,31 @@ CREATE TABLE `tb_event` (
 CREATE TABLE `tb_morg` (
   `MORG_ID` int(2) NOT NULL,
   `MOTHER_ORG` varchar(100) NOT NULL,
-  `college_id` int(11) DEFAULT NULL
+  `college_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_morg`
 --
 
-INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`) VALUES
-(1, 'Association of Students of History (ASH)', 1),
-(2, 'Criminal Justice Students Society (CJSS)', 1),
-(3, 'Liberal Arts Students Organization (LASO)', 1),
-(4, 'Mathematics Society (MATHSOC)', 1),
-(5, 'Young, Educators Society (YES)', 2),
-(6, 'Junior Finance and Economics Society (JFINECS)', 2),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 2),
-(8, 'Management Society (MANSOC)', 2),
-(9, 'Supply Management Society (SMS)', 2),
-(10, 'Young Marketers Association (YMA)', 2),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 3),
-(12, 'Computer Society (COMSOC)', 3),
-(13, 'Electronics Engineering League (ECEL)', 3),
-(14, 'Association of Tourism Management Students (ATOMS)', 4),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
-(16, 'Nursing Society (NURSOC)', 5);
+INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`, `course_id`) VALUES
+(1, 'Association of Students of History (ASH)', 1, NULL),
+(2, 'Criminal Justice Students Society (CJSS)', 1, NULL),
+(3, 'Liberal Arts Students Organization (LASO)', 1, NULL),
+(4, 'Mathematics Society (MATHSOC)', 1, NULL),
+(5, 'Young, Educators Society (YES)', 2, NULL),
+(6, 'Junior Finance and Economics Society (JFINECS)', 2, NULL),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 2, NULL),
+(8, 'Management Society (MANSOC)', 2, NULL),
+(9, 'Supply Management Society (SMS)', 2, NULL),
+(10, 'Young Marketers Association (YMA)', 2, NULL),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 3, NULL),
+(12, 'Computer Society (COMSOC)', 3, NULL),
+(13, 'Electronics Engineering League (ECEL)', 3, NULL),
+(14, 'Association of Tourism Management Students (ATOMS)', 4, NULL),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4, NULL),
+(16, 'Nursing Society (NURSOC)', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -402,6 +403,36 @@ INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
 (17, '3rd Year Representative'),
 (18, '4th Year Representative'),
 (19, 'Musical Director/Conductor');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_projectmonitoring`
+--
+
+CREATE TABLE `tb_projectmonitoring` (
+  `project_id` int(11) NOT NULL,
+  `org_id` int(11) NOT NULL,
+  `course_id` int(11) DEFAULT NULL,
+  `project_name` varchar(100) NOT NULL,
+  `project_desc` varchar(8000) NOT NULL,
+  `venue` varchar(100) NOT NULL,
+  `estimated_budget` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_projectmonitoring`
+--
+
+INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_desc`, `venue`, `estimated_budget`, `status`) VALUES
+(1, 12, 24, 'Sample Project', 'Sample Desc', 'JRU Auditorium ', 2000, 'Approved'),
+(2, 11, 23, 'Sample Project 1', 'Sample Project 1', 'JRU Quadrangle', 3000, 'For Approval'),
+(3, 13, 23, 'Sample Project 2', 'Sample Project 2', 'JRU Gymnasium', 2000, 'Pending'),
+(4, 24, 26, 'Sample Project 3', 'Sample Project 3', 'JRU H - Building 3rd floor', 2000, 'Ongoing'),
+(5, 7, 13, 'Sample Project 4', 'Sample Project 4', 'JRU Centennial Building', 2000, 'Implemented'),
+(6, 11, 22, 'Sample Project 5', 'Sample Project 5', 'JRU Upper Quadrangle', 1000, 'Rejected'),
+(7, 1, 3, 'Sample Project 6', 'Sample Project 6', 'JRU Lounge', 2000, 'Approved');
 
 -- --------------------------------------------------------
 
@@ -586,7 +617,8 @@ ALTER TABLE `tb_event`
 --
 ALTER TABLE `tb_morg`
   ADD PRIMARY KEY (`MORG_ID`),
-  ADD KEY `morg_college_id_fk` (`college_id`);
+  ADD KEY `morg_college_id_fk` (`college_id`),
+  ADD KEY `morg_course_id_fk` (`course_id`);
 
 --
 -- Indexes for table `tb_msg`
@@ -642,6 +674,14 @@ ALTER TABLE `tb_pkcastkey`
 --
 ALTER TABLE `tb_position`
   ADD PRIMARY KEY (`POSITION_ID`);
+
+--
+-- Indexes for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  ADD PRIMARY KEY (`project_id`),
+  ADD KEY `project_course_id` (`course_id`),
+  ADD KEY `project_org_id` (`org_id`);
 
 --
 -- Indexes for table `tb_results`
@@ -748,7 +788,8 @@ ALTER TABLE `tb_event`
 -- Constraints for table `tb_morg`
 --
 ALTER TABLE `tb_morg`
-  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `morg_course_id_fk` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_officers`
@@ -784,6 +825,13 @@ ALTER TABLE `tb_pkcastkey`
   ADD CONSTRAINT `pkCastkey_positionID_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pkCastkey_studentNO_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pkCastkey_voteID_fk` FOREIGN KEY (`VOTE_ID`) REFERENCES `tb_vote` (`VOTE_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  ADD CONSTRAINT `project_course_id` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_results`
