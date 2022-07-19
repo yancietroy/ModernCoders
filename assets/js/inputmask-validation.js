@@ -1,22 +1,22 @@
-$(document).ready(function(){
+$(document).ready(function() {
   $("#studentid").inputmask("99-999999", {
     autoUnmask: true,
-    onincomplete: function () {
+    onincomplete: function() {
       $("#errorstudid").show();
     },
     clearIncomplete: true,
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,
-    oncomplete: function () {
+    oncomplete: function() {
       $("#errorstudid").hide();
     }
+  });
 });
-});
-$(document).ready(function(){
+$(document).ready(function() {
   $("#section").inputmask("999A", {
     autoUnmask: true,
-    onincomplete: function () {
+    onincomplete: function() {
       $("#errorsection").show();
     },
 
@@ -24,8 +24,8 @@ $(document).ready(function(){
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,
-    oncomplete: function () {
+    oncomplete: function() {
       $("#errorsection").hide();
     }
-});
+  });
 });
