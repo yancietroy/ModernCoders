@@ -1,16 +1,16 @@
 <?php
 ob_start();
-session_start();
-$id = $_SESSION['use'];
+//session_start();
+//$id = $_SESSION['use'];
 include('mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:login.php");
-  }
+  //else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  //{
+   // header("Location:login.php");
+  //}
  ?>
 
 <!DOCTYPE html>
@@ -138,26 +138,31 @@ if(isset($_SESSION['msg'])){
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Name:</label>
-                  <h5>John Doe</h5>
-                  <label>Position:</label>
-                  <h5>President</h5>
-                </div>
-                <div class="col-12 col-md-4 mt-2">
-                  <label>Email:</label>
-                  <h5>Johndoe@my.jru.edu</h5>
-                  <label>Course:</label>
-                  <h5>BSIT</h5>
-                </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Student ID:</label>
-                  <h5>19-255322</h5>
-                  <label>Year Level:</label>
-                  <h5>Fourth Year</h5>
-                </div>
-              </div>
-
+                <?php
+                  $query = "SELECT officer_id , CONCAT(first_name, ' ', last_name) AS name, course, email, section FROM tb_officers WHERE officer_id = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Name:</label>
+                            <h5>$row[1]</h5>
+                            <label>Course:</label>
+                            <h5>$row[2]</h5>
+                          </div>
+                          <div class='col-12 col-md-4 mt-2'>
+                            <label>Email:</label>
+                            <h5>$row[3]</h5>
+                            <label>Section:</label>
+                            <h5>$row[4]</h5>
+                          </div>
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Student ID:</label>
+                            <h5>$row[0]</h5>
+                          </div>";
+                  }
+                  ?>
             </div>
           </div>
         </div>
@@ -168,7 +173,16 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow-md display: inline-block cards">
             <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              <h5 class="card-title text-center mt-2"><?php
+              $sql = "SELECT tb_orgs.ORG FROM tb_orgs
+                      INNER JOIN tb_officers
+                      ON tb_org.ORG_ID = tb_officers.org_id
+                      WHERE tb_officer.officer_id = '$id'";
+              $result = @mysqli_query($conn,$sql) or die(mysqli_error($conn));
+              $row = @mysqli_fetch_array($result);
+              if ($row)
+                  { echo "$row[0]"; } @mysqli_close($conn); 
+              ?></h5>
 
               <a href="#" class="stretched-link"></a>
             </div>

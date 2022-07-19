@@ -159,26 +159,27 @@ if(isset($_SESSION['msg'])){
                 <div class="col-md-2 mb-2 mt-3  d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Name:</label>
-                  <h5>John Doe</h5>
-                  <label>Course:</label>
-                  <h5>BSIT</h5>
-                </div>
-                <div class="col-12 col-md-4 mt-2">
-                  <label>Email:</label>
-                  <h5>Johndoe@my.jru.edu</h5>
-                  <label>Section:</label>
-                  <h5>402I</h5>
-                </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Student ID:</label>
-                  <h5>19-255322</h5>
-                  <label>Year Level:</label>
-                  <h5>Fourth Year</h5>
-                </div>
-              </div>
-
+                <?php
+                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL FROM tb_admin WHERE ADMIN_ID = '$id'";
+                  $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Name:</label>
+                            <h5>$row[1]</h5>
+                          </div>
+                          <div class='col-12 col-md-4 mt-2'>
+                            <label>Email:</label>
+                            <h5>$row[2]</h5>
+                          </div>
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label>Admin ID:</label>
+                            <h5>$row[0]</h5>
+                          </div>";
+                  }
+                  ?>
             </div>
           </div>
         </div>
