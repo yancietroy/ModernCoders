@@ -16,7 +16,7 @@ if(isset($_SESSION['message'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>JRU Student Organizations Portal</title>
     <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
@@ -55,7 +55,7 @@ if(isset($_SESSION['message'])){
                                         <div class="invalid-feedback">Password field invalid!</div>
                                     </div>
 
-                                    <button class="w-100 btn btn-lg btn-primary mt-4 hvr-sweep-to-top" type="submit" name='submit'>Sign in</button>
+                                    <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
 
                                     <hr class="my-4">
                                     <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
@@ -122,10 +122,13 @@ if(isset($_SESSION['message'])){
       </div>
 </div>
 </footer>
-</div>!-->
-    <script src="js/login.js"></script>
-    <!-- JavaScript validation -->
-
+</div>
+    <script src="js/login.js"></script>!-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <!-- JavaScript validation -->
+    <script type="text/javascript">
+      Waves.attach('.button');
+      Waves.init();
+  </script>
     <script>
         (function () {
             'use strict'

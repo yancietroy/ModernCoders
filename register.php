@@ -11,6 +11,8 @@ include('mysql_connect.php');
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>JRU Student Organizations Portal</title>
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body class="bg">
@@ -231,7 +233,7 @@ include('mysql_connect.php');
                   </div>
               </div>
                 <div class="col-12 col-md-12 mb-4">
-                  <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit" value="Validate!">Register</button>
+                  <button class="w-100 btn btn-lg btn-primary button" type="submit" name="submit" value="Validate!">Register</button>
                 </div>
 
               <hr class="my-4">
@@ -288,7 +290,11 @@ include('mysql_connect.php');
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
   </script>-->
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <!-- JavaScript validation -->
+  <script type="text/javascript">
+    Waves.attach('.button');
+    Waves.init();
+</script>
   <!-- JavaScript validation -->
   <script src="assets/js/bootstrap-validation.js"></script>
     <!-- <script src="js/form-validation.js"></script>
