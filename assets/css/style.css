@@ -32,7 +32,13 @@ h3, h4, h5,h4 {
 h4 {
   font-size: 20px;
 }
-
+textarea {
+   resize: none;
+   font-family: sans-serif;
+   font-size: 1em;
+   font-weight: 300;
+   line-height: 1.7em;
+}
 a,
 a:hover,
 a:focus {
@@ -564,7 +570,16 @@ Projects
   font-size: 32px;
   display: block;
 }
+.currency {
+  padding-left:22px;
+}
 
+.currency-symbol {
+  position:absolute;
+  padding: 4px 7px;
+  font-size: 17px;
+  padding-top: 5px;
+}
 /* ---------------------------------------------------
   FOOTER
 ----------------------------------------------------- */

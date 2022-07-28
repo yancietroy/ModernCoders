@@ -143,14 +143,18 @@ if(isset($_SESSION['msg'])){
         </div>
 
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
+          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
         </div>
       </div>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3>12</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Pending</p>
             </div>
             <div class="icon">
@@ -162,7 +166,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-warning">
             <div class="inner">
-              <h3>5</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Approval')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>For Approval</p>
             </div>
             <div class="icon">
@@ -175,7 +183,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h3>50</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Approved</p>
             </div>
             <div class="icon">
@@ -188,7 +200,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
-              <h3>10</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Rejected</p>
             </div>
             <div class="icon">
@@ -201,7 +217,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3>2</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Ongoing</p>
             </div>
             <div class="icon">
@@ -213,7 +233,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Implemented')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
               <p>Implemented</p>
             </div>
             <div class="icon">
