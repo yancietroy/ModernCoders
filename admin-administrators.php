@@ -26,13 +26,13 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- Datatable Default
+  <!-- Datatable Default-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
--->
-  <!-- Datatable BS5-->
+
+  <!-- Datatable BS
   <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
-  <!-- Icons -->
+5-->  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -248,21 +248,51 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      <!-- Datatable default
+      <!-- Datatable default-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-     -->
-      <!-- Datatable bs5-->
+
+      <!-- Datatable bs5
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
       <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
-      </script>
+      </script>-->
 
       <script>
         $(document).ready(function() {
-          $('#example').DataTable({
+
+          /*  var columnDefs = [{
+              data: "studentid",
+              title: "Student ID",
+              type: "readonly"
+            },
+            {
+              data: "$name",
+              title: "Name",
+                type: "readonly"
+            },
+           {
+              data: "email",
+              title: "Email"
+            },
+           {
+              data: "Year level",
+              title: "Year Level"
+            },
+           {
+              data: "birthDate",
+              title: "Birthdate"
+            },
+           {
+              data: "Age",
+              title: "Age"
+            }
+            ];
+  */
+            var myTable;
+        myTable =  $('#example').DataTable({
             responsive: true,
             keys: true,
             select: true,
@@ -271,33 +301,51 @@ if(isset($_SESSION['msg'])){
               "<'row'<'col-sm-12'tr>>" +
               "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             "bFilter": true,
+            select: 'single',
+            responsive: true,
+            altEditor: true,
             "aLengthMenu": [
               [10, 20, 50, 100, -1],
               [10, 20, 50, 100, "All"]
             ],
             buttons: [
               'pageLength',
-              'copyHtml5',
+            'copyHtml5',
               //  {
               // extend: 'excelHtml5',
               //   title: 'JRU Organizations Portal Student Users'
               //   },
               {
                 extend: 'csvHtml5',
-                title: 'JRU Organizations Portal Admin Users'
+                title: 'JRU Organizations Portal Student Users'
               },
               {
                 extend: 'pdfHtml5',
-                title: 'JRU Organizations Portal Admin Users'
+                title: 'JRU Organizations Portal Student Users'
               },
               {
                 extend: 'print',
-                title: 'JRU Organizations Portal Admin Users'
+                title: 'JRU Organizations Portal Student Users'
+              },
+              {
+              text: 'Add',
+              name: 'add'        // do not change name
+              },
+              {
+              extend: 'selected', // Bind to Selected row
+              text: 'Edit',
+              name: 'edit'        // do not change name
+              },
+              {
+              extend: 'selected', // Bind to Selected row
+              text: 'Delete',
+              name: 'delete'      // do not change name
               }
             ],
           });
         });
       </script>
+  <script src="assets/js/dataTables.altEditor.free.js" ></script>
 
 </body>
 
