@@ -138,11 +138,13 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
+
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7  mb-4">
           <h4>Create New Project</h4>
         </div>
         <form method="post" class="requires-validation" novalidate>
+            <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row">
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
@@ -165,7 +167,7 @@ if(isset($_SESSION['msg'])){
                 <label class="form-label" for="firstName" id="asterisk">Proposed Date:</label>
                 <input id="txtDate" class="form-control" data-relmax="-18" min="1922-01-01" type="date" placeholder="Date" onfocus="(this.type='date')" name="date" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Date field cannot be blank!</div>
+                <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
           </div>
@@ -181,7 +183,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label mb-2" for="firstName" id="asterisk">Upload Attachment:</label>
-                <input class="form-control mt-4" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                <input class="form-control mt-3" type="file" accept=".pdf" id="formFileMultiple" required multiple>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
                 <label class="form-label mt-4" for="firstName" id="asterisk">Estimated Budget:</label>
@@ -196,6 +198,8 @@ if(isset($_SESSION['msg'])){
             <input class="btn btn-primary btn-lg" type="submit" value="Submit">
           </div>
         </form>
+      </div>
+            </div>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
           <footer class="py-2 bg-light">
@@ -218,6 +222,7 @@ if(isset($_SESSION['msg'])){
       <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
       </script> <!-- JavaScript validation -->
       <script type="text/javascript">
+              Waves.attach('#sidebar ul li a');
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
