@@ -140,6 +140,7 @@ ul ul a {
 #wrapper {
   overflow-x: hidden;
   align-items: stretch;
+
 }
 
 #sidebar {
@@ -578,8 +579,8 @@ Projects
   flex-grow: 1;
 }
 
-#layoutAuthentication #layoutAuthentication_footer {
-  min-width: 0;
+ #layoutAuthentication_footer {
+display: none;
 }
 
 /* ---------------------------------------------------
