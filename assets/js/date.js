@@ -2,6 +2,7 @@
 $(document).ready(function () {
     var today = new Date().toISOString().split('T')[0];
     $("#txtDate").attr('min', today);
+    
 });
 
 //txtDate.max = new Date().toISOString().split("T")[0];

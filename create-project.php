@@ -28,6 +28,8 @@ if(isset($_SESSION['msg'])){
   <!-- waves CSS CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
+  <!-- Datepicker CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Icons-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -133,7 +135,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-folder-fill"></i> Create Project</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-plus-circle-fill"></i> Create Project</li>
         </ol>
       </nav>
 
@@ -162,20 +164,95 @@ if(isset($_SESSION['msg'])){
                 <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
             </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
+          <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <label class="form-label select-label" id="asterisk">Project Type:</label>
+            <select class="mt-0 ms-0 form-select" name="school_year" id="select-group" required>
+              <option class="greyclr" selected disabled value="" >Select Type</option>
+              <option value="1">Curricular</option>
+              <option value="2">Extra Curricular</option>
+              <option value="3">Outreach</option>
+            </select>
+            <div class="valid-feedback">  </div>
+            <div class="invalid-feedback">Project Type field cannot be blank!</div>
+          </div>
+            </div>
+          <div class="row">
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="firstName" id="asterisk">Proposed Date:</label>
-                <input id="txtDate" class="form-control" data-relmax="-18" min="1922-01-01" type="date" placeholder="Date" onfocus="(this.type='date')" name="date" required />
+                <label class="form-label" for="firstName" id="asterisk">Start Date:</label>
+                <input type="text" class="form-control" name="start_date" id="startDate" value="" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="firstName" id="asterisk">End Date:</label>
+                <input type="text" class="form-control" name="end_date" id="endDate" value="" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Date field Invalid!</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <label class="form-label select-label" id="asterisk">Budget Source:</label>
+              <select class="mt-0 ms-0 form-select" name="school_year" id="select-group" required>
+                <option class="greyclr" selected disabled value="" >Select Budget Source</option>
+                <option value="1">Student Council</option>
+                <option value="2">(Mother org)</option>
+              </select>
+              <div class="valid-feedback">  </div>
+              <div class="invalid-feedback">Category field cannot be blank!</div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <label class="form-label select-label" id="asterisk">Category:</label>
+              <select class="mt-0 ms-0 form-select" name="school_year" id="select-group" required>
+                <option class="greyclr" selected disabled value="" >Select Category</option>
+                <option value="1">Onsite</option>
+                <option value="2">Online</option>
+              </select>
+              <div class="valid-feedback">  </div>
+              <div class="invalid-feedback">Category field cannot be blank!</div>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="firstName" id="asterisk">Participants:</label>
+                <input type="text" name="first_name" id="FirstName" class="form-control" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Participants field cannot be blank!</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="firstName" id="asterisk">No. of Participants:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="first_name" maxlength="4" id="FirstName" class="form-control" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Number of Participants field cannot be blank!</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="firstName" id="asterisk">Beneficiary:</label>
+                <input type="text" name="first_name" id="FirstName" class="form-control" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="firstName" id="asterisk">No. of Beneficiary:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="first_name" maxlength="4" id="FirstName" class="form-control" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
+              </div>
+            </div>
+            </div>
           <div class="row">
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="firstName" id="asterisk">Project Description:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="enter project objectives and details" required></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
@@ -226,7 +303,28 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      <script src="assets/js/date.js"></script>
+      -<script src="assets/js/date.js"></script>
+        <!-- Datepicker cdn  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+    $(document).ready(function () {
+        $('#startDate').datetimepicker({
+          changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        formatTime:'H:i',
+        formatDate:'m.d.Y',
+        minDate: new Date()
+        });
+
+        $('#endDate').datetimepicker({
+               dateFormat: "dd-M-yy",
+               minDate: 0
+           });
+       });
+        </script>
+
+
 </body>
 
 </html>
