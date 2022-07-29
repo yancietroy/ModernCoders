@@ -134,7 +134,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Masterlist</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-card-list"></i> Masterlist</li>
         </ol>
       </nav>
 
@@ -156,12 +156,12 @@ if(isset($_SESSION['msg'])){
                   echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
-                              <th>Student ID</th>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Birth date</th>
-                              <th>Age</th>
+                              <th>Project ID</th>
+                              <th>Project Name</th>
+                              <th>Description</th>
+                              <th>Venue</th>
+                              <th>Budget</th>
+                              <th>Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -191,12 +191,12 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                                <th>Student ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Year Level</th>
-                                <th>Birth date</th>
-                                <th>Age</th>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Venue</th>
+                            <th>Budget</th>
+                            <th>Status</th>
                             </tr>
                         </tfoot>
                         </table>";
