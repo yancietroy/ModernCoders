@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 10:41 AM
+-- Generation Time: Aug 02, 2022 at 07:50 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -20,6 +20,51 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sample`
+--
+
+CREATE TABLE `tbl_sample` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(250) NOT NULL,
+  `last_name` varchar(250) NOT NULL,
+  `gender` enum('Male','Female') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sample`
+--
+
+INSERT INTO `tbl_sample` (`id`, `first_name`, `last_name`, `gender`) VALUES
+(1, 'John', 'Smith', 'Male'),
+(2, 'Peter', 'Parker', 'Male'),
+(4, 'Donna', 'Huber', 'Male'),
+(5, 'Anastasia', 'Peterson', 'Male'),
+(6, 'Ollen', 'Donald', 'Male'),
+(10, 'Joseph', 'Stein', 'Male'),
+(11, 'Wilson', 'Fischer', 'Male'),
+(12, 'Lillie', 'Kirst', 'Female'),
+(13, 'James', 'Whitchurch', 'Male'),
+(14, 'Timothy', 'Brewer', 'Male'),
+(16, 'Sally', 'Martin', 'Male'),
+(17, 'Allison', 'Pinkston', 'Male'),
+(18, 'Karen', 'Davis', 'Male'),
+(19, 'Jaclyn', 'Rocco', 'Male'),
+(20, 'Pamela', 'Boyter', 'Male'),
+(21, 'Anthony', 'Alaniz', 'Male'),
+(22, 'Myrtle', 'Stiltner', 'Male'),
+(23, 'Gary', 'Hernandez', 'Male'),
+(24, 'Fred', 'Jeffery', 'Male'),
+(25, 'Ronald', 'Stjohn', 'Male'),
+(26, 'Stephen', 'Mohamed', 'Male'),
+(28, 'Michael', 'Dyer', 'Male'),
+(29, 'Betty', 'Beam', 'Male'),
+(30, 'Anna', 'Peterson', 'Female'),
+(31, 'Peter', 'Stodola', 'Male'),
+(32, 'Ralph', 'Jones', 'Male');
 
 -- --------------------------------------------------------
 
@@ -221,30 +266,31 @@ CREATE TABLE `tb_event` (
 CREATE TABLE `tb_morg` (
   `MORG_ID` int(2) NOT NULL,
   `MOTHER_ORG` varchar(100) NOT NULL,
-  `college_id` int(11) DEFAULT NULL
+  `college_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_morg`
 --
 
-INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`) VALUES
-(1, 'Association of Students of History (ASH)', 1),
-(2, 'Criminal Justice Students Society (CJSS)', 1),
-(3, 'Liberal Arts Students Organization (LASO)', 1),
-(4, 'Mathematics Society (MATHSOC)', 1),
-(5, 'Young, Educators Society (YES)', 2),
-(6, 'Junior Finance and Economics Society (JFINECS)', 2),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 2),
-(8, 'Management Society (MANSOC)', 2),
-(9, 'Supply Management Society (SMS)', 2),
-(10, 'Young Marketers Association (YMA)', 2),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 3),
-(12, 'Computer Society (COMSOC)', 3),
-(13, 'Electronics Engineering League (ECEL)', 3),
-(14, 'Association of Tourism Management Students (ATOMS)', 4),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
-(16, 'Nursing Society (NURSOC)', 5);
+INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`, `course_id`) VALUES
+(1, 'Association of Students of History (ASH)', 1, NULL),
+(2, 'Criminal Justice Students Society (CJSS)', 1, NULL),
+(3, 'Liberal Arts Students Organization (LASO)', 1, NULL),
+(4, 'Mathematics Society (MATHSOC)', 1, NULL),
+(5, 'Young, Educators Society (YES)', 2, NULL),
+(6, 'Junior Finance and Economics Society (JFINECS)', 2, NULL),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 2, NULL),
+(8, 'Management Society (MANSOC)', 2, NULL),
+(9, 'Supply Management Society (SMS)', 2, NULL),
+(10, 'Young Marketers Association (YMA)', 2, NULL),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 3, NULL),
+(12, 'Computer Society (COMSOC)', 3, NULL),
+(13, 'Electronics Engineering League (ECEL)', 3, NULL),
+(14, 'Association of Tourism Management Students (ATOMS)', 4, NULL),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4, NULL),
+(16, 'Nursing Society (NURSOC)', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -406,6 +452,48 @@ INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_projectmonitoring`
+--
+
+CREATE TABLE `tb_projectmonitoring` (
+  `project_id` int(11) NOT NULL,
+  `org_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL,
+  `project_name` varchar(100) DEFAULT NULL,
+  `project_type` varchar(200) DEFAULT NULL,
+  `project_category` varchar(200) DEFAULT NULL,
+  `project_desc` varchar(8000) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `venue` varchar(100) DEFAULT NULL,
+  `participants` varchar(200) DEFAULT NULL,
+  `no_of_participants` int(11) DEFAULT NULL,
+  `beneficiary` varchar(200) DEFAULT NULL,
+  `no_of_beneficiary` int(11) DEFAULT NULL,
+  `budget_source` varchar(100) DEFAULT NULL,
+  `estimated_budget` int(11) DEFAULT NULL,
+  `attachments` varchar(1000) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `date_submitted` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_projectmonitoring`
+--
+
+INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`) VALUES
+(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
+(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL),
+(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL),
+(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL),
+(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL),
+(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL),
+(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
+(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, NULL, '2022-08-02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_results`
 --
 
@@ -446,7 +534,7 @@ CREATE TABLE `tb_students` (
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
 (17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL),
-(17402211, 'Doe', 'John', '', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
+(17402211, 'Doe', 'Jane', 'Middle', '2000-06-13', 22, 'Female', '4', 'janedoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -506,6 +594,12 @@ CREATE TABLE `tb_vote` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_sample`
+--
+ALTER TABLE `tbl_sample`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_action`
@@ -586,7 +680,8 @@ ALTER TABLE `tb_event`
 --
 ALTER TABLE `tb_morg`
   ADD PRIMARY KEY (`MORG_ID`),
-  ADD KEY `morg_college_id_fk` (`college_id`);
+  ADD KEY `morg_college_id_fk` (`college_id`),
+  ADD KEY `morg_course_id_fk` (`course_id`);
 
 --
 -- Indexes for table `tb_msg`
@@ -644,6 +739,14 @@ ALTER TABLE `tb_position`
   ADD PRIMARY KEY (`POSITION_ID`);
 
 --
+-- Indexes for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  ADD PRIMARY KEY (`project_id`),
+  ADD KEY `project_course_id` (`course_id`),
+  ADD KEY `project_org_id` (`org_id`);
+
+--
 -- Indexes for table `tb_results`
 --
 ALTER TABLE `tb_results`
@@ -690,6 +793,22 @@ ALTER TABLE `tb_vote`
   ADD KEY `vote_org_id_fk` (`ORG_ID`),
   ADD KEY `vote_position_id_fk` (`POSITION_ID`),
   ADD KEY `vote_candidate_id_fk` (`CANDIDATE_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_sample`
+--
+ALTER TABLE `tbl_sample`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -748,7 +867,8 @@ ALTER TABLE `tb_event`
 -- Constraints for table `tb_morg`
 --
 ALTER TABLE `tb_morg`
-  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `morg_course_id_fk` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_officers`
@@ -784,6 +904,13 @@ ALTER TABLE `tb_pkcastkey`
   ADD CONSTRAINT `pkCastkey_positionID_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pkCastkey_studentNO_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pkCastkey_voteID_fk` FOREIGN KEY (`VOTE_ID`) REFERENCES `tb_vote` (`VOTE_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  ADD CONSTRAINT `project_course_id` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_results`
