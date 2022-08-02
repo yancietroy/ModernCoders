@@ -144,15 +144,16 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-xs-12">
               <?php
-                  $query = "SELECT STUDENT_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL, YEAR_LEVEL, DATE_FORMAT(`BIRTHDATE`,'%M %d, %Y') AS 'Birth Date', AGE FROM tb_students";
+                  $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
-                  $sid = " ";
-                  $name = " ";
-                  $email = " ";
-                  $ylevel = " ";
-                  $bdate = " ";
-                  $age = " ";
+                  $pid = " ";
+                  $pn = " ";
+                  $pd = " ";
+                  $v = " ";
+                  $eb = " ";
+                  $ds = " ";
+                  $s = " ";
                   echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
@@ -162,6 +163,7 @@ if(isset($_SESSION['msg'])){
                               <th>Venue</th>
                               <th>Budget</th>
                               <th>Status</th>
+                              <th>Date Submitted</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -171,20 +173,22 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                      $sid = $row["STUDENT_ID"];
-                      $name = $row["NAME"];
-                      $email = $row["EMAIL"];
-                      $ylevel = $row["YEAR_LEVEL"];
-                      $bdate =  $row["Birth Date"];
-                      $age =$row["AGE"];
+                      $pid = $row["project_id"];
+                      $pn = $row["project_name"];
+                      $pd = $row["project_desc"];
+                      $v = $row["venue"];
+                      $eb = $row["estimated_budget"];
+                      $ds = $row["date_submitted"];
+                      $s = $row["status"];
 
                       echo "<tr>
-                            <td> $sid  </td>
-                            <td> $name  </td>
-                            <td> $email  </td>
-                            <td> $ylevel  </td>
-                            <td> $bdate  </td>
-                            <td> $age  </td>
+                            <td> $pid  </td>
+                            <td> $pn  </td>
+                            <td> $pd  </td>
+                            <td> $v  </td>
+                            <td> $eb  </td>
+                            <td> $s  </td>
+                            <td> $ds </td>
                             </tr>
                           ";
                       }
@@ -197,6 +201,7 @@ if(isset($_SESSION['msg'])){
                             <th>Venue</th>
                             <th>Budget</th>
                             <th>Status</th>
+                            <th>Date Submitted</th>
                             </tr>
                         </tfoot>
                         </table>";
