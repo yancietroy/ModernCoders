@@ -25,10 +25,10 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- waves CSS CDN -->
+  <!-- Waves CSS CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-  <!-- Icons-->
+  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
@@ -39,29 +39,30 @@ if(isset($_SESSION['msg'])){
     <!-- Sidebar  -->
     <nav id="sidebar">
 
-      <div class="sidebar-header text-center justify-content-center align-items-center">
+      <div class="sidebar-header text-center">
         <a class="navbar-brand" href="index.html">
-          <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
+          <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
 
-        <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+        <li class="active">
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
+
         <li>
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
-        <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
-        </li>
         <li>
+          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+        </li>
+            <!--<li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
@@ -70,7 +71,7 @@ if(isset($_SESSION['msg'])){
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
-        </li>
+        </li> -->
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -128,138 +129,56 @@ if(isset($_SESSION['msg'])){
         </div>
       </nav>
 
-      <!-- breadcrumb -->
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-folder-fill"></i> Projects</li>
-        </ol>
-      </nav>
-
       <!-- Page content -->
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Project Monitoring</h4>
-        </div>
+      <h4 class="ms-3">Student Officer Profile</h4>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-lg-10 col-xl-11">
+          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
+            <div class="card-body p-4">
+              <div class="row g-0">
+                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
+                  <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                </div>
+                <div class="col-12 col-md-3 mt-2">
+                  <label>Name:</label>
+                  <h5>John Doe</h5>
+                  <label>Position:</label>
+                  <h5>President</h5>
+                </div>
+                <div class="col-12 col-md-4 mt-2">
+                  <label>Email:</label>
+                  <h5>Johndoe@my.jru.edu</h5>
+                  <label>Course:</label>
+                  <h5>BSIT</h5>
+                </div>
+                <div class="col-12 col-md-3 mt-2">
+                  <label>Student ID:</label>
+                  <h5>19-255322</h5>
+                  <label>Year Level:</label>
+                  <h5>Fourth Year</h5>
+                </div>
+              </div>
 
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
-        </div>
-      </div>
-      <div class="row ms-3 me-3 mt-2 justify-content-center align-items-center">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Pending</p>
             </div>
-            <div class="icon">
-              <i class="bi bi-hourglass-top" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter success">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Approved</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Rejected</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        </div>
-        <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-info">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Ongoing</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter done">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Implemented')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Implemented</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter masterlist">
-            <div class="inner">
-              <h3><i class="bi bi-list-ul"></i></h3>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-card-list" aria-hidden="true"></i>
-            </div>
-            <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6 mb-4">
-          <div class="card-counter events">
-            <div class="inner">
-              <h3><i class="bi bi-calendar-event"></i></h3>
-              <p>Event Calendar</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-calendar3" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
-    </div>
-      <!-- Footer -->
+      <h4 class="ms-3">My Organizations</h4>
+      <div class="row ms-4 mb-4 mt-4">
+        <div class="col-6  col-md-5  " id="orgs">
+          <div class="card shadow-md display: inline-block cards">
+            <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+
+              <a href="#" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Footer -->
+      </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
@@ -270,9 +189,10 @@ if(isset($_SESSION['msg'])){
         </footer>
       </div>
     </div>
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS-->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
     <script src="assets/js/form-validation.js"></script>
@@ -281,7 +201,6 @@ if(isset($_SESSION['msg'])){
     </script> <!-- JavaScript validation -->
     <script type="text/javascript">
       Waves.attach('#sidebar ul li a');
-      Waves.attach('.button');
       Waves.init();
     </script>
 </body>

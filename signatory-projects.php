@@ -40,7 +40,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="signatory-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -52,16 +52,16 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
-        <li>
+          <!--<li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
@@ -70,7 +70,7 @@ if(isset($_SESSION['msg'])){
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
-        </li>
+        </li>-->
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -142,9 +142,9 @@ if(isset($_SESSION['msg'])){
           <h4>Project Monitoring</h4>
         </div>
 
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+      <!--  <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
-        </div>
+        </div> -->
       </div>
       <div class="row ms-3 me-3 mt-2 justify-content-center align-items-center">
         <div class="col-lg-3 col-sm-6">
