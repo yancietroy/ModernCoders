@@ -39,9 +39,19 @@ include('mysql_connect.php');
                         <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
                       </div>-->
                   </div>
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Signatory Registration Form</h3>
 
                   <!-- <form class="was-validated"> -->
+                      <div class="row justify-content-start">
+                  <div class="col-12 col-md-4  mb-4">
+                    <div class="form-outline">
+
+                      <label class="form-label" for="studentid" id="asterisk">ID</label>
+                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
+                      <div class="valid-feedback"> </div>
+                    </div>
+                  </div>
+                </div>
                   <div class="row">
                     <div class="col-12 col-md-4 col-sm-3 mb-4">
                       <div class="form-outline">
@@ -60,17 +70,18 @@ include('mysql_connect.php');
                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                       </div>
                     </div>
-                    <div class="col-12 col-md-4  mb-4">
-                      <div class="form-outline">
-
-                        <label class="form-label" for="studentid" id="asterisk">ID</label>
-                        <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
-                        <div class="valid-feedback"> </div>
-                      </div>
+                    <div class="col-12  col-md-4   mb-4">
+                      <label class="form-label select-label" id="asterisk">Signatory Type</label>
+                      <select class=" form-select" name="school_year" id="select-group" required>
+                        <option class="greyclr" selected disabled value="">Select Type</option>
+                        <option value="1">Student Adviser</option>
+                        <option value="2">SDO</option>
+                      </select>
+                      <div class="valid-feedback"> </div>
                     </div>
-                        </div>
-                  <div class="row">
-                    <div class="col-12 col-md-4 ">
+                  </div>
+                  <div class="row mb-0">
+                    <div class="col-12 col-md-4 mb-4">
                       <div class="form-outline">
 
                         <label class="form-label" for="email" id="asterisk">Email</label>
@@ -80,7 +91,7 @@ include('mysql_connect.php');
                       </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-4 ">
                       <div class="form-outline">
 
                         <label class="form-label" for="password" id="asterisk">Password</label>
@@ -90,7 +101,7 @@ include('mysql_connect.php');
                         <div class="valid-feedback"> </div>
                     </div>
                 </div>
-                    <div class="col-12 col-md-4 >
+                    <div class="col-12 col-md-4">
                       <div class="form-outline">
                         <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
                         <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
@@ -101,13 +112,13 @@ include('mysql_connect.php');
                     </div>
 
                   </div>
-                  <div class="col-12 col-md-12 mb-4 mt-0">
+                  <div class="col-12 col-md-12 mt-0 mb-4">
                     <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                   </div>
 
                   <hr class="my-4">
-                  <p class="mt-3 text-center">Already have an account? <a href="admin-login.php" class="text-blue-50 fw-bold">Login</a>
+                  <p class="mt-3 text-center">Already have an account? <a href="signatory-login.php" class="text-blue-50 fw-bold">Login</a>
                   </p>
                 </form>
 
