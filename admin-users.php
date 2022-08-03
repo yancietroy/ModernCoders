@@ -13,25 +13,22 @@ if(isset($_SESSION['msg'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
+
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-  <!-- Waves CSS -->
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- Datatable Default-->
+
+<!-- Datatable Default-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
-  <!-- Datatable BS5
-  <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
-  --><!-- Icons -->
+
+  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -61,32 +58,32 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-        <li class="active">
+      <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li class="active">
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+                <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
-              <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
+                <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
             </li>
             <li>
-              <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-            </li>
+                <a href="#"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+              </li>
           </ul>
         </li>
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
-              <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+              <li>
+                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
+                <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
             </li>
             <li>
-              <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
-            </li>
+                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              </li>
           </ul>
         </li>
         <li>
@@ -134,7 +131,11 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex">John Doe</span></a>
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">Profile</a></li>
                   <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -153,91 +154,75 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item" aria-label="desc"> <i class="bi bi-people-fill"></i> User Management</li>
-          <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-person-badge"></i> Students</li>
+          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
+              <li class="breadcrumb-item">User Management</li>
+          <li class="breadcrumb-item active" aria-current="page">Students</li>
         </ol>
       </nav>
 
       <!-- Page content -->
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-11 ">
-          <div class="row">
-            <div class="col-xs-12">
-              <?php
-                  $query = "SELECT STUDENT_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL, YEAR_LEVEL, DATE_FORMAT(`BIRTHDATE`,'%M %d, %Y') AS 'Birth Date', AGE FROM tb_students";
-                  $result = @mysqli_query($conn,$query);
-                  $i = 0;
-                  $sid = " ";
-                  $name = " ";
-                  $email = " ";
-                  $ylevel = " ";
-                  $bdate = " ";
-                  $age = " ";
-                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+      <div class="table-responsive" id="tb">
+  <div class="row justify-content-center align-items-center">
+  <div class="col-md-11 ">
+    <div class="row">
+   <div class="col-xs-12">
+<table id='admin-user-table' class='table table-striped table-hover' style='width:100%'>
                         <thead>
                           <tr>
                               <th>Student ID</th>
-                              <th>Name</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Last Name</th>
+                              <th>Gender</th>
                               <th>Email</th>
                               <th>Year Level</th>
-                              <th>Birth date</th>
                               <th>Age</th>
+                              <th>Birth date</th>
                           </tr>
                         </thead>
                         <tbody>
-                      ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                      $sid = $row["STUDENT_ID"];
-                      $name = $row["NAME"];
-                      $email = $row["EMAIL"];
-                      $ylevel = $row["YEAR_LEVEL"];
-                      $bdate =  $row["Birth Date"];
-                      $age =$row["AGE"];
-
-                      echo "<tr>
-                            <td> $sid  </td>
-                            <td> $name  </td>
-                            <td> $email  </td>
-                            <td> $ylevel  </td>
-                            <td> $bdate  </td>
-                            <td> $age  </td>
-                            </tr>
-                          ";
-                      }
-                  echo "</tbody>
-                        <tfoot>
+                        </tbody>
+                        <!--<tfoot>
                             <tr>
                                 <th>Student ID</th>
-                                <th>Name</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Last Name</th>
+                                <th>Gender</th>
                                 <th>Email</th>
                                 <th>Year Level</th>
-                                <th>Birth date</th>
                                 <th>Age</th>
+                                <th>Birth date</th>
                             </tr>
-                        </tfoot>
-                        </table>";
-                  }
-                  $conn->close();
-                  ?>
+                        </tfoot>-->
+ </table>
+                  
+         </div>
+       </div>
+     </div>
+        <!--   <div class="col">
+        Card with right text alignment
+          <div class="card text-end">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+              <a href="#" class="btn btn-primary">Know more</a>
             </div>
           </div>
         </div>
+      </div> -->
+
         <!-- Footer -->
-        <div id="layoutAuthentication_footer">
-          <footer class="py-2 bg-light mt-3">
-            <div class="container-fluid px-4">
-              <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-              </div>
+      <div id="layoutAuthentication_footer">
+        <footer class="py-2 bg-light mt-3">
+          <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
             </div>
-          </footer>
-        </div>
+          </div>
+        </footer>
       </div>
+    </div>
     </div>
 
 
@@ -248,112 +233,100 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- Sidebar collapse -->
-    <script src="assets/js/form-validation.js"></script>
-    <!-- waves css-->
+
+  <!-- Sidebar collapse -->
     <script type="text/javascript">
-      Waves.attach('#sidebar ul li a');
-      Waves.init();
-    </script>
-    <!-- Datatable default  -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-
-    <!-- Datatable bs5
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript"
-      src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
-    </script>
-  -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-    <script>
       $(document).ready(function() {
-
-        /*  var columnDefs = [{
-            data: "studentid",
-            title: "Student ID",
-            type: "readonly"
-          },
-          {
-            data: "$name",
-            title: "Name",
-              type: "readonly"
-          },
-         {
-            data: "email",
-            title: "Email"
-          },
-         {
-            data: "Year level",
-            title: "Year Level"
-          },
-         {
-            data: "birthDate",
-            title: "Birthdate"
-          },
-         {
-            data: "Age",
-            title: "Age"
-          }
-          ];
-*/
-          var myTable;
-      myTable =  $('#example').DataTable({
-          responsive: true,
-          keys: true,
-          select: true,
-          //  dom: 'Bfrtip',"bFilter": true,
-          dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-          "bFilter": true,
-          select: 'single',
-          responsive: true,
-          altEditor: true,
-          "aLengthMenu": [
-            [10, 20, 50, 100, -1],
-            [10, 20, 50, 100, "All"]
-          ],
-          buttons: [
-            'pageLength',
-          'copyHtml5',
-            //  {
-            // extend: 'excelHtml5',
-            //   title: 'JRU Organizations Portal Student Users'
-            //   },
-            {
-              extend: 'csvHtml5',
-              title: 'JRU Organizations Portal Student Users'
-            },
-            {
-              extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal Student Users'
-            },
-            {
-              extend: 'print',
-              title: 'JRU Organizations Portal Student Users'
-            },
-            {
-            text: 'Add',
-            name: 'add'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Edit',
-            name: 'edit'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Delete',
-            name: 'delete'      // do not change name
-            }
-          ],
+        $('#sidebarCollapse').on('click', function() {
+          $('#sidebar').toggleClass('active');
         });
       });
     </script>
-<script src="assets/js/dataTables.altEditor.free.js" ></script>
+    <!-- Datatable -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+  <!-- <script>
+    $(document).ready(function() {
+        $('#admin-user-table').DataTable( {
+          responsive: true,
+           fixedHeader: true,
+            keys: true,
+             select: true,
+            dom: 'Bfrtip',"bFilter": true,
+    "aLengthMenu": [
+      [10, 20, 50, 100, -1],
+      [10, 20, 50, 100, "All"]
+    ],
+            buttons: [
+              'pageLength',
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print'
+       ],
+        } );
+    } );
+
+   </script>-->
+   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+      <script type="text/javascript" language="javascript" >
+        $(document).ready(function(){
+         var dataTable = $('#admin-user-table').DataTable({
+          responsive: true,
+           fixedHeader: true,
+            keys: true,
+             select: true,
+            dom: 'Bfrtip',"bFilter": true,
+    "aLengthMenu": [
+      [10, 20, 50, 100, -1],
+      [10, 20, 50, 100, "All"]
+    ],
+            buttons: [
+              'pageLength',
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print'
+       ],
+          "processing" : true,
+          "serverSide" : true,
+          "order" : [],
+          "ajax" : {
+           url:"fetch-admin-user.php",
+           type:"POST"
+          }
+         });
+
+         $('#admin-user-table').on('draw.dt', function(){
+          $('#admin-user-table').Tabledit({
+           url:'action-admin-user.php',
+           //eventType: 'dblclick',
+           //editButton: false,
+           //deleteButton: false,
+           dataType:'json',
+           columns:{
+            identifier : [0, 'STUDENT_ID'],
+            editable:[[1, 'FIRST_NAME'], [2, 'MIDDLE_NAME'], [3, 'LAST_NAME'], [4, 'GENDER', '{"Male":"Male","Female":"Female"}'], [5, 'EMAIL'], [6, 'YEAR_LEVEL'], [7, 'AGE']]
+           },
+           restoreButton:false,
+           onSuccess:function(data, textStatus, jqXHR)
+           {
+            if(data.action == 'delete')
+            {
+             $('#' + data.id).remove();
+             $('#admin-user-table').DataTable().ajax.reload();
+            }
+           }
+          });
+         });
+          
+        }); 
+    </script>
+
 </body>
 
 </html>
