@@ -167,26 +167,30 @@ if(isset($_SESSION['msg'])){
     <div class="row">
    <div class="col-xs-12">
 <?php
-                  $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
+                  $query = "SELECT STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE FROM tb_students";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
-                  $pid = " ";
-                  $pn = " ";
-                  $pd = " ";
-                  $v = " ";
-                  $eb = " ";
-                  $ds = " ";
-                  $s = " ";
-                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+                  $sid = " ";
+                  $fname = " ";
+                  $mname = " ";
+                  $lname = " ";
+                  $gender = " ";
+                  $email = " ";
+                  $ylevel = " ";
+                  $bdate = " ";
+                  $age = " ";
+                  echo "<table id='admin-user-table' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Description</th>
-                              <th>Venue</th>
-                              <th>Budget</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
+                              <th>Student ID</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Last Name</th>
+                              <th>Gender</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Age</th>
+                              <th>Birth date</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -196,35 +200,41 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                      $pid = $row["project_id"];
-                      $pn = $row["project_name"];
-                      $pd = $row["project_desc"];
-                      $v = $row["venue"];
-                      $eb = $row["estimated_budget"];
-                      $ds = $row["date_submitted"];
-                      $s = $row["status"];
+                      $sid = $row["STUDENT_ID"];
+                      $fname = $row["FIRST_NAME"];
+                      $mname = $row["MIDDLE_NAME"];
+                      $lname = $row["LAST_NAME"];
+                      $gender = $row["GENDER"];
+                      $email = $row["EMAIL"];
+                      $ylevel = $row["YEAR_LEVEL"];
+                      $bdate =  $row["BIRTHDATE"];
+                      $age =$row["AGE"];
 
                       echo "<tr>
-                            <td> $pid  </td>
-                            <td> $pn  </td>
-                            <td> $pd  </td>
-                            <td> $v  </td>
-                            <td> $eb  </td>
-                            <td> $s  </td>
-                            <td> $ds </td>
+                            <td> $sid  </td>
+                            <td> $fname  </td>
+                            <td> $mname  </td>
+                            <td> $gender  </td>
+                            <td> $lname  </td>
+                            <td> $email  </td>
+                            <td> $ylevel  </td>
+                            <td> $age </td>
+                            <td> $bdate  </td>                            
                             </tr>
                           ";
                       }
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                            <th>Project ID</th>
-                            <th>Project Name</th>
-                            <th>Description</th>
-                            <th>Venue</th>
-                            <th>Budget</th>
-                            <th>Status</th>
-                            <th>Date Submitted</th>
+                              <th>Student ID</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Last Name</th>
+                              <th>Gender</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Age</th>
+                              <th>Birth date</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -308,8 +318,8 @@ if(isset($_SESSION['msg'])){
    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
       <script type="text/javascript" language="javascript" >
-        $(document).ready(function(){
-         var dataTable = $('#admin-user-table').DataTable({
+        $(document).ready(function() {
+        $('#admin-user-table').DataTable( {
           responsive: true,
            fixedHeader: true,
             keys: true,
@@ -327,7 +337,8 @@ if(isset($_SESSION['msg'])){
                 'pdfHtml5',
                 'print'
        ],
-         });
+        } );
+    });
 
          $('#admin-user-table').on('draw.dt', function(){
           $('#admin-user-table').Tabledit({
@@ -368,8 +379,6 @@ if(isset($_SESSION['msg'])){
            }
           });
          });
-          
-        }); 
     </script>
 
 </body>
