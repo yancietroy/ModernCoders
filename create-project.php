@@ -232,16 +232,16 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="beneficiary" id="asterisk">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control" required />
+                <label class="form-label" for="beneficiary">Beneficiary:</label>
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control"/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="no_of_beneficiary" id="asterisk">No. of Beneficiary:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" required />
+                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control"/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
               </div>
