@@ -47,7 +47,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="officer-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -139,8 +139,8 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-11 ">
+      <div class="row justify-content-center align-items-center" id="container">
+        <div class="col-md-12 ">
           <div class="row">
             <div class="col-xs-12">
               <?php
@@ -285,7 +285,6 @@ if(isset($_SESSION['msg'])){
 */
           var myTable;
       myTable =  $('#example').DataTable({
-          responsive: true,
           keys: true,
           select: true,
           //  dom: 'Bfrtip',"bFilter": true,
@@ -300,9 +299,10 @@ if(isset($_SESSION['msg'])){
             [10, 20, 50, 100, -1],
             [10, 20, 50, 100, "All"]
           ],
+          paging:         false,
           buttons: [
-            'pageLength',
-          'copyHtml5',
+          //  'pageLength',
+          //'copyHtml5',
             //  {
             // extend: 'excelHtml5',
             //   title: 'JRU Organizations Portal Student Users'
@@ -335,7 +335,7 @@ if(isset($_SESSION['msg'])){
             }
           ],
         });
-      });
+        });
     </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>
 </body>

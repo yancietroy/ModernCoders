@@ -41,29 +41,30 @@ if(isset($_SESSION['msg'])){
     <!-- Sidebar  -->
     <nav id="sidebar">
 
-      <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
-          <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
+      <div class="sidebar-header text-center">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
 
-        <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+        <li class="active">
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
+
         <li>
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
-        <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
-        </li>
         <li>
+          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+        </li>
+            <!--<li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
@@ -72,7 +73,7 @@ if(isset($_SESSION['msg'])){
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
-        </li>
+        </li> -->
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -135,7 +136,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-plus-circle-fill"></i> Create Project</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>
 
@@ -143,29 +144,29 @@ if(isset($_SESSION['msg'])){
       <form action="" method="post" class="requires-validation" novalidate>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7  mb-4">
-          <h4>Create New Project</h4>
+          <h4>Project Details</h4>
         </div>
             <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row">
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_name" id="asterisk">Project name:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control" required />
+                <label class="form-label" for="project_name" >Project name:</label>
+                <input type="text" name="project_name" id="project_name" class="form-control"   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="venue" id="asterisk">Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" required />
+                <label class="form-label" for="venue" >Venue:</label>
+                <input type="text" name="venue" id="venue" class="form-control"  style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
             </div>
           <div class="col-12 col-md-4 col-sm-3 mb-4">
-            <label class="form-label select-label" for="project_type" id="asterisk">Project Type:</label>
-            <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" required>
+            <label class="form-label select-label" for="project_type" >Project Type:</label>
+            <select class="mt-0 ms-0 form-select" name="project_type" id="project_type"   style="background-color: #fff;" readonly>
               <option class="greyclr" selected disabled value="" >Select Type</option>
               <option value="Curricular">Curricular</option>
               <option value="Extra Curricular">Extra Curricular</option>
@@ -178,23 +179,23 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" value="" required />
+                <label class="form-label" for="start_date" >Start Date:</label>
+                <input type="text" class="form-control" name="start_date" id="start_date" value=""   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="end_date" id="asterisk">End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" value="" required />
+                <label class="form-label" for="end_date" >End Date:</label>
+                <input type="text" class="form-control" name="end_date" id="end_date" value=""   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <label class="form-label select-label" for="budget_source" id="asterisk">Budget Source:</label>
-              <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source" required>
+              <label class="form-label select-label" for="budget_source" >Budget Source:</label>
+              <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source"   style="background-color: #fff;" readonly>
                 <option class="greyclr" selected disabled value="" >Select Budget Source</option>
                 <option value="Student Council">Student Council</option>
                 <option value="(Mother org)">(Mother org)</option>
@@ -203,8 +204,8 @@ if(isset($_SESSION['msg'])){
               <div class="invalid-feedback">Category field cannot be blank!</div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
-              <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
+              <label class="form-label select-label" for="project_category" >Category:</label>
+              <select class="mt-0 ms-0 form-select" name="project_category" id="project_category"   style="background-color: #fff;" readonly>
                 <option class="greyclr" selected disabled value="" >Select Category</option>
                 <option value="Onsite">Onsite</option>
                 <option value="Online">Online</option>
@@ -216,16 +217,16 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" required />
+                <label class="form-label" for="participants" >Participants:</label>
+                <input type="text" name="participants" id="participants" class="form-control"   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="no_of_participants" id="asterisk">No. of Participants:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" required />
+                <label class="form-label" for="no_of_participants" >No. of Participants:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Participants field cannot be blank!</div>
               </div>
@@ -233,7 +234,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control"/>
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control"  style="background-color: #fff;" readonly/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
@@ -241,7 +242,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control"/>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control"  style="background-color: #fff;" readonly/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
               </div>
@@ -250,28 +251,42 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_desc" id="asterisk">Project Description:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" placeholder="Enter project objectives and details." required></textarea>
+                <label class="form-label" for="project_desc" >Project Description:</label>
+                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment:</label>
-                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                <label class="form-label mb-2" for="attachments" >Download Attachment:</label>
+                <br>
+                <button type="button" class="btn btn-secondary btn-md mt-3">Download</button>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
-                <label class="form-label mt-4" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" required />
+                <br>
+                <label class="form-label mt-4" for="estimated_budget" >Estimated Budget:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"   style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Budget field cannot be blank!</div>
               </div>
             </div>
           </div>
+          <hr>
+          <div class="row mt-4">
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="project_desc" >Remarks:</label>
+                <textarea class="form-control" name="project_desc" id="project_desc" rows="6"></textarea>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Project Description field cannot be blank!</div>
+              </div>
+            </div>
+          </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">
-            <input class="btn btn-primary btn-lg" name="submit" type="submit" value="Submit">
+            <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="butt">Back</a>
+            <a class="btn btn-lg btn-outline-danger" id="butt" href="#" role="button">Reject</a>
+            <a class="btn btn-lg btn-outline-success" id="butt" href="#" role="button">Approve</a>
           </div>
       </div>
       </div>
@@ -326,11 +341,12 @@ if(isset($_SESSION['msg'])){
       <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
       </script> <!-- JavaScript validation -->
       <script type="text/javascript">
+        Waves.attach('#butt');
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
       -<script src="assets/js/date.js"></script>
-        <!-- Datepicker cdn  -->
+        <!-- Datepicker cdn
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
     $(document).ready(function () {
@@ -348,6 +364,6 @@ if(isset($_SESSION['msg'])){
                minDate: 0
            });
        });
-        </script>
+        </script>  -->
 </body>
 </html>
