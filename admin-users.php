@@ -166,36 +166,71 @@ if(isset($_SESSION['msg'])){
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-<table id='admin-user-table' class='table table-striped table-hover' style='width:100%'>
+<?php
+                  $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
+                  $result = @mysqli_query($conn,$query);
+                  $i = 0;
+                  $pid = " ";
+                  $pn = " ";
+                  $pd = " ";
+                  $v = " ";
+                  $eb = " ";
+                  $ds = " ";
+                  $s = " ";
+                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
-                              <th>Student ID</th>
-                              <th>First Name</th>
-                              <th>Middle Name</th>
-                              <th>Last Name</th>
-                              <th>Gender</th>
-                              <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Age</th>
-                              <th>Birth date</th>
+                              <th>Project ID</th>
+                              <th>Project Name</th>
+                              <th>Description</th>
+                              <th>Venue</th>
+                              <th>Budget</th>
+                              <th>Status</th>
+                              <th>Date Submitted</th>
                           </tr>
                         </thead>
                         <tbody>
-                        </tbody>
-                        <!--<tfoot>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>First Name</th>
-                                <th>Middle Name</th>
-                                <th>Last Name</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Year Level</th>
-                                <th>Age</th>
-                                <th>Birth date</th>
+                      ";
+                  if ($result !== false && $result->num_rows > 0)
+                  {
+                      // output data of each row
+                      while($row = $result->fetch_assoc())
+                      {
+                      $pid = $row["project_id"];
+                      $pn = $row["project_name"];
+                      $pd = $row["project_desc"];
+                      $v = $row["venue"];
+                      $eb = $row["estimated_budget"];
+                      $ds = $row["date_submitted"];
+                      $s = $row["status"];
+
+                      echo "<tr>
+                            <td> $pid  </td>
+                            <td> $pn  </td>
+                            <td> $pd  </td>
+                            <td> $v  </td>
+                            <td> $eb  </td>
+                            <td> $s  </td>
+                            <td> $ds </td>
                             </tr>
-                        </tfoot>-->
- </table>
+                          ";
+                      }
+                  echo "</tbody>
+                        <tfoot>
+                            <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Venue</th>
+                            <th>Budget</th>
+                            <th>Status</th>
+                            <th>Date Submitted</th>
+                            </tr>
+                        </tfoot>
+                        </table>";
+                  }
+                  $conn->close();
+                  ?>
                   
          </div>
        </div>
@@ -292,22 +327,32 @@ if(isset($_SESSION['msg'])){
                 'pdfHtml5',
                 'print'
        ],
-          "processing" : true,
-          "serverSide" : true,
-          "order" : [],
-          "ajax" : {
-           url:"fetch-admin-user.php",
-           type:"POST"
-          }
          });
 
          $('#admin-user-table').on('draw.dt', function(){
           $('#admin-user-table').Tabledit({
            url:'action-admin-user.php',
            //eventType: 'dblclick',
-           //editButton: false,
-           //deleteButton: false,
+           deleteButton: true,
+           saveButton: true,
+           autoFocus: false,
            dataType:'json',
+           buttons: {
+           edit: {
+              class: 'btn btn-sm btn-primary',
+              html: '<span>EDIT</span>',
+              action: 'edit'
+           },
+           delete: {
+              class: 'btn btn-sm btn-danger',
+              html: '<span>DELETE</span>',
+              action: 'delete'
+           },
+           confirm: {
+              class: 'btn btn-sm btn-default',
+              html: 'Are you sure? <span>Yes</span>'
+           }
+           },
            columns:{
             identifier : [0, 'STUDENT_ID'],
             editable:[[1, 'FIRST_NAME'], [2, 'MIDDLE_NAME'], [3, 'LAST_NAME'], [4, 'GENDER', '{"Male":"Male","Female":"Female"}'], [5, 'EMAIL'], [6, 'YEAR_LEVEL'], [7, 'AGE']]
