@@ -147,6 +147,9 @@ if(isset($_SESSION['msg'])){
         <div class="col-md-11 ">
           <div class="row">
             <div class="col-xs-12">
+              <div class="btnAdd">
+                <a href="#!" data-id="" data-bs-toggle="modal" data-bs-target="#addUserModal" class="btn btn-success btn-sm">Add User</a>
+              </div>
               <?php
                   $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
                   $result = @mysqli_query($conn,$query);

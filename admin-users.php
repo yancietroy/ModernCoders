@@ -166,7 +166,26 @@ if(isset($_SESSION['msg'])){
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-<?php
+    <div class="btnAdd">
+          <a href="#!" data-id="" data-bs-toggle="modal" data-bs-target="#addStudentModal" class="btn btn-success btn-sm">Add User</a>
+        </div>
+        <table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+              <thead>
+                              <th>Student ID</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Last Name</th>
+                              <th>Gender</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Age</th>
+                              <th>Birth date</th>
+                              <th>Options</th>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+<!--<?php/**
                   $query = "SELECT STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE FROM tb_students";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
@@ -179,7 +198,7 @@ if(isset($_SESSION['msg'])){
                   $ylevel = " ";
                   $bdate = " ";
                   $age = " ";
-                  echo "<table id='admin-user-table' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
                               <th>Student ID</th>
@@ -239,8 +258,8 @@ if(isset($_SESSION['msg'])){
                             </tr>
                         </tfoot>
                         </table>";
-                  $conn->close();
-                  ?>
+                  $conn->close();**/
+                  ?>-->
                   
          </div>
        </div>
@@ -291,8 +310,400 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-  <script>
+  <script type="text/javascript">
     $(document).ready(function() {
+      $('#example').DataTable({
+        "fnCreatedRow": function(nRow, aData, iDataIndex) {
+          $(nRow).attr('id', aData[0]);
+        },
+        'serverSide': 'true',
+        'processing': 'true',
+        'paging': 'true',
+        'order': [],
+        'ajax': {
+          'url': 'fetchdata-admin-user.php',
+          'type': 'post',
+        },
+        "aoColumnDefs": [{
+            "defaultContent": "-",
+            "aTargets": "_all"
+          },
+
+        ],
+
+      });
+    });
+        $(document).on('submit', '#addStudent', function(e) {
+      e.preventDefault();
+      var STUDENT_ID = $('#addStudentIdField').val();
+      var FIRST_NAME = $('#addFirstNameField').val();
+      var MIDDLE_NAME = $('#addMiddleNameField').val();
+      var LAST_NAME = $('#addLastNameField').val();
+      var GENDER = $('#addGenderField').val();
+      var EMAIL = $('#addEmailField').val();
+      var YEAR_LEVEL = $('#addYearLevelField').val();
+      var BIRTHDATE = $('#addBirthDateField').val();
+      var AGE = $('#addAgeField').val();
+      if (STUDENT_ID != '' && FIRST_NAME != '' && MIDDLE_NAME != '' && LAST_NAME != '' && GENDER != '' && EMAIL != '' && YEAR_LEVEL != '' && BIRTHDATE != '' && AGE != '') {
+        $.ajax({
+          url: "add_admin_user.php",
+          type: "post",
+          data: {
+            STUDENT_ID: STUDENT_ID,
+            FIRST_NAME: FIRST_NAME,
+            MIDDLE_NAME: MIDDLE_NAME,
+            LAST_NAME: LAST_NAME,
+            GENDER: GENDER,
+            EMAIL: EMAIL,
+            YEAR_LEVEL: YEAR_LEVEL,
+            BIRTHDATE: BIRTHDATE,
+            AGE: AGE
+          },
+          success: function(data) {
+            var json = JSON.parse(data);
+            var status = json.status;
+            if (status == 'true') {
+              mytable = $('#example').DataTable();
+              mytable.draw();
+              $('#addStudentModal').modal('hide');
+            } else {
+              alert('failed');
+            }
+          }
+        });
+      } else {
+        alert('Fill all the required fields');
+      }
+    });
+    $(document).on('submit', '#updateStudent', function(e) {
+      e.preventDefault();
+      //var tr = $(this).closest('tr');
+      var STUDENT_ID = $('#STUDENT_ID').val();
+      var FIRST_NAME = $('#editFirstNameField').val();
+      var MIDDLE_NAME = $('#editMiddleNameField').val();
+      var LAST_NAME = $('#editLastNameField').val();
+      var GENDER = $('#editGenderField').val();
+      var EMAIL = $('#editEmailField').val();
+      var YEAR_LEVEL = $('#editYearLevelField').val();
+      var BIRTHDATE = $('#editBirthDateField').val();
+      var AGE = $('#editAgeField').val();
+      var trid = $('#trid').val();
+      if (STUDENT_ID != '' && FIRST_NAME != '' && MIDDLE_NAME != '' && LAST_NAME != '' && GENDER != '' && EMAIL != '' && YEAR_LEVEL != '' && BIRTHDATE != '' && AGE != '') {
+        $.ajax({
+          url: "update_admin_user.php",
+          type: "post",
+          data: {
+            STUDENT_ID: STUDENT_ID,
+            FIRST_NAME: FIRST_NAME,
+            MIDDLE_NAME: MIDDLE_NAME,
+            LAST_NAME: LAST_NAME,
+            GENDER: GENDER,
+            EMAIL: EMAIL,
+            YEAR_LEVEL: YEAR_LEVEL,
+            BIRTHDATE: BIRTHDATE,
+            AGE: AGE
+          },
+          success: function(data) {
+            var json = JSON.parse(data);
+            var status = json.status;
+            if (status == 'true') {
+              table = $('#example').DataTable();
+              // table.cell(parseInt(trid) - 1,0).data(id);
+              // table.cell(parseInt(trid) - 1,1).data(username);
+              // table.cell(parseInt(trid) - 1,2).data(email);
+              // table.cell(parseInt(trid) - 1,3).data(mobile);
+              // table.cell(parseInt(trid) - 1,4).data(city);
+              var button = '<td><a href="javascript:void();" data-id="' + STUDENT_ID + '" class="btn btn-info btn-sm editbtn">Edit</a>  <a href="#!"  data-id="' + STUDENT_ID + '"  class="btn btn-danger btn-sm deleteBtn">Delete</a></td>';
+              var row = table.row("[id='" + trid + "']");
+              row.row("[id='" + trid + "']").data([STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE, button]);
+              $('#updateStudentModal').modal('hide');
+            } else {
+              alert('failed');
+            }
+          }
+        });
+      } else {
+        alert('Fill all the required fields');
+      }
+    });
+    $('#example').on('click', '.editbtn ', function(event) {
+      var table = $('#example').DataTable();
+      var trid = $(this).closest('tr').attr('id');
+      // console.log(selectedRow);
+      var STUDENT_ID = $(this).data('STUDENT_ID');
+      $('#updateStudentModal').modal('show');
+      $.ajax({
+        url: "get_admin_data.php",
+        data: {
+          STUDENT_ID: STUDENT_ID
+        },
+        type: 'post',
+        success: function(data) {
+          var json = JSON.parse(data);
+          $('#editFirstNameField').val(json.FIRST_NAME);
+          $('#editMiddleNameField').val(json.MIDDLE_NAME);
+          $('#editLastNameField').val(json.LAST_NAME);
+          $('#editGenderField').val(json.GENDER);
+          $('#editEmailField').val(json.EMAIL);
+          $('#editYearLevelField').val(json.YEAR_LEVEL);
+          $('#editBirthDateField').val(json.BIRTHDATE);
+          $('#editAgeField').val(json.AGE);
+          $('#STUDENT_ID').val(STUDENT_ID);
+          $('#trid').val(trid);
+        }
+      })
+    });
+
+    $(document).on('click', '.deleteBtn', function(event) {
+      var table = $('#example').DataTable();
+      event.preventDefault();
+      var STUDENT_ID = $(this).data('STUDENT_ID');
+      if (confirm("Are you sure want to delete this User ? ")) {
+        $.ajax({
+          url: "delete_admin_user.php",
+          data: {
+            STUDENT_ID: STUDENT_ID
+          },
+          type: "post",
+          success: function(data) {
+            var json = JSON.parse(data);
+            status = json.status;
+            if (status == 'success') {
+              //table.fnDeleteRow( table.$('#' + id)[0] );
+              //$("#example tbody").find(id).remove();
+              //table.row($(this).closest("tr")) .remove();
+              $("#" + STUDENT_ID).closest('tr').remove();
+            } else {
+              alert('Failed');
+              return;
+            }
+          }
+        });
+      } else {
+        return null;
+      }
+    })
+  </script>
+  <!-- Modal -->
+  <div class="modal fade" id="updateStudentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="updateStudent" post = "">
+            <input type="hidden" name="STUDENT_ID" id="STUDENT_ID" value="">
+            <input type="hidden" name="trid" id="trid" value="">
+            <div class="mb-3 row">
+              <label for="editFirstNameField" class="col-md-3 form-label">First Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="editFirstNameField" name="firstName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editMiddleNameField" class="col-md-3 form-label">Middle Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="editMiddleNameField" name="middleName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editLastNameField" class="col-md-3 form-label">Last Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="editLastNameField" name="lastName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editGenderField" class="col-md-3 form-label">Gender</label>
+              <div class="col-md-9">
+                <select class="form-select form-select-sm" name="gender" id="editGenderField">
+                      <option class="greyclr" selected disabled value="" text-muted>Select Gender</option>
+                      <option value="Female">Female</option>
+                      <option value="Male">Male</option>                 
+                    </select>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editEmailField" class="col-md-3 form-label">Email</label>
+              <div class="col-md-9">
+                <input type="email" class="form-control" id="editEmailField" name="email">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editYearLevelField" class="col-md-3 form-label">Year Level</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="editYearLevelField" name="yearLevel">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addBirthDateField" class="col-md-3 form-label">Birth Date</label>
+              <div class="col-md-9">
+                <input id="addBirthDateField" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"/>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="editAgeField" class="col-md-3 form-label">Age</label>
+              <div class="col-md-9">
+                <input type="text" name="age" id="addAgeField" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add user Modal -->
+  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addStudent" action="">
+            <div class="mb-3 row">
+              <label for="addStudentIdField" class="col-md-3 form-label">Student ID</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addStudentIdField" name="studentID">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addFirstNameField" class="col-md-3 form-label">First Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addFirstNameField" name="firstName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addMiddleNameField" class="col-md-3 form-label">Middle Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addMiddleNameField" name="middleName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addLastNameField" class="col-md-3 form-label">Last Name</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addLastNameField" name="lastName">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addGenderField" class="col-md-3 form-label">Gender</label>
+              <div class="col-md-9">
+                <select class="form-select form-select-sm" name="gender" id="addGenderField">
+                      <option class="greyclr" selected disabled value="" text-muted>Select Gender</option>
+                      <option value="Female">Female</option>
+                      <option value="Male">Male</option>                 
+                    </select>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addEmailField" class="col-md-3 form-label">Email</label>
+              <div class="col-md-9">
+                <input type="email" class="form-control" id="addEmailField" name="email">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addYearLevelField" class="col-md-3 form-label">Year Level</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addYearLevelField" name="yearLevel">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addBirthDateField" class="col-md-3 form-label">Birth Date</label>
+              <div class="col-md-9">
+                <input id="addBirthDateField" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"/>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addAgeField" class="col-md-3 form-label">Age</label>
+              <div class="col-md-9">
+                <input type="text" name="age" id="addAgeField" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" />
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+
+  function getAge(){
+      var dob = document.getElementById('addBirthDateField').value;
+      dob = new Date(dob);
+      var today = new Date();
+      var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+      document.getElementById('addAgeField').value=age;
+  }
+
+  $(function () {
+      $('input[data-relmax]').each(function () {
+          var oldVal = $(this).prop('value');
+          var relmax = $(this).data('relmax');
+          var max = new Date();
+          max.setFullYear(max.getFullYear() + relmax);
+          $.prop(this, 'max', $(this).prop('valueAsDate', max).val());
+          $.prop(this, 'value', oldVal);
+      });
+  });
+  </script>
+
+  <!--<script>
+    $(document).ready(function(){
+     
+      /**var columnDefs = [{
+        data: "STUDENT_ID",
+        title: "Student ID",
+        type: "readonly"
+      },
+      {
+        data: "FIRST_NAME",
+        title: "First Name"
+      },
+     {
+        data: "MIDDLE_NAME",
+        title: "Middle Name"
+      },
+     {
+        data: "LAST_NAME",
+        title: "Last Name"
+      },
+     {
+        data: "GENDER",
+        title: "Gender"
+      },
+     {
+        data: "EMAIL",
+        title: "Email"
+      },
+     {
+        data: "YEAR_LEVEL",
+        title: "Year Level"
+      },
+      {
+        data: "AGE",
+        title: "Age"
+      },
+      {
+        data: "BIRTHDATE",
+        title: "Birth date"
+      },
+     
+  ];**/
+
+
         var myTable;
       myTable =  $('#admin-user-table').DataTable({
           responsive: true,
@@ -343,11 +754,52 @@ if(isset($_SESSION['msg'])){
             text: 'Delete',
             name: 'delete'      // do not change name
             }
-          ],
+          ]
         });
-    } );
+      // Edit
+    $(document).on('click', "[id^='admin-user-table'] tbody ", 'tr', function () {
+      var tableID = $(this).closest('table').attr('id');    // id of the table
+      var that = $( '#'+tableID )[0].altEditor;
+      that._openEditModal();
+      $('#altEditor-edit-form-' + that.random_id)
+                  .off('submit')
+                  .on('submit', function (e) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      that._editRowData();
+                  });
+    });
+
+    // Delete
+    $(document).on('click', "[id^='admin-user-table'] .delbutton", 'tr', function (x) {
+      var tableID = $(this).closest('table').attr('id');    // id of the table
+      var that = $( '#'+tableID )[0].altEditor;
+      that._openDeleteModal();
+      $('#altEditor-delete-form-' + that.random_id)
+                  .off('submit')
+                  .on('submit', function (e) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      that._deleteRow();
+                  });
+      x.stopPropagation(); //avoid open "Edit" dialog
+    });
+
+    // Add row
+    $('#addbutton').on('click', function () {
+      var that = $( '#admin-user-table' )[0].altEditor;
+      that._openAddModal();
+      $('#altEditor-add-form-' + that.random_id)
+                  .off('submit')
+                  .on('submit', function (e) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      that._addRowData();
+                  });
+    });
+});
    </script>
-<script src="assets/js/dataTables.altEditor.free.js" ></script>
+<script src="assets/js/dataTables.altEditor.free.js" ></script>-->
 </body>
 
 </html>
