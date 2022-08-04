@@ -1,4 +1,3 @@
-(function() {
   'use strict'
   const forms = document.querySelectorAll('.requires-validation')
   Array.from(forms)
