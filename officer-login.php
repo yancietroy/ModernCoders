@@ -91,7 +91,7 @@ if(isset ($_POST['submit']))
 	if(!empty($_POST['email']) || !empty($_POST['password'])) {
 		ob_start();
 
-		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+		$query = "Select Officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 

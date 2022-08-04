@@ -42,7 +42,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -232,16 +232,16 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="beneficiary">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control"/>
+                <label class="form-label" for="beneficiary" id="asterisk">Beneficiary:</label>
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control"/>
+                <label class="form-label" for="no_of_beneficiary" id="asterisk">No. of Beneficiary:</label>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
               </div>
@@ -326,6 +326,7 @@ if(isset($_SESSION['msg'])){
       <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
       </script> <!-- JavaScript validation -->
       <script type="text/javascript">
+              Waves.attach('#sidebar ul li a');
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
