@@ -46,8 +46,8 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
-                      <label class="form-label" for="studentid" id="asterisk">ID</label>
-                      <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
+                      <label class="form-label" for="schoolId" id="asterisk">ID</label>
+                      <input type="text" name="schoolId" id="schoolId" class="form-control" placeholder="##-###### " required />
                       <div class="valid-feedback"> </div>
                     </div>
                   </div>
@@ -56,7 +56,7 @@ include('mysql_connect.php');
                     <div class="col-12 col-md-4 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="firstName" id="asterisk">First name</label>
-                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
+                        <input type="text" name="firstName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="firstName" class="form-control form-control-lg" required="" />
                         <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
@@ -65,17 +65,17 @@ include('mysql_connect.php');
                       <div class="form-outline">
 
                         <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                        <input type="text" name="last_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest3" class="form-control form-control-lg" required />
+                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="lastName" class="form-control form-control-lg" required />
                         <div class="valid-feedback"> </div>
                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                       </div>
                     </div>
                     <div class="col-12  col-md-4   mb-4">
                       <label class="form-label select-label" id="asterisk">Signatory Type</label>
-                      <select class=" form-select" name="school_year" id="select-group" required>
+                      <select class=" form-select" name="signatory_type" id="select-group" required>
                         <option class="greyclr" selected disabled value="">Select Type</option>
-                        <option value="1">Student Adviser</option>
-                        <option value="2">SDO</option>
+                        <option value="Student Adviser">Student Adviser</option>
+                        <option value="SDO">SDO</option>
                       </select>
                       <div class="valid-feedback"> </div>
                     </div>
@@ -86,7 +86,7 @@ include('mysql_connect.php');
 
                         <label class="form-label" for="email" id="asterisk">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
-                          readonly>
+                          >
                         <div class="valid-feedback"></div>
                       </div>
                     </div>
@@ -120,6 +120,28 @@ include('mysql_connect.php');
                   <hr class="my-4">
                   <p class="mt-3 text-center">Already have an account? <a href="signatory-login.php" class="text-blue-50 fw-bold">Login</a>
                   </p>
+                  <?php
+              if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
+                {
+                  $si = $_POST['schoolId'];
+                  $fn = $_POST['firstName'];
+                  $ln = $_POST['lastName'];
+                  $st = $_POST['signatory_type'];
+                  $e = $_POST['email'];
+                  $p = $_POST['password'];
+
+                      $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                      $result = @mysqli_query($conn, $query);
+
+                      echo "<script type='text/javascript'>
+                            window.location = 'signatory-login.php'
+                            alert('You are now registered!')
+                            </script>";
+                      //header("location:signatory-login.php");
+                      die;
+                          @mysqli_close($conn);
+                }
+              ?>
                 </form>
 
 

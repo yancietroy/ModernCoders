@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2022 at 07:50 PM
+-- Generation Time: Aug 04, 2022 at 10:07 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -326,12 +326,19 @@ CREATE TABLE `tb_officers` (
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `middle_initial` char(50) NOT NULL,
-  `course` varchar(20) NOT NULL,
+  `course` varchar(100) NOT NULL,
   `section` varchar(10) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(1000) NOT NULL,
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_officers`
+--
+
+INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
+(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
 
@@ -508,6 +515,28 @@ CREATE TABLE `tb_results` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_signatories`
+--
+
+CREATE TABLE `tb_signatories` (
+  `school_id` int(11) NOT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatories`
+--
+
+INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
+(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_students`
 --
 
@@ -533,8 +562,8 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL),
-(17402211, 'Doe', 'Jane', 'Middle', '2000-06-13', 22, 'Female', '4', 'janedoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
+(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '0000-00-00', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL),
+(17402211, 'Doe', 'John', '', '0000-00-00', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -590,6 +619,38 @@ CREATE TABLE `tb_vote` (
   `RESULTS` int(3) NOT NULL,
   `DATE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `city` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `mobile`, `city`) VALUES
+(7, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
+(8, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
+(9, 'Rajs', 'user@gmail.com', '8887919632', 'Lucknow'),
+(10, 'Amrendra', 'user@gmail.com', '434334', 'Lucknow'),
+(11, 'Bahubalis', 'user@gmail.com', '434334', 'Lucknow'),
+(12, 'Alok Kumar bisht', 'user@gmail.com', '434334', 'Lucknow'),
+(13, 'admin', 'admin@gmail.com', '9988999999', 'Lucknow'),
+(15, 'ninebroadband', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
+(16, 'index.html', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
+(18, 'index.html', 'user@gmail.com', '8127956219', 'Lucknow'),
+(19, 'sfd', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa'),
+(20, 'sfdaaaaa', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa');
 
 --
 -- Indexes for dumped tables
@@ -755,6 +816,12 @@ ALTER TABLE `tb_results`
   ADD KEY `result_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
+-- Indexes for table `tb_signatories`
+--
+ALTER TABLE `tb_signatories`
+  ADD PRIMARY KEY (`school_id`);
+
+--
 -- Indexes for table `tb_students`
 --
 ALTER TABLE `tb_students`
@@ -795,6 +862,12 @@ ALTER TABLE `tb_vote`
   ADD KEY `vote_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -809,6 +882,12 @@ ALTER TABLE `tbl_sample`
 --
 ALTER TABLE `tb_projectmonitoring`
   MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
