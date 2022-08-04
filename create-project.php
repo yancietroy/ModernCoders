@@ -42,7 +42,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="officer-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -121,7 +121,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
 
                 </ul>
               </li>

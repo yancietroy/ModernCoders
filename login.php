@@ -59,7 +59,7 @@ if(isset($_SESSION['message'])){
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
               <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-4" id="select-opt" required>
+                <select class="selectpicker form-select mt-4" id="select-opt">
                   <option class="greyclr" selected disabled value="" text-muted>Select User</option>
                   <option value="login.php">Student</option>
                   <option value="officer-login.php">Officer</option>
