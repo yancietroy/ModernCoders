@@ -45,17 +45,14 @@ include('mysql_connect.php');
                   </div>
                   <div class="col-4 col-md-4  mb-4">
                     <div class="form-outline">
-
                       <label class="form-label" for="middleName">Middle name</label>
                       <input type="text" name="middle_name" onkeypress="return /[a-z, ]/i.test(event.key)"   maxlength="20" id="txtTest2" class="form-control form-control-lg" />
                       <div class="valid-feedback">
                       </div>
                     </div>
-
                   </div>
                   <div class="col-4 col-md-4  mb-4">
                     <div class="form-outline">
-
                       <label class="form-label" for="lastName" id="asterisk">Last name</label>
                       <input type="text" name="last_name" onkeypress="return /[a-z, ]/i.test(event.key)"  maxlength="20"  id="txtTest3" class="form-control form-control-lg" required />
                       <div class="valid-feedback">  </div>
@@ -82,10 +79,8 @@ include('mysql_connect.php');
                   </div>
                   <div class="col-4 col-md-4 mb-4 ">
                     <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
-
                     <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
-
                     <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                     <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
                                <div class="valid-feedback check"> &#x2713;</div>

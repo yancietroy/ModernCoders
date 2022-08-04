@@ -18,10 +18,13 @@ if(isset($_SESSION['msg'])){
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
@@ -161,12 +164,174 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
+<!-- Add New User Modal Start -->
+  <div class="modal fade" tabindex="-1" id="addNewUserModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Student</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="add-user-form" class="p-2" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="studentId" id="asterisk">Student ID</label>
+                <input type="text" name="studentId" id="studentId" class="form-control" placeholder="##-######" required />
+                <div class="valid-feedback">  </div>
+                <div class="invalid-feedback">student id field cannot be blank!</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="fname" id="asterisk">First name</label>
+                <input type="text" name="fname" class="form-control form-control-lg" placeholder="Enter First Name" required>
+                <div class="invalid-feedback">First name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="mname">Middle name</label>
+                <input type="text" name="mname" class="form-control form-control-lg" placeholder="Enter Middle Name" required>
+                <div class="invalid-feedback">Last name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="lName" id="asterisk">Last name</label>
+                <input type="text" name="lname" class="form-control form-control-lg" placeholder="Enter Last Name" required>
+                <div class="invalid-feedback">Last name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
+                <select class=" form-select" name="gender" id="select-group" required>
+                          <option class="greyclr" selected disabled value="" >Select Year</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                </select>
+                <div class="invalid-feedback">Gender is required!</div>
+              </div>
+            <div class="mb-3">
+              <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter E-mail" required>
+              <div class="invalid-feedback">E-mail is required!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="yearLevel">Year Level</label>
+              <select class=" form-select" name="yearLevel" id="select-group" required>
+                          <option class="greyclr" selected disabled value="" >Select Year</option>
+                          <option value="1">First Year</option>
+                          <option value="2">Second Year</option>
+                          <option value="3">Third Year</option>
+                          <option value="4">Fourth Year</option>
+                </select>
+                <div class="invalid-feedback">Year Level is required!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="birthDate" id="asterisk">Birthdate</label>
+                <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthDate" onblur="getAge();" title="You should be over 18 years old" required />
+                <div class="valid-feedback">  </div>
+                <div class="invalid-feedback">Birthdate field invalid!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="age">Age</label>
+                <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                <div class="valid-feedback">  </div>
+                <div class="invalid-feedback">Age field cannot be blank!</div>
+            </div>
+            <div class="mb-3">
+              <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="add-user-btn">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add New User Modal End -->
+
+  <!-- Edit User Modal Start -->
+  <div class="modal fade" tabindex="-1" id="editUserModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit This User</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-user-form" class="p-2" novalidate>
+            <input type="hidden" name="studentId" id="studentId">
+            <div class="mb-3">
+                <label class="form-label" for="firstName" id="asterisk">First name</label>
+                <input type="text" name="fname" class="form-control form-control-lg" placeholder="Enter First Name" required>
+                <div class="invalid-feedback">First name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="middleName">Middle name</label>
+                <input type="text" name="mname" class="form-control form-control-lg" placeholder="Enter Middle Name" required>
+                <div class="invalid-feedback">Last name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="lastName" id="asterisk">Last name</label>
+                <input type="text" name="lname" class="form-control form-control-lg" placeholder="Enter Last Name" required>
+                <div class="invalid-feedback">Last name is required!</div>
+              </div>
+              <div class="mb-3">
+                <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
+                <select class=" form-select" name="gender" id="select-group" required>
+                          <option class="greyclr" selected disabled value="" >Select Year</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                </select>
+                <div class="invalid-feedback">Gender is required!</div>
+              </div>
+            <div class="mb-3">
+              <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter E-mail" required>
+              <div class="invalid-feedback">E-mail is required!</div>
+            </div>
+            <div class="mb-3">
+              <select class=" form-select" name="yearLevel" id="select-group" required>
+                          <option class="greyclr" selected disabled value="" >Select Year</option>
+                          <option value="1">First Year</option>
+                          <option value="2">Second Year</option>
+                          <option value="3">Third Year</option>
+                          <option value="4">Fourth Year</option>
+                </select>
+                <div class="invalid-feedback">Year Level is required!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="birthDate" id="asterisk">Birthdate</label>
+                <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
+                <div class="valid-feedback">  </div>
+                <div class="invalid-feedback">Birthdate field invalid!</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="age">Age</label>
+                <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                <div class="valid-feedback">  </div>
+                <div class="invalid-feedback">Age field cannot be blank!</div>
+            </div>
+            <div class="mb-3">
+              <input type="submit" value="Update User" class="btn btn-success btn-block btn-lg" id="edit-user-btn">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit User Modal End -->
       <div class="table-responsive" id="tb">
   <div class="row justify-content-center align-items-center">
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-        <?php
+    <table id='admin-user-table' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+                        <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Last Name</th>
+                              <th>Gender</th>
+                              <th>Email</th>
+                              <th>Year Level</th>
+                              <th>Age</th>
+                              <th>Birth date</th>
+                          </tr>
+                        </thead>
+    </table>
+      <!--<?php/**
                   $query = "SELECT STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE FROM tb_students";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
@@ -239,8 +404,8 @@ if(isset($_SESSION['msg'])){
                             </tr>
                         </tfoot>
                         </table>";
-                  $conn->close();
-                  ?>
+                  $conn->close();**/
+                  ?>-->
                   
          </div>
        </div>
@@ -256,7 +421,6 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div> -->
-
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light mt-3">
@@ -269,7 +433,27 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
+    
+    <script type="text/javascript">
+  function getAge(){
+      var dob = document.getElementById('addBirthDateField').value;
+      dob = new Date(dob);
+      var today = new Date();
+      var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+      document.getElementById('addAgeField').value=age;
+  }
 
+  $(function () {
+      $('input[data-relmax]').each(function () {
+          var oldVal = $(this).prop('value');
+          var relmax = $(this).data('relmax');
+          var max = new Date();
+          max.setFullYear(max.getFullYear() + relmax);
+          $.prop(this, 'max', $(this).prop('valueAsDate', max).val());
+          $.prop(this, 'value', oldVal);
+      });
+  });
+  </script>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -292,70 +476,31 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
 
-  <script>
-    $(document).ready(function(){
-     
-      /**var columnDefs = [{
-        data: "STUDENT_ID",
-        title: "Student ID",
-        type: "readonly"
-      },
-      {
-        data: "FIRST_NAME",
-        title: "First Name"
-      },
-     {
-        data: "MIDDLE_NAME",
-        title: "Middle Name"
-      },
-     {
-        data: "LAST_NAME",
-        title: "Last Name"
-      },
-     {
-        data: "GENDER",
-        title: "Gender"
-      },
-     {
-        data: "EMAIL",
-        title: "Email"
-      },
-     {
-        data: "YEAR_LEVEL",
-        title: "Year Level"
-      },
-      {
-        data: "AGE",
-        title: "Age"
-      },
-      {
-        data: "BIRTHDATE",
-        title: "Birth date"
-      },
-     
-  ];**/
+    
 
 
-        var myTable;
-      myTable =  $('#admin-user-table').DataTable({
-          responsive: true,
-          keys: true,
-          select: true,
-          //  dom: 'Bfrtip',"bFilter": true,
-          dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-          "bFilter": true,
-          select: 'single',
-          responsive: true,
-          altEditor: true,
-          "aLengthMenu": [
-            [10, 20, 50, 100, -1],
-            [10, 20, 50, 100, "All"]
-          ],
-          buttons: [
-            'pageLength',
-          'copyHtml5',
+<script>
+  $(document).ready(function(){ 
+    /**var myTable;
+    myTable =  $('#admin-user-table').DataTable({
+      responsive: true,
+      keys: true,
+      select: true,
+      //  dom: 'Bfrtip',"bFilter": true,
+      dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+      "bFilter": true,
+      //select: 'single',
+      //responsive: true,
+      //altEditor: false,
+      /**"aLengthMenu": [
+       [10, 20, 50, 100, -1],
+       [10, 20, 50, 100, "All"]
+        ],
+      buttons: [
+        'pageLength',
+       'copyHtml5',
             //  {
             // extend: 'excelHtml5',
             //   title: 'JRU Organizations Portal Student Users'
@@ -372,7 +517,7 @@ if(isset($_SESSION['msg'])){
               extend: 'print',
               title: 'JRU Organizations Portal Student Users'
             },
-            {
+            /**{
             text: 'Add',
             name: 'add'        // do not change name
             },
@@ -387,51 +532,10 @@ if(isset($_SESSION['msg'])){
             name: 'delete'      // do not change name
             }
           ]
-        });
-      // Edit
-    $(document).on('click', "[id^='admin-user-table'] tbody ", 'tr', function () {
-      var tableID = $(this).closest('table').attr('id');    // id of the table
-      var that = $( '#'+tableID )[0].altEditor;
-      that._openEditModal();
-      $('#altEditor-edit-form-' + that.random_id)
-                  .off('submit')
-                  .on('submit', function (e) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      that._editRowData();
-                  });
-    });
-
-    // Delete
-    $(document).on('click', "[id^='admin-user-table'] .delbutton", 'tr', function (x) {
-      var tableID = $(this).closest('table').attr('id');    // id of the table
-      var that = $( '#'+tableID )[0].altEditor;
-      that._openDeleteModal();
-      $('#altEditor-delete-form-' + that.random_id)
-                  .off('submit')
-                  .on('submit', function (e) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      that._deleteRow();
-                  });
-      x.stopPropagation(); //avoid open "Edit" dialog
-    });
-
-    // Add row
-    $('#addbutton').on('click', function () {
-      var that = $( '#admin-user-table' )[0].altEditor;
-      that._openAddModal();
-      $('#altEditor-add-form-' + that.random_id)
-                  .off('submit')
-                  .on('submit', function (e) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      that._addRowData();
-                  });
-    });
+        });**/
 });
    </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>
+  <script src="admin-main.js"></script>
 </body>
-
 </html>
