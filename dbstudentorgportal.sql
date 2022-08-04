@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2022 at 11:27 AM
+-- Generation Time: Aug 04, 2022 at 10:07 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -20,6 +20,51 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sample`
+--
+
+CREATE TABLE `tbl_sample` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(250) NOT NULL,
+  `last_name` varchar(250) NOT NULL,
+  `gender` enum('Male','Female') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sample`
+--
+
+INSERT INTO `tbl_sample` (`id`, `first_name`, `last_name`, `gender`) VALUES
+(1, 'John', 'Smith', 'Male'),
+(2, 'Peter', 'Parker', 'Male'),
+(4, 'Donna', 'Huber', 'Male'),
+(5, 'Anastasia', 'Peterson', 'Male'),
+(6, 'Ollen', 'Donald', 'Male'),
+(10, 'Joseph', 'Stein', 'Male'),
+(11, 'Wilson', 'Fischer', 'Male'),
+(12, 'Lillie', 'Kirst', 'Female'),
+(13, 'James', 'Whitchurch', 'Male'),
+(14, 'Timothy', 'Brewer', 'Male'),
+(16, 'Sally', 'Martin', 'Male'),
+(17, 'Allison', 'Pinkston', 'Male'),
+(18, 'Karen', 'Davis', 'Male'),
+(19, 'Jaclyn', 'Rocco', 'Male'),
+(20, 'Pamela', 'Boyter', 'Male'),
+(21, 'Anthony', 'Alaniz', 'Male'),
+(22, 'Myrtle', 'Stiltner', 'Male'),
+(23, 'Gary', 'Hernandez', 'Male'),
+(24, 'Fred', 'Jeffery', 'Male'),
+(25, 'Ronald', 'Stjohn', 'Male'),
+(26, 'Stephen', 'Mohamed', 'Male'),
+(28, 'Michael', 'Dyer', 'Male'),
+(29, 'Betty', 'Beam', 'Male'),
+(30, 'Anna', 'Peterson', 'Female'),
+(31, 'Peter', 'Stodola', 'Male'),
+(32, 'Ralph', 'Jones', 'Male');
 
 -- --------------------------------------------------------
 
@@ -281,12 +326,19 @@ CREATE TABLE `tb_officers` (
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `middle_initial` char(50) NOT NULL,
-  `course` varchar(20) NOT NULL,
+  `course` varchar(100) NOT NULL,
   `section` varchar(10) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(1000) NOT NULL,
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_officers`
+--
+
+INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
+(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
 
@@ -412,27 +464,39 @@ INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
 
 CREATE TABLE `tb_projectmonitoring` (
   `project_id` int(11) NOT NULL,
-  `org_id` int(11) NOT NULL,
+  `org_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `project_name` varchar(100) NOT NULL,
-  `project_desc` varchar(8000) NOT NULL,
-  `venue` varchar(100) NOT NULL,
-  `estimated_budget` int(11) NOT NULL,
-  `status` varchar(100) NOT NULL
+  `project_name` varchar(100) DEFAULT NULL,
+  `project_type` varchar(200) DEFAULT NULL,
+  `project_category` varchar(200) DEFAULT NULL,
+  `project_desc` varchar(8000) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `venue` varchar(100) DEFAULT NULL,
+  `participants` varchar(200) DEFAULT NULL,
+  `no_of_participants` int(11) DEFAULT NULL,
+  `beneficiary` varchar(200) DEFAULT NULL,
+  `no_of_beneficiary` int(11) DEFAULT NULL,
+  `budget_source` varchar(100) DEFAULT NULL,
+  `estimated_budget` int(11) DEFAULT NULL,
+  `attachments` varchar(1000) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `date_submitted` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_desc`, `venue`, `estimated_budget`, `status`) VALUES
-(1, 12, 24, 'Sample Project', 'Sample Desc', 'JRU Auditorium ', 2000, 'Approved'),
-(2, 11, 23, 'Sample Project 1', 'Sample Project 1', 'JRU Quadrangle', 3000, 'For Approval'),
-(3, 13, 23, 'Sample Project 2', 'Sample Project 2', 'JRU Gymnasium', 2000, 'Pending'),
-(4, 24, 26, 'Sample Project 3', 'Sample Project 3', 'JRU H - Building 3rd floor', 2000, 'Ongoing'),
-(5, 7, 13, 'Sample Project 4', 'Sample Project 4', 'JRU Centennial Building', 2000, 'Implemented'),
-(6, 11, 22, 'Sample Project 5', 'Sample Project 5', 'JRU Upper Quadrangle', 1000, 'Rejected'),
-(7, 1, 3, 'Sample Project 6', 'Sample Project 6', 'JRU Lounge', 2000, 'Approved');
+INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`) VALUES
+(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
+(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL),
+(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL),
+(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL),
+(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL),
+(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL),
+(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
+(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, NULL, '2022-08-02');
 
 -- --------------------------------------------------------
 
@@ -447,6 +511,28 @@ CREATE TABLE `tb_results` (
   `CANDIDATE_ID` int(2) NOT NULL,
   `TOTAL_COUNT` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_signatories`
+--
+
+CREATE TABLE `tb_signatories` (
+  `school_id` int(11) NOT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatories`
+--
+
+INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
+(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser');
 
 -- --------------------------------------------------------
 
@@ -476,8 +562,8 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL),
-(17402211, 'Doe', 'John', '', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
+(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '0000-00-00', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL),
+(17402211, 'Doe', 'John', '', '0000-00-00', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -534,9 +620,47 @@ CREATE TABLE `tb_vote` (
   `DATE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `city` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `mobile`, `city`) VALUES
+(7, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
+(8, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
+(9, 'Rajs', 'user@gmail.com', '8887919632', 'Lucknow'),
+(10, 'Amrendra', 'user@gmail.com', '434334', 'Lucknow'),
+(11, 'Bahubalis', 'user@gmail.com', '434334', 'Lucknow'),
+(12, 'Alok Kumar bisht', 'user@gmail.com', '434334', 'Lucknow'),
+(13, 'admin', 'admin@gmail.com', '9988999999', 'Lucknow'),
+(15, 'ninebroadband', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
+(16, 'index.html', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
+(18, 'index.html', 'user@gmail.com', '8127956219', 'Lucknow'),
+(19, 'sfd', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa'),
+(20, 'sfdaaaaa', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_sample`
+--
+ALTER TABLE `tbl_sample`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_action`
@@ -692,6 +816,12 @@ ALTER TABLE `tb_results`
   ADD KEY `result_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
+-- Indexes for table `tb_signatories`
+--
+ALTER TABLE `tb_signatories`
+  ADD PRIMARY KEY (`school_id`);
+
+--
 -- Indexes for table `tb_students`
 --
 ALTER TABLE `tb_students`
@@ -730,6 +860,34 @@ ALTER TABLE `tb_vote`
   ADD KEY `vote_org_id_fk` (`ORG_ID`),
   ADD KEY `vote_position_id_fk` (`POSITION_ID`),
   ADD KEY `vote_candidate_id_fk` (`CANDIDATE_ID`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_sample`
+--
+ALTER TABLE `tbl_sample`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
