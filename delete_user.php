@@ -1,14 +1,14 @@
-<?php
+<?php 
 include('connection.php');
 
-$admin_id = $_POST['ADMIN_ID'];
-$sql = "DELETE FROM tb_admin WHERE ADMIN_ID='$admin_id'";
+$user_id = $_POST['id'];
+$sql = "DELETE FROM users WHERE id='$user_id'";
 $delQuery =mysqli_query($con,$sql);
 if($delQuery==true)
 {
 	 $data = array(
         'status'=>'success',
-
+       
     );
 
     echo json_encode($data);
@@ -17,10 +17,10 @@ else
 {
      $data = array(
         'status'=>'failed',
-
+      
     );
 
     echo json_encode($data);
-}
+} 
 
 ?>

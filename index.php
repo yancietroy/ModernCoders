@@ -33,10 +33,11 @@
           <div class="col-md-8">
             <table id="example" class="table">
               <thead>
-                <th>ADMIN_ID</th>
-                <th>FIRST_NAME</th>
-                <th>LAST_NAME</th>
-                <th>EMAIL</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>City</th>
                 <th>Options</th>
               </thead>
               <tbody>
@@ -70,11 +71,11 @@
         'order': [],
         'ajax': {
           'url': 'fetch_data.php',
-          'type': 'post'
+          'type': 'post',
         },
         "aoColumnDefs": [{
             "bSortable": false,
-            "aTargets": [4]
+            "aTargets": [5]
           },
 
         ]
@@ -82,16 +83,18 @@
     });
     $(document).on('submit', '#addUser', function(e) {
       e.preventDefault();
-      var first_name = $('#addfirstnameField').val();
-      var last_name = $('#addlastnameField').val();
+      var city = $('#addCityField').val();
+      var username = $('#addUserField').val();
+      var mobile = $('#addMobileField').val();
       var email = $('#addEmailField').val();
-      if (first_name != '' && last_name != '' && email != '') {
+      if (city != '' && username != '' && mobile != '' && email != '') {
         $.ajax({
           url: "add_user.php",
           type: "post",
           data: {
-            first_name: first_name,
-            last_name: last_name,
+            city: city,
+            username: username,
+            mobile: mobile,
             email: email
           },
           success: function(data) {
@@ -113,18 +116,20 @@
     $(document).on('submit', '#updateUser', function(e) {
       e.preventDefault();
       //var tr = $(this).closest('tr');
-      var first_name = $('#firstnameField').val();
-      var last_name = $('#lastnameField').val();
+      var city = $('#cityField').val();
+      var username = $('#nameField').val();
+      var mobile = $('#mobileField').val();
       var email = $('#emailField').val();
       var trid = $('#trid').val();
       var id = $('#id').val();
-      if (first_name != '' && last_name != '' && email != '') {
+      if (city != '' && username != '' && mobile != '' && email != '') {
         $.ajax({
           url: "update_user.php",
           type: "post",
           data: {
-            first_name: first_name,
-            last_name: last_name,
+            city: city,
+            username: username,
+            mobile: mobile,
             email: email,
             id: id
           },
@@ -140,7 +145,7 @@
               // table.cell(parseInt(trid) - 1,4).data(city);
               var button = '<td><a href="javascript:void();" data-id="' + id + '" class="btn btn-info btn-sm editbtn">Edit</a>  <a href="#!"  data-id="' + id + '"  class="btn btn-danger btn-sm deleteBtn">Delete</a></td>';
               var row = table.row("[id='" + trid + "']");
-              row.row("[id='" + trid + "']").data([id, first_name, last_name, email, button]);
+              row.row("[id='" + trid + "']").data([id, username, email, mobile, city, button]);
               $('#exampleModal').modal('hide');
             } else {
               alert('failed');
@@ -166,9 +171,10 @@
         type: 'post',
         success: function(data) {
           var json = JSON.parse(data);
-          $('#firstnameField').val(json.first_name);
-          $('#lastnameField').val(json.last_name);
+          $('#nameField').val(json.username);
           $('#emailField').val(json.email);
+          $('#mobileField').val(json.mobile);
+          $('#cityField').val(json.city);
           $('#id').val(id);
           $('#trid').val(trid);
         }
@@ -178,12 +184,12 @@
     $(document).on('click', '.deleteBtn', function(event) {
       var table = $('#example').DataTable();
       event.preventDefault();
-      var admin_id = $(this).data('ADMIN_ID');
+      var id = $(this).data('id');
       if (confirm("Are you sure want to delete this User ? ")) {
         $.ajax({
           url: "delete_user.php",
           data: {
-            admin_id: admin_id
+            id: id
           },
           type: "post",
           success: function(data) {
@@ -193,7 +199,7 @@
               //table.fnDeleteRow( table.$('#' + id)[0] );
               //$("#example tbody").find(id).remove();
               //table.row($(this).closest("tr")) .remove();
-              $("#" + admin_id).closest('tr').remove();
+              $("#" + id).closest('tr').remove();
             } else {
               alert('Failed');
               return;
@@ -218,29 +224,30 @@
         </div>
         <div class="modal-body">
           <form id="updateUser">
+            <input type="hidden" name="id" id="id" value="">
+            <input type="hidden" name="trid" id="trid" value="">
             <div class="mb-3 row">
-              <label for="id" class="col-md-3 form-label">Admin ID</label>
+              <label for="nameField" class="col-md-3 form-label">Name</label>
               <div class="col-md-9">
-                  <input name="trid" id="trid" value="" class="form-control" readonly>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="nameField" class="col-md-3 form-label">First Name</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="firstnameField" name="first_name">
-              </div>
-            </div>
-
-            <div class="mb-3 row">
-              <label for="mobileField" class="col-md-3 form-label">Last Name</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="lastnameField" name="LAST_NAME">
+                <input type="text" class="form-control" id="nameField" name="name">
               </div>
             </div>
             <div class="mb-3 row">
               <label for="emailField" class="col-md-3 form-label">Email</label>
               <div class="col-md-9">
                 <input type="email" class="form-control" id="emailField" name="email">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="mobileField" class="col-md-3 form-label">Mobile</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="mobileField" name="mobile">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="cityField" class="col-md-3 form-label">City</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="cityField" name="City">
               </div>
             </div>
             <div class="text-center">
@@ -265,21 +272,27 @@
         <div class="modal-body">
           <form id="addUser" action="">
             <div class="mb-3 row">
-              <label for="addUserField" class="col-md-3 form-label">First Name</label>
+              <label for="addUserField" class="col-md-3 form-label">Name</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="addfirstnameField" name="first_name">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="addUserField" class="col-md-3 form-label">Last Name</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="addlastnameField" name="last_name">
+                <input type="text" class="form-control" id="addUserField" name="name">
               </div>
             </div>
             <div class="mb-3 row">
               <label for="addEmailField" class="col-md-3 form-label">Email</label>
               <div class="col-md-9">
                 <input type="email" class="form-control" id="addEmailField" name="email">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addMobileField" class="col-md-3 form-label">Mobile</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addMobileField" name="mobile">
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="addCityField" class="col-md-3 form-label">City</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="addCityField" name="City">
               </div>
             </div>
             <div class="text-center">
