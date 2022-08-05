@@ -375,7 +375,12 @@ select::-ms-expand {
 option {
   min-width: 500px;
 }
-
+#select-opt {
+ color: gray;
+}
+#select-opt option {
+ color: black;
+}
 #displayError2 {
   display: none;
 }
