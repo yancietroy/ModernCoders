@@ -1,26 +1,24 @@
 <?php include('connection.php');
 
 $output= array();
-$sql = "SELECT * FROM users ";
+$sql = "SELECT * FROM tb_admin ";
 
 $totalQuery = mysqli_query($con,$sql);
 $total_all_rows = mysqli_num_rows($totalQuery);
 
 $columns = array(
-	0 => 'id',
-	1 => 'username',
-	2 => 'email',
-	3 => 'mobile',
-	4 => 'city',
+	0 => 'ADMIN_ID',
+	1 => 'FIRST_NAME',
+	2 => 'LAST_NAME',
+	3 => 'EMAIL',
 );
 
 if(isset($_POST['search']['value']))
 {
 	$search_value = $_POST['search']['value'];
-	$sql .= " WHERE username like '%".$search_value."%'";
-	$sql .= " OR email like '%".$search_value."%'";
-	$sql .= " OR mobile like '%".$search_value."%'";
-	$sql .= " OR city like '%".$search_value."%'";
+	$sql .= " WHERE FIRST_NAME like '%".$search_value."%'";
+	$sql .= " OR LAST_NAME like '%".$search_value."%'";
+	$sql .= " OR EMAIL like '%".$search_value."%'";
 }
 
 if(isset($_POST['order']))
@@ -31,7 +29,7 @@ if(isset($_POST['order']))
 }
 else
 {
-	$sql .= " ORDER BY id desc";
+	$sql .= " ORDER BY ADMIN_ID desc";
 }
 
 if($_POST['length'] != -1)
@@ -39,7 +37,7 @@ if($_POST['length'] != -1)
 	$start = $_POST['start'];
 	$length = $_POST['length'];
 	$sql .= " LIMIT  ".$start.", ".$length;
-}	
+}
 
 $query = mysqli_query($con,$sql);
 $count_rows = mysqli_num_rows($query);
@@ -47,12 +45,11 @@ $data = array();
 while($row = mysqli_fetch_assoc($query))
 {
 	$sub_array = array();
-	$sub_array[] = $row['id'];
-	$sub_array[] = $row['username'];
-	$sub_array[] = $row['email'];
-	$sub_array[] = $row['mobile'];
-	$sub_array[] = $row['city'];
-	$sub_array[] = '<a href="javascript:void();" data-id="'.$row['id'].'"  class="btn btn-info btn-sm editbtn" >Edit</a>  <a href="javascript:void();" data-id="'.$row['id'].'"  class="btn btn-danger btn-sm deleteBtn" >Delete</a>';
+	$sub_array[] = $row['ADMIN_ID'];
+	$sub_array[] = $row['FIRST_NAME'];
+	$sub_array[] = $row['LAST_NAME'];
+	$sub_array[] = $row['EMAIL'];
+	$sub_array[] = '<a href="javascript:void();" data-id="'.$row['ADMIN_ID'].'"  class="btn btn-info btn-sm editbtn" >Edit</a>  <a href="javascript:void();" data-id="'.$row['ADMIN_ID'].'"  class="btn btn-danger btn-sm deleteBtn" >Delete</a>';
 	$data[] = $sub_array;
 }
 
