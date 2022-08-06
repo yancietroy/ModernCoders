@@ -153,7 +153,6 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </nav>
-
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -162,176 +161,13 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item active" aria-current="page">Students</li>
         </ol>
       </nav>
-
       <!-- Page content -->
-<!-- Add New User Modal Start -->
-  <div class="modal fade" tabindex="-1" id="addNewUserModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New Student</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="add-user-form" class="p-2" novalidate>
-              <div class="mb-3">
-                <label class="form-label" for="studentId" id="asterisk">Student ID</label>
-                <input type="text" name="studentId" id="studentId" class="form-control" placeholder="##-######" required />
-                <div class="valid-feedback">  </div>
-                <div class="invalid-feedback">student id field cannot be blank!</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="fname" id="asterisk">First name</label>
-                <input type="text" name="fname" class="form-control form-control-lg" placeholder="Enter First Name" required>
-                <div class="invalid-feedback">First name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="mname">Middle name</label>
-                <input type="text" name="mname" class="form-control form-control-lg" placeholder="Enter Middle Name" required>
-                <div class="invalid-feedback">Last name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="lName" id="asterisk">Last name</label>
-                <input type="text" name="lname" class="form-control form-control-lg" placeholder="Enter Last Name" required>
-                <div class="invalid-feedback">Last name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
-                <select class=" form-select" name="gender" id="select-group" required>
-                          <option class="greyclr" selected disabled value="" >Select Year</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                </select>
-                <div class="invalid-feedback">Gender is required!</div>
-              </div>
-            <div class="mb-3">
-              <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter E-mail" required>
-              <div class="invalid-feedback">E-mail is required!</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="yearLevel">Year Level</label>
-              <select class=" form-select" name="yearLevel" id="select-group" required>
-                          <option class="greyclr" selected disabled value="" >Select Year</option>
-                          <option value="1">First Year</option>
-                          <option value="2">Second Year</option>
-                          <option value="3">Third Year</option>
-                          <option value="4">Fourth Year</option>
-                </select>
-                <div class="invalid-feedback">Year Level is required!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="birthDate" id="asterisk">Birthdate</label>
-                <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthDate" onblur="getAge();" title="You should be over 18 years old" required />
-                <div class="valid-feedback">  </div>
-                <div class="invalid-feedback">Birthdate field invalid!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="age">Age</label>
-                <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                <div class="valid-feedback">  </div>
-                <div class="invalid-feedback">Age field cannot be blank!</div>
-            </div>
-            <div class="mb-3">
-              <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="add-user-btn">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Add New User Modal End -->
-
-  <!-- Edit User Modal Start -->
-  <div class="modal fade" tabindex="-1" id="editUserModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit This User</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="edit-user-form" class="p-2" novalidate>
-            <input type="hidden" name="studentId" id="studentId">
-            <div class="mb-3">
-                <label class="form-label" for="firstName" id="asterisk">First name</label>
-                <input type="text" name="fname" class="form-control form-control-lg" placeholder="Enter First Name" required>
-                <div class="invalid-feedback">First name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="middleName">Middle name</label>
-                <input type="text" name="mname" class="form-control form-control-lg" placeholder="Enter Middle Name" required>
-                <div class="invalid-feedback">Last name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                <input type="text" name="lname" class="form-control form-control-lg" placeholder="Enter Last Name" required>
-                <div class="invalid-feedback">Last name is required!</div>
-              </div>
-              <div class="mb-3">
-                <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
-                <select class=" form-select" name="gender" id="select-group" required>
-                          <option class="greyclr" selected disabled value="" >Select Year</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                </select>
-                <div class="invalid-feedback">Gender is required!</div>
-              </div>
-            <div class="mb-3">
-              <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter E-mail" required>
-              <div class="invalid-feedback">E-mail is required!</div>
-            </div>
-            <div class="mb-3">
-              <select class=" form-select" name="yearLevel" id="select-group" required>
-                          <option class="greyclr" selected disabled value="" >Select Year</option>
-                          <option value="1">First Year</option>
-                          <option value="2">Second Year</option>
-                          <option value="3">Third Year</option>
-                          <option value="4">Fourth Year</option>
-                </select>
-                <div class="invalid-feedback">Year Level is required!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="birthDate" id="asterisk">Birthdate</label>
-                <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
-                <div class="valid-feedback">  </div>
-                <div class="invalid-feedback">Birthdate field invalid!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="age">Age</label>
-                <input type="text" name="age" id="age" maxlength="2" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                <div class="valid-feedback">  </div>
-                <div class="invalid-feedback">Age field cannot be blank!</div>
-            </div>
-            <div class="mb-3">
-              <input type="submit" value="Update User" class="btn btn-success btn-block btn-lg" id="edit-user-btn">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Edit User Modal End -->
       <div class="table-responsive" id="tb">
   <div class="row justify-content-center align-items-center">
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-    <table id='admin-user-table' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
-                        <thead>
-                          <tr>
-                              <th>Student ID</th>
-                              <th>First Name</th>
-                              <th>Middle Name</th>
-                              <th>Last Name</th>
-                              <th>Gender</th>
-                              <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Age</th>
-                              <th>Birth date</th>
-                          </tr>
-                        </thead>
-    </table>
-      <!--<?php/**
+      <?php
                   $query = "SELECT STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE FROM tb_students";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
@@ -404,8 +240,8 @@ if(isset($_SESSION['msg'])){
                             </tr>
                         </tfoot>
                         </table>";
-                  $conn->close();**/
-                  ?>-->
+                  $conn->close();
+                  ?>
                   
          </div>
        </div>
@@ -481,7 +317,7 @@ if(isset($_SESSION['msg'])){
 
 <script>
   $(document).ready(function(){ 
-    /**var myTable;
+    var myTable;
     myTable =  $('#admin-user-table').DataTable({
       responsive: true,
       keys: true,
@@ -497,7 +333,7 @@ if(isset($_SESSION['msg'])){
       /**"aLengthMenu": [
        [10, 20, 50, 100, -1],
        [10, 20, 50, 100, "All"]
-        ],
+        ],**/
       buttons: [
         'pageLength',
        'copyHtml5',
@@ -536,6 +372,5 @@ if(isset($_SESSION['msg'])){
 });
    </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>
-  <script src="admin-main.js"></script>
 </body>
 </html>
