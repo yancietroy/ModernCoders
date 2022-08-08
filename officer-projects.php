@@ -119,7 +119,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -241,7 +241,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-card-list" aria-hidden="true"></i>
             </div>
-            <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
