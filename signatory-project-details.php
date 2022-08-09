@@ -138,13 +138,11 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
+          <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-list-ul"></i> Master List</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>
-
-      <!-- Page content -->
-      <form action=" " method="post" class="requires-validation" novalidate>
-        <?php
+    <?php
       $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, remarks FROM tb_projectmonitoring WHERE project_id = '$ssid'";
                   $result = @mysqli_query($conn, $query);
                   $pn = " ";
@@ -179,7 +177,9 @@ if(isset($_SESSION['msg'])){
                       $r = $row['remarks'];
                     }
                   }
-      ?> 
+      ?>
+      <!-- Page content -->
+      <form action=" " method="post" class="requires-validation" novalidate>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7  mb-4">
           <h4>Project Details</h4>
@@ -344,6 +344,7 @@ if(isset($_SESSION['msg'])){
                         echo "<script type='text/javascript'>
                               alert('Status updated!')
                               </script>";
+                              @mysqli_close($conn);
                       }
                 }
                 else if (isset($_POST['approved']) || isset($pr))
@@ -363,7 +364,7 @@ if(isset($_SESSION['msg'])){
                               </script>";
                       }      
                 }
-                @mysqli_close($conn);
+                
       ?>
       </form>
         <!-- Footer -->
