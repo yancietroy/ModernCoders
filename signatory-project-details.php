@@ -350,7 +350,7 @@ if(isset($_SESSION['msg'])){
                               </script>";
                       }      
                 }
-              @mysqli_close($conn);  
+              @mysqli_close($conn);
       ?>
       </form>
         <!-- Footer -->
