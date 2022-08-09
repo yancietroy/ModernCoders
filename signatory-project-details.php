@@ -142,7 +142,7 @@ if(isset($_SESSION['msg'])){
         </ol>
       </nav>
       <?php
-      $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget FROM tb_projectmonitoring WHERE project_id = '$ssid'";
+      $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, remarks FROM tb_projectmonitoring WHERE project_id = '$ssid'";
                   $result = @mysqli_query($conn, $query);
                   $pn = " ";
                   $v = " ";
@@ -157,6 +157,7 @@ if(isset($_SESSION['msg'])){
                   $nob = " ";
                   $pd = " ";
                   $eb = " ";
+                  $r = " ";
                   if($result) {                
                     while($row = @mysqli_fetch_array($result)){
                       $pn = $row['project_name'];
@@ -172,6 +173,7 @@ if(isset($_SESSION['msg'])){
                       $nob = $row['no_of_beneficiary'];
                       $pd = $row['project_desc'];
                       $eb = $row['estimated_budget'];
+                      $r = $row['remarks'];
                     }
                   }
                     ?> 
@@ -187,7 +189,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" >Project name:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control" placeholder="<?php echo $pn; ?>"  style="background-color: #fff;" readonly />
+                <input type="text" name="project_name" id="project_name" class="form-control" value="<?php echo $pn; ?>"  style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
@@ -195,7 +197,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="venue" >Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" placeholder="<?php echo $v; ?>" style="background-color: #fff;" readonly />
+                <input type="text" name="venue" id="venue" class="form-control" value="<?php echo $v; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
@@ -216,7 +218,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" >Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" value="" placeholder="<?php echo $sd; ?>" style="background-color: #fff;" readonly />
+                <input type="text" class="form-control" name="start_date" id="start_date" value="<?php echo $sd; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -224,7 +226,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="end_date" >End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" value="" placeholder="<?php echo $ed; ?>" style="background-color: #fff;" readonly />
+                <input type="text" class="form-control" name="end_date" id="end_date" value="<?php echo $ed; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -242,7 +244,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <label class="form-label select-label" for="project_category" >Category:</label>
               <select class="mt-0 ms-0 form-select" name="project_category" id="project_category"   style="background-color: #fff;" readonly>
-                <option class="greyclr" selected disabled value="" ><?php echo $pc; ?></option>
+                <option class="greyclr" selected disabled value=""><?php echo $pc; ?></option>
                 <option value="Onsite">Onsite</option>
                 <option value="Online">Online</option>
               </select>
@@ -254,7 +256,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="participants" >Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" placeholder="<?php echo $p; ?>" style="background-color: #fff;" readonly />
+                <input type="text" name="participants" id="participants" class="form-control" value="<?php echo $p; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
@@ -262,7 +264,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" placeholder="<?php echo $nop; ?>" style="background-color: #fff;" readonly />
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" value="<?php echo $nop; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Participants field cannot be blank!</div>
               </div>
@@ -270,7 +272,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control" placeholder="<?php echo $b; ?>" style="background-color: #fff;" readonly/>
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control" value="<?php echo $b; ?>" style="background-color: #fff;" readonly/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
@@ -278,7 +280,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" placeholder="<?php echo $nob; ?>" style="background-color: #fff;" readonly/>
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" value="<?php echo $nob; ?>" style="background-color: #fff;" readonly/>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
               </div>
@@ -288,7 +290,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_desc" >Project Description:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" placeholder="<?php echo $pd; ?>" rows="6" style="background-color: #fff;" readonly></textarea>
+                <textarea class="form-control" name="project_desc" id="project_desc" value="<?php echo $pd; ?>" placeholder="<?php echo $pd; ?>" rows="6" style="background-color: #fff;" readonly></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
@@ -302,7 +304,7 @@ if(isset($_SESSION['msg'])){
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
                 <br>
                 <label class="form-label mt-4" for="estimated_budget" >Estimated Budget:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" placeholder="<?php echo $eb; ?>" style="background-color: #fff;" readonly />
+                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" value="<?php echo $eb; ?>" style="background-color: #fff;" readonly />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Budget field cannot be blank!</div>
               </div>
@@ -313,7 +315,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_desc" >Remarks:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="6"></textarea>
+                <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" placeholder="<?php echo $r; ?>"></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
@@ -321,11 +323,48 @@ if(isset($_SESSION['msg'])){
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="butt">Back</a>
-            <a class="btn btn-lg btn-outline-danger" id="butt" href="#" role="button">Reject</a>
-            <a class="btn btn-lg btn-outline-success" id="butt" href="#" role="button">Approve</a>
+            <a class="btn btn-lg btn-outline-danger" id="rejected" role="button" name="Rejected" value="Rejected" type="submit">Reject</a>
+            <a class="btn btn-lg btn-outline-success" id="approved" role="button" name="Approved" value="Approved" type="submit">Approve</a>
           </div>
       </div>
       </div>
+       <?php
+              if (isset($pr) || isset($_POST['Rejected']))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Rejected";
+
+                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $result = @mysqli_query($conn, $query);                    
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $result = @mysqli_query($conn, $query);   
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }
+                }
+                else if (isset($pr) || isset($_POST['Approved']))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Approved";
+
+                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $result = @mysqli_query($conn, $query);                    
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $result = @mysqli_query($conn, $query);   
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }      
+                }
+                @mysqli_close($conn);
+      ?>
       </form>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
@@ -353,7 +392,7 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      -<script src="assets/js/date.js"></script>
+      <script src="assets/js/date.js"></script>
         <!-- Datepicker cdn
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
