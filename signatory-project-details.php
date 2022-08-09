@@ -204,12 +204,7 @@ if(isset($_SESSION['msg'])){
             </div>
           <div class="col-12 col-md-4 col-sm-3 mb-4">
             <label class="form-label select-label">Project Type:</label>
-            <select class="mt-0 ms-0 form-select" style="background-color: #fff;" readonly>
-              <option class="greyclr" selected disabled value="" ><?php echo $pt; ?></option>
-              <option value="Curricular">Curricular</option>
-              <option value="Extra Curricular">Extra Curricular</option>
-              <option value="Outreach">Outreach</option>
-            </select>
+            <input type="text" class="form-control" placeholder="<?php echo $pt; ?>" style="background-color: #fff;" readonly />
             <div class="valid-feedback">  </div>
             <div class="invalid-feedback">Project Type field cannot be blank!</div>
           </div>
@@ -233,21 +228,13 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <label class="form-label select-label">Budget Source:</label>
-              <select class="mt-0 ms-0 form-select"  style="background-color: #fff;" readonly>
-                <option class="greyclr" selected disabled value="" ><?php echo $bs; ?></option>
-                <option value="Student Council">Student Council</option>
-                <option value="(Mother org)">(Mother org)</option>
-              </select>
+              <input type="text" class="form-control" placeholder="<?php echo $bs; ?>" style="background-color: #fff;" readonly />
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>
             </div>
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <label class="form-label select-label">Category:</label>
-              <select class="mt-0 ms-0 form-select" style="background-color: #fff;" readonly>
-                <option class="greyclr" selected disabled value=""><?php echo $pc; ?></option>
-                <option value="Onsite">Onsite</option>
-                <option value="Online">Online</option>
-              </select>
+              <input type="text" class="form-control" placeholder="<?php echo $pc; ?>" style="background-color: #fff;" readonly />
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>
             </div>
@@ -314,8 +301,8 @@ if(isset($_SESSION['msg'])){
           <div class="row mt-4">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label">Remarks:</label>
-                <textarea class="form-control" rows="6" placeholder="<?php echo $r; ?>"></textarea>
+                <label class="form-label" for="project_remarks">Remarks:</label>
+                <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" placeholder="<?php echo $r; ?>"></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
