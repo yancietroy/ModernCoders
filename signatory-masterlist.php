@@ -195,7 +195,7 @@ if(isset($_SESSION['msg'])){
                             <td> $eb  </td>
                             <td> $s  </td>
                             <td> $ds </td>
-                            <td><a href='signatory-project-details.php?project_id=".$row['project_id']."'>View Project Details</a></td> 
+                            <td><a class='btn btn-sm btn-outline-secondary' href='signatory-project-details.php?project_id=".$row['project_id']."'>View Project Details</a></td> 
                             </tr>
                           ";
                       }
