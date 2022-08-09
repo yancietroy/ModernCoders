@@ -331,7 +331,6 @@ if(isset($_SESSION['msg'])){
                         echo "<script type='text/javascript'>
                               alert('Status updated!')
                               </script>";
-                              @mysqli_close($conn);
                       }
                 }
                 else if (isset($_POST['approved']) || isset($pr))
@@ -351,7 +350,7 @@ if(isset($_SESSION['msg'])){
                               </script>";
                       }      
                 }
-                
+              @mysqli_close($conn);  
       ?>
       </form>
         <!-- Footer -->
