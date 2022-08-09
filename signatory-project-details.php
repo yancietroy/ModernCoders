@@ -2,8 +2,8 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-$ssid = $_GET['project_id'];
-//$ssid = $_SESSION['pid'];
+$_SESSION['pid'] = $_GET['project_id'];
+$ssid = $_SESSION['pid'];
 include('mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -321,12 +321,12 @@ if(isset($_SESSION['msg'])){
                   $pr = $_POST['project_remarks'];
                   $s = "Rejected";
 
-                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $query = "SELECT * FROM tb_projectmonitoring";
                       $result = @mysqli_query($conn, $query);                    
                       $row = mysqli_fetch_array($result);
 
                       if($row){
-                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $query = "UPDATE tb_projectmonitoring SET status = '$s', remarks ='$pr' WHERE project_id = '$ssid'";
                         $result = @mysqli_query($conn, $query);   
                         echo "<script type='text/javascript'>
                               alert('Status updated!')
@@ -338,12 +338,12 @@ if(isset($_SESSION['msg'])){
                   $pr = $_POST['project_remarks'];
                   $s = "Approved";
 
-                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $query = "SELECT * FROM tb_projectmonitoring";
                       $result = @mysqli_query($conn, $query);                    
                       $row = mysqli_fetch_array($result);
 
                       if($row){
-                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $query = "UPDATE tb_projectmonitoring SET status = '$s', remarks ='$pr' WHERE project_id = '$ssid'";
                         $result = @mysqli_query($conn, $query);   
                         echo "<script type='text/javascript'>
                               alert('Status updated!')
