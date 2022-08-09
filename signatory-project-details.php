@@ -2,8 +2,8 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-$_SESSION['pid'] = $_GET['project_id'];
-$ssid = $_SESSION['pid'];
+$ssid = $_GET['project_id'];
+//$ssid = $_SESSION['pid'];
 include('mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -326,6 +326,46 @@ if(isset($_SESSION['msg'])){
           </div>
       </div>
       </div>
+<<<<<<< HEAD
+=======
+       <?php
+              if (isset($_POST['rejected']) || isset($pr))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Rejected";
+
+                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $result = @mysqli_query($conn, $query);                    
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $result = @mysqli_query($conn, $query);   
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }
+                }
+                else if (isset($_POST['approved']) || isset($pr))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Approved";
+
+                      $query = "SELECT * FROM `tb_projectmonitoring`;";
+                      $result = @mysqli_query($conn, $query);                    
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                        $result = @mysqli_query($conn, $query);   
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }      
+                }
+              @mysqli_close($conn);
+      ?>
+>>>>>>> parent of d8cde1d (Update signatory-project-details.php)
       </form>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
