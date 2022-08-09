@@ -138,7 +138,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-card-list"></i> Master List</a></li>
+          <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-card-list"></i> Masterlist</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>
@@ -313,7 +313,7 @@ if(isset($_SESSION['msg'])){
             <a class="btn btn-lg btn-outline-danger" id="rejected" role="button" name="rejected" type="submit">Reject</a>
             <a class="btn btn-lg btn-outline-success" id="approved" role="button" name="approved" type="submit">Approve</a>
           </div>
-      </div>
+        </div>
       </div>
        <?php
               if (isset($_POST['rejected']) || isset($pr))
