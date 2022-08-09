@@ -636,8 +636,18 @@ input[id^="project_deets"]::-webkit-input-placeholder {
 textarea[id^="project_deets"]::-webkit-input-placeholder {
   color: black;
 }
-
-
+#rejected {
+  color: red;
+}
+#rejected:hover {
+  color: white;
+}
+#approved {
+  color: green;
+}
+#approved:hover {
+  color: white;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
