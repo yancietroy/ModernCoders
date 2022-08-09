@@ -21,8 +21,7 @@ if(isset($_SESSION['msg'])){
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"  referrerpolicy="no-referrer" />
   <!-- Waves CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
@@ -38,7 +37,12 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <style>
 
+  #wrapper {
+      overflow:auto !important;
+  }
+  </style>
 </head>
 
 <body>
@@ -144,10 +148,11 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-11 ">
+      <div class="row justify-content-center align-items-center" id="container">
+        <div class="col-md-12 ">
           <div class="row">
             <div class="col-xs-12">
+              <div class="table-responsive justify-content-center align-items-center">
               <?php
                   $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
                   $result = @mysqli_query($conn,$query);
@@ -159,7 +164,7 @@ if(isset($_SESSION['msg'])){
                   $eb = " ";
                   $ds = " ";
                   $s = " ";
-                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+                  echo "<table id='example' class='table table-hover display nowrap w-100 ms-0 master'>
                         <thead>
                           <tr>
                               <th>Project ID</th>
@@ -169,7 +174,7 @@ if(isset($_SESSION['msg'])){
                               <th>Budget</th>
                               <th>Status</th>
                               <th>Date Submitted</th>
-                              <th>View Details</th>
+                              <th>Options</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -195,27 +200,18 @@ if(isset($_SESSION['msg'])){
                             <td> $eb  </td>
                             <td> $s  </td>
                             <td> $ds </td>
-                            <td><a href='signatory-project-details.php?project_id=".$row['project_id']."'>View Project Details</a></td> 
+                            <td>
+                            <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'>View</a>
+                            </td>
                             </tr>
                           ";
                       }
                   echo "</tbody>
-                        <tfoot>
-                            <tr>
-                            <th>Project ID</th>
-                            <th>Project Name</th>
-                            <th>Description</th>
-                            <th>Venue</th>
-                            <th>Budget</th>
-                            <th>Status</th>
-                            <th>Date Submitted</th>
-                            <th>View Details</th>                          
-                            </tr>
-                        </tfoot>
                         </table>";
                   }
                   $conn->close();
                   ?>
+                  </div>
             </div>
           </div>
         </div>
@@ -262,55 +258,60 @@ if(isset($_SESSION['msg'])){
     </script>
     <script>
       $(document).ready(function() {
-
-        /*  var columnDefs = [{
-            data: "studentid",
-            title: "Student ID",
-            type: "readonly"
-          },
-          {
-            data: "$name",
-            title: "Name",
-              type: "readonly"
-          },
-         {
-            data: "email",
-            title: "Email"
-          },
-         {
-            data: "Year level",
-            title: "Year Level"
-          },
-         {
-            data: "birthDate",
-            title: "Birthdate"
-          },
-         {
-            data: "Age",
-            title: "Age"
-          }
-          ];
-*/
           var myTable;
       myTable =  $('#example').DataTable({
-          responsive: true,
+        "createdRow": function( row, data, dataIndex ) {
+            if ( data[5] == "Rejected" ) {
+            $('td', row).eq(5).css('color', 'red');
+        }
+        if ( data[5] == "Approved" ) {
+        $('td', row).eq(5).css('color', 'green');
+        }
+        if ( data[5] == "Pending" ) {
+        $('td', row).eq(5).css('color', '#0d6efd');
+        }
+        if ( data[5] == "Ongoing" ) {
+        $('td', row).eq(5).css('color', '#0dcaf0');
+        }
+        if ( data[5] == "Implemented" ) {
+        $('td', row).eq(5).css('color', '#00C9A7');
+        }
+        if ( data[5] == "Approved" ) {
+        $('td', row).eq(5).css('color', 'green');
+        }
+          },
+          responsive: false,
           keys: true,
-          select: true,
-          //  dom: 'Bfrtip',"bFilter": true,
-          dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-          "bFilter": true,
-          select: 'single',
-          responsive: true,
-          altEditor: true,
-          "aLengthMenu": [
-            [10, 20, 50, 100, -1],
-            [10, 20, 50, 100, "All"]
-          ],
+          //select: true,
+          scrollX:true,
+          scrollCollapse: true,
+          fixedheader:true,
+          bautoWidth:false,
+         dom: 'Bfrtip',"bFilter": true,
+         "columns": [
+        { "width": "70px" },
+        { "width": "125px" },
+        { "width": "130px" },
+        { "width": "125px" },
+        { "width": "70px" },
+        { "width": "100px" },
+        { "width": "100px" },
+        { "width": "100px" }
+  ],
+        //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+          //  "<'row'<'col-sm-12'tr>>" +
+        //    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        //  "bFilter": true,
+            select: 'single',
+        //  responsive: true,
+        //  altEditor: true,
+        //  "aLengthMenu": [
+        //    [10, 20, 50, 100, -1],
+        //    [10, 20, 50, 100, "All"]
+        //  paging:true,
           buttons: [
-            'pageLength',
-          'copyHtml5',
+         'pageLength',
+          //'copyHtml5',
             //  {
             // extend: 'excelHtml5',
             //   title: 'JRU Organizations Portal Student Users'
@@ -327,23 +328,23 @@ if(isset($_SESSION['msg'])){
               extend: 'print',
               title: 'JRU Organizations Portal Student Users'
             },
-            {
-            text: 'Add',
-            name: 'add'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Edit',
-            name: 'edit'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Delete',
-            name: 'delete'      // do not change name
-            }
+          //  {
+          //  text: 'Add',
+          //  name: 'add'        // do not change name
+          //  },
+          //  {
+          //  extend: 'selected', // Bind to Selected row
+          //  text: 'Edit',
+          //  name: 'edit'        // do not change name
+          //  },
+          //  {
+          //  extend: 'selected', // Bind to Selected row
+        //    text: 'Delete',
+          //  name: 'delete'      // do not change name
+          //  }
           ],
         });
-      });
+        });
     </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>
 </body>
