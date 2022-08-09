@@ -323,13 +323,13 @@ if(isset($_SESSION['msg'])){
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="butt">Back</a>
-            <a class="btn btn-lg btn-outline-danger" id="rejected" role="button" name="Rejected" value="Rejected" type="submit">Reject</a>
-            <a class="btn btn-lg btn-outline-success" id="approved" role="button" name="Approved" value="Approved" type="submit">Approve</a>
+            <a class="btn btn-lg btn-outline-danger" id="rejected" role="button" name="rejected" value="Rejected" type="submit">Reject</a>
+            <a class="btn btn-lg btn-outline-success" id="approved" role="button" name="approved" value="Approved" type="submit">Approve</a>
           </div>
       </div>
       </div>
        <?php
-              if (isset($pr) || isset($_POST['Rejected']))
+              if (isset($pr) || isset($_POST['rejected']))
                 {
                   $pr = $_POST['project_remarks'];
                   $s = "Rejected";
@@ -346,7 +346,7 @@ if(isset($_SESSION['msg'])){
                               </script>";
                       }
                 }
-                else if (isset($pr) || isset($_POST['Approved']))
+                else if (isset($pr) || isset($_POST['approved']))
                 {
                   $pr = $_POST['project_remarks'];
                   $s = "Approved";
