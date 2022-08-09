@@ -142,8 +142,8 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>
-      <?php
-      $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget FROM tb_projectmonitoring WHERE project_id = '$ssid'";
+    <?php
+      $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, remarks FROM tb_projectmonitoring WHERE project_id = '$ssid'";
                   $result = @mysqli_query($conn, $query);
                   $pn = " ";
                   $v = " ";
@@ -158,6 +158,7 @@ if(isset($_SESSION['msg'])){
                   $nob = " ";
                   $pd = " ";
                   $eb = " ";
+                  $r = " ";
                   if($result) {
                     while($row = @mysqli_fetch_array($result)){
                       $pn = $row['project_name'];
@@ -173,12 +174,12 @@ if(isset($_SESSION['msg'])){
                       $nob = $row['no_of_beneficiary'];
                       $pd = $row['project_desc'];
                       $eb = $row['estimated_budget'];
+                      $r = $row['remarks'];
                     }
                   }
-                    ?>
-
+      ?>
       <!-- Page content -->
-      <form action="" method="post" class="requires-validation" novalidate>
+      <form action=" " method="post" class="requires-validation" novalidate>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7  mb-4">
           <h4>Project Details</h4>
@@ -296,7 +297,7 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label mb-2" for="attachments" >Download Attachment:</label>
+                <label class="form-label mb-2">Download Attachment:</label>
                 <br>
                 <button type="button" class="btn btn-secondary btn-md mt-3">Download</button>
                 <div class="valid-feedback"></div>
@@ -313,20 +314,57 @@ if(isset($_SESSION['msg'])){
           <div class="row mt-4">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_desc" >Remarks:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="6"></textarea>
+                <label class="form-label" for="project_remarks">Remarks:</label>
+                <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" placeholder="<?php echo $r; ?>"></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="butt">Back</a>
-            <a class="btn btn-lg btn-outline-danger" id="butt" href="#" role="button">Reject</a>
-            <a class="btn btn-lg btn-outline-success" id="butt" href="#" role="button">Approve</a>
+            <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="back">Back</a>
+            <a class="btn btn-lg btn-outline-danger" id="rejected" role="button" name="rejected" type="submit">Reject</a>
+            <a class="btn btn-lg btn-outline-success" id="approved" role="button" name="approved" type="submit">Approve</a>
           </div>
       </div>
       </div>
+       <?php
+              if (isset($_POST['rejected']) || isset($pr))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Rejected";
+
+                      $query = "SELECT * FROM tb_projectmonitoring";
+                      $result = @mysqli_query($conn, $query);
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE tb_projectmonitoring SET status = '$s', remarks ='$pr' WHERE project_id = '$ssid'";
+                        $result = @mysqli_query($conn, $query);
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }
+                }
+                else if (isset($_POST['approved']) || isset($pr))
+                {
+                  $pr = $_POST['project_remarks'];
+                  $s = "Approved";
+
+                      $query = "SELECT * FROM tb_projectmonitoring";
+                      $result = @mysqli_query($conn, $query);
+                      $row = mysqli_fetch_array($result);
+
+                      if($row){
+                        $query = "UPDATE tb_projectmonitoring SET status = '$s', remarks ='$pr' WHERE project_id = '$ssid'";
+                        $result = @mysqli_query($conn, $query);
+                        echo "<script type='text/javascript'>
+                              alert('Status updated!')
+                              </script>";
+                      }
+                }
+              @mysqli_close($conn);
+      ?>
       </form>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
@@ -354,7 +392,7 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      -<script src="assets/js/date.js"></script>
+      <script src="assets/js/date.js"></script>
         <!-- Datepicker cdn
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>

@@ -277,7 +277,7 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($_POST['submit']))
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit']))
                 {
                   $pn = $_POST['project_name'];
                   $vn = $_POST['venue'];
@@ -293,8 +293,9 @@ if(isset($_SESSION['msg'])){
                   $pd = $_POST['project_desc'];
                   //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
+                  $s = "Pending";
 
-                      $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW())";
+                      $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
