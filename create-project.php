@@ -150,7 +150,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control" required />
+                <input type="text" name="project_name" id="project_name" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
@@ -158,7 +158,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="venue" id="asterisk">Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" required />
+                <input type="text" name="venue" id="venue" class="form-control" maxlength="20" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
@@ -179,7 +179,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" value="" required />
+                <input type="text" class="form-control" name="start_date" id="start_date" value="" onkeydown="return /[^a-zA-Z]/i.test(event.key)" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -187,7 +187,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="end_date" id="asterisk">End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" value="" required />
+                <input type="text" class="form-control" name="end_date" id="end_date" value="" onkeydown="return /[^a-zA-Z]/i.test(event.key)" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -217,7 +217,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" required />
+                <input type="text" name="participants" id="participants" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
@@ -233,7 +233,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="beneficiary" id="asterisk">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control" required />
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
@@ -251,7 +251,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_desc" id="asterisk">Project Description:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" placeholder="Enter project objectives and details." required></textarea>
+                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" placeholder="Enter project objectives and details." maxlength="50" required></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project Description field cannot be blank!</div>
               </div>
@@ -270,6 +270,7 @@ if(isset($_SESSION['msg'])){
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-lg btn-outline-secondary" href="masterlist.php" role="button" id="butt">Back</a>
             <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">
             <input class="btn btn-primary btn-lg" name="submit" type="submit" value="Submit">
           </div>

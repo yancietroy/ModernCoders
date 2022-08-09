@@ -207,7 +207,6 @@ ul ul a {
 #sidebar.active ul ul i {
   font-size: 1.2em !important;
 }
-
 #sidebar ul li a:hover {
   color: #F2AC1B;
   background: #004A90;
@@ -608,22 +607,37 @@ Projects
   display: none;
 }
 
-table {
+table.master {
   margin: 0 auto;
-  width: 100%;
   clear: both;
   border-collapse: collapse;
   table-layout: fixed;
+  width: 100%;
+  justify-content: center;
 }
-
-table td {
+table.master th,td {
   overflow: hidden;
   white-space: nowrap;
   width: 100px;
+  text-align: center !important;
 }
+
+.table-responsive {
+  margin: 0 auto;
+  width: 100%;
+}
+
 select[readonly]:read-only {
   pointer-events: none;
 }
+input[id^="project_deets"]::-webkit-input-placeholder {
+  color: black;
+}
+textarea[id^="project_deets"]::-webkit-input-placeholder {
+  color: black;
+}
+
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

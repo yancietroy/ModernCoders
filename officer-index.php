@@ -160,7 +160,7 @@ if(isset($_SESSION['msg'])){
                   <div class='col-12 col-md-3 mt-2'>
                       <label class='text-muted'>Officer ID:</label>
                       <h5>$row[0]</h5>";
-                      /**<label class='text-muted'>Year Level:</label>
+                      /**<label class='text-muted'>Position:</label>
                       <h5>Year $row[5] </h5>
                           </div>";**/
                   }
