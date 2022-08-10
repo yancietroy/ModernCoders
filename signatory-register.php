@@ -56,7 +56,7 @@ include('mysql_connect.php');
                     <div class="col-12 col-md-4 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="firstName" id="asterisk">First name</label>
-                        <input type="text" name="firstName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="firstName" class="form-control form-control-lg" required="" />
+                        <input type="text" name="firstName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
                         <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
@@ -65,7 +65,7 @@ include('mysql_connect.php');
                       <div class="form-outline">
 
                         <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="lastName" class="form-control form-control-lg" required />
+                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest3" class="form-control form-control-lg" required />
                         <div class="valid-feedback"> </div>
                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                       </div>

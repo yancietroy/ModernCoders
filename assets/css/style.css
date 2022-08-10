@@ -15,7 +15,8 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-size: 100% 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+    max-width: 100%;
 }
 
 p {
@@ -146,6 +147,8 @@ ul ul a {
 }
 
 #wrapper {
+    width: 100%;
+      max-width: 100%;
   overflow-x: hidden;
   align-items: stretch;
 }
