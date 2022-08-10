@@ -614,7 +614,11 @@ table.master {
   table-layout: fixed;
   width: 100%;
   justify-content: center;
+   border-bottom: none;
 }
+table.dataTable.no-footer {
+        border-bottom: 0 !important;
+    }
 table.master th {
   overflow: hidden;
   white-space: nowrap;

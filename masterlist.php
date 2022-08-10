@@ -160,7 +160,7 @@ if(isset($_SESSION['msg'])){
                   $eb = " ";
                   $ds = " ";
                   $s = " ";
-                  echo "<table id='example' class='table table-hover display nowrap w-100 ms-0 master'>
+                  echo "<table id='example' class='display nowrap w-100 ms-0 master'>
                         <thead>
                           <tr>
                               <th style='min-width: 100px;text-align:center;'>Project ID</th>
