@@ -197,9 +197,9 @@ if(isset($_SESSION['msg'])){
                             <td> $s  </td>
                             <td style='min-width: 100px;text-align:center;'> $ds </td>
                               <td>
-                              <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'>View</a>
-                              <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'>Edit</a>
-                              <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'>Delete</a>
+                              <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
+                              <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
+                              <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
                               </td>
                             </tr>
                           ";

@@ -138,6 +138,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
+          <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-card-list"></i> Masterlist</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>
@@ -183,8 +184,21 @@ if(isset($_SESSION['msg'])){
             <h4>Project Details</h4>
           </div>
               <div class="wrap shadow px-5 py-4 mx-auto mb-4">
-            <div class="row">
-              <div class="col-12 col-md-4 col-sm-3 mb-4">
+               <div class="row justify-content-between">
+                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="project_name" >Project ID:</label>
+                    <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
+                  </div>
+              </div>
+              <div class="col-4 col-md-3 mb-4 me-4">
+                <div class="form-outline">
+                  <label class="form-label" for="project_name" >Date Submitted:</label>
+                  <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
+                </div>
+            </div>
+              <div class="row">
+              <div class="col-12 col-md-3 col-sm-3 mb-4">
                 <div class="form-outline">
                   <label class="form-label" for="project_name" >Project name:</label>
                   <input type="text" name="project_name" id="project_deets" class="form-control" placeholder="<?php echo $pn; ?>"  style="background-color: #fff;" readonly />
@@ -192,7 +206,7 @@ if(isset($_SESSION['msg'])){
                   <div class="invalid-feedback">Project name field cannot be blank!</div>
                 </div>
               </div>
-              <div class="col-12 col-md-4 col-sm-3 mb-4">
+              <div class="col-12 col-md-3 col-sm-3 mb-4">
                 <div class="form-outline">
                   <label class="form-label" for="venue" >Venue:</label>
                   <input type="text" name="venue" id="project_deets" class="form-control" placeholder="<?php echo $v; ?>" style="background-color: #fff;" readonly />
@@ -200,10 +214,21 @@ if(isset($_SESSION['msg'])){
                   <div class="invalid-feedback">Venue field cannot be blank!</div>
                 </div>
               </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
               <label class="form-label select-label" for="project_type" >Project Type:</label>
               <select class="mt-0 ms-0 form-select" name="project_type" id="project_deets" style="background-color: #fff;" readonly>
                 <option class="greyclr" selected disabled value="" ><?php echo $pt; ?></option>
+                <option value="Curricular">Curricular</option>
+                <option value="Extra Curricular">Extra Curricular</option>
+                <option value="Outreach">Outreach</option>
+              </select>
+              <div class="valid-feedback">  </div>
+              <div class="invalid-feedback">Project Type field cannot be blank!</div>
+            </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <label class="form-label select-label" for="project_type" >Project Status:</label>
+              <select class="mt-0 ms-0 form-select" name="project_type" id="project_deets" style="background-color: #fff;" readonly>
+                <option class="greyclr" selected disabled value="" ></option>
                 <option value="Curricular">Curricular</option>
                 <option value="Extra Curricular">Extra Curricular</option>
                 <option value="Outreach">Outreach</option>
@@ -390,7 +415,7 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      -<script src="assets/js/date.js"></script>
+      <script src="assets/js/date.js"></script>
         <!-- Datepicker cdn
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>

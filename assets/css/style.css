@@ -636,10 +636,10 @@ select[readonly]:read-only {
   pointer-events: none;
 }
 input[id^="project_deets"]::-webkit-input-placeholder {
-  color: black;
+  color: #212529;
 }
 textarea[id^="project_deets"]::-webkit-input-placeholder {
-  color: black;
+  color: #212529;
 }
 #rejected {
   color: red;
@@ -652,6 +652,9 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
 }
 #approved:hover {
   color: white;
+}
+.form-label {
+    color:#495057;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES

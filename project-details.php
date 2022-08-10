@@ -146,6 +146,19 @@ if(isset($_SESSION['msg'])){
           <h4>Project Details</h4>
         </div>
             <div class="wrap shadow px-5 py-4 mx-auto mb-4">
+              <div class="row justify-content-between">
+               <div class="col-4 col-md-2 col-sm-3 mb-4">
+                 <div class="form-outline">
+                   <label class="form-label" for="project_name" >Project ID:</label>
+                   <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
+                 </div>
+             </div>
+             <div class="col-4 col-md-3 mb-4 me-4">
+               <div class="form-outline">
+                 <label class="form-label" for="project_name" >Project Submitted:</label>
+                 <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
+               </div>
+           </div>
           <div class="row">
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
