@@ -118,7 +118,11 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex">John Doe</span></a>
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">Profile</a></li>
                   <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -197,7 +201,7 @@ if(isset($_SESSION['msg'])){
                             <td> $s  </td>
                             <td style='min-width: 100px;text-align:center;'> $ds </td>
                               <td>
-                              <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
+                              <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
                               <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
                               <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
                               </td>
