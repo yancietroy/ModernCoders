@@ -90,7 +90,7 @@ include('mysql_connect.php');
                         <div class="valid-feedback"> </div>
                     </div>
                 </div>
-                    <div class="col-12 col-md-4" >
+                    <div class="col-12 col-md-4 >
                       <div class="form-outline">
                         <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
                         <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
