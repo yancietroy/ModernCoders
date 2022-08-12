@@ -138,14 +138,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-card-list"></i> Masterlist</a></li>
-=======
->>>>>>> 8d41316a69382d787286769444eb970a95bc9599
-=======
-          <li class="breadcrumb-item"><a href="signatory-masterlist.php"><i class="bi bi-card-list"></i> Masterlist</a></li>
->>>>>>> 1eb8fce46fad2c79dcdc17a5919ba384179a8157
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-list-ul"></i> Project Details</li>
         </ol>
       </nav>

@@ -149,13 +149,12 @@ if(isset($_SESSION['msg'])){
                           <div class='col-12 col-md-4 mt-2'>
                             <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
-                              <label class='text-muted mt-3'>Admin ID:</label>
-                              <h5>$row[0]</h5>
+                            <label class='text-muted mt-3'>Email:</label>
+                            <h6>$row[3]</h6>
                           </div>
                           <div class='col-12 col-md-4 mt-2'>
-
-                            <label class='text-muted'>Email:</label>
-                            <h5>$row[3]</h5>
+                            <label class='text-muted'>Admin ID:</label>
+                            <h5>$row[0]</h5>
                               <label class='text-muted mt-3'>Role:</label>
                               <h5>$row[2]</h5>
                           </div>
