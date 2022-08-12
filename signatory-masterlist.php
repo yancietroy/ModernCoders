@@ -38,10 +38,14 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
   <style>
+  @media only screen
+  and (min-width: 1030px)
+  and (max-width: 1366px)  {
 
-  #wrapper {
-      overflow:auto !important;
-  }
+        #wrapper {
+            overflow:auto !important;
+}
+}
   </style>
 </head>
 
@@ -148,11 +152,16 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <div class="row justify-content-center align-items-center" id="container">
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4>Signatory Projects Masterlist</h4>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center mt-4" id="container">
         <div class="col-md-12 ">
           <div class="row">
             <div class="col-xs-12">
-              <div class="table-responsive justify-content-center align-items-center">
+              <div class="table-responsive justify-content-center align-items-center ms-4">
               <?php
                   $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
                   $result = @mysqli_query($conn,$query);
@@ -238,11 +247,11 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- Sidebar collapse -->
     <script src="assets/js/form-validation.js"></script>
-    <!-- waves css-->
+    <!-- waves css
     <script type="text/javascript">
       Waves.attach('#sidebar ul li a');
       Waves.init();
-    </script>
+    </script>-->
     <!-- Datatable default  -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -254,8 +263,8 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript"
       src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
     </script>
-  -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>  -->  
     <script>
       $(document).ready(function() {
           var myTable;
@@ -283,7 +292,7 @@ if(isset($_SESSION['msg'])){
           responsive: false,
           keys: true,
           //select: true,
-        //  scrollX:true,
+       scrollX:true,
       //    scrollCollapse: true,
           fixedheader:true,
           bautoWidth:false,

@@ -37,12 +37,16 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-<style>
+  <style>
+  @media only screen
+  and (min-width: 1030px)
+  and (max-width: 1366px)  {
 
-#wrapper {
-    overflow:auto !important;
+        #wrapper {
+            overflow:auto !important;
 }
-</style>
+}
+  </style>
 </head>
 
 <body>
@@ -147,11 +151,82 @@ if(isset($_SESSION['msg'])){
         </ol>
       </nav>
 
-      <!-- Page content -->
+
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4>Officer Projects Masterlist</h4>
+        </div>
+      </div>
+      <div class="row g-0 mt-4 justify-content-center">
+        <div class="table-responsive ms-4">
+        <?php
+            $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
+            $result = @mysqli_query($conn,$query);
+            $i = 0;
+            $pid = " ";
+            $pn = " ";
+            $pd = " ";
+            $v = " ";
+            $eb = " ";
+            $ds = " ";
+            $s = " ";
+            echo "<table id='example' class='display w-100 ms-0 master'>
+                  <thead>
+                    <tr>
+                        <th>Project ID</th>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Venue</th>
+                        <th>Budget</th>
+                        <th>Status</th>
+                        <th>Date Submitted</th>
+                        <th>Options</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                ";
+            if ($result !== false && $result->num_rows > 0)
+            {
+                // output data of each row
+                while($row = $result->fetch_assoc())
+                {
+                $pid = $row["project_id"];
+                $pn = $row["project_name"];
+                $pd = $row["project_desc"];
+                $v = $row["venue"];
+                $eb = $row["estimated_budget"];
+                $ds = $row["date_submitted"];
+                $s = $row["status"];
+
+                echo "<tr>
+                      <td> $pid  </td>
+                      <td> $pn  </td>
+                      <td> $pd  </td>
+                      <td> $v  </td>
+                      <td> $eb  </td>
+                      <td> $s  </td>
+                      <td> $ds </td>
+                        <td>
+                        <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
+                        <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
+                        <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
+                        </td>
+                      </tr>
+                    ";
+                }
+            echo "</tbody>
+                  </table>";
+            }
+            $conn->close();
+            ?>
+        </div>
+    </div>
+      <!-- Page content
+
       <div class="row justify-content-center align-items-center" id="container">
         <div class="col-md-12 ">
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-11">
               <div class="table-responsive justify-content-center align-items-center">
               <?php
                   $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
@@ -216,7 +291,7 @@ if(isset($_SESSION['msg'])){
                 </div>
             </div>
           </div>
-        </div>
+        </div>-->
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
           <footer class="py-2 bg-light mt-3">
@@ -284,7 +359,7 @@ if(isset($_SESSION['msg'])){
           responsive: false,
           keys: true,
           //select: true,
-          scrollX:true,
+       scrollX:true,
           scrollCollapse: true,
           fixedheader:true,
           bautoWidth:false,

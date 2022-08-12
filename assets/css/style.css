@@ -82,6 +82,7 @@ span {
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 /*
@@ -147,8 +148,8 @@ ul ul a {
 }
 
 #wrapper {
-    width: 100%;
-      max-width: 100%;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   align-items: stretch;
 }
@@ -615,7 +616,6 @@ table.master {
   clear: both;
   border-collapse: collapse;
   table-layout: fixed;
-  width: 100%;
   justify-content: center;
    border-bottom: none;
 }
@@ -634,9 +634,9 @@ table.master td {
   width: 100px;
   text-align: center !important;
 }
-.table-responsive {
-  margin: 0 auto;
-  width: 100%;
+div.table-responsive {
+  max-width: 100%;
+  width: 95%;    
 }
 
 select[readonly]:read-only {
@@ -696,3 +696,4 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
     display: none;
   }
 }
+ }
