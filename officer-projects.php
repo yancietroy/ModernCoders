@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:login.php");
+    header("Location:officer-login.php");
   }
  ?>
 
@@ -241,7 +241,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-card-list" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

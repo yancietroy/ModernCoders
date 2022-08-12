@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:login.php");
+    header("Location:signatory-login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="signatory-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -64,7 +64,7 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
@@ -73,7 +73,7 @@ if(isset($_SESSION['msg'])){
         <li class="active">
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
-        <li>
+          <!--<li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
@@ -82,7 +82,7 @@ if(isset($_SESSION['msg'])){
         <li class="d-lg-none">
           <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
-        </li>
+        </li> -->
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -118,7 +118,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -164,7 +164,7 @@ if(isset($_SESSION['msg'])){
                   $eb = " ";
                   $ds = " ";
                   $s = " ";
-                  echo "<table id='example' class='table table-hover display nowrap w-100 ms-0 master'>
+                  echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
                         <thead>
                           <tr>
                               <th>Project ID</th>
@@ -201,7 +201,7 @@ if(isset($_SESSION['msg'])){
                             <td> $s  </td>
                             <td> $ds </td>
                             <td>
-                            <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'>View</a>
+                            <a class='btn btn-primary btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
                             </td>
                             </tr>
                           ";
@@ -283,8 +283,8 @@ if(isset($_SESSION['msg'])){
           responsive: false,
           keys: true,
           //select: true,
-          scrollX:true,
-          scrollCollapse: true,
+        //  scrollX:true,
+      //    scrollCollapse: true,
           fixedheader:true,
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
