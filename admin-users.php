@@ -18,13 +18,10 @@ if(isset($_SESSION['msg'])){
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
-
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
@@ -153,6 +150,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </nav>
+
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -161,26 +159,14 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item active" aria-current="page">Students</li>
         </ol>
       </nav>
+
       <!-- Page content -->
       <div class="table-responsive" id="tb">
   <div class="row justify-content-center align-items-center">
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-      <?php
-                  $query = "SELECT STUDENT_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, EMAIL, YEAR_LEVEL, BIRTHDATE, AGE FROM tb_students";
-                  $result = @mysqli_query($conn,$query);
-                  $i = 0;
-                  $sid = " ";
-                  $fname = " ";
-                  $mname = " ";
-                  $lname = " ";
-                  $gender = " ";
-                  $email = " ";
-                  $ylevel = " ";
-                  $bdate = " ";
-                  $age = " ";
-                  echo "<table id='admin-user-table' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
+<table id='admin-user-table' class='table table-striped table-hover' style='width:100%'>
                         <thead>
                           <tr>
                               <th>Student ID</th>
@@ -195,53 +181,21 @@ if(isset($_SESSION['msg'])){
                           </tr>
                         </thead>
                         <tbody>
-                      ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                      $sid = $row["STUDENT_ID"];
-                      $fname = $row["FIRST_NAME"];
-                      $mname = $row["MIDDLE_NAME"];
-                      $lname = $row["LAST_NAME"];
-                      $gender = $row["GENDER"];
-                      $email = $row["EMAIL"];
-                      $ylevel = $row["YEAR_LEVEL"];
-                      $bdate =  $row["BIRTHDATE"];
-                      $age =$row["AGE"];
-
-                      echo "<tr>
-                            <td> $sid  </td>
-                            <td> $fname  </td>
-                            <td> $mname  </td>
-                            <td> $lname  </td>
-                            <td> $gender  </td>
-                            <td> $email  </td>
-                            <td> $ylevel  </td>
-                            <td> $age </td>
-                            <td> $bdate  </td>                            
-                            </tr>
-                          ";
-                      }
-                  }
-                  echo "</tbody>
-                        <tfoot>
+                        </tbody>
+                        <!--<tfoot>
                             <tr>
-                              <th>Student ID</th>
-                              <th>First Name</th>
-                              <th>Middle Name</th>
-                              <th>Last Name</th>
-                              <th>Gender</th>
-                              <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Age</th>
-                              <th>Birth date</th>
+                                <th>Student ID</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Last Name</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>Year Level</th>
+                                <th>Age</th>
+                                <th>Birth date</th>
                             </tr>
-                        </tfoot>
-                        </table>";
-                  $conn->close();
-                  ?>
+                        </tfoot>-->
+ </table>
                   
          </div>
        </div>
@@ -257,6 +211,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div> -->
+
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light mt-3">
@@ -269,27 +224,7 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
-    
-    <script type="text/javascript">
-  function getAge(){
-      var dob = document.getElementById('addBirthDateField').value;
-      dob = new Date(dob);
-      var today = new Date();
-      var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-      document.getElementById('addAgeField').value=age;
-  }
 
-  $(function () {
-      $('input[data-relmax]').each(function () {
-          var oldVal = $(this).prop('value');
-          var relmax = $(this).data('relmax');
-          var max = new Date();
-          max.setFullYear(max.getFullYear() + relmax);
-          $.prop(this, 'max', $(this).prop('valueAsDate', max).val());
-          $.prop(this, 'value', oldVal);
-      });
-  });
-  </script>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -311,62 +246,87 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-<script>
-  $(document).ready(function(){ 
-    var myTable;
-    myTable =  $('#admin-user-table').DataTable({
-      responsive: true,
-      keys: true,
-      select: true,
-      //  dom: 'Bfrtip',"bFilter": true,
-      dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-      "bFilter": true,
-      //select: 'single',
-      //responsive: true,
-      altEditor: false,
-      /**"aLengthMenu": [
-       [10, 20, 50, 100, -1],
-       [10, 20, 50, 100, "All"]
-        ],**/
-      buttons: [
-        'pageLength',
-       'copyHtml5',
-            //  {
-            // extend: 'excelHtml5',
-            //   title: 'JRU Organizations Portal Student Users'
-            //   },
+  <!-- <script>
+    $(document).ready(function() {
+        $('#admin-user-table').DataTable( {
+          responsive: true,
+           fixedHeader: true,
+            keys: true,
+             select: true,
+            dom: 'Bfrtip',"bFilter": true,
+    "aLengthMenu": [
+      [10, 20, 50, 100, -1],
+      [10, 20, 50, 100, "All"]
+    ],
+            buttons: [
+              'pageLength',
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print'
+       ],
+        } );
+    } );
+
+   </script>-->
+   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+      <script type="text/javascript" language="javascript" >
+        $(document).ready(function(){
+         var dataTable = $('#admin-user-table').DataTable({
+          responsive: true,
+           fixedHeader: true,
+            keys: true,
+             select: true,
+            dom: 'Bfrtip',"bFilter": true,
+    "aLengthMenu": [
+      [10, 20, 50, 100, -1],
+      [10, 20, 50, 100, "All"]
+    ],
+            buttons: [
+              'pageLength',
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'print'
+       ],
+          "processing" : true,
+          "serverSide" : true,
+          "order" : [],
+          "ajax" : {
+           url:"fetch-admin-user.php",
+           type:"POST"
+          }
+         });
+
+         $('#admin-user-table').on('draw.dt', function(){
+          $('#admin-user-table').Tabledit({
+           url:'action-admin-user.php',
+           //eventType: 'dblclick',
+           //editButton: false,
+           //deleteButton: false,
+           dataType:'json',
+           columns:{
+            identifier : [0, 'STUDENT_ID'],
+            editable:[[1, 'FIRST_NAME'], [2, 'MIDDLE_NAME'], [3, 'LAST_NAME'], [4, 'GENDER', '{"Male":"Male","Female":"Female"}'], [5, 'EMAIL'], [6, 'YEAR_LEVEL'], [7, 'AGE']]
+           },
+           restoreButton:false,
+           onSuccess:function(data, textStatus, jqXHR)
+           {
+            if(data.action == 'delete')
             {
-              extend: 'csvHtml5',
-              title: 'JRU Organizations Portal Student Users'
-            },
-            {
-              extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal Student Users'
-            },
-            {
-              extend: 'print',
-              title: 'JRU Organizations Portal Student Users'
+             $('#' + data.id).remove();
+             $('#admin-user-table').DataTable().ajax.reload();
             }
-            /**{
-            text: 'Add',
-            name: 'add'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Edit',
-            name: 'edit'        // do not change name
-            },
-            {
-            extend: 'selected', // Bind to Selected row
-            text: 'Delete',
-            name: 'delete'      // do not change name
-            }
-          ]
-        });**/
-});
-</script>
-<script src="assets/js/dataTables.altEditor.free.js" ></script>
+           }
+          });
+         });
+          
+        }); 
+    </script>
+
 </body>
+
 </html>

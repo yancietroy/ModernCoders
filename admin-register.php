@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('mysql_connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +9,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>JRU Student Organizations Portal</title>
+    <!-- our custom css -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
   <!-- Waves CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
@@ -15,7 +20,7 @@
 
 <body class="bg-admin">
 
-  <form action="registered.php" method="post" class="requires-validation" novalidate>
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
     <section class="h-100">
       <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -36,195 +41,67 @@
                   </div>
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
 
-                  <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
                   <!-- <form class="was-validated"> -->
                   <div class="row">
-                    <div class="col-4 col-md-4 col-sm-3 mb-4">
+                    <div class="col-12 col-md-4 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="firstName" id="asterisk">First name</label>
-                        <input type="text" name="first_name" id="FirstName" class="form-control form-control-lg" required />
+                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
                         <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">First name field cannot be blank!</div>
+                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
                     </div>
-                    <div class="col-4 col-md-4  mb-4">
-                      <div class="form-outline">
-
-                        <label class="form-label" for="middleName">Middle name</label>
-                        <input type="text" name="middle_name" id="middleName" class="form-control form-control-lg" />
-                        <div class="valid-feedback">
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="col-4 col-md-4  mb-4">
+                    <div class="col-12 col-md-4  mb-4">
                       <div class="form-outline">
 
                         <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                        <input type="text" name="last_name" id="lastName" class="form-control form-control-lg" required />
+                        <input type="text" name="last_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest3" class="form-control form-control-lg" required />
                         <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">Last name field cannot be blank!</div>
+                        <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-4 col-md-4 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                        <input id="birthDate" class="form-control form-control-lg" type="date" name="birthdate" required />
-                        <span id="birthDateSelected"></span>
-                        <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">Age field cannot be blank!</div>
-                      </div>
-                    </div>
-                    <div class="col-3 col-md-4 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="age" id="asterisk">Age</label>
-                        <input type="text" name="age" id="age" class="form-control form-control-lg" required />
-                        <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">Age field cannot be blank!</div>
-                      </div>
-                    </div>
-                    <div class="col-4 col-md-4 mb-4 ">
-                      <label class="mb-3 me-5 min-vw-100" for="gender" id="asterisk">Gender </label>
-
-                      <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" required>
-                      <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
-
-                      <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
-                      <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
-                      <div class="valid-feedback mv-up"></div>
-                      <div class="invalid-feedback mv-up">Please select a gender!</div>
-                    </div>
-
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <h4 class="mb-4 pb-2 pb-md-0 mb-md-4 mt-2">Academic Profile</h4>
-                    <div class="col-4 col-md-4  col-md-4 mb-4">
+                    <div class="col-12 col-md-4  mb-4">
                       <div class="form-outline">
 
-                        <label class="form-label" for="studentid" id="asterisk">Student ID</label>
+                        <label class="form-label" for="studentid" id="asterisk">ID</label>
                         <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
                         <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">student id field cannot be blank!</div>
                       </div>
                     </div>
-                    <div class="col-4 col-md-4   mb-4">
-                      <label class="form-label select-label" id="asterisk">Year Level</label>
-                      <select class=" form-select" name="school_year" id="select-group" required>
-                        <option class="greyclr" selected disabled value="">Select Year</option>
-                        <option value="1">First Year</option>
-                        <option value="2">Second Year</option>
-                        <option value="3">Third Year</option>
-                        <option value="4">Fourth Year</option>
-                      </select>
-                      <div class="valid-feedback"> </div>
-                      <div class="invalid-feedback">year field cannot be blank!</div>
-                    </div>
-                    <div class="col-3 col-md-4 mb-4">
+                        </div>
+                  <div class="row">
+                    <div class="col-12 col-md-4 ">
                       <div class="form-outline">
 
-                        <label class="form-label" for="section" id="asterisk">Section</label>
-                        <input type="text" name="section" id="section" class="form-control" required />
-                        <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">section field cannot be blank!</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3 col-md-4   mb-4">
-
-                      <label class="form-label select-label" id="asterisk">College</label>
-                      <select class="form-select form-select-sm" name="college" id="select-group" required>
-                        <option class="greyclr" selected disabled value="" text-muted>Select College</option>
-                        <?php
-                            include('mysql_connect.php');
-                            $query = "SELECT college FROM tb_collegedept";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please select a college program
+                        <label class="form-label" for="email" id="asterisk">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                          readonly>
+                        <div class="valid-feedback"></div>
                       </div>
                     </div>
 
-                    <div class="col-3 col-md-4  mb-4">
-
-                      <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                      <select class="form-select form-select-sm" style="width:100%;" name="course" id="select-group" required>
-                        <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
-                        <?php
-                            include('mysql_connect.php');
-                            $query = "SELECT course FROM tb_course";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please select a Course
-                      </div>
-                    </div>
-                    <div class="col-5 col-md-4  mb-4">
-
-                      <label class="form-label select-label" id="asterisk">Organization</label>
-                      <select class="form-select form-select-sm" name="org" id="select-group" required>
-                        <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
-                        <?php
-                            include('mysql_connect.php');
-                            $query = "SELECT ORG FROM tb_orgs";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                            }
-                            @mysqli_close($conn);
-                      ?>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please select a Organization
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12 col-md-4 mb-4">
-                      <div class="form-outline">
-
-                        <label class="form-label" for="email" id="asterisk">Student Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
-                        <div class="valid-feedback">Email field is valid!</div>
-                        <div class="invalid-feedback">Email field invalid!</div>
-                      </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 mb-4">
+                    <div class="col-12 col-md-4">
                       <div class="form-outline">
 
                         <label class="form-label" for="password" id="asterisk">Password</label>
-                        <input type="text" class="form-control" name="password" id="password" minlength="8" required>
+                        <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
+                          data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                        <span class="errorspannewpassinput"></span>
                         <div class="valid-feedback"> </div>
-                        <div class="invalid-feedback">Must be at least 8 characters long &#013;
-                          Must contain at least one number &#013;
-                          Must contain at least one special character &#013;
-                          and must contain at least one uppercase and lowercase letter!</div>
-                      </div>
                     </div>
-                    <div class="col-6 col-md-4 mb-4">
+                </div>
+                    <div class="col-12 col-md-4" >
                       <div class="form-outline">
-
                         <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                        <input type="text" class="form-control" name="confirmpassword" id="Confirmpassword" minlength="8" required>
+                        <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                          data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                        <span class="errorspanconfirmnewpassinput"></span>
+                        <div class="valid-feedback"> </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="col-12 col-md-12 mb-4">
+                  </div>
+                  <div class="col-12 col-md-12 mb-4 mt-0">
                     <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                   </div>
@@ -232,26 +109,67 @@
                   <hr class="my-4">
                   <p class="mt-3 text-center">Already have an account? <a href="admin-login.php" class="text-blue-50 fw-bold">Login</a>
                   </p>
-  </form>
+                </form>
 
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </section>
 
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  <!-- form validation/sidebar toggle -->
-  <script src="assets/js/form-validation.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  </script> <!-- JavaScript validation -->
-  <script type="text/javascript">
-    Waves.attach('.btn-primary');
-    Waves.init();
-  </script>
-</body>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </section>
 
-</html>
+                <!-- JQUERY -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>!-->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+                <!-- Popover
+                <script>
+                  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+                  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+                </script>-->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+                </script> <!-- JavaScript validation -->
+                <script type="text/javascript">
+                  Waves.attach('.btn-primary');
+                  Waves.init();
+                </script>
+                <!-- JavaScript validation -->
+                <script src="assets/js/bootstrap-validation.js"></script>
+                <!-- <script src="js/form-validation.js"></script>
+                Prevent Cut Copy Paste -->
+                <script>
+                  $(document).ready(function() {
+                    $('input:text').bind('cut copy paste', function(e) {
+                      e.preventDefault();
+                      return false;
+                    });
+
+                  });
+                </script>
+                <!--email generator-->
+                <script>
+                  $("#txtTest, #txtTest3").on('input', function() {
+                    var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
+                    var lname = $("#txtTest3").val().toLowerCase().replace(/\s/g, '');
+                    $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
+                  });
+                </script>
+                <!--input mask-->
+                <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+                <script src="assets/js/inputmask-validation.js"></script>
+
+                <!--Uppercase first letter !-->
+                <script src="assets/js/uppercase-firstletter.js"></script>
+
+                <!--password validation!-->
+                <script src="assets/js/pass-validation.js"></script>
+
+                <!-- age validation !-->
+                <script src="assets/js/age-validation.js"></script>
+
+                </body>
+
+                </html>

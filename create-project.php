@@ -42,7 +42,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="officer-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -109,7 +109,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -150,7 +150,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control" required />
+                <input type="text" name="project_name" id="project_name" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
@@ -158,7 +158,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="venue" id="asterisk">Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" required />
+                <input type="text" name="venue" id="venue" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
@@ -179,7 +179,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" value="" required />
+                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -187,7 +187,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="end_date" id="asterisk">End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" value="" required />
+                <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
@@ -217,7 +217,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" required />
+                <input type="text" name="participants" id="participants" class="form-control"  maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
@@ -233,7 +233,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="beneficiary" id="asterisk">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control" required />
+                <input type="text" name="beneficiary" id="beneficiary" class="form-control"  maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
               </div>
@@ -276,7 +276,7 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($_POST['submit']))
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit']))
                 {
                   $pn = $_POST['project_name'];
                   $vn = $_POST['venue'];
@@ -292,8 +292,9 @@ if(isset($_SESSION['msg'])){
                   $pd = $_POST['project_desc'];
                   //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
+                   $s = "Pending";
 
-                      $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW())";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
@@ -349,6 +350,18 @@ if(isset($_SESSION['msg'])){
                minDate: 0
            });
        });
+        </script>
+        <script>
+          $(document).ready(function() {
+            $('#start_date').bind('cut copy paste', function(e) {
+              e.preventDefault();
+              return false;
+            });
+            $('#end_date').bind('cut copy paste', function(e) {
+              e.preventDefault();
+              return false;
+            });
+          });
         </script>
 </body>
 </html>
