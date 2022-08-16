@@ -247,7 +247,6 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
             <div class="row">
-
               <div class="col-12 col-md-4 col-sm-3 mb-2">
               <label class="form-label select-label" for="project_type" >Project Type:</label>
               <select class="mt-0 ms-0 form-select" name="project_type" id="project_deets" style="background-color: #fff;" readonly>
