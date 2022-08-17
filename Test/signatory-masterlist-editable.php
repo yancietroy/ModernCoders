@@ -326,9 +326,12 @@ if(isset($_SESSION['msg'])){
                               </div>
                             </div>
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Upload Attachment:</label>
+                              <div class="form-outline">
+                                <label class="form-label">Attachment:</label>
+                                <div class="btn-group">
+                              <button type="button" class="btn btn-secondary btn-md">Download</button>
                               <button type="button" class="btn btn-secondary btn-md">Upload</button>
+                            </div>
                               </div>
                             </div>
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
