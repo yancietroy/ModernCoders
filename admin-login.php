@@ -59,7 +59,15 @@ if(isset($_SESSION['message'])){
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
-
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-4" id="select-opt">
+                  <option class="greyclr text-muted" selected disabled value="" >Select User</option>
+                  <option value="login.php">Student</option>
+                  <option value="officer-login.php">Officer</option>
+                  <option value="signatory-login.php">Signatory</option>
+                  <option value="admin-login.php">Admin</option>
+                </select>
+              </div>
               <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
 
               <hr class="my-4">
@@ -74,6 +82,20 @@ if(isset($_SESSION['message'])){
   </div>
   <!-- form validation/sidebar toggle -->
   <script src="assets/js/form-validation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+    $("#select-opt").change(function() {
+      var $option = $(this).find(':selected');
+      var url = $option.val();
+      if (url != "") {
+        url += "?text=" + encodeURIComponent($option.text());
+        // Show URL rather than redirect
+        window.location.href = url;
+      }
+    });
+  });
+    </script>
   <!-- waves js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   </script> <!-- JavaScript validation -->

@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:login.php");
+    header("Location:signatory-login.php");
   }
  ?>
 
@@ -40,7 +40,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="signatory-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -108,7 +108,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -120,7 +120,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="signatory-login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -130,33 +130,39 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3">Student Officer Profile</h4>
+      <h4 class="ms-3">Signatory Profile</h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
-              <div class="row g-0">
+              <div class="row g-0 justify-content-evenly">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Name:</label>
-                  <h5>John Doe</h5>
-                  <label>Position:</label>
-                  <h5>President</h5>
-                </div>
-                <div class="col-12 col-md-4 mt-2">
-                  <label>Email:</label>
-                  <h5>Johndoe@my.jru.edu</h5>
-                  <label>Course:</label>
-                  <h5>BSIT</h5>
-                </div>
-                <div class="col-12 col-md-3 mt-2">
-                  <label>Student ID:</label>
-                  <h5>19-255322</h5>
-                  <label>Year Level:</label>
-                  <h5>Fourth Year</h5>
-                </div>
+                <?php
+                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), signatory_type AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
+                  $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-4 mt-2'>
+                            <label class='text-muted'>Name:</label>
+                            <h5>$row[1]</h5>
+                            <label class='text-muted mt-3'>Email:</label>
+                            <h6>$row[3]</h6>
+                          </div>
+                          <div class='col-12 col-md-4 mt-2'>
+                            <label class='text-muted'>Admin ID:</label>
+                            <h5>$row[0]</h5>
+                              <label class='text-muted mt-3'>Role:</label>
+                              <h5>$row[2]</h5>
+                          </div>
+                          <div class='col-12 col-md-3 mt-2'>
+                          </div>
+                          ";
+                  }
+                  ?>
               </div>
 
             </div>

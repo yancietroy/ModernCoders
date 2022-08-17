@@ -58,7 +58,15 @@ if(isset($_SESSION['message'])){
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
-
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-4" id="select-opt">
+                  <option class="greyclr text-muted" selected disabled value="" >Select User</option>
+                  <option value="login.php">Student</option>
+                  <option value="officer-login.php">Officer</option>
+                  <option value="signatory-login.php">Signatory</option>
+                  <option value="admin-login.php">Admin</option>
+                </select>
+              </div>
               <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
 
               <hr class="my-4">
@@ -81,6 +89,20 @@ if(isset($_SESSION['message'])){
   </script>
   <!-- form validation/sidebar toggle -->
   <script src="assets/js/form-validation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+    $("#select-opt").change(function() {
+      var $option = $(this).find(':selected');
+      var url = $option.val();
+      if (url != "") {
+        url += "?text=" + encodeURIComponent($option.text());
+        // Show URL rather than redirect
+        window.location.href = url;
+      }
+    });
+  });
+    </script>
   <?php
 if(isset ($_POST['submit']))
 {
@@ -91,7 +113,7 @@ if(isset ($_POST['submit']))
 	if(!empty($_POST['email']) || !empty($_POST['password'])) {
 		ob_start();
 
-		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+		$query = "Select school_ID FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
 		$result = @mysqli_query($conn, $query);
 		$row = mysqli_fetch_array ($result);
 

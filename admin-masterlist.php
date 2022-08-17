@@ -37,16 +37,7 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <style>
-  @media only screen
-  and (min-width: 1030px)
-  and (max-width: 1366px)  {
 
-        #wrapper {
-            overflow:auto !important;
-}
-}
-  </style>
 </head>
 
 <body>
@@ -56,7 +47,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -122,7 +113,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -145,89 +136,17 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
+          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="admin-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-card-list"></i> Masterlist</li>
         </ol>
       </nav>
 
-
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Officer Projects Masterlist</h4>
-        </div>
-      </div>
-      <div class="row g-0 mt-4 justify-content-center">
-        <div class="table-responsive ms-4">
-        <?php
-            $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
-            $result = @mysqli_query($conn,$query);
-            $i = 0;
-            $pid = " ";
-            $pn = " ";
-            $pd = " ";
-            $v = " ";
-            $eb = " ";
-            $ds = " ";
-            $s = " ";
-            echo "<table id='example' class='display w-100 ms-0 master'>
-                  <thead>
-                    <tr>
-                        <th>Project ID</th>
-                        <th>Project Name</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Budget</th>
-                        <th>Status</th>
-                        <th>Date Submitted</th>
-                        <th>Options</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                ";
-            if ($result !== false && $result->num_rows > 0)
-            {
-                // output data of each row
-                while($row = $result->fetch_assoc())
-                {
-                $pid = $row["project_id"];
-                $pn = $row["project_name"];
-                $pd = $row["project_desc"];
-                $v = $row["venue"];
-                $eb = $row["estimated_budget"];
-                $ds = $row["date_submitted"];
-                $s = $row["status"];
-
-                echo "<tr>
-                      <td> $pid  </td>
-                      <td> $pn  </td>
-                      <td> $pd  </td>
-                      <td> $v  </td>
-                      <td> $eb  </td>
-                      <td> $s  </td>
-                      <td> $ds </td>
-                        <td>
-                        <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
-                        <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
-                        <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
-                        </td>
-                      </tr>
-                    ";
-                }
-            echo "</tbody>
-                  </table>";
-            }
-            $conn->close();
-            ?>
-        </div>
-    </div>
-      <!-- Page content
-
-      <div class="row justify-content-center align-items-center" id="container">
-        <div class="col-md-12 ">
+      <!-- Page content -->
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-11 ">
           <div class="row">
-            <div class="col-md-11">
-              <div class="table-responsive justify-content-center align-items-center">
+            <div class="col-xs-12">
               <?php
                   $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
                   $result = @mysqli_query($conn,$query);
@@ -239,17 +158,16 @@ if(isset($_SESSION['msg'])){
                   $eb = " ";
                   $ds = " ";
                   $s = " ";
-                  echo "<table id='example' class='display nowrap w-100 ms-0 master'>
+                  echo "<table id='example' class='table table-striped dt-responsive nowrap w-100' style='width:100%'>
                         <thead>
                           <tr>
-                              <th style='min-width: 100px;text-align:center;'>Project ID</th>
+                              <th>Project ID</th>
                               <th>Project Name</th>
                               <th>Description</th>
                               <th>Venue</th>
-                              <th style='min-width: 100px;text-align:center;'>Budget</th>
+                              <th>Budget</th>
                               <th>Status</th>
-                              <th style='min-width: 100px;text-align:center;'>Date Submitted</th>
-                              <th>Options</th>
+                              <th>Date Submitted</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -268,30 +186,35 @@ if(isset($_SESSION['msg'])){
                       $s = $row["status"];
 
                       echo "<tr>
-                            <td style='min-width: 100px;text-align:center;'> $pid  </td>
+                            <td> $pid  </td>
                             <td> $pn  </td>
                             <td> $pd  </td>
                             <td> $v  </td>
-                            <td style='min-width: 100px;text-align:center;'> $eb  </td>
+                            <td> $eb  </td>
                             <td> $s  </td>
-                            <td style='min-width: 100px;text-align:center;'> $ds </td>
-                              <td>
-                              <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
-                              <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
-                              <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
-                              </td>
+                            <td> $ds </td>
                             </tr>
                           ";
                       }
                   echo "</tbody>
+                        <tfoot>
+                            <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Venue</th>
+                            <th>Budget</th>
+                            <th>Status</th>
+                            <th>Date Submitted</th>
+                            </tr>
+                        </tfoot>
                         </table>";
                   }
                   $conn->close();
                   ?>
-                </div>
             </div>
           </div>
-        </div>-->
+        </div>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
           <footer class="py-2 bg-light mt-3">
@@ -308,6 +231,7 @@ if(isset($_SESSION['msg'])){
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -334,60 +258,55 @@ if(isset($_SESSION['msg'])){
     </script>
     <script>
       $(document).ready(function() {
+
+        /*  var columnDefs = [{
+            data: "studentid",
+            title: "Student ID",
+            type: "readonly"
+          },
+          {
+            data: "$name",
+            title: "Name",
+              type: "readonly"
+          },
+         {
+            data: "email",
+            title: "Email"
+          },
+         {
+            data: "Year level",
+            title: "Year Level"
+          },
+         {
+            data: "birthDate",
+            title: "Birthdate"
+          },
+         {
+            data: "Age",
+            title: "Age"
+          }
+          ];
+*/
           var myTable;
       myTable =  $('#example').DataTable({
-        "createdRow": function( row, data, dataIndex ) {
-            if ( data[5] == "Rejected" ) {
-            $('td', row).eq(5).css('color', 'red');
-        }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
-        }
-        if ( data[5] == "Pending" ) {
-        $('td', row).eq(5).css('color', '#0d6efd');
-        }
-        if ( data[5] == "Ongoing" ) {
-        $('td', row).eq(5).css('color', '#0dcaf0');
-        }
-        if ( data[5] == "Implemented" ) {
-        $('td', row).eq(5).css('color', '#00C9A7');
-        }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
-        }
-          },
-          responsive: false,
+          responsive: true,
           keys: true,
-          //select: true,
-       scrollX:true,
-          scrollCollapse: true,
-          fixedheader:true,
-          bautoWidth:false,
-         dom: 'Bfrtip',"bFilter": true,
-         "columns": [
-        { "width": "70px" },
-        { "width": "125px" },
-        { "width": "130px" },
-        { "width": "125px" },
-        { "width": "70px" },
-        { "width": "100px" },
-        { "width": "100px" },
-        { "width": "150px" }
-],
-        //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-          //  "<'row'<'col-sm-12'tr>>" +
-        //    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        //  "bFilter": true,
-            select: 'single',
-        //  responsive: true,
-        //  altEditor: true,
-        //  "aLengthMenu": [
-        //    [10, 20, 50, 100, -1],
-        //    [10, 20, 50, 100, "All"]
-        //  paging:true,
+          select: true,
+          //  dom: 'Bfrtip',"bFilter": true,
+          dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+          "bFilter": true,
+          select: 'single',
+          responsive: true,
+          altEditor: true,
+          "aLengthMenu": [
+            [10, 20, 50, 100, -1],
+            [10, 20, 50, 100, "All"]
+          ],
           buttons: [
-         'pageLength',
-          //'copyHtml5',
+            'pageLength',
+          'copyHtml5',
             //  {
             // extend: 'excelHtml5',
             //   title: 'JRU Organizations Portal Student Users'
@@ -404,23 +323,23 @@ if(isset($_SESSION['msg'])){
               extend: 'print',
               title: 'JRU Organizations Portal Student Users'
             },
-          //  {
-          //  text: 'Add',
-          //  name: 'add'        // do not change name
-          //  },
-          //  {
-          //  extend: 'selected', // Bind to Selected row
-          //  text: 'Edit',
-          //  name: 'edit'        // do not change name
-          //  },
-          //  {
-          //  extend: 'selected', // Bind to Selected row
-        //    text: 'Delete',
-          //  name: 'delete'      // do not change name
-          //  }
+            {
+            text: 'Add',
+            name: 'add'        // do not change name
+            },
+            {
+            extend: 'selected', // Bind to Selected row
+            text: 'Edit',
+            name: 'edit'        // do not change name
+            },
+            {
+            extend: 'selected', // Bind to Selected row
+            text: 'Delete',
+            name: 'delete'      // do not change name
+            }
           ],
         });
-        });
+      });
     </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>
 </body>

@@ -15,7 +15,8 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-size: 100% 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+    max-width: 100%;
 }
 
 p {
@@ -81,6 +82,7 @@ span {
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 /*
@@ -146,6 +148,8 @@ ul ul a {
 }
 
 #wrapper {
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   align-items: stretch;
 }
@@ -207,7 +211,6 @@ ul ul a {
 #sidebar.active ul ul i {
   font-size: 1.2em !important;
 }
-
 #sidebar ul li a:hover {
   color: #F2AC1B;
   background: #004A90;
@@ -375,7 +378,12 @@ select::-ms-expand {
 option {
   min-width: 500px;
 }
-
+#select-opt {
+ color: gray;
+}
+#select-opt option {
+ color: black;
+}
 #displayError2 {
   display: none;
 }
@@ -603,21 +611,57 @@ Projects
   display: none;
 }
 
-table {
+table.master {
   margin: 0 auto;
-  width: 100%;
   clear: both;
   border-collapse: collapse;
   table-layout: fixed;
+  justify-content: center;
+   border-bottom: none;
 }
-
-table td {
+table.dataTable.no-footer {
+        border-bottom: 0 !important;
+    }
+table.master th {
   overflow: hidden;
   white-space: nowrap;
   width: 100px;
+  text-align: center !important;
 }
+table.master td {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  text-align: center !important;
+}
+div.table-responsive {
+  max-width: 100%;
+  width: 95%;    
+}
+
 select[readonly]:read-only {
   pointer-events: none;
+}
+input[id^="project_deets"]::-webkit-input-placeholder {
+  color: #212529;
+}
+textarea[id^="project_deets"]::-webkit-input-placeholder {
+  color: #212529;
+}
+#rejected {
+  color: red;
+}
+#rejected:hover {
+  color: white;
+}
+#approved {
+  color: green;
+}
+#approved:hover {
+  color: white;
+}
+.form-label {
+    color:#495057;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -652,3 +696,4 @@ select[readonly]:read-only {
     display: none;
   }
 }
+ }

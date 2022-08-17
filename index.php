@@ -1,314 +1,215 @@
-<?php include('connection.php'); ?>
-<!doctype html>
+<?php
+ob_start();
+session_start();
+$id = $_SESSION['use'];
+include('mysql_connect.php');
+if(isset($_SESSION['msg'])){
+    print_r($_SESSION['msg']);#display message
+    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+}
+  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:login.php");
+  }
+ ?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS -->
-  <link href="css/bootstrap5.0.1.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/datatables-1.10.25.min.css" />
-  <title>Server Side CRUD Ajax Operations</title>
-  <style type="text/css">
-    .btnAdd {
-      text-align: right;
-      width: 83%;
-      margin-bottom: 20px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>JRU Student Organizations Portal</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!-- Our Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Waves CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <!-- Font Awesome JS -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
 
 <body>
-  <div class="container-fluid">
-    <h2 class="text-center">Welcome to Datatable</h2>
-    <p class="datatable design text-center">Welcome to Datatable</p>
-    <div class="row">
-      <div class="container">
-        <div class="btnAdd">
-          <a href="#!" data-id="" data-bs-toggle="modal" data-bs-target="#addUserModal" class="btn btn-success btn-sm">Add User</a>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <table id="example" class="table">
-              <thead>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>City</th>
-                <th>Options</th>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+
+      <div class="sidebar-header text-center">
+        <a class="navbar-brand" href="index.php">
+          <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
+        </a>
+      </div>
+      <div class="sidebar-heading mt-3 text-center">
+
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+      </div>
+
+      <ul class="list-unstyled components p-2">
+
+        <li class="active">
+          <a href="index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+
+        </li>
+        <li>
+          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+        </li>
+        <li>
+          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>
+        <li>
+          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        </li>
+        <li class="d-lg-none">
+          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+
+        </li>
+      </ul>
+      <!-- nav footer?
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a>about</a>
+          </li>
+          <li>
+            <a>logout</a>
+          </li>
+        </ul> -->
+    </nav>
+
+    <!-- Navbar  -->
+    <div id="content">
+
+      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
+        <div class="container-fluid">
+          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
+            <i class="fas fa-align-justify"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                  <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></span></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#!">Profile</a></li>
+                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#!">About</a></li>
+                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+
+                </ul>
+              </li>
+            </ul>
           </div>
-          <div class="col-md-2"></div>
+        </div>
+      </nav>
+
+      <!-- Page content -->
+      <h4 class="ms-3">Student Profile</h4>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-lg-10 col-xl-11">
+          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
+            <div class="card-body p-4">
+              <div class="row g-0">
+                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
+                  <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                </div>
+                <?php
+                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label class='text-muted'>Name:</label>
+                            <h5>$row[1]</h5>
+                            <label class='text-muted'>Section:</label>
+                            <h5>$row[4]</h5>
+                        </div>
+                        <div class='col-12 col-md-4 mt-2'>
+                            <label class='text-muted'>Email:</label>
+                            <h6>$row[3]</h6>
+                            <label class='text-muted'>Course:</label>
+                            <h6>$row[2]</h6>
+                        </div>
+                        <div class='col-12 col-md-3 mt-2'>
+                            <label class='text-muted'>Student ID:</label>
+                            <h5>$row[0]</h5>
+                            <label class='text-muted'>Year Level:</label>
+                            <h5>Year $row[5] </h5>
+                        </div>";
+                        @mysqli_close($conn);
+                        }
+                        ?>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
+      <h4 class="ms-3">My Organizations</h4>
+      <div class="row ms-3 mb-4 mt-4">
+        <div class="col-6  col-md-5  " id="orgs">
+          <div class="card shadow-md display: inline-block cards">
+            <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+
+              <a href="#" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+      </div>
+      <div id="layoutAuthentication_footer">
+        <footer class="py-2 bg-light">
+          <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
-  </div>
-  <!-- Optional JavaScript; choose one of the two! -->
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-  <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="js/dt-1.10.25datatables.min.js"></script>
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-  -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#example').DataTable({
-        "fnCreatedRow": function(nRow, aData, iDataIndex) {
-          $(nRow).attr('id', aData[0]);
-        },
-        'serverSide': 'true',
-        'processing': 'true',
-        'paging': 'true',
-        'order': [],
-        'ajax': {
-          'url': 'fetch_data.php',
-          'type': 'post',
-        },
-        "aoColumnDefs": [{
-            "bSortable": false,
-            "aTargets": [5]
-          },
-
-        ]
-      });
-    });
-    $(document).on('submit', '#addUser', function(e) {
-      e.preventDefault();
-      var city = $('#addCityField').val();
-      var username = $('#addUserField').val();
-      var mobile = $('#addMobileField').val();
-      var email = $('#addEmailField').val();
-      if (city != '' && username != '' && mobile != '' && email != '') {
-        $.ajax({
-          url: "add_user.php",
-          type: "post",
-          data: {
-            city: city,
-            username: username,
-            mobile: mobile,
-            email: email
-          },
-          success: function(data) {
-            var json = JSON.parse(data);
-            var status = json.status;
-            if (status == 'true') {
-              mytable = $('#example').DataTable();
-              mytable.draw();
-              $('#addUserModal').modal('hide');
-            } else {
-              alert('failed');
-            }
-          }
-        });
-      } else {
-        alert('Fill all the required fields');
-      }
-    });
-    $(document).on('submit', '#updateUser', function(e) {
-      e.preventDefault();
-      //var tr = $(this).closest('tr');
-      var city = $('#cityField').val();
-      var username = $('#nameField').val();
-      var mobile = $('#mobileField').val();
-      var email = $('#emailField').val();
-      var trid = $('#trid').val();
-      var id = $('#id').val();
-      if (city != '' && username != '' && mobile != '' && email != '') {
-        $.ajax({
-          url: "update_user.php",
-          type: "post",
-          data: {
-            city: city,
-            username: username,
-            mobile: mobile,
-            email: email,
-            id: id
-          },
-          success: function(data) {
-            var json = JSON.parse(data);
-            var status = json.status;
-            if (status == 'true') {
-              table = $('#example').DataTable();
-              // table.cell(parseInt(trid) - 1,0).data(id);
-              // table.cell(parseInt(trid) - 1,1).data(username);
-              // table.cell(parseInt(trid) - 1,2).data(email);
-              // table.cell(parseInt(trid) - 1,3).data(mobile);
-              // table.cell(parseInt(trid) - 1,4).data(city);
-              var button = '<td><a href="javascript:void();" data-id="' + id + '" class="btn btn-info btn-sm editbtn">Edit</a>  <a href="#!"  data-id="' + id + '"  class="btn btn-danger btn-sm deleteBtn">Delete</a></td>';
-              var row = table.row("[id='" + trid + "']");
-              row.row("[id='" + trid + "']").data([id, username, email, mobile, city, button]);
-              $('#exampleModal').modal('hide');
-            } else {
-              alert('failed');
-            }
-          }
-        });
-      } else {
-        alert('Fill all the required fields');
-      }
-    });
-    $('#example').on('click', '.editbtn ', function(event) {
-      var table = $('#example').DataTable();
-      var trid = $(this).closest('tr').attr('id');
-      // console.log(selectedRow);
-      var id = $(this).data('id');
-      $('#exampleModal').modal('show');
-
-      $.ajax({
-        url: "get_single_data.php",
-        data: {
-          id: id
-        },
-        type: 'post',
-        success: function(data) {
-          var json = JSON.parse(data);
-          $('#nameField').val(json.username);
-          $('#emailField').val(json.email);
-          $('#mobileField').val(json.mobile);
-          $('#cityField').val(json.city);
-          $('#id').val(id);
-          $('#trid').val(trid);
-        }
-      })
-    });
-
-    $(document).on('click', '.deleteBtn', function(event) {
-      var table = $('#example').DataTable();
-      event.preventDefault();
-      var id = $(this).data('id');
-      if (confirm("Are you sure want to delete this User ? ")) {
-        $.ajax({
-          url: "delete_user.php",
-          data: {
-            id: id
-          },
-          type: "post",
-          success: function(data) {
-            var json = JSON.parse(data);
-            status = json.status;
-            if (status == 'success') {
-              //table.fnDeleteRow( table.$('#' + id)[0] );
-              //$("#example tbody").find(id).remove();
-              //table.row($(this).closest("tr")) .remove();
-              $("#" + id).closest('tr').remove();
-            } else {
-              alert('Failed');
-              return;
-            }
-          }
-        });
-      } else {
-        return null;
-      }
-
-
-
-    })
-  </script>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="updateUser">
-            <input type="hidden" name="id" id="id" value="">
-            <input type="hidden" name="trid" id="trid" value="">
-            <div class="mb-3 row">
-              <label for="nameField" class="col-md-3 form-label">Name</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="nameField" name="name">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="emailField" class="col-md-3 form-label">Email</label>
-              <div class="col-md-9">
-                <input type="email" class="form-control" id="emailField" name="email">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="mobileField" class="col-md-3 form-label">Mobile</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="mobileField" name="mobile">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="cityField" class="col-md-3 form-label">City</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="cityField" name="City">
-              </div>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Add user Modal -->
-  <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="addUser" action="">
-            <div class="mb-3 row">
-              <label for="addUserField" class="col-md-3 form-label">Name</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="addUserField" name="name">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="addEmailField" class="col-md-3 form-label">Email</label>
-              <div class="col-md-9">
-                <input type="email" class="form-control" id="addEmailField" name="email">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="addMobileField" class="col-md-3 form-label">Mobile</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="addMobileField" name="mobile">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="addCityField" class="col-md-3 form-label">City</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="addCityField" name="City">
-              </div>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- form validation/sidebar toggle -->
+    <script src="assets/js/form-validation.js"></script>
+    <!--WAVES CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script> <!-- JavaScript validation -->
+    <script type="text/javascript">
+      Waves.attach('#sidebar ul li a');
+      Waves.init();
+    </script>
 </body>
 
 </html>
-<script type="text/javascript">
-  //var table = $('#example').DataTable();
-</script>
