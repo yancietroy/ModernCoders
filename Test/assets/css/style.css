@@ -636,7 +636,7 @@ table.master td {
 }
 div.table-responsive {
   max-width: 100%;
-  width: 95%;    
+  width: 95%;
 }
 
 select[readonly]:read-only {
@@ -662,6 +662,9 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
 }
 .form-label {
     color:#495057;
+}
+.modal-body input, .modal-body textarea {
+    color: black;
 }
 /* ---------------------------------------------------
     MEDIAQUERIES

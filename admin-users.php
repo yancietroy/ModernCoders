@@ -79,7 +79,7 @@ if(isset($_SESSION['msg'])){
                 <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
+                <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
             </li>
             <li>
                 <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
@@ -166,36 +166,65 @@ if(isset($_SESSION['msg'])){
   <div class="col-md-11 ">
     <div class="row">
    <div class="col-xs-12">
-<table id='admin-user-table' class='table table-striped table-hover' style='width:100%'>
-                        <thead>
-                          <tr>
-                              <th>Student ID</th>
-                              <th>First Name</th>
-                              <th>Middle Name</th>
-                              <th>Last Name</th>
-                              <th>Gender</th>
-                              <th>Email</th>
-                              <th>Year Level</th>
-                              <th>Age</th>
-                              <th>Birth date</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                        <!--<tfoot>
+<?php
+                    $query = "SELECT * FROM tb_students";
+                    $result = @mysqli_query($conn,$query);
+                    $i = 0;
+                    $ds = " ";
+                    $pi = " ";
+                    $pn = " ";
+                    $v = " ";
+                    $s = " ";
+                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 master'>
+                          <thead>
                             <tr>
                                 <th>Student ID</th>
                                 <th>First Name</th>
                                 <th>Middle Name</th>
-                                <th>Last Name</th>
+                                <th>Last name</th>
                                 <th>Gender</th>
                                 <th>Email</th>
                                 <th>Year Level</th>
                                 <th>Age</th>
-                                <th>Birth date</th>
-                            </tr>
-                        </tfoot>-->
- </table>
+                                <th>Full Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      ";
+                  if ($result !== false && $result->num_rows > 0)
+                  {
+                      // output data of each row
+                      while($row = $result->fetch_assoc())
+                      {
+                        $si = $row['STUDENT_ID'];
+                        $fn = $row['FIRST_NAME'];
+                        $mn = $row['MIDDLE_NAME'];
+                        $ln = $row['LAST_NAME'];
+                        $g = $row['GENDER'];
+                        $e = $row['EMAIL'];
+                        $yl = $row['YEAR_LEVEL'];
+                        $a = $row['AGE'];
+
+                        echo "<tr>
+                              <td> $si  </td>
+                              <td> $fn  </td>
+                              <td> $mn  </td>
+                              <td> $ln  </td>
+                              <td> $g </td>
+                              <td> $e </td>
+                              <td> $yl </td>
+                              <td> $a </td>
+                              <td>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                              </td>
+                              </tr>
+                          ";
+                      }
+                  echo "</tbody>
+                        </table>";
+                  }
+                    $conn->close();
+                  ?>
                   
          </div>
        </div>
@@ -224,8 +253,126 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
+  <!-- Student Modal -->
+  <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modal-lg" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                        <div class="row justify-content-between">
+                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="STUDENT_ID" >Student ID:</label>
+                           <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                       </div>
+                        <div class="row">
+                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="FIRST_NAME" >First name:</label>
+                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                          <label class="form-label" for="LAST_NAME" >Last Name:</label>
+                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
+                              <input type="text" class="form-control" name="BIRTHDATE" id="BIRTHDATE" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="AGE" >Age:</label>
+                              <input type="text" class="form-control" name="AGE" id="AGE" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                          <label class="form-label" for="GENDER" >Gender:</label>
+                          <input type="text" name="GENDER" id="GENDER" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
+                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="EMAIL" >Email:</label>
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="COURSE" >Course:</label>
+                              <input type="text" name="COURSE" id="COURSE" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="SECTION">Section:</label>
+                              <input type="text" name="SECTION" id="SECTION" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                 </form>
+            </div>
+        </div>
+  </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
+    <script>
+        $(document).on('click', '.viewbtn', function(){
+           var STUDENT_ID = $(this).attr("id");
+           $.ajax({
+                url:"admin-fetch-user.php",
+                method:"POST",
+                data:{STUDENT_ID:STUDENT_ID},
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#FIRST_NAME').val(data.FIRST_NAME);
+                $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
+                $('#LAST_NAME').val(data.LAST_NAME);
+                $('#BIRTHDATE').val(data.BIRTHDATE);
+                $('#AGE').val(data.AGE);
+                $('#GENDER').val(data.GENDER);
+                $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
+                $('#EMAIL').val(data.EMAIL);
+                $('#COURSE').val(data.COURSE);
+                $('#SECTION').val(data.SECTION);
+                $('#viewmodal').modal('show');
+                $('#modal-lg').css('max-width','70%');
+                }
+            });
+        });
+    </script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -246,7 +393,7 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-  <!-- <script>
+   <script>
     $(document).ready(function() {
         $('#admin-user-table').DataTable( {
           responsive: true,
@@ -266,65 +413,8 @@ if(isset($_SESSION['msg'])){
                 'pdfHtml5',
                 'print'
        ],
-        } );
-    } );
-
-   </script>-->
-   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
-    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-      <script type="text/javascript" language="javascript" >
-        $(document).ready(function(){
-         var dataTable = $('#admin-user-table').DataTable({
-          responsive: true,
-           fixedHeader: true,
-            keys: true,
-             select: true,
-            dom: 'Bfrtip',"bFilter": true,
-    "aLengthMenu": [
-      [10, 20, 50, 100, -1],
-      [10, 20, 50, 100, "All"]
-    ],
-            buttons: [
-              'pageLength',
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5',
-                'print'
-       ],
-          "processing" : true,
-          "serverSide" : true,
-          "order" : [],
-          "ajax" : {
-           url:"fetch-admin-user.php",
-           type:"POST"
-          }
-         });
-
-         $('#admin-user-table').on('draw.dt', function(){
-          $('#admin-user-table').Tabledit({
-           url:'action-admin-user.php',
-           //eventType: 'dblclick',
-           //editButton: false,
-           //deleteButton: false,
-           dataType:'json',
-           columns:{
-            identifier : [0, 'STUDENT_ID'],
-            editable:[[1, 'FIRST_NAME'], [2, 'MIDDLE_NAME'], [3, 'LAST_NAME'], [4, 'GENDER', '{"Male":"Male","Female":"Female"}'], [5, 'EMAIL'], [6, 'YEAR_LEVEL'], [7, 'AGE']]
-           },
-           restoreButton:false,
-           onSuccess:function(data, textStatus, jqXHR)
-           {
-            if(data.action == 'delete')
-            {
-             $('#' + data.id).remove();
-             $('#admin-user-table').DataTable().ajax.reload();
-            }
-           }
-          });
-         });
-          
-        }); 
+        });
+    });
     </script>
 
 </body>
