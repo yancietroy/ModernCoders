@@ -162,28 +162,24 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-xs-12">
               <div class="table-responsive justify-content-center align-items-center ms-4">
-              <?php
-                  $query = "SELECT project_id, date_submitted, project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, status FROM tb_projectmonitoring";
-                  $result = @mysqli_query($conn,$query);
-                  $i = 0;
-                  $ds = " "; 
-                  $pi = " ";
-                  $pn = " ";
-                  $v = " ";
-                  $pd = " ";
-                  $eb = " ";
-                  $s = " ";
-                  echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
-                        <thead>
-                          <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Description</th>
-                              <th>Venue</th>
-                              <th>Budget</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
-                              <th>Options</th>
+                <?php
+                    $query = "SELECT project_id, date_submitted, project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary,  status FROM tb_projectmonitoring";
+                    $result = @mysqli_query($conn,$query);
+                    $i = 0;
+                    $ds = " ";
+                    $pi = " ";
+                    $pn = " ";
+                    $v = " ";
+                    $s = " ";
+                    echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
+                          <thead>
+                            <tr>
+                                <th>Project ID</th>
+                                <th>Project Name</th>
+                                <th>Venue</th>
+                                <th>Status</th>
+                                <th>Date Submitted</th>
+                                <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -193,26 +189,22 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                      $ds = $row['date_submitted'];
-                      $pi = $row['project_id'];
-                      $pn = $row['project_name'];
-                      $v = $row['venue'];
-                      $pd = $row['project_desc'];
-                      $eb = $row['estimated_budget'];
-                      $s = $row['status'];
+                        $ds = $row['date_submitted'];
+                        $pi = $row['project_id'];
+                        $pn = $row['project_name'];
+                        $v = $row['venue'];
+                        $s = $row['status'];
 
-                      echo "<tr>
-                            <td> $pi  </td>
-                            <td> $pn  </td>
-                            <td> $pd  </td>
-                            <td> $v  </td>
-                            <td> $eb  </td>
-                            <td> $s  </td>
-                            <td> $ds </td>
-                            <td>
-                            <button type='button' class='btn btn-primary btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                            </td>
-                            </tr>
+                        echo "<tr>
+                              <td> $pi  </td>
+                              <td> $pn  </td>
+                              <td> $v  </td>
+                              <td> $s  </td>
+                              <td> $ds </td>
+                              <td>
+                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              </td>
+                              </tr>
                           ";
                       }
                   echo "</tbody>
@@ -237,8 +229,8 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="modal-dialog" id="modal-lg" role="document">
+        <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -247,18 +239,21 @@ if(isset($_SESSION['msg'])){
                 </div>
                 <form action="signatory-update-button.php" method="POST">
                     <div class="modal-body">
-                        <div class="col-4 col-md-2 col-sm-3 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="project_id" >Project ID:</label>
-                            <input type="text" name="project_id" id="project_id" class="form-control" style="background-color: #fff;" readonly/>
-                          </div>
-                        </div>
-                        <div class="col-4 col-md-3 mb-4 me-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                            <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                        </div>  
+                      <div class="container-fluid">
+                        <div class="row justify-content-between">
+                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="project_id" >Project ID:</label>
+                           <input type="text" name="project_id" id="project_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                       <div class="col-4 col-md-3 mb-4">
+                       <div class="form-outline">
+                         <label class="form-label" for="date_submitted" >Date Submitted:</label>
+                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                       </div>
+                     </div>
+                       </div>
                         <div class="row">
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
@@ -364,8 +359,9 @@ if(isset($_SESSION['msg'])){
                             <label class="form-label" for="status" > Project Status </label>
                             <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                               <option class="greyclr" selected disabled value="" >Select Status</option>
-                              <option value="Rejected">Rejected</option>
                               <option value="Approved">Approved</option>
+                              <option value="For Revision">For Revision</option>
+                              <option value="Rejected">Rejected</option>
                             </select>
                         </div>
                     </div>
@@ -375,26 +371,23 @@ if(isset($_SESSION['msg'])){
                     </div>
                  </form>
             </div>
-        </div>     
+        </div>
   </div>
-
+  </div>
 
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $(document).on('click', '.editbtn', function(){  
-           var project_id = $(this).attr("id");  
-           $.ajax({  
-                url:"signatory-fetch-project.php",  
-                method:"POST",  
-                data:{project_id:project_id},  
-                dataType:"json",  
-                success:function(data){ 
+        $(document).on('click', '.editbtn', function(){
+           var project_id = $(this).attr("id");
+           $.ajax({
+                url:"signatory-fetch-project.php",
+                method:"POST",
+                data:{project_id:project_id},
+                dataType:"json",
+                success:function(data){
                 console.log(data);
                 $('#project_id').val(data.project_id);
                 $('#project_name').val(data.project_name);
@@ -413,6 +406,7 @@ if(isset($_SESSION['msg'])){
                 $('#no_of_participants').val(data.no_of_participants);
                 $('#no_of_beneficiary').val(data.no_of_beneficiary);
                 $('#editmodal').modal('show');
+                $('#modal-lg').css('max-width','70%');
                 }
             });
         });
@@ -445,48 +439,46 @@ if(isset($_SESSION['msg'])){
       src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>  -->  
+    </script>  -->
     <script>
       $(document).ready(function() {
           var myTable;
       myTable =  $('#example').DataTable({
         "createdRow": function( row, data, dataIndex ) {
-            if ( data[5] == "Rejected" ) {
-            $('td', row).eq(5).css('color', 'red');
+            if ( data[3] == "Rejected" ) {
+            $('td', row).eq(3).css('color', 'red');
         }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
+        if ( data[3] == "Approved" ) {
+        $('td', row).eq(3).css('color', 'green');
         }
-        if ( data[5] == "Pending" ) {
-        $('td', row).eq(5).css('color', '#0d6efd');
+        if ( data[3] == "Pending" ) {
+        $('td', row).eq(3).css('color', '#0d6efd');
         }
-        if ( data[5] == "Ongoing" ) {
-        $('td', row).eq(5).css('color', '#0dcaf0');
+        if ( data[3] == "Ongoing" ) {
+        $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[5] == "Implemented" ) {
-        $('td', row).eq(5).css('color', '#00C9A7');
+        if ( data[3] == "Implemented" ) {
+        $('td', row).eq(3).css('color', '#00C9A7');
         }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
+        if ( data[3] == "Approved" ) {
+        $('td', row).eq(3).css('color', 'green');
         }
           },
           responsive: true,
           keys: true,
           //select: true,
-       scrollX:true,
+       //scrollX:true,
       //    scrollCollapse: true,
           fixedheader:true,
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "30px" },
-        { "width": "50px" },
+        { "width": "60px" },
+        { "width": "150px" },
         { "width": "100px" },
         { "width": "125px" },
-        { "width": "70px" },
         { "width": "100px" },
-        { "width": "100px" },
-        { "width": "50px" }
+        { "width": "70px" }
   ],
         //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           //  "<'row'<'col-sm-12'tr>>" +
@@ -534,14 +526,14 @@ if(isset($_SESSION['msg'])){
           //  }
           ]/**,
           'columnDefs' : [
-        { 'visible': false, 'targets': [7, 8, 9, 
-                                        10, 11, 12, 
+        { 'visible': false, 'targets': [7, 8, 9,
+                                        10, 11, 12,
                                         13, 14, 15] }
     ]*/
         });
       myTable.columns.adjust().draw();
       /**myTable.columns( [ 7, 8, 9, 10, 11, 12, 13, 14, 15 ] ).visible( false, false );
-      myTable.columns.adjust().draw( false );*/ 
+      myTable.columns.adjust().draw( false );*/
         });
     </script>
 <script src="assets/js/dataTables.altEditor.free.js" ></script>

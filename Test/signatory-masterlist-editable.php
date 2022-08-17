@@ -388,7 +388,7 @@ if(isset($_SESSION['msg'])){
                 $('#no_of_participants').val(data.no_of_participants);
                 $('#no_of_beneficiary').val(data.no_of_beneficiary);
                 $('#editmodal').modal('show');
-                  $('#modal-lg').css('max-width','70%');
+                $('#modal-lg').css('max-width','70%');
                 }
             });
         });
