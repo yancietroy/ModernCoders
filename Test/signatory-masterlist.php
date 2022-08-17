@@ -505,15 +505,6 @@ if(isset($_SESSION['msg'])){
         { "width": "100px" },
         { "width": "100px" },
         { "width": "50px" }
-        /**{ "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" }*/
   ],
         //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           //  "<'row'<'col-sm-12'tr>>" +
