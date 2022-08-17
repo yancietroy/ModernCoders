@@ -170,15 +170,6 @@ if(isset($_SESSION['msg'])){
                   $pi = " ";
                   $pn = " ";
                   $v = " ";
-                  $pt = " ";
-                  $sd = " ";
-                  $ed = " ";
-                  $bs = " ";
-                  $pc = " ";
-                  $p = " ";
-                  $nop = " ";
-                  $b = " ";
-                  $nob = " ";
                   $pd = " ";
                   $eb = " ";
                   $s = " ";
@@ -192,15 +183,6 @@ if(isset($_SESSION['msg'])){
                               <th>Budget</th>
                               <th>Status</th>
                               <th>Date Submitted</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
-                              <th>Project Type</th>
-                              <th>Budget Source</th>
-                              <th>Project Category</th>
-                              <th>Participant</th>
-                              <th>Beneficiary</th>
-                              <th>No. Of Participants</th>
-                              <th>No. Of Beneficiaries</th>
                               <th>Options</th>
                           </tr>
                         </thead>
@@ -215,15 +197,6 @@ if(isset($_SESSION['msg'])){
                       $pi = $row['project_id'];
                       $pn = $row['project_name'];
                       $v = $row['venue'];
-                      $pt = $row['project_type'];
-                      $sd = $row['start_date'];
-                      $ed = $row['end_date'];
-                      $bs = $row['budget_source'];
-                      $pc = $row['project_category'];
-                      $p = $row['participants'];
-                      $nop = $row['no_of_participants'];
-                      $b = $row['beneficiary'];
-                      $nob = $row['no_of_beneficiary'];
                       $pd = $row['project_desc'];
                       $eb = $row['estimated_budget'];
                       $s = $row['status'];
@@ -236,17 +209,8 @@ if(isset($_SESSION['msg'])){
                             <td> $eb  </td>
                             <td> $s  </td>
                             <td> $ds </td>
-                            <td> $sd </td>
-                            <td> $ed </td>
-                            <td> $pt </td>
-                            <td> $bs </td>
-                            <td> $pc </td>
-                            <td> $p </td>
-                            <td> $b </td>
-                            <td> $nop </td>
-                            <td> $nob </td>
                             <td>
-                            <button type='button' class='btn btn-primary btn-sm editbtn'> <i class='bi bi-list-ul'></i> </button>
+                            <button type='button' class='btn btn-primary btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                             </td>
                             </tr>
                           ";
@@ -276,7 +240,7 @@ if(isset($_SESSION['msg'])){
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -423,36 +387,33 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-
-            $('.editbtn').on('click', function () {
-
-                $('#editmodal').modal('show');
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-
+        $(document).on('click', '.editbtn', function(){  
+           var project_id = $(this).attr("id");  
+           $.ajax({  
+                url:"signatory-fetch-project.php",  
+                method:"POST",  
+                data:{project_id:project_id},  
+                dataType:"json",  
+                success:function(data){ 
                 console.log(data);
-
-                $('#project_id').val(data[0]);
-                $('#project_name').val(data[1]);
-                $('#project_desc').val(data[2]);
-                $('#venue').val(data[3]);
-                $('#estimated_budget').val(data[4]);
-                $('#status').val(data[5]);
-                $('#date_submitted').val(data[6]);
-                $('#start_date').val(data[7]);
-                $('#end_date').val(data[8]);
-                $('#project_type').val(data[9]);
-                $('#budget_source').val(data[10]);
-                $('#project_category').val(data[11]);
-                $('#participants').val(data[12]);
-                $('#beneficiary').val(data[13]);
-                $('#no_of_participants').val(data[14]);
-                $('#no_of_beneficiary').val(data[15]);
+                $('#project_id').val(data.project_id);
+                $('#project_name').val(data.project_name);
+                $('#project_desc').val(data.project_desc);
+                $('#venue').val(data.venue);
+                $('#estimated_budget').val(data.estimated_budget);
+                $('#status').val(data.status);
+                $('#date_submitted').val(data.date_submitted);
+                $('#start_date').val(data.start_date);
+                $('#end_date').val(data.end_date);
+                $('#project_type').val(data.project_type);
+                $('#budget_source').val(data.budget_source);
+                $('#project_category').val(data.project_category);
+                $('#participants').val(data.participants);
+                $('#beneficiary').val(data.beneficiary);
+                $('#no_of_participants').val(data.no_of_participants);
+                $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#editmodal').modal('show');
+                }
             });
         });
     </script>
@@ -525,15 +486,6 @@ if(isset($_SESSION['msg'])){
         { "width": "70px" },
         { "width": "100px" },
         { "width": "100px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
-        { "width": "50px" },
         { "width": "50px" }
   ],
         //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
