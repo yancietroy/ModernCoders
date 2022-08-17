@@ -206,15 +206,6 @@ if(isset($_SESSION['msg'])){
                       $pi = $row['project_id'];
                       $pn = $row['project_name'];
                       $v = $row['venue'];
-                      $pt = $row['project_type'];
-                      $sd = $row['start_date'];
-                      $ed = $row['end_date'];
-                      $bs = $row['budget_source'];
-                      $pc = $row['project_category'];
-                      $p = $row['participants'];
-                      $nop = $row['no_of_participants'];
-                      $b = $row['beneficiary'];
-                      $nob = $row['no_of_beneficiary'];
                       $pd = $row['project_desc'];
                       $eb = $row['estimated_budget'];
                       $s = $row['status'];
