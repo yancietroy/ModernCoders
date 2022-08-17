@@ -25,12 +25,15 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Waves CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
 
-  <!-- Font Awesome JS -->
+  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 
 </head>
@@ -59,29 +62,32 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li>
-                <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+            <li>
+              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
-                <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
+              <a href="#"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
             <li>
-                <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-              </li>
+              <a href="#"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
+            </li>
+            <li>
+              <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+            </li>
           </ul>
         </li>
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-              <li>
-                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+            <li>
+              <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
             </li>
             <li>
-                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
-              </li>
+              <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+            </li>
           </ul>
         </li>
         <li>
@@ -130,10 +136,10 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                      $result = @mysqli_query($conn, $query);
+                      $row = mysqli_fetch_array ($result);
+                      if ($row)
+                      { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">Profile</a></li>
                   <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -150,41 +156,48 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4>Admin Profile</h4>
+      <h4 class="ms-3">Admin Profile</h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-3  d-none d-sm-block text-center ">
+              <div class="row g-0 justify-content-evenly">
+                <div class="col-md-2  d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
-                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL FROM tb_admin WHERE ADMIN_ID = '$id'";
+                  $query = "SELECT admin_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), email AS name, EMAIL FROM tb_admin WHERE admin_id = '$id'";
                   $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   {
                     echo "
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label>Name:</label>
+                            <div class='col-12 col-md-2 mt-3'>
+                            <label class='text-muted'>Admin ID:</label>
+                            <h5>$row[0]</h5>
+                          </div>
+                          <div class='col-12 col-md-3 mt-3'>
+                            <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
                           </div>
-                          <div class='col-12 col-md-4 mt-2'>
-                            <label>Email:</label>
-                            <h5>$row[2]</h5>
+                          <div class='col-12 col-md-3 mt-3'>
+                            <label class='text-muted'>Email:</label>
+                            <h6>$row[2]</h6>
                           </div>
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label>Admin ID:</label>
-                            <h5>$row[0]</h5>
-                          </div>";
+                          ";
+                        /**<div class='col-12 col-md-3 mt-3'>
+                            <label class='text-muted'>Role:</label>
+                            <h6>$row[2]</h6>
+                          </div>**/
                   }
                   ?>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-      <h4>My Organizations</h4>
+      <h4 class="ms-3">My Organizations</h4>
       <div class="row justify-content-center align-items-center mb-4 mt-4">
         <div class="col-6  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">
@@ -196,6 +209,7 @@ if(isset($_SESSION['msg'])){
             </div>
           </div>
         </div>
+        <!--
         <div class="col-6  col-md-5 " id="orgs">
           <div class="card shadow-md display: inline-block cards">
             <img src="assets/img/CSC-logo.png" class="card-img-top rounded mx-auto d-block mt-4 " alt="...">
@@ -206,19 +220,7 @@ if(isset($_SESSION['msg'])){
             </div>
           </div>
         </div>
-
-        <!--   <div class="col">
-        Card with right text alignment
-          <div class="card text-end">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary">Know more</a>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
+-->
         <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
@@ -231,22 +233,22 @@ if(isset($_SESSION['msg'])){
         </footer>
       </div>
     </div>
-    </div>
+  </div>
 
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
-          $('#sidebar').toggleClass('active');
-        });
-      });
-    </script>
+  <!-- jQuery CDN - Slim version (=without AJAX) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+  <!-- Sidebar collapse -->
+  <script src="assets/js/form-validation.js"></script>
+  <!-- Waves CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script> <!-- JavaScript validation -->
+  <script type="text/javascript">
+    Waves.attach('#sidebar ul li a');
+    Waves.init();
+  </script>
 </body>
 
 </html>

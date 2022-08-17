@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Registered</title>
-</head>
-<body>
+
 <?php
+
 	$fn = $_POST['first_name'];
 	$ln = $_POST['last_name'];
 	$mn = $_POST['middle_name'];
@@ -23,24 +17,25 @@
 
 		if ($_POST['password'] !== $_POST['confirmpassword'])
 		{
-			echo "Password must MATCH!
-					<br><br>
-					<a href='register.php'>
-					<input type='button' name='back' value='Back to registration.'>
-					</a>";
-		} 
+			echo '<script>alert("Password must match!")</script>';
+		}
 		else if (isset ($_POST['submit']))
 		{
 			include('mysql_connect.php');
+		ob_start();
 			$query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
 			$result = @mysqli_query($conn, $query);
+			session_start();
+			$_SESSION['message'] = '<script>alert("Register Successful")</script>';
 
-			echo "  <h3>You are now registered</h3>";
+header("Location:login.php");
 					@mysqli_close($conn);
+			exit();
 		}
-					echo "<pre>";
-					print_r($_POST);
-					echo "</pre>";
+		else {
+			 $msg = "Please fill all fields";
+			 	ob_end_flush();
+		}
 ?>
 </body>
 </html>

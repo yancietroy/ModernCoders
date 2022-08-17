@@ -7,10 +7,10 @@ if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  //else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  //{
-    //header("Location:login.php");
-  //}
+  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:officer-login.php");
+  }
  ?>
 
 <!DOCTYPE html>
@@ -107,7 +107,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -119,7 +119,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -143,10 +143,10 @@ if(isset($_SESSION['msg'])){
         </div>
 
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
+          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2">
+      <div class="row ms-3 me-3 mt-2 justify-content-center align-items-center">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
@@ -159,22 +159,6 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="icon">
               <i class="bi bi-hourglass-top" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-warning">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Approval')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>For Approval</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
             </div>
             <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -213,7 +197,8 @@ if(isset($_SESSION['msg'])){
             <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
+        </div>
+        <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
@@ -256,7 +241,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-card-list" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -273,6 +258,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
+    </div>
       <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">

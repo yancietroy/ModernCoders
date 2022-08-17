@@ -1,16 +1,16 @@
 <?php
 ob_start();
-//session_start();
-//$id = $_SESSION['use'];
+session_start();
+$id = $_SESSION['use'];
 include('mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  //else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  //{
-   // header("Location:login.php");
-  //}
+  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:officer-login.php");
+  }
  ?>
 
 <!DOCTYPE html>
@@ -107,7 +107,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -119,7 +119,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -139,30 +139,34 @@ if(isset($_SESSION['msg'])){
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
-                  $query = "SELECT officer_id , CONCAT(first_name, ' ', last_name) AS name, course, email, section FROM tb_officers WHERE officer_id = '$id'";
+                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   {
                     echo "
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label>Name:</label>
-                            <h5>$row[1]</h5>
-                            <label>Course:</label>
-                            <h5>$row[2]</h5>
-                          </div>
-                          <div class='col-12 col-md-4 mt-2'>
-                            <label>Email:</label>
-                            <h5>$row[3]</h5>
-                            <label>Section:</label>
-                            <h5>$row[4]</h5>
-                          </div>
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label>Student ID:</label>
-                            <h5>$row[0]</h5>
-                          </div>";
+                    <div class='col-12 col-md-3 mt-2'>
+                      <label class='text-muted'>Name:</label>
+                      <h5>$row[1]</h5>
+                      <label class='text-muted'>Section:</label>
+                      <h5>$row[4]</h5>
+                  </div>
+                  <div class='col-12 col-md-4 mt-2'>
+                      <label class='text-muted'>Email:</label>
+                      <h6>$row[3]</h6>
+                      <label class='text-muted'>Course:</label>
+                      <h6>$row[2]</h6>
+                  </div>
+                  <div class='col-12 col-md-3 mt-2'>
+                      <label class='text-muted'>Officer ID:</label>
+                      <h5>$row[0]</h5>";
+                      /**<label class='text-muted'>Position:</label>
+                      <h5>Year $row[5] </h5>
+                          </div>";**/
                   }
                   ?>
+              </div>
+
             </div>
           </div>
         </div>
@@ -173,16 +177,7 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow-md display: inline-block cards">
             <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2"><?php
-              $sql = "SELECT tb_orgs.ORG FROM tb_orgs
-                      INNER JOIN tb_officers
-                      ON tb_org.ORG_ID = tb_officers.org_id
-                      WHERE tb_officer.officer_id = '$id'";
-              $result = @mysqli_query($conn,$sql) or die(mysqli_error($conn));
-              $row = @mysqli_fetch_array($result);
-              if ($row)
-                  { echo "$row[0]"; } @mysqli_close($conn); 
-              ?></h5>
+              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
               <a href="#" class="stretched-link"></a>
             </div>
