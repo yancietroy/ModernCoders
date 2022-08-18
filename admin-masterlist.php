@@ -66,7 +66,7 @@ if(isset($_SESSION['msg'])){
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+          <a href="admin-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>

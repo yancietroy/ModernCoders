@@ -52,14 +52,14 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="admin-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
-          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+          <a href="admin-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
           <!--<li>
           <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
