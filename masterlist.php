@@ -157,7 +157,7 @@ if(isset($_SESSION['msg'])){
           <h4>Officer Projects Masterlist</h4>
         </div>
       </div>
-      <div class="row g-0 mt-4 justify-content-center">
+      <div class="row g-0 mt-3 justify-content-center">
         <div class="table-responsive ms-4">
           <?php
               $query = "SELECT * FROM tb_projectmonitoring";
@@ -350,17 +350,6 @@ if(isset($_SESSION['msg'])){
     </div>
     </div>
   </div>
-      <!-- Page content-->
-        <!-- Footer -->
-        <div id="layoutAuthentication_footer">
-          <footer class="py-2 bg-light mt-3">
-            <div class="container-fluid px-4">
-              <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-              </div>
-            </div>
-          </footer>
-        </div>
       </div>
     </div>
 
@@ -400,19 +389,22 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
+
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- Sidebar collapse -->
     <script src="assets/js/form-validation.js"></script>
-    <!-- waves css-->
+    <!-- waves css
     <script type="text/javascript">
       Waves.attach('#sidebar ul li a');
       Waves.init();
-    </script>
+    </script>-->
     <!-- Datatable default  -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -424,8 +416,8 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript"
       src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
     </script>
-  -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>  -->
     <script>
       $(document).ready(function() {
           var myTable;
@@ -483,7 +475,7 @@ if(isset($_SESSION['msg'])){
       myTable.columns.adjust().draw();
         });
     </script>
-  <script src="assets/js/dataTables.altEditor.free.js" ></script>
-  </body>
+<script src="assets/js/dataTables.altEditor.free.js" ></script>
+</body>
 
-  </html>
+</html>

@@ -62,14 +62,17 @@ if(isset($_SESSION['msg'])){
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li class="active">
-                <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
-                <a href="#"><i class="las la-chalkboard-teacher"></i> <span>Officers</span></a>
+              <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
             <li>
-                <a href="#"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-              </li>
+              <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
+            </li>
+            <li>
+              <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
+            </li>
           </ul>
         </li>
         <li>
@@ -161,12 +164,15 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <div class="table-responsive" id="tb">
-  <div class="row justify-content-center align-items-center">
-  <div class="col-md-11 ">
-    <div class="row">
-   <div class="col-xs-12">
-<?php
+
+      <div class="row ms-3 me-3 mt-2 mb-3">
+        <div class="col-lg-6 col-7">
+          <h4>Student User Management</h4>
+        </div>
+      </div>
+      <div class="row g-0 justify-content-center">
+        <div class="table-stud ms-4">
+            <?php
                     $query = "SELECT * FROM tb_students";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
@@ -175,7 +181,7 @@ if(isset($_SESSION['msg'])){
                     $pn = " ";
                     $v = " ";
                     $s = " ";
-                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 master'>
+                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -186,7 +192,7 @@ if(isset($_SESSION['msg'])){
                                 <th>Email</th>
                                 <th>Year Level</th>
                                 <th>Age</th>
-                                <th>Full Details</th>
+                                <th>Details</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -225,9 +231,12 @@ if(isset($_SESSION['msg'])){
                   }
                     $conn->close();
                   ?>
-                  
+
          </div>
        </div>
+
+
+
      </div>
         <!--   <div class="col">
         Card with right text alignment
@@ -258,7 +267,7 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -273,26 +282,32 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
+                       <div class="col-4 col-md-3 mb-4">
+                       <div class="form-outline">
+                         <label class="form-label" for="date_submitted" >Account Created:</label>
+                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                       </div>
+                     </div>
                        </div>
                         <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="FIRST_NAME" >First name:</label>
-                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control" style="background-color: #fff;" readonly />
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" style="background-color: #fff;" readonly />
                           </div>
                         </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                          <div class="col-12 col-md-4 mb-4">
                           <label class="form-label" for="LAST_NAME" >Last Name:</label>
-                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control" style="background-color: #fff;" readonly />
                           </div>
+                          </div>
+                        <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
@@ -305,38 +320,51 @@ if(isset($_SESSION['msg'])){
                               <input type="text" class="form-control" name="AGE" id="AGE" style="background-color: #fff;" readonly />
                             </div>
                           </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <label class="form-label" for="GENDER" >Gender:</label>
+                            <input type="text" name="GENDER" id="GENDER" class="form-control" style="background-color: #fff;" readonly />
+                          </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="GENDER" >Gender:</label>
-                          <input type="text" name="GENDER" id="GENDER" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="SECTION">Section:</label>
+                              <input type="text" name="SECTION" id="SECTION" class="form-control" style="background-color: #fff;" readonly/>
+                            </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" style="background-color: #fff;" readonly />
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="COURSE" >Course:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="COURSE" >College:</label>
+                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
                             </div>
                           </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                              <label class="form-label" for="COURSE" >Course:</label>
+                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="COURSE" >Organization:</label>
+                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
                  </form>
             </div>
@@ -397,23 +425,38 @@ if(isset($_SESSION['msg'])){
     $(document).ready(function() {
         $('#admin-user-table').DataTable( {
           responsive: true,
-           fixedHeader: true,
-            keys: true,
-             select: true,
-            dom: 'Bfrtip',"bFilter": true,
-    "aLengthMenu": [
-      [10, 20, 50, 100, -1],
-      [10, 20, 50, 100, "All"]
-    ],
-            buttons: [
-              'pageLength',
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5',
-                'print'
-       ],
-        });
+          keys: true,
+          fixedheader:true,
+          bautoWidth:false,
+         dom: 'Bfrtip',"bFilter": true,
+         "columns": [
+        { "width": "90px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "80px" },
+        { "width": "150px" },
+        { "width": "60px" },
+        { "width": "60px" },
+        { "width": "70px" }
+  ],
+            select: 'single',
+    buttons: [
+   'pageLength',
+      {
+        extend: 'csvHtml5',
+        title: 'JRU Organizations Portal Student Users'
+      },
+      {
+        extend: 'pdfHtml5',
+        title: 'JRU Organizations Portal Student Users'
+      },
+      {
+        extend: 'print',
+        title: 'JRU Organizations Portal Student Users'
+      },
+    ]
+  });
     });
     </script>
 
