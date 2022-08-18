@@ -46,7 +46,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
                     <div class="form-outline">
 
-                      <label class="form-label" for="schoolId" id="asterisk">ID</label>
+                      <label class="form-label" for="schoolId" id="asterisk">JRU ID</label>
                       <input type="text" name="schoolId" id="schoolId" class="form-control" placeholder="##-###### " required />
                       <div class="valid-feedback"> </div>
                     </div>

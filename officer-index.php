@@ -148,18 +148,21 @@ if(isset($_SESSION['msg'])){
                     <div class='col-12 col-md-3 mt-2'>
                       <label class='text-muted'>Name:</label>
                       <h5>$row[1]</h5>
-                      <label class='text-muted'>Section:</label>
+                      <label class='text-muted mt-3'>Section:</label>
                       <h5>$row[4]</h5>
                   </div>
                   <div class='col-12 col-md-4 mt-2'>
-                      <label class='text-muted'>Email:</label>
-                      <h6>$row[3]</h6>
-                      <label class='text-muted'>Course:</label>
-                      <h6>$row[2]</h6>
+                    <label class='text-muted'>JRU ID:</label>
+                    <h5>19-255322</h5>
+                    <label class='text-muted mt-3'>Email:</label>
+                    <h6>$row[3]</h6>
                   </div>
                   <div class='col-12 col-md-3 mt-2'>
                       <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>";
+                      <h5>$row[0]</h5>
+                      <label class='text-muted mt-3'>Course:</label>
+                      <h6 class='fs-6'>$row[2]</h6>
+                  ";
                       /**<label class='text-muted'>Position:</label>
                       <h5>Year $row[5] </h5>
                           </div>";**/
