@@ -159,28 +159,24 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-4">
-        <?php
-            $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
-            $result = @mysqli_query($conn,$query);
-            $i = 0;
-            $pid = " ";
-            $pn = " ";
-            $pd = " ";
-            $v = " ";
-            $eb = " ";
-            $ds = " ";
-            $s = " ";
-            echo "<table id='example' class='display w-100 ms-0 master'>
-                  <thead>
-                    <tr>
-                        <th>Project ID</th>
-                        <th>Project Name</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Budget</th>
-                        <th>Status</th>
-                        <th>Date Submitted</th>
-                        <th>Options</th>
+          <?php
+              $query = "SELECT * FROM tb_projectmonitoring";
+              $result = @mysqli_query($conn,$query);
+              $i = 0;
+              $ds = " ";
+              $pi = " ";
+              $pn = " ";
+              $v = " ";
+              $s = " ";
+              echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
+                    <thead>
+                      <tr>
+                          <th>Project ID</th>
+                          <th>Project Name</th>
+                          <th>Venue</th>
+                          <th>Status</th>
+                          <th>Date Submitted</th>
+                          <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -190,108 +186,171 @@ if(isset($_SESSION['msg'])){
                 // output data of each row
                 while($row = $result->fetch_assoc())
                 {
-                $pid = $row["project_id"];
-                $pn = $row["project_name"];
-                $pd = $row["project_desc"];
-                $v = $row["venue"];
-                $eb = $row["estimated_budget"];
-                $ds = $row["date_submitted"];
-                $s = $row["status"];
+                  $ds = $row['date_submitted'];
+                  $pi = $row['project_id'];
+                  $pn = $row['project_name'];
+                  $v = $row['venue'];
+                  $s = $row['status'];
 
-                echo "<tr>
-                      <td> $pid  </td>
-                      <td> $pn  </td>
-                      <td> $pd  </td>
-                      <td> $v  </td>
-                      <td> $eb  </td>
-                      <td> $s  </td>
-                      <td> $ds </td>
+                  echo "<tr>
+                        <td> $pi  </td>
+                        <td> $pn  </td>
+                        <td> $v  </td>
+                        <td> $s  </td>
+                        <td> $ds </td>
                         <td>
-                        <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
-                        <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
-                        <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
+                        <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                         </td>
-                      </tr>
+                        </tr>
                     ";
                 }
             echo "</tbody>
+                  <tfoot>
+                      <tr>
+                        <th>Project ID</th>
+                        <th>Project Name</th>
+                        <th>Venue</th>
+                        <th>Status</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                      </tr>
+                  </tfoot>
                   </table>";
             }
-            $conn->close();
+              $conn->close();
             ?>
         </div>
     </div>
-      <!-- Page content
-
-      <div class="row justify-content-center align-items-center" id="container">
-        <div class="col-md-12 ">
-          <div class="row">
-            <div class="col-md-11">
-              <div class="table-responsive justify-content-center align-items-center">
-              <?php
-                  $query = "SELECT project_id, project_name, project_desc, venue, estimated_budget, date_submitted, status FROM tb_projectmonitoring";
-                  $result = @mysqli_query($conn,$query);
-                  $i = 0;
-                  $pid = " ";
-                  $pn = " ";
-                  $pd = " ";
-                  $v = " ";
-                  $eb = " ";
-                  $ds = " ";
-                  $s = " ";
-                  echo "<table id='example' class='display nowrap w-100 ms-0 master'>
-                        <thead>
-                          <tr>
-                              <th style='min-width: 100px;text-align:center;'>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Description</th>
-                              <th>Venue</th>
-                              <th style='min-width: 100px;text-align:center;'>Budget</th>
-                              <th>Status</th>
-                              <th style='min-width: 100px;text-align:center;'>Date Submitted</th>
-                              <th>Options</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                      $pid = $row["project_id"];
-                      $pn = $row["project_name"];
-                      $pd = $row["project_desc"];
-                      $v = $row["venue"];
-                      $eb = $row["estimated_budget"];
-                      $ds = $row["date_submitted"];
-                      $s = $row["status"];
-
-                      echo "<tr>
-                            <td style='min-width: 100px;text-align:center;'> $pid  </td>
-                            <td> $pn  </td>
-                            <td> $pd  </td>
-                            <td> $v  </td>
-                            <td style='min-width: 100px;text-align:center;'> $eb  </td>
-                            <td> $s  </td>
-                            <td style='min-width: 100px;text-align:center;'> $ds </td>
-                              <td>
-                              <a class='btn btn-primary btn-sm' href='project-details.php?project_id=".$row['project_id']."'><i class='bi bi-list-ul'></i></a>
-                              <a class='btn btn-success btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-pen-fill'></i></a>
-                              <a class='btn btn-danger btn-sm' href='signatory-project-details.php?project_id=".$row['project_id']."'><i class='bi bi-trash-fill'></i></a>
-                              </td>
-                            </tr>
-                          ";
-                      }
-                  echo "</tbody>
-                        </table>";
-                  }
-                  $conn->close();
-                  ?>
-                </div>
-            </div>
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" id="modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel"> Edit Project</h5>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <form action="signatory-update-button.php" method="POST">
+                    <div class="modal-body">
+                       <div class="container-fluid">
+                         <div class="row justify-content-between">
+                        <div class="col-4 col-md-2 col-sm-3 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="project_id" >Project ID:</label>
+                            <input type="text" name="project_id" id="project_id" class="form-control" style="background-color: #fff;" readonly/>
+                          </div>
+                        </div>
+                        <div class="col-4 col-md-3 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="date_submitted" >Date Submitted:</label>
+                          <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                        </div>
+                      </div>
+                        </div>
+                          <div class="row">
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="project_name" >Project name:</label>
+                              <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="venue" >Venue:</label>
+                              <input type="text" name="venue" id="venue" class="form-control form-control-lg"  />
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row justify-content-between">
+                            <div class="col-12 col-md-4 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="start_date" >Start Date:</label>
+                                <input type="text" class="form-control" name="start_date" id="start_date"  />
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="end_date" >End Date:</label>
+                                <input type="text" class="form-control" name="end_date" id="end_date"  />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="project_type" >Project Type:</label>
+                            <input type="text" name="project_type" id="project_type" class="form-control form-control-lg"  />
+                            </div>
+                            <div class="col-12 col-md-4 col-sm-3 mb-2">
+                              <label class="form-label" for="budget_source" >Budget Source:</label>
+                              <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg"  />
+                            </div>
+                            <div class="col-12 col-md-4 col-sm-3 mb-2">
+                              <label class="form-label" for="project_category" >Category:</label>
+                              <input type="text" name="project_category" id="project_category" class="form-control form-control-lg"  />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-6 col-sm-3 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="participants" >Participants:</label>
+                                <input type="text" name="participants" id="participants" class="form-control form-control-md"  />
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-sm-3 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="beneficiary">Beneficiary:</label>
+                                <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-3 col-sm-3 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="no_of_participants" >No. of Participants:</label>
+                                <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  />
+                              </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-sm-3 mb-4">
+                                <div class="form-outline">
+                                  <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
+                                  <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" />
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-sm-3 mb-4">
+                                <div class="form-outline">
+                                  <label class="form-label">Attachment:</label>
+                                  <div class="btn-group">
+                                <button type="button" class="btn btn-secondary btn-md">Download</button>
+                                <button type="button" class="btn btn-secondary btn-md">Upload</button>
+                              </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-3 col-sm-3 mb-4">
+                                <div class="form-outline">
+                                  <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
+                                <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  />
+                                </div>
+                              </div>
+                            </div>
+                           <div class="row">
+                            <div class="col-12 col-md-12 col-sm-3 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="project_desc" >Project Description:</label>
+                                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" ></textarea>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                      </div>
+                   </form>
+              </div>
           </div>
-        </div>-->
+    </div>
+    </div>
+  </div>
+      <!-- Page content-->
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
           <footer class="py-2 bg-light mt-3">
@@ -305,7 +364,42 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
 
+    <!--For modal-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
+    <script>
+        $(document).on('click', '.editbtn', function(){
+           var project_id = $(this).attr("id");
+           $.ajax({
+                url:"signatory-fetch-project.php",
+                method:"POST",
+                data:{project_id:project_id},
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#project_id').val(data.project_id);
+                $('#project_name').val(data.project_name);
+                $('#project_desc').val(data.project_desc);
+                $('#venue').val(data.venue);
+                $('#estimated_budget').val(data.estimated_budget);
+                $('#status').val(data.status);
+                $('#date_submitted').val(data.date_submitted);
+                $('#start_date').val(data.start_date);
+                $('#end_date').val(data.end_date);
+                $('#project_type').val(data.project_type);
+                $('#budget_source').val(data.budget_source);
+                $('#project_category').val(data.project_category);
+                $('#participants').val(data.participants);
+                $('#beneficiary').val(data.beneficiary);
+                $('#no_of_participants').val(data.no_of_participants);
+                $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#editmodal').modal('show');
+                $('#modal-lg').css('max-width','70%');
+                }
+            });
+        });
+    </script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
@@ -337,61 +431,41 @@ if(isset($_SESSION['msg'])){
           var myTable;
       myTable =  $('#example').DataTable({
         "createdRow": function( row, data, dataIndex ) {
-            if ( data[5] == "Rejected" ) {
-            $('td', row).eq(5).css('color', 'red');
+            if ( data[3] == "Rejected" ) {
+            $('td', row).eq(3).css('color', 'red');
         }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
+        if ( data[3] == "Approved" ) {
+        $('td', row).eq(3).css('color', 'green');
         }
-        if ( data[5] == "Pending" ) {
-        $('td', row).eq(5).css('color', '#0d6efd');
+        if ( data[3] == "Pending" ) {
+        $('td', row).eq(3).css('color', '#0d6efd');
         }
-        if ( data[5] == "Ongoing" ) {
-        $('td', row).eq(5).css('color', '#0dcaf0');
+        if ( data[3] == "Ongoing" ) {
+        $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[5] == "Implemented" ) {
-        $('td', row).eq(5).css('color', '#00C9A7');
+        if ( data[3] == "Implemented" ) {
+        $('td', row).eq(3).css('color', '#00C9A7');
         }
-        if ( data[5] == "Approved" ) {
-        $('td', row).eq(5).css('color', 'green');
+        if ( data[3] == "Approved" ) {
+        $('td', row).eq(3).css('color', 'green');
         }
           },
-          responsive: false,
+          responsive: true,
           keys: true,
-          //select: true,
-       scrollX:true,
-          scrollCollapse: true,
           fixedheader:true,
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "70px" },
-        { "width": "125px" },
-        { "width": "130px" },
-        { "width": "125px" },
-        { "width": "70px" },
+        { "width": "60px" },
+        { "width": "150px" },
         { "width": "100px" },
+        { "width": "125px" },
         { "width": "100px" },
-        { "width": "150px" }
-],
-        //  dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-          //  "<'row'<'col-sm-12'tr>>" +
-        //    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        //  "bFilter": true,
+        { "width": "70px" }
+  ],
             select: 'single',
-        //  responsive: true,
-        //  altEditor: true,
-        //  "aLengthMenu": [
-        //    [10, 20, 50, 100, -1],
-        //    [10, 20, 50, 100, "All"]
-        //  paging:true,
           buttons: [
          'pageLength',
-          //'copyHtml5',
-            //  {
-            // extend: 'excelHtml5',
-            //   title: 'JRU Organizations Portal Student Users'
-            //   },
             {
               extend: 'csvHtml5',
               title: 'JRU Organizations Portal Student Users'
@@ -404,25 +478,12 @@ if(isset($_SESSION['msg'])){
               extend: 'print',
               title: 'JRU Organizations Portal Student Users'
             },
-          //  {
-          //  text: 'Add',
-          //  name: 'add'        // do not change name
-          //  },
-          //  {
-          //  extend: 'selected', // Bind to Selected row
-          //  text: 'Edit',
-          //  name: 'edit'        // do not change name
-          //  },
-          //  {
-          //  extend: 'selected', // Bind to Selected row
-        //    text: 'Delete',
-          //  name: 'delete'      // do not change name
-          //  }
-          ],
+          ]
         });
+      myTable.columns.adjust().draw();
         });
     </script>
-<script src="assets/js/dataTables.altEditor.free.js" ></script>
-</body>
+  <script src="assets/js/dataTables.altEditor.free.js" ></script>
+  </body>
 
-</html>
+  </html>
