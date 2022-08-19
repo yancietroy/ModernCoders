@@ -671,24 +671,6 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
     padding: 30px 0px;
     border-bottom: 1px solid #47748b;
   }
-
-
-  table.stud th {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100px;
-    text-align: center !important;
-  }
-  table.stud td {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100px;
-    text-align: center !important;
-  }
-  div.table-stud {
-    max-width: 100%;
-    width: 95%;
-  }
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
