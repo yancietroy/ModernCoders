@@ -66,10 +66,10 @@ if(isset($_SESSION['msg'])){
               <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
-              <a href="#"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
+              <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
             <li>
-              <a href="#"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
+              <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
             <li>
               <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
@@ -172,15 +172,15 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   {
                     echo "
-                            <div class='col-12 col-md-2 mt-3'>
+                            <div class='col-12 col-md-2 mt-4'>
                             <label class='text-muted'>Admin ID:</label>
                             <h5>$row[0]</h5>
                           </div>
-                          <div class='col-12 col-md-3 mt-3'>
+                          <div class='col-12 col-md-3 mt-4'>
                             <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
                           </div>
-                          <div class='col-12 col-md-3 mt-3'>
+                          <div class='col-12 col-md-3 mt-4'>
                             <label class='text-muted'>Email:</label>
                             <h6>$row[2]</h6>
                           </div>
@@ -198,7 +198,7 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
       <h4 class="ms-3">My Organizations</h4>
-      <div class="row justify-content-center align-items-center mb-4 mt-4">
+      <div class="row  ms-5 mb-4 mt-4">
         <div class="col-6  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">
             <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
