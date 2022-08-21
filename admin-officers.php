@@ -61,10 +61,10 @@ if(isset($_SESSION['msg'])){
       <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
-            <li>
+            <li  class="active">
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
             <li>
@@ -159,7 +159,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item active" aria-current="page">Students</li>
+          <li class="breadcrumb-item active" aria-current="page">Officers</li>
         </ol>
       </nav>
 
@@ -167,15 +167,12 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Student User Management</h4>
+          <h4>Officer User Management</h4>
         </div>
 
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="register.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Student</a>
-        </div>
       </div>
 
-        <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+        <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
           <div class="card-body px-2 mx-3 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
@@ -191,7 +188,7 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th>Student ID</th>
+                                <th>Officer ID</th>
                                 <th>First Name</th>
                                 <th>Middle Name</th>
                                 <th>Last name</th>

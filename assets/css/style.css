@@ -360,7 +360,6 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 500px;
-  margin: 20px;
 }
 
 select:hover::after {
