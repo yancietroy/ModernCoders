@@ -26,6 +26,8 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Datepicker CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Datatable Default-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
   <!-- Datatable BS5
@@ -37,16 +39,7 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <style>
-  @media only screen
-  and (min-width: 1030px)
-  and (max-width: 1366px)  {
 
-        #wrapper {
-            overflow:auto !important;
-}
-}
-  </style>
 </head>
 
 <body>
@@ -157,6 +150,9 @@ if(isset($_SESSION['msg'])){
           <h4>Officer Projects Masterlist</h4>
         </div>
       </div>
+
+      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+        <div class="card-body px-2 mx-3 py-2 pb-4">
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-4">
           <?php
@@ -225,7 +221,7 @@ if(isset($_SESSION['msg'])){
           <div class="modal-dialog" id="modal-lg" role="document">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel"> Edit Project</h5>
+                      <h5 class="modal-title" id="exampleModalLabel"> Update Project</h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -251,13 +247,13 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_name" >Project name:</label>
-                              <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  />
+                              <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  maxlength="50" />
                             </div>
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="venue" >Venue:</label>
-                              <input type="text" name="venue" id="venue" class="form-control form-control-lg"  />
+                              <input type="text" name="venue" id="venue" class="form-control form-control-lg"  maxlength="50" />
                             </div>
                           </div>
                           </div>
@@ -265,13 +261,13 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="start_date" >Start Date:</label>
-                                <input type="text" class="form-control" name="start_date" id="start_date"  />
+                                <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;"  />
                               </div>
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="end_date" >End Date:</label>
-                                <input type="text" class="form-control" name="end_date" id="end_date"  />
+                                <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;"  />
                               </div>
                             </div>
                           </div>
@@ -293,13 +289,13 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-6 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="participants" >Participants:</label>
-                                <input type="text" name="participants" id="participants" class="form-control form-control-md"  />
+                                <input type="text" name="participants" id="participants" class="form-control form-control-md"  maxlength="50"  />
                               </div>
                             </div>
                             <div class="col-12 col-md-6 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                                <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" />
+                                <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" maxlength="50"  />
                               </div>
                             </div>
                           </div>
@@ -307,13 +303,13 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                                <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  />
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  />
                               </div>
                               </div>
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
                                 <div class="form-outline">
                                   <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                  <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" />
+                                  <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_beneficiary" class="form-control" />
                                 </div>
                               </div>
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
@@ -328,7 +324,7 @@ if(isset($_SESSION['msg'])){
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
                                 <div class="form-outline">
                                   <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                                <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  />
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  />
                                 </div>
                               </div>
                             </div>
@@ -418,7 +414,25 @@ if(isset($_SESSION['msg'])){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+    <!-- Datepicker cdn  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+  $(document).ready(function () {
+    $('#start_date').datetimepicker({
+      changeMonth: true,
+    changeYear: true,
+    showButtonPanel: true,
+    formatTime:'H:i',
+    formatDate:'m.d.Y',
+    minDate: new Date()
+    });
 
+    $('#end_date').datetimepicker({
+           dateFormat: "dd-M-yy",
+           minDate: 0
+       });
+   });
+    </script>
     <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -451,14 +465,14 @@ if(isset($_SESSION['msg'])){
         $('td', row).eq(3).css('color', 'green');
         }
           },
-          responsive: true,
+      //    responsive: true,
           keys: true,
           fixedheader:true,
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },
-        { "width": "150px" },
+        { "width": "125px" },
         { "width": "100px" },
         { "width": "125px" },
         { "width": "100px" },
