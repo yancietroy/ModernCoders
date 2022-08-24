@@ -229,7 +229,7 @@ if(isset($_SESSION['msg'])){
                               <td> $a </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn'>  <i class='bi bi-trash-fill'></i> </button>
+                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-trash-fill'></i> </button>
                               </td>
                               </tr>
                           ";
@@ -237,7 +237,7 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         </table>";
                   }
-                    $conn->close();
+                    //$conn->close();
                   ?>
 
          </div>
@@ -281,7 +281,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
+                <form action="admin-update-users.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -320,7 +320,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
-                      <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" />
+                      <input id="BIRTHDATE" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old" />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
@@ -330,13 +330,13 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="gender">Gender </label>
+                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
                             <div class="btn-group">
 
-                              <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" <?php if($g == 'Male'):?>checked<?php endif;?>>
+                              <input type="radio" class="btn-check" name="GENDER" id="male" value="Male" autocomplete="off" <?php if($g == 'Male'):?>checked<?php endif;?>>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
 
-                              <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" <?php if($g == 'Female'):?>checked<?php endif;?>>
+                              <input type="radio" class="btn-check" name="GENDER" id="female" value="Female" autocomplete="off" <?php if($g == 'Female'):?>checked<?php endif;?>>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="female" >Female</label>
                               <!--<div class="valid-feedback check"> &#x2713;</div>
                               <div class="invalid-feedback mv-up">Please select a gender!</div>-->
@@ -363,19 +363,46 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="COURSE" >College:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
+                              <select class="form-select" name="college" id="select-group">
+                                <option class="greyclr" selected disabled value="" text-muted>Select College</option>
+                                <?php
+                                    $query = "SELECT college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                    }
+                                ?>
+                              </select>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="COURSE" >Course:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
+                              <label class="form-label select-label" for="COURSE" >Course:</label>
+                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE">
+                                <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
+                                <?php
+                                      $query = "SELECT course FROM tb_course";
+                                      $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                      }
+                                ?>
+                              </select>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="COURSE" >Organization:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="ORG_ID" >Organization:</label>
+                              <select class="form-select" name="ORG_ID" id="ORG_ID">
+                                <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
+                                <?php
+                                    $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+                                    }
+                                ?>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -389,6 +416,28 @@ if(isset($_SESSION['msg'])){
         </div>
   </div>
 
+      <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="admin-delete-user.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="STUDENT_ID" id="STUDENT_ID">
+                        <h4> Do you want to Delete this Data ??</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -419,6 +468,25 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
+
+    <script>
+      $(document).on('click', '.deletebtn', function(){
+        var STUDENT_ID = $(this).attr("id");
+        $.ajax({
+                url:"admin-delete-user.php",
+                method:"POST",
+                data:{STUDENT_ID:STUDENT_ID},
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#deletemodal').modal('show');
+                $('#modal-lg').css('max-width','70%');
+                }
+            });
+        });
+    </script>
+  <?php @mysqli_close($conn); ?>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
