@@ -689,6 +689,7 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
     max-width: 100%;
     width: 95%;
   }
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -721,5 +722,8 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
   #navbarSupportedContent i {
     display: none;
   }
+  .dropdown-toggle {
+display: none;
+}
 }
  }
