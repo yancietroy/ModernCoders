@@ -301,42 +301,28 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="position" >Position:</label>
-                            <select class="form-select" name="position" id="position">
+                            <label class="form-label" for="position_id" >Position:</label>
+                            <select class="form-select" name="position_id" id="position_id">
                             <?php
-                              $query = "SELECT POSITION_ID, POSITION FROM tb_position";
-                              $id = $_GET['POSITION_ID'];
+                              $query = "SELECT position_id, position FROM tb_position";
                               $result = @mysqli_query($conn, $query);
-                              while($data = @mysqli_fetch_array($result)) {
-                              $row_id = $data['POSITION_ID'];
-                              if($row_id == $id){
-                                 $select = "selected";
-                              }
-                              $listoption_item = $data['POSITION'];
-                              
-                              echo '<option value="'.$listoption_item.'" selected="'.$select. '">'.$listoption_item.'</option>'; 
-                              }
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
                             ?>
                             </select>
                           </div>
                         </div>
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="ORG" >Organization:</label>
-                            <select class="form-select" name="ORG" id="ORG">
+                            <label class="form-label" for="org_id" >Organization:</label>
+                            <select class="form-select" name="org_id" id="org_id">
                             <?php
-                              $query = "SELECT ORG_ID, ORG FROM tb_orgs";
-                              $id = $_GET['ORG_ID'];
+                              $query = "SELECT org_id, org FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
-                              while($data = @mysqli_fetch_array($result)) {
-                              $row_id = $data['ORG_ID'];
-                              if($row_id == $id){
-                                 $select = "selected";
-                              }
-                              $listoption_item = $data['ORG'];
-                              
-                              echo '<option value="'.$listoption_item.'" selected="'.$select. '">'.$listoption_item.'</option>'; 
-                              }
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
                             ?>
                             </select>
                           </div>
@@ -371,17 +357,10 @@ if(isset($_SESSION['msg'])){
                               <select class="form-select" style="width:100%;" name="course" id="course">
                                 <?php
                                   $query = "SELECT course_id, course FROM tb_course";
-                                  $id = $_GET['course_id'];
                                   $result = @mysqli_query($conn, $query);
-                                  while($data = @mysqli_fetch_array($result)) {
-                                  $row_id = $data['course_id'];
-                                  if($row_id == $id){
-                                     $select = "selected";
-                                  }
-                                  $listoption_item = $data['course'];
-                                  
-                                  echo '<option value="'.$listoption_item.'" selected="'.$select. '">'.$listoption_item.'</option>'; 
-                                  }
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[1].'">'.$data[1].'</option>';
+                                      }
                                 ?>
                               </select>
                             </div>
@@ -400,7 +379,6 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
-      $("#course").val("thevalue").change();
         $(document).on('click', '.viewbtn', function(){
            var officer_id = $(this).attr("id");
            $.ajax({
@@ -411,8 +389,8 @@ if(isset($_SESSION['msg'])){
                 success:function(data){
                 console.log(data);
                 $('#officer_id').val(data.officer_id);
-                $('#position').val(data.position);
-                $('#ORG').val(data.ORG);
+                $('#position_id').val(data.position_id);
+                $('#org_id').val(data.org_id);
                 $('#first_name').val(data.first_name);
                 $('#middle_initial').val(data.middle_initial);
                 $('#last_name').val(data.last_name);
