@@ -360,7 +360,6 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 500px;
-  margin: 20px;
 }
 
 select:hover::after {
@@ -618,6 +617,7 @@ table.master {
   table-layout: fixed;
   justify-content: center;
    border-bottom: none;
+     overflow-x: none !important;
 }
 table.dataTable.no-footer {
         border-bottom: 0 !important;
@@ -636,7 +636,8 @@ table.master td {
 }
 div.table-responsive {
   max-width: 100%;
-  width: 95%;    
+  width: 95%;
+  overflow-x: hidden;
 }
 
 select[readonly]:read-only {
@@ -660,9 +661,34 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
 #approved:hover {
   color: white;
 }
+
 .form-label {
     color:#495057;
 }
+.modal-body input, .modal-body textarea {
+    color: black;
+}
+.projectdesc {
+    padding: 30px 0px;
+    border-bottom: 1px solid #47748b;
+  }
+
+  table.stud th {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100px;
+  /*   text-align: center !important;*/
+  }
+  table.stud td {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100px;
+  /*   text-align: center !important;*/
+  }
+  div.table-stud {
+    max-width: 100%;
+    width: 95%;
+  }
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

@@ -61,13 +61,13 @@ if(isset($_SESSION['msg'])){
       <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
-            <li>
+            <li  class="active">
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
             <li>
@@ -159,7 +159,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item active" aria-current="page">Students</li>
+          <li class="breadcrumb-item active" aria-current="page">Signatories</li>
         </ol>
       </nav>
 
@@ -167,11 +167,11 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Student User Management</h4>
+          <h4>Signatory User Management</h4>
         </div>
 
         <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="register.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Student</a>
+          <a class="btn btn-default btn-circle button px-3" href="signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Signatory</a>
         </div>
       </div>
 
