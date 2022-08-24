@@ -230,7 +230,7 @@ if(isset($_SESSION['msg'])){
                         </tfoot>
                         </table>";
                   }
-                  $conn->close();
+                  //$conn->close();
                   ?>
               </div>
             </div>
@@ -259,14 +259,14 @@ if(isset($_SESSION['msg'])){
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="" method="POST">
+                    <form action="admin-update-admin.php" method="POST">
                         <div class="modal-body">
                           <div class="container-fluid">
                             <div class="row justify-content-between">
                            <div class="col-4 col-md-2 col-sm-3 mb-4">
                              <div class="form-outline">
-                               <label class="form-label" for="STUDENT_ID" >Student ID:</label>
-                               <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
+                               <label class="form-label" for="ADMIN_ID" >Admin ID:</label>
+                               <input type="text" name="ADMIN_ID" id="ADMIN_ID" class="form-control" style="background-color: #fff;" readonly/>
                              </div>
                            </div>
                            <div class="col-4 col-md-3 mb-4">
@@ -295,66 +295,9 @@ if(isset($_SESSION['msg'])){
                               </div>
                               </div>
                             <div class="row">
-                              <div class="col-12 col-md-4 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
-                          <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" />
-                                </div>
-                              </div>
-                              <div class="col-12 col-md-4 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="AGE" >Age:</label>
-                                  <input type="text" class="form-control" name="AGE" id="AGE" style="background-color: #fff;"  />
-                                </div>
-                              </div>
-                              <div class="col-6 col-md-4 mb-4 ">
-                                <label class="mb-3 me-5 min-vw-100" for="gender">Gender </label>
-                                <div class="btn-group">
-
-                                  <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" <?php if($g == 'Male'):?>checked<?php endif;?>>
-                                  <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
-
-                                  <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" <?php if($g == 'Female'):?>checked<?php endif;?>>
-                                  <label class="btn btn-sm me-2 btn-outline-secondary" for="female" >Female</label>
-                                  <!--<div class="valid-feedback check"> &#x2713;</div>
-                                  <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-12 col-md-4 col-sm-3 mb-2">
-                                <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                                <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" style="background-color: #fff;"  />
-                              </div>
-                              <div class="col-12 col-md-4 col-sm-3 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="SECTION">Section:</label>
-                                  <input type="text" name="SECTION" id="SECTION" class="form-control" style="background-color: #fff;" />
-                                </div>
-                              </div>
                               <div class="col-12 col-md-4 col-sm-3 mb-2">
                                 <label class="form-label" for="EMAIL" >Email:</label>
                                 <input type="text" name="EMAIL" id="EMAIL" class="form-control" style="background-color: #fff;"  />
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-12 col-md-4 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="COURSE" >College:</label>
-                                  <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
-                                </div>
-                              </div>
-                              <div class="col-12 col-md-4 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="COURSE" >Course:</label>
-                                  <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
-                                </div>
-                              </div>
-                              <div class="col-12 col-md-4 mb-4">
-                                <div class="form-outline">
-                                  <label class="form-label" for="COURSE" >Organization:</label>
-                                  <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
-                                </div>
                               </div>
                             </div>
                         </div>
@@ -366,31 +309,25 @@ if(isset($_SESSION['msg'])){
                 </div>
             </div>
       </div>
-
+<?php $conn->close(); ?>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
         <script>
             $(document).on('click', '.viewbtn', function(){
-               var STUDENT_ID = $(this).attr("id");
+               var ADMIN_ID = $(this).attr("id");
                $.ajax({
-                    url:"admin-fetch-user.php",
+                    url:"admin-fetch-admin.php",
                     method:"POST",
-                    data:{STUDENT_ID:STUDENT_ID},
+                    data:{ADMIN_ID:ADMIN_ID},
                     dataType:"json",
                     success:function(data){
                     console.log(data);
-                    $('#STUDENT_ID').val(data.STUDENT_ID);
+                    $('#ADMIN_ID').val(data.ADMIN_ID);
                     $('#FIRST_NAME').val(data.FIRST_NAME);
                     $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                     $('#LAST_NAME').val(data.LAST_NAME);
-                    $('#BIRTHDATE').val(data.BIRTHDATE);
-                    $('#AGE').val(data.AGE);
-                    $('#GENDER').val(data.GENDER);
-                    $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                     $('#EMAIL').val(data.EMAIL);
-                    $('#COURSE').val(data.COURSE);
-                    $('#SECTION').val(data.SECTION);
                     $('#viewmodal').modal('show');
                     $('#modal-lg').css('max-width','70%');
                     }
