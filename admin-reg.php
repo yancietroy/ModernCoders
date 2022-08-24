@@ -242,21 +242,21 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
                                   {
-                                    $si = $_POST['schoolId'];
+                                    $si = $_POST['studentid'];
                                     $fn = $_POST['firstName'];
                                     $ln = $_POST['lastName'];
-                                    $st = $_POST['signatory_type'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
 
-                                        $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+
+                                        $query = "INSERT INTO tb_admin(studentid, first_name, last_name, email, password) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
                                         $result = @mysqli_query($conn, $query);
 
                                         echo "<script type='text/javascript'>
-                                              window.location = 'admin-signatories.php'
-                                              alert('Signatory registered!')
+                                              window.location = 'admin-reg.php'
+                                              alert('Admin registered!')
                                               </script>";
                                         //header("location:signatory-login.php");
                                         die;
