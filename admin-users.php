@@ -362,9 +362,8 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="COURSE" >College:</label>
-                              <select class="form-select" name="college" id="select-group">
-                                <option class="greyclr" selected disabled value="" text-muted>Select College</option>
+                              <label class="form-label" for="college" >College:</label>
+                              <select class="form-select" name="college" id="college">
                                 <?php
                                     $query = "SELECT college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
@@ -379,7 +378,6 @@ if(isset($_SESSION['msg'])){
                             <div class="form-outline">
                               <label class="form-label select-label" for="COURSE" >Course:</label>
                               <select class="form-select" style="width:100%;" name="COURSE" id="COURSE">
-                                <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                                 <?php
                                       $query = "SELECT course FROM tb_course";
                                       $result = @mysqli_query($conn, $query);
@@ -394,13 +392,12 @@ if(isset($_SESSION['msg'])){
                             <div class="form-outline">
                               <label class="form-label" for="ORG_ID" >Organization:</label>
                               <select class="form-select" name="ORG_ID" id="ORG_ID">
-                                <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                                 <?php
-                                    $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
-                                    $result = @mysqli_query($conn, $query);
-                                    while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
-                                    }
+                                  $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
                                 ?>
                               </select>
                             </div>
@@ -462,6 +459,7 @@ if(isset($_SESSION['msg'])){
                 $('#EMAIL').val(data.EMAIL);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
+                $('#ORG_ID').val(data.ORG_ID);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
