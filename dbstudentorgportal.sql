@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2022 at 04:17 AM
+-- Generation Time: Aug 25, 2022 at 02:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -436,22 +436,23 @@ CREATE TABLE `tb_projectmonitoring` (
   `estimated_budget` int(11) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
-  `date_submitted` date DEFAULT NULL
+  `date_submitted` date DEFAULT NULL,
+  `remarks` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`) VALUES
-(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
-(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL),
-(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL),
-(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL),
-(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL),
-(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL),
-(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
-(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, NULL, '2022-08-02');
+INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`, `remarks`) VALUES
+(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL, NULL),
+(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL, NULL),
+(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL, NULL),
+(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL, NULL),
+(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL, NULL),
+(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL, NULL),
+(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL, NULL),
+(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, 'For Revision', '2022-08-02', 'Test');
 
 -- --------------------------------------------------------
 
@@ -518,7 +519,8 @@ CREATE TABLE `tb_students` (
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
 (17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, 12),
-(17402211, 'Doe', 'John', 'Joe', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', NULL, 12);
+(17402211, 'Doe', 'John', 'Joe', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', NULL, 12),
+(17403211, 'Seyer', 'Azi', '', '2000-04-08', 22, 'Female', '4', 'azi.seyer@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Bachelor of Science in Business Administration (BSBA) Major in Computer Science', '403I', 12, 12);
 
 -- --------------------------------------------------------
 

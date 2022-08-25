@@ -403,6 +403,7 @@ if(isset($_SESSION['msg'])){
                 $('#beneficiary').val(data.beneficiary);
                 $('#no_of_participants').val(data.no_of_participants);
                 $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
