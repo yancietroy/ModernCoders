@@ -14,7 +14,7 @@ if (isset ($_POST['updatedata']))
 	$yl = $_POST['YEAR_LEVEL'];
 	$course = $_POST['COURSE'];
 	$section = $_POST['SECTION'];
-	$org = $_POST['ORG_ID'];
+	$morg = $_POST['MORG_ID'];
 	$e = $_POST['EMAIL'];
 
 	$query = "SELECT * FROM tb_students";
@@ -23,7 +23,7 @@ if (isset ($_POST['updatedata']))
 			
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `GENDER` = '$g', `YEAR_LEVEL` = '$yl', `SECTION` = '$section', `EMAIL` = '$e', `ORG_ID` = '$org', `COURSE` = '$course' WHERE `STUDENT_ID` = '$si'";
+			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `GENDER` = '$g', `YEAR_LEVEL` = '$yl', `SECTION` = '$section', `EMAIL` = '$e', `MORG_ID` = '$morg', `COURSE` = '$course' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
 			header("Location:admin-users.php");

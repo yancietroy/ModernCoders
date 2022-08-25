@@ -390,10 +390,10 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="ORG_ID" >Organization:</label>
-                              <select class="form-select" name="ORG_ID" id="ORG_ID">
+                              <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                              <select class="form-select" name="MORG_ID" id="MORG_ID">
                                 <?php
-                                  $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                                  $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
                                   $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
                                           echo '<option value="'.$data[0].'">'.$data[1].'</option>';
@@ -459,7 +459,7 @@ if(isset($_SESSION['msg'])){
                 $('#EMAIL').val(data.EMAIL);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
-                $('#ORG_ID').val(data.ORG_ID);
+                $('#MORG_ID').val(data.MORG_ID);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
