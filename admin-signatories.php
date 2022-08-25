@@ -180,25 +180,21 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students";
+                    $query = "SELECT * FROM `tb_signatories`";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
-                    $ds = " ";
-                    $pi = " ";
-                    $pn = " ";
-                    $v = " ";
-                    $s = " ";
+                    $si = " ";
+                    $fn = " ";
+                    $e = " ";
+                    $st = " ";
                     echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th>Student ID</th>
+                                <th>School ID</th>
                                 <th>First Name</th>
-                                <th>Middle Name</th>
                                 <th>Last name</th>
-                                <th>Gender</th>
                                 <th>Email</th>
-                                <th>Year Level</th>
-                                <th>Age</th>
+                                <th>Signatory Type</th>
                                 <th>Actions</th>
                           </tr>
                         </thead>
@@ -209,27 +205,21 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                        $si = $row['STUDENT_ID'];
-                        $fn = $row['FIRST_NAME'];
-                        $mn = $row['MIDDLE_NAME'];
-                        $ln = $row['LAST_NAME'];
-                        $g = $row['GENDER'];
-                        $e = $row['EMAIL'];
-                        $yl = $row['YEAR_LEVEL'];
-                        $a = $row['AGE'];
+                        $si = $row['school_id'];
+                        $fn = $row['first_name'];
+                        $ln = $row['last_name'];
+                        $e = $row['email'];
+                        $st = $row['signatory_type'];
 
                         echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
-                              <td> $mn  </td>
                               <td> $ln  </td>
-                              <td> $g </td>
                               <td> $e </td>
-                              <td> $yl </td>
-                              <td> $a </td>
+                              <td> $st </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn'>  <i class='bi bi-trash-fill'></i> </button>
+                              <button type='button' class='btn btn-danger btn-sm deletebtn id='" . $si . "''>  <i class='bi bi-trash-fill'></i> </button>
                               </td>
                               </tr>
                           ";
@@ -453,10 +443,7 @@ if(isset($_SESSION['msg'])){
         { "width": "130px" },
         { "width": "130px" },
         { "width": "80px" },
-        { "width": "150px" },
-        { "width": "60px" },
-        { "width": "60px" },
-        { "width": "70px" }
+        { "width": "150px" }
   ],
             select: 'single',
     buttons: [
