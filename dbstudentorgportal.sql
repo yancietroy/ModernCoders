@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2022 at 10:07 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Aug 25, 2022 at 04:17 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,51 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_sample`
---
-
-CREATE TABLE `tbl_sample` (
-  `id` int(11) NOT NULL,
-  `first_name` varchar(250) NOT NULL,
-  `last_name` varchar(250) NOT NULL,
-  `gender` enum('Male','Female') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_sample`
---
-
-INSERT INTO `tbl_sample` (`id`, `first_name`, `last_name`, `gender`) VALUES
-(1, 'John', 'Smith', 'Male'),
-(2, 'Peter', 'Parker', 'Male'),
-(4, 'Donna', 'Huber', 'Male'),
-(5, 'Anastasia', 'Peterson', 'Male'),
-(6, 'Ollen', 'Donald', 'Male'),
-(10, 'Joseph', 'Stein', 'Male'),
-(11, 'Wilson', 'Fischer', 'Male'),
-(12, 'Lillie', 'Kirst', 'Female'),
-(13, 'James', 'Whitchurch', 'Male'),
-(14, 'Timothy', 'Brewer', 'Male'),
-(16, 'Sally', 'Martin', 'Male'),
-(17, 'Allison', 'Pinkston', 'Male'),
-(18, 'Karen', 'Davis', 'Male'),
-(19, 'Jaclyn', 'Rocco', 'Male'),
-(20, 'Pamela', 'Boyter', 'Male'),
-(21, 'Anthony', 'Alaniz', 'Male'),
-(22, 'Myrtle', 'Stiltner', 'Male'),
-(23, 'Gary', 'Hernandez', 'Male'),
-(24, 'Fred', 'Jeffery', 'Male'),
-(25, 'Ronald', 'Stjohn', 'Male'),
-(26, 'Stephen', 'Mohamed', 'Male'),
-(28, 'Michael', 'Dyer', 'Male'),
-(29, 'Betty', 'Beam', 'Male'),
-(30, 'Anna', 'Peterson', 'Female'),
-(31, 'Peter', 'Stodola', 'Male'),
-(32, 'Ralph', 'Jones', 'Male');
 
 -- --------------------------------------------------------
 
@@ -97,7 +52,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d');
+(1, 'John', 'Doe', 'J', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d');
 
 -- --------------------------------------------------------
 
@@ -338,7 +293,7 @@ CREATE TABLE `tb_officers` (
 --
 
 INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
-(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
+(1, 1, 'Doe', 'John', 'J', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
 
@@ -562,8 +517,8 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '0000-00-00', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL),
-(17402211, 'Doe', 'John', '', '0000-00-00', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', '', NULL, NULL, NULL);
+(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, 12),
+(17402211, 'Doe', 'John', 'Joe', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', NULL, 12);
 
 -- --------------------------------------------------------
 
@@ -620,47 +575,9 @@ CREATE TABLE `tb_vote` (
   `DATE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `mobile` varchar(20) NOT NULL,
-  `city` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `email`, `mobile`, `city`) VALUES
-(7, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
-(8, 'pki-validation', 'user@gmail.com', '8887919632', 'Lucknow'),
-(9, 'Rajs', 'user@gmail.com', '8887919632', 'Lucknow'),
-(10, 'Amrendra', 'user@gmail.com', '434334', 'Lucknow'),
-(11, 'Bahubalis', 'user@gmail.com', '434334', 'Lucknow'),
-(12, 'Alok Kumar bisht', 'user@gmail.com', '434334', 'Lucknow'),
-(13, 'admin', 'admin@gmail.com', '9988999999', 'Lucknow'),
-(15, 'ninebroadband', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
-(16, 'index.html', 'superadmin@gmail.com', '8127956219', 'Lucknow'),
-(18, 'index.html', 'user@gmail.com', '8127956219', 'Lucknow'),
-(19, 'sfd', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa'),
-(20, 'sfdaaaaa', 'sfdasf@Gmail.com', 'adsffsaf', 'safdsa');
-
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `tbl_sample`
---
-ALTER TABLE `tbl_sample`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_action`
@@ -862,32 +779,14 @@ ALTER TABLE `tb_vote`
   ADD KEY `vote_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `tbl_sample`
---
-ALTER TABLE `tbl_sample`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
   MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
