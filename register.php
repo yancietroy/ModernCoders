@@ -142,13 +142,13 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
+                    <select class="form-select form-select-sm" name="college" id="college" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
+                           $query = "SELECT college_id, college FROM tb_collegedept";
                            $result = @mysqli_query($conn, $query);
                            while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                               echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                            }
                                            ?>
                     </select>
@@ -158,7 +158,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="select-group" required>
+                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                             $query = "SELECT course FROM tb_course";
@@ -173,7 +173,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
-                    <select class="form-select form-select-sm" name="org" id="select-group" required>
+                    <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
@@ -271,6 +271,56 @@ include('mysql_connect.php');
   </div>
   </div>
   </section>
+  <script type="text/javascript">
+    /*function getCourse(val){
+      $.ajax({
+        type: "POST",
+        url: "getCourse.php",
+        data: 'college_id='+val,
+        success:function (data) {
+          $("#course").html(data);
+          getOrg();
+        }
+      })
+    }
+    function getOrg(val){
+      $.ajax({
+        type: "POST",
+        url: "getOrg.php:",
+        data: 'college_id='+val,
+        success:function (data) {
+          $("#org").html(data);
+            
+        }
+      })
+    }*/
+    function getCourse(id){
+    $('#org').html('');
+    $('#course').html('<option>Select Course</option>');
+    $.ajax({
+      type:'post',
+      url: 'getCourse.php',
+      data : { country_id : id},
+      success : function(data){
+         $('#course').html(data);
+      }
+
+    })
+  }
+
+  function getOrg(id){ 
+    $('#org').html('');
+    $.ajax({
+      type:'post',
+      url: 'getOrg.php',
+      data : { college_id : id},
+      success : function(data){
+         $('#org').html(data);
+      }
+
+    })
+  }
+  </script>
 
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
