@@ -188,7 +188,7 @@ if(isset($_SESSION['msg'])){
                     $ln = " ";
                     $e = " ";
                     $c = " ";
-                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
+                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th>Officer ID</th>
@@ -342,7 +342,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="last_name">Last name </label>
+                            <label class="form-label" for="last_name">Last name </label>
                             <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  />
                           </div>
                         </div>

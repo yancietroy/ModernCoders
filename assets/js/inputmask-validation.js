@@ -44,3 +44,19 @@ $(document).ready(function() {
     }
   });
 });
+$(document).ready(function() {
+  $("#SECTION").inputmask("999A", {
+    autoUnmask: true,
+    onincomplete: function() {
+      $("#errorsection").show();
+    },
+
+    clearIncomplete: true,
+    removeMaskOnSubmit: true,
+    showMaskOnFocus: false,
+    showMaskOnHover: false,
+    oncomplete: function() {
+      $("#errorsection").hide();
+    }
+  });
+});

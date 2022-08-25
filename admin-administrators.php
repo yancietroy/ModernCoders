@@ -187,7 +187,7 @@ if(isset($_SESSION['msg'])){
                   $ylevel = " ";
                   $bdate = " ";
                   $age = " ";
-                      echo "<table id='admin-table' class=' display nowrap w-100 ms-0 justify-content-center'>
+                      echo "<table id='admin-table' class='py-3  display nowrap w-100 ms-0 justify-content-center stud'>
                         <thead>
                           <tr>
                               <th>Admin ID</th>
@@ -254,7 +254,7 @@ if(isset($_SESSION['msg'])){
         <div class="modal-dialog" id="modal-lg" role="document">
             <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> Update Administrator Details </h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -280,21 +280,19 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="FIRST_NAME" >First name:</label>
-                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control" style="background-color: #fff;"  />
+                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  />
                               </div>
                             </div>
-                            <div class="col-12 col-md-4 mb-4">
+                    <!--      <div class="col-12 col-md-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                                <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" style="background-color: #fff;"  />
+                                <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  />
                               </div>
-                            </div>
+                            </div>!-->
                               <div class="col-12 col-md-4 mb-4">
                               <label class="form-label" for="LAST_NAME" >Last Name:</label>
-                              <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control" style="background-color: #fff;"  />
+                              <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  />
                               </div>
-                              </div>
-                            <div class="row">
                               <div class="col-12 col-md-4 col-sm-3 mb-2">
                                 <label class="form-label" for="EMAIL" >Email:</label>
                                 <input type="text" name="EMAIL" id="EMAIL" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"  />
@@ -387,6 +385,8 @@ if(isset($_SESSION['msg'])){
       });
         });
         </script>
+        <!--Uppercase first letter !-->
+        <script src="assets/js/uppercase-firstletter.js"></script>
       <script src="assets/js/age-validation.js"></script>
     </body>
 
