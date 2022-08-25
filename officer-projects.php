@@ -141,12 +141,11 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-6 col-7">
           <h4>Project Monitoring</h4>
         </div>
-
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> Create Project</a>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2 justify-content-center align-items-center">
+      <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
@@ -192,11 +191,29 @@ if(isset($_SESSION['msg'])){
               <p>Rejected</p>
             </div>
             <div class="icon">
+              <i class="bi bi-trash-fill"></i>
+            </div>
+            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
+              <p>Cancelled</p>
+            </div>
+            <div class="icon">
               <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
             </div>
             <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
         </div>
         <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">
@@ -232,6 +249,23 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
 
+
+        <div class="col-lg-3 col-sm-6 mb-4">
+          <div class="card-counter events">
+            <div class="inner">
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
+              <p>For Revision</p>
+            </div>
+            <div class="icon">
+            <i class="bi bi-pencil-square"></i>
+            </div>
+            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
@@ -244,18 +278,10 @@ if(isset($_SESSION['msg'])){
             <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-        <div class="col-lg-3 col-sm-6 mb-4">
-          <div class="card-counter events">
-            <div class="inner">
-              <h3><i class="bi bi-calendar-event"></i></h3>
-              <p>Event Calendar</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-calendar3" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
+      </div>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4>Event Calendar</h4>
         </div>
       </div>
     </div>

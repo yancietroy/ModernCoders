@@ -153,10 +153,10 @@ if(isset($_SESSION['msg'])){
                             <h6>$row[3]</h6>
                           </div>
                           <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>Admin ID:</label>
+                            <label class='text-muted'>JRU ID:</label>
                             <h5>$row[0]</h5>
                               <label class='text-muted mt-3'>Role:</label>
-                              <h5>$row[2]</h5>
+                              <h6>$row[2]</h6>
                           </div>
                           <div class='col-12 col-md-3 mt-2'>
                           </div>

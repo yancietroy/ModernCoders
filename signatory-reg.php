@@ -67,10 +67,10 @@ if(isset($_SESSION['msg'])){
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
-            <li>
+            <li  class="active">
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
-            <li  class="active">
+            <li>
               <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
             </li>
           </ul>
@@ -159,31 +159,40 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
-            <li class="breadcrumb-item"><a href="admin-administrators.php">Admin</a></li>
-          <li class="breadcrumb-item active" aria-current="page">New Admin</li>
+            <li class="breadcrumb-item"><a href="admin-signatories.php">Signatories</a></li>
+          <li class="breadcrumb-item active" aria-current="page">New Signatory</li>
         </ol>
       </nav>
 
       <!-- Page content -->
 
-      <div class="row justify-content-center align-items-center">
+              <div class="row justify-content-center align-items-center">
       <div class="col-11 col-lg-11 col-xl-11">
         <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
           <div class="card-body px-5 py-3 pt-4 ">
             <div class="row g-0 justify-content-center align-items-center ">
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
-                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Signatory Registration Form</h3>
 
                                     <!-- <form class="was-validated"> -->
                                     <div class="row justify-content-between">
                                     <div class="col-12 col-md-4  mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="schoolId" id="asterisk">Admin ID</label>
-                                        <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
+                                        <label class="form-label" for="schoolId" id="asterisk">JRU ID</label>
+                                        <input type="text" name="schoolId" id="schoolId" class="form-control" placeholder="##-###### " required />
                                         <div class="valid-feedback"> </div>
                                       </div>
                                     </div>
+
+                                    <div class="col-12 col-md-4  mb-4">
+                                      <label class="form-label" id="asterisk">Signatory Type</label>
+                                      <select class=" form-select" name="signatory_type" id="" required>
+                                        <option class="greyclr" selected disabled value="">Select Type</option>
+                                        <option value="Student Adviser">Student Adviser</option>
+                                        <option value="SDO">SDO</option>
+                                      </select>
                                   </div>
+                                    </div>
                                   <div class="row justify-content-between">
                                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                                       <div class="form-outline">
@@ -242,21 +251,21 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
                                   {
-                                    $si = $_POST['studentid'];
+                                    $si = $_POST['schoolId'];
                                     $fn = $_POST['firstName'];
                                     $ln = $_POST['lastName'];
+                                    $st = $_POST['signatory_type'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
 
-
-                                        $query = "INSERT INTO tb_admin(studentid, first_name, last_name, email, password) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                        $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
                                         $result = @mysqli_query($conn, $query);
 
                                         echo "<script type='text/javascript'>
-                                              window.location = 'admin-reg.php'
-                                              alert('Admin registered!')
+                                              window.location = 'admin-signatories.php'
+                                              alert('Signatory registered!')
                                               </script>";
                                         //header("location:signatory-login.php");
                                         die;

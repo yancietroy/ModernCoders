@@ -37,16 +37,6 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <style>
-  @media only screen
-  and (min-width: 1030px)
-  and (max-width: 1366px)  {
-
-        #wrapper {
-            overflow:auto !important;
-}
-}
-  </style>
 </head>
 
 <body>
@@ -157,11 +147,10 @@ if(isset($_SESSION['msg'])){
           <h4>Signatory Projects Masterlist</h4>
         </div>
       </div>
-      <div class="row justify-content-center align-items-center mt-4" id="container">
-        <div class="col-md-12 ">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="table-responsive justify-content-center align-items-center ms-4">
+      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+        <div class="card-body px-2 mx-3 py-2 pb-4">
+      <div class="row g-0 mt-4 justify-content-center">
+        <div class="table-responsive ms-4">
                 <?php
                     $query = "SELECT * FROM tb_projectmonitoring";
                     $result = @mysqli_query($conn,$query);
@@ -251,16 +240,16 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                       <div class="col-4 col-md-2 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="project_id" >Project ID:</label>
-                           <input type="text" name="project_id" id="project_id" class="form-control" style="background-color: #fff;" readonly/>
+                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
                          <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -352,27 +341,27 @@ if(isset($_SESSION['msg'])){
                           </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline">
+                            <div class="form-outline  projectdesc">
                               <label class="form-label" for="project_desc" >Project Description:</label>
                               <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                        <hr>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks" >Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
                             </div>
                           </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="status" > Project Status </label>
-                            <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
-                              <option class="greyclr" selected disabled value="" >Select Status</option>
-                              <option value="Approved">Approved</option>
-                              <option value="For Revision">For Revision</option>
-                              <option value="Rejected">Rejected</option>
-                            </select>
+
+                          <div class="form-group">
+                              <label class="form-label" for="status" > Project Status </label>
+                              <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
+                                <option class="greyclr" selected disabled value="" >Select Status</option>
+                                <option value="Approved">Approved</option>
+                                <option value="For Revision">For Revision</option>
+                                <option value="Rejected">Rejected</option>
+                              </select>
+                          </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -480,10 +469,10 @@ if(isset($_SESSION['msg'])){
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },
-        { "width": "150px" },
+        { "width": "130px" },
+        { "width": "130px" },
         { "width": "100px" },
-        { "width": "125px" },
-        { "width": "100px" },
+        { "width": "80px" },
         { "width": "70px" }
   ],
             select: 'single',

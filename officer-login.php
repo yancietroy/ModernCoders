@@ -67,11 +67,8 @@ if(isset($_SESSION['message'])){
                   <option value="admin-login.php">Admin</option>
                 </select>
               </div>
-              <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
-
-              <hr class="my-4">
-              <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
-              </p>
+              <button class="w-100 btn btn-lg btn-primary mt-4 mb-4" type="submit" name='submit'>Sign in</button>
+            </form>
             </form>
           </div>
 

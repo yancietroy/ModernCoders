@@ -143,10 +143,8 @@ if(isset($_SESSION['msg'])){
         </ol>
       </nav>
       <?php
-      $query = "SELECT project_id, date_submitted, project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget FROM tb_projectmonitoring WHERE project_id = '$ssid'";
+      $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget FROM tb_projectmonitoring WHERE project_id = '$ssid'";
                   $result = @mysqli_query($conn, $query);
-                  $ds = " "; 
-                  $pi = " ";
                   $pn = " ";
                   $v = " ";
                   $pt = " ";
@@ -162,8 +160,6 @@ if(isset($_SESSION['msg'])){
                   $eb = " ";
                   if($result) {
                     while($row = @mysqli_fetch_array($result)){
-                      $ds = $row['date_submitted'];
-                      $pi = $row['project_id'];
                       $pn = $row['project_name'];
                       $v = $row['venue'];
                       $pt = $row['project_type'];
@@ -192,13 +188,13 @@ if(isset($_SESSION['msg'])){
                 <div class="col-4 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name" >Project ID:</label>
-                    <input type="text" name="project_name" id="project_deets" class="form-control" placeholder="<?php echo $pi; ?>"  style="background-color: #fff;" readonly />
+                    <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
                   </div>
               </div>
               <div class="col-4 col-md-3 mb-4 me-4">
                 <div class="form-outline">
                   <label class="form-label" for="project_name" >Date Submitted:</label>
-                  <input type="text" name="project_name" id="project_deets" class="form-control" placeholder="<?php echo $ds; ?>"  style="background-color: #fff;" readonly />
+                  <input type="text" name="project_name" id="project_deets" class="form-control" placeholder=""  style="background-color: #fff;" readonly />
                 </div>
             </div>
               <div class="row">
@@ -350,8 +346,8 @@ if(isset($_SESSION['msg'])){
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-lg btn-outline-secondary" href="javascript:history.back()" role="button" id="butt">Back</a>
-            <a class="btn btn-lg btn-outline-danger" id="butt" href="#" role="button" name="rejected" type="submit">Reject</a>
-            <a class="btn btn-lg btn-outline-success" id="butt" href="#" role="button" name="approved" type="submit">Approve</a>
+            <a class="btn btn-lg btn-outline-danger" id="butt" href="#" role="button">Reject</a>
+            <a class="btn btn-lg btn-outline-success" id="butt" href="#" role="button">Approve</a>
           </div>
         </div>
       </div>
