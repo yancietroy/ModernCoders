@@ -197,7 +197,7 @@ if(isset($_SESSION['msg'])){
               <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source" required>
                 <option class="greyclr" selected disabled value="" >Select Budget Source</option>
                 <option value="Student Council">Student Council</option>
-                <option value="(Mother org)">(Mother org)</option>
+                <option value="Organization">Student Organization</option>
               </select>
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>

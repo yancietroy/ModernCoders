@@ -187,7 +187,7 @@ if(isset($_SESSION['msg'])){
                     $fn = " ";
                     $e = " ";
                     $st = " ";
-                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
+                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th>School ID</th>

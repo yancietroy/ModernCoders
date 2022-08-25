@@ -188,22 +188,31 @@ if(isset($_SESSION['msg'])){
                     $pn = " ";
                     $v = " ";
                     $s = " ";
-                    echo "<table id='admin-user-table' class=' display nowrap w-100 ms-0 stud'>
+                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th>Student ID</th>
                                 <th>First Name</th>
                                 <th>Middle Name</th>
                                 <th>Last name</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Year Level</th>
                                 <th>Age</th>
+                                <th>Gender</th>
                                 <th>Actions</th>
+                                <th>Course</th>
+                                <th>Email</th>
+                                <th>Birthdate</th>
+                                <th>Year Level</th>
+                                <th>Section</th>
                           </tr>
                         </thead>
                         <tbody>
                       ";
+                      /*
+                      <th>College</th>
+                      <th>Organization</th>
+                      <th>Position</th>
+                      <th>Account Created</th>
+                      */
                   if ($result !== false && $result->num_rows > 0)
                   {
                       // output data of each row
@@ -213,26 +222,37 @@ if(isset($_SESSION['msg'])){
                         $fn = $row['FIRST_NAME'];
                         $mn = $row['MIDDLE_NAME'];
                         $ln = $row['LAST_NAME'];
+                        $a = $row['AGE'];
                         $g = $row['GENDER'];
                         $e = $row['EMAIL'];
+                        $bd = $row['BIRTHDATE'];
                         $yl = $row['YEAR_LEVEL'];
-                        $a = $row['AGE'];
-
+                        $se = $row['SECTION'];
+                        $c = $row['COURSE'];
                         echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
                               <td> $mn  </td>
                               <td> $ln  </td>
-                              <td> $g </td>
-                              <td> $e </td>
-                              <td> $yl </td>
                               <td> $a </td>
+                              <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
                               <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-trash-fill'></i> </button>
                               </td>
+                              <td> $c</td>
+                              <td> $e </td>
+                              <td> $bd  </td>
+                              <td> $yl </td>
+                              <td> $se</td>
                               </tr>
                           ";
+                          /*
+                          <td>College</td>
+                          <td>Organization</td>
+                          <td>Position</td>
+                          <th>Account Created</th>
+                        */
                       }
                   echo "</tbody>
                         </table>";
@@ -326,7 +346,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="AGE" >Age:</label>
-                              <input type="text" class="form-control" name="AGE" id="AGE" style="background-color: #fff;"  />
+                              <input type="text" class="form-control" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;"  />
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
@@ -346,17 +366,17 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1" style="background-color: #fff;"  />
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control" style="background-color: #fff;" />
+                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;"  />
                           </div>
                         </div>
                         <div class="row">
@@ -514,7 +534,8 @@ if(isset($_SESSION['msg'])){
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "90px" },
+        { "width": "40px" },
+        { "width": "40px" },
         { "width": "130px" },
         { "width": "130px" },
         { "width": "130px" },
@@ -522,7 +543,9 @@ if(isset($_SESSION['msg'])){
         { "width": "150px" },
         { "width": "60px" },
         { "width": "60px" },
-        { "width": "70px" }
+        { "width": "60px" },
+        { "width": "60px" },
+        { "width": "60px" }
   ],
             select: 'single',
     buttons: [
@@ -544,6 +567,10 @@ if(isset($_SESSION['msg'])){
     });
     </script>
   <script src="assets/js/age-validation.js"></script>
+
+  <!--input mask-->
+  <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+  <script src="assets/js/inputmask-validation.js"></script>
 </body>
 
 </html>

@@ -206,7 +206,7 @@ if(isset($_SESSION['msg'])){
                                       <div class="form-outline">
 
                                         <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest3" class="form-control form-control-lg" required />
+                                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest2" class="form-control form-control-lg" required />
                                         <div class="valid-feedback"> </div>
                                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                                       </div>
@@ -344,9 +344,9 @@ if(isset($_SESSION['msg'])){
     </script>
     <!--email generator-->
     <script>
-      $("#txtTest, #txtTest3").on('input', function() {
+      $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
-        var lname = $("#txtTest3").val().toLowerCase().replace(/\s/g, '');
+        var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
         $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
       });
     </script>

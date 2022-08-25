@@ -188,16 +188,15 @@ if(isset($_SESSION['msg'])){
                                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                                       <div class="form-outline">
                                         <label class="form-label" for="firstName" id="asterisk">First name</label>
-                                        <input type="text" name="firstName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
+                                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
                                         <div class="valid-feedback"></div>
                                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                                       </div>
                                     </div>
                                     <div class="col-12 col-md-6  mb-4">
                                       <div class="form-outline">
-
-                                        <label class="form-label" for="lastName" id="asterisk">Last name</label>
-                                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest3" class="form-control form-control-lg" required />
+                                        <label class="form-label" for="last_name" id="asterisk">Last name</label>
+                                        <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest2" class="form-control form-control-lg" required="" />
                                         <div class="valid-feedback"> </div>
                                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                                       </div>
@@ -245,13 +244,13 @@ if(isset($_SESSION['msg'])){
                                 if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
                                   {
                                     $si = $_POST['studentid'];
-                                    $fn = $_POST['firstName'];
-                                    $ln = $_POST['lastName'];
+                                    $fn = $_POST['first_name'];
+                                    $ln = $_POST['last_name'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
 
 
-                                        $query = "INSERT INTO tb_admin(studentid, first_name, last_name, email, password) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                        $query = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
                                         $result = @mysqli_query($conn, $query);
 
                                         echo "<script type='text/javascript'>
@@ -335,9 +334,9 @@ if(isset($_SESSION['msg'])){
     </script>
     <!--email generator-->
     <script>
-      $("#txtTest, #txtTest3").on('input', function() {
+      $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
-        var lname = $("#txtTest3").val().toLowerCase().replace(/\s/g, '');
+        var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
         $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
       });
     </script>

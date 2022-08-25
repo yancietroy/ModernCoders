@@ -677,6 +677,7 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
     overflow: hidden;
     white-space: nowrap;
     width: 100px;
+    background-color:#E5E4E2;
   /*   text-align: center !important;*/
   }
   table.stud td {
@@ -689,6 +690,7 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
     max-width: 100%;
     width: 95%;
   }
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -721,5 +723,8 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
   #navbarSupportedContent i {
     display: none;
   }
+  .dropdown-toggle {
+display: none;
+}
 }
  }
