@@ -127,7 +127,7 @@ if(isset($_SESSION['msg'])){
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
                 </ul>
               </li>
             </ul>
@@ -164,7 +164,7 @@ if(isset($_SESSION['msg'])){
               $pn = " ";
               $v = " ";
               $s = " ";
-              echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
+              echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                     <thead>
                       <tr>
                           <th>Project ID</th>

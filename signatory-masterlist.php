@@ -160,7 +160,7 @@ if(isset($_SESSION['msg'])){
                     $pn = " ";
                     $v = " ";
                     $s = " ";
-                    echo "<table id='example' class=' display nowrap w-100 ms-0 master'>
+                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th>Project ID</th>
@@ -348,13 +348,13 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="project_remarks" >Remarks:</label>
+                              <label class="form-label" for="project_remarks">Update Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
                             </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="form-label" for="status" > Project Status </label>
+                              <label class="form-label" for="status">Update Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
                                 <option value="Approved">Approved</option>
