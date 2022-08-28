@@ -16,7 +16,7 @@ body {
   padding: 0 !important;
   background-size: 100% 100%;
   /* overflow-x: hidden; */
-    max-width: 100%;
+  max-width: 100%;
 }
 
 p {
@@ -211,6 +211,7 @@ ul ul a {
 #sidebar.active ul ul i {
   font-size: 1.2em !important;
 }
+
 #sidebar ul li a:hover {
   color: #F2AC1B;
   background: #004A90;
@@ -377,12 +378,15 @@ select::-ms-expand {
 option {
   min-width: 500px;
 }
+
 #select-opt {
- color: gray;
+  color: gray;
 }
+
 #select-opt option {
- color: black;
+  color: black;
 }
+
 #displayError2 {
   display: none;
 }
@@ -616,24 +620,29 @@ table.master {
   border-collapse: collapse;
   table-layout: fixed;
   justify-content: center;
-   border-bottom: none;
-     overflow-x: none !important;
+  border-bottom: none;
+  overflow-x: none !important;
 }
+
 table.dataTable.no-footer {
-        border-bottom: 0 !important;
-    }
+  border-bottom: 0 !important;
+}
+
 table.master th {
   overflow: hidden;
   white-space: nowrap;
   width: 100px;
+  background-color: #E5E4E2;
   text-align: center !important;
 }
+
 table.master td {
   overflow: hidden;
   white-space: nowrap;
   width: 100px;
   text-align: center !important;
 }
+
 div.table-responsive {
   max-width: 100%;
   width: 95%;
@@ -643,53 +652,63 @@ div.table-responsive {
 select[readonly]:read-only {
   pointer-events: none;
 }
+
 input[id^="project_deets"]::-webkit-input-placeholder {
   color: #212529;
 }
+
 textarea[id^="project_deets"]::-webkit-input-placeholder {
   color: #212529;
 }
+
 #rejected {
   color: red;
 }
+
 #rejected:hover {
   color: white;
 }
+
 #approved {
   color: green;
 }
+
 #approved:hover {
   color: white;
 }
 
 .form-label {
-    color:#495057;
+  color: #495057;
 }
-.modal-body input, .modal-body textarea {
-    color: black;
-}
-.projectdesc {
-    padding: 30px 0px;
-    border-bottom: 1px solid #47748b;
-  }
 
-  table.stud th {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100px;
-    background-color:#E5E4E2;
+.modal-body input, .modal-body textarea {
+  color: black;
+}
+
+.projectdesc {
+  padding: 30px 0px;
+  border-bottom: 1px solid #47748b;
+}
+
+table.stud th {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  background-color: #E5E4E2;
   /*   text-align: center !important;*/
-  }
-  table.stud td {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100px;
+}
+
+table.stud td {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
   /*   text-align: center !important;*/
-  }
-  div.table-stud {
-    max-width: 100%;
-    width: 95%;
-  }
+}
+
+div.table-stud {
+  max-width: 100%;
+  width: 95%;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -723,8 +742,9 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
   #navbarSupportedContent i {
     display: none;
   }
+
   .dropdown-toggle {
-display: none;
+    display: none;
+  }
 }
 }
- }
