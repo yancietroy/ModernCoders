@@ -350,14 +350,12 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
+                            <label class="mb-3 me-5 min-vw-100">Gender </label>
                             <div class="btn-group">
-
-                              <input type="radio" class="btn-check" name="GENDER" id="male" value="Male" autocomplete="off" <?php if($g == 'Male'):?>checked<?php endif;?>>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
-
-                              <input type="radio" class="btn-check" name="GENDER" id="female" value="Female" autocomplete="off" <?php if($g == 'Female'):?>checked<?php endif;?>>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="female" >Female</label>
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male">
+                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female">
+                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
                               <!--<div class="valid-feedback check"> &#x2713;</div>
                               <div class="invalid-feedback mv-up">Please select a gender!</div>-->
                             </div>
@@ -428,13 +426,15 @@ if(isset($_SESSION['msg'])){
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
-                 </form>
+                  </div>
+                </form>
             </div>
         </div>
   </div>
 
-      <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-lg" role="document">
+    <!-- DELETE STUDENT modal--> 
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
@@ -444,8 +444,13 @@ if(isset($_SESSION['msg'])){
                 </div>
                 <form action="admin-delete-user.php" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" name="STUDENT_ID" id="STUDENT_ID">
-                        <h4> Do you want to Delete this Data ??</h4>
+                      <div class="container-fluid">
+                        <div class="form-outline">
+                           <label class="form-label" for="delete_id" >Student ID:</label>
+                           <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                        <h4> Do you want to delete this data??</h4>
+                      </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -464,7 +469,10 @@ if(isset($_SESSION['msg'])){
            $.ajax({
                 url:"admin-fetch-user.php",
                 method:"POST",
-                data:{STUDENT_ID:STUDENT_ID},
+                data:
+                {
+                  STUDENT_ID:STUDENT_ID
+                },
                 dataType:"json",
                 success:function(data){
                 console.log(data);
@@ -474,7 +482,7 @@ if(isset($_SESSION['msg'])){
                 $('#LAST_NAME').val(data.LAST_NAME);
                 $('#BIRTHDATE').val(data.BIRTHDATE);
                 $('#AGE').val(data.AGE);
-                $('#GENDER').val(data.GENDER);
+                $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
                 $('#COURSE').val(data.COURSE);
@@ -487,11 +495,11 @@ if(isset($_SESSION['msg'])){
         });
     </script>
 
-    <script>
+    <!--<script>
       $(document).on('click', '.deletebtn', function(){
         var STUDENT_ID = $(this).attr("id");
         $.ajax({
-                url:"admin-delete-user.php",
+                url:"admin-fetch-user.php",
                 method:"POST",
                 data:{STUDENT_ID:STUDENT_ID},
                 dataType:"json",
@@ -499,12 +507,29 @@ if(isset($_SESSION['msg'])){
                 console.log(data);
                 $('#STUDENT_ID').val(data.STUDENT_ID);
                 $('#deletemodal').modal('show');
-                $('#modal-lg').css('max-width','70%');
+                }
+            });
+        });
+    </script>-->
+    <script>
+    $(document).on('click', '.deletebtn', function(){
+        var STUDENT_ID = $(this).attr("id");
+           $.ajax({
+                url:"admin-fetch-user.php",
+                method:"POST",
+                data:
+                {
+                  STUDENT_ID:STUDENT_ID
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#delete_id').val(data.STUDENT_ID);
+                $('#deletemodal').modal('show');
                 }
             });
         });
     </script>
-  <?php @mysqli_close($conn); ?>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -574,3 +599,4 @@ if(isset($_SESSION['msg'])){
 </body>
 
 </html>
+  <?php @mysqli_close($conn); ?>
