@@ -322,39 +322,39 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="FIRST_NAME" >First name:</label>
-                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   required/>
                           </div>
                         </div>
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  required />
                           </div>
                         </div>
                           <div class="col-12 col-md-4 mb-4">
                           <label class="form-label" for="LAST_NAME" >Last Name:</label>
-                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control" style="background-color: #fff;"  />
+                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"  required />
                           </div>
                           </div>
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
-                      <input id="BIRTHDATE" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old" />
+                              <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old"  required/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="AGE" >Age:</label>
-                              <input type="text" class="form-control" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;"  />
+                              <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
                             <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
                             <div class="btn-group">
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male">
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female">
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
                               <!--<div class="valid-feedback check"> &#x2713;</div>
                               <div class="invalid-feedback mv-up">Please select a gender!</div>-->
@@ -369,19 +369,19 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" />
+                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" required />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;"  />
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;"  required />
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college">
+                              <select class="form-select" name="college" id="college" readonly>
                                 <?php
                                     $query = "SELECT college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
@@ -395,7 +395,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label select-label" for="COURSE" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE">
+                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
                                 <?php
                                       $query = "SELECT course FROM tb_course";
                                       $result = @mysqli_query($conn, $query);
@@ -435,7 +435,7 @@ if(isset($_SESSION['msg'])){
       <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header py-3 px-3">
                     <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -443,13 +443,15 @@ if(isset($_SESSION['msg'])){
                 </div>
                 <form action="admin-delete-user.php" method="POST">
                     <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
                         <div class="form-outline">
                            <label class="form-label" for="delete_id" >Student ID:</label>
                            <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
-                        <h4> Do you want to delete this data??</h4>
+                       </div>
+                        <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
                     </div>
@@ -489,6 +491,30 @@ if(isset($_SESSION['msg'])){
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+
+            // UPPERCASE FIRST LETTER
+            document.getElementById("FIRST_NAME").addEventListener("input", forceLower);
+            document.getElementById("MIDDLE_NAME").addEventListener("input", forceLower);
+            document.getElementById("LAST_NAME").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of all the words (in all lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
+
+
         });
     </script>
 
@@ -573,11 +599,36 @@ if(isset($_SESSION['msg'])){
   });
     });
     </script>
-  <script src="assets/js/age-validation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script> <!-- JavaScript validation -->
+    <script type="text/javascript">
+      Waves.attach('.button');
+      Waves.init();
+    </script>
+    <!-- JavaScript validation -->
+    <script src="assets/js/bootstrap-validation.js"></script>
+    <!-- <script src="js/form-validation.js"></script>
+  Prevent Cut Copy Paste -->
+    <script>
+      $(document).ready(function() {
+        $('input:text').bind('cut copy paste', function(e) {
+          e.preventDefault();
+          return false;
+        });
 
-  <!--input mask-->
-  <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
-  <script src="assets/js/inputmask-validation.js"></script>
-</body>
+      });
+    </script>
 
-</html>
+    <!--input mask-->
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="assets/js/inputmask-validation.js"></script>
+
+    <!--password validation!-->
+    <script src="assets/js/pass-validation.js"></script>
+
+    <!-- age validation !-->
+    <script src="assets/js/age-validation.js"></script>
+
+  </body>
+
+  </html>
