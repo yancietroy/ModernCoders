@@ -280,7 +280,7 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="FIRST_NAME" >First name:</label>
-                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  />
+                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                               </div>
                             </div>
                     <!--      <div class="col-12 col-md-3 mb-4">

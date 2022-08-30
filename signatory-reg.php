@@ -168,7 +168,7 @@ if(isset($_SESSION['msg'])){
 
               <div class="row justify-content-center align-items-center">
       <div class="col-11 col-lg-11 col-xl-11">
-        <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
+        <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
           <div class="card-body px-5 py-3 pt-4 ">
             <div class="row g-0 justify-content-center align-items-center ">
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
@@ -184,9 +184,16 @@ if(isset($_SESSION['msg'])){
                                       </div>
                                     </div>
 
+                                    <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
+                                      <label class="form-label" id="asterisk">Organization</label>
+                                      <select class="form-select" name="org_id" id="org_id">
+                                  
+                                      </select>
+                                  </div>
+
                                     <div class="col-12 col-md-4  mb-4">
                                       <label class="form-label" id="asterisk">Signatory Type</label>
-                                      <select class=" form-select" name="signatory_type" id="" required>
+                                      <select class=" form-select" name="signatory_type" id="showme" required>
                                         <option class="greyclr" selected disabled value="">Select Type</option>
                                         <option value="Student Adviser">Student Adviser</option>
                                         <option value="SDO">SDO</option>
@@ -303,7 +310,13 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
-  <!-- Student Modal -->
+
+    <script>
+      document.getElementById('showme').addEventListener('change', function () {
+          var style = this.value == "Student Adviser" ? 'block' : 'none';
+          document.getElementById('orghide').style.display = style;
+      });
+    </script>
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

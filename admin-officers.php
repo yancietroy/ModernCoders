@@ -317,13 +317,7 @@ if(isset($_SESSION['msg'])){
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
                             <select class="form-select" name="org_id" id="org_id">
-                            <?php
-                              $query = "SELECT org_id, org FROM tb_orgs";
-                              $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                            ?>
+                          
                             </select>
                           </div>
                         </div>

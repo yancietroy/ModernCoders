@@ -254,7 +254,7 @@ if(isset($_SESSION['msg'])){
                                         $result = @mysqli_query($conn, $query);
 
                                         echo "<script type='text/javascript'>
-                                              window.location = 'admin-reg.php'
+                                              window.location = 'admin-administrators.php'
                                               alert('Admin registered!')
                                               </script>";
                                         //header("location:signatory-login.php");
