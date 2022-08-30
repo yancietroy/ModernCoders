@@ -219,7 +219,7 @@ if(isset($_SESSION['msg'])){
                               <td> $st </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn id='" . $si . "''>  <i class='bi bi-trash-fill'></i> </button>
+                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "''>  <i class='bi bi-trash-fill'></i> </button>
                               </td>
                               </tr>
                           ";
@@ -271,14 +271,14 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST">
+                <form action="admin-update-signatories.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
                        <div class="col-4 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="STUDENT_ID" >Student ID:</label>
-                           <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
+                           <label class="form-label" for="school_id" >Student ID:</label>
+                           <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
                        <div class="col-4 col-md-3 mb-4">
@@ -291,81 +291,26 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="FIRST_NAME" >First name:</label>
-                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control" style="background-color: #fff;"  />
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-4 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" style="background-color: #fff;"  />
+                            <label class="form-label" for="first_name" >First name:</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;"  />
                           </div>
                         </div>
                           <div class="col-12 col-md-4 mb-4">
-                          <label class="form-label" for="LAST_NAME" >Last Name:</label>
-                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control" style="background-color: #fff;"  />
+                          <label class="form-label" for="last_name" >Last Name:</label>
+                          <input type="text" name="last_name" id="last_name" class="form-control" style="background-color: #fff;"  />
                           </div>
                           </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
-                      <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="AGE" >Age:</label>
-                              <input type="text" class="form-control" name="AGE" id="AGE" style="background-color: #fff;"  />
-                            </div>
-                          </div>
-                          <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="gender">Gender </label>
-                            <div class="btn-group">
-
-                              <input type="radio" class="btn-check" name="gender" id="male" value="Male" autocomplete="off" <?php if($g == 'Male'):?>checked<?php endif;?>>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="male">Male</label>
-
-                              <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" <?php if($g == 'Female'):?>checked<?php endif;?>>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="female" >Female</label>
-                              <!--<div class="valid-feedback check"> &#x2713;</div>
-                              <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                            </div>
-                          </div>
-                        </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" style="background-color: #fff;"  />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control" style="background-color: #fff;" />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" style="background-color: #fff;"  />
+                            <label class="form-label" for="email" >Email:</label>
+                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  />
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="COURSE" >College:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="COURSE" >Course:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="COURSE" >Organization:</label>
-                              <input type="text" name="COURSE" id="COURSE" class="form-control" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="signatory_type" >Signatory Type:</label>
+                              <input type="text" name="signatory_type" id="signatory_type" class="form-control" style="background-color: #fff;"/>
                             </div>
                           </div>
                         </div>
@@ -374,37 +319,78 @@ if(isset($_SESSION['msg'])){
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
-                 </form>
+                  </div>
+                </form>
             </div>
         </div>
   </div>
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="admin-delete-signatories.php" method="POST">
+                    <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
+                        <div class="form-outline">
+                           <label class="form-label" for="delete_id" >School ID:</label>
+                           <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                        <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer py-2 px-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
         $(document).on('click', '.viewbtn', function(){
-           var STUDENT_ID = $(this).attr("id");
+           var school_id = $(this).attr("id");
            $.ajax({
-                url:"admin-fetch-user.php",
+                url:"admin-fetch-signatories.php",
                 method:"POST",
-                data:{STUDENT_ID:STUDENT_ID},
+                data:{school_id:school_id},
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#STUDENT_ID').val(data.STUDENT_ID);
-                $('#FIRST_NAME').val(data.FIRST_NAME);
-                $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
-                $('#LAST_NAME').val(data.LAST_NAME);
-                $('#BIRTHDATE').val(data.BIRTHDATE);
-                $('#AGE').val(data.AGE);
-                $('#GENDER').val(data.GENDER);
-                $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
-                $('#EMAIL').val(data.EMAIL);
-                $('#COURSE').val(data.COURSE);
-                $('#SECTION').val(data.SECTION);
+                $('#school_id').val(data.school_id);
+                $('#first_name').val(data.first_name);
+                $('#last_name').val(data.last_name);
+                $('#email').val(data.email);
+                $('#signatory_type').val(data.signatory_type);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
+                }
+            });
+        });
+    </script>
+    <script>
+      $(document).on('click', '.deletebtn', function(){
+        var school_id = $(this).attr("id");
+        $.ajax({
+                url:"admin-fetch-signatories.php",
+                method:"POST",
+                data:
+                {
+                  school_id:school_id
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#delete_id').val(data.school_id);
+                $('#deletemodal').modal('show');
                 }
             });
         });
