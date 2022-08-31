@@ -140,6 +140,23 @@ ul ul a {
   background: #00226C;
 }
 
+.btn-revise {
+  color: #ffffff;
+  background-color: #FF9671;
+  border-color: #FF9671;
+  border-radius:.25rem;
+}
+
+.btn-revise:hover,
+.btn-revise:active,
+.btn-revise:focus,
+.btn-revise.active {
+  /* let's darken #004E64 a bit for hover effect */
+  background: #AA6F5A;
+  color: #ffffff;
+  border-color: #AA6F5A;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

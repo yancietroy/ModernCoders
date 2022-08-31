@@ -231,7 +231,7 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -348,13 +348,13 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Update Remarks:</label>
+                              <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
                             </div>
                           </div>
-
+                    <!--
                           <div class="form-group">
-                              <label class="form-label" for="status">Update Project Status </label>
+                              <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
                                 <option value="Approved">Approved</option>
@@ -366,11 +366,15 @@ if(isset($_SESSION['msg'])){
                                 <option value="Implemented">Implemented</option>
                               </select>
                           </div>
+                          -->
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                        <button class="btn btn-md btn-revise" name="Revise">Revise</a>
+                        <button class="btn btn-md btn-danger"   name="Reject">Reject</a>
+                        <button class="btn btn-md  btn-success"  name="Approve">Approve</a>
                     </div>
                  </form>
             </div>
