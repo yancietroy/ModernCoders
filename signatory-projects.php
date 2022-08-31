@@ -156,7 +156,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-hourglass-top" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-pending.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
