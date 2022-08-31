@@ -348,22 +348,18 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Update Remarks:</label>
+                              <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
                             </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="form-label" for="status">Update Project Status </label>
+                              <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
                                 <option value="Approved">Approved</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
-                                <option value="Cancelled">Cancelled</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Ongoing">Ongoing</option>
-                                <option value="Implemented">Implemented</option>
                               </select>
                           </div>
                         </div>
@@ -460,7 +456,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Ongoing" ) {
         $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[3] == "Implemented" ) {
+        if ( data[3] == "Completed" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
         if ( data[3] == "Approved" ) {

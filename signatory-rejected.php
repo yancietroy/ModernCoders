@@ -137,14 +137,14 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hourglass-top"></i> Pending List</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-trash-fill"></i> Rejected</li>
         </ol>
       </nav>
 
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Pending List</h4>
+          <h4>Signatory Projects Rejected List</h4>
         </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -152,7 +152,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Rejected')";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -349,7 +349,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                     <!--
@@ -357,13 +357,13 @@ if(isset($_SESSION['msg'])){
                               <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
-                                <option value="Approved">Approved</option>
+                                <option value="Cancelled">Cancelled</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
                                 <option value="Cancelled">Cancelled</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Ongoing">Ongoing</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Implemented">Implemented</option>
                               </select>
                           </div>
                           -->
@@ -372,9 +372,6 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-revise" name="Revise" >Revise</a>
-                        <button class="btn btn-md btn-danger"   name="Reject">Reject</a>
-                        <button class="btn btn-md  btn-success"  name="Approve">Approve</a>
                     </div>
                  </form>
             </div>
