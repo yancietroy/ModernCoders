@@ -349,7 +349,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
 
@@ -360,13 +360,18 @@ if(isset($_SESSION['msg'])){
                                 <option value="Approved">Approved</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Done">Done</option>
                               </select>
                           </div>
+
                         </div>
                     </div>
-                    <div class="modal-footer">
+                      <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                      <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
                     </div>
                  </form>
             </div>
@@ -456,7 +461,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Ongoing" ) {
         $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[3] == "Completed" ) {
+        if ( data[3] == "Done" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
         if ( data[3] == "Approved" ) {

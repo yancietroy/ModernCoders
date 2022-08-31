@@ -363,7 +363,7 @@ if(isset($_SESSION['msg'])){
                                 <option value="Cancelled">Cancelled</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Ongoing">Ongoing</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Done">Done</option>
                               </select>
                           </div>
                           -->
@@ -464,7 +464,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Ongoing" ) {
         $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[3] == "Completed" ) {
+        if ( data[3] == "Done" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
         if ( data[3] == "Approved" ) {

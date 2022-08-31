@@ -137,14 +137,14 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hand-thumbs-up-fill"></i> Completed</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hand-thumbs-up-fill"></i> Done</li>
         </ol>
       </nav>
 
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Completed List</h4>
+          <h4>Signatory Projects Done List</h4>
         </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -152,7 +152,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Completed')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -362,7 +362,7 @@ if(isset($_SESSION['msg'])){
                                 <option value="Rejected">Rejected</option>
                                 <option value="Cancelled">Cancelled</option>
                                 <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Done">Done</option>
                                 <option value="Implemented">Implemented</option>
                               </select>
                           </div>
@@ -461,7 +461,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Ongoing" ) {
         $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[3] == "Completed" ) {
+        if ( data[3] == "Done" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
         if ( data[3] == "Approved" ) {
