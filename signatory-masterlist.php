@@ -150,7 +150,7 @@ if(isset($_SESSION['msg'])){
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
       <div class="row g-0 mt-4 justify-content-center">
-        <div class="table-responsive ms-4">
+        <div class="table-responsive ms-0">
                 <?php
                     $query = "SELECT * FROM tb_projectmonitoring";
                     $result = @mysqli_query($conn,$query);
@@ -160,7 +160,7 @@ if(isset($_SESSION['msg'])){
                     $pn = " ";
                     $v = " ";
                     $s = " ";
-                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
+                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 master'>
                           <thead>
                             <tr>
                                 <th>Project ID</th>
@@ -360,6 +360,10 @@ if(isset($_SESSION['msg'])){
                                 <option value="Approved">Approved</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Implemented">Implemented</option>
                               </select>
                           </div>
                         </div>
@@ -462,6 +466,12 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Approved" ) {
         $('td', row).eq(3).css('color', 'green');
         }
+        if ( data[3] == "For Revision" ) {
+        $('td', row).eq(3).css('color', '#FF9671');
+      }
+      if ( data[3] == "Cancelled" ) {
+      $('td', row).eq(3).css('color', 'grey');
+      }
           },
           responsive: true,
           keys: true,

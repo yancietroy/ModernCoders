@@ -154,7 +154,7 @@ if(isset($_SESSION['msg'])){
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
       <div class="row g-0 mt-4 justify-content-center">
-        <div class="table-responsive ms-4">
+        <div class="table-responsive ms-0">
           <?php
               $query = "SELECT * FROM tb_projectmonitoring";
               $result = @mysqli_query($conn,$query);
@@ -164,7 +164,7 @@ if(isset($_SESSION['msg'])){
               $pn = " ";
               $v = " ";
               $s = " ";
-              echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
+              echo "<table id='example' class='py-3 display nowrap w-100 ms-0 master'>
                     <thead>
                       <tr>
                           <th>Project ID</th>
@@ -247,55 +247,59 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_name" >Project name:</label>
-                              <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  maxlength="50" />
+                              <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  maxlength="50" required />
                             </div>
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="venue" >Venue:</label>
-                              <input type="text" name="venue" id="venue" class="form-control form-control-lg"  maxlength="50" />
+                              <input type="text" name="venue" id="venue" class="form-control form-control-lg"  maxlength="50"  required/>
                             </div>
                           </div>
                           </div>
-                          <div class="row justify-content-between">
+                          <div class="row">
+                            <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <label class="form-label" for="status" >Project Status:</label>
+                            <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="start_date" >Start Date:</label>
-                                <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;"  />
+                                <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;"  required />
                               </div>
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="end_date" >End Date:</label>
-                                <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;"  />
+                                <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;"  required />
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="project_type" >Project Type:</label>
-                            <input type="text" name="project_type" id="project_type" class="form-control form-control-lg"  />
+                            <input type="text" name="project_type" id="project_type" class="form-control form-control-lg"  required />
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="budget_source" >Budget Source:</label>
-                              <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg"  />
+                              <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg"  required />
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="project_category" >Category:</label>
-                              <input type="text" name="project_category" id="project_category" class="form-control form-control-lg"  />
+                              <input type="text" name="project_category" id="project_category" class="form-control form-control-lg"  required />
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-12 col-md-6 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="participants" >Participants:</label>
-                                <input type="text" name="participants" id="participants" class="form-control form-control-md"  maxlength="50"  />
+                                <input type="text" name="participants" id="participants" class="form-control form-control-md"  maxlength="50"  required />
                               </div>
                             </div>
                             <div class="col-12 col-md-6 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                                <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" maxlength="50"  />
+                                <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" maxlength="50"   required/>
                               </div>
                             </div>
                           </div>
@@ -303,13 +307,13 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  />
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  required />
                               </div>
                               </div>
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
                                 <div class="form-outline">
                                   <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                  <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_beneficiary" class="form-control" />
+                                  <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_beneficiary" class="form-control"  required/>
                                 </div>
                               </div>
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
@@ -324,7 +328,7 @@ if(isset($_SESSION['msg'])){
                               <div class="col-12 col-md-3 col-sm-3 mb-4">
                                 <div class="form-outline">
                                   <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  />
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  required />
                                 </div>
                               </div>
                             </div>
@@ -332,7 +336,7 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-12 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="project_desc" >Project Description:</label>
-                                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" ></textarea>
+                                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" required ></textarea>
                               </div>
                             </div>
                       </div>
@@ -463,6 +467,9 @@ if(isset($_SESSION['msg'])){
         }
         if ( data[3] == "Approved" ) {
         $('td', row).eq(3).css('color', 'green');
+        }
+        if ( data[3] == "For Revision" ) {
+        $('td', row).eq(3).css('color', '#FF9671');
         }
           },
       //    responsive: true,

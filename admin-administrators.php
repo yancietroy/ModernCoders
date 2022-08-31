@@ -280,7 +280,7 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="FIRST_NAME" >First name:</label>
-                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  />
+                                <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                               </div>
                             </div>
                     <!--      <div class="col-12 col-md-3 mb-4">
@@ -295,7 +295,7 @@ if(isset($_SESSION['msg'])){
                               </div>
                               <div class="col-12 col-md-4 col-sm-3 mb-2">
                                 <label class="form-label" for="EMAIL" >Email:</label>
-                                <input type="text" name="EMAIL" id="EMAIL" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"  />
+                                <input type="text" name="EMAIL" id="EMAIL" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" required />
                               </div>
                             </div>
                         </div>
@@ -330,6 +330,26 @@ if(isset($_SESSION['msg'])){
                     $('#modal-lg').css('max-width','70%');
                     }
                 });
+
+                document.getElementById("FIRST_NAME").addEventListener("input", forceLower);
+                document.getElementById("LAST_NAME").addEventListener("input", forceLower);
+                // Event handling functions are automatically passed a reference to the
+                // event that triggered them as the first argument (evt)
+                function forceLower(evt) {
+                  // Get an array of all the words (in all lower case)
+                  var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+                  // Loop through the array and replace the first letter with a cap
+                  var newWords = words.map(function(element) {
+                    // As long as we're not dealing with an empty array element, return the first letter
+                    // of the word, converted to upper case and add the rest of the letters from this word.
+                    // Return the final word to a new array
+                    return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+                  });
+
+                  // Replace the original value with the updated array of capitalized words.
+                  evt.target.value = newWords.join(" ");
+                }
             });
         </script>
         <!-- jQuery CDN - Slim version (=without AJAX) -->

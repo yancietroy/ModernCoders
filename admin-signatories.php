@@ -266,18 +266,18 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Signatory Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="admin-update-signatories.php" method="POST">
                     <div class="modal-body">
-                      <div class="container-fluid">
+                      <div class="container-md">
                         <div class="row justify-content-between">
                        <div class="col-4 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="school_id" >Student ID:</label>
+                           <label class="form-label" for="school_id" >JRU ID:</label>
                            <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
@@ -288,34 +288,46 @@ if(isset($_SESSION['msg'])){
                        </div>
                      </div>
                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-4 mb-4">
+                        <div class="row justify-content-between">
+                        <div class="col-12 col-md-6 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="first_name" >First name:</label>
-                            <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="first_name" id="first_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required  />
                           </div>
                         </div>
-                          <div class="col-12 col-md-4 mb-4">
+                          <div class="col-12 col-md-6 mb-4">
                           <label class="form-label" for="last_name" >Last Name:</label>
-                          <input type="text" name="last_name" id="last_name" class="form-control" style="background-color: #fff;"  />
+                          <input type="text" name="last_name" id="last_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required  />
                           </div>
                           </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
-                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="email" id="email" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required  />
                           </div>
-                        </div>
-                        <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="signatory_type" >Signatory Type:</label>
-                              <input type="text" name="signatory_type" id="signatory_type" class="form-control" style="background-color: #fff;"/>
+                              <input type="text" name="signatory_type" id="signatory_type" class="form-control" style="background-color: #fff;" readonly/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="org_id" >Organization:</label>
+                              <select class="form-select" name="org_id" id="org_id">
+                              <?php
+                                $query = "SELECT org_id, org FROM tb_orgs";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }
+                              ?>
+                              </select>
                             </div>
                           </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
@@ -374,6 +386,26 @@ if(isset($_SESSION['msg'])){
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+
+            document.getElementById("first_name").addEventListener("input", forceLower);
+            document.getElementById("last_name").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of all the words (in all lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
         });
     </script>
     <script>

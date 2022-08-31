@@ -298,7 +298,7 @@ if(isset($_SESSION['msg'])){
                        </div>
                      </div>
                        </div>
-                        <div class="row">
+                        <div class="row justify-content-between">
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="position_id" >Position:</label>
@@ -317,13 +317,7 @@ if(isset($_SESSION['msg'])){
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
                             <select class="form-select" name="org_id" id="org_id">
-                            <?php
-                              $query = "SELECT org_id, org FROM tb_orgs";
-                              $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                            ?>
+                          
                             </select>
                           </div>
                         </div>
@@ -332,29 +326,44 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="first_name" >First Name:</label>
-                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;"  />
+                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="middle_initial" >Middle Name:</label>
-                              <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  />
+                              <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
                             <label class="form-label" for="last_name">Last name </label>
-                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  />
+                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required/>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
-                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  />
+                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required />
                           </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="college" >College:</label>
+                              <select class="form-select" name="college" id="college" readonly>
+                                <?php
+                                    $query = "SELECT college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                    }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <div class="form-outline">
                               <label class="form-label" for="course" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="course" id="course">
+                              <select class="form-select" style="width:100%;" name="course" id="course" readonly>
                                 <?php
                                   $query = "SELECT course_id, course FROM tb_course";
                                   $result = @mysqli_query($conn, $query);
@@ -365,6 +374,7 @@ if(isset($_SESSION['msg'])){
                               </select>
                             </div>
                           </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -400,6 +410,28 @@ if(isset($_SESSION['msg'])){
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+
+            // UPPERCASE FIRST LETTER
+            document.getElementById("first_name").addEventListener("input", forceLower);
+            document.getElementById("middle_initial").addEventListener("input", forceLower);
+            document.getElementById("last_name").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of all the words (in all lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
         });
     </script>
 <?php $conn->close(); ?>
