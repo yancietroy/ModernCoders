@@ -352,7 +352,7 @@ if(isset($_SESSION['msg'])){
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-
+                            <!--
                           <div class="form-group">
                               <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
@@ -366,12 +366,12 @@ if(isset($_SESSION['msg'])){
                                 <option value="Done">Done</option>
                               </select>
                           </div>
-
+                                    !-->
                         </div>
                     </div>
                       <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                    <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
                     </div>
                  </form>
             </div>
