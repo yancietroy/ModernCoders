@@ -585,6 +585,19 @@ Projects
   color: white !important;
 }
 
+.btn-done {
+  background-color: #00C9A7;
+  color: white;
+}
+.btn-done:hover {
+  background-color:  #398B77;
+  color: white;
+}
+
+.btn-done:active {
+  background-color: #398B77;
+  color: white;
+}
 /*.card-counter i{
     font-size: 5em;
     opacity: 0.2;

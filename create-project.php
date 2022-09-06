@@ -198,6 +198,8 @@ if(isset($_SESSION['msg'])){
                 <option class="greyclr" selected disabled value="" >Select Budget Source</option>
                 <option value="Student Council">Student Council</option>
                 <option value="Organization">Student Organization</option>
+                <option value="Accounting Office">Accounting Office</option>
+                <option value="Third Party">Third Party</option>
               </select>
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>
