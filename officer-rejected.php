@@ -140,7 +140,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hourglass-top"></i> Pending List</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-trash-fill"></i> Rejected List</li>
         </ol>
       </nav>
 
