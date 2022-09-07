@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2022 at 07:50 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Sep 07, 2022 at 12:47 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,51 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_sample`
---
-
-CREATE TABLE `tbl_sample` (
-  `id` int(11) NOT NULL,
-  `first_name` varchar(250) NOT NULL,
-  `last_name` varchar(250) NOT NULL,
-  `gender` enum('Male','Female') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_sample`
---
-
-INSERT INTO `tbl_sample` (`id`, `first_name`, `last_name`, `gender`) VALUES
-(1, 'John', 'Smith', 'Male'),
-(2, 'Peter', 'Parker', 'Male'),
-(4, 'Donna', 'Huber', 'Male'),
-(5, 'Anastasia', 'Peterson', 'Male'),
-(6, 'Ollen', 'Donald', 'Male'),
-(10, 'Joseph', 'Stein', 'Male'),
-(11, 'Wilson', 'Fischer', 'Male'),
-(12, 'Lillie', 'Kirst', 'Female'),
-(13, 'James', 'Whitchurch', 'Male'),
-(14, 'Timothy', 'Brewer', 'Male'),
-(16, 'Sally', 'Martin', 'Male'),
-(17, 'Allison', 'Pinkston', 'Male'),
-(18, 'Karen', 'Davis', 'Male'),
-(19, 'Jaclyn', 'Rocco', 'Male'),
-(20, 'Pamela', 'Boyter', 'Male'),
-(21, 'Anthony', 'Alaniz', 'Male'),
-(22, 'Myrtle', 'Stiltner', 'Male'),
-(23, 'Gary', 'Hernandez', 'Male'),
-(24, 'Fred', 'Jeffery', 'Male'),
-(25, 'Ronald', 'Stjohn', 'Male'),
-(26, 'Stephen', 'Mohamed', 'Male'),
-(28, 'Michael', 'Dyer', 'Male'),
-(29, 'Betty', 'Beam', 'Male'),
-(30, 'Anna', 'Peterson', 'Female'),
-(31, 'Peter', 'Stodola', 'Male'),
-(32, 'Ralph', 'Jones', 'Male');
 
 -- --------------------------------------------------------
 
@@ -97,7 +52,10 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d');
+(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
+(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
+(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
+(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
 
@@ -326,12 +284,19 @@ CREATE TABLE `tb_officers` (
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `middle_initial` char(50) NOT NULL,
-  `course` varchar(20) NOT NULL,
+  `course` varchar(100) NOT NULL,
   `section` varchar(10) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(1000) NOT NULL,
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_officers`
+--
+
+INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
+(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
 
@@ -474,22 +439,22 @@ CREATE TABLE `tb_projectmonitoring` (
   `estimated_budget` int(11) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
-  `date_submitted` date DEFAULT NULL
+  `date_submitted` date DEFAULT NULL,
+  `remarks` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`) VALUES
-(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
-(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL),
-(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL),
-(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL),
-(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL),
-(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL),
-(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL),
-(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, NULL, '2022-08-02');
+INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`, `remarks`) VALUES
+(20, NULL, NULL, 'JRU Fun Run', 'Outreach', 'Onsite', 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, 'Pending', '2022-09-06', NULL),
+(21, NULL, NULL, 'JRU esports tryout', 'Extra Curricular', 'Onsite', 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, 'Approved', '2022-09-06', 'project approved'),
+(22, NULL, NULL, 'JRU Hyflex Seminar', 'Extra Curricular', 'Online', 'JRU Hyflex Seminar for JRU students and parents', '2022-09-28 17:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, 'For Revision', '2022-09-06', 'need to adjust the date'),
+(23, NULL, NULL, 'CSE tech showcase', 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, 'Rejected', '2022-09-06', 'already been done this year'),
+(24, NULL, NULL, 'CSE movie showing', 'Extra Curricular', 'Onsite', 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, 'Cancelled', '2022-09-06', 'Project cancelled.'),
+(25, NULL, NULL, 'CSE Coding Challenge', 'Curricular', 'Online', 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, 'Ongoing', '2022-09-06', 'great work, project approved.'),
+(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Done', '2022-09-06', 'project approved.');
 
 -- --------------------------------------------------------
 
@@ -504,6 +469,30 @@ CREATE TABLE `tb_results` (
   `CANDIDATE_ID` int(2) NOT NULL,
   `TOTAL_COUNT` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_signatories`
+--
+
+CREATE TABLE `tb_signatories` (
+  `school_id` int(11) NOT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatories`
+--
+
+INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
+(12121223, 'Jotaro', 'Kujo', 'jotaro.kujo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO'),
+(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
 
 -- --------------------------------------------------------
 
@@ -533,8 +522,9 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL),
-(17402211, 'Doe', 'Jane', 'Middle', '2000-06-13', 22, 'Female', '4', 'janedoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 12, NULL);
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-07-07', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 14, 12),
+(17402211, 'Doe', 'John', 'Joe', '2000-07-14', 18, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, 12),
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -594,12 +584,6 @@ CREATE TABLE `tb_vote` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `tbl_sample`
---
-ALTER TABLE `tbl_sample`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_action`
@@ -755,6 +739,12 @@ ALTER TABLE `tb_results`
   ADD KEY `result_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
+-- Indexes for table `tb_signatories`
+--
+ALTER TABLE `tb_signatories`
+  ADD PRIMARY KEY (`school_id`);
+
+--
 -- Indexes for table `tb_students`
 --
 ALTER TABLE `tb_students`
@@ -799,16 +789,10 @@ ALTER TABLE `tb_vote`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_sample`
---
-ALTER TABLE `tbl_sample`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
