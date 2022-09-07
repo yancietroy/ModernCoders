@@ -1,7 +1,7 @@
 <?php
     include('mysql_connect.php');
 
-    if (isset($_POST['updatedata']) || isset($pr) || isset($s))
+    if (isset($_POST['updatedata']))
     {
         $id = $_POST['project_id'];
         $pr = $_POST['project_remarks'];
