@@ -159,7 +159,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-hourglass-top" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-pending.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-approved.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -193,7 +193,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-trash-fill"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-rejected.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -210,7 +210,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-cancelled.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -229,23 +229,23 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-ongoing.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Implemented')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></h3>
-              <p>Implemented</p>
+              <p>Done</p>
             </div>
             <div class="icon">
               <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-done.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -263,9 +263,11 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
             <i class="bi bi-pencil-square"></i>
             </div>
-            <a href="#" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-revision.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
+
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
@@ -275,7 +277,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-card-list" aria-hidden="true"></i>
             </div>
-            <a href="masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>

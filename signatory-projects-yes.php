@@ -232,17 +232,17 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Completed')";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></h3>
-              <p>Done</p>
+              <p>Completed</p>
             </div>
             <div class="icon">
               <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
             </div>
-            <a href="signatory-done.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-completed.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

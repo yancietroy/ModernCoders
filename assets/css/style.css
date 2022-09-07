@@ -140,6 +140,23 @@ ul ul a {
   background: #00226C;
 }
 
+.btn-revise {
+  color: #ffffff;
+  background-color: #FF9671;
+  border-color: #FF9671;
+  border-radius:.25rem;
+}
+
+.btn-revise:hover,
+.btn-revise:active,
+.btn-revise:focus,
+.btn-revise.active {
+  /* let's darken #004E64 a bit for hover effect */
+  background: #AA6F5A;
+  color: #ffffff;
+  border-color: #AA6F5A;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -568,6 +585,19 @@ Projects
   color: white !important;
 }
 
+.btn-done {
+  background-color: #00C9A7;
+  color: white;
+}
+.btn-done:hover {
+  background-color:  #398B77;
+  color: white;
+}
+
+.btn-done:active {
+  background-color: #398B77;
+  color: white;
+}
 /*.card-counter i{
     font-size: 5em;
     opacity: 0.2;

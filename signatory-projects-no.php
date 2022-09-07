@@ -142,7 +142,7 @@ if(isset($_SESSION['msg'])){
           <h4>Project Monitoring</h4>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2">
+      <div class="row ms-0 me-0 mt-2 justify-content-center">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
@@ -194,22 +194,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
 
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Cancelled</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-cancelled.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+
 
         </div>
         <div class="row ms-3 me-3 mt-2">
@@ -232,17 +217,17 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Completed')";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></h3>
-              <p>Done</p>
+              <p>Completed</p>
             </div>
             <div class="icon">
               <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
             </div>
-            <a href="signatory-done.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-completed.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -263,8 +248,23 @@ if(isset($_SESSION['msg'])){
             <a href="signatory-revision.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h3>
+              <p>Cancelled</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
+            </div>
+            <a href="signatory-cancelled.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!--
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
@@ -277,6 +277,7 @@ if(isset($_SESSION['msg'])){
             <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        !-->
       </div>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">

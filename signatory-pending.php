@@ -137,7 +137,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-card-list"></i> Pending List</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hourglass-top"></i> Pending List</li>
         </ol>
       </nav>
 
@@ -160,15 +160,41 @@ if(isset($_SESSION['msg'])){
                     $pn = " ";
                     $v = " ";
                     $s = " ";
-                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 master'>
+                    $pt = " ";
+                    $pc = " ";
+                    $pd = " ";
+                    $sd = " ";
+                    $ed = " ";
+                    $p = " ";
+                    $np = " ";
+                    $b = " ";
+                    $nb = " ";
+                    $bs = " ";
+                    $eb = " ";
+                    $a = " ";
+                    $r = " ";
+                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th>Project ID</th>
-                                <th>Project Name</th>
-                                <th>Venue</th>
-                                <th>Status</th>
-                                <th>Date Submitted</th>
-                                <th>Actions</th>
+                            <th class='all'>Project ID</th>
+                            <th class='all'>Project Name</th>
+                            <th class='all'>Venue</th>
+                            <th class='all'>Status</th>
+                            <th class='all'>Date Submitted</th>
+                            <th class='all'>Actions</th>
+                            <th class='none'>Project Description</th>
+                            <th class='none'>Project Category</th>
+                            <th class='none'>Project Type</th>
+                            <th class='none'>Start Date</th>
+                            <th class='none'>End Date</th>
+                            <th class='none'>Participants</th>
+                            <th class='none'>Number of Participants</th>
+                            <th class='none'>Beneficiary</th>
+                            <th class='none'>Number of Beneficiary</th>
+                            <th class='none'>Budget Source</th>
+                            <th class='none'>Estimated Budget</th>
+                            <th class='none'>Attachment</th>
+                            <th class='none'>Remarks</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -183,6 +209,19 @@ if(isset($_SESSION['msg'])){
                         $pn = $row['project_name'];
                         $v = $row['venue'];
                         $s = $row['status'];
+                        $pt = $row['project_type'];
+                        $pc =$row['project_category'];
+                        $pd =$row['project_desc'];
+                        $sd =$row['start_date'];
+                        $ed =$row['end_date'];
+                        $p =$row['participants'];
+                        $np =$row['no_of_participants'];
+                        $b = $row['beneficiary'];
+                        $nb = $row['no_of_beneficiary'];
+                        $bs =$row['budget_source'];
+                        $eb =$row['estimated_budget'];
+                        $a = $row['attachments'];
+                        $r =$row['remarks'];
 
                         echo "<tr>
                               <td> $pi  </td>
@@ -193,6 +232,19 @@ if(isset($_SESSION['msg'])){
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               </td>
+                              <td> $pt  </td>
+                              <td> $pc  </td>
+                              <td> $pd  </td>
+                              <td> $sd </td>
+                              <td> $ed </td>
+                              <td> $p  </td>
+                              <td> $np  </td>
+                              <td> $b  </td>
+                              <td> $nb  </td>
+                              <td> $bs </td>
+                              <td> $eb  </td>
+                              <td> $a  </td>
+                              <td> $r  </td>
                               </tr>
                           ";
                       }
@@ -205,6 +257,19 @@ if(isset($_SESSION['msg'])){
                               <th>Status</th>
                               <th>Date Submitted</th>
                               <th>Actions</th>
+                              <th>Project Description</th>
+                              <th>Project Category</th>
+                              <th>Project Type</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th>Participants</th>
+                              <th>Number of Participants</th>
+                              <th>Beneficiary</th>
+                              <th>Number of Beneficiary</th>
+                              <th>Budget Source</th>
+                              <th>Estimated Budget</th>
+                              <th>Attachment</th>
+                              <th>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -231,7 +296,7 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Project Status and Remarks </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -348,13 +413,13 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Update Remarks:</label>
+                              <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"></textarea>
                             </div>
                           </div>
-
+                    <!--
                           <div class="form-group">
-                              <label class="form-label" for="status">Update Project Status </label>
+                              <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
                                 <option value="Approved">Approved</option>
@@ -363,14 +428,18 @@ if(isset($_SESSION['msg'])){
                                 <option value="Cancelled">Cancelled</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Ongoing">Ongoing</option>
-                                <option value="Implemented">Implemented</option>
+                                <option value="Done">Done</option>
                               </select>
                           </div>
+                          -->
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                        <button class="btn btn-md btn-revise" name="Revise" >Revise</a>
+                        <button class="btn btn-md btn-danger"   name="Reject">Reject</a>
+                        <button class="btn btn-md  btn-success"  name="Approve">Approve</a>
                     </div>
                  </form>
             </div>
@@ -460,7 +529,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Ongoing" ) {
         $('td', row).eq(3).css('color', '#0dcaf0');
         }
-        if ( data[3] == "Implemented" ) {
+        if ( data[3] == "Done" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
         if ( data[3] == "Approved" ) {
@@ -484,23 +553,86 @@ if(isset($_SESSION['msg'])){
         { "width": "130px" },
         { "width": "100px" },
         { "width": "80px" },
-        { "width": "70px" }
+        { "width": "60px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" },
+        { "width": "60px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" }
   ],
             select: 'single',
           buttons: [
          'pageLength',
-            {
-              extend: 'csvHtml5',
-              title: 'JRU Organizations Portal Student Users'
-            },
+         {
+           extend: 'excelHtml5',
+           title: 'JRU Organizations Portal -   Pending List',
+           footer: true,
+         exportOptions: {
+           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+       },
+         } ,
+            //{
+            //  extend: 'csvHtml5',
+          //    title: 'JRU Organizations Portal - Officer Pending List',
+          //    footer: true,
+          //    customize: function (csv) {
+          //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
+        //    },
+        //    exportOptions: {
+        //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+        //  },
+        //    } ,
             {
               extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal Student Users'
+              title: 'JRU Organizations Portal -   Pending List',
+              footer: true,
+              exportOptions: {
+                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
             },
+            orientation : 'landscape',
+          pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+            } ,
             {
               extend: 'print',
-              title: 'JRU Organizations Portal Student Users'
+              title: 'JRU Organizations Portal -   Pending List',
+              footer: true,
+              exportOptions: {
+                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
             },
+            customize: function(win)
+            {
+
+                var last = null;
+                var current = null;
+                var bod = [];
+
+                var css = '@page { size: landscape; font-size: 1em;}',
+                    head = win.document.head || win.document.getElementsByTagName('head')[0],
+                    style = win.document.createElement('style');
+
+                style.type = 'text/css';
+                style.media = 'print';
+
+                if (style.styleSheet)
+                {
+                  style.styleSheet.cssText = css;
+                }
+                else
+                {
+                  style.appendChild(win.document.createTextNode(css));
+                }
+
+                head.appendChild(style);
+         }
+      },
           ]
         });
       myTable.columns.adjust().draw();

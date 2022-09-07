@@ -137,14 +137,14 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-card-list"></i> Masterlist</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hand-thumbs-up-fill"></i> Done</li>
         </ol>
       </nav>
 
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Masterlist</h4>
+          <h4>Signatory Projects Done List</h4>
         </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -152,7 +152,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -175,25 +175,26 @@ if(isset($_SESSION['msg'])){
                     $r = " ";
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
-                          <th class='all'>Project ID</th>
-                          <th class='all'>Project Name</th>
-                          <th class='all'>Venue</th>
-                          <th class='all'>Status</th>
-                          <th class='all'>Date Submitted</th>
-                          <th class='all'>Actions</th>
-                          <th class='none'>Project Description</th>
-                          <th class='none'>Project Category</th>
-                          <th class='none'>Project Type</th>
-                          <th class='none'>Start Date</th>
-                          <th class='none'>End Date</th>
-                          <th class='none'>Participants</th>
-                          <th class='none'>Number of Participants</th>
-                          <th class='none'>Beneficiary</th>
-                          <th class='none'>Number of Beneficiary</th>
-                          <th class='none'>Budget Source</th>
-                          <th class='none'>Estimated Budget</th>
-                          <th class='none'>Attachment</th>
-                          <th class='none'>Remarks</th>
+                            <tr>
+                            <th class='all'>Project ID</th>
+                            <th class='all'>Project Name</th>
+                            <th class='all'>Venue</th>
+                            <th class='all'>Status</th>
+                            <th class='all'>Date Submitted</th>
+                            <th class='all'>Actions</th>
+                            <th class='none'>Project Description</th>
+                            <th class='none'>Project Category</th>
+                            <th class='none'>Project Type</th>
+                            <th class='none'>Start Date</th>
+                            <th class='none'>End Date</th>
+                            <th class='none'>Participants</th>
+                            <th class='none'>Number of Participants</th>
+                            <th class='none'>Beneficiary</th>
+                            <th class='none'>Number of Beneficiary</th>
+                            <th class='none'>Budget Source</th>
+                            <th class='none'>Estimated Budget</th>
+                            <th class='none'>Attachment</th>
+                            <th class='none'>Remarks</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -295,7 +296,7 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> View Project </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -416,26 +417,26 @@ if(isset($_SESSION['msg'])){
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                            <!--
+                    <!--
                           <div class="form-group">
                               <label class="form-label" for="status">Project Status </label>
                               <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
                                 <option class="greyclr" selected disabled value="" >Select Status</option>
-                                <option value="Approved">Approved</option>
+                                <option value="Cancelled">Cancelled</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
                                 <option value="Cancelled">Cancelled</option>
                                 <option value="Pending">Pending</option>
-                                <option value="Ongoing">Ongoing</option>
                                 <option value="Done">Done</option>
+                                <option value="Implemented">Implemented</option>
                               </select>
                           </div>
-                                    !-->
+                          -->
                         </div>
                     </div>
-                      <div class="modal-footer px-0 py-0 pt-2">
+                    <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
+                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
                     </div>
                  </form>
             </div>
@@ -569,7 +570,7 @@ if(isset($_SESSION['msg'])){
          'pageLength',
          {
            extend: 'excelHtml5',
-           title: 'JRU Organizations Portal - Master List',
+           title: 'JRU Organizations Portal -   Done List',
            footer: true,
          exportOptions: {
            columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -588,7 +589,7 @@ if(isset($_SESSION['msg'])){
         //    } ,
             {
               extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal - Master List',
+              title: 'JRU Organizations Portal -   Done List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -598,7 +599,7 @@ if(isset($_SESSION['msg'])){
             } ,
             {
               extend: 'print',
-              title: 'JRU Organizations Portal - Master List',
+              title: 'JRU Organizations Portal -   Done List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
