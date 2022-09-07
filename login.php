@@ -12,143 +12,84 @@ if(isset($_SESSION['message'])){
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JRU Student Organizations Portal</title>
-    <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>JRU Student Organizations Portal</title>
+  <!-- Our Custom CSS  -->
+  <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
+  <!-- Waves CSS  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <!-- Bootstrap CSS  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
 <body class="bg min-vh-100">
-<div id="layoutAuthentication">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container ">
-                <div class="row justify-content-center">
-                    <div class="col-10 col-lg-5 col-xl-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
-                            <div class="card-body px-4 ">
-                                <div class="row g-0 justify-content-center align-items-center mt-2">
-                                    <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
-                                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
-                                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-                                    </div>
-                                    <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
-                                        <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
-                                    </div>
-                                </div>
-                                <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
-                                <form method="POST" class="requires-validation" novalidate autocomplete="off">
-                                    <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center">Student Login</h1>
-
-                                    <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
-                                        <label class="text-muted" for="email">Email address</label>
-                                        <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback">Email field invalid!</div>
-                                    </div>
-
-                                    <div class="form-floating mb-2">
-                                        <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="20" value="" placeholder="password" required>
-                                        <label class=" text-muted " for="password">Password</label>
-                                        <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback">Password field invalid!</div>
-                                    </div>
-
-                                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
-
-                                    <hr class="my-4">
-                                    <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
-                                    </p>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+  <div class="container  align-items-center justify-content-center">
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-10 col-lg-5 col-xl-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
+          <div class="card-body px-4 ">
+            <div class="row g-0 justify-content-center align-items-center mt-2">
+              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+              </div>
+              <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+              </div>
+              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+              </div>
             </div>
-        </main>
-    </div>
-    <!--<section class="vh-100">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card shadow-lg mb-4">
-                        <div class="card-body p-4 text-center">
+            <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+            <form method="POST" class="requires-validation" novalidate autocomplete="off">
+              <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Student Login</h1>
 
-                            <div class="row g-0 justify-content-center">
-                                    <div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
-                                            <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                                                </div>
-                                            <div class="col-xs-12 col-md-4 col-md-offset-3 mb-4">
-                                            <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-3 col-md-offset-3 mb-4">
-                                            <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
-                                                </div>
-                    </div>
-                            <p class="h5 mb-2">JRU Student Organizations Portal</p>-->
-    <!--form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-      <form>
-          <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase">Login</h1>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <label class="text-muted" for="email">Email address</label>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Email field invalid!</div>
+              </div>
 
-          <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
-              <label class="text-muted" for="email">Email address</label>
+              <div class="form-floating mb-2">
+                <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="20" value="" placeholder="password" required>
+                <label class=" text-muted " for="password">Password</label>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Password field invalid!</div>
+              </div>
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-4" id="select-opt">
+                  <option class="greyclr" selected disabled value="" text-muted>Select User</option>
+                  <option value="login.php">Student</option>
+                  <option value="officer-login.php">Officer</option>
+                  <option value="signatory-login.php">Signatory</option>
+                  <option value="admin-login.php">Admin</option>
+                </select>
+              </div>
+              <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
+
+              <hr class="my-4">
+              <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
+              </p>
+            </form>
           </div>
 
-          <div class="form-floating mb-2">
-              <input type="password" class="form-control" id="password" name="password" value="" placeholder="password" required>
-              <label class=" text-muted " for="password">Password</label>
-          </div>
-
-          <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name='submit'>Sign in</button>
-
-          <hr class="my-4">
-          <p class="mt-3">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
-          </p>
-      </form>
-
-</div>
-</div>
-</div>
-</div>
-
-</div>
-
-<div id="layoutAuthentication_footer">
-<footer class="py-2 bg-light mt-5">
-<div class="container-fluid px-4">
-      <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+        </div>
       </div>
-</div>
-</footer>
-</div>!-->
-    <script src="js/login.js"></script>
-    <!-- JavaScript validation -->
+    </div>
+  </div>
 
-    <script>
-        (function () {
-            'use strict'
-            const forms = document.querySelectorAll('.requires-validation')
-            Array.from(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
-    <?php
+  <!-- waves js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script> <!-- JavaScript validation -->
+  <script type="text/javascript">
+    Waves.attach('.button');
+    Waves.init();
+  </script>
+  <!-- form validation/sidebar toggle -->
+  <script src="assets/js/form-validation.js"></script>
+  <?php
 if(isset ($_POST['submit']))
 {
 	include('mysql_connect.php');
@@ -185,6 +126,20 @@ if(isset ($_POST['submit']))
     ob_end_flush();
     }
     ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function () {
+      $("#select-opt").change(function() {
+        var $option = $(this).find(':selected');
+        var url = $option.val();
+        if (url != "") {
+          url += "?text=" + encodeURIComponent($option.text());
+          // Show URL rather than redirect
+          window.location.href = url;
+        }
+      });
+    });
+      </script>
 
 </body>
 
