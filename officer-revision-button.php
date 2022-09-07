@@ -1,7 +1,7 @@
 <?php
     include('mysql_connect.php');
 
-    if (isset($_POST['updatedata']) || isset($pr))
+    if (isset($_POST['updatedata']))
     {
         $id = $_POST['project_id'];
         $pn = $_POST['project_name'];
@@ -44,6 +44,66 @@
               alert('Status updated!')
               </script>";
         header("Location:officer-revision.php");
+        }
+    } else if(isset($_POST['Done']))
+    {
+        $id = $_POST['project_id'];
+        $s = "Done";
+
+        $query = "SELECT * FROM `tb_projectmonitoring`;";
+        $result = @mysqli_query($conn, $query);
+        $row = mysqli_fetch_array($result);
+
+        if($row)
+        {
+        $query = "UPDATE `tb_projectmonitoring` SET 
+                `status` ='$s'
+                WHERE `project_id` = '$id';";
+        $result = @mysqli_query($conn, $query);
+        echo "<script type='text/javascript'>
+              alert('Status updated!')
+              </script>";
+        header("Location:officer-done.php");
+        }
+    } else if(isset($_POST['Cancel']))
+    {
+        $id = $_POST['project_id'];
+        $s = "Cancelled";
+
+        $query = "SELECT * FROM `tb_projectmonitoring`;";
+        $result = @mysqli_query($conn, $query);
+        $row = mysqli_fetch_array($result);
+
+        if($row)
+        {
+        $query = "UPDATE `tb_projectmonitoring` SET 
+                `status` ='$s'
+                WHERE `project_id` = '$id';";
+        $result = @mysqli_query($conn, $query);
+        echo "<script type='text/javascript'>
+              alert('Status updated!')
+              </script>";
+        header("Location:officer-cancelled.php");
+        }
+    } else if(isset($_POST['Ongoing']))
+    {
+        $id = $_POST['project_id'];
+        $s = "Ongoing";
+
+        $query = "SELECT * FROM `tb_projectmonitoring`;";
+        $result = @mysqli_query($conn, $query);
+        $row = mysqli_fetch_array($result);
+
+        if($row)
+        {
+        $query = "UPDATE `tb_projectmonitoring` SET 
+                `status` ='$s'
+                WHERE `project_id` = '$id';";
+        $result = @mysqli_query($conn, $query);
+        echo "<script type='text/javascript'>
+              alert('Status updated!')
+              </script>";
+        header("Location:officer-ongoing.php");
         }
     }
 @mysqli_close($conn);
