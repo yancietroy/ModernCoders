@@ -304,7 +304,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="signatory-update-button.php" method="POST">
+                <form action="officer-revision-button.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -440,7 +440,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",

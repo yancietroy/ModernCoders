@@ -455,7 +455,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",
