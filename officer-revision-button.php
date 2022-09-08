@@ -17,6 +17,7 @@
         $nob = $_POST['no_of_beneficiary'];
         $eb = $_POST['estimated_budget'];
         $pd = $_POST['project_desc'];
+        $s = "Pending";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
@@ -37,7 +38,8 @@
                 `no_of_participants` ='$nop', 
                 `no_of_beneficiary` ='$nob', 
                 `estimated_budget` ='$eb', 
-                `project_desc` ='$pd' 
+                `project_desc` ='$pd',
+                `status` ='$s'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
