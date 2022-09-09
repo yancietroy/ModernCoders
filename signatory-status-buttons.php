@@ -16,9 +16,8 @@
         $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:signatory-revision.php");
+        alert('Status updated!')
+        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Reject']))
     {
@@ -35,9 +34,8 @@
         $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:signatory-rejected.php");
+        alert('Status updated!')
+        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Approve']))
     {
@@ -54,9 +52,8 @@
         $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:signatory-approved.php");
+        alert('Status updated!')
+        window.location.href='signatory-pending.php'</script>";
         }
     }
 @mysqli_close($conn);

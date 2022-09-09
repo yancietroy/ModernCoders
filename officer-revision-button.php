@@ -25,27 +25,26 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET 
-                `project_name` ='$pn', 
-                `venue` ='$v', 
-                `start_date` ='$sd', 
-                `end_date` ='$ed', 
-                `project_type` ='$pt', 
-                `budget_source` ='$bs', 
-                `project_category` ='$pc', 
-                `participants` ='$p', 
-                `beneficiary` ='$b', 
-                `no_of_participants` ='$nop', 
-                `no_of_beneficiary` ='$nob', 
-                `estimated_budget` ='$eb', 
+        $query = "UPDATE `tb_projectmonitoring` SET
+                `project_name` ='$pn',
+                `venue` ='$v',
+                `start_date` ='$sd',
+                `end_date` ='$ed',
+                `project_type` ='$pt',
+                `budget_source` ='$bs',
+                `project_category` ='$pc',
+                `participants` ='$p',
+                `beneficiary` ='$b',
+                `no_of_participants` ='$nop',
+                `no_of_beneficiary` ='$nob',
+                `estimated_budget` ='$eb',
                 `project_desc` ='$pd',
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
               alert('Status updated!')
-              </script>";
-        header("Location:officer-revision.php");
+              window.location.href='officer-revision.php'</script>";
         }
     } else if(isset($_POST['Done']))
     {
@@ -58,14 +57,13 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:officer-done.php");
+        alert('Status updated!')
+        window.location.href='officer-done.php'</script>";
         }
     } else if(isset($_POST['Cancel']))
     {
@@ -78,14 +76,13 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:officer-cancelled.php");
+        alert('Status updated!')
+        window.location.href='officer-cancelled.php'</script>";
         }
     } else if(isset($_POST['Ongoing']))
     {
@@ -98,14 +95,13 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
-              alert('Status updated!')
-              </script>";
-        header("Location:officer-ongoing.php");
+        alert('Status updated!')
+        window.location.href='officer-ongoing.php'</script>";
         }
     }
 @mysqli_close($conn);
