@@ -58,10 +58,10 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li class="active">
+      <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -75,10 +75,10 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
@@ -139,13 +139,13 @@ if(isset($_SESSION['msg'])){
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
-                  </ul>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -156,8 +156,7 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item active" aria-current="page">Students</li>
+              <li class="breadcrumb-item active" aria-current="page">Orgs Management</li>
         </ol>
       </nav>
 
@@ -165,41 +164,41 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Student User Management</h4>
+          <h4>Student Organizations Management</h4>
         </div>
 
         <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="register.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Student</a>
+          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Organization</a>
         </div>
       </div>
 
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-sm-6">
+      <!--  <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h2><i class="bi bi-person-circle"></i></h2>
+              <h2><i class="bi bi-diagram-3-fill"></i></h2>
               <p>Masterlist</p>
             </div>
             <div class="icon">
-              <i class="bi bi-file-person" aria-hidden="true"></i>
+              <i class="bi bi-diagram-3-fill"></i>
             </div>
-            <a href="admin-students.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-<!--
+        </div>!-->
+
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h2><i class="bi bi-person-check-fill"></i></h2>
-              <p>Active</p>
+              <h2><i class="bi bi-pc-display"></i></h2>
+              <p>COMSOC</p>
             </div>
             <div class="icon">
-              <i class="bi bi-person-check"></i>
+                <i class="bi bi-pc-display"></i>
             </div>
-            <a href="admin-students-active.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
+<!--
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
@@ -213,7 +212,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>!-->
 
-        <div class="col-lg-6 col-sm-6">
+        <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-secondary">
             <div class="inner">
               <h2><i class="bi bi-archive-fill"></i></h2>
@@ -222,7 +221,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-archive"></i>
             </div>
-            <a href="admin-students-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
