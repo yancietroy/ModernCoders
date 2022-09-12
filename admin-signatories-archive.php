@@ -157,48 +157,93 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item active" aria-current="page">Signatories</li>
-        </ol>
-      </nav>
+              <li class="breadcrumb-item"><a href="admin-signatories.php">Signatory</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Archive</li>
+              </ol>
+              </nav>
 
-      <!-- Page content -->
-      <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>Signatory User Management</h4>
-        </div>
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="admin-signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Signatory</a>
-        </div>
-      </div>
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h2><i class="bi bi-person-circle"></i></h2>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-file-person" aria-hidden="true"></i>
-            </div>
-            <a href="admin-signatories-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h2><i class="bi bi-archive-fill"></i></h2>
-              <p>Archive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-archive"></i>
-            </div>
-            <a href="admin-signatories-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+              <!-- Page content -->
 
-        </div>
+              <div class="row ms-3 me-3 mt-2 mb-2">
+              <div class="col-lg-6 col-7">
+              <h4>Signatory Archive</h4>
+              </div>
 
       </div>
+
+        <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+          <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                <div class="row g-0 justify-content-center ">
+        <div class="table-responsive ms-2">
+            <?php
+                    $query = "SELECT * FROM `tb_signatories`";
+                    $result = @mysqli_query($conn,$query);
+                    $i = 0;
+                    $si = " ";
+                    $fn = " ";
+                    $e = " ";
+                    $st = " ";
+                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
+                          <thead>
+                            <tr>
+                                <th>School ID</th>
+                                <th>First Name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Signatory Type</th>
+                                <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      ";
+                  if ($result !== false && $result->num_rows > 0)
+                  {
+                      // output data of each row
+                      while($row = $result->fetch_assoc())
+                      {
+                        $si = $row['school_id'];
+                        $fn = $row['first_name'];
+                        $ln = $row['last_name'];
+                        $e = $row['email'];
+                        $st = $row['signatory_type'];
+
+                        echo "<tr>
+                              <td> $si  </td>
+                              <td> $fn  </td>
+                              <td> $ln  </td>
+                              <td> $e </td>
+                              <td> $st </td>
+                              <td>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "''>  <i class='bi bi-trash-fill'></i> </button>
+                              </td>
+                              </tr>
+                          ";
+                      }
+                  echo "</tbody>
+                        </table>";
+                  }
+                    $conn->close();
+                  ?>
+
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+     </div>
+        <!--   <div class="col">
+        Card with right text alignment
+          <div class="card text-end">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+              <a href="#" class="btn btn-primary">Know more</a>
+            </div>
+          </div>
+        </div>
+      </div> -->
 
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
@@ -417,22 +462,73 @@ if(isset($_SESSION['msg'])){
             select: 'single',
     buttons: [
    'pageLength',
-      {
-        extend: 'csvHtml5',
-        title: 'JRU Organizations Portal Student Users'
-      },
+   {
+     extend: 'excelHtml5',
+     title: 'JRU Organizations Portal -  Signatory Archive',
+     footer: true,
+   exportOptions: {
+     columns: [0,1,2,3,4]
+   },
+   } ,
+      //{
+      //  extend: 'csvHtml5',
+    //    title: 'JRU Organizations Portal - Officer Pending List',
+    //    footer: true,
+    //    customize: function (csv) {
+    //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
+   //    },
+   //    exportOptions: {
+   //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+   //  },
+   //    } ,
       {
         extend: 'pdfHtml5',
-        title: 'JRU Organizations Portal Student Users'
+        title: 'JRU Organizations Portal - Signatory Archive',
+        footer: true,
+        exportOptions: {
+          columns: [0,1,2,3,4]
       },
+      orientation : 'portrait',
+    pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+      } ,
       {
         extend: 'print',
-        title: 'JRU Organizations Portal Student Users'
+        title: 'JRU Organizations Portal -  Signatory Archive',
+        footer: true,
+        exportOptions: {
+          columns: [0,1,2,3,4]
       },
+      customize: function(win)
+      {
+
+          var last = null;
+          var current = null;
+          var bod = [];
+
+          var css = '@page { size: portrait; font-size: 1em;}',
+              head = win.document.head || win.document.getElementsByTagName('head')[0],
+              style = win.document.createElement('style');
+
+          style.type = 'text/css';
+          style.media = 'print';
+
+          if (style.styleSheet)
+          {
+            style.styleSheet.cssText = css;
+          }
+          else
+          {
+            style.appendChild(win.document.createTextNode(css));
+          }
+
+          head.appendChild(style);
+   }
+   },
     ]
-  });
-    });
-    </script>
+   });
+   myTable.columns.adjust().draw();
+   });
+   </script>Signatory
   <script src="assets/js/age-validation.js"></script>
 </body>
 

@@ -80,24 +80,24 @@ if(isset($_SESSION['msg'])){
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
-              <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+              <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+          </li>
+          <li>
+              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          </li>
+          <li>
+              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
             </li>
-            <li>
-              <a href="#"><i class="fas fa-copy"></i> <span>Projects</span></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
-            </li>
-          </ul>
+        </ul>
         </li>
         <li>
-          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -140,15 +140,13 @@ if(isset($_SESSION['msg'])){
                       $row = mysqli_fetch_array ($result);
                       if ($row)
                       { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
-                </ul>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                        <li>
+                          <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
+                      </ul>
               </li>
             </ul>
           </div>
@@ -197,21 +195,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-    
-        <!--
-        <div class="col-6  col-md-5 " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="assets/img/CSC-logo.png" class="card-img-top rounded mx-auto d-block mt-4 " alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Central Student Council</h5>
 
-              <a href="#" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
--->
-        <!-- Footer -->
-      </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
