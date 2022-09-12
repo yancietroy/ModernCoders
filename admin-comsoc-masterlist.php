@@ -232,7 +232,7 @@ if(isset($_SESSION['msg'])){
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-trash-fill'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -418,7 +418,7 @@ if(isset($_SESSION['msg'])){
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header py-3 px-3">
-                      <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                      <h5 class="modal-title" id="exampleModalLabel"> Archive Student Data </h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -431,11 +431,11 @@ if(isset($_SESSION['msg'])){
                              <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
                            </div>
                          </div>
-                          <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
+                          <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
                       </div>
                       <div class="modal-footer py-2 px-3">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
+                          <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
                       </div>
                   </form>
               </div>

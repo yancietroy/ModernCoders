@@ -174,7 +174,7 @@ if(isset($_SESSION['msg'])){
               <div class="row g-0 justify-content-center ">
       <div class="table-responsive ms-2">
                 <?php
-                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL FROM tb_admin";
+                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL FROM tb_admin_archive";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
                   $sid = " ";

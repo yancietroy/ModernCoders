@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT tb_officers.officer_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+                    $query = "SELECT tb_officers_archive.officer_id, tb_officers_archive.first_name, tb_officers_archive.middle_initial, tb_officers_archive.last_name, tb_officers_archive.email, tb_officers_archive.course, tb_officers_archive.section, tb_position.position, tb_orgs.ORG FROM tb_officers_archive JOIN tb_position ON tb_officers_archive.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers_archive.org_id";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $oi = " ";

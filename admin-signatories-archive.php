@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM `tb_signatories`";
+                    $query = "SELECT * FROM `tb_signatories_archive`";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $si = " ";
@@ -223,7 +223,7 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         </table>";
                   }
-                    $conn->close();
+                    //$conn->close();
                   ?>
 
          </div>
@@ -423,6 +423,7 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
+    <?php $conn->close(); ?>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

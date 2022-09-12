@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2022 at 01:35 PM
+-- Generation Time: Sep 12, 2022 at 03:38 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,16 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sample`
+--
+
+CREATE TABLE `sample` (
+  `Sample` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52,9 +62,30 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
 (21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
-(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
+(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin_archive`
+--
+
+CREATE TABLE `tb_admin_archive` (
+  `ADMIN_ID` int(2) NOT NULL,
+  `FIRST_NAME` varchar(50) NOT NULL,
+  `LAST_NAME` varchar(50) NOT NULL,
+  `MIDDLE_INITIAL` char(2) NOT NULL,
+  `EMAIL` varchar(100) NOT NULL,
+  `PASSWORD` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_admin_archive`
+--
+
+INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
+(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
 (32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
@@ -291,11 +322,30 @@ CREATE TABLE `tb_officers` (
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tb_officers`
+-- Table structure for table `tb_officers_archive`
 --
 
-INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
+CREATE TABLE `tb_officers_archive` (
+  `officer_id` int(2) NOT NULL,
+  `position_id` int(2) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `middle_initial` char(50) NOT NULL,
+  `course` varchar(100) NOT NULL,
+  `section` varchar(10) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(1000) NOT NULL,
+  `org_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_officers_archive`
+--
+
+INSERT INTO `tb_officers_archive` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
 (1, 1, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
@@ -491,7 +541,28 @@ CREATE TABLE `tb_signatories` (
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
 (12121223, 'Jotaro', 'Kujo', 'jotaro.kujo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO'),
-(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
+(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_signatories_archive`
+--
+
+CREATE TABLE `tb_signatories_archive` (
+  `school_id` int(11) NOT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatories_archive`
+--
+
+INSERT INTO `tb_signatories_archive` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
 (32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
 
 -- --------------------------------------------------------
@@ -626,6 +697,12 @@ ALTER TABLE `tb_admin`
   ADD PRIMARY KEY (`ADMIN_ID`);
 
 --
+-- Indexes for table `tb_admin_archive`
+--
+ALTER TABLE `tb_admin_archive`
+  ADD PRIMARY KEY (`ADMIN_ID`);
+
+--
 -- Indexes for table `tb_audit_trail`
 --
 ALTER TABLE `tb_audit_trail`
@@ -716,6 +793,14 @@ ALTER TABLE `tb_officers`
   ADD KEY `officers_org_id_fk` (`org_id`);
 
 --
+-- Indexes for table `tb_officers_archive`
+--
+ALTER TABLE `tb_officers_archive`
+  ADD PRIMARY KEY (`officer_id`),
+  ADD KEY `officers_position_id_fk` (`position_id`),
+  ADD KEY `officers_org_id_fk` (`org_id`);
+
+--
 -- Indexes for table `tb_orgs`
 --
 ALTER TABLE `tb_orgs`
@@ -770,6 +855,12 @@ ALTER TABLE `tb_results`
 -- Indexes for table `tb_signatories`
 --
 ALTER TABLE `tb_signatories`
+  ADD PRIMARY KEY (`school_id`);
+
+--
+-- Indexes for table `tb_signatories_archive`
+--
+ALTER TABLE `tb_signatories_archive`
   ADD PRIMARY KEY (`school_id`);
 
 --
