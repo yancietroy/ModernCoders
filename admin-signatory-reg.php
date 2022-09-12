@@ -85,7 +85,7 @@ if(isset($_SESSION['msg'])){
                 <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
             </li>
             <li>
-                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+                <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
               </li>
           </ul>
         </li>
@@ -93,10 +93,10 @@ if(isset($_SESSION['msg'])){
           <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
         </li>
 
       </ul>
@@ -140,12 +140,10 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
                   <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
                 </ul>
               </li>
@@ -187,7 +185,7 @@ if(isset($_SESSION['msg'])){
                                     <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
                                       <label class="form-label" id="asterisk">Organization</label>
                                       <select class="form-select" name="org_id" id="org_id">
-                                  
+
                                       </select>
                                   </div>
 

@@ -52,7 +52,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -118,12 +118,10 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
                   <li><a class="dropdown-item" href="signatory-login.php">Logout</a></li>
                 </ul>
               </li>
