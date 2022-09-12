@@ -174,7 +174,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -402,6 +402,7 @@ if(isset($_SESSION['msg'])){
                               </div>
                             </div>
                           </div>
+                          <input type="hidden" name="PASSWORD" id="PASSWORD">
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -468,6 +469,7 @@ if(isset($_SESSION['msg'])){
                   $('#COURSE').val(data.COURSE);
                   $('#SECTION').val(data.SECTION);
                   $('#MORG_ID').val(data.MORG_ID);
+                  $('#PASSWORD').val(data.PASSWORD);
                   $('#viewmodal').modal('show');
                   $('#modal-lg').css('max-width','70%');
                   }

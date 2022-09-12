@@ -175,7 +175,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students";
+                    $query = "SELECT * FROM tb_students_archive";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
