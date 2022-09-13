@@ -312,7 +312,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-delete-user.php" method="POST">
+                <form action="admin-delete-administrators.php" method="POST">
                     <div class="modal-body">
                       <div class="col-12 col-md-12 justify-content-center ">
                         <div class="form-outline">
