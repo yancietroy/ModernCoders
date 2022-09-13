@@ -141,7 +141,7 @@ if(isset($_SESSION['msg'])){
                       if ($row)
                       { echo "$row[0]"; } ?></span></a>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                         <li>
                           <hr class="dropdown-divider" />
                         </li>
@@ -160,7 +160,7 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0 justify-content-evenly">
-                <div class="col-md-2  d-none d-sm-block text-center ">
+                <div class="col-md-3  d-none d-sm-block text-center ">
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
@@ -172,13 +172,13 @@ if(isset($_SESSION['msg'])){
                     echo "
                             <div class='col-12 col-md-2 mt-4'>
                             <label class='text-muted'>Admin ID:</label>
-                            <h5>$row[0]</h5>
+                            <h6>$row[0]</h6>
                           </div>
                           <div class='col-12 col-md-3 mt-4'>
                             <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
+                            <h6>$row[1]</h6>
                           </div>
-                          <div class='col-12 col-md-3 mt-4'>
+                          <div class='col-12 col-md-4 mt-4 '>
                             <label class='text-muted'>Email:</label>
                             <h6>$row[2]</h6>
                           </div>

@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
@@ -322,7 +322,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  required />
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"   />
                           </div>
                         </div>
                           <div class="col-12 col-md-4 mb-4">

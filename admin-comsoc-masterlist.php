@@ -140,7 +140,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
@@ -156,8 +156,9 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-              <li class="breadcrumb-item">Orgs Management</li>
-          <li class="breadcrumb-item active" id="active" aria-current="page">   <i class="bi bi-pc-display"></i> Comsoc</li>
+          <li class="breadcrumb-item"><a href="admin-orgs.php">Orgs Management</a></li>
+          <li class="breadcrumb-item"><a href="admin-orgs-comsoc.php">COMSOC</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> Members</li>
         </ol>
       </nav>
 

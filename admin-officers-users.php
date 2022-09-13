@@ -140,7 +140,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
@@ -385,7 +385,6 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
   </div>
-<<<<<<< HEAD
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -413,7 +412,6 @@ if(isset($_SESSION['msg'])){
               </div>
           </div>
       </div>
-=======
 </div>
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -442,7 +440,6 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
     </div>
->>>>>>> 8fde846ec9a6138101fbc7103746f532254857e2
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -492,7 +489,6 @@ if(isset($_SESSION['msg'])){
             }
         });
     </script>
-<<<<<<< HEAD
     <script>
         $(document).on('click', '.deletebtn', function(){
           var officer_id = $(this).attr("id");
@@ -512,8 +508,6 @@ if(isset($_SESSION['msg'])){
               });
           });
       </script>
-=======
-
     <script>
       $(document).on('click', '.deletebtn', function(){
         var officer_id = $(this).attr("id");
@@ -533,7 +527,6 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
->>>>>>> 8fde846ec9a6138101fbc7103746f532254857e2
 <?php $conn->close(); ?>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
