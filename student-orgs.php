@@ -60,7 +60,7 @@ if(isset($_SESSION['msg'])){
           <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
-          <a href="org-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>

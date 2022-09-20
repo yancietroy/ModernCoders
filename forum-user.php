@@ -132,7 +132,8 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page">Discussion Forum</li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -141,13 +142,13 @@ if(isset($_SESSION['msg'])){
       <div class="row justify-content-center align-items-center text-align-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mb-5 mx-4 w-80 justify-content-center align-items-center text-align-center">
-            <div class="card-body p-4 px-4 mx-4">
+            <div class="card-body p-4 mx-auto px-auto">
               <div class="row g-0 ">
-                <div class="col-md-2 d-none d-sm-block text-center mt-2">
-                  <img src="assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="102" height="100">
+                <div class="col-md-2 d-none d-sm-block text-center mt-3">
+                  <img src="assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                 </div>
-                  <div class='col-12 col-md-10 mt-3'>
-                    <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                  <div class='col-12 col-md-10 mt-4'>
+                    <h3 class="justify-content-center align-items-center text-align-center">Discussion Forum</h3>
               </div>
               </div>
 
@@ -155,137 +156,99 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2 justify-content-center">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h3>5</h3>
-              <p>Notifications</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-bell-fill" aria-hidden="true"></i>
-            </div>
-            <a href="user-notif.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+  <div class="row justify-content-center">
+      <div class="col-lg-11">
+          <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
+
+
+              <div class="ibox-content forum-container ">
+
+                  <div class="forum-title">
+                      <h3>General subjects</h3>
+                  </div>
+
+                  <div class="forum-item">
+                      <div class="row">
+                          <div class="col-md-9">
+                              <div class="forum-icon">
+                                <i class="bi bi-chat-square-dots-fill"></i>
+                              </div>
+                              <a href="forum-general.php" class="forum-item-title">General Discussion</a>
+                              <div class="forum-sub-title small">Talk about various topics, ask questions, talk about anything.</div>
+                          </div>
+                          <div class="col-md-3 forum-info">
+                              <span class="views-number">
+                                  12
+                              </span>
+                              <div>
+                                  <small>Topics</small>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="forum-item">
+                      <div class="row">
+                          <div class="col-md-9">
+                              <div class="forum-icon">
+                                  <i class="fa fa-bolt"></i>
+                              </div>
+                              <a href="forum-intro.php" class="forum-item-title">Introductions</a>
+                              <div class="forum-sub-title small">New to the organization? Please stop by, say hi and tell us a bit about yourself. </div>
+                          </div>
+
+                          <div class="col-md-3 forum-info">
+                              <span class="views-number">
+                                  21
+                              </span>
+                              <div>
+                                  <small>Topics</small>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="forum-item">
+                      <div class="row">
+                          <div class="col-md-9">
+                              <div class="forum-icon">
+                                  <i class="fa fa-calendar"></i>
+                              </div>
+                              <a href="forum-announcements.php" class="forum-item-title">Announcements</a>
+                              <div class="forum-sub-title small">View announcements from the student officers. </div>
+                          </div>
+
+                          <div class="col-md-3 forum-info">
+                              <span class="views-number">
+                                  32
+                              </span>
+                              <div>
+                                  <small>Topics</small>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="forum-item">
+                      <div class="row">
+                          <div class="col-md-9">
+                              <div class="forum-icon">
+                                  <i class="fa fa-star"></i>
+                              </div>
+                              <a href="javascript:void(0)" class="forum-item-title">Officers Discussion</a>
+                              <div class="forum-sub-title small">This forum is for private, student officer only discussions. </div>
+                          </div>
+
+                          <div class="col-md-3 forum-info">
+                              <span class="views-number">
+                                  13
+                              </span>
+                              <div>
+                                  <small>Topics</small>
+                              </div>
+                          </div>
+              </div>
           </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-info">
-            <div class="inner">
-              <h3>10</h3>
-              <p>Messages</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
-            </div>
-            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-<!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Rejected</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-trash-fill"></i>
-            </div>
-            <a href="signatory-rejected.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Cancelled</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-cancelled.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        </div>
-
-        <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-info">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Ongoing</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-ongoing.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter masterlist">
-            <div class="inner">
-              <h3><i class="bi bi-list-ul"></i></h3>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-card-list" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-            !-->
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter events">
-            <div class="inner">
-              <h3><i class="bi bi-file-bar-graph"></i></h3>
-              <p>Survey</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-file-bar-graph-fill" aria-hidden="true"></i>
-            </div>
-            <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-
-        <div class="col-lg-3 col-sm-6 mb-4">
-          <div class="card-counter done">
-            <div class="inner">
-              <h3><i class="bi bi-inbox"></i></h3>
-              <p>Forum</p>
-            </div>
-            <div class="icon">
-          <i class="bi bi-inbox-fill"></i>
-            </div>
-            <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
       </div>
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Event Calendar</h4>
-        </div>
-      </div>
-
-    </div>
-
+  </div>
+  </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
@@ -295,7 +258,6 @@ if(isset($_SESSION['msg'])){
           </div>
         </footer>
       </div>
-
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

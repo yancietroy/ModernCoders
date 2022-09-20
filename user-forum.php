@@ -132,7 +132,8 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page">Discussion Forum</li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -141,13 +142,13 @@ if(isset($_SESSION['msg'])){
       <div class="row justify-content-center align-items-center text-align-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mb-5 mx-4 w-80 justify-content-center align-items-center text-align-center">
-            <div class="card-body p-4 px-4 mx-4">
+            <div class="card-body p-4 mx-auto px-auto">
               <div class="row g-0 ">
-                <div class="col-md-2 d-none d-sm-block text-center mt-2">
-                  <img src="assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="102" height="100">
+                <div class="col-md-2 d-none d-sm-block text-center mt-3">
+                  <img src="assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                 </div>
-                  <div class='col-12 col-md-10 mt-3'>
-                    <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                  <div class='col-12 col-md-10 mt-4'>
+                    <h3 class="justify-content-center align-items-center text-align-center">Discussion Forum</h3>
               </div>
               </div>
 
@@ -273,7 +274,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
           <i class="bi bi-inbox-fill"></i>
             </div>
-            <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="user-forum.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -283,9 +284,7 @@ if(isset($_SESSION['msg'])){
           <h4>Event Calendar</h4>
         </div>
       </div>
-
     </div>
-
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
@@ -295,7 +294,6 @@ if(isset($_SESSION['msg'])){
           </div>
         </footer>
       </div>
-
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
