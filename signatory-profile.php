@@ -2,13 +2,14 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+unset($_SESSION['pid']);
 include('mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:login.php");
+    header("Location:signatory-login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -20,14 +21,11 @@ if(isset($_SESSION['msg'])){
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"  referrerpolicy="no-referrer" />
   <!-- Waves CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- Datepicker CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Datatable Default-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
   <!-- Datatable BS5
@@ -39,7 +37,6 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -49,7 +46,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
+        <a class="navbar-brand" href="signatory-index.php">
           <img src="assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
@@ -61,25 +58,25 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
-          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+        </li>
+          <!--<li>
+          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
-        </li>
+        </li> -->
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -91,11 +88,10 @@ if(isset($_SESSION['msg'])){
           </li>
         </ul> -->
     </nav>
-
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
+      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>
@@ -116,17 +112,17 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
+                  <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="signatory-login.php">Logout</a></li>
                 </ul>
               </li>
             </ul>
@@ -134,154 +130,58 @@ if(isset($_SESSION['msg'])){
         </div>
       </nav>
 
-      <!-- breadcrumb -->
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="officer-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-play-circle-fill"></i> Ongoing List</li>
-        </ol>
-      </nav>
 
-      <!-- Page content -->
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Officer Projects Ongoing List</h4>
-        </div>
-      </div>
-      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
-        <div class="card-body px-2 mx-3 py-2 pb-4">
-      <div class="row g-0 mt-4 justify-content-center">
-        <div class="table-responsive ms-0">
-                <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Ongoing')";
-                    $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $ds = " ";
-                    $pi = " ";
-                    $pn = " ";
-                    $v = " ";
-                    $s = " ";
-                    $pt = " ";
-                    $pc = " ";
-                    $pd = " ";
-                    $sd = " ";
-                    $ed = " ";
-                    $p = " ";
-                    $np = " ";
-                    $b = " ";
-                    $nb = " ";
-                    $bs = " ";
-                    $eb = " ";
-                    $a = " ";
-                    $r = " ";
-                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
-                          <thead>
-                            <tr>
-                            <th class='all'>Project ID</th>
-                            <th class='all'>Project Name</th>
-                            <th class='all'>Venue</th>
-                            <th class='all'>Status</th>
-                            <th class='all'>Date Submitted</th>
-                            <th class='all'>Actions</th>
-                            <th class='none'>Project Description</th>
-                            <th class='none'>Project Category</th>
-                            <th class='none'>Project Type</th>
-                            <th class='none'>Start Date</th>
-                            <th class='none'>End Date</th>
-                            <th class='none'>Participants</th>
-                            <th class='none'>Number of Participants</th>
-                            <th class='none'>Beneficiary</th>
-                            <th class='none'>Number of Beneficiary</th>
-                            <th class='none'>Budget Source</th>
-                            <th class='none'>Estimated Budget</th>
-                            <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                        $ds = $row['date_submitted'];
-                        $pi = $row['project_id'];
-                        $pn = $row['project_name'];
-                        $v = $row['venue'];
-                        $s = $row['status'];
-                        $pt = $row['project_type'];
-                        $pc =$row['project_category'];
-                        $pd =$row['project_desc'];
-                        $sd =$row['start_date'];
-                        $ed =$row['end_date'];
-                        $p =$row['participants'];
-                        $np =$row['no_of_participants'];
-                        $b = $row['beneficiary'];
-                        $nb = $row['no_of_beneficiary'];
-                        $bs =$row['budget_source'];
-                        $eb =$row['estimated_budget'];
-                        $a = $row['attachments'];
-                        $r =$row['remarks'];
+      <!-- Student Profile -->
+    <h3 class="ms-3">Signatory Profile</h3>
+      <div class="student-profile py-4 px-5">
+        <div class="container-lg">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent text-center">
+                  <img class="profile_img" src="assets/img/img_avatar.png" alt="">
+                  <h3 class="pt-3">John Doe</h3>
+                </div>
+                <div class="card-body">
+                  <p class="mb-0"><strong class="pr-1">JRU ID:</strong>19-255322</p>
+                  <p class="mb-0"><strong class="pr-1">Signatory ID:</strong>2</p>
+                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0">
 
-                        echo "<tr>
-                              <td> $pi  </td>
-                              <td> $pn  </td>
-                              <td> $v  </td>
-                              <td> $s  </td>
-                              <td> $ds </td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              </td>
-                              <td> $pt  </td>
-                              <td> $pc  </td>
-                              <td> $pd  </td>
-                              <td> $sd </td>
-                              <td> $ed </td>
-                              <td> $p  </td>
-                              <td> $np  </td>
-                              <td> $b  </td>
-                              <td> $nb  </td>
-                              <td> $bs </td>
-                              <td> $eb  </td>
-                              <td> $a  </td>
-                              <td> $r  </td>
-                              </tr>
-                          ";
-                      }
-                  echo "</tbody>
-                        <tfoot>
-                            <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Venue</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
-                              <th>Actions</th>
-                              <th>Project Description</th>
-                              <th>Project Category</th>
-                              <th>Project Type</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
-                              <th>Participants</th>
-                              <th>Number of Participants</th>
-                              <th>Beneficiary</th>
-                              <th>Number of Beneficiary</th>
-                              <th>Budget Source</th>
-                              <th>Estimated Budget</th>
-                              <th>Attachment</th>
-                              <th>Remarks</th>
-                            </tr>
-                        </tfoot>
-                        </table>";
-                  }
-                    $conn->close();
-                  ?>
+                  <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
+                    <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i> Signatory Information</h3>
+                    <button type="button" class="btn btn-primary btn-sm" >Edit Profile</button>
                   </div>
+                </div>
+                <div class="card-body mt-2 pt-0">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th width="30%">Email</th>
+                      <td width="2%">:</td>
+                      <td>john.doe@my.jru.edu</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Organization	</th>
+                      <td width="2%">:</td>
+                      <td>JRU Computer Society (COMSOC)</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Position	</th>
+                      <td width="2%">:</td>
+                      <td>Member</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">
           <footer class="py-2 bg-light mt-3">
@@ -303,7 +203,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="officer-revision-button.php" method="POST">
+                <form action="signatory-update-button.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -419,13 +319,26 @@ if(isset($_SESSION['msg'])){
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
+                    <!--
+                          <div class="form-group">
+                              <label class="form-label" for="status">Project Status </label>
+                              <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
+                                <option class="greyclr" selected disabled value="" >Select Status</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="For Revision">For Revision</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Implemented">Implemented</option>
+                              </select>
+                          </div>
+                          -->
                         </div>
                     </div>
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
-                        <button class="btn btn-md btn-done" name="Done"> Project Done</a>
                     </div>
                  </form>
             </div>
@@ -440,7 +353,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"officer-fetch-project.php",
+                url:"signatory-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",
@@ -518,6 +431,9 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "Done" ) {
         $('td', row).eq(3).css('color', '#00C9A7');
         }
+        if ( data[3] == "Approved" ) {
+        $('td', row).eq(3).css('color', 'green');
+        }
         if ( data[3] == "For Revision" ) {
         $('td', row).eq(3).css('color', '#FF9671');
       }
@@ -556,7 +472,7 @@ if(isset($_SESSION['msg'])){
          'pageLength',
          {
            extend: 'excelHtml5',
-           title: 'JRU Organizations Portal -   Ongoing List',
+           title: 'JRU Organizations Portal -   Revision List',
            footer: true,
          exportOptions: {
            columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -575,7 +491,7 @@ if(isset($_SESSION['msg'])){
         //    } ,
             {
               extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal -   Ongoing List',
+              title: 'JRU Organizations Portal -   Revision List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -585,7 +501,7 @@ if(isset($_SESSION['msg'])){
             } ,
             {
               extend: 'print',
-              title: 'JRU Organizations Portal -   Ongoing List',
+              title: 'JRU Organizations Portal -   Revision List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
