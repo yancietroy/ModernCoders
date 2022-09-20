@@ -301,7 +301,11 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+<<<<<<< HEAD
                 <form action="signatory-update-button.php" method="POST">
+=======
+                <form action="signatory-status-buttons.php" method="POST">
+>>>>>>> collab
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">

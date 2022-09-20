@@ -234,6 +234,7 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $pt  </td>
                               <td> $pc  </td>
@@ -295,6 +296,7 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
     </div>
+          <!-- modal -->
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
@@ -304,7 +306,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="signatory-update-button.php" method="POST">
+                <form action="officer-revision-button.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -432,7 +434,34 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
   </div>
-
+      <!-- archive modal -->
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3 px-3">
+                <h5 class="modal-title" id="exampleModalLabel"> Archive Project </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="admin-delete-user.php" method="POST">
+                <div class="modal-body">
+                  <div class="col-12 col-md-12 justify-content-center ">
+                    <div class="form-outline">
+                       <label class="form-label" for="delete_id" >Project ID:</label>
+                       <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                     </div>
+                   </div>
+                    <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Project. Are you sure?</p>
+                </div>
+                <div class="modal-footer py-2 px-3">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="deletedata" class="btn btn-danger">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -441,7 +470,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",
