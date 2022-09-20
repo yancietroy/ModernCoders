@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
@@ -232,7 +232,7 @@ if(isset($_SESSION['msg'])){
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-trash-fill'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -322,7 +322,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  required />
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"   />
                           </div>
                         </div>
                           <div class="col-12 col-md-4 mb-4">
@@ -430,7 +430,7 @@ if(isset($_SESSION['msg'])){
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Archive Student Data </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -443,11 +443,11 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                        <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
+                   </div>
+                   <div class="modal-footer py-2 px-3">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                       <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
                     </div>
                 </form>
             </div>

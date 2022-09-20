@@ -140,7 +140,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
@@ -175,7 +175,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students";
+                    $query = "SELECT * FROM tb_students_archive";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -232,7 +232,7 @@ if(isset($_SESSION['msg'])){
                               <td> $a </td>
                               <td> $g</td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-folder2-open'></i>  </button>
                               <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-trash-fill'></i> </button>
                               </td>
                               <td> $c</td>

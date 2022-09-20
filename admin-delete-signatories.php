@@ -10,7 +10,7 @@ if(isset($_POST['deletedata']))
         if($result)
         {
             echo '<script> alert("Data Deleted"); </script>';
-            header("Location:admin-signatories.php");
+            header("Location:admin-signatories-users.php");
         }
         else
         {

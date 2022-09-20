@@ -13,13 +13,13 @@ if (isset ($_POST['updatedata']))
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);
 	$row = @mysqli_fetch_array($result);
-			
+
 		if($row)
 		{
 			$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatory_type` = '$st',  `email` = '$e' WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-signatories.php");
+			header("Location:admin-signatories-users.php");
 		}
 }
 ?>

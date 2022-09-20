@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
@@ -208,7 +208,7 @@ if(isset($_SESSION['msg'])){
                             <td> $email  </td>
                             <td>
                             <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $sid . "'> <i class='bi bi-list-ul'></i> </button>
-                            <button type='button' class='btn btn-danger btn-sm deletebtn'>  <i class='bi bi-trash-fill'></i> </button>
+                          <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $sid . "'>  <i class='bi bi-archive-fill'></i> </button>
                             </td>
                             </tr>
                           ";
@@ -297,11 +297,39 @@ if(isset($_SESSION['msg'])){
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                         </div>
+                      </div>
                      </form>
                 </div>
             </div>
       </div>
-<?php $conn->close(); ?>
+
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Archive Admin Data </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="admin-delete-administrators.php" method="POST">
+                    <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
+                        <div class="form-outline">
+                           <label class="form-label" for="delete_id" >Admin ID:</label>
+                           <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
+                   </div>
+                   <div class="modal-footer py-2 px-3">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                       <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -317,7 +345,6 @@ if(isset($_SESSION['msg'])){
                     console.log(data);
                     $('#ADMIN_ID').val(data.ADMIN_ID);
                     $('#FIRST_NAME').val(data.FIRST_NAME);
-                    $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                     $('#LAST_NAME').val(data.LAST_NAME);
                     $('#EMAIL').val(data.EMAIL);
                     $('#viewmodal').modal('show');
@@ -346,6 +373,46 @@ if(isset($_SESSION['msg'])){
                 }
             });
         </script>
+        <script>
+        $(document).on('click', '.deletebtn', function(){
+          var ADMIN_ID = $(this).attr("id");
+          $.ajax({
+                  url:"admin-fetch-admin.php",
+                  method:"POST",
+                  data:
+                  {
+                    ADMIN_ID:ADMIN_ID
+                  },
+                  dataType:"json",
+                  success:function(data){
+                  console.log(data);
+                  $('#delete_id').val(data.ADMIN_ID);
+                  $('#deletemodal').modal('show');
+                  }
+              });
+          });
+      </script>
+      <script>
+          $(document).on('click', '.deletebtn', function(){
+            var admin_id = $(this).attr("id");
+            $.ajax({
+                    url:"admin-fetch-admin.php",
+                    method:"POST",
+                    data:
+                    {
+                      admin_id:admin_id
+                    },
+                    dataType:"json",
+                    success:function(data){
+                    console.log(data);
+                    $('#delete_id').val(data.admin_id);
+                    $('#deletemodal').modal('show');
+                    }
+                });
+            });
+        </script>
+
+  <?php $conn->close(); ?>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

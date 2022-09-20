@@ -140,7 +140,7 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile">Profile</a></li>
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
