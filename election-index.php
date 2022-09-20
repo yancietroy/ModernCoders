@@ -47,7 +47,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations </h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -59,10 +59,8 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
-
         <li>
-          <a href="election-index.php"> <i class="bi bi-check2-square"></i> <span>Election</span></a>
-         
+          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
@@ -172,16 +170,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-3 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
-              <a href="#" class="stretched-link"></a>
-            </div>
+      
           </div>
         </div>
 
