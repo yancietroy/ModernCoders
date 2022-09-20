@@ -127,10 +127,10 @@ if(isset($_SESSION['msg'])){
       <!-- Student Profile -->
     <h3 class="ms-3">Student Profile</h3>
       <div class="student-profile py-4 px-5">
-        <div class="container-lg">
+        <div class="container-lg ">
           <div class="row">
             <div class="col-lg-4">
-              <div class="card shadow-sm">
+              <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <img class="profile_img" src="assets/img/img_avatar.png" alt="">
                   <h3 class="pt-3">John Doe</h3>
@@ -144,7 +144,7 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
             <div class="col-lg-8">
-              <div class="card shadow-sm">
+              <div class="card shadow">
                 <div class="card-header bg-transparent border-0">
 
                   <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">

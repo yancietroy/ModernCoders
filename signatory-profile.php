@@ -137,12 +137,12 @@ if(isset($_SESSION['msg'])){
         <div class="container-lg">
           <div class="row">
             <div class="col-lg-4">
-              <div class="card shadow-sm">
+              <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <img class="profile_img" src="assets/img/img_avatar.png" alt="">
                   <h3 class="pt-3">John Doe</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body px-5">
                   <p class="mb-0"><strong class="pr-1">JRU ID:</strong>19-255322</p>
                   <p class="mb-0"><strong class="pr-1">Signatory ID:</strong>2</p>
                   <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
@@ -150,7 +150,7 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
             <div class="col-lg-8">
-              <div class="card shadow-sm">
+              <div class="card shadow">
                 <div class="card-header bg-transparent border-0">
 
                   <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
@@ -161,6 +161,21 @@ if(isset($_SESSION['msg'])){
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered">
                     <tr>
+                      <th width="30%">First Name</th>
+                      <td width="2%">:</td>
+                      <td>John</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Last Name</th>
+                      <td width="2%">:</td>
+                      <td>Doe</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Role	</th>
+                      <td width="2%">:</td>
+                      <td>SDO</td>
+                    </tr>
+                    <tr>
                       <th width="30%">Email</th>
                       <td width="2%">:</td>
                       <td>john.doe@my.jru.edu</td>
@@ -169,11 +184,6 @@ if(isset($_SESSION['msg'])){
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
                       <td>JRU Computer Society (COMSOC)</td>
-                    </tr>
-                    <tr>
-                      <th width="30%">Position	</th>
-                      <td width="2%">:</td>
-                      <td>Member</td>
                     </tr>
                   </table>
                 </div>
