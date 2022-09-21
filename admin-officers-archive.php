@@ -275,12 +275,12 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Officer Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Restore Officer User </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-update-officer.php" method="POST">
+                <form action="admin-restore-officers.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -378,8 +378,9 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+                        <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
                     </div>
+                  </div>
                  </form>
             </div>
         </div>
@@ -391,7 +392,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.viewbtn', function(){
            var officer_id = $(this).attr("id");
            $.ajax({
-                url:"admin-fetch-officer.php",
+                url:"admin-fetch-officer-archive.php",
                 method:"POST",
                 data:{officer_id:officer_id},
                 dataType:"json",

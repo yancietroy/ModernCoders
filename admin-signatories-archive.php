@@ -262,12 +262,12 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Signatory Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Restore Signatory User </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-update-signatories.php" method="POST">
+                <form action="admin-restore-signatories.php" method="POST">
                     <div class="modal-body">
                       <div class="container-md">
                         <div class="row justify-content-between">
@@ -325,7 +325,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+                        <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
                     </div>
                   </div>
                 </form>
@@ -367,7 +367,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.viewbtn', function(){
            var school_id = $(this).attr("id");
            $.ajax({
-                url:"admin-fetch-signatories.php",
+                url:"admin-fetch-signatories-archive.php",
                 method:"POST",
                 data:{school_id:school_id},
                 dataType:"json",
@@ -408,7 +408,7 @@ if(isset($_SESSION['msg'])){
       $(document).on('click', '.deletebtn', function(){
         var school_id = $(this).attr("id");
         $.ajax({
-                url:"admin-fetch-signatories.php",
+                url:"admin-fetch-signatories-archive.php",
                 method:"POST",
                 data:
                 {

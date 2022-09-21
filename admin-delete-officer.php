@@ -15,7 +15,7 @@ if(isset($_POST['deletedata']))
             if($result)
             {
                 $_SESSION['msg'] = '<script>alert("Data Deleted")</script>';
-                header("Location:admin-officers.php");
+                header("Location:admin-officers-users.php");
             }
             else
             {

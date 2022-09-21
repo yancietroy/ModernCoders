@@ -1,21 +1,21 @@
 <?php
 include('mysql_connect.php');
 
-if(isset($_POST['deletedata']))
+if(isset($_POST['restoredata']))
 {
-    if(isset($_POST['delete_id'])){
+    if(isset($_POST['STUDENT_ID'])){
 
-        $query = "INSERT tb_signatories_archive SELECT * FROM tb_signatories WHERE school_id='".$_POST["delete_id"]."'";
+        $query = "INSERT tb_students SELECT * FROM tb_students_archive WHERE STUDENT_ID='".$_POST["STUDENT_ID"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
 
-            $query = "DELETE FROM tb_signatories WHERE school_id='".$_POST["delete_id"]."'";
+            $query = "DELETE FROM tb_students_archive WHERE STUDENT_ID='".$_POST["STUDENT_ID"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
                 $_SESSION['msg'] = '<script>alert("Data Deleted")</script>';
-                header("Location:admin-signatories-users.php");
+                header("Location:admin-students-archive.php");
             }
             else
             {
