@@ -21,7 +21,7 @@
 		}
 		else if (isset ($_POST['submit']))
 		{
-			include('mysql_connect.php');
+			include('../mysql_connect.php');
 		ob_start();
 			$query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL,  COURSE, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$section', '$e', SHA('$pass'))";
 			$result = @mysqli_query($conn, $query);

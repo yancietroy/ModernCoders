@@ -119,7 +119,7 @@ if(isset ($_POST['submit']))
 			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
     $_SESSION['use'] = $row[0];
     if(isset($_SESSION['use'])){
-    header("Location:officer-index.php");
+    header("Location:officer/officer-index.php");
     @mysqli_close($conn);
     exit();
     }

@@ -85,7 +85,7 @@ if(isset($_SESSION['message'])){
     Waves.init();
   </script>
   <!-- form validation/sidebar toggle -->
-  <script src="assets/js/form-validation.js"></script>
+  <script src="../assets/js/form-validation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function () {
@@ -119,7 +119,7 @@ if(isset ($_POST['submit']))
 			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
     $_SESSION['use'] = $row[0];
     if(isset($_SESSION['use'])){
-    header("Location:signatory-index.php");
+    header("Location:signatory/signatory-index.php");
     @mysqli_close($conn);
     exit();
     }

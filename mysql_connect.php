@@ -1,7 +1,7 @@
 <?php
 /*
 ------------------------------------------------------------------------------------------------------
-Script Name: mysql_connect.php
+Script Name: ../mysql_connect.php
 Author: <type your name>
 Description: To connect to the MySQL server and database
 ------------------------------------------------------------------------------------------------------
