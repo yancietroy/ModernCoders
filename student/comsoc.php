@@ -118,7 +118,7 @@ if(isset($_SESSION['msg'])){
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="../login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -278,10 +278,8 @@ if(isset($_SESSION['msg'])){
         </div>
 
       </div>
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Event Calendar</h4>
-        </div>
+      <div class="row ms-3 me-3 mt-2 mb-4">
+        <iframe src="https://calendar.google.com/calendar/embed?src=224d17edec0317d2aa84db81e393ad757c841147fc67c4d01eaf72e8347769b3%40group.calendar.google.com&ctz=Asia%2FManila" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
       </div>
 
     </div>

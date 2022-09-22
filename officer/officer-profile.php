@@ -64,7 +64,7 @@ if(isset($_SESSION['msg'])){
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
           <li>
-            <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+            <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
           </li>
           <li class="active">
             <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>

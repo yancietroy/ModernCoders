@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:officer-login.php");
+    header("Location:../officer-login.php");
   }
  ?>
 
@@ -56,7 +56,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
           <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
