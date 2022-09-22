@@ -14,8 +14,9 @@ if(isset($_POST['restoredata']))
             $result = @mysqli_query($conn, $query);
             if($result)
             {
-                $_SESSION['msg'] = '<script>alert("Data Deleted")</script>';
-                header("Location:admin-officers-archive.php");
+              echo "<script type='text/javascript'>
+                    alert('User Restored!')
+                    window.location.href='admin-officers-archive.php'</script>";
             }
             else
             {

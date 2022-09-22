@@ -14,8 +14,9 @@ if(isset($_POST['deletedata']))
             $result = @mysqli_query($conn, $query);
             if($result)
             {
-                $_SESSION['msg'] = '<script>alert("Data Deleted")</script>';
-                header("Location:admin-students.php");
+              echo "<script type='text/javascript'>
+                    alert('Archived User')
+                    window.location.href='admin-students.php'</script>";
             }
             else
             {
