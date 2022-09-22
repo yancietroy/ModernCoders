@@ -61,13 +61,13 @@ if(isset($_SESSION['msg'])){
       <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+            <li>
+              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
-            <li>
+            <li  class="active">
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
             <li>
@@ -156,18 +156,19 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-          <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item"><a href="admin-users.php">Students</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Archive</li>
-        </ol>
-      </nav>
+              <li class="breadcrumb-item">User Management</li>
+              <li class="breadcrumb-item"><a href="admin-signatories.php">Signatory</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Archive</li>
+              </ol>
+              </nav>
 
-      <!-- Page content -->
+              <!-- Page content -->
 
-      <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>Students Archive</h4>
-        </div>
+              <div class="row ms-3 me-3 mt-2 mb-2">
+              <div class="col-lg-6 col-7">
+              <h4>Signatory Archive</h4>
+              </div>
+
       </div>
 
         <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -175,79 +176,49 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students_archive";
+                    $query = "SELECT * FROM `tb_signatories_archive`";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
-                    $ds = " ";
-                    $pi = " ";
-                    $pn = " ";
-                    $v = " ";
-                    $s = " ";
+                    $si = " ";
+                    $fn = " ";
+                    $e = " ";
+                    $st = " ";
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>First Name</th>
-                                <th class='all'>Middle Name</th>
-                                <th class='all'>Last name</th>
-                                <th class='all'>Age</th>
-                                <th class='all'>Gender</th>
-                                <th class='all'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Birthdate</th>
-                                <th class='none'>Year Level</th>
-                                <th class='none'>Section</th>
+                                <th>School ID</th>
+                                <th>First Name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Signatory Type</th>
+                                <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
                       ";
-                      /*
-                      <th>College</th>
-                      <th>Organization</th>
-                      <th>Position</th>
-                      <th>Account Created</th>
-                      */
                   if ($result !== false && $result->num_rows > 0)
                   {
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                        $si = $row['STUDENT_ID'];
-                        $fn = $row['FIRST_NAME'];
-                        $mn = $row['MIDDLE_NAME'];
-                        $ln = $row['LAST_NAME'];
-                        $a = $row['AGE'];
-                        $g = $row['GENDER'];
-                        $e = $row['EMAIL'];
-                        $bd = $row['BIRTHDATE'];
-                        $yl = $row['YEAR_LEVEL'];
-                        $se = $row['SECTION'];
-                        $c = $row['COURSE'];
+                        $si = $row['school_id'];
+                        $fn = $row['first_name'];
+                        $ln = $row['last_name'];
+                        $e = $row['email'];
+                        $st = $row['signatory_type'];
+
                         echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
-                              <td> $mn  </td>
                               <td> $ln  </td>
-                              <td> $a </td>
-                              <td> $g</td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-folder2-open'></i>  </button>
-                               
-                              </td>
-                              <td> $c</td>
                               <td> $e </td>
-                              <td> $bd  </td>
-                              <td> $yl </td>
-                              <td> $se</td>
+                              <td> $st </td>
+                              <td>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-folder2-open'></i> </button>
+
+                              </td>
                               </tr>
                           ";
-                          /*
-                          <td>College</td>
-                          <td>Organization</td>
-                          <td>Position</td>
-                          <th>Account Created</th>
-                        */
                       }
                   echo "</tbody>
                         </table>";
@@ -291,19 +262,19 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Restore Student User </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Restore Signatory User </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-restore-students.php" method="POST">
+                <form action="admin-restore-signatories.php" method="POST">
                     <div class="modal-body">
-                      <div class="container-fluid">
+                      <div class="container-md">
                         <div class="row justify-content-between">
                        <div class="col-4 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="STUDENT_ID" >Student ID:</label>
-                           <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
+                           <label class="form-label" for="school_id" >JRU ID:</label>
+                           <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
                        <div class="col-4 col-md-3 mb-4">
@@ -313,111 +284,46 @@ if(isset($_SESSION['msg'])){
                        </div>
                      </div>
                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-4 mb-4">
+                        <div class="row justify-content-between">
+                        <div class="col-12 col-md-6 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="FIRST_NAME" >First name:</label>
-                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   required/>
+                            <label class="form-label" for="first_name" >First name:</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required  />
                           </div>
                         </div>
-                        <div class="col-12 col-md-4 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  required />
-                          </div>
-                        </div>
-                          <div class="col-12 col-md-4 mb-4">
-                          <label class="form-label" for="LAST_NAME" >Last Name:</label>
-                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"  required />
+                          <div class="col-12 col-md-6 mb-4">
+                          <label class="form-label" for="last_name" >Last Name:</label>
+                          <input type="text" name="last_name" id="last_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required  />
                           </div>
                           </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
-                              <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old"  required/>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="AGE" >Age:</label>
-                              <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
-                            </div>
-                          </div>
-                          <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
-                            <div class="btn-group">
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
-                              <!--<div class="valid-feedback check"> &#x2713;</div>
-                              <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                            </div>
-                          </div>
-                        </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                            <label class="form-label" for="email" >Email:</label>
+                            <input type="text" name="email" id="email" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required  />
                           </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" required />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;"  required />
-                          </div>
-                        </div>
-                        <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
-                                <?php
-                                    $query = "SELECT college FROM tb_collegedept";
-                                    $result = @mysqli_query($conn, $query);
-                                    while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                    }
-                                ?>
-                              </select>
+                              <label class="form-label" for="signatory_type" >Signatory Type:</label>
+                              <input type="text" name="signatory_type" id="signatory_type" class="form-control" style="background-color: #fff;" readonly/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label select-label" for="COURSE" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
-                                <?php
-                                      $query = "SELECT course FROM tb_course";
-                                      $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                      }
-                                ?>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="MORG_ID" >Mother Organization:</label>
-                              <select class="form-select" name="MORG_ID" id="MORG_ID">
-                                <?php
-                                  $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
-                                  $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                                ?>
+                              <label class="form-label" for="org_id" >Organization:</label>
+                              <select class="form-select" name="org_id" id="org_id">
+                              <?php
+                                $query = "SELECT org_id, org FROM tb_orgs";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }
+                              ?>
                               </select>
                             </div>
                           </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer pt-2 pb-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
                     </div>
@@ -426,8 +332,7 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
   </div>
-
-      <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header py-3 px-3">
@@ -436,11 +341,11 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-delete-user.php" method="POST">
+                <form action="admin-delete-signatories.php" method="POST">
                     <div class="modal-body">
                       <div class="col-12 col-md-12 justify-content-center ">
                         <div class="form-outline">
-                           <label class="form-label" for="delete_id" >Student ID:</label>
+                           <label class="form-label" for="delete_id" >School ID:</label>
                            <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
@@ -454,43 +359,32 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
         $(document).on('click', '.viewbtn', function(){
-           var STUDENT_ID = $(this).attr("id");
+           var school_id = $(this).attr("id");
            $.ajax({
-                url:"admin-fetch-user-archive.php",
+                url:"admin-fetch-signatories-archive.php",
                 method:"POST",
-                data:
-                {
-                  STUDENT_ID:STUDENT_ID
-                },
+                data:{school_id:school_id},
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#STUDENT_ID').val(data.STUDENT_ID);
-                $('#FIRST_NAME').val(data.FIRST_NAME);
-                $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
-                $('#LAST_NAME').val(data.LAST_NAME);
-                $('#BIRTHDATE').val(data.BIRTHDATE);
-                $('#AGE').val(data.AGE);
-                $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
-                $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
-                $('#EMAIL').val(data.EMAIL);
-                $('#COURSE').val(data.COURSE);
-                $('#SECTION').val(data.SECTION);
-                $('#MORG_ID').val(data.MORG_ID);
+                $('#school_id').val(data.school_id);
+                $('#first_name').val(data.first_name);
+                $('#last_name').val(data.last_name);
+                $('#email').val(data.email);
+                $('#signatory_type').val(data.signatory_type);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
             });
 
-            // UPPERCASE FIRST LETTER
-            document.getElementById("FIRST_NAME").addEventListener("input", forceLower);
-            document.getElementById("MIDDLE_NAME").addEventListener("input", forceLower);
-            document.getElementById("LAST_NAME").addEventListener("input", forceLower);
+            document.getElementById("first_name").addEventListener("input", forceLower);
+            document.getElementById("last_name").addEventListener("input", forceLower);
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
@@ -508,31 +402,28 @@ if(isset($_SESSION['msg'])){
               // Replace the original value with the updated array of capitalized words.
               evt.target.value = newWords.join(" ");
             }
-
-
         });
     </script>
-
     <script>
       $(document).on('click', '.deletebtn', function(){
-        var STUDENT_ID = $(this).attr("id");
+        var school_id = $(this).attr("id");
         $.ajax({
-                url:"admin-fetch-user.php",
+                url:"admin-fetch-signatories-archive.php",
                 method:"POST",
                 data:
                 {
-                  STUDENT_ID:STUDENT_ID
+                  school_id:school_id
                 },
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#delete_id').val(data.STUDENT_ID);
+                $('#delete_id').val(data.school_id);
                 $('#deletemodal').modal('show');
                 }
             });
         });
     </script>
-  <?php @mysqli_close($conn); ?>
+    <?php $conn->close(); ?>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -562,28 +453,22 @@ if(isset($_SESSION['msg'])){
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "40px" },
-        { "width": "40px" },
+        { "width": "90px" },
         { "width": "130px" },
         { "width": "130px" },
         { "width": "130px" },
         { "width": "80px" },
-        { "width": "150px" },
-        { "width": "60px" },
-        { "width": "60px" },
-        { "width": "60px" },
-        { "width": "60px" },
-        { "width": "60px" }
+        { "width": "150px" }
   ],
             select: 'single',
     buttons: [
    'pageLength',
    {
      extend: 'excelHtml5',
-     title: 'JRU Organizations Portal -  Student Masterlist',
+     title: 'JRU Organizations Portal -  Signatory Archive',
      footer: true,
    exportOptions: {
-     columns: [0,1,2,3,4,6,7,8,9,10,11]
+     columns: [0,1,2,3,4]
    },
    } ,
       //{
@@ -599,20 +484,20 @@ if(isset($_SESSION['msg'])){
    //    } ,
       {
         extend: 'pdfHtml5',
-        title: 'JRU Organizations Portal - Student Masterlist',
+        title: 'JRU Organizations Portal - Signatory Archive',
         footer: true,
         exportOptions: {
-          columns: [0,1,2,3,4,5,7,8,9,10,11]
+          columns: [0,1,2,3,4]
       },
-      orientation : 'landscape',
+      orientation : 'portrait',
     pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
       } ,
       {
         extend: 'print',
-        title: 'JRU Organizations Portal -  Student Masterlist',
+        title: 'JRU Organizations Portal -  Signatory Archive',
         footer: true,
         exportOptions: {
-          columns: [0,1,2,3,4,5,7,8,9,10,11]
+          columns: [0,1,2,3,4]
       },
       customize: function(win)
       {
@@ -621,7 +506,7 @@ if(isset($_SESSION['msg'])){
           var current = null;
           var bod = [];
 
-          var css = '@page { size: landscape; font-size: 1em;}',
+          var css = '@page { size: portrait; font-size: 1em;}',
               head = win.document.head || win.document.getElementsByTagName('head')[0],
               style = win.document.createElement('style');
 
@@ -644,37 +529,8 @@ if(isset($_SESSION['msg'])){
    });
    myTable.columns.adjust().draw();
    });
-   </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script> <!-- JavaScript validation -->
-    <script type="text/javascript">
-      Waves.attach('.button');
-      Waves.init();
-    </script>
-    <!-- JavaScript validation -->
-    <script src="../assets/js/bootstrap-validation.js"></script>
-    <!-- <script src="js/form-validation.js"></script>
-  Prevent Cut Copy Paste -->
-    <script>
-      $(document).ready(function() {
-        $('input:text').bind('cut copy paste', function(e) {
-          e.preventDefault();
-          return false;
-        });
+   </script>Signatory
+  <script src="../assets/js/age-validation.js"></script>
+</body>
 
-      });
-    </script>
-
-    <!--input mask-->
-    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
-    <script src="../assets/js/inputmask-validation.js"></script>
-
-    <!--password validation!-->
-    <script src="../assets/js/pass-validation.js"></script>
-
-    <!-- age validation !-->
-    <script src="../assets/js/age-validation.js"></script>
-
-  </body>
-
-  </html>
+</html>

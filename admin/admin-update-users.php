@@ -26,7 +26,7 @@ if (isset ($_POST['updatedata']))
 			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `GENDER` = '$g', `YEAR_LEVEL` = '$yl', `SECTION` = '$section', `EMAIL` = '$e', `MORG_ID` = '$morg', `COURSE` = '$course' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-students.php");
+			header("Location:admin-students-users.php");
 		}
 }
 ?>

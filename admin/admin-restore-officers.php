@@ -16,7 +16,7 @@ if(isset($_POST['restoredata']))
             {
               echo "<script type='text/javascript'>
                     alert('User Restored!')
-                    window.location.href='admin-officers-archive.php'</script>";
+                    window.location.href='admin-archive-officers.php'</script>";
             }
             else
             {

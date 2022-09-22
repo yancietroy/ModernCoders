@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
@@ -208,7 +208,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-person-x"></i>
             </div>
-            <a href="admin-students-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-students-users-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>!-->
 

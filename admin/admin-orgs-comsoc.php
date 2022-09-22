@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
@@ -179,7 +179,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
             <i class="bi bi-file-person"></i>
             </div>
-            <a href="admin-comsoc-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -191,7 +191,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
             <i class="bi bi-person-badge"></i>
             </div>
-            <a href="admin-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -203,7 +203,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-person-rolodex"></i>
             </div>
-            <a href="admin-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">

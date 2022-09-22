@@ -16,7 +16,7 @@ if(isset($_POST['deletedata']))
             {
               echo "<script type='text/javascript'>
                     alert('Archived User')
-                    window.location.href='admin-students.php'</script>";
+                    window.location.href='admin-students-users.php'</script>";
             }
             else
             {

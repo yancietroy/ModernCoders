@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
@@ -79,7 +79,7 @@ if(isset($_SESSION['msg'])){
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
               <li>
-                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+                <a href="admin-students.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
             <li>
                 <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
@@ -90,7 +90,7 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li>
-          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="admin-students.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>

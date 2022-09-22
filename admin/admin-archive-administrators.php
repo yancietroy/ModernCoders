@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="admin-users.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
+              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
@@ -98,6 +98,7 @@ if(isset($_SESSION['msg'])){
       <li class="d-lg-none">
         <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
       </li>
+
       </ul>
       <!-- nav footer?
       <ul class="list-unstyled CTAs">
@@ -157,22 +158,23 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item">User Management</li>
               <li class="breadcrumb-item"><a href="admin-administrators.php">Administrator</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Masterlist</li>
+              <li class="breadcrumb-item active" aria-current="page">Archive</li>
         </ol>
       </nav>
 
+      <!-- Page content -->
+
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Administrator Masterlist</h4>
+          <h4>Administrator Archive</h4>
         </div>
-      </div>
       <!-- Page content -->
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-3 pt-4 ">
               <div class="row g-0 justify-content-center ">
       <div class="table-responsive ms-2">
                 <?php
-                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL FROM tb_admin";
+                  $query = "SELECT ADMIN_ID, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS NAME, EMAIL FROM tb_admin_archive";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
                   $sid = " ";
@@ -207,8 +209,7 @@ if(isset($_SESSION['msg'])){
                             <td> $name  </td>
                             <td> $email  </td>
                             <td>
-                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $sid . "'> <i class='bi bi-list-ul'></i> </button>
-                          <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $sid . "'>  <i class='bi bi-archive-fill'></i> </button>
+                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $sid . "'> <i class='bi bi-folder2-open'></i> </button>
                             </td>
                             </tr>
                           ";
@@ -248,12 +249,12 @@ if(isset($_SESSION['msg'])){
         <div class="modal-dialog" id="modal-lg" role="document">
             <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> Update Administrator Details </h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> Restore Administrator User </h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="admin-update-admin.php" method="POST">
+                    <form action="admin-restore-administrators.php" method="POST">
                         <div class="modal-body">
                           <div class="container-fluid">
                             <div class="row justify-content-between">
@@ -295,41 +296,39 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+                            <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
                         </div>
-                      </div>
                      </form>
                 </div>
             </div>
       </div>
-
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+      <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Archive Admin Data </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="admin-delete-administrators.php" method="POST">
-                    <div class="modal-body">
-                      <div class="col-12 col-md-12 justify-content-center ">
-                        <div class="form-outline">
-                           <label class="form-label" for="delete_id" >Admin ID:</label>
-                           <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                      <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <form action="admin-delete-administrators.php" method="POST">
+                      <div class="modal-body">
+                        <div class="col-12 col-md-12 justify-content-center ">
+                          <div class="form-outline">
+                             <label class="form-label" for="delete_id" >Admin ID:</label>
+                             <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                           </div>
                          </div>
-                       </div>
-                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
-                   </div>
-                   <div class="modal-footer py-2 px-3">
-                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                       <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+                          <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
                       </div>
-                  </form>
-              </div>
-          </div>
-      </div>
+                      <div class="modal-footer py-2 px-3">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
+    </div>
+    </div>
+    </div>
+        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -337,7 +336,7 @@ if(isset($_SESSION['msg'])){
             $(document).on('click', '.viewbtn', function(){
                var ADMIN_ID = $(this).attr("id");
                $.ajax({
-                    url:"admin-fetch-admin.php",
+                    url:"admin-fetch-admin-archive.php",
                     method:"POST",
                     data:{ADMIN_ID:ADMIN_ID},
                     dataType:"json",
@@ -345,6 +344,7 @@ if(isset($_SESSION['msg'])){
                     console.log(data);
                     $('#ADMIN_ID').val(data.ADMIN_ID);
                     $('#FIRST_NAME').val(data.FIRST_NAME);
+                    $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                     $('#LAST_NAME').val(data.LAST_NAME);
                     $('#EMAIL').val(data.EMAIL);
                     $('#viewmodal').modal('show');
@@ -377,7 +377,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.deletebtn', function(){
           var ADMIN_ID = $(this).attr("id");
           $.ajax({
-                  url:"admin-fetch-admin.php",
+                  url:"admin-fetch-admin-archive.php",
                   method:"POST",
                   data:
                   {
@@ -396,7 +396,7 @@ if(isset($_SESSION['msg'])){
           $(document).on('click', '.deletebtn', function(){
             var admin_id = $(this).attr("id");
             $.ajax({
-                    url:"admin-fetch-admin.php",
+                    url:"admin-fetch-admin-archive.php",
                     method:"POST",
                     data:
                     {
@@ -412,7 +412,7 @@ if(isset($_SESSION['msg'])){
             });
         </script>
 
-  <?php $conn->close(); ?>
+<?php $conn->close(); ?>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -452,7 +452,7 @@ if(isset($_SESSION['msg'])){
        'pageLength',
        {
          extend: 'excelHtml5',
-         title: 'JRU Organizations Portal -  Administrator Masterlist',
+         title: 'JRU Organizations Portal -  Administrator Archive',
          footer: true,
        exportOptions: {
          columns: [0,1,2]
@@ -471,7 +471,7 @@ if(isset($_SESSION['msg'])){
        //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - Administrator Masterlist',
+            title: 'JRU Organizations Portal - Administrator Archive',
             footer: true,
             exportOptions: {
               columns: [0,1,2]
@@ -481,7 +481,7 @@ if(isset($_SESSION['msg'])){
           } ,
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  Administrator Masterlist',
+            title: 'JRU Organizations Portal -  Administrator Archive',
             footer: true,
             exportOptions: {
               columns: [0,1,2]
