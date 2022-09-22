@@ -65,19 +65,19 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
           <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -91,10 +91,11 @@ if(isset($_SESSION['msg'])){
           </li>
         </ul> -->
     </nav>
+
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
+      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>
@@ -121,12 +122,10 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
                   <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
                 </ul>
               </li>
@@ -304,109 +303,112 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="signatory-update-button.php" method="POST">
+                <form action="officer-revision-button.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                       <div class="col-4 col-md-2 mb-4">
+                       <div class="col-4 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="project_id" >Project ID:</label>
-                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                           <input type="text" name="project_id" id="project_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
                          <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="project_name" >Project name:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;"   />
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control form-control-lg" style="background-color: #fff;"   />
-                          </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-4">
-                          <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="start_date" >Start Date:</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;"   />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="end_date" >End Date:</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;"   />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control form-control-lg" style="background-color: #fff;"   />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;"   />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control form-control-lg" style="background-color: #fff;"   />
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="participants" >Participants:</label>
-                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;"   />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="beneficiary">Beneficiary:</label>
-                              <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;"  />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                              <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;"   />
-                            </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;"  />
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Upload Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Upload</button>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                              <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;"   />
-                              </div>
-                            </div>
-                          </div>
+                         <div class="row">
+                         <div class="col-12 col-md-6 col-sm-3 mb-4">
+                           <div class="form-outline">
+                             <label class="form-label" for="project_name" >Project name:</label>
+                             <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  maxlength="50" required />
+                           </div>
+                         </div>
+                         <div class="col-12 col-md-6 col-sm-3 mb-4">
+                           <div class="form-outline">
+                             <label class="form-label" for="venue" >Venue:</label>
+                             <input type="text" name="venue" id="venue" class="form-control form-control-lg"  maxlength="50"  required/>
+                           </div>
+                         </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-12 col-md-4 col-sm-3 mb-4">
+                           <label class="form-label" for="status" >Project Status:</label>
+                           <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                           </div>
+                           <div class="col-12 col-md-4 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="start_date" >Start Date:</label>
+                               <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;"  required />
+                             </div>
+                           </div>
+                           <div class="col-12 col-md-4 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="end_date" >End Date:</label>
+                               <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;"  required />
+                             </div>
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-12 col-md-4 col-sm-3 mb-2">
+                           <label class="form-label" for="project_type" >Project Type:</label>
+                           <input type="text" name="project_type" id="project_type" class="form-control form-control-lg"  required />
+                           </div>
+                           <div class="col-12 col-md-4 col-sm-3 mb-2">
+                             <label class="form-label" for="budget_source" >Budget Source:</label>
+                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg"  required />
+                           </div>
+                           <div class="col-12 col-md-4 col-sm-3 mb-2">
+                             <label class="form-label" for="project_category" >Category:</label>
+                             <input type="text" name="project_category" id="project_category" class="form-control form-control-lg"  required />
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-12 col-md-6 col-sm-3 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="participants" >Participants:</label>
+                               <input type="text" name="participants" id="participants" class="form-control form-control-md"  maxlength="50"  required />
+                             </div>
+                           </div>
+                           <div class="col-12 col-md-6 col-sm-3 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="beneficiary">Beneficiary:</label>
+                               <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" maxlength="50"   required/>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-12 col-md-3 col-sm-3 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="no_of_participants" >No. of Participants:</label>
+                               <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control"  required />
+                             </div>
+                             </div>
+                             <div class="col-12 col-md-3 col-sm-3 mb-4">
+                               <div class="form-outline">
+                                 <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
+                                 <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_beneficiary" class="form-control"  required/>
+                               </div>
+                             </div>
+                             <div class="col-12 col-md-3 col-sm-3 mb-4">
+                               <div class="form-outline">
+                                 <label class="form-label">Attachment:</label>
+                                 <div class="btn-group">
+                               <button type="button" class="btn btn-secondary btn-md">Download</button>
+                               <button type="button" class="btn btn-secondary btn-md">Upload</button>
+                             </div>
+                               </div>
+                             </div>
+                             <div class="col-12 col-md-3 col-sm-3 mb-4">
+                               <div class="form-outline">
+                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
+                               <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency"  required />
+                               </div>
+                             </div>
+                           </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  projectdesc">
@@ -440,7 +442,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",

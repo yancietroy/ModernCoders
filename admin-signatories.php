@@ -78,26 +78,26 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-              <li>
-                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-            </li>
             <li>
-                <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+          </li>
+          <li>
+              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          </li>
+          <li>
+              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
             </li>
-            <li>
-                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
-              </li>
-          </ul>
-        </li>
-        <li>
-          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-        </li>
+        </ul>
+      </li>
+      <li>
+        <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+      </li>
+      <li>
+        <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      </li>
+      <li class="d-lg-none">
+        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      </li>
 
       </ul>
       <!-- nav footer?
@@ -139,15 +139,13 @@ if(isset($_SESSION['msg'])){
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
+                  </ul>
               </li>
             </ul>
           </div>
@@ -164,90 +162,43 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
           <h4>Signatory User Management</h4>
         </div>
-
         <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Signatory</a>
+          <a class="btn btn-default btn-circle button px-3" href="admin-signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Signatory</a>
         </div>
       </div>
-
-        <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
-          <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                <div class="row g-0 justify-content-center ">
-        <div class="table-responsive ms-2">
-            <?php
-                    $query = "SELECT * FROM `tb_signatories`";
-                    $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $si = " ";
-                    $fn = " ";
-                    $e = " ";
-                    $st = " ";
-                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
-                          <thead>
-                            <tr>
-                                <th>School ID</th>
-                                <th>First Name</th>
-                                <th>Last name</th>
-                                <th>Email</th>
-                                <th>Signatory Type</th>
-                                <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                        $si = $row['school_id'];
-                        $fn = $row['first_name'];
-                        $ln = $row['last_name'];
-                        $e = $row['email'];
-                        $st = $row['signatory_type'];
-
-                        echo "<tr>
-                              <td> $si  </td>
-                              <td> $fn  </td>
-                              <td> $ln  </td>
-                              <td> $e </td>
-                              <td> $st </td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $si . "''>  <i class='bi bi-trash-fill'></i> </button>
-                              </td>
-                              </tr>
-                          ";
-                      }
-                  echo "</tbody>
-                        </table>";
-                  }
-                    $conn->close();
-                  ?>
-
-         </div>
-       </div>
-     </div>
-   </div>
-
-
-     </div>
-        <!--   <div class="col">
-        Card with right text alignment
-          <div class="card text-end">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary">Know more</a>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-sm-6">
+          <div class="card-counter primary">
+            <div class="inner">
+              <h2><i class="bi bi-person-circle"></i></h2>
+              <p>Masterlist</p>
             </div>
+            <div class="icon">
+              <i class="bi bi-file-person" aria-hidden="true"></i>
+            </div>
+            <a href="admin-signatories-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-      </div> -->
+        <div class="col-lg-6 col-sm-6">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h2><i class="bi bi-archive-fill"></i></h2>
+              <p>Archive</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-archive"></i>
+            </div>
+            <a href="admin-signatories-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        </div>
+
+      </div>
 
         <!-- Footer -->
       <div id="layoutAuthentication_footer">

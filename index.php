@@ -47,7 +47,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations </h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -57,16 +57,18 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+        </li>
+
+        <li>
+          <a href="election-index.php"> <i class="bi bi-check2-square"></i> <span>Election</span></a>
+
         </li>
         <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -111,12 +113,10 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
                   <li><a class="dropdown-item" href="login.php">Logout</a></li>
 
                 </ul>
@@ -127,7 +127,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3">Student Profile</h4>
+      <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
@@ -178,7 +178,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
-              <a href="#" class="stretched-link"></a>
+              <a href="comsoc.php" class="stretched-link"></a>
             </div>
           </div>
         </div>

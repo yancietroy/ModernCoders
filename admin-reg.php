@@ -78,26 +78,26 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-              <li>
-                <a href="admin-users.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-            </li>
             <li>
-                <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+          </li>
+          <li>
+              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          </li>
+          <li>
+              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
             </li>
-            <li>
-                <a href="#"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
-              </li>
-          </ul>
-        </li>
-        <li>
-          <a href="admin-users.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-        </li>
+        </ul>
+      </li>
+      <li>
+        <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+      </li>
+      <li>
+        <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      </li>
+      <li class="d-lg-none">
+        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      </li>
 
       </ul>
       <!-- nav footer?
@@ -139,15 +139,13 @@ if(isset($_SESSION['msg'])){
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="admin-login.php">Logout</a></li>
+                  </ul>
               </li>
             </ul>
           </div>
@@ -207,7 +205,7 @@ if(isset($_SESSION['msg'])){
                                         <div class="form-outline">
 
                                           <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                                             >
                                           <div class="valid-feedback"></div>
                                         </div>
@@ -337,7 +335,7 @@ if(isset($_SESSION['msg'])){
       $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
         var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@my.jru.edu");
+        $("#email").attr("value", fname + "." + lname + "@.jru.edu");
       });
     </script>
     <!--input mask-->

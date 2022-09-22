@@ -65,19 +65,19 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li class="active">
           <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -91,10 +91,11 @@ if(isset($_SESSION['msg'])){
           </li>
         </ul> -->
     </nav>
+
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
+      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>
@@ -121,12 +122,10 @@ if(isset($_SESSION['msg'])){
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
                   <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
                 </ul>
               </li>
@@ -234,6 +233,7 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $pt  </td>
                               <td> $pc  </td>
@@ -304,7 +304,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="signatory-update-button.php" method="POST">
+                <form action="officer-revision-button.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -432,7 +432,34 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
   </div>
-
+  <!-- archive modal -->
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header py-3 px-3">
+            <h5 class="modal-title" id="exampleModalLabel"> Archive Project </h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form action="admin-delete-user.php" method="POST">
+            <div class="modal-body">
+              <div class="col-12 col-md-12 justify-content-center ">
+                <div class="form-outline">
+                   <label class="form-label" for="delete_id" >Project ID:</label>
+                   <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
+                 </div>
+               </div>
+                <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Project. Are you sure?</p>
+            </div>
+            <div class="modal-footer py-2 px-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" name="deletedata" class="btn btn-danger">Yes</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -441,7 +468,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",
