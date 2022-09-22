@@ -210,7 +210,6 @@ if(isset($_SESSION['msg'])){
                             <td> $email  </td>
                             <td>
                             <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $sid . "'> <i class='bi bi-folder2-open'></i> </button>
-                            <button type='button' class='btn btn-danger btn-sm deletebtn' id='" . $sid . "'>  <i class='bi bi-trash-fill'></i> </button>
                             </td>
                             </tr>
                           ";
