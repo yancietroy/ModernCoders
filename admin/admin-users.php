@@ -169,7 +169,7 @@ if(isset($_SESSION['msg'])){
         </div>
 
         <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="register.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Student</a>
+          <a class="btn btn-default btn-circle button px-3" href="../register.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Student</a>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 <?php
-include('mysql_connect.php');
+include('../mysql_connect.php');
 
 if(isset($_POST['restoredata']))
 {
