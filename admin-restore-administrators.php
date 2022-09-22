@@ -1,22 +1,22 @@
 <?php
-include('../mysql_connect.php');
+include('mysql_connect.php');
 
-if(isset($_POST['deletedata']))
+if(isset($_POST['restoredata']))
 {
-    if(isset($_POST['delete_id'])){
+    if(isset($_POST['ADMIN_ID'])){
 
-        $query = "INSERT tb_students_archive SELECT * FROM tb_students WHERE STUDENT_ID='".$_POST["delete_id"]."'";
+        $query = "INSERT tb_admin SELECT * FROM tb_admin_archive WHERE ADMIN_ID='".$_POST["ADMIN_ID"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
 
-            $query = "DELETE FROM tb_students WHERE STUDENT_ID='".$_POST["delete_id"]."'";
+            $query = "DELETE FROM tb_admin_archive WHERE ADMIN_ID='".$_POST["ADMIN_ID"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
               echo "<script type='text/javascript'>
-                    alert('Archived User')
-                    window.location.href='admin-students.php'</script>";
+                    alert('User Restored!')
+                    window.location.href='admin-administrators-archive.php'</script>";
             }
             else
             {
