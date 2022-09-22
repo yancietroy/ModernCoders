@@ -44,7 +44,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand" href="student-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -56,14 +56,14 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li class="active">
           <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
-          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="election-student-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
@@ -130,7 +130,7 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php">  Organizations</a></li>
           <li class="breadcrumb-item"><a href="comsoc.php">  COMSOC</a></li>
           <li class="breadcrumb-item"><a href="forum-user.php">  Discussion Forum</a></li>

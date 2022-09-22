@@ -125,7 +125,7 @@ if(isset($_SESSION['msg'])){
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="officer-login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="../officer-login.php">Logout</a></li>
                 </ul>
               </li>
             </ul>
