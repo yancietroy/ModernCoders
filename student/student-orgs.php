@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../login.php");
+    header("Location:../index.php");
   }
  ?>
 
@@ -115,7 +115,7 @@ if(isset($_SESSION['msg'])){
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="../login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
 
                 </ul>
               </li>

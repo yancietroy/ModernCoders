@@ -230,7 +230,7 @@ include('mysql_connect.php');
                 </div>
 
                 <hr class="my-4">
-                <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+                <p class="mt-3 text-center">Already have an account? <a href="index.php" class="text-blue-50 fw-bold">Login</a>
                 </p>
                 <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
@@ -254,10 +254,10 @@ include('mysql_connect.php');
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
-                            window.location = 'login.php'
+                            window.location = 'index.php'
                             alert('You are now registered!')
                             </script>";
-                      //header("location:login.php");
+                      //header("location:index.php");
                       die;
                           @mysqli_close($conn);
                 }
