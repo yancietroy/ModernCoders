@@ -32,13 +32,13 @@ if(isset($_SESSION['message'])){
           <div class="card-body px-4 ">
             <div class="row g-0 justify-content-center mt-2">
               <!--	<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4  d-none d-sm-block">
-																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+																				<img class="mb-3 mx-auto d-none d-md-block" src="../assets/img/csc-logo.png" alt="" width="82" height="80">
                                       </div>-->
               <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 justify-content-center text-center align-items-center">
                 <img class="mb-2 mx-auto text-center" src="assets/img/jru-logo.png" alt="" width="110" height="110">
               </div>
               <!--		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
-																				<img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+																				<img class="mb-3 mx-auto d-none d-md-block" src="../assets/img/comsoc-logo.png" alt="" width="82" height="80">
                                       </div>-->
               <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
             </div>
@@ -77,7 +77,7 @@ if(isset($_SESSION['message'])){
     </div>
   </div>
   <!-- form validation/sidebar toggle -->
-  <script src="assets/js/form-validation.js"></script>
+  <script src="../assets/js/form-validation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function () {
@@ -118,7 +118,7 @@ if(isset ($_POST['submit']))
 			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
 			$_SESSION['use'] = $row[0];
   			if(isset($_SESSION['use'])){
-				header("Location:admin-index.php");
+				header("Location:admin/admin-index.php");
 				@mysqli_close($conn);
 				exit();
 			}

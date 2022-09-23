@@ -290,7 +290,7 @@ include('mysql_connect.php');
     Waves.init();
   </script>
   <!-- JavaScript validation -->
-  <script src="assets/js/bootstrap-validation.js"></script>
+  <script src="../assets/js/bootstrap-validation.js"></script>
   <!-- <script src="js/form-validation.js"></script>
 Prevent Cut Copy Paste -->
   <script>
