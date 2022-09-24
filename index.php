@@ -3,6 +3,7 @@ ob_start();
 session_start();
 session_destroy();
 session_start();
+$_SESSION['loggedIn'] = true;
 if(isset($_SESSION['message'])){
     print_r($_SESSION['message']);#display message
     unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
@@ -70,14 +71,14 @@ if(isset($_SESSION['message'])){
                 }
                 else
                 {
-                echo "<div class='callout bs-callout-warning'>
+                echo "<div class='callout bs-callout-warning pb-0' id='box' id='box'>
                       <h4>Error!</h4>
-                      <p>User do not exist in the database!</p></div>";
+                      <p>User does not exist in the database!</p></div>";
 
                 }
                 }
                 else
-                echo "<div class='callout bs-callout-warning'>
+                echo "<div class='callout bs-callout-warning pb-0'>
                       <h4>Error!</h4>
                       <p>Please enter email and password!</p></div>";
                 mysqli_close($conn);
@@ -101,7 +102,7 @@ if(isset($_SESSION['message'])){
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-4" id="select-opt">
                   <option class="greyclr" selected disabled value="" text-muted>Select User</option>
-                  <option value="login.php">Student</option>
+                  <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
                   <option value="admin-login.php">Admin</option>
@@ -131,6 +132,15 @@ if(isset($_SESSION['message'])){
   <script src="assets/js/form-validation.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript">
+      document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('box');
+
+    if (!box.contains(event.target)) {
+      box.style.display = 'none';
+    }
+  });
+      </script>
       <script type="text/javascript">
       $(document).ready(function () {
       $("#select-opt").change(function() {

@@ -65,7 +65,7 @@ include('mysql_connect.php');
                   if (mysqli_num_rows($duplicate)>0)
                   {
                     echo "
-                          <div class='callout bs-callout-warning'>
+                          <div class='callout bs-callout-warning pb-0' id='box'>
                             <h4>Error!</h4>
                             <p>student id or email already exists in the database!</p>
                           </div>
@@ -78,10 +78,11 @@ include('mysql_connect.php');
                   $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD)
                   VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
                   $conn->exec($sql);
-                  echo "<script type='text/javascript'>
-                        window.location = 'index.php'
-                        alert('You are now registered!')
-                        </script>";
+                  echo "
+                  <div class='callout bs-callout-success pb-0'>
+                    <h4>Successfuly registered!</h4>
+                    <p>please wait for approval in your email. <a href='index.php' class='text-blue-50 fw-bold'> Back to login</a></p>
+                  </div>";
                   }
                      catch(PDOException $e)
                       {
@@ -93,7 +94,7 @@ include('mysql_connect.php');
                   }
                   ?>
                 <!-- <form class="was-validated"> -->
-                <form method="post" action="register.php" id="form" name="form"  data-parsley-validate >
+                <form method="post" action="register.php" id="form" name="form"  data-parsley-validate data-parsley-trigger="keyup">
                 <div class="row">
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -325,6 +326,14 @@ Prevent Cut Copy Paste -->
       });
 
     });
+
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+  const box = document.getElementById('box');
+
+  if (!box.contains(event.target)) {
+    box.style.display = 'none';
+  }
+});
   </script>
 
   <!--email generator-->

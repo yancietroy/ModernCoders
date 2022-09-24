@@ -308,7 +308,7 @@ Array.from(forms)
     var confirmPassword = $("#txtConfirmPassword").val();
 
     if (password != confirmPassword)
-        $("#divCheckPasswordMatch").html("Passwords do not match!");
+        $("#divCheckPasswordMatch").html("Passwords does not match!");
     else
         $("#divCheckPasswordMatch").html("Passwords match.");
 }

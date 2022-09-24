@@ -526,17 +526,17 @@ $(document).ready(function () {
             },
           //  {
           //  text: 'Add',
-          //  name: 'add'        // do not change name
+          //  name: 'add'        // does not change name
           //  },
           //  {
           //  extend: 'selected', // Bind to Selected row
           //  text: 'Edit',
-          //  name: 'edit'        // do not change name
+          //  name: 'edit'        // does not change name
           //  },
           //  {
           //  extend: 'selected', // Bind to Selected row
         //    text: 'Delete',
-          //  name: 'delete'      // do not change name
+          //  name: 'delete'      // does not change name
           //  }
           ]/**,
           'columnDefs' : [
