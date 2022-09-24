@@ -246,19 +246,32 @@ if(isset($_SESSION['msg'])){
                                     $ln = $_POST['last_name'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
-
-
-                                        $query = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
-                                        $result = @mysqli_query($conn, $query);
-
-                                        echo "<script type='text/javascript'>
-                                              window.location = 'admin-administrators.php'
-                                              alert('Admin registered!')
-                                              </script>";
-                                        //header("location:signatory-login.php");
-                                        die;
-                                            @mysqli_close($conn);
-                                  }
+                                    $duplicate=mysqli_query($conn,"select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
+                                    if (mysqli_num_rows($duplicate)>0)
+                                    {
+                                      echo "<script type='text/javascript'>
+                                            alert('User already exists!')
+                                            </script>";
+                                    }
+                                    else{
+                                    try {
+                                    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                    $conn->exec($sql);
+                                    echo "<script type='text/javascript'>
+                                          window.location = 'admin-administrators.php'
+                                          alert('Admin registered!')
+                                          </script>";
+                                    }
+                                       catch(PDOException $e)
+                                        {
+                                              echo $sql . "
+                                              " . $e->getMessage();
+                                        }
+                                    $conn = null;
+                                    }
+                                    }
                                 ?>
                                   </form>
        </div>

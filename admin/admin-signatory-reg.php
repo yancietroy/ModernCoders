@@ -264,17 +264,31 @@ if(isset($_SESSION['msg'])){
                                     $st = $_POST['signatory_type'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
-
-                                        $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
-                                        $result = @mysqli_query($conn, $query);
-
-                                        echo "<script type='text/javascript'>
-                                              window.location = 'admin-signatories.php'
-                                              alert('Signatory registered!')
-                                              </script>";
-                                        //header("location:signatory-login.php");
-                                        die;
-                                            @mysqli_close($conn);
+                                    $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
+                                    if (mysqli_num_rows($duplicate)>0)
+                                    {
+                                      echo "<script type='text/javascript'>
+                                            alert('User already exists!')
+                                            </script>";
+                                    }
+                                    else{
+                                    try {
+                                    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                                    $conn->exec($sql);
+                                    echo "<script type='text/javascript'>
+                                    window.location = 'admin-signatories.php'
+                                    alert('Signatory registered!')
+                                          </script>";
+                                    }
+                                       catch(PDOException $e)
+                                        {
+                                              echo $sql . "
+                                              " . $e->getMessage();
+                                        }
+                                    $conn = null;
+                                    }
                                   }
                                 ?>
                                   </form>
