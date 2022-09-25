@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2022 at 03:38 PM
+-- Generation Time: Sep 25, 2022 at 12:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -62,8 +62,9 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
+(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
 (21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
-(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
 
@@ -85,8 +86,7 @@ CREATE TABLE `tb_admin_archive` (
 --
 
 INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
-(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
 
@@ -218,8 +218,30 @@ CREATE TABLE `tb_disc_reply` (
   `reply` int(11) NOT NULL,
   `disc_id` int(11) NOT NULL,
   `disc_topic_id` int(11) NOT NULL,
-  `org_id` int(11) NOT NULL
+  `org_id` int(11) NOT NULL,
+  `subj_id` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_disc_subj`
+--
+
+CREATE TABLE `tb_disc_subj` (
+  `subj_id` int(255) NOT NULL,
+  `subject` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_disc_subj`
+--
+
+INSERT INTO `tb_disc_subj` (`subj_id`, `subject`) VALUES
+(1, 'General Discussion'),
+(2, 'Introductions'),
+(3, 'Announcements'),
+(4, 'Officers Discussion');
 
 -- --------------------------------------------------------
 
@@ -229,7 +251,8 @@ CREATE TABLE `tb_disc_reply` (
 
 CREATE TABLE `tb_disc_topic` (
   `disc_topic_id` int(11) NOT NULL,
-  `ORG_ID` int(2) NOT NULL,
+  `org_id` int(2) NOT NULL,
+  `subj_id` int(255) DEFAULT NULL,
   `topic_desc` varchar(9000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -322,6 +345,13 @@ CREATE TABLE `tb_officers` (
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_officers`
+--
+
+INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
+(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
+
 -- --------------------------------------------------------
 
 --
@@ -340,13 +370,6 @@ CREATE TABLE `tb_officers_archive` (
   `password` varchar(1000) NOT NULL,
   `org_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_officers_archive`
---
-
-INSERT INTO `tb_officers_archive` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
-(1, 1, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
 
 -- --------------------------------------------------------
 
@@ -540,8 +563,8 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
-(12121223, 'Jotaro', 'Kujo', 'jotaro.kujo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO'),
-(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser');
+(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
 
 -- --------------------------------------------------------
 
@@ -557,13 +580,6 @@ CREATE TABLE `tb_signatories_archive` (
   `password` varchar(8000) DEFAULT NULL,
   `signatory_type` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_signatories_archive`
---
-
-INSERT INTO `tb_signatories_archive` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
-(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
 
 -- --------------------------------------------------------
 
@@ -593,7 +609,8 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-07-07', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12);
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-07-07', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12),
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -617,13 +634,6 @@ CREATE TABLE `tb_students_archive` (
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_students_archive`
---
-
-INSERT INTO `tb_students_archive` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -748,14 +758,22 @@ ALTER TABLE `tb_disc_reply`
   ADD PRIMARY KEY (`reply_id`),
   ADD KEY `discReply_disc_id_fk` (`disc_id`),
   ADD KEY `discReply_discTopic_id_fk` (`disc_topic_id`),
-  ADD KEY `discReply_org_id_fk` (`org_id`);
+  ADD KEY `discReply_org_id_fk` (`org_id`),
+  ADD KEY `discReply_subj_id_fk` (`subj_id`);
+
+--
+-- Indexes for table `tb_disc_subj`
+--
+ALTER TABLE `tb_disc_subj`
+  ADD PRIMARY KEY (`subj_id`);
 
 --
 -- Indexes for table `tb_disc_topic`
 --
 ALTER TABLE `tb_disc_topic`
   ADD PRIMARY KEY (`disc_topic_id`),
-  ADD KEY `discTopic_org_id_fk` (`ORG_ID`);
+  ADD KEY `discTopic_org_id_fk` (`org_id`),
+  ADD KEY `discTopic_subj_id_fk` (`subj_id`);
 
 --
 -- Indexes for table `tb_event`
@@ -958,13 +976,15 @@ ALTER TABLE `tb_disc`
 ALTER TABLE `tb_disc_reply`
   ADD CONSTRAINT `discReply_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `discReply_disc_id_fk` FOREIGN KEY (`disc_id`) REFERENCES `tb_disc` (`disc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `discReply_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_disc_topic`
 --
 ALTER TABLE `tb_disc_topic`
-  ADD CONSTRAINT `discTopic_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `discTopic_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `discTopic_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_event`
