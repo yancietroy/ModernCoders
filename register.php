@@ -75,8 +75,8 @@ include('mysql_connect.php');
                   try {
                   $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
                   $conn->exec($sql);
                   echo "
                   <div class='callout bs-callout-success pb-0'>

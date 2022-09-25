@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT tb_officers.officer_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+                    $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $oi = " ";
@@ -187,10 +187,12 @@ if(isset($_SESSION['msg'])){
                     $ln = " ";
                     $e = " ";
                     $c = " ";
+                    $si = " ";
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th class='all'>Officer ID</th>
+                                <th class='all'>Student ID</th>
                                 <th class='all'>Position</th>
                                 <th class='none'>Organization</th>
                                 <th class='all'>First Name</th>
@@ -209,6 +211,7 @@ if(isset($_SESSION['msg'])){
                       while($row = $result->fetch_assoc())
                       {
                         $oi = $row['officer_id'];
+                        $si = $row['student_id'];
                         $p = $row['position'];
                         $org = $row['ORG'];
                         $fn = $row['first_name'];
@@ -219,6 +222,7 @@ if(isset($_SESSION['msg'])){
 
                         echo "<tr>
                               <td> $oi  </td>
+                              <td> $si  </td>
                               <td> $p  </td>
                               <td> $org  </td>
                               <td> $fn  </td>
@@ -290,10 +294,16 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
+                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="student_id" >Student ID:</label>
+                           <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Account Created:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="account_created" >Account Created:</label>
+                         <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -315,8 +325,14 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
-                            <select class="form-select" name="org_id" id="org_id">
-
+                            <select class="form-select" name="org_id" id="org_id" readonly>
+                              <?php
+                              $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
                             </select>
                           </div>
                         </div>
@@ -426,6 +442,7 @@ if(isset($_SESSION['msg'])){
                 success:function(data){
                 console.log(data);
                 $('#officer_id').val(data.officer_id);
+                $('#student_id').val(data.student_id);
                 $('#position_id').val(data.position_id);
                 $('#org_id').val(data.org_id);
                 $('#first_name').val(data.first_name);
@@ -433,6 +450,7 @@ if(isset($_SESSION['msg'])){
                 $('#last_name').val(data.last_name);
                 $('#email').val(data.email);
                 $('#course').val(data.course);
+                $('#account_created').val(data.account_created);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
@@ -510,6 +528,7 @@ if(isset($_SESSION['msg'])){
           bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
+        { "width": "40px" },
         { "width": "40px" },
         { "width": "130px" },
         { "width": "130px" },
