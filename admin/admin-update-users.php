@@ -36,7 +36,7 @@ if (isset ($_POST['updatedata']))
                   VALUES('$si', '$pos_id', '$ln', '$fn', '$mn', '$course', '$section', '$e', '$pass', '$morg', NOW())";
             $result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-officers-users.php");
+			header("Location:admin-students-users.php");
 		}
 		}
 }
