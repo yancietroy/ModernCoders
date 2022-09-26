@@ -107,9 +107,9 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  $name = @mysqli_fetch_array ($result);
+                  if ($name)
+                  { echo "$name[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
@@ -133,12 +133,16 @@ if(isset($_SESSION['msg'])){
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <img class="profile_img" src="../assets/img/img_avatar.png" alt="">
-                  <h3 class="pt-3">John Doe</h3>
+                  <h3 class="pt-3"><?php echo "$name[0]"; ?></h3>
                 </div>
+                <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array ($result);
+                  $si = $data['STUDENT_ID'];?>
                 <div class="card-body">
-                  <p class="mb-0"><strong class="pr-1">Student ID:</strong>19-255322</p>
-                  <p class="mb-0"><strong class="pr-1">Year Level:</strong>4</p>
-                  <p class="mb-0"><strong class="pr-1">Section:</strong>402I</p>
+                  <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo "$si"; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo "$data[YEAR_LEVEL]"; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo "$data[SECTION]"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
                 </div>
               </div>
@@ -149,7 +153,7 @@ if(isset($_SESSION['msg'])){
 
                   <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
                     <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i>Student Information</h3>
-                    <button type="button" class="btn btn-primary btn-sm" >Edit Profile</button>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
                   </div>
                 </div>
                 <div class="card-body mt-2 pt-0">
@@ -158,42 +162,46 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Gender</th>
                       <td width="2%">:</td>
-                      <td>Male</td>
+                      <td><?php echo "$data[GENDER]"; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Birthdate</th>
                       <td width="2%">:</td>
-                      <td>11/14/1999</td>
+                      <td><?php echo "$data[BIRTHDATE]"; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Age</th>
                       <td width="2%">:</td>
-                      <td>22</td>
+                      <td><?php echo "$data[AGE]"; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Email</th>
                       <td width="2%">:</td>
-                      <td>john.doe@my.jru.edu</td>
+                      <td><?php echo "$data[EMAIL]"; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">College	</th>
                       <td width="2%">:</td>
-                      <td>College of Computer Studies and Engineering</td>
+                      <td></td>
                     </tr>
                     <tr>
                       <th width="30%">Course	</th>
                       <td width="2%">:</td>
-                      <td>Bachelor of Science in Information Technology </td>
+                      <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td>JRU Computer Society (COMSOC)</td>
+                      <td><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Position	</th>
                       <td width="2%">:</td>
-                      <td>Member</td>
+                      <td><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
                 </div>
@@ -202,6 +210,167 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
+  <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modal-lg" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Details </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="student-update-profile.php" method="POST">
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                        <div class="row justify-content-between">
+                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="STUDENT_ID" >Student ID:</label>
+                           <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                       <div class="col-4 col-md-3 mb-4">
+                       <div class="form-outline">
+                         <label class="form-label" for="ACCOUNT_CREATED" >Account Created:</label>
+                         <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
+                       </div>
+                     </div>
+                       </div>
+                        <div class="row">
+                        <div class="col-12 col-md-4 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="FIRST_NAME" >First name:</label>
+                            <input type="text" name="FIRST_NAME" id="FIRST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   required/>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-4 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
+                            <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"   />
+                          </div>
+                        </div>
+                          <div class="col-12 col-md-4 mb-4">
+                          <label class="form-label" for="LAST_NAME" >Last Name:</label>
+                          <input type="text" name="LAST_NAME" id="LAST_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"  required />
+                          </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="BIRTHDATE" >Birthdate:</label>
+                              <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old"  required/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="AGE" >Age:</label>
+                              <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-4 mb-4 ">
+                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
+                            <div class="btn-group">
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
+                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
+                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
+                              <!--<div class="valid-feedback check"> &#x2713;</div>
+                              <div class="invalid-feedback mv-up">Please select a gender!</div>-->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
+                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="SECTION">Section:</label>
+                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" required />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="EMAIL" >Email:</label>
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;"  readonly />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="college" >College:</label>
+                              <select class="form-select" name="college" id="college" readonly>
+                                <?php
+                                    $query = "SELECT college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                    }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label select-label" for="COURSE" >Course:</label>
+                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
+                                <?php
+                                      $query = "SELECT course FROM tb_course";
+                                      $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                              <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
+                                <?php
+                                  $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="USER_TYPE" >User Type:</label>
+                              <select class="form-select" name="USER_TYPE" id="USER_TYPE" readonly>
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                            <label class="form-label" for="USER_TYPE" >Password:</label>
+                           <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly/>
+                           </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+  </div>
 
       <!-- Page content
 
@@ -261,6 +430,66 @@ if(isset($_SESSION['msg'])){
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+    <script>
+        $(document).on('click', '.viewbtn', function(){
+           var STUDENT_ID = $(this).attr("id");
+           $.ajax({
+                url:"student-fetch-profile.php",
+                method:"POST",
+                data:
+                {
+                  STUDENT_ID:STUDENT_ID
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
+                $('#FIRST_NAME').val(data.FIRST_NAME);
+                $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
+                $('#LAST_NAME').val(data.LAST_NAME);
+                $('#BIRTHDATE').val(data.BIRTHDATE);
+                $('#AGE').val(data.AGE);
+                $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
+                $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
+                $('#EMAIL').val(data.EMAIL);
+                $('#COURSE').val(data.COURSE);
+                $('#SECTION').val(data.SECTION);
+                $('#MORG_ID').val(data.MORG_ID);
+                $('#PASSWORD').val(data.PASSWORD);
+                $('#viewmodal').modal('show');
+                $('#modal-lg').css('max-width','70%');
+                }
+            });
+
+            // UPPERCASE FIRST LETTER
+            document.getElementById("FIRST_NAME").addEventListener("input", forceLower);
+            document.getElementById("MIDDLE_NAME").addEventListener("input", forceLower);
+            document.getElementById("LAST_NAME").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of all the words (in all lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
+
+
+        });
+    </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
