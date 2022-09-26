@@ -1,215 +1,160 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('mysql_connect.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+session_destroy();
+session_start();
+$_SESSION['loggedIn'] = true;
+if(isset($_SESSION['message'])){
+    print_r($_SESSION['message']);#display message
+    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:login.php");
-  }
  ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
-  <!-- Bootstrap CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <!-- Waves CSS -->
+  <!-- Our Custom CSS  -->
+  <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
+  <!-- Waves CSS  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-  <!-- Font Awesome JS -->
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <!-- Bootstrap CSS  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
-<body>
-  <div class="d-flex" id="wrapper">
+<body class="bg min-vh-100">
+  <div class="container  align-items-center justify-content-center">
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-10 col-lg-5 col-xl-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
+          <div class="card-body px-4 ">
+            <div class="row g-0 justify-content-center align-items-center mt-2">
+              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
+              </div>
+              <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
+              </div>
+              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+              </div>
+            </div>
+            <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+            <form method="POST" class="requires-validation" novalidate autocomplete="off">
+              <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Student Login</h1>
+              <?php
+            if(isset ($_POST['submit']))
+            {
+            	include('mysql_connect.php');
+            	$e = $_POST['email'];
+            	$p = $_POST['password'];
 
-    <!-- Sidebar  -->
-    <nav id="sidebar">
+            	if(!empty($_POST['email']) || !empty($_POST['password'])) {
+            		ob_start();
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.php">
-          <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
+            		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+            		$result = @mysqli_query($conn, $query);
+            		$row = mysqli_fetch_array ($result);
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
-      </div>
+            		if($row)
+            		{
+            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+                $_SESSION['use'] = $row[0];
+                if(isset($_SESSION['use'])){
+                header("Location:student/student-index.php");
+                @mysqli_close($conn);
+                exit();
+                }
+                }
+                else
+                {
+                echo "<div class='callout bs-callout-warning pb-0' id='box' id='box'>
+                      <h4>Error!</h4>
+                      <p>User does not exist in the database!</p></div>";
 
-      <ul class="list-unstyled components p-2">
+                }
+                }
+                else
+                echo "<div class='callout bs-callout-warning pb-0'>
+                      <h4>Error!</h4>
+                      <p>Please enter email and password!</p></div>";
+                mysqli_close($conn);
 
-        <li class="active">
-          <a href="index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        </li>
-        <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
-        </li>
-        <li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-
-        </li>
-      </ul>
-      <!-- nav footer?
-        <ul class="list-unstyled CTAs">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>logout</a>
-          </li>
-        </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
-    <div id="content">
-
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
-
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
-
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Page content -->
-      <h4 class="ms-3">Student Profile</h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                </div>
-                <?php
-                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                          <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
-                            <label class='text-muted'>Section:</label>
-                            <h5>$row[4]</h5>
-                        </div>
-                        <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>Email:</label>
-                            <h6>$row[3]</h6>
-                            <label class='text-muted'>Course:</label>
-                            <h6>$row[2]</h6>
-                        </div>
-                        <div class='col-12 col-md-3 mt-2'>
-                            <label class='text-muted'>Student ID:</label>
-                            <h5>$row[0]</h5>
-                            <label class='text-muted'>Year Level:</label>
-                            <h5>Year $row[5] </h5>
-                        </div>";
-                        @mysqli_close($conn);
-                        }
-                        ?>
+                ob_end_flush();
+                }
+                ?>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <label class="text-muted" for="email">Email address</label>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Email field invalid!</div>
               </div>
 
-            </div>
-          </div>
-        </div>
-      </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-3 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              <div class="form-floating mb-2">
+                <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="20" value="" placeholder="password" required>
+                <label class=" text-muted " for="password">Password</label>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Password field invalid!</div>
+              </div>
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-4" id="select-opt">
+                  <option class="greyclr" selected disabled value="" text-muted>Select User</option>
+                  <option value="index.php">Student</option>
+                  <option value="officer-login.php">Officer</option>
+                  <option value="signatory-login.php">Signatory</option>
+                  <option value="admin-login.php">Admin</option>
+                </select>
+              </div>
+              <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
 
-              <a href="#" class="stretched-link"></a>
-            </div>
+              <hr class="my-4">
+              <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
+              </p>
+            </form>
           </div>
-        </div>
 
-        <!-- Footer -->
-      </div>
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-            </div>
-          </div>
-        </footer>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- waves js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script> <!-- JavaScript validation -->
+  <script type="text/javascript">
+    Waves.attach('.button');
+    Waves.init();
+  </script>
+  <!-- form validation/sidebar toggle -->
+  <script src="assets/js/form-validation.js"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- form validation/sidebar toggle -->
-    <script src="assets/js/form-validation.js"></script>
-    <!--WAVES CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script> <!-- JavaScript validation -->
-    <script type="text/javascript">
-      Waves.attach('#sidebar ul li a');
-      Waves.init();
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript">
+      document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('box');
+
+    if (!box.contains(event.target)) {
+      box.style.display = 'none';
+    }
+  });
+      </script>
+      <script type="text/javascript">
+      $(document).ready(function () {
+      $("#select-opt").change(function() {
+        var $option = $(this).find(':selected');
+        var url = $option.val();
+        if (url != "") {
+          url += "?text=" + encodeURIComponent($option.text());
+          // Show URL rather than redirect
+          window.location.href = url;
+        }
+      });
+    });
+      </script>
+
 </body>
 
 </html>
