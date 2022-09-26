@@ -1,8 +1,8 @@
 <?php
+
     include('mysql_connect.php');
 
-    if (isset($_POST['updatedata']) || isset($pr) || isset($s))
-    {
+    if (isset($_POST['updatedata']) || isset($pr) || isset($s)) {
         $id = $_POST['project_id'];
         $pr = $_POST['project_remarks'];
         $s = $_POST['status'];
@@ -11,15 +11,13 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               </script>";
-        header("Location:signatory-masterlist.php");
+            header("Location:signatory-masterlist.php");
         }
     }
-@mysqli_close($conn);
-?>
+    @mysqli_close($conn);

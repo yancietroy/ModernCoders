@@ -3,11 +3,11 @@ ob_start();
 session_start();
 session_destroy();
 session_start();
-if(isset($_SESSION['message'])){
+if (isset($_SESSION['message'])) {
     print_r($_SESSION['message']);#display message
     unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
 }
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,42 +90,37 @@ if(isset($_SESSION['message'])){
   <!-- form validation/sidebar toggle -->
   <script src="assets/js/form-validation.js"></script>
   <?php
-if(isset ($_POST['submit']))
-{
-	include('mysql_connect.php');
-	$e = $_POST['email'];
-	$p = $_POST['password'];
+if (isset($_POST['submit'])) {
+    include('mysql_connect.php');
+    $e = $_POST['email'];
+    $p = $_POST['password'];
 
-	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-		ob_start();
+    if (!empty($_POST['email']) || !empty($_POST['password'])) {
+        ob_start();
 
-		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-		$result = @mysqli_query($conn, $query);
-		$row = mysqli_fetch_array ($result);
+        $query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+        $result = @mysqli_query($conn, $query);
+        $row = mysqli_fetch_array($result);
 
-		if($row)
-		{
-			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
-    $_SESSION['use'] = $row[0];
-    if(isset($_SESSION['use'])){
-    header("Location:index.php");
-    @mysqli_close($conn);
-    exit();
+        if ($row) {
+            $_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+            $_SESSION['use'] = $row[0];
+            if (isset($_SESSION['use'])) {
+                header("Location:index.php");
+                @mysqli_close($conn);
+                exit();
+            }
+        } else {
+            echo '<script>alert("The email address and password entered do not match those on file.")</script>';
+        }
+    } else {
+        echo '<script>alert("Please enter email and/or password!")</script>';
     }
-    }
-    else
-    {
-    echo '<script>alert("The email address and password entered do not match those on file.")</script>';
-
-    }
-    }
-    else
-    echo '<script>alert("Please enter email and/or password!")</script>';
     mysqli_close($conn);
 
     ob_end_flush();
-    }
-    ?>
+}
+?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="text/javascript">
       $(document).ready(function () {

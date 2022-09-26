@@ -3,15 +3,13 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:login.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,10 +130,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                     <li>
@@ -173,10 +172,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter primary">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Pending</p>
             </div>
             <div class="icon">
@@ -190,10 +190,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter success">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Approved</p>
             </div>
             <div class="icon">
@@ -207,10 +208,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter danger">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Rejected</p>
             </div>
             <div class="icon">
@@ -224,10 +226,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter bg-secondary">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Cancelled</p>
             </div>
             <div class="icon">
@@ -243,10 +246,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter bg-info">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Ongoing</p>
             </div>
             <div class="icon">
@@ -259,10 +263,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter done">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>Done</p>
             </div>
             <div class="icon">
@@ -277,10 +282,11 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter events">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></h3>
               <p>For Revision</p>
             </div>
             <div class="icon">

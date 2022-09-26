@@ -5,15 +5,13 @@ $id = $_SESSION['use'];
 $ssid = $_GET['project_id'];
 //$ssid = $_SESSION['pid'];
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:../signatory-login.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -113,10 +111,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">Profile</a></li>
                   <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -144,38 +143,38 @@ if(isset($_SESSION['msg'])){
       </nav>
       <?php
       $query = "SELECT project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget FROM tb_projectmonitoring WHERE project_id = '$ssid'";
-                  $result = @mysqli_query($conn, $query);
-                  $pn = " ";
-                  $v = " ";
-                  $pt = " ";
-                  $sd = " ";
-                  $ed = " ";
-                  $bs = " ";
-                  $pc = " ";
-                  $p = " ";
-                  $nop = " ";
-                  $b = " ";
-                  $nob = " ";
-                  $pd = " ";
-                  $eb = " ";
-                  if($result) {
-                    while($row = @mysqli_fetch_array($result)){
-                      $pn = $row['project_name'];
-                      $v = $row['venue'];
-                      $pt = $row['project_type'];
-                      $sd = $row['start_date'];
-                      $ed = $row['end_date'];
-                      $bs = $row['budget_source'];
-                      $pc = $row['project_category'];
-                      $p = $row['participants'];
-                      $nop = $row['no_of_participants'];
-                      $b = $row['beneficiary'];
-                      $nob = $row['no_of_beneficiary'];
-                      $pd = $row['project_desc'];
-                      $eb = $row['estimated_budget'];
-                    }
-                  }
-                    ?>
+$result = @mysqli_query($conn, $query);
+$pn = " ";
+$v = " ";
+$pt = " ";
+$sd = " ";
+$ed = " ";
+$bs = " ";
+$pc = " ";
+$p = " ";
+$nop = " ";
+$b = " ";
+$nob = " ";
+$pd = " ";
+$eb = " ";
+if ($result) {
+    while ($row = @mysqli_fetch_array($result)) {
+        $pn = $row['project_name'];
+        $v = $row['venue'];
+        $pt = $row['project_type'];
+        $sd = $row['start_date'];
+        $ed = $row['end_date'];
+        $bs = $row['budget_source'];
+        $pc = $row['project_category'];
+        $p = $row['participants'];
+        $nop = $row['no_of_participants'];
+        $b = $row['beneficiary'];
+        $nob = $row['no_of_beneficiary'];
+        $pd = $row['project_desc'];
+        $eb = $row['estimated_budget'];
+    }
+}
+?>
 
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" novalidate>
@@ -352,42 +351,39 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
        <?php
-              if (isset($_POST['rejected']) || isset($pr))
-                {
+              if (isset($_POST['rejected']) || isset($pr)) {
                   $pr = $_POST['project_remarks'];
                   $s = "Rejected";
 
-                      $query = "SELECT * FROM `tb_projectmonitoring`;";
-                      $result = @mysqli_query($conn, $query);
-                      $row = mysqli_fetch_array($result);
+                  $query = "SELECT * FROM `tb_projectmonitoring`;";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
 
-                      if($row){
-                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
-                        $result = @mysqli_query($conn, $query);
-                        echo "<script type='text/javascript'>
+                  if ($row) {
+                      $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                      $result = @mysqli_query($conn, $query);
+                      echo "<script type='text/javascript'>
                               alert('Status updated!')
                               </script>";
-                      }
-                }
-                else if (isset($_POST['approved']) || isset($pr))
-                {
+                  }
+              } elseif (isset($_POST['approved']) || isset($pr)) {
                   $pr = $_POST['project_remarks'];
                   $s = "Approved";
 
-                      $query = "SELECT * FROM `tb_projectmonitoring`;";
-                      $result = @mysqli_query($conn, $query);
-                      $row = mysqli_fetch_array($result);
+                  $query = "SELECT * FROM `tb_projectmonitoring`;";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
 
-                      if($row){
-                        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
-                        $result = @mysqli_query($conn, $query);
-                        echo "<script type='text/javascript'>
+                  if ($row) {
+                      $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$ssid';";
+                      $result = @mysqli_query($conn, $query);
+                      echo "<script type='text/javascript'>
                               alert('Status updated!')
                               </script>";
-                      }
-                }
+                  }
+              }
               @mysqli_close($conn);
-      ?>
+?>
       </form>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">

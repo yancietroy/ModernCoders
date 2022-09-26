@@ -1,8 +1,8 @@
 <?php
+
     include('mysql_connect.php');
 
-    if (isset($_POST['updatedata']))
-    {
+    if (isset($_POST['updatedata'])) {
         $id = $_POST['project_id'];
         $pn = $_POST['project_name'];
         $v = $_POST['venue'];
@@ -23,9 +23,8 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET 
                 `project_name` ='$pn', 
                 `venue` ='$v', 
                 `start_date` ='$sd', 
@@ -41,14 +40,13 @@
                 `project_desc` ='$pd',
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               </script>";
-        header("Location:officer-revision.php");
+            header("Location:officer-revision.php");
         }
-    } else if(isset($_POST['Done']))
-    {
+    } elseif (isset($_POST['Done'])) {
         $id = $_POST['project_id'];
         $s = "Done";
 
@@ -56,19 +54,17 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET 
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               </script>";
-        header("Location:officer-done.php");
+            header("Location:officer-done.php");
         }
-    } else if(isset($_POST['Cancel']))
-    {
+    } elseif (isset($_POST['Cancel'])) {
         $id = $_POST['project_id'];
         $s = "Cancelled";
 
@@ -76,19 +72,17 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET 
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               </script>";
-        header("Location:officer-cancelled.php");
+            header("Location:officer-cancelled.php");
         }
-    } else if(isset($_POST['Ongoing']))
-    {
+    } elseif (isset($_POST['Ongoing'])) {
         $id = $_POST['project_id'];
         $s = "Ongoing";
 
@@ -96,17 +90,15 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET 
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET 
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               </script>";
-        header("Location:officer-ongoing.php");
+            header("Location:officer-ongoing.php");
         }
     }
-@mysqli_close($conn);
-?>
+    @mysqli_close($conn);

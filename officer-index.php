@@ -3,15 +3,13 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 include('mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:officer-login.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,10 +106,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#!">Profile</a></li>
                   <li><a class="dropdown-item" href="#!">Settings</a></li>
@@ -139,12 +138,11 @@ if(isset($_SESSION['msg'])){
                   <img src="assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
+$query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "
                     <div class='col-12 col-md-3 mt-2'>
                       <label class='text-muted'>Name:</label>
                       <h5>$row[1]</h5>
@@ -163,11 +161,11 @@ if(isset($_SESSION['msg'])){
                       <label class='text-muted mt-3'>Course:</label>
                       <h6 class='fs-6'>$row[2]</h6>
                   ";
-                      /**<label class='text-muted'>Position:</label>
-                      <h5>Year $row[5] </h5>
-                          </div>";**/
-                  }
-                  ?>
+    /**<label class='text-muted'>Position:</label>
+    <h5>Year $row[5] </h5>
+        </div>";**/
+}
+?>
               </div>
 
             </div>

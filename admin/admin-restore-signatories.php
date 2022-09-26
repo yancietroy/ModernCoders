@@ -1,32 +1,23 @@
 <?php
+
 include('../mysql_connect.php');
 
-if(isset($_POST['restoredata']))
-{
-    if(isset($_POST['school_id'])){
-
+if (isset($_POST['restoredata'])) {
+    if (isset($_POST['school_id'])) {
         $query = "INSERT tb_signatories SELECT * FROM tb_signatories_archive WHERE school_id='".$_POST["school_id"]."'";
         $result = @mysqli_query($conn, $query);
-        if($result)
-        {
-
+        if ($result) {
             $query = "DELETE FROM tb_signatories_archive WHERE school_id='".$_POST["school_id"]."'";
             $result = @mysqli_query($conn, $query);
-            if($result)
-            {
-              echo "<script type='text/javascript'>
+            if ($result) {
+                echo "<script type='text/javascript'>
                     alert('User Restored!')
                     window.location.href='admin-archive-signatories.php'</script>";
-            }
-            else
-            {
+            } else {
                 echo '<script> alert("Data Not Deleted"); </script>';
             }
-        }
-        else
-        {
+        } else {
             echo '<script> alert("Data Not Deleted"); </script>';
         }
     }
 }
-?>

@@ -45,8 +45,7 @@ include('mysql_connect.php');
 
                 <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
-                {
+               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit'])) {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
                   $mn = $_POST['middle_name'];
@@ -61,38 +60,34 @@ include('mysql_connect.php');
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
-                  $duplicate=mysqli_query($conn,"select * from tb_students where STUDENT_ID='$si' or EMAIL='$e'");
-                  if (mysqli_num_rows($duplicate)>0)
-                  {
-                    echo "
+                  $duplicate=mysqli_query($conn, "select * from tb_students where STUDENT_ID='$si' or EMAIL='$e'");
+                  if (mysqli_num_rows($duplicate)>0) {
+                      echo "
                           <div class='callout bs-callout-warning pb-0' id='box'>
                             <h4>Error!</h4>
                             <p>student id or email already exists in the database!</p>
                           </div>
                           ";
-                  }
-                  else{
-                  try {
-                  $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-                  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
+                  } else {
+                      try {
+                          $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                          $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
                   VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
-                  $conn->exec($sql);
-                  echo "
+                          $conn->exec($sql);
+                          echo "
                   <div class='callout bs-callout-success pb-0'>
                     <h4>Successfuly registered!</h4>
                     <p>please wait for approval in your email. <a href='index.php' class='text-blue-50 fw-bold'> Back to login</a></p>
                   </div>";
-                  }
-                     catch(PDOException $e)
-                      {
-                            echo $sql . "
+                      } catch(PDOException $e) {
+                          echo $sql . "
                             " . $e->getMessage();
                       }
-                  $conn = null;
+                      $conn = null;
                   }
-                  }
-                  ?>
+              }
+?>
                 <!-- <form class="was-validated"> -->
                 <form method="post" action="register.php" id="form" name="form"  data-parsley-validate data-parsley-trigger="keyup">
                 <div class="row">
@@ -197,12 +192,12 @@ include('mysql_connect.php');
                     <select class="form-select form-select-sm" name="college" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
-                                           ?>
+         $query = "SELECT college FROM tb_collegedept";
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>
@@ -214,11 +209,11 @@ include('mysql_connect.php');
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                             $query = "SELECT course FROM tb_course";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                            }
-                                            ?>
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a course</div>-->
                   </div>
@@ -229,11 +224,11 @@ include('mysql_connect.php');
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
-                                           }
-                                           ?>
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+}
+?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a organization</div>-->
                   </div>

@@ -121,8 +121,7 @@ include('mysql_connect.php');
                   <p class="mt-3 text-center">Already have an account? <a href="signatory-login.php" class="text-blue-50 fw-bold">Login</a>
                   </p>
                   <?php
-              if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
-                {
+              if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit'])) {
                   $si = $_POST['schoolId'];
                   $fn = $_POST['firstName'];
                   $ln = $_POST['lastName'];
@@ -130,18 +129,18 @@ include('mysql_connect.php');
                   $e = $_POST['email'];
                   $p = $_POST['password'];
 
-                      $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
-                      $result = @mysqli_query($conn, $query);
+                  $query = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                  $result = @mysqli_query($conn, $query);
 
-                      echo "<script type='text/javascript'>
+                  echo "<script type='text/javascript'>
                             window.location = 'signatory-login.php'
                             alert('You are now registered!')
                             </script>";
-                      //header("location:signatory-login.php");
-                      die;
-                          @mysqli_close($conn);
-                }
-              ?>
+                  //header("location:signatory-login.php");
+                  die;
+                  @mysqli_close($conn);
+              }
+?>
                 </form>
 
 

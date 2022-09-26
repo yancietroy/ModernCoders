@@ -3,15 +3,13 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:login.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -110,10 +108,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
@@ -276,8 +275,7 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit']))
-                {
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit'])) {
                   $pn = $_POST['project_name'];
                   $vn = $_POST['venue'];
                   $pt = $_POST['project_type'];
@@ -292,18 +290,18 @@ if(isset($_SESSION['msg'])){
                   $pd = $_POST['project_desc'];
                   //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
-                   $s = "Pending";
+                  $s = "Pending";
 
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
-                      $result = @mysqli_query($conn, $query);
+                  $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
+                  $result = @mysqli_query($conn, $query);
 
-                      echo "<script type='text/javascript'>
+                  echo "<script type='text/javascript'>
                             alert('Project Created!')
                             </script>";
-                      //header("location:login.php");
-                          @mysqli_close($conn);
-                }
-      ?>
+                  //header("location:login.php");
+                  @mysqli_close($conn);
+              }
+?>
       </form>
         <!-- Footer -->
         <div id="layoutAuthentication_footer">

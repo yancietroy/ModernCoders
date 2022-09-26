@@ -137,11 +137,11 @@ include('../mysql_connect.php');
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
                            $query = "SELECT college FROM tb_collegedept";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
-                                           ?>
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a college program
@@ -155,11 +155,11 @@ include('../mysql_connect.php');
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                             $query = "SELECT course FROM tb_course";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                            }
-                                            ?>
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Course
@@ -172,11 +172,11 @@ include('../mysql_connect.php');
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
-                                           }
-                                           ?>
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+}
+?>
                     </select>
                     <div class="invalid-feedback">
                       Please select a Organization
@@ -227,8 +227,7 @@ include('../mysql_connect.php');
               </p>
               <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
-                {
+               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit'])) {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
                   $mn = $_POST['middle_name'];
@@ -243,18 +242,18 @@ include('../mysql_connect.php');
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
-                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
-                      $result = @mysqli_query($conn, $query);
+                  $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
+                  $result = @mysqli_query($conn, $query);
 
-                      echo "<script type='text/javascript'>
+                  echo "<script type='text/javascript'>
                             window.location = 'login.php'
                             alert('You are now registered!')
                             </script>";
-                      //header("location:login.php");
-                      die;
-                          @mysqli_close($conn);
-                }
-              ?>
+                  //header("location:login.php");
+                  die;
+                  @mysqli_close($conn);
+              }
+?>
           </form>
 
               </div>
