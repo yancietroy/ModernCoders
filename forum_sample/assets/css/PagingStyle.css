@@ -1,0 +1,40 @@
+body {
+  margin: auto;
+}
+ul.paginate,
+ul.paginate li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.paginate {
+  padding: 20px;
+}
+ul.paginate ul.paginate li {
+  background: #eee;
+  padding: 5px;
+  border-bottom: 1px soul.paginate lid #ddd;
+}
+#paging {
+  padding: 0 20px 20px 20px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+#paging a {
+  color: #000;
+  background: #e0e0e0;
+  padding: 8px 12px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+#paging a.aktif {
+  background: #000 !important;
+  color: #fff;
+}
+#paging a:hover {
+  border: 1px soul.paginate lid #000;
+}
+
+.hidden {
+  display: none;
+}
