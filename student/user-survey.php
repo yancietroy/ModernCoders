@@ -131,16 +131,17 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-file-bar-graph-fill"></i> Project Feedback</li>
         </ol>
       </nav>
-      <!-- Page content -->
 
       <!-- Page content -->
+
       <form class="survey-form" method="post" action="">
-        <h1><i class="far fa-list-alt"></i>Survey Form</h1>
-
+        <div class="title p-2 pt-4 pb-3 mt-3">
+      <h5>Sample Project</h5>
+        <h2>Feedback Form</h3>
+        </div>
 <div class="steps">
 	<div class="step current"></div>
 	<div class="step"></div>
@@ -167,23 +168,24 @@ if(isset($_SESSION['msg'])){
 			<span>Very Unsatisfied</span>
 			<span>Very Satisfied</span>
 		</div>
-		<p>Where did you hear about us?</p>
-		<div class="group">
+    <hr>
+		<div class="group pt-2">
+      <p>Where did you hear about the event?</p>
 			<label for="radio6">
 				<input type="radio" name="hear_about_us" id="radio6" value="Search Engine">
-				Search Engine
+				JRU Website
 			</label>
 			<label for="radio7">
 				<input type="radio" name="hear_about_us" id="radio7" value="Newsletter">
-				Newsletter
+				Canvas
 			</label>
 			<label for="radio8">
 				<input type="radio" name="hear_about_us" id="radio8" value="Advertisements">
-				Advertisements
+				Social Media
 			</label>
 			<label for="radio9">
 				<input type="radio" name="hear_about_us" id="radio9" value="Social Media">
-				Social Media
+				other
 			</label>
 		</div>
 	</div>
@@ -218,12 +220,16 @@ if(isset($_SESSION['msg'])){
 				Email
 			</label>
 			<label for="check2">
-				<input type="checkbox" name="contact_pref[]" id="check2" value="Phone">
-				Phone
+				<input type="checkbox" name="contact_pref[]" id="check2" value="Canvas">
+				Canvas
 			</label>
 			<label for="check3">
-				<input type="checkbox" name="contact_pref[]" id="check3" value="Post">
-				Post
+				<input type="checkbox" name="contact_pref[]" id="check3" value="Messenger">
+				Messenger
+			</label>
+      <label for="check4">
+				<input type="checkbox" name="contact_pref[]" id="check4" value="SMS">
+				SMS
 			</label>
 		</div>
 	</div>
@@ -238,12 +244,12 @@ if(isset($_SESSION['msg'])){
 	<div class="fields">
 		<label for="email">Your Email</label>
 		<div class="field">
-			<i class="fas fa-envelope"></i>
-			<input id="email" type="email" name="email" placeholder="Your Email" required>
+			<i class="bi bi-envelope"></i>
+			<input type="email" class="form-control" id="email" name="email" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
 		</div>
-		<label for="comments">Additional Comments</label>
+		<label for="comments">Do you have additional feedback for us?</label>
 		<div class="field">
-			<textarea id="comments" name="comments" placeholder="Enter your comments ..."></textarea>
+			<textarea id="comments" name="comments" ></textarea>
 		</div>
 	</div>
 	<div class="buttons">

@@ -962,15 +962,14 @@ Survey
 .survey-form input,textarea,select {
     outline: 0;
 }
-.survey-form h1 {
+.survey-form h2, .survey-form h5 {
     margin: 0;
-    padding: 35px 25px 25px 25px;
-    font-size: 20px;
     color: #6a737f;
     font-weight: 600;
+    text-align:center;
 }
+
 .survey-form h1 i {
-    padding-right: 10px;
     font-size: 24px;
 }
 .survey-form {
@@ -1044,7 +1043,7 @@ Survey
     display: inline-block;
     padding: 10px 20px;
     border: 0;
-    background-color: #c9704c;
+    background-color: #F2AC1B;
     font-weight: bold;
     color: #fff;
     cursor: pointer;
@@ -1054,16 +1053,16 @@ Survey
     font-size: 14px;
 }
 .survey-form .btn:hover {
-    background-color: #c26c4a;
+    background-color: #9E7F51;
 }
 .survey-form .btn.alt {
     background-color: transparent;
-    border: 1px solid #c9704c;
-    color: #c9704c;
+    border: 1px solid #F2AC1B;
+    color:#F2AC1B;
 }
 .survey-form .btn.alt:hover {
-    border: 1px solid #c26c4a;
-    color: #c26c4a;
+    border: 1px solid #9E7F51;
+    color: #9E7F51;
 }
 .survey-form input[name="email"] {
     position: relative;
@@ -1083,6 +1082,7 @@ Survey
 .survey-form .field i {
     position: absolute;
     color: #dfe2e5;
+    font-style: bold;
     top: 25px;
     left: 15px;
     z-index: 10;
@@ -1113,6 +1113,7 @@ Survey
     align-self: center;
     margin: 0 auto;
 }
+
 .survey-form .steps::before {
     content: "";
     position: absolute;
@@ -1132,14 +1133,13 @@ Survey
     background-color: #f2f4f7;
     border: 3px solid #f2f4f7;
     border-radius: 50px;
-
     z-index: 1;
 }
 .survey-form .steps .step.current {
-    background-color: #8cc6f2;
+    background-color: #00226C;
 }
 .survey-form .steps .step.complete {
-    background-color: #6ECBA4;
+    background-color: #F2AC1B;
 }
 .survey-form .rating {
     display: flex;
@@ -1187,7 +1187,7 @@ Survey
     width: 31px;
     height: 31px;
     border-radius: 100%;
-    background: #c9704c;
+    background: #F2AC1B;
     z-index: -1;
 }
 .survey-form .rating input[type="radio"]:not(:checked) + label:after {
