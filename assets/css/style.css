@@ -50,12 +50,12 @@ a:focus {
   text-decoration: none;
   transition: all 0.3s;
 }
-
+/*
 i,
 span {
   display: inline-block;
 }
-
+*/
 /* validation */
 input.parsley-success,
 select.parsley-success,
