@@ -12,8 +12,8 @@ if (isset($_POST["search"]["value"])) {
     $query .= '
  WHERE STUDENT_ID LIKE "%'.$_POST["search"]["value"].'%"
  OR FIRST_NAME LIKE "%'.$_POST["search"]["value"].'%"
- OR MIDDLE_NAME LIKE "%'.$_POST["search"]["value"].'%" 
- OR LAST_NAME LIKE "%'.$_POST["search"]["value"].'%" 
+ OR MIDDLE_NAME LIKE "%'.$_POST["search"]["value"].'%"
+ OR LAST_NAME LIKE "%'.$_POST["search"]["value"].'%"
  OR GENDER LIKE "%'.$_POST["search"]["value"].'%"
  OR EMAIL LIKE "%'.$_POST["search"]["value"].'%"
  OR YEAR_LEVEL LIKE "%'.$_POST["search"]["value"].'%"
