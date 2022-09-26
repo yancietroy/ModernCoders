@@ -10,13 +10,13 @@ function forceLower(evt) {
   var words = evt.target.value.toLowerCase().split(/\s+/g);
 
   // Loop through the array and replace the first letter with a cap
-  var newWords = words.map(function(element) {
+  var newWords = words.map(function (element) {
     // As long as we're not dealing with an empty array element, return the
     // first letter of the word, converted to upper case and add the rest of the
     // letters from this word. Return the final word to a new array
     return element !== ""
-               ? element[0].toUpperCase() + element.substr(1, element.length)
-               : "";
+      ? element[0].toUpperCase() + element.substr(1, element.length)
+      : "";
   });
 
   // Replace the original value with the updated array of capitalized words.

@@ -1,5 +1,4 @@
 function createRipple(event) {
-
   const button = event.currentTarget;
   const btnRect = button.getBoundingClientRect();
   const circle = document.createElement("span");
