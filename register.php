@@ -61,7 +61,7 @@ include('mysql_connect.php');
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
 
-                  $duplicate=mysqli_query($conn,"select * from tb_students where STUDENT_ID='$si' or EMAIL='$e'");
+                  $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
                   {
                     echo "

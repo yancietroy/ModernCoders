@@ -208,7 +208,7 @@ if(isset($_SESSION['msg'])){
                   </table>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Change Password</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $si . "' >Change Password</button>";?>
                   </div>
 
                 </div>
@@ -236,6 +236,20 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
+                       <div class="col-4 col-md-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="USER_TYPE" >User Type:</label>
+                              <select class="form-select" name="USER_TYPE" id="USER_TYPE" readonly>
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
                          <label class="form-label" for="ACCOUNT_CREATED" >Account Created:</label>
@@ -346,28 +360,6 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="USER_TYPE" >User Type:</label>
-                              <select class="form-select" name="USER_TYPE" id="USER_TYPE" readonly>
-                                <?php
-                                  $query = "SELECT * FROM tb_usertypes";
-                                  $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                                ?>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                            <label class="form-label" for="USER_TYPE" >Password:</label>
-                           <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" style="background-color: #fff;" readonly/>
-                           </div>
-                          </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -378,6 +370,45 @@ if(isset($_SESSION['msg'])){
             </div>
         </div>
   </div>
+  <div class="modal fade" id="changePass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Change Password </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="student-change-pass.php" method="POST">
+                    <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
+                        <div class="form-outline">
+                          <input type="hidden" id="cid" name="cid" class="form-control">
+                           <label class="form-label" for="password" id="asterisk">New Password</label>
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
+                        data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                      <span class="errorspannewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <div class="form-outline">
+                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                        data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                      <span class="errorspanconfirmnewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <!--  <div class="invalid-feedback">Invalid Field!</div>-->
+                    </div>
+                         </div>
+                       </div>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> You are about to change your password. Are you sure?</p>
+                   </div>
+                   <div class="modal-footer py-2 px-3">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                       <button type="submit" name="changePassword" class="btn btn-info">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
       <!-- Page content
 
@@ -514,6 +545,41 @@ if(isset($_SESSION['msg'])){
           });
         });
     </script>
+    <script>
+      $(document).on('click', '.passbtn', function(){
+        $("#changePass").validate({
+        rules: {
+          txtNewPassword: {
+            required: true,
+            minlength: 8
+          },
+          action: "required"
+        },
+        messages: {
+          txtNewPassword: {
+            required: "Please enter some data",
+            minlength: "Your data must be at least 8 characters"
+          },
+          action: "Please provide some data"
+        } 
+        }); 
+        var STUDENT_ID = $(this).attr("id");
+        $.ajax({
+                url:"student-fetch-profile.php",
+                method:"POST",
+                data:
+                {
+                  STUDENT_ID:STUDENT_ID
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#cid').val(data.STUDENT_ID);
+                $('#changePass').modal('show');
+                }
+        });
+      });
+</script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
@@ -577,16 +643,16 @@ if(isset($_SESSION['msg'])){
     </script>
     <!--input mask-->
     <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
-    <script src="assets/js/inputmask-validation.js"></script>
+    <script src="../assets/js/inputmask-validation.js"></script>
 
     <!--Uppercase first letter !-->
-    <script src="assets/js/uppercase-firstletter.js"></script>
+    <script src="../assets/js/uppercase-firstletter.js"></script>
 
     <!--password validation!-->
-    <script src="assets/js/pass-validation.js"></script>
+    <script src="../assets/js/pass-validation.js"></script>
 
     <!-- age validation !-->
-    <script src="assets/js/age-validation.js"></script>
+    <script src="../assets/js/age-validation.js"></script>
 </body>
 
 </html>
