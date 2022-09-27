@@ -132,7 +132,13 @@ if(isset($_SESSION['msg'])){
             <div class="col-lg-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
-                  <img class="profile_img" src="../assets/img/img_avatar.png" alt="">
+                    <div class="container">
+                      <img class="profile_img" src="../assets/img/img_avatar.png" id="profile-pic" alt="">
+                      <div class="middle">
+                        <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
+                          <input class="file-upload" type="file" accept="image/*"/>
+                      </div>
+                    </div>
                   <h3 class="pt-3"><?php echo "$name[0]"; ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$id'";
@@ -150,11 +156,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-lg-8">
               <div class="card shadow">
                 <div class="card-header bg-transparent border-0">
-
-                  <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
-                    <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i>Student Information</h3>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
-                  </div>
+                    <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered">
@@ -204,6 +206,11 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
+                  <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Change Password</button>";?>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -282,7 +289,7 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
@@ -292,7 +299,7 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;"  readonly />
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" />
                           </div>
                         </div>
                         <div class="row">
@@ -357,7 +364,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                             <label class="form-label" for="USER_TYPE" >Password:</label>
-                           <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly/>
+                           <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" style="background-color: #fff;" readonly/>
                            </div>
                           </div>
                         </div>
@@ -489,6 +496,23 @@ if(isset($_SESSION['msg'])){
 
 
         });
+
+        $(document).ready(function() {
+          $("#SECTION").inputmask("999A", {
+            autoUnmask: true,
+            onincomplete: function() {
+              $("#errorsection").show();
+            },
+
+            clearIncomplete: true,
+            removeMaskOnSubmit: true,
+            showMaskOnFocus: false,
+            showMaskOnHover: false,
+            oncomplete: function() {
+              $("#errorsection").hide();
+            }
+          });
+        });
     </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -501,6 +525,68 @@ if(isset($_SESSION['msg'])){
       Waves.attach('#sidebar ul li a');
       Waves.init();
     </script>
+    <!-- JavaScript validation -->
+    <script src="../assets/js/bootstrap-validation.js"></script>
+
+    <!-- <script src="js/form-validation.js"></script>
+  Prevent Cut Copy Paste -->
+    <script>
+      $(document).ready(function() {
+        $('input:text').bind('cut copy paste', function(e) {
+          e.preventDefault();
+          return false;
+        });
+
+      });
+
+      document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('box');
+
+    if (!box.contains(event.target)) {
+      box.style.display = 'none';
+    }
+  });
+    </script>
+
+    <!--image upload-->
+    <script>
+    $(document).ready(function() {
+
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+    </script>
+    <!--input mask-->
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="assets/js/inputmask-validation.js"></script>
+
+    <!--Uppercase first letter !-->
+    <script src="assets/js/uppercase-firstletter.js"></script>
+
+    <!--password validation!-->
+    <script src="assets/js/pass-validation.js"></script>
+
+    <!-- age validation !-->
+    <script src="assets/js/age-validation.js"></script>
 </body>
 
 </html>
