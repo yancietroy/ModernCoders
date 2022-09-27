@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../../officer-login.php");
+    header("Location:../index.php");
   }
  ?>
 
@@ -25,22 +25,26 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Waves CSS CDN -->
+  <!-- Waves CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-  <!-- Icons -->
+  <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+<!-- calendar
+<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
 </head>
 
 <body>
   <div class="d-flex" id="wrapper">
+
     <!-- Sidebar  -->
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="student-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -51,20 +55,17 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li class="active">
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+        <li>
+          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
         <li>
-          <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
+          <a href="election-student-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
-        <li>
-          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
+        <li class="active">
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
@@ -107,17 +108,17 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
+                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="../officer-login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -126,67 +127,144 @@ if(isset($_SESSION['msg'])){
         </div>
       </nav>
 
+      <!-- breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-file-bar-graph-fill"></i> Project Feedback</li>
+        </ol>
+      </nav>
+
       <!-- Page content -->
-      <h4 class="ms-3"><a class="" href="officer-profile.php" title="view student officer profile" aria-label="profile">Student Officer Profile</a></h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                </div>
-                <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                    <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Name:</label>
-                      <h5>$row[1]</h5>
-                      <label class='text-muted mt-3'>Section:</label>
-                      <h5>$row[4]</h5>
-                  </div>
-                  <div class='col-12 col-md-4 mt-2'>
-                    <label class='text-muted'>JRU ID:</label>
-                    <h5>19-255322</h5>
-                    <label class='text-muted mt-3'>Email:</label>
-                    <h6>$row[3]</h6>
-                  </div>
-                  <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>
-                      <label class='text-muted mt-3'>Course:</label>
-                      <h6 class='fs-6'>$row[2]</h6>
-                  ";
-                      /**<label class='text-muted'>Position:</label>
-                      <h5>Year $row[5] </h5>
-                          </div>";**/
-                  }
-                  ?>
-              </div>
 
-            </div>
-          </div>
+      <form class="survey-form" method="post" action="">
+        <div class="title p-2 pt-4 pb-3 mt-3">
+      <h5>Sample Project</h5>
+        <h2>Feedback Form</h3>
         </div>
-      </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+<div class="steps">
+	<div class="step current"></div>
+	<div class="step"></div>
+	<div class="step"></div>
+	<div class="step"></div>
+</div>
 
-              <a href="officer-orgs.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
+<div class="step-content current" data-step="1">
+	<div class="fields">
+		<p>How would you rate your experience to the event?</p>
+		<div class="rating">
+			<input type="radio" name="rating" id="radio1" value="Very Unsatisfied">
+			<label for="radio1">1</label>
+			<input type="radio" name="rating" id="radio2" value="Unsatisfied">
+			<label for="radio2">2</label>
+			<input type="radio" name="rating" id="radio3" value="Neutral">
+			<label for="radio3">3</label>
+			<input type="radio" name="rating" id="radio4" value="Satisfied">
+			<label for="radio4">4</label>
+			<input type="radio" name="rating" id="radio5" value="Very Satisfied">
+			<label for="radio5">5</label>
+		</div>
+		<div class="rating-footer">
+			<span>Very Unsatisfied</span>
+			<span>Very Satisfied</span>
+		</div>
+    <hr>
+		<div class="group pt-2">
+      <p>Where did you hear about the event?</p>
+			<label for="radio6">
+				<input type="radio" name="hear_about_us" id="radio6" value="Search Engine">
+				JRU Website
+			</label>
+			<label for="radio7">
+				<input type="radio" name="hear_about_us" id="radio7" value="Newsletter">
+				Canvas
+			</label>
+			<label for="radio8">
+				<input type="radio" name="hear_about_us" id="radio8" value="Advertisements">
+				Social Media
+			</label>
+			<label for="radio9">
+				<input type="radio" name="hear_about_us" id="radio9" value="Social Media">
+				other
+			</label>
+		</div>
+	</div>
+	<div class="buttons">
+		<a href="#" class="btn" data-set-step="2">Next</a>
+	</div>
+</div>
+<!-- page 2 -->
+<div class="step-content" data-step="2">
+	<div class="fields">
+		<p>How likely are you to recommend us?</p>
+		<div class="rating">
+			<input type="radio" name="recommend" id="radio10" value="Very Unlikely">
+			<label for="radio10">1</label>
+			<input type="radio" name="recommend" id="radio11" value="Unlikely">
+			<label for="radio11">2</label>
+			<input type="radio" name="recommend" id="radio12" value="Neutral">
+			<label for="radio12">3</label>
+			<input type="radio" name="recommend" id="radio13" value="Likely">
+			<label for="radio13">4</label>
+			<input type="radio" name="recommend" id="radio14" value="Very Likely">
+			<label for="radio14">5</label>
+		</div>
+		<div class="rating-footer">
+			<span>Very Unlikely</span>
+			<span>Very Likely</span>
+		</div>
+		<p>How would you like us to respond to you?</p>
+		<div class="group">
+			<label for="check1">
+				<input type="checkbox" name="contact_pref[]" id="check1" value="Email">
+				Email
+			</label>
+			<label for="check2">
+				<input type="checkbox" name="contact_pref[]" id="check2" value="Canvas">
+				Canvas
+			</label>
+			<label for="check3">
+				<input type="checkbox" name="contact_pref[]" id="check3" value="Messenger">
+				Messenger
+			</label>
+      <label for="check4">
+				<input type="checkbox" name="contact_pref[]" id="check4" value="SMS">
+				SMS
+			</label>
+		</div>
+	</div>
+	<div class="buttons">
+		<a href="#" class="btn alt" data-set-step="1">Prev</a>
+		<a href="#" class="btn" data-set-step="3">Next</a>
+	</div>
+</div>
 
-        <!-- Footer -->
-      </div>
+<!-- page 3 -->
+<div class="step-content" data-step="3">
+	<div class="fields">
+		<label for="email">Your Email</label>
+		<div class="field">
+			<i class="bi bi-envelope"></i>
+			<input type="email" class="form-control" id="email" name="email" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+		</div>
+		<label for="comments">Do you have additional feedback for us?</label>
+		<div class="field">
+			<textarea id="comments" name="comments" ></textarea>
+		</div>
+	</div>
+	<div class="buttons">
+		<a href="#" class="btn alt" data-set-step="2">Prev</a>
+		<input type="submit" class="btn" name="submit" value="Submit">
+	</div>
+</div>
+
+<!-- page 4 -->
+<div class="step-content" data-step="4">
+	<div class="result"><?=$response?></div>
+</div>
+		<!-- place code here -->
+		</form>
+
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
@@ -196,21 +274,43 @@ if(isset($_SESSION['msg'])){
           </div>
         </footer>
       </div>
+
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
     <script src="../assets/js/form-validation.js"></script>
-    <!-- waves js -->
+    <!--WAVES CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script> <!-- JavaScript validation -->
     <script type="text/javascript">
       Waves.attach('#sidebar ul li a');
       Waves.init();
     </script>
+    <script>
+    const setStep = step => {
+    	document.querySelectorAll(".step-content").forEach(element => element.style.display = "none");
+    	document.querySelector("[data-step='" + step + "']").style.display = "block";
+    	document.querySelectorAll(".steps .step").forEach((element, index) => {
+    		index < step-1 ? element.classList.add("complete") : element.classList.remove("complete");
+    		index == step-1 ? element.classList.add("current") : element.classList.remove("current");
+    	});
+    };
+    document.querySelectorAll("[data-set-step]").forEach(element => {
+    	element.onclick = event => {
+    		event.preventDefault();
+    		setStep(parseInt(element.dataset.setStep));
+    	};
+    });
+    <?php if (!empty($_POST)): ?>
+    setStep(4);
+    <?php endif; ?>
+    </script>
+
 </body>
 
 </html>
