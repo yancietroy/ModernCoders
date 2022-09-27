@@ -146,8 +146,8 @@ if(isset($_SESSION['msg'])){
         </div>
       </nav>
 
-      <!-- Page content -->
-      <section class="content">
+    <!-- Page content -->
+    <section class="content">
       <?php
         if(isset($_SESSION['error'])){
           echo "
@@ -170,103 +170,46 @@ if(isset($_SESSION['msg'])){
           unset($_SESSION['success']);
         }
       ?>
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM positions";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>No. of Positions</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-tasks"></i>
-            </div>
-            <a href="positions.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_candidate";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-          
-              <p>No. of Candidates</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-black-tie"></i>
-            </div>
-            <a href="candidates.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_students";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-             
-              <p>Total Voters</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="voters.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_vote GROUP BY student_id";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>Voters Voted</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-edit"></i>
-            </div>
-            <a href="votes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-
       <div class="row">
         <div class="col-xs-12">
-          <h3>Votes Tally
-            <span class="pull-right">
-              <a href="officer-election-print.php" class="btn btn-success btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
-            </span>
-          </h3>
+          <div class="box">
+            <div class="box-header with-border">
+              <a href="#reset" data-toggle="modal" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-refresh"></i> Reset</a>
+            </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered">
+                <thead>
+                  <th class="hidden"></th>
+                  <th>Position</th>
+                  <th>Candidate</th>
+                  <th>Voter</th>
+                </thead>
+                <tbody>
+                  <?php
+                    $sql = "SELECT *, tb_candidate.FIRST_NAME AS canfirst, tb_candidate.LAST_NAME AS canlast, students.FIRST_NAME AS votfirst, students.LAST_NAME AS votlast FROM tb_votes LEFT JOIN tb_position ON POSITION_ID=tb_vote.position_id LEFT JOIN candidates ON tb_candidate.id=votes.candidate_id LEFT JOIN students ON students.id=votes.students_id ORDER BY positions ASC";
+                    $query = $conn->query($sql);
+                    while($row = $query->fetch_assoc()){
+                      echo "
+                        <tr>
+                          <td class='hidden'></td>
+                          <td>".$row['description']."</td>
+                          <td>".$row['canfirst'].' '.$row['canlast']."</td>
+                          <td>".$row['votfirst'].' '.$row['votlast']."</td>
+                        </tr>
+                      ";
+                    }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-
-        <!-- Footer -->
-      </div>
-      <div id="layoutAuthentication_footer"> 
+    </section>   
+  </div>
+    <!-- Footer -->
+              </div>
+      <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
@@ -276,7 +219,28 @@ if(isset($_SESSION['msg'])){
         </footer>
       </div>
     </div>
-
+<!-- Reset -->
+<div class="modal fade" id="reset">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Reseting...</b></h4>
+            </div>
+            <div class="modal-body">
+              <div class="text-center">
+                  <p>RESET VOTES</p>
+                  <h4>This will delete all votes and counting back to 0.</h4>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <a href="votes_reset.php" class="btn btn-danger btn-flat"><i class="fa fa-refresh"></i> Reset</a>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 

@@ -170,103 +170,51 @@ if(isset($_SESSION['msg'])){
           unset($_SESSION['success']);
         }
       ?>
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM positions";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>No. of Positions</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-tasks"></i>
-            </div>
-            <a href="positions.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_candidate";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-          
-              <p>No. of Candidates</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-black-tie"></i>
-            </div>
-            <a href="candidates.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_students";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-             
-              <p>Total Voters</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="voters.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM tb_vote GROUP BY student_id";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>Voters Voted</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-edit"></i>
-            </div>
-            <a href="votes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-
       <div class="row">
         <div class="col-xs-12">
-          <h3>Votes Tally
-            <span class="pull-right">
-              <a href="officer-election-print.php" class="btn btn-success btn-sm btn-flat"><span class="glyphicon glyphicon-print"></span> Print</a>
-            </span>
-          </h3>
+          <div class="box">
+            <div class="box-header with-border">
+              <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
+            </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered">
+                <thead>
+                  <th>Lastname</th>
+                  <th>Firstname</th>
+                  <th>Student_ID</th>
+                  <th>Tools</th>
+                </thead>
+                <tbody>
+                  <?php
+                    $sql = "SELECT * FROM tb_students";
+                    $query = $conn->query($sql);
+                    while($row = $query->fetch_assoc()){
+    
+                      echo "
+                        <tr>
+                          <td>".$row['LAST_NAME']."</td>
+                          <td>".$row['FIRST_NAME']."</td>
+                          <td>".$row['STUDENT_ID']."</td>
+                          <td>
+                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['STUDENT_ID']."'><i class='fa fa-edit'></i> Edit</button>
+                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['STUDENT_ID']."'><i class='fa fa-trash'></i> Delete</button>
+                          </td>
+                        </tr>
+                      ";
+                    }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-
+    </section>   
+  </div>
+    
         <!-- Footer -->
       </div>
-      <div id="layoutAuthentication_footer"> 
+      <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
