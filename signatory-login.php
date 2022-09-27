@@ -86,7 +86,7 @@ if(isset($_SESSION['message'])){
                 }
                 ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>

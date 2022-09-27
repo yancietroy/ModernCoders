@@ -67,17 +67,16 @@ if(isset($_SESSION['msg'])){
         <li class="active">
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
-          <!--<li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
+        <!--<li>
+        <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>-->
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-
-        </li> -->
-      </ul>
+        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        </li>
+        </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
           <li>
@@ -144,7 +143,12 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-6 col-7">
           <h4>Signatory Projects Pending List</h4>
         </div>
+        <div class='callout bs-callout-success pb-2'  id="hidden">
+            <h4>Project Status Updated!</h4>
+          </div>
       </div>
+
+
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
       <div class="row g-0 mt-4 justify-content-center">
@@ -435,7 +439,7 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-revise" name="Revise" >Revise</a>
+                        <button class="btn btn-md btn-revise" name="Revise" onclick="document.getElementById('hidden').style.display = 'block' ;" >Revise</a>
                         <button class="btn btn-md btn-danger"   name="Reject">Reject</a>
                         <button class="btn btn-md  btn-success"  name="Approve">Approve</a>
                     </div>
@@ -480,11 +484,11 @@ if(isset($_SESSION['msg'])){
                 }
             });
         });
+
     </script>
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

@@ -135,7 +135,7 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -307,8 +307,8 @@ if(isset($_SESSION['msg'])){
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Account Created:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="ACCOUNT_CREATED" >Account Created:</label>
+                         <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -506,6 +506,7 @@ if(isset($_SESSION['msg'])){
                 success:function(data){
                 console.log(data);
                 $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
                 $('#FIRST_NAME').val(data.FIRST_NAME);
                 $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                 $('#LAST_NAME').val(data.LAST_NAME);

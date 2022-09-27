@@ -168,7 +168,6 @@ if(isset($_SESSION['msg'])){
                     <p class="mb-0"><strong class="pr-1">Admin ID:</strong>3</p>
                     <p class="mb-0"><strong class="pr-1">JRU ID:</strong>4212121</p>
                     <p class="mb-0"><strong class="pr-1">Role:</strong>Admin</p>
-                    <p class="mb-0"><strong class="pr-1">Email:</strong>john.doe@jru.edu</p>
                   </div>
                 </div>
               </div>

@@ -50,6 +50,7 @@ a:focus {
   text-decoration: none;
   transition: all 0.3s;
 }
+
 /*
 i,
 span {
@@ -60,7 +61,7 @@ span {
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
-    border: 1px solid #468847;
+  border: 1px solid #468847;
 }
 
 input.parsley-error,
@@ -77,7 +78,6 @@ textarea.parsley-error {
   line-height: 0.9em;
   opacity: 0;
   color: #B94A48;
-
   transition: all .3s ease-in;
   -o-transition: all .3s ease-in;
   -moz-transition: all .3s ease-in;
@@ -95,20 +95,23 @@ textarea.parsley-error {
   border-left-width: 5px;
   border-radius: 3px;
 }
+
 .bs-callout-warning {
   background-color: #FFE4DE;
-  border-left-color:#d9534f;
-    color: #d9534f;
-  }
-.bs-callout-success {
-    background-color: #DCF9D8;
-    border-left-color:#5cb85c;
-      color: #5cb85c;
-    }
+  border-left-color: #d9534f;
+  color: #d9534f;
+}
 
-.hidden {
+.bs-callout-success {
+  background-color: #DCF9D8;
+  border-left-color: #5cb85c;
+  color: #5cb85c;
+}
+
+#hidden {
   display: none;
 }
+
 .breadcrumb {
   background: #fff;
   color: #00226C;
@@ -126,6 +129,7 @@ textarea.parsley-error {
 [aria-label="desc"]:hover {
   color: #00226C;
 }
+
 [aria-label="profile"]:hover {
   color: #F2AC1B;
 }
@@ -200,7 +204,7 @@ ul ul a {
   color: #ffffff;
   background-color: #FF9671;
   border-color: #FF9671;
-  border-radius:.25rem;
+  border-radius: .25rem;
 }
 
 .btn-revise:hover,
@@ -645,8 +649,9 @@ Projects
   background-color: #00C9A7;
   color: white;
 }
+
 .btn-done:hover {
-  background-color:  #398B77;
+  background-color: #398B77;
   color: white;
 }
 
@@ -654,6 +659,7 @@ Projects
   background-color: #398B77;
   color: white;
 }
+
 /*.card-counter i{
     font-size: 5em;
     opacity: 0.2;
@@ -796,9 +802,7 @@ div.table-stud {
   width: 95%;
 }
 
-
 /* student profile */
-
 .student-profile .card {
   border-radius: 10px;
 }
@@ -829,14 +833,57 @@ div.table-stud {
   color: #000;
 }
 
-/*user forum*/
-
-.white-bg {
-    background-color: #ffffff;
+.upload-button {
+  padding: 4px;
+  font-size: 30px;
+  font-weight: bolder;
+  border-radius: 5px;
+  display: block;
+  float: left;
 }
+.profile_img {
+  transition: .5s ease;
+  backface-visibility: hidden;
+  opacity: 1;
+  display: block;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -120px);
+  -ms-transform: translate(-20%, -80%);
+  text-align: center;
+}
+
+.container:hover .profile_img {
+  opacity: 0.8;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+.file-upload {
+  display: none;
+}
+
+/*user forum*/
+.white-bg {
+  background-color: #ffffff;
+}
+
 .page-heading {
-    border-top: 0;
-    padding: 0 10px 20px 10px;
+  border-top: 0;
+  padding: 0 10px 20px 10px;
 }
 
 .forum-post-container .media {
@@ -844,95 +891,117 @@ div.table-stud {
   padding: 20px 10px 20px 10px;
   border-bottom: 1px solid #f1f1f1;
 }
+
 .forum-avatar {
   float: left;
   margin-right: 20px;
   text-align: center;
   width: 110px;
 }
+
 .forum-avatar .img-circle {
   height: 48px;
   width: 48px;
 }
+
 .author-info {
   color: #676a6c;
   font-size: 11px;
   margin-top: 5px;
   text-align: center;
 }
+
 .forum-post-info {
   padding: 9px 12px 6px 12px;
   background: #f9f9f9;
   border: 1px solid #f1f1f1;
 }
-.media-body > .media {
+
+.media-body>.media {
   background: #f9f9f9;
   border-radius: 3px;
   border: 1px solid #f1f1f1;
 }
+
 .forum-post-container .media-body .photos {
   margin: 10px 0;
 }
+
 .forum-photo {
   max-width: 140px;
   border-radius: 3px;
 }
-.media-body > .media .forum-avatar {
+
+.media-body>.media .forum-avatar {
   width: 70px;
   margin-right: 10px;
 }
-.media-body > .media .forum-avatar .img-circle {
+
+.media-body>.media .forum-avatar .img-circle {
   height: 38px;
   width: 38px;
 }
+
 .mid-icon {
   font-size: 66px;
 }
+
 .forum-item {
   margin: 10px 0;
   padding: 10px 0 20px;
   border-bottom: 1px solid #f1f1f1;
 }
+
 .views-number {
   font-size: 24px;
   line-height: 18px;
   font-weight: 400;
 }
+
 .forum-container,
 .forum-post-container {
   padding: 30px !important;
 }
+
 .forum-item small {
   color: #999;
 }
+
 .forum-item .forum-sub-title {
   color: #999;
   margin-left: 50px;
 }
+
 .forum-title {
   margin: 15px 0 15px 0;
 }
+
 .forum-info {
   text-align: center;
 }
+
 .forum-desc {
   color: #999;
 }
+
 .forum-icon {
   float: left;
   width: 30px;
   margin-right: 20px;
   text-align: center;
 }
+
 a.forum-item-title {
   color: inherit;
   display: block;
   font-size: 18px;
   font-weight: 600;
 }
+
 a.forum-item-title:hover {
   color: #F2AC1B;
 }
+
 .forum-icon .fa {
   font-size: 30px;
   margin-top: 8px;
@@ -942,15 +1011,18 @@ a.forum-item-title:hover {
 .forum-item.active .fa {
   color: #1ab394;
 }
+
 .forum-item.active a.forum-item-title {
   color: #1ab394;
 }
+
 @media (max-width: 992px) {
   .forum-info {
     margin: 15px 0 10px 0;
     /* Comment this is you want to show forum info in small devices */
     display: none;
   }
+
   .forum-desc {
     float: none !important;
   }
