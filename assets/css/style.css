@@ -108,7 +108,7 @@ textarea.parsley-error {
   color: #5cb85c;
 }
 
-.hidden {
+#hidden {
   display: none;
 }
 

@@ -51,12 +51,12 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li class="active">
+        <li>
           <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
 
-        <li>
+        <li class="active">
           <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
@@ -127,61 +127,94 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3">Signatory Profile</h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0 justify-content-evenly">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+
+            <div class="row ms-3 me-3 mt-2 mb-2">
+              <div class="col-lg-6 col-7">
+                <h4>Student Organizations Management</h4>
+              </div>
+            </div>
+            <div class="row justify-content-center align-items-center text-align-center">
+              <div class="col-12 col-lg-10 col-xl-11">
+                <div class="card shadow border-0 rounded-lg mb-4 mx-4 w-80 justify-content-center align-items-center text-align-center">
+                  <div class="card-body p-4 mx-auto px-auto">
+                    <div class="row g-0 ">
+                      <div class="col-md-2 d-none d-sm-block text-center mt-3">
+                        <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                      </div>
+                        <div class='col-12 col-md-10 mt-4'>
+                          <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                    </div>
+                    </div>
+
+                  </div>
                 </div>
-                <?php
-                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), signatory_type AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
-                  $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                          <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
-                            <label class='text-muted mt-3'>Email:</label>
-                            <h6>$row[3]</h6>
-                          </div>
-                          <div class='col-12 col-md-4 mt-2'>
-                            <label class='text-muted'>JRU ID:</label>
-                            <h5>$row[0]</h5>
-                              <label class='text-muted mt-3'>Role:</label>
-                              <h6>$row[2]</h6>
-                          </div>
-                          <div class='col-12 col-md-3 mt-2'>
-                          </div>
-                          ";
-                  }
-                  ?>
+              </div>
+            </div>
+            <div class="row ms-3 me-3">
+             <div class="col-lg-3 col-sm-6">
+                <div class="card-counter primary">
+                  <div class="inner">
+                    <h2><i class="bi bi-file-person"></i></h2>
+                    <p>Members</p>
+                  </div>
+                  <div class="icon">
+                  <i class="bi bi-file-person"></i>
+                  </div>
+                  <a href="signatory-orgs-comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-warning">
+                  <div class="inner">
+                    <h2><i class="bi bi-person-badge"></i></h2>
+                    <p>Officers</p>
+                  </div>
+                  <div class="icon">
+                  <i class="bi bi-person-badge"></i>
+                  </div>
+                  <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-info">
+                  <div class="inner">
+                    <h2><i class="bi bi-person-rolodex"></i></h2>
+                    <p>Signatories</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-person-rolodex"></i>
+                  </div>
+                  <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-secondary">
+                  <div class="inner">
+                    <h2><i class="bi bi-archive-fill"></i></h2>
+                    <p>Archive</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-archive"></i>
+                  </div>
+                  <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
               </div>
 
-            </div>
-          </div>
-        </div>
-      </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              </div>
 
-              <a href="signatory-orgs.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
+           </div>
+              <!--   <div class="col">
+              Card with right text alignment
+                <div class="card text-end">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+                    <a href="#" class="btn btn-primary">Know more</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
 
-
-        <!-- Footer -->
-      </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
