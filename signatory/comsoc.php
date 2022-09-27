@@ -125,43 +125,149 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </nav>
-
-      <!-- Page content -->
-      <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page">  <i class="bi bi-people-fill"></i> Organizations</li>
+          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
         </ol>
       </nav>
       <!-- Page content -->
 
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Student Organizations</h4>
-        </div>
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Join Org</a>
-        </div>
-      </div>
-        <!--  <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> Join Organization</a>
-        </div>-->
-
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-6  col-md-5 mt-2"  id="orgs">
-          <div class="card display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
-              <a href="comsoc.php" class="stretched-link"></a>
+            <div class="row ms-3 me-3 mt-2 mb-2">
+              <div class="col-lg-6 col-7">
+                <h4>Student Organizations Management</h4>
+              </div>
             </div>
-          </div>
-        </div>
+            <div class="row justify-content-center align-items-center text-align-center">
+              <div class="col-12 col-lg-10 col-xl-11">
+                <div class="card shadow border-0 rounded-lg mb-4 mx-4 w-80 justify-content-center align-items-center text-align-center">
+                  <div class="card-body p-4 mx-auto px-auto">
+                    <div class="row g-0 ">
+                      <div class="col-md-2 d-none d-sm-block text-center mt-3">
+                        <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                      </div>
+                        <div class='col-12 col-md-10 mt-4'>
+                          <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                    </div>
+                    </div>
 
-        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row ms-3 me-3">
+             <div class="col-lg-3 col-sm-6">
+                <div class="card-counter primary">
+                  <div class="inner">
+                    <h2><i class="bi bi-file-person"></i></h2>
+                    <p>Members</p>
+                  </div>
+                  <div class="icon">
+                  <i class="bi bi-file-person"></i>
+                  </div>
+                  <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-warning">
+                  <div class="inner">
+                    <h2><i class="bi bi-person-badge"></i></h2>
+                    <p>Officers</p>
+                  </div>
+                  <div class="icon">
+                  <i class="bi bi-person-badge"></i>
+                  </div>
+                  <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-info">
+                  <div class="inner">
+                    <h2><i class="bi bi-person-rolodex"></i></h2>
+                    <p>Signatories</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-person-rolodex"></i>
+                  </div>
+                  <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter bg-secondary">
+                  <div class="inner">
+                    <h2><i class="bi bi-archive-fill"></i></h2>
+                    <p>Archive</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-archive"></i>
+                  </div>
+                  <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter events">
+                  <div class="inner">
+                    <h3><i class="bi bi-file-bar-graph"></i></h3>
+                    <p>Survey</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-file-bar-graph-fill" aria-hidden="true"></i>
+                  </div>
+                  <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
 
+
+              <div class="col-lg-3 col-sm-6 mb-4">
+                <div class="card-counter done">
+                  <div class="inner">
+                    <h3><i class="bi bi-inbox"></i></h3>
+                    <p>Forum</p>
+                  </div>
+                  <div class="icon">
+                <i class="bi bi-inbox-fill"></i>
+                  </div>
+                  <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6 mb-4">
+                <div class="card-counter bg-success">
+                  <div class="inner">
+                    <h3><i class="bi bi-folder"></i></h3>
+                    <p>Projects</p>
+                  </div>
+                  <div class="icon">
+                <i class="bi bi-folder-fill"></i>
+                  </div>
+                  <a href="signatory-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-counter masterlist">
+                  <div class="inner">
+                    <h3><i class="bi bi-envelope"></i> </h3>
+                    <p>Messages</p>
+                  </div>
+                  <div class="icon">
+                    <i class="bi bi-envelope-fill"></i> 
+                  </div>
+                  <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+
+           </div>
+              <!--   <div class="col">
+              Card with right text alignment
+                <div class="card text-end">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+                    <a href="#" class="btn btn-primary">Know more</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
 
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">

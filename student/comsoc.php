@@ -138,6 +138,7 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
 
       <!-- Page content -->
+
       <div class="row justify-content-center align-items-center text-align-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mb-5 mx-4 w-80 justify-content-center align-items-center text-align-center">
@@ -155,30 +156,29 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2 justify-content-center">
-        <div class="col-lg-3 col-sm-6">
+      <div class="row ms-3 me-3 justify-content-evenly">
+       <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3>5</h3>
-              <p>Notifications</p>
+              <h2><i class="bi bi-file-person"></i></h2>
+              <p>Members</p>
             </div>
             <div class="icon">
-              <i class="bi bi-bell-fill" aria-hidden="true"></i>
+            <i class="bi bi-file-person"></i>
             </div>
-            <a href="user-notif.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
         <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-info">
+          <div class="card-counter bg-warning">
             <div class="inner">
-              <h3>10</h3>
-              <p>Messages</p>
+              <h2><i class="bi bi-person-badge"></i></h2>
+              <p>Officers</p>
             </div>
             <div class="icon">
-              <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
+            <i class="bi bi-person-badge"></i>
             </div>
-            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 <!--
