@@ -226,7 +226,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="student-update-profile.php" method="POST">
+                <form action="student-update-profile.php" method="POST"  data-parsley-validate data-parsley-trigger="keyup">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -291,9 +291,9 @@ if(isset($_SESSION['msg'])){
                           <div class="col-6 col-md-4 mb-4 ">
                             <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
                             <div class="btn-group">
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" readonly>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
+                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" readonly>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
                               <!--<div class="valid-feedback check"> &#x2713;</div>
                               <div class="invalid-feedback mv-up">Please select a gender!</div>-->
@@ -308,7 +308,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="SECTION">Section:</label>
-                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" required />
+                              <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
@@ -379,7 +379,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="student-change-pass.php" method="POST">
+                <form action="student-change-pass.php" method="POST" data-parsley-validate data-parsley-trigger="keyup">
                     <div class="modal-body">
                       <div class="col-12 col-md-12 justify-content-center ">
                         <div class="form-outline">
@@ -547,22 +547,6 @@ if(isset($_SESSION['msg'])){
     </script>
     <script>
       $(document).on('click', '.passbtn', function(){
-        $("#changePass").validate({
-        rules: {
-          txtNewPassword: {
-            required: true,
-            minlength: 8
-          },
-          action: "required"
-        },
-        messages: {
-          txtNewPassword: {
-            required: "Please enter some data",
-            minlength: "Your data must be at least 8 characters"
-          },
-          action: "Please provide some data"
-        } 
-        }); 
         var STUDENT_ID = $(this).attr("id");
         $.ajax({
                 url:"student-fetch-profile.php",
@@ -593,6 +577,7 @@ if(isset($_SESSION['msg'])){
     </script>
     <!-- JavaScript validation -->
     <script src="../assets/js/bootstrap-validation.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
 
     <!-- <script src="js/form-validation.js"></script>
   Prevent Cut Copy Paste -->

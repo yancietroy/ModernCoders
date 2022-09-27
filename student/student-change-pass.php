@@ -15,8 +15,9 @@ if (isset ($_POST['changePassword']))
 		{
 			$query = "UPDATE `tb_students` SET `PASSWORD` = SHA('$pass') WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
-			echo '<script>alert("Update Successful")</script>';
-			header("Location:student-profile.php");
+			echo "<script type='text/javascript'>
+			alert('Successfuly updated!')
+			window.location.href='student-profile.php'</script>";
 		}
 }
 ?>
