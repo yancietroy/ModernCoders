@@ -2,7 +2,9 @@
     include('../mysql_connect.php');
 
     if (isset($_POST['updatedata']))
-    {
+    {   
+        $file = $_FILES['attachments']['tmp_name'];
+        $size = $_FILES['attachments']['size'];  
         $id = $_POST['project_id'];
         $pn = $_POST['project_name'];
         $v = $_POST['venue'];

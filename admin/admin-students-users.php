@@ -374,13 +374,13 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
+                              <label class="form-label" for="COLLEGE_DEPT" >College:</label>
+                              <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT" readonly>
                                 <?php
-                                    $query = "SELECT college FROM tb_collegedept";
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
                                     while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                     }
                                 ?>
                               </select>
@@ -515,6 +515,7 @@ if(isset($_SESSION['msg'])){
                 $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
+                $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
                 $('#MORG_ID').val(data.MORG_ID);

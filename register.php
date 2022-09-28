@@ -45,7 +45,7 @@ include('mysql_connect.php');
 
                 <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+               || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit']))
                 {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -55,6 +55,7 @@ include('mysql_connect.php');
                   $g = $_POST['gender'];
                   $si = $_POST['studentid'];
                   $yl = $_POST['school_year'];
+                  $cd = $_POST['college_dept']
                   $course = $_POST['course'];
                   $morgid = $_POST['org'];
                   $section = $_POST['section'];
@@ -75,8 +76,8 @@ include('mysql_connect.php');
                   try {
                   $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
                   $conn->exec($sql);
                   echo "
                   <div class='callout bs-callout-success pb-0'>
@@ -194,15 +195,15 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
+                    <select class="form-select form-select-sm" name="college_dept" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
-                                           ?>
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>

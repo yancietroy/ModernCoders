@@ -396,7 +396,7 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline d-grid">
                                 <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
+                              <button type="button" name="attachments" id="attachments" class="btn btn-secondary btn-md">Download</button>
                               </div>
                             </div>
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
@@ -461,6 +461,7 @@ if(isset($_SESSION['msg'])){
                 $('#beneficiary').val(data.beneficiary);
                 $('#no_of_participants').val(data.no_of_participants);
                 $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#attachments').val(data.attachments);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');

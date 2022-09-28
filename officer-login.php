@@ -54,7 +54,7 @@ if(isset($_SESSION['message'])){
             	if(!empty($_POST['email']) || !empty($_POST['password'])) {
             		ob_start();
 
-            		$query = "Select Officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+            		$query = "Select officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
             		$result = @mysqli_query($conn, $query);
             		$row = mysqli_fetch_array ($result);
 
