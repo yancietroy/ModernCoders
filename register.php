@@ -55,7 +55,7 @@ include('mysql_connect.php');
                   $g = $_POST['gender'];
                   $si = $_POST['studentid'];
                   $yl = $_POST['school_year'];
-                  $cd = $_POST['college_dept']
+                  $cd = $_POST['college_dept'];
                   $course = $_POST['course'];
                   $morgid = $_POST['org'];
                   $section = $_POST['section'];
