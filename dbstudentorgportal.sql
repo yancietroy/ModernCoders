@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2022 at 03:23 PM
+-- Generation Time: Sep 28, 2022 at 03:02 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -341,8 +341,8 @@ CREATE TABLE `tb_officers` (
   `middle_initial` char(50) DEFAULT NULL,
   `course` varchar(100) DEFAULT NULL,
   `section` varchar(10) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `password` varchar(1000) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -352,8 +352,7 @@ CREATE TABLE `tb_officers` (
 --
 
 INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `account_created`) VALUES
-(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.ed', '7c222fb2927d828af22f592134e8932480637c0d', 8, '2022-09-25'),
-(19255322, 4, 4, 'Saludo', 'Yancie Troy', 'Hernandez', 'Bachelor of Science in Information Technology (BSIT)', '402I', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 12, '2022-09-25');
+(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, '2022-09-25');
 
 -- --------------------------------------------------------
 
@@ -370,8 +369,8 @@ CREATE TABLE `tb_officers_archive` (
   `middle_initial` char(50) NOT NULL,
   `course` varchar(100) NOT NULL,
   `section` varchar(10) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `password` varchar(1000) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(8000) NOT NULL,
   `org_id` int(11) NOT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -539,7 +538,8 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `projec
 (23, NULL, NULL, 'CSE tech showcase', 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, 'Rejected', '2022-09-06', 'already been done this year'),
 (24, NULL, NULL, 'CSE movie showing', 'Extra Curricular', 'Onsite', 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, 'Cancelled', '2022-09-06', 'Project cancelled.'),
 (25, NULL, NULL, 'CSE Coding Challenge', 'Curricular', 'Online', 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, 'Done', '2022-09-06', 'great work, project approved.'),
-(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Ongoing', '2022-09-06', 'project approved.');
+(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Ongoing', '2022-09-06', 'project approved.'),
+(48, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL);
 
 -- --------------------------------------------------------
 
@@ -610,6 +610,7 @@ CREATE TABLE `tb_students` (
   `YEAR_LEVEL` varchar(20) NOT NULL,
   `EMAIL` varchar(50) NOT NULL,
   `PASSWORD` varchar(50) NOT NULL,
+  `COLLEGE_DEPT` int(3) DEFAULT NULL,
   `COURSE` varchar(100) NOT NULL,
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
@@ -622,9 +623,9 @@ CREATE TABLE `tb_students` (
 -- Dumping data for table `tb_students`
 --
 
-INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`) VALUES
-(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL),
-(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL);
+INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`) VALUES
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL),
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -634,19 +635,22 @@ INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME
 
 CREATE TABLE `tb_students_archive` (
   `STUDENT_ID` int(9) NOT NULL,
-  `LAST_NAME` varchar(50) NOT NULL,
-  `FIRST_NAME` varchar(50) NOT NULL,
-  `MIDDLE_NAME` varchar(30) NOT NULL,
-  `BIRTHDATE` date NOT NULL,
-  `AGE` int(3) NOT NULL,
-  `GENDER` varchar(7) NOT NULL,
-  `YEAR_LEVEL` varchar(20) NOT NULL,
-  `EMAIL` varchar(50) NOT NULL,
-  `PASSWORD` varchar(50) NOT NULL,
-  `COURSE` varchar(100) NOT NULL,
+  `LAST_NAME` varchar(50) DEFAULT NULL,
+  `FIRST_NAME` varchar(50) DEFAULT NULL,
+  `MIDDLE_NAME` varchar(30) DEFAULT NULL,
+  `BIRTHDATE` date DEFAULT NULL,
+  `AGE` int(3) DEFAULT NULL,
+  `GENDER` varchar(7) DEFAULT NULL,
+  `YEAR_LEVEL` varchar(20) DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  `PASSWORD` varchar(50) DEFAULT NULL,
+  `COLLEGE_DEPT` int(3) DEFAULT NULL,
+  `COURSE` varchar(100) DEFAULT NULL,
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
-  `ORG_ID` int(2) DEFAULT NULL
+  `ORG_ID` int(2) DEFAULT NULL,
+  `USER_TYPE` int(2) DEFAULT NULL,
+  `ACCOUNT_CREATED` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -926,7 +930,8 @@ ALTER TABLE `tb_students`
   ADD PRIMARY KEY (`STUDENT_ID`),
   ADD KEY `student_morg_id_fk` (`MORG_ID`),
   ADD KEY `student_org_id_fk` (`ORG_ID`),
-  ADD KEY `student_usertype_id_fk` (`USER_TYPE`);
+  ADD KEY `student_usertype_id_fk` (`USER_TYPE`),
+  ADD KEY `student_college_id_fk` (`COLLEGE_DEPT`);
 
 --
 -- Indexes for table `tb_students_archive`
@@ -986,7 +991,7 @@ ALTER TABLE `tb_officers`
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `tb_usertypes`
@@ -1116,6 +1121,7 @@ ALTER TABLE `tb_results`
 -- Constraints for table `tb_students`
 --
 ALTER TABLE `tb_students`
+  ADD CONSTRAINT `student_college_id_fk` FOREIGN KEY (`COLLEGE_DEPT`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_morg` (`MORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_usertype_id_fk` FOREIGN KEY (`USER_TYPE`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
