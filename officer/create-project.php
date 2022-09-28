@@ -136,7 +136,6 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-plus-circle-fill"></i> Create Project</li>
         </ol>
       </nav>
-
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" novalidate>
       <div class="row ms-3 me-3 mt-2">
@@ -198,6 +197,7 @@ if(isset($_SESSION['msg'])){
                 <option value="Organization">Student Organization</option>
                 <option value="Accounting Office">Accounting Office</option>
                 <option value="Third Party">Third Party</option>
+                <option value="Third Party">None</option>
               </select>
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>
@@ -258,8 +258,8 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label mb-2" for="formFileMultiple" id="asterisk">Upload Attachment:</label>
-                <input type="file" class="form-control mt-3" name="attachments" accept=".pdf" id="formFileMultiple" required multiple>
+                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment:</label>
+                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
                 <label class="form-label mt-4" for="estimated_budget" id="asterisk">Estimated Budget:</label>
@@ -276,8 +276,8 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($_POST['submit']))
-                { 
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit']))
+                {
                   $pn = $_POST['project_name'];
                   $vn = $_POST['venue'];
                   $pt = $_POST['project_type'];
@@ -290,21 +290,17 @@ if(isset($_SESSION['msg'])){
                   $b = $_POST['beneficiary'];
                   $nob = $_POST['no_of_beneficiary'];
                   $pd = $_POST['project_desc'];
+                  //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
                   $s = "Pending";
 
-                  $pfile = rand(1000,100000)."-".$_FILES['attachments']['name'];
-                  $tfile = $_FILES['attachments']['tmp_name'];
-                  $destination = "attachments/" . $pfile;
-                  move_uploaded_file($tfile, $destination);
-
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status, attachments) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s', '$pfile')";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
                             alert('Project Created!')
                             </script>";
-                      header("location:officer-pending.php");
+                      //header("location:login.php");
                           @mysqli_close($conn);
                 }
       ?>

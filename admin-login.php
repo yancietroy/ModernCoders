@@ -73,7 +73,7 @@ if(isset($_SESSION['message'])){
             		{
                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
-                        <p>User does not exist in the database!</p></div>";
+                        <p>Invalid email or password!</p></div>";
 
                   }
                   }
@@ -87,7 +87,7 @@ if(isset($_SESSION['message'])){
             }
             ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>

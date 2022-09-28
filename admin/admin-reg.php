@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                                         <div class="form-outline">
 
                                           <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                                             >
                                           <div class="valid-feedback"></div>
                                         </div>
@@ -348,7 +348,7 @@ if(isset($_SESSION['msg'])){
       $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
         var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@.jru.edu");
+        $("#email").attr("value", fname + "." + lname + "@jru.edu");
       });
     </script>
     <!--input mask-->

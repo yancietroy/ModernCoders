@@ -72,7 +72,7 @@ if(isset($_SESSION['message'])){
                 {
                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
-                        <p>User does not exist in the database!</p></div>";
+                        <p>Invalid email or password!</p></div>";
 
                   }
                   }

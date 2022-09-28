@@ -129,8 +129,8 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
+          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
         </ol>
       </nav>
