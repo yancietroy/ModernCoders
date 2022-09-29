@@ -55,13 +55,13 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li class="active">
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
       <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -75,10 +75,10 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li class="active">
+        <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
@@ -98,7 +98,6 @@ if(isset($_SESSION['msg'])){
       <li class="d-lg-none">
         <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
       </li>
-
       </ul>
       <!-- nav footer?
       <ul class="list-unstyled CTAs">
@@ -136,16 +135,16 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                  </ul>
               </li>
             </ul>
           </div>
@@ -156,7 +155,7 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Orgs Management</li>
+          <li class="breadcrumb-item active" aria-current="page">College Management</li>
         </ol>
       </nav>
 
@@ -164,84 +163,28 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Student Organizations Management</h4>
+          <h4>College Masterlist</h4>
         </div>
-
         <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Organization</a>
-            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> Org Archive</a>
+          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Add College</a>
+            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> College Archive</a>
         </div>
       </div>
-
-      <div class="row ms-3 me-3 mt-2">
-      <!--  <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h2><i class="bi bi-diagram-3-fill"></i></h2>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-diagram-3-fill"></i>
-            </div>
-            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter success">
-            <div class="inner">
-              <h2><i class="bi bi-pc-display"></i></h2>
-              <p>COMSOC</p>
-            </div>
-            <div class="icon">
-                <i class="bi bi-pc-display"></i>
-            </div>
-            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-<!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h2><i class="bi bi-person-x-fill"></i></h2>
-              <p>Inactive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-person-x"></i>
-            </div>
-            <a href="admin-students-users-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h2><i class="bi bi-archive-fill"></i></h2>
-              <p>Archive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-archive"></i>
-            </div>
-            <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-
-        </div>
 
         <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
           <div class="card-body px-2 mx-3 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_course";
+                    $query = "SELECT * FROM tb_collegedept";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $college = " ";
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Course ID</th>
-                                <th class='all'>Course</th>
+                                <th class='all'>College ID</th>
+                                <th class='all'>College</th>
                                 <th class='all'>Actions</th>
                           </tr>
                         </thead>
@@ -258,8 +201,8 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                        $ci = $row['course_id'];
-                        $c = $row['course'];
+                        $ci = $row['college_id'];
+                        $c = $row['college'];
                         echo "<tr>
                               <td> $ci  </td>
                               <td> $c  </td>
@@ -637,7 +580,7 @@ if(isset($_SESSION['msg'])){
    'pageLength',
    {
      extend: 'excelHtml5',
-     title: 'JRU Organizations Portal -  Course Masterlist',
+     title: 'JRU Organizations Portal -  College Masterlist',
      footer: true,
    exportOptions: {
      columns: [0,1]
@@ -656,7 +599,7 @@ if(isset($_SESSION['msg'])){
    //    } ,
       {
         extend: 'pdfHtml5',
-        title: 'JRU Organizations Portal - Course Masterlist',
+        title: 'JRU Organizations Portal - College Masterlist',
         footer: true,
         exportOptions: {
           columns: [0,1]
@@ -666,7 +609,7 @@ if(isset($_SESSION['msg'])){
       } ,
       {
         extend: 'print',
-        title: 'JRU Organizations Portal -  Course Masterlist',
+        title: 'JRU Organizations Portal -  College Masterlist',
         footer: true,
         exportOptions: {
           columns: [0,1]
