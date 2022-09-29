@@ -325,7 +325,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
-                            <select class="form-select" name="org_id" id="org_id" readonly>
+                            <select class="form-select" name="org_id" id="org_id" >
                               <?php
                               $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
@@ -363,7 +363,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
+                              <select class="form-select" name="college" id="college" >
                                 <?php
                                     $query = "SELECT college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
@@ -378,7 +378,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <div class="form-outline">
                               <label class="form-label" for="course" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="course" id="course" readonly>
+                              <select class="form-select" style="width:100%;" name="course" id="course" >
                                 <?php
                                   $query = "SELECT course_id, course FROM tb_course";
                                   $result = @mysqli_query($conn, $query);

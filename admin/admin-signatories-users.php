@@ -186,7 +186,7 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th>School ID</th>
+                                <th>JRU ID</th>
                                 <th>First Name</th>
                                 <th>Last name</th>
                                 <th>Email</th>
@@ -299,12 +299,20 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
-                            <input type="text" name="email" id="email" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required  />
+                            <input type="text" name="email" id="email" class="form-control"  pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required  />
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="signatory_type" >Signatory Type:</label>
-                              <input type="text" name="signatory_type" id="signatory_type" class="form-control" style="background-color: #fff;" readonly/>
+                              <select class="form-select" name="signatory_type" id="signatory_type">
+                              <?php
+                                $query = "SELECT signatory_type FROM tb_signatories";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        }
+                              ?>
+                              </select>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">

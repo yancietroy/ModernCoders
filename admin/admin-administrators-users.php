@@ -184,7 +184,7 @@ if(isset($_SESSION['msg'])){
                       echo "<table id='admin-table' class='py-3  display nowrap w-100 ms-0 justify-content-center stud'>
                         <thead>
                           <tr>
-                              <th>Admin ID</th>
+                              <th>JRU ID</th>
                               <th>Name</th>
                               <th>Email</th>
                               <th>Actions</th>
@@ -216,7 +216,7 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                                <th>ADMIN ID</th>
+                                <th>JRU ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Actions</th>
@@ -259,7 +259,7 @@ if(isset($_SESSION['msg'])){
                             <div class="row justify-content-between">
                            <div class="col-4 col-md-2 col-sm-3 mb-4">
                              <div class="form-outline">
-                               <label class="form-label" for="ADMIN_ID" >Admin ID:</label>
+                               <label class="form-label" for="ADMIN_ID" >JRU ID:</label>
                                <input type="text" name="ADMIN_ID" id="ADMIN_ID" class="form-control" style="background-color: #fff;" readonly/>
                              </div>
                            </div>
@@ -289,7 +289,7 @@ if(isset($_SESSION['msg'])){
                               </div>
                               <div class="col-12 col-md-4 col-sm-3 mb-2">
                                 <label class="form-label" for="EMAIL" >Email:</label>
-                                <input type="text" name="EMAIL" id="EMAIL" class="form-control"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" required />
+                                <input type="text" name="EMAIL" id="EMAIL" class="form-control"  pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" required />
                               </div>
                             </div>
                         </div>
