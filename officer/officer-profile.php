@@ -143,11 +143,15 @@ if(isset($_SESSION['msg'])){
                   <img class="profile_img" src="../assets/img/img_avatar.png" alt="">
                   <h3 class="pt-3">John Doe</h3>
                 </div>
+                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array ($result);
+                  $si = $data['student_id'];?>
                 <div class="card-body">
-                  <p class="mb-0"><strong class="pr-1">Student ID:</strong>19-255322</p>
-                  <p class="mb-0"><strong class="pr-1">Year Level:</strong>4</p>
-                  <p class="mb-0"><strong class="pr-1">Section:</strong>402I</p>
-                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
+                  <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Year Level:</strong></p>
+                  <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>
                 </div>
               </div>
             </div>

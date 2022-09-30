@@ -290,11 +290,14 @@ if(isset($_SESSION['msg'])){
                   $b = $_POST['beneficiary'];
                   $nob = $_POST['no_of_beneficiary'];
                   $pd = $_POST['project_desc'];
-                  //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
                   $s = "Pending";
+                  $pname = rand(1000,100000)."-".$_FILES['attachments']['name'];
+                  $destination = 'attachments/' . $pname;
+                  $tname = $_FILES['attachments']['tmp_name'];
+                  move_uploaded_file($tname, $destination);
 
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status, attachments) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s', '$pname')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
