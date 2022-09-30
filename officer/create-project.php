@@ -33,6 +33,8 @@ if(isset($_SESSION['msg'])){
   <!-- Icons-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
 
@@ -301,7 +303,11 @@ if(isset($_SESSION['msg'])){
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
-                            alert('Project Created!')
+                          Swal.fire({
+                               icon: 'success',
+                               title: 'Project Created',
+                                confirmButtonColor: '#F2AC1B'
+                           })
                             </script>";
                       //header("location:login.php");
                           @mysqli_close($conn);
@@ -334,7 +340,7 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      -<script src="../assets/js/date.js"></script>
+      <script src="../assets/js/date.js"></script>
         <!-- Datepicker cdn  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
