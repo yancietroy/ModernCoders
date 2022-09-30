@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -104,21 +104,6 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$id'";
-                        $result = @mysqli_query($conn, $query);
-                        $data = @mysqli_fetch_array ($result);
-                        $profilePic = $data['PROFILE_PIC'];
-                        $userPic = "pictures/" . $profilePic;
-                        $defaultPic ="pictures/img_avatar.png";
-                        $profilepic = (file_exists($userPic)) ? $userPic : $defaultPic;
-                        /**if (file_exists('img/upload/groot/'. $user_id .'.jpg')) {
-                          $profilepic = $userPic;
-                        }
-                        else
-                        {
-                          $profilepic = $defaultPic;
-                        }**/
-                        ?>
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
@@ -434,7 +419,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4">
               <div class="row g-0">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
                   $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
@@ -487,8 +472,8 @@ if(isset($_SESSION['msg'])){
     <script>
     $(document).ready(function() {
     $('#profilePic').change(function(){
-        var file_data = $('#profilePic').prop('files')[0];   
-        var form_data = new FormData();                  
+        var file_data = $('#profilePic').prop('files')[0];
+        var form_data = new FormData();
         form_data.append('profilePic', file_data);
         $.ajax({
             url: "student-update-pic.php",
