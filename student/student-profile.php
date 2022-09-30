@@ -136,7 +136,7 @@ if(isset($_SESSION['msg'])){
                       <img class="profile_img" src="../assets/img/img_avatar.png" id="profile-pic" alt="">
                       <div class="middle">
                         <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
-                          <input class="file-upload" type="file" accept="image/*"/>
+                          <input class="file-upload" type="file" name=profilePic accept="image/*"/>
                       </div>
                     </div>
                   <h3 class="pt-3"><?php echo "$name[0]"; ?></h3>
@@ -184,7 +184,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">College	</th>
                       <td width="2%">:</td>
-                      <td></td>
+                      <td><?php $query = "SELECT tb_students.COLLEGE_DEPT, tb_collegedept.college FROM tb_students INNER JOIN tb_collegedept ON tb_students.COLLEGE_DEPT=tb_collegedept.college_id WHERE tb_students.STUDENT_ID = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Course	</th>
@@ -322,10 +324,10 @@ if(isset($_SESSION['msg'])){
                               <label class="form-label" for="college" >College:</label>
                               <select class="form-select" name="college" id="college" readonly>
                                 <?php
-                                    $query = "SELECT college FROM tb_collegedept";
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
                                     while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                     }
                                 ?>
                               </select>
@@ -494,6 +496,7 @@ if(isset($_SESSION['msg'])){
                 $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
+                $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
                 $('#MORG_ID').val(data.MORG_ID);
