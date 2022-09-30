@@ -237,6 +237,7 @@ if(isset($_SESSION['msg'])){
 
                                     </div>
 
+                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                     <?php
                                 if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
@@ -260,8 +261,12 @@ if(isset($_SESSION['msg'])){
                                     $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
-                                          window.location = 'admin-administrators.php'
-                                          alert('Admin registered!')
+                                        Swal.fire({
+                                             icon: 'success',
+                                             title: 'Administrator Created',
+                                             confirmButtonColor: '#F2AC1B'
+
+                                         })
                                           </script>";
                                     }
                                        catch(PDOException $e)

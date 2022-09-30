@@ -212,7 +212,19 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-secondary">
+      <div class="card-counter bg-info">
+        <div class="inner">
+          <h2><i class="bi bi-check-square"></i></h2>
+          <p>Approval Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-check-square-fill"></i>
+        </div>
+        <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter done">
         <div class="inner">
           <h2><i class="bi bi-node-plus"></i></h2>
           <p>College Management</p>
@@ -247,45 +259,10 @@ if(isset($_SESSION['msg'])){
         <a href="admin-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-warning">
-        <div class="inner">
-          <h2><i class="bi bi-file-earmark"></i></h2>
-          <p>Project Management</p>
-        </div>
-        <div class="icon">
-          <i class="bi bi-file-earmark-fill"></i>
-        </div>
-        <a href="admin-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="card-counter bg-info">
-          <div class="inner">
-            <h2><i class="bi bi-inbox"></i></h2>
-            <p>Forum Management</p>
-          </div>
-          <div class="icon">
-              <i class="bi bi-inbox-fill"></i>
-          </div>
-          <a href="admin-forum.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="card-counter bg-dark">
-          <div class="inner">
-            <h2><i class="bi bi-file-bar-graph"></i></h2>
-            <p>Survey Management</p>
-          </div>
-          <div class="icon">
-              <i class="bi bi-file-bar-graph-fill"></i>
-          </div>
-          <a href="admin-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
+
 
       <div class="col-lg-3 col-sm-6">
-        <div class="card-counter primary">
+        <div class="card-counter bg-warning">
           <div class="inner">
             <h2><i class="bi bi-check2-square"></i></h2>
             <p>Election Management</p>
@@ -294,18 +271,6 @@ if(isset($_SESSION['msg'])){
               <i class="bi bi-check2-square"></i>
           </div>
           <a href="admin-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="card-counter done">
-          <div class="inner">
-            <h2><i class="bi bi-calendar"></i></h2>
-            <p>Event Management</p>
-          </div>
-          <div class="icon">
-              <i class="bi bi-calendar-fill"></i>
-          </div>
-          <a href="https://calendar.google.com/calendar/u/0/r/settings/calendar/MjI0ZDE3ZWRlYzAzMTdkMmFhODRkYjgxZTM5M2FkNzU3Yzg0MTE0N2ZjNjdjNGQwMWVhZjcyZTgzNDc3NjliM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t?cid=224d17edec0317d2aa84db81e393ad757c841147fc67c4d01eaf72e8347769b3%40group.calendar.google.com" target="_blank" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <div class="col-lg-3 col-sm-6">
