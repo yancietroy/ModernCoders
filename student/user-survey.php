@@ -32,9 +32,207 @@ if(isset($_SESSION['msg'])){
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-<!-- calendar
+<!-- calendar!-->
 <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
-<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/jquery-tabledit@1.0.0,npm/fullcalendar@5.11.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    height: 650,
+  });
+
+  calendar.render();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    height: 650,
+    events: 'fetchEvents.php',
+  });
+
+  calendar.render();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+	initialView: 'dayGridMonth',
+	height: 650,
+	events: 'fetchEvents.php',
+
+	selectable: true,
+	select: async function (start, end, allDay) {
+	  const { value: formValues } = await Swal.fire({
+		title: 'Add Event',
+		html:
+		  '<input id="swalEvtTitle" class="swal2-input" placeholder="Enter Event Name">' +
+		  '<textarea id="swalEvtDesc" class="swal2-input" placeholder="Enter description"></textarea>' +
+		  '<input id="swalEvtURL" class="swal2-input" placeholder="Enter Venue">',
+		focusConfirm: false,
+		preConfirm: () => {
+		  return [
+			document.getElementById('swalEvtTitle').value,
+			document.getElementById('swalEvtDesc').value,
+			document.getElementById('swalEvtURL').value
+		  ]
+		}
+	  });
+
+	  if (formValues) {
+		// Add event
+		fetch("eventHandler.php", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ request_type:'addEvent', start:start.startStr, end:start.endStr, event_data: formValues}),
+		})
+		.then(response => response.json())
+		.then(data => {
+		  if (data.status == 1) {
+			Swal.fire('Event added successfully!', '', 'success');
+		  } else {
+			Swal.fire(data.error, '', 'error');
+		  }
+
+		  // Refetch events from all sources and rerender
+		  calendar.refetchEvents();
+		})
+		.catch(console.error);
+	  }
+	}
+  });
+
+  calendar.render();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    height: 650,
+    events: 'fetchEvents.php',
+
+    eventClick: function(info) {
+      info.jsEvent.preventDefault();
+
+      // change the border color
+      info.el.style.borderColor = 'red';
+
+      Swal.fire({
+        title: info.event.title,
+        icon: 'info',
+        html:'<p>'+info.event.extendedProps.description+'</p><a href="'+info.event.url+'">Visit event page</a>',
+      });
+    }
+  });
+
+  calendar.render();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+	initialView: 'dayGridMonth',
+	height: 650,
+	events: 'fetchEvents.php',
+
+	selectable: true,
+	select: async function (start, end, allDay) {
+	  const { value: formValues } = await Swal.fire({
+		title: 'Add Event',
+		html:
+		  '<input id="swalEvtTitle" class="swal2-input" placeholder="Enter title">' +
+		  '<textarea id="swalEvtDesc" class="swal2-input" placeholder="Enter description"></textarea>' +
+		  '<input id="swalEvtURL" class="swal2-input" placeholder="Enter URL">',
+		focusConfirm: false,
+		preConfirm: () => {
+		  return [
+			document.getElementById('swalEvtTitle').value,
+			document.getElementById('swalEvtDesc').value,
+			document.getElementById('swalEvtURL').value
+		  ]
+		}
+	  });
+
+	  if (formValues) {
+		// Add event
+		fetch("eventHandler.php", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ request_type:'addEvent', start:start.startStr, end:start.endStr, event_data: formValues}),
+		})
+		.then(response => response.json())
+		.then(data => {
+		  if (data.status == 1) {
+			Swal.fire('Event added successfully!', '', 'success');
+		  } else {
+			Swal.fire(data.error, '', 'error');
+		  }
+
+		  // Refetch events from all sources and rerender
+		  calendar.refetchEvents();
+		})
+		.catch(console.error);
+	  }
+	},
+
+	eventClick: function(info) {
+	  info.jsEvent.preventDefault();
+
+	  // change the border color
+	  info.el.style.borderColor = 'red';
+
+	  Swal.fire({
+		title: info.event.title,
+		icon: 'info',
+		html:'<p>'+info.event.extendedProps.description+'</p><a href="'+info.event.url+'">Visit event page</a>',
+		showCloseButton: true,
+		showCancelButton: true,
+		cancelButtonText: 'Close',
+		confirmButtonText: 'Delete Event',
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  // Delete event
+		  fetch("eventHandler.php", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ request_type:'deleteEvent', event_id: info.event.id}),
+		  })
+		  .then(response => response.json())
+		  .then(data => {
+			if (data.status == 1) {
+			  Swal.fire('Event deleted successfully!', '', 'success');
+			} else {
+			  Swal.fire(data.error, '', 'error');
+			}
+
+			// Refetch events from all sources and rerender
+			calendar.refetchEvents();
+		  })
+		  .catch(console.error);
+		} else {
+		  Swal.close();
+		}
+	  });
+	}
+  });
+
+  calendar.render();
+});
+</script>
 </head>
 
 <body>
@@ -136,7 +334,13 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
+      <!---<center>
+      <iframe frameborder="0" align="center" width="600" height="600" src="https://s.surveyplanet.com/63358210077cad4dbcd8bb43" frameborder="0"></iframe>
+    </center>
 
+<iframe src="https://survey.zohopublic.com/zs/qdCzq7" frameborder='0' style='height:700px;width:100%;' marginwidth='0' marginheight='0' scrolling='auto' allow='geolocation'></iframe>  <script type="text/javascript" src="https://form.jotform.com/jsform/222712855164052"></script>
+ -->
+   <div id='calendar'></div>
       <form class="survey-form" method="post" action="">
         <div class="title p-2 pt-4 pb-3 mt-3">
       <h5>Sample Project</h5>
