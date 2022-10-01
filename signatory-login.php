@@ -101,7 +101,7 @@ if(isset($_SESSION['message'])){
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-4" id="select-opt">
                   <option class="greyclr text-muted" selected disabled value="" >Select User</option>
-                  <option value="login.php">Student</option>
+                  <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
                   <option value="admin-login.php">Admin</option>

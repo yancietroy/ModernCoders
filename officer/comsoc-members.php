@@ -145,7 +145,7 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>JRU Computer Society Members Masterlist</h4>
+          <h4>JRU Computer Society Members</h4>
         </div>
       </div>
 
@@ -257,7 +257,7 @@ if(isset($_SESSION['msg'])){
       <div class="modal-dialog" id="modal-lg" role="document">
           <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+                      <h5 class="modal-title" id="exampleModalLabel"> View Student Details </h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>

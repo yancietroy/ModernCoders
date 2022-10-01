@@ -32,9 +32,11 @@ if(isset($_SESSION['msg'])){
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-<!-- calendar
-<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
-<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
+<!-- calendar!-->
+<script src="../assets/js/main.min.js"></script>
+<script src="../assets/js/jquery-3.6.0.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../assets/css/main.min.css">
 </head>
 
 <body>
@@ -59,7 +61,7 @@ if(isset($_SESSION['msg'])){
           <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
-        <li class="active">
+        <li  class="active">
           <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
@@ -131,83 +133,110 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-calendar3"></i> Event Calendar</li>
         </ol>
       </nav>
-      <!-- Page content -->
 
       <!-- Page content -->
-
-      <div class="row justify-content-center align-items-center text-align-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mb-5 mx-4 w-80 justify-content-center align-items-center text-align-center">
-            <div class="card-body p-4 px-4 mx-4">
-              <div class="row g-0 ">
-                <div class="col-md-2 d-none d-sm-block text-center mt-2">
-                  <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="102" height="100">
-                </div>
-                  <div class='col-12 col-md-10 mt-3'>
-                    <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
-              </div>
-              </div>
-
-            </div>
-          </div>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7  mb-4">
+          <h3>Event Calendar</h3>
         </div>
+      <div class="container-fluid" id="page-container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div id="calendar"></div>
+              </div>
+            <!--<div class="col-md-3">
+                  <div class="cardt rounded-0 shadow">
+                      <div class="card-header bg-gradient bg-primary text-light">
+                          <h5 class="card-title">Schedule Form</h5>
+                      </div>
+                      <div class="card-body">
+                          <div class="container-fluid">
+                              <form action="save_schedule.php" method="post" id="schedule-form">
+                                  <input type="hidden" name="project_id" value="">
+                                  <div class="form-group mb-2">
+                                      <label for="project_name" class="control-label">Event Name</label>
+                                      <input type="text" class="form-control form-control-sm rounded-0" name="project_name" id="project_name" required>
+                                  </div>
+                                  <div class="form-group mb-2">
+                                      <label for="project_desc" class="control-label">Description</label>
+                                      <textarea rows="3" class="form-control form-control-sm rounded-0" name="project_desc" id="project_desc" required></textarea>
+                                  </div>
+                                  <div class="form-group mb-2">
+                                      <label for="start_date" class="control-label">Start Date</label>
+                                      <input type="datetime-local" class="form-control form-control-sm rounded-0" name="start_date" id="start_date" required>
+                                  </div>
+                                  <div class="form-group mb-2">
+                                      <label for="end_date" class="control-label">End Date</label>
+                                      <input type="datetime-local" class="form-control form-control-sm rounded-0" name="end_date" id="end_date" required>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="card-footer">
+                          <div class="text-center">
+                              <button class="btn btn-primary btn-sm rounded-0" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
+                              <button class="btn btn-secondary border btn-sm rounded-0" type="reset" form="schedule-form"> Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>-->
+          </div>
       </div>
-      <div class="row ms-3 me-3 justify-content-evenly">
-       <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h2><i class="bi bi-file-person"></i></h2>
-              <p>Members</p>
-            </div>
-            <div class="icon">
-            <i class="bi bi-file-person"></i>
-            </div>
-            <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-warning">
-            <div class="inner">
-              <h2><i class="bi bi-person-badge"></i></h2>
-              <p>Officers</p>
-            </div>
-            <div class="icon">
-            <i class="bi bi-person-badge"></i>
-            </div>
-            <a href="officer-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="card-counter events">
-                <div class="inner">
-                  <h2><i class="bi bi-calendar3"></i></h2>
-                  <p>Event Calendar</p>
-                </div>
-                <div class="icon">
-              <i class="bi bi-calendar3-fill"></i>
-                </div>
-                <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      <!-- Event Details Modal -->
+      <div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="event-details-modal">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-0">
+                  <div class="modal-header rounded-0">
+                      <h5 class="modal-title">Schedule Details</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body rounded-0">
+                      <div class="container-fluid">
+                          <dl>
+                              <dt class="text-muted">Event Name</dt>
+                              <dd id="project_name" class="fw-bold fs-4"></dd>
+                              <dt class="text-muted">Description</dt>
+                              <dd id="project_desc" class=""></dd>
+                              <dt class="text-muted">Start Date</dt>
+                              <dd id="start" class=""></dd>
+                              <dt class="text-muted">End Date</dt>
+                              <dd id="end" class=""></dd>
+                          </dl>
+                      </div>
+                  </div>
+                  <div class="modal-footer rounded-0">
+                      <div class="text-end">
+                        <!--  <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>
+                          <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>-->
+                          <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="card-counter done">
-                <div class="inner">
-                  <h2><i class="bi bi-inbox"></i></h2>
-                  <p>Forum</p>
-                </div>
-                <div class="icon">
-              <i class="bi bi-inbox-fill"></i>
-                </div>
-                <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-
+          </div>
       </div>
-    </div>
+      <!-- Event Details Modal -->
+
+    <?php
+    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing'");
+    $sched_res = [];
+    foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
+      $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
+      $row['edate'] = date("F d, Y h:i A",strtotime($row['end_date']));
+      $sched_res[$row['project_id']] = $row;
+    }
+    ?>
+    <?php
+    if(isset($conn)) $conn->close();
+    ?>
+    </body>
+    <script>
+      var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+    </script>
+    <script src="../assets/js/eventcalendar.js"></script>
 
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
@@ -235,6 +264,7 @@ if(isset($_SESSION['msg'])){
       Waves.attach('#sidebar ul li a');
       Waves.init();
     </script>
+
 </body>
 
 </html>
