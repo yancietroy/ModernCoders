@@ -1,10 +1,10 @@
 <?php
+
     include('../mysql_connect.php');
 
-    if (isset($_POST['updatedata']))
-    {   
+    if (isset($_POST['updatedata'])) {
         $file = $_FILES['attachments']['tmp_name'];
-        $size = $_FILES['attachments']['size'];  
+        $size = $_FILES['attachments']['size'];
         $id = $_POST['project_id'];
         $pn = $_POST['project_name'];
         $v = $_POST['venue'];
@@ -25,9 +25,8 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET
                 `project_name` ='$pn',
                 `venue` ='$v',
                 `start_date` ='$sd',
@@ -43,13 +42,12 @@
                 `project_desc` ='$pd',
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
               alert('Status updated!')
               window.location.href='officer-revision.php'</script>";
         }
-    } else if(isset($_POST['Done']))
-    {
+    } elseif (isset($_POST['Done'])) {
         $id = $_POST['project_id'];
         $s = "Done";
 
@@ -57,18 +55,16 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
         alert('Status updated!')
         window.location.href='officer-done.php'</script>";
         }
-    } else if(isset($_POST['Cancel']))
-    {
+    } elseif (isset($_POST['Cancel'])) {
         $id = $_POST['project_id'];
         $s = "Cancelled";
 
@@ -76,18 +72,16 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
         alert('Status updated!')
         window.location.href='officer-cancelled.php'</script>";
         }
-    } else if(isset($_POST['Ongoing']))
-    {
+    } elseif (isset($_POST['Ongoing'])) {
         $id = $_POST['project_id'];
         $s = "Ongoing";
 
@@ -95,16 +89,14 @@
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
 
-        if($row)
-        {
-        $query = "UPDATE `tb_projectmonitoring` SET
+        if ($row) {
+            $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s'
                 WHERE `project_id` = '$id';";
-        $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
+            $result = @mysqli_query($conn, $query);
+            echo "<script type='text/javascript'>
         alert('Status updated!')
         window.location.href='officer-ongoing.php'</script>";
         }
     }
-@mysqli_close($conn);
-?>
+    @mysqli_close($conn);

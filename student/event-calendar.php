@@ -2,16 +2,15 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
+include('../mysql_connect.php');
+include('profilepic.php');
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:../index.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,10 +110,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
@@ -222,16 +222,18 @@ if(isset($_SESSION['msg'])){
 
     <?php
     $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing'");
-    $sched_res = [];
-    foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
-      $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
-      $row['edate'] = date("F d, Y h:i A",strtotime($row['end_date']));
-      $sched_res[$row['project_id']] = $row;
-    }
-    ?>
+$sched_res = [];
+foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
+    $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));
+    $row['edate'] = date("F d, Y h:i A", strtotime($row['end_date']));
+    $sched_res[$row['project_id']] = $row;
+}
+?>
     <?php
-    if(isset($conn)) $conn->close();
-    ?>
+if (isset($conn)) {
+    $conn->close();
+}
+?>
     </body>
     <script>
       var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')

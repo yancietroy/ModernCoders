@@ -3,11 +3,11 @@ ob_start();
 session_start();
 session_destroy();
 session_start();
-if(isset($_SESSION['message'])){
+if (isset($_SESSION['message'])) {
     print_r($_SESSION['message']);#display message
     unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
 }
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,46 +45,41 @@ if(isset($_SESSION['message'])){
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Officer Login</h1>
               <?php
-            if(isset ($_POST['submit']))
-            {
-            	include('mysql_connect.php');
-            	$e = $_POST['email'];
-            	$p = $_POST['password'];
+           if (isset($_POST['submit'])) {
+               include('mysql_connect.php');
+               $e = $_POST['email'];
+               $p = $_POST['password'];
 
-            	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-            		ob_start();
+               if (!empty($_POST['email']) || !empty($_POST['password'])) {
+                   ob_start();
 
-            		$query = "Select officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-            		$result = @mysqli_query($conn, $query);
-            		$row = mysqli_fetch_array ($result);
+                   $query = "Select officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+                   $result = @mysqli_query($conn, $query);
+                   $row = mysqli_fetch_array($result);
 
-            		if($row)
-            		{
-            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
-                $_SESSION['use'] = $row[0];
-                if(isset($_SESSION['use'])){
-                header("Location:officer/officer-index.php");
-                @mysqli_close($conn);
-                exit();
-                }
-                }
-                else
-                {
-                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                   if ($row) {
+                       $_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+                       $_SESSION['use'] = $row[0];
+                       if (isset($_SESSION['use'])) {
+                           header("Location:officer/officer-index.php");
+                           @mysqli_close($conn);
+                           exit();
+                       }
+                   } else {
+                       echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Invalid email or password!</p></div>";
-
-                  }
-                  }
-                  else
-                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                   }
+               } else {
+                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Please enter email and password!</p></div>";
-                mysqli_close($conn);
+               }
+               mysqli_close($conn);
 
-                ob_end_flush();
-                }
-                ?>
+               ob_end_flush();
+           }
+?>
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>

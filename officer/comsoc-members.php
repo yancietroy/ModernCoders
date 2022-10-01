@@ -3,15 +3,13 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:../../officer-login.php");
-  }
- ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,10 +113,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
@@ -154,15 +153,15 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
-                    $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $ds = " ";
-                    $pi = " ";
-                    $pn = " ";
-                    $v = " ";
-                    $s = " ";
-                    echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
+  $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
+$result = @mysqli_query($conn, $query);
+$i = 0;
+$ds = " ";
+$pi = " ";
+$pn = " ";
+$v = " ";
+$s = " ";
+echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th class='all'>Student ID</th>
@@ -181,29 +180,27 @@ if(isset($_SESSION['msg'])){
                         </thead>
                         <tbody>
                       ";
-                      /*
-                      <th>College</th>
-                      <th>Organization</th>
-                      <th>Position</th>
-                      <th>Account Created</th>
-                      */
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                        $si = $row['STUDENT_ID'];
-                        $fn = $row['FIRST_NAME'];
-                        $mn = $row['MIDDLE_NAME'];
-                        $ln = $row['LAST_NAME'];
-                        $a = $row['AGE'];
-                        $g = $row['GENDER'];
-                        $e = $row['EMAIL'];
-                        $bd = $row['BIRTHDATE'];
-                        $yl = $row['YEAR_LEVEL'];
-                        $se = $row['SECTION'];
-                        $c = $row['COURSE'];
-                        echo "<tr>
+/*
+<th>College</th>
+<th>Organization</th>
+<th>Position</th>
+<th>Account Created</th>
+*/
+if ($result !== false && $result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+        $si = $row['STUDENT_ID'];
+        $fn = $row['FIRST_NAME'];
+        $mn = $row['MIDDLE_NAME'];
+        $ln = $row['LAST_NAME'];
+        $a = $row['AGE'];
+        $g = $row['GENDER'];
+        $e = $row['EMAIL'];
+        $bd = $row['BIRTHDATE'];
+        $yl = $row['YEAR_LEVEL'];
+        $se = $row['SECTION'];
+        $c = $row['COURSE'];
+        echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
                               <td> $mn  </td>
@@ -221,18 +218,18 @@ if(isset($_SESSION['msg'])){
                               <td> $se</td>
                               </tr>
                           ";
-                          /*
-                          <td>College</td>
-                          <td>Organization</td>
-                          <td>Position</td>
-                          <th>Account Created</th>
+        /*
+        <td>College</td>
+        <td>Organization</td>
+        <td>Position</td>
+        <th>Account Created</th>
                         */
-                      }
-                  echo "</tbody>
+    }
+    echo "</tbody>
                         </table>";
-                  }
-                    //$conn->close();
-                  ?>
+}
+//$conn->close();
+?>
 
          </div>
        </div>
@@ -344,12 +341,12 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="college" >College:</label>
                                 <select class="form-select" name="college" id="college" readonly>
                                   <?php
-                                      $query = "SELECT college FROM tb_collegedept";
-                                      $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                      }
-                                  ?>
+                    $query = "SELECT college FROM tb_collegedept";
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                                 </select>
                               </div>
                             </div>
@@ -358,12 +355,12 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label select-label" for="COURSE" >Course:</label>
                                 <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
                                   <?php
-                                        $query = "SELECT course FROM tb_course";
-                                        $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                        }
-                                  ?>
+      $query = "SELECT course FROM tb_course";
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+}
+?>
                                 </select>
                               </div>
                             </div>
@@ -372,12 +369,12 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="MORG_ID" >Mother Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
-                                    $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
-                                    $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }
-                                  ?>
+  $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+$result = @mysqli_query($conn, $query);
+while ($data = @mysqli_fetch_array($result)) {
+    echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+}
+?>
                                 </select>
                               </div>
                             </div>

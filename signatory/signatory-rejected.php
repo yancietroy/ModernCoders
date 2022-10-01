@@ -4,13 +4,12 @@ session_start();
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
+} elseif (!isset($_SESSION['use'])) { // If session is not set then redirect to Login Page
     header("Location:../signatory-login.php");
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,10 +111,11 @@ if(isset($_SESSION['msg'])){
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+$result = @mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    echo "$row[0]";
+} ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
                   <li>
@@ -149,28 +149,28 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Rejected')";
-                    $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $ds = " ";
-                    $pi = " ";
-                    $pn = " ";
-                    $v = " ";
-                    $s = " ";
-                    $pt = " ";
-                    $pc = " ";
-                    $pd = " ";
-                    $sd = " ";
-                    $ed = " ";
-                    $p = " ";
-                    $np = " ";
-                    $b = " ";
-                    $nb = " ";
-                    $bs = " ";
-                    $eb = " ";
-                    $a = " ";
-                    $r = " ";
-                    echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
+  $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Rejected')";
+$result = @mysqli_query($conn, $query);
+$i = 0;
+$ds = " ";
+$pi = " ";
+$pn = " ";
+$v = " ";
+$s = " ";
+$pt = " ";
+$pc = " ";
+$pd = " ";
+$sd = " ";
+$ed = " ";
+$p = " ";
+$np = " ";
+$b = " ";
+$nb = " ";
+$bs = " ";
+$eb = " ";
+$a = " ";
+$r = " ";
+echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                             <th class='all'>Project ID</th>
@@ -196,31 +196,29 @@ if(isset($_SESSION['msg'])){
                         </thead>
                         <tbody>
                       ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                        $ds = $row['date_submitted'];
-                        $pi = $row['project_id'];
-                        $pn = $row['project_name'];
-                        $v = $row['venue'];
-                        $s = $row['status'];
-                        $pt = $row['project_type'];
-                        $pc =$row['project_category'];
-                        $pd =$row['project_desc'];
-                        $sd =$row['start_date'];
-                        $ed =$row['end_date'];
-                        $p =$row['participants'];
-                        $np =$row['no_of_participants'];
-                        $b = $row['beneficiary'];
-                        $nb = $row['no_of_beneficiary'];
-                        $bs =$row['budget_source'];
-                        $eb =$row['estimated_budget'];
-                        $a = $row['attachments'];
-                        $r =$row['remarks'];
+if ($result !== false && $result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+        $ds = $row['date_submitted'];
+        $pi = $row['project_id'];
+        $pn = $row['project_name'];
+        $v = $row['venue'];
+        $s = $row['status'];
+        $pt = $row['project_type'];
+        $pc =$row['project_category'];
+        $pd =$row['project_desc'];
+        $sd =$row['start_date'];
+        $ed =$row['end_date'];
+        $p =$row['participants'];
+        $np =$row['no_of_participants'];
+        $b = $row['beneficiary'];
+        $nb = $row['no_of_beneficiary'];
+        $bs =$row['budget_source'];
+        $eb =$row['estimated_budget'];
+        $a = $row['attachments'];
+        $r =$row['remarks'];
 
-                        echo "<tr>
+        echo "<tr>
                               <td> $pi  </td>
                               <td> $pn  </td>
                               <td> $v  </td>
@@ -244,8 +242,8 @@ if(isset($_SESSION['msg'])){
                               <td> $r  </td>
                               </tr>
                           ";
-                      }
-                  echo "</tbody>
+    }
+    echo "</tbody>
                         <tfoot>
                             <tr>
                               <th>Project ID</th>
@@ -270,9 +268,9 @@ if(isset($_SESSION['msg'])){
                             </tr>
                         </tfoot>
                         </table>";
-                  }
-                    $conn->close();
-                  ?>
+}
+$conn->close();
+?>
                   </div>
             </div>
           </div>
