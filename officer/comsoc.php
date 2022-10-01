@@ -159,7 +159,7 @@ if(isset($_SESSION['msg'])){
                       </div>
                     </div>
                   </div>
-                    <div class="row justify-content-evenly align-items-center text-align-center">
+                    <div class="row justify-content-center mx-3">
                    <div class="col-lg-3 col-sm-6">
                       <div class="card-counter primary">
                         <div class="inner">
@@ -196,19 +196,20 @@ if(isset($_SESSION['msg'])){
                         <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
-                  <!--  <div class="col-lg-3 col-sm-6">
-                      <div class="card-counter bg-secondary">
+                    <div class="col-lg-3 col-sm-6">
+                      <div class="card-counter events">
                         <div class="inner">
-                          <h2><i class="bi bi-archive-fill"></i></h2>
-                          <p>Archive</p>
+                          <h2><i class="bi bi-calendar3"></i></h2>
+                          <p>Event Calendar</p>
                         </div>
                         <div class="icon">
-                          <i class="bi bi-archive"></i>
+                      <i class="bi bi-calendar3-fill"></i>
                         </div>
-                        <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
-                    </div>-->
-                      <div class="row">
+                    </div>
+                  </div>
+                      <div class="row justify-content-center mx-3">
                     <div class="col-lg-3 col-sm-6">
                       <div class="card-counter events">
                         <div class="inner">

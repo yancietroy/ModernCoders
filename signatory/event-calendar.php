@@ -2,14 +2,14 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../index.php");
+    header("Location:../signatory-login.php");
   }
  ?>
 
@@ -25,28 +25,27 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Waves CSS -->
+  <!-- Waves CSS CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-  <!-- Font Awesome JS -->
+  <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-<!-- calendar!-->
-<script src="../assets/js/main.min.js"></script>
-<script src="../assets/js/jquery-3.6.0.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="../assets/css/main.min.css">
+  <!-- calendar!-->
+  <script src="../assets/js/main.min.js"></script>
+  <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../assets/css/main.min.css">
 </head>
 
 <body>
   <div class="d-flex" id="wrapper">
-
     <!-- Sidebar  -->
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="student-index.php">
+        <a class="navbar-brand" href="signatory-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
@@ -58,23 +57,26 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li>
-          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
-        <li  class="active">
-          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+
+        <li class="active">
+          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
         <li>
-          <a href="election-student-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
+        <!--<li>
+        <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>-->
         <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-
+        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
         </li>
-      </ul>
+        </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
           <li>
@@ -109,18 +111,18 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
+                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
+                  <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="../signatory-login.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -132,7 +134,7 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-calendar3"></i> Event Calendar</li>
         </ol>
@@ -210,8 +212,8 @@ if(isset($_SESSION['msg'])){
                   </div>
                   <div class="modal-footer rounded-0">
                       <div class="text-end">
-                        <!--  <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>
-                          <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>-->
+                        <!--  <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>-->
+                          <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>
                           <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
@@ -237,6 +239,7 @@ if(isset($_SESSION['msg'])){
       var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
     </script>
     <script src="../assets/js/eventcalendar.js"></script>
+
 
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
