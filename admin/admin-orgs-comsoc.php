@@ -269,7 +269,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                       <i class="bi bi-folder-fill"></i>
                         </div>
-                        <a href="signatory-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-projects-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">

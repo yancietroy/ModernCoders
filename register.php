@@ -61,6 +61,7 @@ include('mysql_connect.php');
                   $section = $_POST['section'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
+                  $pp = "none";
 
                   $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
@@ -76,8 +77,8 @@ include('mysql_connect.php');
                   try {
                   $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp')";
                   $conn->exec($sql);
                   echo "
                   <div class='callout bs-callout-success pb-0'>

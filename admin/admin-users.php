@@ -55,7 +55,7 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li  class="active">
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
       <li>
@@ -75,13 +75,13 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li class="active">
+        <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li class="active">
+          <li>
               <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
           </li>
           <li>
@@ -136,16 +136,16 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                  </ul>
               </li>
             </ul>
           </div>
@@ -156,8 +156,7 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item">Orgs Management</li>
-              <li class="breadcrumb-item active" aria-current="page">Projects</li>
+          <li class="breadcrumb-item active" aria-current="page">User Management</li>
         </ol>
       </nav>
 
@@ -165,54 +164,107 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Project Management</h4>
-        </div>
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Project</a>
+          <h4>User Management</h4>
         </div>
       </div>
 
       <div class="row ms-3 me-3 mt-2">
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter success">
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter primary">
             <div class="inner">
-              <h2><i class="bi bi-pc-display"></i></h2>
-              <p>COMSOC</p>
+              <h2><i class="bi bi-person-circle"></i></h2>
+              <p>Students</p>
             </div>
             <div class="icon">
-                <i class="bi bi-pc-display"></i>
+              <i class="bi bi-file-person" aria-hidden="true"></i>
             </div>
-            <a href="admin-projects-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-students-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-<!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter primary">
             <div class="inner">
-              <h2><i class="bi bi-person-x-fill"></i></h2>
-              <p>Inactive</p>
+              <h2><i class="bi bi-person-circle"></i></h2>
+              <p>Officers</p>
             </div>
             <div class="icon">
-              <i class="bi bi-person-x"></i>
+            <i class="bi bi-person-badge"></i>
             </div>
-            <a href="admin-students-users-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-officers-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>!-->
-
-        <div class="col-lg-3 col-sm-6">
+        </div>
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter primary">
+            <div class="inner">
+              <h2><i class="bi bi-person-circle"></i></h2>
+              <p>Signatories</p>
+            </div>
+            <div class="icon">
+            <i class="bi bi-person-rolodex"></i>
+            </div>
+            <a href="admin-signatories-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter primary">
+            <div class="inner">
+              <h2><i class="bi bi-person-circle"></i></h2>
+              <p>Admin</p>
+            </div>
+            <div class="icon">
+            <i class="ri-user-2-fill"></i>
+            </div>
+            <a href="admin-administrators-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-4">
           <div class="card-counter bg-secondary">
             <div class="inner">
               <h2><i class="bi bi-archive-fill"></i></h2>
-              <p>Archive</p>
+              <p>Student Archive</p>
             </div>
             <div class="icon">
               <i class="bi bi-archive"></i>
             </div>
-            <a href="admin-projects-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-archive-students.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h2><i class="bi bi-archive-fill"></i></h2>
+              <p>Officer Archive</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-archive"></i>
+            </div>
+            <a href="admin-archive-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h2><i class="bi bi-archive-fill"></i></h2>
+              <p>Signatory Archive</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-archive"></i>
+            </div>
+            <a href="admin-archive-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-4">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h2><i class="bi bi-archive-fill"></i></h2>
+              <p>Admin Archive</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-archive"></i>
+            </div>
+            <a href="admin-archive-students.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
         </div>
 
      </div>
