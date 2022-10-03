@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                                         <div class="form-outline">
 
                                           <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                                             >
                                           <div class="valid-feedback"></div>
                                         </div>
@@ -237,6 +237,7 @@ if(isset($_SESSION['msg'])){
 
                                     </div>
 
+                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                     <?php
                                 if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
@@ -246,19 +247,36 @@ if(isset($_SESSION['msg'])){
                                     $ln = $_POST['last_name'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
+                                    $duplicate=mysqli_query($conn,"select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
+                                    if (mysqli_num_rows($duplicate)>0)
+                                    {
+                                      echo "<script type='text/javascript'>
+                                            alert('User already exists!')
+                                            </script>";
+                                    }
+                                    else{
+                                    try {
+                                    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                    $conn->exec($sql);
+                                    echo "<script type='text/javascript'>
+                                        Swal.fire({
+                                             icon: 'success',
+                                             title: 'Administrator Created',
+                                             confirmButtonColor: '#F2AC1B'
 
-
-                                        $query = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
-                                        $result = @mysqli_query($conn, $query);
-
-                                        echo "<script type='text/javascript'>
-                                              window.location = 'admin-administrators.php'
-                                              alert('Admin registered!')
-                                              </script>";
-                                        //header("location:signatory-login.php");
-                                        die;
-                                            @mysqli_close($conn);
-                                  }
+                                         })
+                                          </script>";
+                                    }
+                                       catch(PDOException $e)
+                                        {
+                                              echo $sql . "
+                                              " . $e->getMessage();
+                                        }
+                                    $conn = null;
+                                    }
+                                    }
                                 ?>
                                   </form>
        </div>
@@ -335,7 +353,7 @@ if(isset($_SESSION['msg'])){
       $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
         var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@.jru.edu");
+        $("#email").attr("value", fname + "." + lname + "@jru.edu");
       });
     </script>
     <!--input mask-->

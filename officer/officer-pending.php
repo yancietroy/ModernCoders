@@ -39,7 +39,7 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -396,7 +396,7 @@ if(isset($_SESSION['msg'])){
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline d-grid">
                                 <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
+                              <button type="button" name="attachments" id="attachments" class="btn btn-secondary btn-md">Download</button>
                               </div>
                             </div>
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
@@ -461,6 +461,7 @@ if(isset($_SESSION['msg'])){
                 $('#beneficiary').val(data.beneficiary);
                 $('#no_of_participants').val(data.no_of_participants);
                 $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#attachments').val(data.attachments);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');

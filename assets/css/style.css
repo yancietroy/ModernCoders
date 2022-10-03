@@ -51,9 +51,65 @@ a:focus {
   transition: all 0.3s;
 }
 
+/*
 i,
 span {
   display: inline-block;
+}
+*/
+/* validation */
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  border: 1px solid #468847;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  border: 1px solid #d9534f;
+}
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  opacity: 0;
+  color: #B94A48;
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.parsley-errors-list.filled {
+  opacity: 1;
+}
+
+.callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.bs-callout-warning {
+  background-color: #FFE4DE;
+  border-left-color: #d9534f;
+  color: #d9534f;
+}
+
+.bs-callout-success {
+  background-color: #DCF9D8;
+  border-left-color: #5cb85c;
+  color: #5cb85c;
+}
+
+#hidden {
+  display: none;
 }
 
 .breadcrumb {
@@ -73,6 +129,7 @@ span {
 [aria-label="desc"]:hover {
   color: #00226C;
 }
+
 [aria-label="profile"]:hover {
   color: #F2AC1B;
 }
@@ -147,7 +204,7 @@ ul ul a {
   color: #ffffff;
   background-color: #FF9671;
   border-color: #FF9671;
-  border-radius:.25rem;
+  border-radius: .25rem;
 }
 
 .btn-revise:hover,
@@ -592,8 +649,9 @@ Projects
   background-color: #00C9A7;
   color: white;
 }
+
 .btn-done:hover {
-  background-color:  #398B77;
+  background-color: #398B77;
   color: white;
 }
 
@@ -601,6 +659,7 @@ Projects
   background-color: #398B77;
   color: white;
 }
+
 /*.card-counter i{
     font-size: 5em;
     opacity: 0.2;
@@ -743,9 +802,7 @@ div.table-stud {
   width: 95%;
 }
 
-
 /* student profile */
-
 .student-profile .card {
   border-radius: 10px;
 }
@@ -776,14 +833,57 @@ div.table-stud {
   color: #000;
 }
 
-/*user forum*/
-
-.white-bg {
-    background-color: #ffffff;
+.upload-button {
+  padding: 4px;
+  font-size: 30px;
+  font-weight: bolder;
+  border-radius: 5px;
+  display: block;
+  float: left;
 }
+.profile_img {
+  transition: .5s ease;
+  backface-visibility: hidden;
+  opacity: 1;
+  display: block;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -120px);
+  -ms-transform: translate(-20%, -80%);
+  text-align: center;
+}
+
+.container:hover .profile_img {
+  opacity: 0.8;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+.file-upload {
+  display: none;
+}
+
+/*user forum*/
+.white-bg {
+  background-color: #ffffff;
+}
+
 .page-heading {
-    border-top: 0;
-    padding: 0 10px 20px 10px;
+  border-top: 0;
+  padding: 0 10px 20px 10px;
 }
 
 .forum-post-container .media {
@@ -791,95 +891,117 @@ div.table-stud {
   padding: 20px 10px 20px 10px;
   border-bottom: 1px solid #f1f1f1;
 }
+
 .forum-avatar {
   float: left;
   margin-right: 20px;
   text-align: center;
   width: 110px;
 }
+
 .forum-avatar .img-circle {
   height: 48px;
   width: 48px;
 }
+
 .author-info {
   color: #676a6c;
   font-size: 11px;
   margin-top: 5px;
   text-align: center;
 }
+
 .forum-post-info {
   padding: 9px 12px 6px 12px;
   background: #f9f9f9;
   border: 1px solid #f1f1f1;
 }
-.media-body > .media {
+
+.media-body>.media {
   background: #f9f9f9;
   border-radius: 3px;
   border: 1px solid #f1f1f1;
 }
+
 .forum-post-container .media-body .photos {
   margin: 10px 0;
 }
+
 .forum-photo {
   max-width: 140px;
   border-radius: 3px;
 }
-.media-body > .media .forum-avatar {
+
+.media-body>.media .forum-avatar {
   width: 70px;
   margin-right: 10px;
 }
-.media-body > .media .forum-avatar .img-circle {
+
+.media-body>.media .forum-avatar .img-circle {
   height: 38px;
   width: 38px;
 }
+
 .mid-icon {
   font-size: 66px;
 }
+
 .forum-item {
   margin: 10px 0;
   padding: 10px 0 20px;
   border-bottom: 1px solid #f1f1f1;
 }
+
 .views-number {
   font-size: 24px;
   line-height: 18px;
   font-weight: 400;
 }
+
 .forum-container,
 .forum-post-container {
   padding: 30px !important;
 }
+
 .forum-item small {
   color: #999;
 }
+
 .forum-item .forum-sub-title {
   color: #999;
   margin-left: 50px;
 }
+
 .forum-title {
   margin: 15px 0 15px 0;
 }
+
 .forum-info {
   text-align: center;
 }
+
 .forum-desc {
   color: #999;
 }
+
 .forum-icon {
   float: left;
   width: 30px;
   margin-right: 20px;
   text-align: center;
 }
+
 a.forum-item-title {
   color: inherit;
   display: block;
   font-size: 18px;
   font-weight: 600;
 }
+
 a.forum-item-title:hover {
   color: #F2AC1B;
 }
+
 .forum-icon .fa {
   font-size: 30px;
   margin-top: 8px;
@@ -889,22 +1011,327 @@ a.forum-item-title:hover {
 .forum-item.active .fa {
   color: #1ab394;
 }
+
 .forum-item.active a.forum-item-title {
   color: #1ab394;
 }
+
 @media (max-width: 992px) {
   .forum-info {
     margin: 15px 0 10px 0;
     /* Comment this is you want to show forum info in small devices */
     display: none;
   }
+
   .forum-desc {
     float: none !important;
   }
 }
 
+/*---------------------------------------------------------
+Survey
+--------------------------------------------------------*/
+.survey-form input,textarea,select {
+    outline: 0;
+}
+.survey-form h2, .survey-form h5 {
+    margin: 0;
+    color: #6a737f;
+    font-weight: 600;
+    text-align:center;
+}
 
+.survey-form h1 i {
+    font-size: 24px;
+}
+.survey-form {
+    background-color: #fff;
+    width: 500px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,.2);
+}
+.survey-form .fields {
+    position: relative;
+    padding: 20px;
+}
+.survey-form select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #c7c9cb 50%), linear-gradient(135deg, #c7c9cb 50%, transparent 50%), linear-gradient(to right, #dfe0e0, #dfe0e0);
+    background-position: calc(100% - 20px) 20px, calc(100% - 15px) 20px, calc(100% - 40px) 10px;
+    background-size: 5px 5px, 5px 5px, 1px 25px;
+    background-repeat: no-repeat;
+}
+.survey-form select option:first-child {
+    display: none;
+ }
+.survey-form input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #ddd;
+    filter: invert(0.8);
+}
+.survey-form input[type="text"],
+.survey-form input[type="email"],
+.survey-form input[type="date"],
+.survey-form input[type="tel"],
+.survey-form select {
+    display: flex;
+    margin-top: 10px;
+    padding: 15px;
+    border: 1px solid #dfe0e0;
+    width: 100%;
+    flex-basis: 100%;
+    height: 47px;
+}
+.survey-form input[type="text"]:focus,
+.survey-form input[type="email"]:focus,
+.survey-form input[type="tel"]:focus,
+.survey-form input[type="date"]:focus,
+.survey-form select:focus {
+    border: 1px solid #c6c7c7;
+}
+.survey-form input[type="text"]::placeholder,
+.survey-form input[type="email"]::placeholder,
+.survey-form input[type="tel"]::placeholder,
+.survey-form input[type="date"]:invalid,
+.survey-form textarea::placeholder,
+.survey-form select:invalid {
+    color: #858688;
+}
+.survey-form textarea {
+    resize: none;
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #dfe0e0;
+    width: 100%;
+    height: 150px;
+}
+.survey-form textarea:focus {
+    border: 1px solid #c6c7c7;
+}
+.survey-form .buttons {
+    padding: 20px;
+    border-top: 1px solid #eceff2;
+}
+.survey-form .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #F2AC1B;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 25px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.survey-form .btn:hover {
+    background-color: #9E7F51;
+}
+.survey-form .btn.alt {
+    background-color: transparent;
+    border: 1px solid #F2AC1B;
+    color:#F2AC1B;
+}
+.survey-form .btn.alt:hover {
+    border: 1px solid #9E7F51;
+    color: #9E7F51;
+}
+.survey-form input[name="email"] {
+    position: relative;
+    display: block;
+}
+.survey-form .field {
+    display: inline-flex;
+    position: relative;
+    width: 100%;
+    padding-bottom: 20px;
+}
+.survey-form label, .survey-form p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8e939b;
+}
+.survey-form .field i {
+    position: absolute;
+    color: #dfe2e5;
+    font-style: bold;
+    top: 25px;
+    left: 15px;
+    z-index: 10;
+}
+.survey-form .field i ~ input {
+    padding-left: 45px !important;
+}
+.survey-form .responses {
+    padding: 15px;
+    margin: 0;
+}
+.survey-form .fields .wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.survey-form .fields .wrapper > div {
+    width: 100%;
+}
+.survey-form .fields .wrapper .gap {
+    width: 35px;
+}
+.survey-form .steps {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: calc(100% - 35px);
+    align-self: center;
+    margin: 0 auto;
+}
 
+.survey-form .steps::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f2f4f7;
+    margin: auto 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+}
+.survey-form .steps .step {
+    width: 25px;
+    height: 25px;
+    background-color: #f2f4f7;
+    border: 3px solid #f2f4f7;
+    border-radius: 50px;
+    z-index: 1;
+}
+.survey-form .steps .step.current {
+    background-color: #00226C;
+}
+.survey-form .steps .step.complete {
+    background-color: #F2AC1B;
+}
+.survey-form .rating {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.survey-form .rating input[type="radio"]:checked,
+.survey-form .rating input[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+.survey-form .rating input[type="radio"]:checked + label,
+.survey-form .rating input[type="radio"]:not(:checked) + label
+{
+    display: flex;
+    position: relative;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    width: 31px;
+    height: 31px;
+    cursor: pointer;
+    color: #8e939b;
+    z-index: 10;
+}
+.survey-form .rating input[type="radio"]:checked + label:before,
+.survey-form .rating input[type="radio"]:not(:checked) + label:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dfe0e0;
+    border-radius: 100%;
+    background: #fff;
+    z-index: -1;
+}
+.survey-form .rating input[type="radio"]:checked + label:after,
+.survey-form .rating input[type="radio"]:not(:checked) + label:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 31px;
+    height: 31px;
+    border-radius: 100%;
+    background: #F2AC1B;
+    z-index: -1;
+}
+.survey-form .rating input[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+}
+.survey-form .rating input[type="radio"]:checked + label {
+    color: #fff;
+}
+.survey-form .rating input[type="radio"]:checked + label:after {
+    opacity: 1;
+}
+.survey-form .rating-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #8e939b;
+    padding: 15px 0 25px;
+}
+.survey-form .group {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+.survey-form .group label {
+    display: flex;
+    font-weight: 500;
+    height: 25px;
+    align-items: center;
+    padding-bottom: 5px;
+}
+.survey-form .group input[type="radio"],
+.survey-form .group input[type="checkbox"] {
+    appearance: none;
+    display: inline-flex;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    background-clip: content-box;
+    border: 1px solid #dfe0e0;
+    background-color: #eef1f1;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.survey-form .group input[type="radio"]:hover,
+.survey-form .group input[type="checkbox"]:hover {
+    border: 1px solid #d2d3d3;
+}
+.survey-form .group input[type="radio"]:checked,
+.survey-form .group input[type="checkbox"]:checked {
+    border: 1px solid #d2d3d3;
+    background-color: #2996ed;
+}
+.survey-form .group input[type="checkbox"] {
+    border-radius: 0;
+}
+.survey-form .step-content {
+    display: none;
+}
+.survey-form .step-content.current {
+    display: block;
+}
+.survey-form .result {
+    padding: 25px;
+}
+.survey-form .result h3 {
+    color: #6a737f;
+}
+.survey-form .result p {
+    font-weight: 500;
+}
 
 
 /* ---------------------------------------------------

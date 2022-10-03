@@ -190,12 +190,117 @@ if(isset($_SESSION['msg'])){
                   }
                   ?>
               </div>
-
             </div>
           </div>
+
+
+        </div>
+
+      </div>
+  <h4 class="ms-3">Site Management</h4>
+  <div class="row ms-3 me-3 mt-2">
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-primary">
+        <div class="inner">
+          <h2><i class="bi bi-people"></i></h2>
+          <p>User Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <a href="admin-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-info">
+        <div class="inner">
+          <h2><i class="bi bi-check-square"></i></h2>
+          <p>Approval Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-check-square-fill"></i>
+        </div>
+        <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter done">
+        <div class="inner">
+          <h2><i class="bi bi-node-plus"></i></h2>
+          <p>College Management</p>
+        </div>
+        <div class="icon">
+        <i class="bi bi-node-plus-fill"></i>
+        </div>
+        <a href="admin-college.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-success">
+        <div class="inner">
+          <h2><i class="bi bi-diagram-2"></i></h2>
+          <p>Course Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-diagram-2-fill"></i>
+        </div>
+        <a href="admin-course.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-danger">
+        <div class="inner">
+          <h2><i class="bi bi-diagram-3"></i></h2>
+          <p>Org Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-diagram-3-fill"></i>
+        </div>
+        <a href="admin-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter bg-warning">
+          <div class="inner">
+            <h2><i class="bi bi-check2-square"></i></h2>
+            <p>Election Management</p>
+          </div>
+          <div class="icon">
+              <i class="bi bi-check2-square"></i>
+          </div>
+          <a href="admin-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter events">
+          <div class="inner">
+            <h2><i class="bi bi-envelope"></i></h2>
+            <p>Message Management</p>
+          </div>
+          <div class="icon">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <a href="admin-message.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter masterlist">
+          <div class="inner">
+            <h2><i class="bi bi-bell"></i></h2>
+            <p>Notification</p>
+          </div>
+          <div class="icon">
+              <i class="bi bi-bell-fill"></i>
+          </div>
+          <a href="admin-notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
+    </div>
+
+ </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">

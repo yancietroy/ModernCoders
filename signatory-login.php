@@ -44,9 +44,49 @@ if(isset($_SESSION['message'])){
             <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Signatory Login</h1>
+              <?php
+            if(isset ($_POST['submit']))
+            {
+            	include('mysql_connect.php');
+            	$e = $_POST['email'];
+            	$p = $_POST['password'];
 
+            	if(!empty($_POST['email']) || !empty($_POST['password'])) {
+            		ob_start();
+
+            		$query = "Select school_ID FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+            		$result = @mysqli_query($conn, $query);
+            		$row = mysqli_fetch_array ($result);
+
+            		if($row)
+            		{
+            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+                $_SESSION['use'] = $row[0];
+                if(isset($_SESSION['use'])){
+                header("Location:signatory/signatory-index.php");
+                @mysqli_close($conn);
+                exit();
+                }
+                }
+                else
+                {
+                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                        <h4>Error!</h4>
+                        <p>Invalid email or password!</p></div>";
+
+                  }
+                  }
+                  else
+                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                        <h4>Error!</h4>
+                        <p>Please enter email and password!</p></div>";
+                mysqli_close($conn);
+
+                ob_end_flush();
+                }
+                ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>
@@ -61,7 +101,7 @@ if(isset($_SESSION['message'])){
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-4" id="select-opt">
                   <option class="greyclr text-muted" selected disabled value="" >Select User</option>
-                  <option value="login.php">Student</option>
+                  <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
                   <option value="admin-login.php">Admin</option>
@@ -85,8 +125,18 @@ if(isset($_SESSION['message'])){
     Waves.init();
   </script>
   <!-- form validation/sidebar toggle -->
-  <script src="../assets/js/form-validation.js"></script>
+  <script src="assets/js/form-validation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+      const box = document.getElementById('box');
+
+      if (!box.contains(event.target)) {
+        box.style.display = 'none';
+      }
+    });
+
+    </script>
     <script type="text/javascript">
     $(document).ready(function () {
     $("#select-opt").change(function() {
@@ -100,43 +150,6 @@ if(isset($_SESSION['message'])){
     });
   });
     </script>
-  <?php
-if(isset ($_POST['submit']))
-{
-	include('mysql_connect.php');
-	$e = $_POST['email'];
-	$p = $_POST['password'];
-
-	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-		ob_start();
-
-		$query = "Select school_ID FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-		$result = @mysqli_query($conn, $query);
-		$row = mysqli_fetch_array ($result);
-
-		if($row)
-		{
-			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
-    $_SESSION['use'] = $row[0];
-    if(isset($_SESSION['use'])){
-    header("Location:signatory/signatory-index.php");
-    @mysqli_close($conn);
-    exit();
-    }
-    }
-    else
-    {
-    echo '<script>alert("The email address and password entered do not match those on file.")</script>';
-
-    }
-    }
-    else
-    echo '<script>alert("Please enter email and/or password!")</script>';
-    mysqli_close($conn);
-
-    ob_end_flush();
-    }
-    ?>
 
 </body>
 

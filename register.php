@@ -21,12 +21,12 @@ include('mysql_connect.php');
 
 <body class="bg">
 
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+
     <section class="h-100">
       <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-11 col-lg-9 col-xl-9">
-            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
               <div class="card-body px-5 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center align-items-center ">
                   <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
@@ -42,7 +42,61 @@ include('mysql_connect.php');
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
 
                 <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
+
+                <?php
+              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
+               || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit']))
+                {
+                  $fn = $_POST['first_name'];
+                  $ln = $_POST['last_name'];
+                  $mn = $_POST['middle_name'];
+                  $date = $_POST['birthdate'];
+                  $age = $_POST['age'];
+                  $g = $_POST['gender'];
+                  $si = $_POST['studentid'];
+                  $yl = $_POST['school_year'];
+                  $cd = $_POST['college_dept'];
+                  $course = $_POST['course'];
+                  $morgid = $_POST['org'];
+                  $section = $_POST['section'];
+                  $e = $_POST['email'];
+                  $pass = $_POST['password'];
+                  $pp = "none";
+
+                  $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
+                  if (mysqli_num_rows($duplicate)>0)
+                  {
+                    echo "
+                          <div class='callout bs-callout-warning pb-0' id='box'>
+                            <h4>Error!</h4>
+                            <p>student id or email already exists in the database!</p>
+                          </div>
+                          ";
+                  }
+                  else{
+                  try {
+                  $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp')";
+                  $conn->exec($sql);
+                  echo "
+                  <div class='callout bs-callout-success pb-0'>
+                    <h4>Successfuly registered!</h4>
+                    <p>please wait for approval in your email. <a href='index.php' class='text-blue-50 fw-bold'> Back to login</a></p>
+                  </div>";
+                  }
+                     catch(PDOException $e)
+                      {
+                            echo $sql . "
+                            " . $e->getMessage();
+                      }
+                  $conn = null;
+                  }
+                  }
+                  ?>
                 <!-- <form class="was-validated"> -->
+                <form method="post" action="register.php" id="form" name="form"  data-parsley-validate data-parsley-trigger="keyup">
                 <div class="row">
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -77,7 +131,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 mb-4">
                     <div class="form-outline">
                       <label class="form-label" for="bday" id="asterisk">Birthdate</label>
-                      <input id="birthDate" class="form-control form-control-lg" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
+                      <input id="birthDate" class="form-control form-control-lg" placeholder="mm/dd/yyyy" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" required />
                       <div class="valid-feedback"> </div>
                       <!--  <div class="invalid-feedback">Birthdate field invalid!</div>-->
                     </div>
@@ -142,15 +196,15 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
+                    <select class="form-select form-select-sm" name="college_dept" id="select-group" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
-                                           ?>
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>
@@ -191,7 +245,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                         readonly>
                       <div class="valid-feedback"></div>
                       <!--<div class="invalid-feedback">Student ID field invalid</div>-->
@@ -202,7 +256,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
                         data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
                       <span class="errorspannewpassinput"></span>
                       <div class="valid-feedback"> </div>
@@ -217,7 +271,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 mb-2">
                     <div class="form-outline">
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8"
                         data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
                       <span class="errorspanconfirmnewpassinput"></span>
                       <div class="valid-feedback"> </div>
@@ -226,42 +280,14 @@ include('mysql_connect.php');
                   </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
-                  <button class="w-100 btn btn-lg btn-primary button" type="submit" name="submit" value="Validate!">Register</button>
+                  <button class="w-100 btn btn-lg btn-primary button" type="submit" name="submit" value="submit" onClick="javascript:$('#form').parsley( 'validate' );">Register</button>
                 </div>
 
                 <hr class="my-4">
-                <p class="mt-3 text-center">Already have an account? <a href="login.php" class="text-blue-50 fw-bold">Login</a>
+                <p class="mt-3 text-center">Already have an account? <a href="index.php" class="text-blue-50 fw-bold">Login</a>
                 </p>
-                <?php
-              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
-                {
-                  $fn = $_POST['first_name'];
-                  $ln = $_POST['last_name'];
-                  $mn = $_POST['middle_name'];
-                  $date = $_POST['birthdate'];
-                  $age = $_POST['age'];
-                  $g = $_POST['gender'];
-                  $si = $_POST['studentid'];
-                  $yl = $_POST['school_year'];
-                  $course = $_POST['course'];
-                  $morgid = $_POST['org'];
-                  $section = $_POST['section'];
-                  $e = $_POST['email'];
-                  $pass = $_POST['password'];
 
-                      $query = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'))";
-                      $result = @mysqli_query($conn, $query);
 
-                      echo "<script type='text/javascript'>
-                            window.location = 'login.php'
-                            alert('You are now registered!')
-                            </script>";
-                      //header("location:login.php");
-                      die;
-                          @mysqli_close($conn);
-                }
-              ?>
   </form>
 
   </div>
@@ -291,6 +317,7 @@ include('mysql_connect.php');
   </script>
   <!-- JavaScript validation -->
   <script src="../assets/js/bootstrap-validation.js"></script>
+
   <!-- <script src="js/form-validation.js"></script>
 Prevent Cut Copy Paste -->
   <script>
@@ -301,7 +328,16 @@ Prevent Cut Copy Paste -->
       });
 
     });
+
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+  const box = document.getElementById('box');
+
+  if (!box.contains(event.target)) {
+    box.style.display = 'none';
+  }
+});
   </script>
+
   <!--email generator-->
   <script>
     $("#txtTest, #txtTest3").on('input', function() {

@@ -33,6 +33,8 @@ if(isset($_SESSION['msg'])){
   <!-- Icons-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
 
@@ -136,9 +138,8 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-plus-circle-fill"></i> Create Project</li>
         </ol>
       </nav>
-
       <!-- Page content -->
-      <form action="" method="post" class="requires-validation" novalidate>
+      <form action="" method="post" class="requires-validation" enctype="multipart/form-data" novalidate>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7  mb-4">
           <h4>Create New Project</h4>
@@ -198,6 +199,7 @@ if(isset($_SESSION['msg'])){
                 <option value="Organization">Student Organization</option>
                 <option value="Accounting Office">Accounting Office</option>
                 <option value="Third Party">Third Party</option>
+                <option value="Third Party">None</option>
               </select>
               <div class="valid-feedback">  </div>
               <div class="invalid-feedback">Category field cannot be blank!</div>
@@ -290,15 +292,22 @@ if(isset($_SESSION['msg'])){
                   $b = $_POST['beneficiary'];
                   $nob = $_POST['no_of_beneficiary'];
                   $pd = $_POST['project_desc'];
-                  //$a = $_POST['attachments'];
                   $eb = $_POST['estimated_budget'];
-                   $s = "Pending";
+                  $s = "Pending";
+                  $pname = rand(1000,100000)."-".$_FILES['attachments']['name'];
+                  $destination = 'attachments/' . $pname;
+                  $tname = $_FILES['attachments']['tmp_name'];
+                  move_uploaded_file($tname, $destination);
 
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s')";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status, attachments) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s', '$pname')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
-                            alert('Project Created!')
+                          Swal.fire({
+                               icon: 'success',
+                               title: 'Project Created',
+                                confirmButtonColor: '#F2AC1B'
+                           })
                             </script>";
                       //header("location:login.php");
                           @mysqli_close($conn);
@@ -331,7 +340,7 @@ if(isset($_SESSION['msg'])){
         Waves.attach('#sidebar ul li a');
         Waves.init();
       </script>
-      -<script src="../assets/js/date.js"></script>
+      <script src="../assets/js/date.js"></script>
         <!-- Datepicker cdn  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>

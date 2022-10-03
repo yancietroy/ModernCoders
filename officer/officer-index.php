@@ -180,7 +180,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
-              <a href="#" class="stretched-link"></a>
+              <a href="officer-orgs.php" class="stretched-link"></a>
             </div>
           </div>
         </div>

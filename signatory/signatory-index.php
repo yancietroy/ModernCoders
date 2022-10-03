@@ -62,17 +62,16 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
-            <!--<li>
-          <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
+        <!--<li>
+        <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>-->
         <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-
-        </li> -->
-      </ul>
+        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        </li>
+        </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
           <li>
@@ -175,7 +174,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
-              <a href="#" class="stretched-link"></a>
+              <a href="signatory-orgs.php" class="stretched-link"></a>
             </div>
           </div>
         </div>

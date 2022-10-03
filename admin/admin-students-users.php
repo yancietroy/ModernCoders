@@ -135,7 +135,7 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -307,8 +307,8 @@ if(isset($_SESSION['msg'])){
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Account Created:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="ACCOUNT_CREATED" >Account Created:</label>
+                         <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -374,13 +374,13 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
+                              <label class="form-label" for="COLLEGE_DEPT" >College:</label>
+                              <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT" >
                                 <?php
-                                    $query = "SELECT college FROM tb_collegedept";
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
                                     while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                     }
                                 ?>
                               </select>
@@ -389,7 +389,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label select-label" for="COURSE" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
+                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" >
                                 <?php
                                       $query = "SELECT course FROM tb_course";
                                       $result = @mysqli_query($conn, $query);
@@ -412,6 +412,42 @@ if(isset($_SESSION['msg'])){
                                       }
                                 ?>
                               </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="USER_TYPE" >User Type:</label>
+                              <select class="form-select" name="USER_TYPE" id="USER_TYPE">
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                            <label class="form-label" for="USER_TYPE" >Password:</label>
+                           <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly/>
+                           </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                            <label class="form-label" for="position_id" >Officer position:</label>
+                            <select class="form-select" name="position_id" id="position_id">
+                            <?php
+                                  $query = "SELECT * FROM tb_position";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                            </select>
                             </div>
                           </div>
                         </div>
@@ -452,7 +488,7 @@ if(isset($_SESSION['msg'])){
                 </form>
             </div>
         </div>
-    </div>
+      </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -470,6 +506,7 @@ if(isset($_SESSION['msg'])){
                 success:function(data){
                 console.log(data);
                 $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
                 $('#FIRST_NAME').val(data.FIRST_NAME);
                 $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                 $('#LAST_NAME').val(data.LAST_NAME);
@@ -478,9 +515,12 @@ if(isset($_SESSION['msg'])){
                 $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
+                $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
                 $('#MORG_ID').val(data.MORG_ID);
+                $('#USER_TYPE').val(data.USER_TYPE);
+                $('#PASSWORD').val(data.PASSWORD);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
