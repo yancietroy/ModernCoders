@@ -6,7 +6,7 @@
 		$lastname = $_POST['LAST_NAME'];
 		$position = $_POST['position'];
 
-		$sql = "INSERT INTO candidates (position_id, first_name, last_name) VALUES ('$position', '$firstname', '$lastname')";
+		$sql = "INSERT INTO tb_candidate (position_id, first_name, last_name) VALUES ('$position', '$firstname', '$lastname')";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Candidate added successfully';
 		}
