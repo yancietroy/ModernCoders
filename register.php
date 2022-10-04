@@ -62,6 +62,7 @@ include('mysql_connect.php');
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
                   $pp = "img_avatar.png";
+                  $ul = "1";
 
                   $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
@@ -77,8 +78,8 @@ include('mysql_connect.php');
                   try {
                   $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp')";
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul')";
                   $conn->exec($sql);
                   echo "
                   <div class='callout bs-callout-success pb-0'>
@@ -218,7 +219,7 @@ include('mysql_connect.php');
                             $query = "SELECT course_id, course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                echo '<option value="'.$data[1].'">'.$data[1].'</option>';
                                             }
                                             ?>
                     </select>

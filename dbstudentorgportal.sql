@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2022 at 04:12 PM
+-- Generation Time: Oct 04, 2022 at 04:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -62,7 +62,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
+(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
 (21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
 (32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
@@ -344,6 +344,7 @@ CREATE TABLE `tb_officers` (
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(8000) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
+  `profile_pic` varchar(8000) DEFAULT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -351,8 +352,9 @@ CREATE TABLE `tb_officers` (
 -- Dumping data for table `tb_officers`
 --
 
-INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `account_created`) VALUES
-(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, '2022-09-25');
+INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
+(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, 'img_avatar.png', '2022-09-25'),
+(17402211, 6, 3, 'Doe', 'Jane', 'J', 'Bachelor of Science in Information Technology (BSIT)', '402I', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 12, 'img_avatar.png', '2022-10-04');
 
 -- --------------------------------------------------------
 
@@ -372,6 +374,7 @@ CREATE TABLE `tb_officers_archive` (
   `email` varchar(100) NOT NULL,
   `password` varchar(8000) NOT NULL,
   `org_id` int(11) NOT NULL,
+  `profile_pic` varchar(8000) DEFAULT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -379,8 +382,8 @@ CREATE TABLE `tb_officers_archive` (
 -- Dumping data for table `tb_officers_archive`
 --
 
-INSERT INTO `tb_officers_archive` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `account_created`) VALUES
-(NULL, 2, 2, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12, '2022-09-25');
+INSERT INTO `tb_officers_archive` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
+(NULL, 2, 2, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12, NULL, '2022-09-25');
 
 -- --------------------------------------------------------
 
@@ -414,7 +417,7 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
 (13, 'Electronics Engineering League (ECEL)', 3),
 (14, 'Association of Tourism Management Students (ATOMS)', 4),
 (15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
-(16, 'Nursing Society (NURSOC)', 4),
+(16, 'Nursing Society (NURSOC)', 5),
 (17, 'José Rizal University Book Buddies', NULL),
 (18, 'Young Rizalian Servant Leaders (YRSL)', NULL),
 (19, 'Golden Z Club', NULL),
@@ -576,7 +579,7 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
-(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
+(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
 (32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
 
 -- --------------------------------------------------------
@@ -627,7 +630,8 @@ CREATE TABLE `tb_students` (
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
 (17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL, '8194-ZoomPic.jpg'),
-(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, NULL);
+(17402211, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, '2022-10-04', 'img_avatar.png'),
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -652,7 +656,8 @@ CREATE TABLE `tb_students_archive` (
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL,
   `USER_TYPE` int(2) DEFAULT NULL,
-  `ACCOUNT_CREATED` date DEFAULT NULL
+  `ACCOUNT_CREATED` date DEFAULT NULL,
+  `PROFILE_PIC` varchar(8000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -987,7 +992,7 @@ ALTER TABLE `tb_vote`
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
-  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
