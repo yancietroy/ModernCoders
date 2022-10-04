@@ -2,14 +2,15 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('mysql_connect.php');
+
+include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
   else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:login.php");
+    header("Location:../index.php");
   }
  ?>
 
@@ -24,7 +25,7 @@ if(isset($_SESSION['msg'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
@@ -41,25 +42,35 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.php">
-          <img src="assets/img/jru-logo.png" alt="..." width="90" height="90">
+        <a class="navbar-brand" href="student-index.php">
+          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations </h5>
       </div>
 
       <ul class="list-unstyled components p-2">
 
         <li class="active">
+<<<<<<<< HEAD:officer-voters.php
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+========
+          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
+>>>>>>>> jrusop-main:student/student-index.php
 
         </li>
         <li>
-          <a href="#"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+        </li>
+
+        <li>
+          <a href="election-student-index.php"> <i class="bi bi-check2-square"></i> <span>Election</span></a>
+
         </li>
         <li>
+<<<<<<<< HEAD:officer-voters.php
           <a href="officer-election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <aside class="main-sidebar">
@@ -83,9 +94,12 @@ if(isset($_SESSION['msg'])){
 </aside>
         <li>
           <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+========
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+>>>>>>>> jrusop-main:student/student-index.php
         </li>
         <li class="d-lg-none">
-          <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -124,20 +138,18 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">Profile</a></li>
-                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
                     <hr class="dropdown-divider" />
                   </li>
-                  <li><a class="dropdown-item" href="#!">About</a></li>
-                  <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
 
                 </ul>
               </li>
@@ -147,6 +159,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
+<<<<<<<< HEAD:officer-voters.php
       <section class="content">
       <?php
         if(isset($_SESSION['error'])){
@@ -205,13 +218,70 @@ if(isset($_SESSION['msg'])){
                   ?>
                 </tbody>
               </table>
+========
+      <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-lg-10 col-xl-11">
+          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
+            <div class="card-body p-4">
+              <div class="row g-0">
+                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
+                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                </div>
+                <?php
+                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  {
+                    echo "
+                          <div class='col-12 col-md-3 mt-2'>
+                            <label class='text-muted'>Name:</label>
+                            <h5>$row[1]</h5>
+                            <label class='text-muted'>Section:</label>
+                            <h5>$row[4]</h5>
+                        </div>
+                        <div class='col-12 col-md-4 mt-2'>
+                            <label class='text-muted'>Email:</label>
+                            <h6>$row[3]</h6>
+                            <label class='text-muted'>Course:</label>
+                            <h6>$row[2]</h6>
+                        </div>
+                        <div class='col-12 col-md-3 mt-2'>
+                            <label class='text-muted'>Student ID:</label>
+                            <h5>$row[0]</h5>
+                            <label class='text-muted'>Year Level:</label>
+                            <h5>Year $row[5] </h5>
+                        </div>";
+                        @mysqli_close($conn);
+                        }
+                        ?>
+              </div>
+
+>>>>>>>> jrusop-main:student/student-index.php
             </div>
           </div>
         </div>
       </div>
+<<<<<<<< HEAD:officer-voters.php
     </section>   
   </div>
     
+========
+      <h4 class="ms-3">My Organizations</h4>
+      <div class="row ms-3 mb-4 mt-4">
+        <div class="col-6  col-md-5  " id="orgs">
+          <div class="card shadow-md display: inline-block cards">
+            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+
+              <a href="comsoc.php" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+
+>>>>>>>> jrusop-main:student/student-index.php
         <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
@@ -231,7 +301,7 @@ if(isset($_SESSION['msg'])){
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
-    <script src="assets/js/form-validation.js"></script>
+    <script src="../assets/js/form-validation.js"></script>
     <!--WAVES CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script> <!-- JavaScript validation -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2022 at 02:10 PM
+-- Generation Time: Oct 04, 2022 at 04:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,16 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sample`
+--
+
+CREATE TABLE `sample` (
+  `Sample` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52,7 +62,31 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', 'J', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d');
+(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
+(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
+(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin_archive`
+--
+
+CREATE TABLE `tb_admin_archive` (
+  `ADMIN_ID` int(2) NOT NULL,
+  `FIRST_NAME` varchar(50) NOT NULL,
+  `LAST_NAME` varchar(50) NOT NULL,
+  `MIDDLE_INITIAL` char(2) NOT NULL,
+  `EMAIL` varchar(100) NOT NULL,
+  `PASSWORD` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_admin_archive`
+--
+
+INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
+(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
 
@@ -164,13 +198,13 @@ INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
 
 CREATE TABLE `tb_disc` (
   `disc_id` int(11) NOT NULL,
-  `disc_topic_id` int(11) NOT NULL,
-  `ORG_ID` int(2) NOT NULL,
-  `officer_id` int(2) NOT NULL,
-  `likes` int(11) NOT NULL,
-  `dislikes` int(11) NOT NULL,
-  `no_of_replies` int(11) NOT NULL,
-  `reply_id` int(11) NOT NULL
+  `disc_topic_id` int(11) DEFAULT NULL,
+  `ORG_ID` int(2) DEFAULT NULL,
+  `officer_id` int(2) DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `dislikes` int(11) DEFAULT NULL,
+  `no_of_replies` int(11) DEFAULT NULL,
+  `reply_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -184,8 +218,30 @@ CREATE TABLE `tb_disc_reply` (
   `reply` int(11) NOT NULL,
   `disc_id` int(11) NOT NULL,
   `disc_topic_id` int(11) NOT NULL,
-  `org_id` int(11) NOT NULL
+  `org_id` int(11) NOT NULL,
+  `subj_id` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_disc_subj`
+--
+
+CREATE TABLE `tb_disc_subj` (
+  `subj_id` int(255) NOT NULL,
+  `subject` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_disc_subj`
+--
+
+INSERT INTO `tb_disc_subj` (`subj_id`, `subject`) VALUES
+(1, 'General Discussion'),
+(2, 'Introductions'),
+(3, 'Announcements'),
+(4, 'Officers Discussion');
 
 -- --------------------------------------------------------
 
@@ -195,7 +251,8 @@ CREATE TABLE `tb_disc_reply` (
 
 CREATE TABLE `tb_disc_topic` (
   `disc_topic_id` int(11) NOT NULL,
-  `ORG_ID` int(2) NOT NULL,
+  `org_id` int(2) NOT NULL,
+  `subj_id` int(255) DEFAULT NULL,
   `topic_desc` varchar(9000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -276,6 +333,37 @@ CREATE TABLE `tb_msg_reply` (
 --
 
 CREATE TABLE `tb_officers` (
+  `student_id` int(255) DEFAULT NULL,
+  `officer_id` int(2) NOT NULL,
+  `position_id` int(2) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `middle_initial` char(50) DEFAULT NULL,
+  `course` varchar(100) DEFAULT NULL,
+  `section` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `org_id` int(11) DEFAULT NULL,
+  `profile_pic` varchar(8000) DEFAULT NULL,
+  `account_created` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_officers`
+--
+
+INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
+(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, 'img_avatar.png', '2022-09-25'),
+(17402211, 6, 3, 'Doe', 'Jane', 'J', 'Bachelor of Science in Information Technology (BSIT)', '402I', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 12, 'img_avatar.png', '2022-10-04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_officers_archive`
+--
+
+CREATE TABLE `tb_officers_archive` (
+  `student_id` int(255) DEFAULT NULL,
   `officer_id` int(2) NOT NULL,
   `position_id` int(2) NOT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -283,17 +371,19 @@ CREATE TABLE `tb_officers` (
   `middle_initial` char(50) NOT NULL,
   `course` varchar(100) NOT NULL,
   `section` varchar(10) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `password` varchar(1000) NOT NULL,
-  `org_id` int(11) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `password` varchar(8000) NOT NULL,
+  `org_id` int(11) NOT NULL,
+  `profile_pic` varchar(8000) DEFAULT NULL,
+  `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_officers`
+-- Dumping data for table `tb_officers_archive`
 --
 
-INSERT INTO `tb_officers` (`officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`) VALUES
-(1, 1, 'Doe', 'John', 'J', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12);
+INSERT INTO `tb_officers_archive` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
+(NULL, 2, 2, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12, NULL, '2022-09-25');
 
 -- --------------------------------------------------------
 
@@ -327,7 +417,7 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
 (13, 'Electronics Engineering League (ECEL)', 3),
 (14, 'Association of Tourism Management Students (ATOMS)', 4),
 (15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
-(16, 'Nursing Society (NURSOC)', 4),
+(16, 'Nursing Society (NURSOC)', 5),
 (17, 'José Rizal University Book Buddies', NULL),
 (18, 'Young Rizalian Servant Leaders (YRSL)', NULL),
 (19, 'Golden Z Club', NULL),
@@ -383,7 +473,7 @@ CREATE TABLE `tb_pkcastkey` (
 
 CREATE TABLE `tb_position` (
   `POSITION_ID` int(2) NOT NULL,
-  `position` varchar(100) NOT NULL
+  `position` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -445,14 +535,15 @@ CREATE TABLE `tb_projectmonitoring` (
 --
 
 INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`, `remarks`) VALUES
-(1, 12, 24, 'Sample Project', NULL, NULL, 'Sample Desc', NULL, NULL, 'JRU Auditorium ', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL, NULL),
-(2, 11, 23, 'Sample Project 1', NULL, NULL, 'Sample Project 1', NULL, NULL, 'JRU Quadrangle', NULL, NULL, NULL, 0, NULL, 3000, NULL, 'For Approval', NULL, NULL),
-(3, 13, 23, 'Sample Project 2', NULL, NULL, 'Sample Project 2', NULL, NULL, 'JRU Gymnasium', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Pending', NULL, NULL),
-(4, 24, 26, 'Sample Project 3', NULL, NULL, 'Sample Project 3', NULL, NULL, 'JRU H - Building 3rd floor', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Ongoing', NULL, NULL),
-(5, 7, 13, 'Sample Project 4', NULL, NULL, 'Sample Project 4', NULL, NULL, 'JRU Centennial Building', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Implemented', NULL, NULL),
-(6, 11, 22, 'Sample Project 5', NULL, NULL, 'Sample Project 5', NULL, NULL, 'JRU Upper Quadrangle', NULL, NULL, NULL, 0, NULL, 1000, NULL, 'Rejected', NULL, NULL),
-(7, 1, 3, 'Sample Project 6', NULL, NULL, 'Sample Project 6', NULL, NULL, 'JRU Lounge', NULL, NULL, NULL, 0, NULL, 2000, NULL, 'Approved', NULL, NULL),
-(8, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample Project deets', '2022-08-02 11:00:00', '2022-08-31 12:00:00', 'JRU Quadrangle', 'Members', 20, 'JRU Students', 100, 'Student Council', 2000, NULL, 'For Revision', '2022-08-02', 'Test');
+(20, NULL, NULL, 'JRU Fun Run', 'Outreach', 'Onsite', 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, 'Pending', '2022-09-06', ''),
+(21, NULL, NULL, 'JRU esports tryout', 'Extra Curricular', 'Onsite', 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, 'Approved', '2022-09-06', 'project approved'),
+(22, NULL, NULL, 'JRU Hyflex Seminar', 'Extra Curricular', 'Online', 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, 'For Revision', '2022-09-06', 'need to adjust the date'),
+(23, NULL, NULL, 'CSE tech showcase', 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, 'Rejected', '2022-09-06', 'already been done this year'),
+(24, NULL, NULL, 'CSE movie showing', 'Extra Curricular', 'Onsite', 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, 'Cancelled', '2022-09-06', 'Project cancelled.'),
+(25, NULL, NULL, 'CSE Coding Challenge', 'Curricular', 'Online', 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, 'Done', '2022-09-06', 'great work, project approved.'),
+(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Ongoing', '2022-09-06', 'project approved.'),
+(48, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL),
+(49, NULL, NULL, 'Sample Project 8', 'Curricular', 'Onsite', 'Sample', '2022-09-30 18:00:00', '2022-10-01 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Third Party', 2000, '89987-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-30', NULL);
 
 -- --------------------------------------------------------
 
@@ -488,7 +579,23 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
-(18202422, 'Jane', 'Doe', 'janedoe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser');
+(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_signatories_archive`
+--
+
+CREATE TABLE `tb_signatories_archive` (
+  `school_id` int(11) NOT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -507,20 +614,51 @@ CREATE TABLE `tb_students` (
   `YEAR_LEVEL` varchar(20) NOT NULL,
   `EMAIL` varchar(50) NOT NULL,
   `PASSWORD` varchar(50) NOT NULL,
+  `COLLEGE_DEPT` int(3) DEFAULT NULL,
   `COURSE` varchar(100) NOT NULL,
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
-  `ORG_ID` int(2) DEFAULT NULL
+  `ORG_ID` int(2) DEFAULT NULL,
+  `USER_TYPE` int(2) DEFAULT NULL,
+  `ACCOUNT_CREATED` date DEFAULT NULL,
+  `PROFILE_PIC` varchar(8000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_students`
 --
 
-INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`) VALUES
-(17401211, 'Legaspi III', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, 12),
-(17402211, 'Doe', 'John', 'Joe', '2000-06-13', 22, 'Male', '4', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 'Bachelor of Science in Information Technology (BSIT)', '402I', NULL, 12),
-(17403211, 'Seyer', 'Azi', '', '2000-04-08', 22, 'Female', '4', 'azi.seyer@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Bachelor of Science in Business Administration (BSBA) Major in Computer Science', '403I', 12, 12);
+INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL, '8194-ZoomPic.jpg'),
+(17402211, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, '2022-10-04', 'img_avatar.png'),
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_students_archive`
+--
+
+CREATE TABLE `tb_students_archive` (
+  `STUDENT_ID` int(9) NOT NULL,
+  `LAST_NAME` varchar(50) DEFAULT NULL,
+  `FIRST_NAME` varchar(50) DEFAULT NULL,
+  `MIDDLE_NAME` varchar(30) DEFAULT NULL,
+  `BIRTHDATE` date DEFAULT NULL,
+  `AGE` int(3) DEFAULT NULL,
+  `GENDER` varchar(7) DEFAULT NULL,
+  `YEAR_LEVEL` varchar(20) DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  `PASSWORD` varchar(50) DEFAULT NULL,
+  `COLLEGE_DEPT` int(3) DEFAULT NULL,
+  `COURSE` varchar(100) DEFAULT NULL,
+  `SECTION` varchar(10) DEFAULT NULL,
+  `MORG_ID` int(2) DEFAULT NULL,
+  `ORG_ID` int(2) DEFAULT NULL,
+  `USER_TYPE` int(2) DEFAULT NULL,
+  `ACCOUNT_CREATED` date DEFAULT NULL,
+  `PROFILE_PIC` varchar(8000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -564,6 +702,28 @@ CREATE TABLE `tb_thread` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_usertypes`
+--
+
+CREATE TABLE `tb_usertypes` (
+  `usertype_id` int(2) NOT NULL,
+  `user_type` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_usertypes`
+--
+
+INSERT INTO `tb_usertypes` (`usertype_id`, `user_type`) VALUES
+(1, 'Student'),
+(2, 'Officer'),
+(3, 'Signatory'),
+(4, 'Admin'),
+(5, 'Super Admin');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_vote`
 --
 
@@ -591,6 +751,12 @@ ALTER TABLE `tb_action`
 -- Indexes for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`ADMIN_ID`);
+
+--
+-- Indexes for table `tb_admin_archive`
+--
+ALTER TABLE `tb_admin_archive`
   ADD PRIMARY KEY (`ADMIN_ID`);
 
 --
@@ -639,14 +805,22 @@ ALTER TABLE `tb_disc_reply`
   ADD PRIMARY KEY (`reply_id`),
   ADD KEY `discReply_disc_id_fk` (`disc_id`),
   ADD KEY `discReply_discTopic_id_fk` (`disc_topic_id`),
-  ADD KEY `discReply_org_id_fk` (`org_id`);
+  ADD KEY `discReply_org_id_fk` (`org_id`),
+  ADD KEY `discReply_subj_id_fk` (`subj_id`);
+
+--
+-- Indexes for table `tb_disc_subj`
+--
+ALTER TABLE `tb_disc_subj`
+  ADD PRIMARY KEY (`subj_id`);
 
 --
 -- Indexes for table `tb_disc_topic`
 --
 ALTER TABLE `tb_disc_topic`
   ADD PRIMARY KEY (`disc_topic_id`),
-  ADD KEY `discTopic_org_id_fk` (`ORG_ID`);
+  ADD KEY `discTopic_org_id_fk` (`org_id`),
+  ADD KEY `discTopic_subj_id_fk` (`subj_id`);
 
 --
 -- Indexes for table `tb_event`
@@ -681,7 +855,17 @@ ALTER TABLE `tb_msg_reply`
 ALTER TABLE `tb_officers`
   ADD PRIMARY KEY (`officer_id`),
   ADD KEY `officers_position_id_fk` (`position_id`),
-  ADD KEY `officers_org_id_fk` (`org_id`);
+  ADD KEY `officers_org_id_fk` (`org_id`),
+  ADD KEY `officers_student_id_fk` (`student_id`);
+
+--
+-- Indexes for table `tb_officers_archive`
+--
+ALTER TABLE `tb_officers_archive`
+  ADD PRIMARY KEY (`officer_id`),
+  ADD KEY `officers_position_id_fk` (`position_id`),
+  ADD KEY `officers_org_id_fk` (`org_id`),
+  ADD KEY `officersarch_student_id_fk` (`student_id`);
 
 --
 -- Indexes for table `tb_orgs`
@@ -741,12 +925,26 @@ ALTER TABLE `tb_signatories`
   ADD PRIMARY KEY (`school_id`);
 
 --
+-- Indexes for table `tb_signatories_archive`
+--
+ALTER TABLE `tb_signatories_archive`
+  ADD PRIMARY KEY (`school_id`);
+
+--
 -- Indexes for table `tb_students`
 --
 ALTER TABLE `tb_students`
   ADD PRIMARY KEY (`STUDENT_ID`),
   ADD KEY `student_morg_id_fk` (`MORG_ID`),
-  ADD KEY `student_org_id_fk` (`ORG_ID`);
+  ADD KEY `student_org_id_fk` (`ORG_ID`),
+  ADD KEY `student_usertype_id_fk` (`USER_TYPE`),
+  ADD KEY `student_college_id_fk` (`COLLEGE_DEPT`);
+
+--
+-- Indexes for table `tb_students_archive`
+--
+ALTER TABLE `tb_students_archive`
+  ADD PRIMARY KEY (`STUDENT_ID`);
 
 --
 -- Indexes for table `tb_survey`
@@ -772,6 +970,12 @@ ALTER TABLE `tb_thread`
   ADD KEY `thread_reply_id_fk` (`reply_id`);
 
 --
+-- Indexes for table `tb_usertypes`
+--
+ALTER TABLE `tb_usertypes`
+  ADD PRIMARY KEY (`usertype_id`);
+
+--
 -- Indexes for table `tb_vote`
 --
 ALTER TABLE `tb_vote`
@@ -785,10 +989,22 @@ ALTER TABLE `tb_vote`
 --
 
 --
+-- AUTO_INCREMENT for table `tb_officers`
+--
+ALTER TABLE `tb_officers`
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `tb_usertypes`
+--
+ALTER TABLE `tb_usertypes`
+  MODIFY `usertype_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -829,13 +1045,15 @@ ALTER TABLE `tb_disc`
 ALTER TABLE `tb_disc_reply`
   ADD CONSTRAINT `discReply_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `discReply_disc_id_fk` FOREIGN KEY (`disc_id`) REFERENCES `tb_disc` (`disc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `discReply_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_disc_topic`
 --
 ALTER TABLE `tb_disc_topic`
-  ADD CONSTRAINT `discTopic_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `discTopic_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `discTopic_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_event`
@@ -855,7 +1073,14 @@ ALTER TABLE `tb_morg`
 --
 ALTER TABLE `tb_officers`
   ADD CONSTRAINT `officers_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `officers_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_officers_archive`
+--
+ALTER TABLE `tb_officers_archive`
+  ADD CONSTRAINT `officersarch_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_orgs`
@@ -903,8 +1128,10 @@ ALTER TABLE `tb_results`
 -- Constraints for table `tb_students`
 --
 ALTER TABLE `tb_students`
+  ADD CONSTRAINT `student_college_id_fk` FOREIGN KEY (`COLLEGE_DEPT`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_morg` (`MORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `student_usertype_id_fk` FOREIGN KEY (`USER_TYPE`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_survey`
