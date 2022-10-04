@@ -61,7 +61,7 @@ include('mysql_connect.php');
                   $section = $_POST['section'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
-                  $pp = "none";
+                  $pp = "img_avatar.png";
 
                   $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
@@ -172,7 +172,7 @@ include('mysql_connect.php');
                   </div>
                   <div class="col-7 col-md-4   mb-4">
                     <label class="form-label select-label" id="asterisk">Year Level</label>
-                    <select class=" form-select" name="school_year" id="select-group" required>
+                    <select class="form-select" name="school_year" id="select-group" required>
                       <option class="greyclr" selected disabled value="">Select Year</option>
                       <option value="1">Year 1</option>
                       <option value="2">Year 2</option>
@@ -196,7 +196,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college_dept" id="select-group" required>
+                    <select class="form-select form-select-sm" name="college_dept" id="college_dept" onchange="FetchCourse(this.value)" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
                                     $query = "SELECT college_id, college FROM tb_collegedept";
@@ -212,13 +212,13 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="select-group" required>
+                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" onchange="FetchOrg(this.value)" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
-                            $query = "SELECT course FROM tb_course";
+                            $query = "SELECT course_id, course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                             }
                                             ?>
                     </select>
@@ -227,7 +227,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
-                    <select class="form-select form-select-sm" name="org" id="select-group" required>
+                    <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
@@ -296,8 +296,35 @@ include('mysql_connect.php');
   </div>
   </div>
   </div>
-  </section>
+  </section>    
+<!-- <script type="text/javascript">
+  function FetchCourse(id){
+    $('#course').html('');
+    $('#org').html('<option class="greyclr" selected disabled value="" text-muted>Select Organization</option>');
+    $.ajax({
+      type:'POST',
+      url: 'register-dropdown.php',
+      data : { college_id : id},
+      success : function(data){
+         $('#course').html(data);
+      }
 
+    })
+  }
+
+  function FetchOrg(id){ 
+    $('#org').html('');
+    $.ajax({
+      type:'POST',
+      url: 'register-dropdown.php',
+      data : { org_id : id},
+      success : function(data){
+         $('#org').html(data);
+      }
+
+    })
+  }
+</script> -->
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
