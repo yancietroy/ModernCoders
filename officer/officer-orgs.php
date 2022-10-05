@@ -135,10 +135,10 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Student Organizations</h4>
+          <h4 id="orgtitle">Student Organizations</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Join Org</a>
+          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Join Org </span></a>
         </div>
       </div>
         <!--  <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
@@ -146,11 +146,11 @@ if(isset($_SESSION['msg'])){
         </div>-->
 
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-6  col-md-5 mt-2"  id="orgs">
+        <div class="col-12  col-md-5 mt-2"  id="orgs">
           <div class="card display: inline-block cards">
             <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              <h5 class="card-title text-center mt-2" >JRU Computer Society</h5>
 
               <a href="comsoc.php" class="stretched-link"></a>
             </div>

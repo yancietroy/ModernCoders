@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
 
                   <div class="row ms-3 me-3 mt-2 mb-2">
                     <div class="col-lg-6 col-7">
-                      <h4>Student Organizations Management</h4>
+                      <h4 id="comsoctitle">Student Organizations Management</h4>
                     </div>
                   </div>
                   <div class="row justify-content-center align-items-center text-align-center">
@@ -196,7 +196,7 @@ if(isset($_SESSION['msg'])){
                         <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-3 col-sm-6" id="eventhide">
                       <div class="card-counter events">
                         <div class="inner">
                           <h2><i class="bi bi-calendar3"></i></h2>

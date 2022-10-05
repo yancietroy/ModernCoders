@@ -141,18 +141,18 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" novalidate>
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7  mb-4">
+        <div class="col-lg-6 col-6  mb-4">
           <h4>Create New Project</h4>
         </div>
           <div class="wrap shadow px-5 py-4 mx-auto mb-4">
             <div class="row justify-content-center text-align-center mb-2 ">
               <div class="col-lg-3 col-3 ">
-                <h7>Jose Rizal University</h7>
+                <h7 id="titlejru">Jose Rizal University</h7>
               </div>
             </div>
           <div class="row justify-content-center">
             <div class="col-lg-5 col-5  mb-4">
-              <h3>Activity Proposal Form</h3>
+              <h3 id="titleproj">Activity Proposal Form</h3>
             </div>
           </div>
           <div class="row">
