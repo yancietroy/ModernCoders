@@ -144,17 +144,35 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-6 col-7  mb-4">
           <h4>Create New Project</h4>
         </div>
-            <div class="wrap shadow px-5 py-4 mx-auto mb-4">
+          <div class="wrap shadow px-5 py-4 mx-auto mb-4">
+            <div class="row justify-content-center text-align-center mb-2 ">
+              <div class="col-lg-3 col-3 ">
+                <h7>Jose Rizal University</h7>
+              </div>
+            </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-5 col-5  mb-4">
+              <h3>Activity Proposal Form</h3>
+            </div>
+          </div>
           <div class="row">
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
+                <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" maxlength="50" required />
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Project name field cannot be blank!</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
                 <input type="text" name="project_name" id="project_name" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
             </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="venue" id="asterisk">Venue:</label>
                 <input type="text" name="venue" id="venue" class="form-control" maxlength="50" required />
@@ -169,13 +187,39 @@ if(isset($_SESSION['msg'])){
               <option value="Curricular">Curricular</option>
               <option value="Extra Curricular">Extra Curricular</option>
               <option value="Outreach">Outreach</option>
+              <option value="Seminar">Seminar</option>
+              <option value="Competition">Competition</option>
+              <option value="Assembly">Assembly</option>
+              <option value="Socialization/Teambuilding">Socialization/Teambuilding</option>
+              <option value="Student Learning Circle">Student Learning Circle</option>
+              <option value="Showcase">Showcase</option>
+              <option value="Other">Other</option>
             </select>
             <div class="valid-feedback">  </div>
             <div class="invalid-feedback">Project Type field cannot be blank!</div>
           </div>
+          <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
+            <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
+              <option class="greyclr" selected disabled value="" >Select Category</option>
+              <option value="Onsite">Onsite</option>
+              <option value="Online">Online</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+            <div class="valid-feedback">  </div>
+            <div class="invalid-feedback">Category field cannot be blank!</div>
+          </div>
+          <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <div class="form-outline">
+              <label class="form-label" for="participants" id="asterisk">Participants:</label>
+              <input type="text" name="participants" id="participants" class="form-control"  maxlength="50" required />
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Participants field cannot be blank!</div>
+            </div>
+          </div>
             </div>
           <div class="row">
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
                 <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" required />
@@ -183,7 +227,7 @@ if(isset($_SESSION['msg'])){
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="end_date" id="asterisk">End Date:</label>
                 <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" required />
@@ -191,39 +235,7 @@ if(isset($_SESSION['msg'])){
                 <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <label class="form-label select-label" for="budget_source" id="asterisk">Budget Source:</label>
-              <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source" required>
-                <option class="greyclr" selected disabled value="" >Select Budget Source</option>
-                <option value="Student Council">Student Council</option>
-                <option value="Organization">Student Organization</option>
-                <option value="Accounting Office">Accounting Office</option>
-                <option value="Third Party">Third Party</option>
-                <option value="Third Party">None</option>
-              </select>
-              <div class="valid-feedback">  </div>
-              <div class="invalid-feedback">Category field cannot be blank!</div>
-            </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
-              <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
-                <option class="greyclr" selected disabled value="" >Select Category</option>
-                <option value="Onsite">Onsite</option>
-                <option value="Online">Online</option>
-              </select>
-              <div class="valid-feedback">  </div>
-              <div class="invalid-feedback">Category field cannot be blank!</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control"  maxlength="50" required />
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Participants field cannot be blank!</div>
-              </div>
-            </div>
+            <!--
             <div class="col-12 col-md-3 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="no_of_participants" id="asterisk">No. of Participants:</label>
@@ -249,27 +261,60 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
             </div>
+            <div class="col-12 col-md-3 col-sm-3 mb-4">
+              <label class="form-label select-label" for="budget_source" id="asterisk">Budget Request:</label>
+              <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source" required>
+                <option class="greyclr" selected disabled value="" >Select Budget Source</option>
+                <option value="Student Council">Student Council</option>
+                <option value="Organization">Student Organization</option>
+                <option value="Accounting Office">Accounting Office</option>
+                <option value="Third Party">Third Party</option>
+                <option value="Third Party">None</option>
+              </select>
+              <div class="valid-feedback">  </div>
+              <div class="invalid-feedback">Category field cannot be blank!</div>
+              <label class="form-label mt-4" for="estimated_budget" id="asterisk">Estimated Budget:</label>
+              <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" required />
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Budget field cannot be blank!</div>
+            </div>-->
+
+          </div>
+
           <div class="row">
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_desc" id="asterisk">Project Description:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="6" placeholder="Enter project objectives and details." required></textarea>
+                <label class="form-label" for="project_desc" id="asterisk">Objectives:</label>
+                <textarea class="form-control" name="project_desc" id="project_desc" rows="3"  placeholder="Enter project objectives and details." required></textarea>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Project Description field cannot be blank!</div>
+                <div class="invalid-feedback">Objectives field cannot be blank!</div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment:</label>
+                <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget request." required></textarea>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Objectives field cannot be blank!</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
+              <div class="form-outline">
+                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment/s:</label>
                 <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
-                <label class="form-label mt-4" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" required />
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Budget field cannot be blank!</div>
               </div>
             </div>
+            <div class="col-12 col-md-8 col-sm-3 mb-4">
+            <small class="text-muted">*Note: Attach necessary documents in this form that will support your request
+            (invitation letter, quotation of provider, Program of the Activity etc.) <br>
+
+            *Note: Please attach other request form/ file
+            (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
+            *Note: Please be mindful about submitting project proposals during exam week</small>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">

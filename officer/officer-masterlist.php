@@ -320,9 +320,15 @@ if(isset($_SESSION['msg'])){
                          <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                        </div>
                      </div>
+                     <div class="col-4 col-md-3 mb-4">
+                     <div class="form-outline">
+                       <label class="form-label" for="#" >Status Date:</label>
+                       <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                     </div>
+                   </div>
                        </div>
                         <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-12 col-sm-3 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="project_name" >Project name:</label>
                             <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -330,41 +336,45 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
+                            <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
+                            <input type="text" name="project_name" id="project_name" class="form-control" style="background-color: #fff;" readonly  />
+                            <div class="valid-feedback"></div>
+                            <div class="invalid-feedback">Project name field cannot be blank!</div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="form-outline">
                             <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
                           </div>
                         </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                           <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
                           </div>
-                          <div class="col-12 col-md-4 mb-4">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                          <label class="form-label" for="project_type" >Project Type:</label>
+                          <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="project_category" >Category:</label>
+                            <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
+                          </div>
+                        </div>
+                            <div class="row">
+                          <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="start_date" >Start Date:</label>
                               <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
                             </div>
                           </div>
-                          <div class="col-12 col-md-4 mb-4">
+                          <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="end_date" >End Date:</label>
                               <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
                             </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
                         </div>
                         <div class="row">
@@ -373,6 +383,17 @@ if(isset($_SESSION['msg'])){
                               <label class="form-label" for="participants" >Participants:</label>
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
+                          </div>
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label">Download Attachment/s:</label>
+                            <button type="button" class="btn btn-secondary btn-md">Download</button>
+                            </div>
+                          </div>
+                          <!--
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="budget_source" >Budget Source:</label>
+                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
@@ -394,49 +415,54 @@ if(isset($_SESSION['msg'])){
                                 <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
                               </div>
                             </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
-                              </div>
-                            </div>
+
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                               </div>
+                            </div>-->
+
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="#" >Name of Organization:</label>
+                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label">Requested By:</label>
+                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label">Position:</label>
+                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                        </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline  projectdesc">
+                            <div class="form-outline  ">
                               <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="project_desc" id="project_desc" rows="3" style="background-color: #fff;" readonly></textarea>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
+                            <div class="form-outline projectdesc">
+                              <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                              <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                            <!--
-                          <div class="form-group">
-                              <label class="form-label" for="status">Project Status </label>
-                              <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
-                                <option class="greyclr" selected disabled value="" >Select Status</option>
-                                <option value="Approved">Approved</option>
-                                <option value="For Revision">For Revision</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Cancelled">Cancelled</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Ongoing">Ongoing</option>
-                                <option value="Done">Done</option>
-                              </select>
-                          </div>
-                                    !-->
-                        </div>
-                    </div>
                       <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->

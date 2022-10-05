@@ -779,7 +779,7 @@ textarea[id^="project_deets"]::-webkit-input-placeholder {
 
 .projectdesc {
   padding: 30px 0px;
-  border-bottom: 1px solid #47748b;
+  border-bottom: 1px solid grey;
 }
 
 table.stud th {
