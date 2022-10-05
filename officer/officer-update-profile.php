@@ -29,7 +29,7 @@ if (isset ($_POST['updatedata']))
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
                     alert('Details Updated')
-                    window.location.href='admin-officers-users.php'</script>";
+                    window.location.href='officer-profile.php'</script>";
 		}
 	
 }
