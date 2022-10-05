@@ -450,6 +450,7 @@ if(isset($_SESSION['msg'])){
                             </select>
                             </div>
                           </div>
+                          <input type="hidden" name="PROFILE_PIC" id="PROFILE_PIC" class="form-control" readonly/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -521,6 +522,7 @@ if(isset($_SESSION['msg'])){
                 $('#MORG_ID').val(data.MORG_ID);
                 $('#USER_TYPE').val(data.USER_TYPE);
                 $('#PASSWORD').val(data.PASSWORD);
+                $('#PROFILE_PIC').val(data.PROFILE_PIC);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
