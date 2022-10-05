@@ -133,7 +133,7 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
+        <div class="col-10 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <h4 class="ms-3">My Organizations</h4>
       <div class="row ms-3 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
+        <div class="col-12  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">
             <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">

@@ -1337,11 +1337,100 @@ Survey
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
-@media (max-width: 568px) {
-  h4 {
-    font-size: 4vw;
-  }
 
+/*------------------------------------------
+  Responsive Grid Media Queries - 1280, 1024, 768, 480
+   1280-1024   - desktop (default grid)
+   1024-768    - tablet landscape
+   768-480     - tablet
+   480-less    - phone landscape & smaller
+--------------------------------------------*/
+@media all and (min-width: 1025px) and (max-width: 1280px) {
+  #card-show {
+    display: none;
+  }
+}
+
+@media all and (min-width: 769px) and (max-width: 1024px) {
+  #card-show {
+    display: none;
+  }
+}
+
+@media all and (min-width: 481px) and (max-width: 768px) {
+  #card-show {
+    display: none;
+  }
+ }
+
+
+@media all and (min-width: 320px) and (max-width: 480px) {
+#btntitle {
+  display: none;
+}
+#orgtitle {
+  margin-top: 10px;
+  width: 110%;
+  font-size: 4vw;
+}
+#comsoctitle {
+  width: 200%;
+  font-size: 4vw;
+}
+.breadcrumb {
+  width: 100%;
+  font-size: 15px;
+}
+  #eventhide {
+  display: none;
+  }
+  small {
+      font-size: 10px;
+  }
+#titlejru{
+      display: none;
+
+  }
+#titleproj {
+  font-size: 5vw;
+  margin-left: -80%;
+  width: 300%;
+}
+#viewmodal {
+    margin-top:10%;
+         margin-left: 2%;
+      width: 130%;
+      max-height:90%;
+      overflow-y: auto;
+  }
+#changePass {
+  margin-top:50%;
+    max-height:90%;
+    overflow-y: auto;
+}
+#proftable {
+display: none;
+  }
+  #card-show {
+    display:block;
+  }
+  h4 {
+    font-size: 5vw;
+  }
+  h3 {
+    font-size: 5vw;
+  }
+ .cards {
+   margin: 10%;
+ }
+.card-profile {
+  justify-content: center;
+  width: 130%;
+     margin-left: -15%;
+}
+ #orgs {
+   margin-left: -5%;
+ }
   #sidebar {
     margin-left: -250px;
   }
@@ -1370,5 +1459,4 @@ Survey
   .dropdown-toggle {
     display: none;
   }
-}
 }

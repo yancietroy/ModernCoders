@@ -129,7 +129,7 @@ if(isset($_SESSION['msg'])){
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-12 col-lg-4 mb-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                     <div class="container">
@@ -153,13 +153,13 @@ if(isset($_SESSION['msg'])){
                 </div>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div class="card shadow">
+            <div class="col-12 col-lg-8">
+              <div class="card card-profile shadow">
                 <div class="card-header bg-transparent border-0">
                     <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
                 <div class="card-body mt-2 pt-0">
-                  <table class="table table-bordered">
+                  <table class="table table-bordered" id="proftable">
 
                     <tr>
                       <th width="30%">Gender</th>
@@ -208,6 +208,25 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
+                  <div class="card-body mt-2 p-4 pt-0" id="card-show">
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">Gender:</strong> <?php echo "$data[GENDER]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">Birthdate:</strong><?php echo "$data[BIRTHDATE]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">Age:</strong><?php echo "$data[AGE]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">Email:</strong><?php echo "$data[EMAIL]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">College:</strong><?php $query = "SELECT tb_students.COLLEGE_DEPT, tb_collegedept.college FROM tb_students INNER JOIN tb_collegedept ON tb_students.COLLEGE_DEPT=tb_collegedept.college_id WHERE tb_students.STUDENT_ID = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  ">Mother Organization:</strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Birthdate:</strong><?php echo "$data[BIRTHDATE]"; ?></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Role:</strong><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
+                                        $result = @mysqli_query($conn, $query);
+                                        $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
+
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>
+                            </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
                     <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $si . "' >Change Password</button>";?>
@@ -219,6 +238,8 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
+    </div>
+  </div>
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
@@ -291,7 +312,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
+                            <label class="mb-3   min-vw-100" for="GENDER">Gender </label>
                             <div class="btn-group">
                               <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" readonly>
                               <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
