@@ -463,7 +463,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },

@@ -1365,6 +1365,7 @@ Survey
 
 
 @media all and (min-width: 320px) and (max-width: 480px) {
+
 #btntitle {
   display: none;
 }
@@ -1396,6 +1397,16 @@ Survey
   margin-left: -80%;
   width: 300%;
 }
+.modal-footer {
+margin-left: -10%;
+}
+#editmodal {
+    margin-top:10%;
+         margin-left: 2%;
+      width: 130%;
+      max-height:90%;
+      overflow-y: auto;
+  }
 #viewmodal {
     margin-top:10%;
          margin-left: 2%;
@@ -1416,6 +1427,7 @@ display: none;
   }
   h4 {
     font-size: 5vw;
+    width: 200%;
   }
   h3 {
     font-size: 5vw;

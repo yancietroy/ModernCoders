@@ -54,9 +54,9 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li class="active">
-<<<<<<<< HEAD:officer-voters.php
+  < HEAD:officer-voters.php
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-========
+  =
           <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 >>>>>>>> jrusop-main:student/student-index.php
 
@@ -70,7 +70,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-<<<<<<<< HEAD:officer-voters.php
+  < HEAD:officer-voters.php
           <a href="officer-election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <aside class="main-sidebar">
@@ -94,7 +94,7 @@ if(isset($_SESSION['msg'])){
 </aside>
         <li>
           <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-========
+  =
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
 >>>>>>>> jrusop-main:student/student-index.php
         </li>
@@ -159,7 +159,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-<<<<<<<< HEAD:officer-voters.php
+  < HEAD:officer-voters.php
       <section class="content">
       <?php
         if(isset($_SESSION['error'])){
@@ -218,7 +218,7 @@ if(isset($_SESSION['msg'])){
                   ?>
                 </tbody>
               </table>
-========
+  =
       <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-12 col-lg-10 col-xl-11">
@@ -263,11 +263,11 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-<<<<<<<< HEAD:officer-voters.php
+  < HEAD:officer-voters.php
     </section>   
   </div>
     
-========
+  =
       <h4 class="ms-3">My Organizations</h4>
       <div class="row ms-3 mb-4 mt-4">
         <div class="col-6  col-md-5  " id="orgs">

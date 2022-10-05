@@ -56,11 +56,7 @@ if(isset($_SESSION['msg'])){
       <ul class="list-unstyled components p-2">
 
         <li class="active">
-<<<<<<<< HEAD:officer-voters.php
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-========
           <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
->>>>>>>> jrusop-main:student/student-index.php
 
         </li>
         <li>
@@ -72,33 +68,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-<<<<<<<< HEAD:officer-voters.php
-          <a href="officer-election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <aside class="main-sidebar">
-  <!-- sidebar: style can be found in sidebar.less -->
-  <section class="sidebar">
-    <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">REPORTS</li>
-      <li class=""><a href="officer-election-index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <li class=""><a href="officer-election-votecount.php"><span class="glyphicon glyphicon-lock"></span> <span>Votes</span></a></li>
-      <li class="header">MANAGE</li>
-      <li class=""><a href="officer-voters.php"><i class="fa fa-users"></i> <span>Voters</span></a></li>
-      <li class=""><a href="officer-positions.php"><i class="fa fa-tasks"></i> <span>Positions</span></a></li>
-      <li class=""><a href="officer-candidates.php"><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li>
-      <li class="header">SETTINGS</li>
-      <li class=""><a href="ballot.php"><i class="fa fa-file-text"></i> <span>Ballot Position</span></a></li>
-      <li class=""><a href="#config" data-toggle="modal"><i class="fa fa-cog"></i> <span>Election Title</span></a></li>
-    </ul>
-  </section>
-  <!-- /.sidebar -->
-</aside>
-        <li>
-          <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-========
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
->>>>>>>> jrusop-main:student/student-index.php
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -115,8 +85,7 @@ if(isset($_SESSION['msg'])){
           </li>
         </ul> -->
     </nav>
-  
-    
+
     <!-- Navbar  -->
     <div id="content">
 
@@ -162,66 +131,6 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-<<<<<<<< HEAD:officer-voters.php
-      <section class="content">
-      <?php
-        if(isset($_SESSION['error'])){
-          echo "
-            <div class='alert alert-danger alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
-              ".$_SESSION['error']."
-            </div>
-          ";
-          unset($_SESSION['error']);
-        }
-        if(isset($_SESSION['success'])){
-          echo "
-            <div class='alert alert-success alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
-              ".$_SESSION['success']."
-            </div>
-          ";
-          unset($_SESSION['success']);
-        }
-      ?>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
-            </div>
-            <div class="box-body">
-              <table id="example1" class="table table-bordered">
-                <thead>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
-                  <th>Student_ID</th>
-                  <th>Tools</th>
-                </thead>
-                <tbody>
-                  <?php
-                    $sql = "SELECT * FROM tb_students";
-                    $query = $conn->query($sql);
-                    while($row = $query->fetch_assoc()){
-    
-                      echo "
-                        <tr>
-                          <td>".$row['LAST_NAME']."</td>
-                          <td>".$row['FIRST_NAME']."</td>
-                          <td>".$row['STUDENT_ID']."</td>
-                          <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['STUDENT_ID']."'><i class='fa fa-edit'></i> Edit</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['STUDENT_ID']."'><i class='fa fa-trash'></i> Delete</button>
-                          </td>
-                        </tr>
-                      ";
-                    }
-                  ?>
-                </tbody>
-              </table>
-========
       <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-10 col-lg-10 col-xl-11">
@@ -261,16 +170,10 @@ if(isset($_SESSION['msg'])){
                         ?>
               </div>
 
->>>>>>>> jrusop-main:student/student-index.php
             </div>
           </div>
         </div>
       </div>
-<<<<<<<< HEAD:officer-voters.php
-    </section>   
-  </div>
-    
-========
       <h4 class="ms-3">My Organizations</h4>
       <div class="row ms-3 mb-4 mt-4">
         <div class="col-12  col-md-5  " id="orgs">
@@ -284,7 +187,6 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
 
->>>>>>>> jrusop-main:student/student-index.php
         <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">

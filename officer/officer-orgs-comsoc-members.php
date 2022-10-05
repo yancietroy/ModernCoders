@@ -157,13 +157,13 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>First Name</th>
-                                <th class='all'>Middle Name</th>
-                                <th class='all'>Last name</th>
-                                <th class='all'>Age</th>
-                                <th class='all'>Gender</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Student ID</th>
+                                <th class='desktop'>First Name</th>
+                                <th class='desktop'>Middle Name</th>
+                                <th class='desktop'>Last name</th>
+                                <th class='desktop'>Age</th>
+                                <th class='desktop'>Gender</th>
+                                <th class='desktop'>Actions</th>
                                 <th class='none'>Course</th>
                                 <th class='none'>Email</th>
                                 <th class='none'>Birthdate</th>
@@ -454,7 +454,7 @@ if(isset($_SESSION['msg'])){
               // Event handling functions are automatically passed a reference to the
               // event that triggered them as the first argument (evt)
               function forceLower(evt) {
-                // Get an array of all the words (in all lower case)
+                // Get an array of desktop the words (in desktop lower case)
                 var words = evt.target.value.toLowerCase().split(/\s+/g);
 
                 // Loop through the array and replace the first letter with a cap
@@ -519,7 +519,7 @@ if(isset($_SESSION['msg'])){
             responsive: true,
             keys: true,
             fixedheader:true,
-            bautoWidth:false,
+        bautoWidth:false,
            dom: 'Bfrtip',"bFilter": true,
            "columns": [
           { "width": "40px" },

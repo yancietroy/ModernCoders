@@ -555,7 +555,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap

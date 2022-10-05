@@ -183,9 +183,9 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Course ID</th>
-                                <th class='all'>Course</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Course ID</th>
+                                <th class='desktop'>Course</th>
+                                <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -503,7 +503,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -568,7 +568,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "40px" },
