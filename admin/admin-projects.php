@@ -165,10 +165,10 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Project Management</h4>
+          <h4 id="orgtitle">Project Management</h4>
         </div>
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Project</a>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Project </span></a>
         </div>
       </div>
 

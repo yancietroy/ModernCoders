@@ -41,7 +41,7 @@ if(isset($_SESSION['message'])){
                 <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
               </div>
             </div>
-            <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+            <p class=" h4 mb-2 text-center">JRU Student Organizations Portal</p>
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Signatory Login</h1>
               <?php

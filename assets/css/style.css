@@ -1369,6 +1369,11 @@ Survey
 #btntitle {
   display: none;
 }
+#admintitle {
+  margin-top: 10px;
+  width: 60%;
+  font-size: 4vw;
+}
 #orgtitle {
   margin-top: 10px;
   width: 110%;
@@ -1415,6 +1420,11 @@ margin-left: -10%;
       overflow-y: auto;
   }
 #changePass {
+  margin-top:50%;
+    max-height:90%;
+    overflow-y: auto;
+}
+#deletemodal {
   margin-top:50%;
     max-height:90%;
     overflow-y: auto;
