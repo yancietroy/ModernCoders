@@ -51,7 +51,7 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li class="active">
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
@@ -64,8 +64,8 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
-        <li class="active">
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        <li>
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -127,90 +127,122 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-    
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Survey List</h4>
-        </div>
-      </div>
+
       <div class="col-lg-12">
-      	<div class="card card-outline card-primary">
-      		<div class="card-header">
-      			<div class="card-tools">
-      				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="officer-add-survey.php"><i class="fa fa-plus"></i> Add New Survey</a>
+      	<div class="row">
+      		<div class="col-md-4">
+      			<div class="card card-outline card-primary">
+      				<div class="card-header">
+      					<h3 class="card-title">Survey Details</h3>
+      				</div>
+      				<div class="card-body p-0 py-2">
+      					<div class="container-fluid">
+      						<p>Title: <b><?php echo $title ?></b></p>
+      						<p class="mb-0">Description:</p>
+      						<small><?php echo $description; ?></small>
+      						<p>Start: <b><?php echo date("M d, Y",strtotime($start_date)) ?></b></p>
+      						<p>End: <b><?php echo date("M d, Y",strtotime($end_date)) ?></b></p>
+      						<p>Have Taken: <b><?php echo number_format($answers) ?></b></p>
+
+      					</div>
+      					<hr class="border-primary">
+      				</div>
       			</div>
       		</div>
-      		<div class="card-body">
-      			<table class="table tabe-hover table-bordered" id="list">
-      				<colgroup>
-      					<col width="5%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="15%">
-      				</colgroup>
-      				<thead>
-      					<tr>
-      						<th class="text-center">#</th>
-      						<th>Title</th>
-      						<th>Description</th>
-      						<th>Start</th>
-      						<th>End</th>
-      						<th>Action</th>
-      					</tr>
-      				</thead>
-      				<tbody>
+      		<div class="col-md-8">
+      			<div class="card card-outline card-success">
+      				<div class="card-header">
+      					<h3 class="card-title"><b>Survey Questionaire</b></h3>
+      					<div class="card-tools">
+      						<button class="btn btn-block btn-sm btn-default btn-flat border-success new_question" type="button"><i class="fa fa-plus"></i> Add New Question</button>
+      					</div>
+      				</div>
+      				<form action="" id="manage-sort">
+      				<div class="card-body ui-sortable">
       					<?php
-      					$i = 1;
-      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc ");
-      					while($row= $qry->fetch_assoc()):
+      					$question = $conn->query("SELECT * FROM tb_survey_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
+      					while($row=$question->fetch_assoc()):
       					?>
-      					<tr>
-      						<th class="text-center"><?php echo $i++ ?></th>
-      						<td><b><?php echo ucwords($row['title']) ?></b></td>
-      						<td><b class="truncate"><?php echo $row['description'] ?></b></td>
-      						<td><b><?php echo date("M d, Y",strtotime($row['start_date'])) ?></b></td>
-      						<td><b><?php echo date("M d, Y",strtotime($row['end_date'])) ?></b></td>
-      						<td class="text-center">
-      							<!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-      		                      Action
-      		                    </button>
-      		                    <div class="dropdown-menu" style="">
-      		                      <a class="dropdown-item" href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>">Edit</a>
-      		                      <div class="dropdown-divider"></div>
-      		                      <a class="dropdown-item delete_survey" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
-      		                    </div> -->
-      		                    <div class="btn-group">
-      		                        <a href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
-      		                          <i class="fas fa-edit"></i>
-      		                        </a>
-      		                        <a  href="./index.php?page=view_survey&id=<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
-      		                          <i class="fas fa-eye"></i>
-      		                        </a>
-      		                        <button type="button" class="btn btn-danger btn-flat delete_survey" data-id="<?php echo $row['id'] ?>">
-      		                          <i class="fas fa-trash"></i>
-      		                        </button>
-      	                      </div>
-      						</td>
-      					</tr>
-      				<?php endwhile; ?>
-      				</tbody>
-      			</table>
+      					<div class="callout callout-info">
+      						<div class="row">
+      							<div class="col-md-12">
+      								<span class="dropleft float-right">
+      									<a class="fa fa-ellipsis-v text-dark" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+      									<div class="dropdown-menu" style="">
+      								        <a class="dropdown-item edit_question text-dark" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Edit</a>
+      								        <div class="dropdown-divider"></div>
+      								        <a class="dropdown-item delete_question text-dark" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
+      								     </div>
+      								</span>
+      							</div>
+      						</div>
+      						<h5><?php echo $row['question'] ?></h5>
+      						<div class="col-md-12">
+      						<input type="hidden" name="qid[]" value="<?php echo $row['id'] ?>">
+      							<?php
+      								if($row['type'] == 'radio_opt'):
+      									foreach(json_decode($row['frm_option']) as $k => $v):
+      							?>
+      							<div class="icheck-primary">
+      		                        <input type="radio" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>]" value="<?php echo $k ?>" checked="">
+      		                        <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
+      		                     </div>
+      								<?php endforeach; ?>
+      						<?php elseif($row['type'] == 'check_opt'):
+      									foreach(json_decode($row['frm_option']) as $k => $v):
+      							?>
+      							<div class="icheck-primary">
+      		                        <input type="checkbox" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>][]" value="<?php echo $k ?>" >
+      		                        <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
+      		                     </div>
+      								<?php endforeach; ?>
+      						<?php else: ?>
+      							<div class="form-group">
+      								<textarea name="answer[<?php echo $row['id'] ?>]" id="" cols="30" rows="4" class="form-control" placeholder="Write Something Here..."></textarea>
+      							</div>
+      						<?php endif; ?>
+      						</div>
+      					</div>
+      					<?php endwhile; ?>
+      				</div>
+      				</form>
+      			</div>
       		</div>
       	</div>
       </div>
       <script>
       	$(document).ready(function(){
-      		$('#list').dataTable()
-      	$('.delete_survey').click(function(){
-      	_conf("Are you sure to delete this survey?","delete_survey",[$(this).attr('data-id')])
+      		$('.ui-sortable').sortable({
+      			placeholder: "ui-state-highlight",
+      			 update: function( ) {
+      			 	alert_toast("Saving question sort order.","info")
+      		        $.ajax({
+      		        	url:"ajax.php?action=action_update_qsort",
+      		        	method:'POST',
+      		        	data:$('#manage-sort').serialize(),
+      		        	success:function(resp){
+      		        		if(resp == 1){
+      			 				alert_toast("Question order sort successfully saved.","success")
+      		        		}
+      		        	}
+      		        })
+      		    }
+      		})
       	})
+      	$('.new_question').click(function(){
+      		uni_modal("New Question","officer-managequestions-survey.php?sid=<?php echo $id ?>","large")
       	})
-      	function delete_survey($id){
+      	$('.edit_question').click(function(){
+      		uni_modal("New Question","officer-managequestions-survey.php?sid=<?php echo $id ?>&id="+$(this).attr('data-id'),"large")
+      	})
+
+      	$('.delete_question').click(function(){
+      	_conf("Are you sure to delete this question?","delete_question",[$(this).attr('data-id')])
+      	})
+      	function delete_question($id){
       		start_load()
       		$.ajax({
-      			url:'ajax.php?action=delete_survey',
+      			url:'ajax.php?action=delete_question',
       			method:'POST',
       			data:{id:$id},
       			success:function(resp){
@@ -225,11 +257,6 @@ if(isset($_SESSION['msg'])){
       		})
       	}
       </script>
-
-
-
-
-
     <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">

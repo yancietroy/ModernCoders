@@ -51,7 +51,7 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li class="active">
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
@@ -64,8 +64,8 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
-        <li class="active">
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        <li>
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -127,109 +127,68 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-    
-      <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-6 col-7">
-          <h4>Survey List</h4>
-        </div>
-      </div>
-      <div class="col-lg-12">
-      	<div class="card card-outline card-primary">
-      		<div class="card-header">
-      			<div class="card-tools">
-      				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="officer-add-survey.php"><i class="fa fa-plus"></i> Add New Survey</a>
-      			</div>
-      		</div>
-      		<div class="card-body">
-      			<table class="table tabe-hover table-bordered" id="list">
-      				<colgroup>
-      					<col width="5%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="20%">
-      					<col width="15%">
-      				</colgroup>
-      				<thead>
-      					<tr>
-      						<th class="text-center">#</th>
-      						<th>Title</th>
-      						<th>Description</th>
-      						<th>Start</th>
-      						<th>End</th>
-      						<th>Action</th>
-      					</tr>
-      				</thead>
-      				<tbody>
-      					<?php
-      					$i = 1;
-      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc ");
-      					while($row= $qry->fetch_assoc()):
-      					?>
-      					<tr>
-      						<th class="text-center"><?php echo $i++ ?></th>
-      						<td><b><?php echo ucwords($row['title']) ?></b></td>
-      						<td><b class="truncate"><?php echo $row['description'] ?></b></td>
-      						<td><b><?php echo date("M d, Y",strtotime($row['start_date'])) ?></b></td>
-      						<td><b><?php echo date("M d, Y",strtotime($row['end_date'])) ?></b></td>
-      						<td class="text-center">
-      							<!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-      		                      Action
-      		                    </button>
-      		                    <div class="dropdown-menu" style="">
-      		                      <a class="dropdown-item" href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>">Edit</a>
-      		                      <div class="dropdown-divider"></div>
-      		                      <a class="dropdown-item delete_survey" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
-      		                    </div> -->
-      		                    <div class="btn-group">
-      		                        <a href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
-      		                          <i class="fas fa-edit"></i>
-      		                        </a>
-      		                        <a  href="./index.php?page=view_survey&id=<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
-      		                          <i class="fas fa-eye"></i>
-      		                        </a>
-      		                        <button type="button" class="btn btn-danger btn-flat delete_survey" data-id="<?php echo $row['id'] ?>">
-      		                          <i class="fas fa-trash"></i>
-      		                        </button>
-      	                      </div>
-      						</td>
-      					</tr>
-      				<?php endwhile; ?>
-      				</tbody>
-      			</table>
-      		</div>
-      	</div>
-      </div>
-      <script>
-      	$(document).ready(function(){
-      		$('#list').dataTable()
-      	$('.delete_survey').click(function(){
-      	_conf("Are you sure to delete this survey?","delete_survey",[$(this).attr('data-id')])
-      	})
-      	})
-      	function delete_survey($id){
-      		start_load()
-      		$.ajax({
-      			url:'ajax.php?action=delete_survey',
-      			method:'POST',
-      			data:{id:$id},
-      			success:function(resp){
-      				if(resp==1){
-      					alert_toast("Data successfully deleted",'success')
-      					setTimeout(function(){
-      						location.reload()
-      					},1500)
-
-      				}
-      			}
-      		})
-      	}
-      </script>
-
-
-
-
-
+  
+  <div class="col-lg-12">
+  	<div class="card">
+  		<div class="card-body">
+  			<form action="" id="manage_survey">
+  				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+  				<div class="row">
+  					<div class="col-md-6 border-right">
+  						<div class="form-group">
+  							<label for="" class="control-label">Title</label>
+  							<input type="text" name="title" class="form-control form-control-sm" required value="<?php echo isset($stitle) ? $stitle : '' ?>">
+  						</div>
+  						<div class="form-group">
+  							<label for="" class="control-label">Start</label>
+  							<input type="date" name="start_date" class="form-control form-control-sm" required value="<?php echo isset($start_date) ? $start_date : '' ?>">
+  						</div>
+  						<div class="form-group">
+  							<label for="" class="control-label">End</label>
+  							<input type="date" name="end_date" class="form-control form-control-sm" required value="<?php echo isset($end_date) ? $end_date : '' ?>">
+  						</div>
+  					</div>
+  					<div class="col-md-6">
+  						<div class="form-group">
+  							<label class="control-label">Description</label>
+  							<textarea name="description" id="" cols="30" rows="4" class="form-control" required><?php echo isset($description) ? $description : '' ?></textarea>
+  						</div>
+  					</div>
+  				</div>
+  				<hr>
+  				<div class="col-lg-12 text-right justify-content-center d-flex">
+  					<button class="btn btn-primary mr-2">Save</button>
+  					<button class="btn btn-secondary" type="button" onclick="location.href = 'index.php?page=survey_list'">Cancel</button>
+  				</div>
+  			</form>
+  		</div>
+  	</div>
+  </div>
+  <script>
+  	$('#manage_survey').submit(function(e){
+  		e.preventDefault()
+  		$('input').removeClass("border-danger")
+  		start_load()
+  		$('#msg').html('')
+  		$.ajax({
+  			url:'ajax.php?action=save_survey',
+  			data: new FormData($(this)[0]),
+  		    cache: false,
+  		    contentType: false,
+  		    processData: false,
+  		    method: 'POST',
+  		    type: 'POST',
+  			success:function(resp){
+  				if(resp == 1){
+  					alert_toast('Data successfully saved.',"success");
+  					setTimeout(function(){
+  						location.replace('index.php?page=survey_list')
+  					},1500)
+  				}
+  			}
+  		})
+  	})
+  </script>
     <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
