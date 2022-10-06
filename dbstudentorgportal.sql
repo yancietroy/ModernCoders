@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 04, 2022 at 04:10 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 06, 2022 at 01:19 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -339,12 +339,18 @@ CREATE TABLE `tb_officers` (
   `last_name` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `middle_initial` char(50) DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
+  `age` int(3) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `year_level` varchar(20) DEFAULT NULL,
+  `college_dept` int(3) DEFAULT NULL,
   `course` varchar(100) DEFAULT NULL,
   `section` varchar(10) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `password` varchar(8000) DEFAULT NULL,
+  `password` varchar(3000) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
-  `profile_pic` varchar(8000) DEFAULT NULL,
+  `user_type` int(3) DEFAULT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -352,9 +358,10 @@ CREATE TABLE `tb_officers` (
 -- Dumping data for table `tb_officers`
 --
 
-INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
-(17401211, 1, 1, 'Legaspi', 'Bienvenido', 'Argote', 'Bachelor of Science in Information Technology (BSIT)', '302I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, 'img_avatar.png', '2022-09-25'),
-(17402211, 6, 3, 'Doe', 'Jane', 'J', 'Bachelor of Science in Information Technology (BSIT)', '402I', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 12, 'img_avatar.png', '2022-10-04');
+INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `birthdate`, `age`, `gender`, `year_level`, `college_dept`, `course`, `section`, `email`, `password`, `org_id`, `user_type`, `profile_pic`, `account_created`) VALUES
+(17401211, 1, 1, 'Legaspi', 'Bienvenido', '', '2000-06-13', 22, 'Male', '3', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, 2, '39899-ZoomPic.jpg', '2022-09-25'),
+(19255322, 7, 2, 'Saludo', 'Yancie Troy', 'Hernandez', '2000-10-03', 22, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 12, 2, 'img_avatar.png', '2022-10-04'),
+(17402211, 8, 4, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 12, 2, 'img_avatar.png', '2022-10-05');
 
 -- --------------------------------------------------------
 
@@ -365,25 +372,24 @@ INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name
 CREATE TABLE `tb_officers_archive` (
   `student_id` int(255) DEFAULT NULL,
   `officer_id` int(2) NOT NULL,
-  `position_id` int(2) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `middle_initial` char(50) NOT NULL,
-  `course` varchar(100) NOT NULL,
-  `section` varchar(10) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(8000) NOT NULL,
-  `org_id` int(11) NOT NULL,
-  `profile_pic` varchar(8000) DEFAULT NULL,
+  `position_id` int(2) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `middle_initial` char(50) DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
+  `age` int(3) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `year_level` varchar(20) DEFAULT NULL,
+  `college_dept` int(3) DEFAULT NULL,
+  `course` varchar(100) DEFAULT NULL,
+  `section` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(3000) DEFAULT NULL,
+  `org_id` int(11) DEFAULT NULL,
+  `user_type` int(3) DEFAULT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL,
   `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_officers_archive`
---
-
-INSERT INTO `tb_officers_archive` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `course`, `section`, `email`, `password`, `org_id`, `profile_pic`, `account_created`) VALUES
-(NULL, 2, 2, 'Doe', 'John', '', 'Bachelor of Science in Computer Engineering (BSCpE)', '302I', 'johndoe@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 12, NULL, '2022-09-25');
 
 -- --------------------------------------------------------
 
@@ -509,12 +515,16 @@ INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
 
 CREATE TABLE `tb_projectmonitoring` (
   `project_id` int(11) NOT NULL,
+  `position_id` int(3) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `project_name` varchar(100) DEFAULT NULL,
+  `requested_by` varchar(100) DEFAULT NULL,
+  `organizer` varchar(200) DEFAULT NULL,
   `project_type` varchar(200) DEFAULT NULL,
   `project_category` varchar(200) DEFAULT NULL,
-  `project_desc` varchar(8000) DEFAULT NULL,
+  `objectives` varchar(2000) DEFAULT NULL,
+  `project_desc` varchar(500) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `venue` varchar(100) DEFAULT NULL,
@@ -524,9 +534,11 @@ CREATE TABLE `tb_projectmonitoring` (
   `no_of_beneficiary` int(11) DEFAULT NULL,
   `budget_source` varchar(100) DEFAULT NULL,
   `estimated_budget` int(11) DEFAULT NULL,
+  `budget_req` varchar(3000) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `date_submitted` date DEFAULT NULL,
+  `status_date` date DEFAULT NULL,
   `remarks` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -534,16 +546,16 @@ CREATE TABLE `tb_projectmonitoring` (
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`, `remarks`) VALUES
-(20, NULL, NULL, 'JRU Fun Run', 'Outreach', 'Onsite', 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, 'Pending', '2022-09-06', ''),
-(21, NULL, NULL, 'JRU esports tryout', 'Extra Curricular', 'Onsite', 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, 'Approved', '2022-09-06', 'project approved'),
-(22, NULL, NULL, 'JRU Hyflex Seminar', 'Extra Curricular', 'Online', 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, 'For Revision', '2022-09-06', 'need to adjust the date'),
-(23, NULL, NULL, 'CSE tech showcase', 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, 'Rejected', '2022-09-06', 'already been done this year'),
-(24, NULL, NULL, 'CSE movie showing', 'Extra Curricular', 'Onsite', 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, 'Cancelled', '2022-09-06', 'Project cancelled.'),
-(25, NULL, NULL, 'CSE Coding Challenge', 'Curricular', 'Online', 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, 'Done', '2022-09-06', 'great work, project approved.'),
-(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Ongoing', '2022-09-06', 'project approved.'),
-(48, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL),
-(49, NULL, NULL, 'Sample Project 8', 'Curricular', 'Onsite', 'Sample', '2022-09-30 18:00:00', '2022-10-01 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Third Party', 2000, '89987-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-30', NULL);
+INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
+(20, NULL, NULL, NULL, 'JRU Fun Run', NULL, NULL, 'Outreach', 'Onsite', NULL, 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, NULL, 'Pending', '2022-09-06', NULL, ''),
+(21, NULL, NULL, NULL, 'JRU esports tryout', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, NULL, 'Approved', '2022-09-06', NULL, 'project approved'),
+(22, NULL, NULL, NULL, 'JRU Hyflex Seminar', NULL, NULL, 'Extra Curricular', 'Online', NULL, 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, NULL, 'For Revision', '2022-09-06', NULL, 'need to adjust the date'),
+(23, NULL, NULL, NULL, 'CSE tech showcase', NULL, NULL, 'Curricular', 'Onsite', NULL, 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, NULL, 'Rejected', '2022-09-06', NULL, 'already been done this year'),
+(24, NULL, NULL, NULL, 'CSE movie showing', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, NULL, 'Cancelled', '2022-09-06', NULL, 'Project cancelled.'),
+(25, NULL, NULL, NULL, 'CSE Coding Challenge', NULL, NULL, 'Curricular', 'Online', NULL, 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, NULL, 'Done', '2022-09-06', NULL, 'great work, project approved.'),
+(26, NULL, NULL, NULL, 'JRU virtual seminar', NULL, NULL, 'Curricular', 'Online', NULL, 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, NULL, 'Ongoing', '2022-09-06', NULL, 'project approved.'),
+(48, NULL, NULL, NULL, 'Sample Project 7', NULL, NULL, 'Curricular', 'Onsite', NULL, 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, NULL, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL, NULL),
+(53, 1, 8, NULL, 'Sample Project 8', 'Bienvenido Legaspi', 'COMSOC', 'Seminar', 'Online', 'Sample OBJ', NULL, '2022-10-06 19:00:00', '2022-10-06 20:00:00', 'Home', 'JRU Students', NULL, NULL, NULL, NULL, NULL, '1500 - Sample budget request', '13914-H_30908.pdf', 'Pending', '2022-10-06', '2022-10-06', NULL);
 
 -- --------------------------------------------------------
 
@@ -615,7 +627,7 @@ CREATE TABLE `tb_students` (
   `EMAIL` varchar(50) NOT NULL,
   `PASSWORD` varchar(50) NOT NULL,
   `COLLEGE_DEPT` int(3) DEFAULT NULL,
-  `COURSE` varchar(100) NOT NULL,
+  `COURSE` varchar(100) DEFAULT NULL,
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL,
@@ -631,7 +643,7 @@ CREATE TABLE `tb_students` (
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
 (17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL, '8194-ZoomPic.jpg'),
 (17402211, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, '2022-10-04', 'img_avatar.png'),
-(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, '1');
+(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -856,7 +868,9 @@ ALTER TABLE `tb_officers`
   ADD PRIMARY KEY (`officer_id`),
   ADD KEY `officers_position_id_fk` (`position_id`),
   ADD KEY `officers_org_id_fk` (`org_id`),
-  ADD KEY `officers_student_id_fk` (`student_id`);
+  ADD KEY `officers_student_id_fk` (`student_id`),
+  ADD KEY `officers_collegedept_id_fk` (`college_dept`),
+  ADD KEY `officers_usertype_id_fk` (`user_type`);
 
 --
 -- Indexes for table `tb_officers_archive`
@@ -865,7 +879,9 @@ ALTER TABLE `tb_officers_archive`
   ADD PRIMARY KEY (`officer_id`),
   ADD KEY `officers_position_id_fk` (`position_id`),
   ADD KEY `officers_org_id_fk` (`org_id`),
-  ADD KEY `officersarch_student_id_fk` (`student_id`);
+  ADD KEY `officers_student_id_fk` (`student_id`),
+  ADD KEY `officers_collegedept_id_fk` (`college_dept`),
+  ADD KEY `officers_usertype_id_fk` (`user_type`);
 
 --
 -- Indexes for table `tb_orgs`
@@ -908,7 +924,8 @@ ALTER TABLE `tb_position`
 ALTER TABLE `tb_projectmonitoring`
   ADD PRIMARY KEY (`project_id`),
   ADD KEY `project_course_id` (`course_id`),
-  ADD KEY `project_org_id` (`org_id`);
+  ADD KEY `project_org_id` (`org_id`),
+  ADD KEY `project_position_id` (`position_id`);
 
 --
 -- Indexes for table `tb_results`
@@ -992,13 +1009,19 @@ ALTER TABLE `tb_vote`
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
-  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tb_officers_archive`
+--
+ALTER TABLE `tb_officers_archive`
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `tb_usertypes`
@@ -1072,15 +1095,11 @@ ALTER TABLE `tb_morg`
 -- Constraints for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
+  ADD CONSTRAINT `officers_collegedept_id_fk` FOREIGN KEY (`college_dept`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `officers_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_officers_archive`
---
-ALTER TABLE `tb_officers_archive`
-  ADD CONSTRAINT `officersarch_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `officers_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `officers_usertype_id_fk` FOREIGN KEY (`user_type`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_orgs`
@@ -1115,7 +1134,8 @@ ALTER TABLE `tb_pkcastkey`
 --
 ALTER TABLE `tb_projectmonitoring`
   ADD CONSTRAINT `project_course_id` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_position_id` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_results`

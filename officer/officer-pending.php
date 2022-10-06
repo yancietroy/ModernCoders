@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -115,7 +115,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -329,8 +329,8 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control" style="background-color: #fff;" readonly  />
+                            <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly  />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Project name field cannot be blank!</div>
                           </div>
@@ -433,6 +433,14 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label">Position:</label>
+                              <!-- <select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly> 
+                              <?php/**
+                                $query = "SELECT position_id, position FROM tb_position";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }**/
+                              ?>-->
                               <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
@@ -440,13 +448,13 @@ if(isset($_SESSION['msg'])){
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  ">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="3" style="background-color: #fff;" readonly></textarea>
+                              <label class="form-label" for="objectives" >Objectives:</label>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline projectdesc">
-                              <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                              <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
@@ -484,21 +492,18 @@ if(isset($_SESSION['msg'])){
                 console.log(data);
                 $('#project_id').val(data.project_id);
                 $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
+                $('#organizer').val(data.organizer);
                 $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
                 $('#status').val(data.status);
                 $('#date_submitted').val(data.date_submitted);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
                 $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
                 $('#attachments').val(data.attachments);
+                $('#objectives').val(data.objectives);
+                $('#budget_req').val(data.budget_req);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');

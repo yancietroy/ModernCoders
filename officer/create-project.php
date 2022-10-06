@@ -2,7 +2,8 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -110,12 +111,13 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME), position_id AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  $userName = $row[0];
+                  $posID = $row[1];
+                  echo "$userName";?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
@@ -166,8 +168,8 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control" maxlength="50" required />
+                <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
@@ -284,15 +286,15 @@ if(isset($_SESSION['msg'])){
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_desc" id="asterisk">Objectives:</label>
-                <textarea class="form-control" name="project_desc" id="project_desc" rows="3"  placeholder="Enter project objectives and details." required></textarea>
+                <label class="form-label" for="objectives" id="asterisk">Objectives:</label>
+                <textarea class="form-control" name="objectives" id="objectives" rows="3"  placeholder="Enter project objectives and details." required></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Objectives field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                 <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget request." required></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Objectives field cannot be blank!</div>
@@ -323,28 +325,25 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($bs) || isset($pc) || isset($p) || isset($nop) || isset($b) || isset($nob) || isset($pd) || isset($eb) || isset($s) || isset($_POST['submit']))
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc) || isset($p) || isset($obj) ||  isset($br) || isset($_POST['submit']))
                 {
                   $pn = $_POST['project_name'];
+                  $o = $_POST['organizer'];
                   $vn = $_POST['venue'];
                   $pt = $_POST['project_type'];
                   $sdate = $_POST['start_date'];
                   $edate = $_POST['end_date'];
-                  $bs = $_POST['budget_source'];
                   $pc = $_POST['project_category'];
                   $p = $_POST['participants'];
-                  $nop = $_POST['no_of_participants'];
-                  $b = $_POST['beneficiary'];
-                  $nob = $_POST['no_of_beneficiary'];
-                  $pd = $_POST['project_desc'];
-                  $eb = $_POST['estimated_budget'];
+                  $obj = $_POST['objectives'];
+                  $br = $_POST['budget_req'];
                   $s = "Pending";
                   $pname = rand(1000,100000)."-".$_FILES['attachments']['name'];
                   $destination = 'attachments/' . $pname;
                   $tname = $_FILES['attachments']['tmp_name'];
                   move_uploaded_file($tname, $destination);
 
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, venue, project_type, start_date, end_date, budget_source, project_category, participants, no_of_participants, beneficiary, no_of_beneficiary, project_desc, estimated_budget, date_submitted, status, attachments) VALUES('$pn', '$vn', '$pt', '$sdate', '$edate', '$bs', '$pc', '$p', '$nop', '$b', '$nob', '$pd', '$eb', NOW(), '$s', '$pname')";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, date_submitted, status, attachments, status_date, requested_by, org_id, position_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
