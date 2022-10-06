@@ -193,7 +193,7 @@ if(isset($_SESSION['msg'])){
                   <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-              <div class="col-lg-3 col-sm-6">
+              <div class="col-lg-3 col-sm-6" id="eventhide">
                 <div class="card-counter events">
                   <div class="inner">
                     <h2><i class="bi bi-calendar3"></i></h2>

@@ -214,7 +214,7 @@ if(isset($_SESSION['msg'])){
           					<? /*php if(isset($rep_arr[$row['id']])): */?>
           						<hr>
           					<div class="col-lg-8 offset-lg-2 replies">
-          						<a href="javascript:void(0)" class="show_all" style="display: none">Show all replies</a>
+          						<a href="javascript:void(0)" class="show_all" style="display: none">Show desktop replies</a>
           						<? /*php
 
           							foreach($rep_arr[$row['id']] as $rep):

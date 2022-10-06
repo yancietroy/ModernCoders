@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -115,7 +115,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -178,12 +178,12 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                            <th class='all'>Project ID</th>
-                            <th class='all'>Project Name</th>
-                            <th class='all'>Venue</th>
-                            <th class='all'>Status</th>
-                            <th class='all'>Date Submitted</th>
-                            <th class='all'>Actions</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
                             <th class='none'>Project Description</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -601,7 +601,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },

@@ -173,12 +173,12 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                            <th class='all'>Project ID</th>
-                            <th class='all'>Project Name</th>
-                            <th class='all'>Venue</th>
-                            <th class='all'>Status</th>
-                            <th class='all'>Date Submitted</th>
-                            <th class='all'>Actions</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
                             <th class='none'>Project Description</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -565,7 +565,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },

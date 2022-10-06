@@ -141,7 +141,7 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Pending List</h4>
+          <h4 id="comsoctitle">Signatory Projects Pending List</h4>
         </div>
         <div class='callout bs-callout-success pb-2'  id="hidden">
             <h4>Project Status Updated!</h4>
@@ -178,12 +178,12 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                            <th class='all'>Project ID</th>
-                            <th class='all'>Project Name</th>
-                            <th class='all'>Venue</th>
-                            <th class='all'>Status</th>
-                            <th class='all'>Date Submitted</th>
-                            <th class='all'>Actions</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
                             <th class='none'>Project Description</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -303,7 +303,11 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                <form action="signatory-update-button.php" method="POST">
+
                 <form action="signatory-status-buttons.php" method="POST">
+
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -584,7 +588,8 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+        bautoWidth:false,
+
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },

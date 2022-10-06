@@ -40,7 +40,7 @@ if(isset($_SESSION['message'])){
               <!--		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
 																				<img class="mb-3 mx-auto d-none d-md-block" src="../assets/img/comsoc-logo.png" alt="" width="82" height="80">
                                       </div>-->
-              <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+            <p class=" h4 mb-2 text-center">JRU Student Organizations Portal</p>
             </div>
 
             <form method="POST" class="requires-validation" novalidate autocomplete="off">

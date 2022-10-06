@@ -164,10 +164,10 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory User Management</h4>
+          <h4 id="orgtitle">Signatory Management</h4>
         </div>
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="admin-signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Signatory</a>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="admin-signatory-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Signatory </span></a>
         </div>
       </div>
       <div class="row ms-3 me-3 mt-2">
@@ -343,7 +343,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -404,7 +404,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "90px" },

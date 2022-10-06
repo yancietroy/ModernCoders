@@ -114,7 +114,7 @@ if(isset($_SESSION['msg'])){
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                    <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                     <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                     $result = @mysqli_query($conn, $query);
                     $row = mysqli_fetch_array ($result);
@@ -137,11 +137,17 @@ if(isset($_SESSION['msg'])){
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4 col-12">
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
-                  <img class="profile_img" src="../assets/img/img_avatar.png" alt="">
-                  <h3 class="pt-3">John Doe</h3>
+                  <div class="container">
+                        <img class="profile_img" src="<?php echo $profilepic; ?>"  id="profile-pic" alt="">
+                      <div class="middle">
+                        <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
+                          <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*"/>
+                      </div>
+                    </div>
+                  <h3 class="pt-3"><?php echo "$row[0]"; ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$id'";
                   $result = @mysqli_query($conn, $query);
@@ -149,66 +155,92 @@ if(isset($_SESSION['msg'])){
                   $si = $data['student_id'];?>
                 <div class="card-body">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Year Level:</strong></p>
+                  <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>
+                  <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div class="card shadow-sm">
+            <div class="col-lg-8 col-12 ">
+              <div class="card shadow-sm" id="card-large">
                 <div class="card-header bg-transparent border-0">
-
-                  <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
-                    <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i>Student Information</h3>
-                    <button type="button" class="btn btn-primary btn-sm" >Edit Profile</button>
-                  </div>
+                    <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
                 <div class="card-body mt-2 pt-0">
-                  <table class="table table-bordered">
+                  <table class="table table-bordered" id="proftable">
 
                     <tr>
                       <th width="30%">Gender</th>
                       <td width="2%">:</td>
-                      <td>Male</td>
+                      <td><?php echo $data['gender']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Birthdate</th>
                       <td width="2%">:</td>
-                      <td>11/14/1999</td>
+                      <td><?php echo $data['birthdate']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Age</th>
                       <td width="2%">:</td>
-                      <td>22</td>
+                      <td><?php echo $data['age']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Email</th>
                       <td width="2%">:</td>
-                      <td>john.doe@my.jru.edu</td>
+                      <td><?php echo $data['email']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">College	</th>
                       <td width="2%">:</td>
-                      <td>College of Computer Studies and Engineering</td>
+                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Course	</th>
                       <td width="2%">:</td>
-                      <td>Bachelor of Science in Information Technology </td>
+                      <td><?php echo $data['course']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td>JRU Computer Society (COMSOC)</td>
+                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Position	</th>
                       <td width="2%">:</td>
-                      <td>Member</td>
+                      <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
+                  <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[gender]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[birthdate]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Age:<br></strong><?php echo "$data[age]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                                  <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[course]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Mother Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
+                                        $result = @mysqli_query($conn, $query);
+                                        $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
+
+                            <!--  <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>-->
+                            </div>
+                  <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $id . "' >Change Password</button>";?>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -226,182 +258,339 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
     </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Officer Modal -->
+  <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Officer Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="officer-revision-button.php" method="POST">
+                <form action="officer-update-profile.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                       <div class="col-4 col-md-2 mb-4">
+                       <div class="col-12 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="project_id" >Project ID:</label>
-                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                           <label class="form-label" for="officer_id" >Officer ID:</label>
+                           <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                       <div class="col-4 col-md-3 mb-4">
+                       <div class="col-12 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="student_id" >Student ID:</label>
+                           <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>
+                       <div class="col-12 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="account_created" >Account Created:</label>
+                         <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="row justify-content-between">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="project_name" >Project name:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <label class="form-label" for="position_id" >Position:</label>
+                            <select class="form-select" name="position_id" id="position_id" readonly>
+                            <?php
+                              $query = "SELECT position_id, position FROM tb_position";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
+                            </select>
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <label class="form-label" for="org_id" >Organization:</label>
+                            <select class="form-select" name="org_id" id="org_id" readonly>
+                              <?php
+                              $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
+                            </select>
                           </div>
                         </div>
                         </div>
                         <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="first_name" >First Name:</label>
+                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="middle_initial" >Middle Name:</label>
+                              <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-4 mb-4 ">
+                            <label class="form-label" for="last_name">Last name </label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="email" >Email:</label>
+                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30"  />
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="college_dept" >College:</label>
+                              <select class="form-select" name="college_dept" id="college_dept" readonly>
+                                <?php
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="course" >Course:</label>
+                              <select class="form-select" style="width:100%;" name="course" id="course" readonly>
+                                <?php
+                                  $query = "SELECT course_id, course FROM tb_course";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[1].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="user_type" >User Type:</label>
+                              <select class="form-select" name="user_type" id="user_type" readonly>
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
-                          <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="start_date" >Start Date:</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="section">Section:</label>
+                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;"  />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="end_date" >End Date:</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="year_level" >Year Level:</label>
+                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');"  />
                             </div>
                           </div>
+                          <input type="hidden" name="profile_pic" id="profile_pic" class="form-control"/>
                         </div>
                         <div class="row">
+                        <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="birthdate" >Birthdate:</label>
+                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="age" >Age:</label>
+                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" />
+                            </div>
+                          </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="participants" >Participants:</label>
-                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="beneficiary">Beneficiary:</label>
-                              <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                              <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                              <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                              </div>
-                            </div>
-                          </div>
-                         <div class="row">
-                          <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline  projectdesc">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-12 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
+                            <label class="form-label" for="gender" >Gender</label>
+                              <select class="form-select" name="gender" id="gender">
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                              </select>
                           </div>
                         </div>
                     </div>
-                    <div class="modal-footer px-0 py-0 pt-2">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
-                        <button class="btn btn-md  btn-info"  name="Ongoing">Ongoing</a>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
-                 </form>
+                  </div>
+                </form>
             </div>
         </div>
   </div>
-
+    <div class="modal fade" id="changePass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Change Password </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="officer-change-pass.php" method="POST" data-parsley-validate data-parsley-trigger="keyup">
+                    <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
+                        <div class="form-outline">
+                          <input type="hidden" id="cid" name="cid" class="form-control">
+                           <label class="form-label" for="password" id="asterisk">New Password</label>
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
+                        data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                      <span class="errorspannewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <div class="form-outline">
+                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                        data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                      <span class="errorspanconfirmnewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <!--  <div class="invalid-feedback">Invalid Field!</div>-->
+                    </div>
+                         </div>
+                       </div>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> You are about to change your password. Are you sure?</p>
+                   </div>
+                   <div class="modal-footer py-2 px-3">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                       <button type="submit" name="changePassword" class="btn btn-info">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
-        $(document).on('click', '.editbtn', function(){
-           var project_id = $(this).attr("id");
+        $(document).on('click', '.viewbtn', function(){
+           var officer_id = $(this).attr("id");
            $.ajax({
-                url:"officer-fetch-project.php",
+                url:"officer-fetch-profile.php",
                 method:"POST",
-                data:{project_id:project_id},
+                data:{officer_id:officer_id},
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#project_id').val(data.project_id);
-                $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
-                $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
-                $('#status').val(data.status);
-                $('#date_submitted').val(data.date_submitted);
-                $('#start_date').val(data.start_date);
-                $('#end_date').val(data.end_date);
-                $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
-                $('#project_category').val(data.project_category);
-                $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
-                $('#project_remarks').val(data.remarks);
-                $('#editmodal').modal('show');
+                $('#officer_id').val(data.officer_id);
+                $('#student_id').val(data.student_id);
+                $('#position_id').val(data.position_id);
+                $('#org_id').val(data.org_id);
+                $('#first_name').val(data.first_name);
+                $('#middle_initial').val(data.middle_initial);
+                $('#last_name').val(data.last_name);
+                $('#birthdate').val(data.birthdate);
+                $('#age').val(data.age);
+                $('#gender').val(data.gender);
+                $('#year_level').val(data.year_level);
+                $('#section').val(data.section);
+                $('#email').val(data.email);
+                $('#password').val(data.password);
+                $('#college_dept').val(data.college_dept);
+                $('#course').val(data.course);
+                $('#user_type').val(data.user_type);
+                $('#account_created').val(data.account_created);
+                $('#profile_pic').val(data.profile_pic);
+                $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+
+            // UPPERCASE FIRST LETTER
+            document.getElementById("first_name").addEventListener("input", forceLower);
+            document.getElementById("middle_initial").addEventListener("input", forceLower);
+            document.getElementById("last_name").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of desktop the words (in desktop lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
+        });
+
+      $(document).ready(function() {
+          $("#SECTION").inputmask("999A", {
+            autoUnmask: true,
+            onincomplete: function() {
+              $("#errorsection").show();
+            },
+
+            clearIncomplete: true,
+            removeMaskOnSubmit: true,
+            showMaskOnFocus: false,
+            showMaskOnHover: false,
+            oncomplete: function() {
+              $("#errorsection").hide();
+            }
+          });
         });
     </script>
-
+    <script>
+    $(document).ready(function() {
+    $('#profilePic').change(function(){
+        var file_data = $('#profilePic').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('profilePic', file_data);
+        $.ajax({
+            url: "officer-update-pic.php",
+            type: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                location.reload();
+            }
+        });
+    });
+});
+    </script>
+        <script>
+      $(document).on('click', '.passbtn', function(){
+        var officer_id = $(this).attr("id");
+        $.ajax({
+                url:"officer-fetch-profile.php",
+                method:"POST",
+                data:
+                {
+                  officer_id:officer_id
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#cid').val(data.officer_id);
+                $('#changePass').modal('show');
+                }
+        });
+      });
+</script>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -430,132 +619,66 @@ if(isset($_SESSION['msg'])){
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>  -->
+
+    <!-- <script src="js/form-validation.js"></script>
+  Prevent Cut Copy Paste -->
     <script>
       $(document).ready(function() {
-          var myTable;
-      myTable =  $('#example').DataTable({
-        "createdRow": function( row, data, dataIndex ) {
-            if ( data[3] == "Rejected" ) {
-            $('td', row).eq(3).css('color', 'red');
-        }
-        if ( data[3] == "Approved" ) {
-        $('td', row).eq(3).css('color', 'green');
-        }
-        if ( data[3] == "Pending" ) {
-        $('td', row).eq(3).css('color', '#0d6efd');
-        }
-        if ( data[3] == "Ongoing" ) {
-        $('td', row).eq(3).css('color', '#0dcaf0');
-        }
-        if ( data[3] == "Done" ) {
-        $('td', row).eq(3).css('color', '#00C9A7');
-        }
-        if ( data[3] == "Approved" ) {
-        $('td', row).eq(3).css('color', 'green');
-        }
-        if ( data[3] == "For Revision" ) {
-        $('td', row).eq(3).css('color', '#FF9671');
-      }
-      if ( data[3] == "Cancelled" ) {
-      $('td', row).eq(3).css('color', 'grey');
-      }
-          },
-          responsive: true,
-          keys: true,
-          fixedheader:true,
-          bautoWidth:false,
-         dom: 'Bfrtip',"bFilter": true,
-         "columns": [
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" }
-  ],
-            select: 'single',
-          buttons: [
-         'pageLength',
-         {
-           extend: 'excelHtml5',
-           title: 'JRU Organizations Portal -   Approved List',
-           footer: true,
-         exportOptions: {
-           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-       },
-         } ,
-            //{
-            //  extend: 'csvHtml5',
-          //    title: 'JRU Organizations Portal - Officer Pending List',
-          //    footer: true,
-          //    customize: function (csv) {
-          //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
-        //    },
-        //    exportOptions: {
-        //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-        //  },
-        //    } ,
-            {
-              extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal -   Approved List',
-              footer: true,
-              exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-            },
-            orientation : 'landscape',
-          pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
-            } ,
-            {
-              extend: 'print',
-              title: 'JRU Organizations Portal -   Approved List',
-              footer: true,
-              exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-            },
-            customize: function(win)
-            {
-
-                var last = null;
-                var current = null;
-                var bod = [];
-
-                var css = '@page { size: landscape; font-size: 1em;}',
-                    head = win.document.head || win.document.getElementsByTagName('head')[0],
-                    style = win.document.createElement('style');
-
-                style.type = 'text/css';
-                style.media = 'print';
-
-                if (style.styleSheet)
-                {
-                  style.styleSheet.cssText = css;
-                }
-                else
-                {
-                  style.appendChild(win.document.createTextNode(css));
-                }
-
-                head.appendChild(style);
-         }
-      },
-          ]
+        $('input:text').bind('cut copy paste', function(e) {
+          e.preventDefault();
+          return false;
         });
-      myTable.columns.adjust().draw();
-        });
+
+      });
+
+      document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('box');
+
+    if (!box.contains(event.target)) {
+      box.style.display = 'none';
+    }
+  });
     </script>
+
+    <!--image upload-->
+    <script>
+    $(document).ready(function() {
+
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+    </script>
+    <!--input mask-->
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="../assets/js/inputmask-validation.js"></script>
+
+    <!--Uppercase first letter !-->
+    <script src="../assets/js/uppercase-firstletter.js"></script>
+
+    <!--password validation!-->
+    <script src="../assets/js/pass-validation.js"></script>
+
+    <!-- age validation !-->
+    <script src="../assets/js/age-validation.js"></script>
 <script src="../assets/js/dataTables.altEditor.free.js" ></script>
 </body>
 

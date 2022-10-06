@@ -433,7 +433,7 @@ if(isset($_SESSION['msg'])){
           altEditor: true,
           "aLengthMenu": [
             [10, 20, 50, 100, -1],
-            [10, 20, 50, 100, "All"]
+            [10, 20, 50, 100, "all"]
           ],
           buttons: [
             'pageLength',

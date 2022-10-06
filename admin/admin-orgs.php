@@ -163,13 +163,12 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
 
       <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>Student Organizations Management</h4>
+        <div class="col-lg-6 col-10">
+          <h4 id="admintitle">Student Organizations Management</h4>
         </div>
 
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="new-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> New Organization</a>
-            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> Org Archive</a>
+        <div class="col-lg-6 col-2 mb-2 d-flex align-items-end justify-content-end">
+            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Org Archive</span></a>
         </div>
       </div>
 
@@ -240,9 +239,9 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Course ID</th>
-                                <th class='all'>Course</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Course ID</th>
+                                <th class='desktop'>Course</th>
+                                <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -264,6 +263,7 @@ if(isset($_SESSION['msg'])){
                               <td> $ci  </td>
                               <td> $c  </td>
                               <td>
+                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $ci . "'> <i class='bi bi-list-ul'></i> </button>
                               <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $ci . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
@@ -560,7 +560,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -625,7 +625,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "40px" },

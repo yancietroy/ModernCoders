@@ -480,10 +480,10 @@ $(document).ready(function () {
           responsive: true,
           keys: true,
           //select: true,
-       //scrollX:true,
+       //// scrollX:true,
       //    scrollCollapse: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },
@@ -502,7 +502,7 @@ $(document).ready(function () {
         //  altEditor: true,
         //  "aLengthMenu": [
         //    [10, 20, 50, 100, -1],
-        //    [10, 20, 50, 100, "All"]
+        //    [10, 20, 50, 100, "desktop"]
         //  paging:true,
           buttons: [
          'pageLength',
