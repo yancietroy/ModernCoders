@@ -137,7 +137,7 @@ if(isset($_SESSION['msg'])){
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4 col-12">
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -157,22 +157,17 @@ if(isset($_SESSION['msg'])){
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>
+                  <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div class="card shadow-sm">
+            <div class="col-lg-8 col-12 ">
+              <div class="card shadow-sm" id="card-large">
                 <div class="card-header bg-transparent border-0">
-
-                  <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
-                    <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i>Student Information</h3>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $id . "' >Change Password</button>";?>
-                  </div>
+                    <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
                 <div class="card-body mt-2 pt-0">
-                  <table class="table table-bordered">
+                  <table class="table table-bordered" id="proftable">
 
                     <tr>
                       <th width="30%">Gender</th>
@@ -209,9 +204,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.org_id , tb_orgs.ORG FROM tb_officers INNER JOIN tb_orgs ON tb_officers.org_id=tb_orgs.ORG_ID WHERE tb_officers.officer_id = '$id'";
+                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
                                 $result = @mysqli_query($conn, $query);
-                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Position	</th>
@@ -221,7 +216,31 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
+                  <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[gender]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[birthdate]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Age:<br></strong><?php echo "$data[age]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                                  <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[course]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Mother Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
+                                        $result = @mysqli_query($conn, $query);
+                                        $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
+
+                            <!--  <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>-->
+                            </div>
+                  <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $id . "' >Change Password</button>";?>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -253,19 +272,19 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                       <div class="col-12 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="officer_id" >Officer ID:</label>
                            <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                       <div class="col-4 col-md-2 col-sm-3 mb-4">
+                       <div class="col-12 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="student_id" >Student ID:</label>
                            <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                       <div class="col-4 col-md-3 mb-4">
+                       <div class="col-12 col-md-3 mb-4">
                        <div class="form-outline">
                          <label class="form-label" for="account_created" >Account Created:</label>
                          <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
@@ -600,7 +619,7 @@ if(isset($_SESSION['msg'])){
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>  -->
-    
+
     <!-- <script src="js/form-validation.js"></script>
   Prevent Cut Copy Paste -->
     <script>

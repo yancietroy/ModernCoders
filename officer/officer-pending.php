@@ -569,7 +569,7 @@ if(isset($_SESSION['msg'])){
           keys: true,
           fixedheader:true,
       bautoWidth:false,
-          scrollX:true,
+        //  scrollX:true,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "60px" },
