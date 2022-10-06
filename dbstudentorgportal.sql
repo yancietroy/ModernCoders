@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 05, 2022 at 04:45 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 06, 2022 at 01:19 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -515,12 +515,16 @@ INSERT INTO `tb_position` (`POSITION_ID`, `position`) VALUES
 
 CREATE TABLE `tb_projectmonitoring` (
   `project_id` int(11) NOT NULL,
+  `position_id` int(3) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `project_name` varchar(100) DEFAULT NULL,
+  `requested_by` varchar(100) DEFAULT NULL,
+  `organizer` varchar(200) DEFAULT NULL,
   `project_type` varchar(200) DEFAULT NULL,
   `project_category` varchar(200) DEFAULT NULL,
-  `project_desc` varchar(8000) DEFAULT NULL,
+  `objectives` varchar(2000) DEFAULT NULL,
+  `project_desc` varchar(500) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `venue` varchar(100) DEFAULT NULL,
@@ -530,9 +534,11 @@ CREATE TABLE `tb_projectmonitoring` (
   `no_of_beneficiary` int(11) DEFAULT NULL,
   `budget_source` varchar(100) DEFAULT NULL,
   `estimated_budget` int(11) DEFAULT NULL,
+  `budget_req` varchar(3000) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `date_submitted` date DEFAULT NULL,
+  `status_date` date DEFAULT NULL,
   `remarks` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -540,16 +546,16 @@ CREATE TABLE `tb_projectmonitoring` (
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `org_id`, `course_id`, `project_name`, `project_type`, `project_category`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `attachments`, `status`, `date_submitted`, `remarks`) VALUES
-(20, NULL, NULL, 'JRU Fun Run', 'Outreach', 'Onsite', 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, 'Pending', '2022-09-06', ''),
-(21, NULL, NULL, 'JRU esports tryout', 'Extra Curricular', 'Onsite', 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, 'Approved', '2022-09-06', 'project approved'),
-(22, NULL, NULL, 'JRU Hyflex Seminar', 'Extra Curricular', 'Online', 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, 'For Revision', '2022-09-06', 'need to adjust the date'),
-(23, NULL, NULL, 'CSE tech showcase', 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, 'Rejected', '2022-09-06', 'already been done this year'),
-(24, NULL, NULL, 'CSE movie showing', 'Extra Curricular', 'Onsite', 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, 'Cancelled', '2022-09-06', 'Project cancelled.'),
-(25, NULL, NULL, 'CSE Coding Challenge', 'Curricular', 'Online', 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, 'Done', '2022-09-06', 'great work, project approved.'),
-(26, NULL, NULL, 'JRU virtual seminar', 'Curricular', 'Online', 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, 'Ongoing', '2022-09-06', 'project approved.'),
-(48, NULL, NULL, 'Sample Project 7', 'Curricular', 'Onsite', 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL),
-(49, NULL, NULL, 'Sample Project 8', 'Curricular', 'Onsite', 'Sample', '2022-09-30 18:00:00', '2022-10-01 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Third Party', 2000, '89987-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-30', NULL);
+INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
+(20, NULL, NULL, NULL, 'JRU Fun Run', NULL, NULL, 'Outreach', 'Onsite', NULL, 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, NULL, 'Pending', '2022-09-06', NULL, ''),
+(21, NULL, NULL, NULL, 'JRU esports tryout', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, NULL, 'Approved', '2022-09-06', NULL, 'project approved'),
+(22, NULL, NULL, NULL, 'JRU Hyflex Seminar', NULL, NULL, 'Extra Curricular', 'Online', NULL, 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, NULL, 'For Revision', '2022-09-06', NULL, 'need to adjust the date'),
+(23, NULL, NULL, NULL, 'CSE tech showcase', NULL, NULL, 'Curricular', 'Onsite', NULL, 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, NULL, 'Rejected', '2022-09-06', NULL, 'already been done this year'),
+(24, NULL, NULL, NULL, 'CSE movie showing', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, NULL, 'Cancelled', '2022-09-06', NULL, 'Project cancelled.'),
+(25, NULL, NULL, NULL, 'CSE Coding Challenge', NULL, NULL, 'Curricular', 'Online', NULL, 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, NULL, 'Done', '2022-09-06', NULL, 'great work, project approved.'),
+(26, NULL, NULL, NULL, 'JRU virtual seminar', NULL, NULL, 'Curricular', 'Online', NULL, 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, NULL, 'Ongoing', '2022-09-06', NULL, 'project approved.'),
+(48, NULL, NULL, NULL, 'Sample Project 7', NULL, NULL, 'Curricular', 'Onsite', NULL, 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, NULL, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL, NULL),
+(53, 1, 8, NULL, 'Sample Project 8', 'Bienvenido Legaspi', 'COMSOC', 'Seminar', 'Online', 'Sample OBJ', NULL, '2022-10-06 19:00:00', '2022-10-06 20:00:00', 'Home', 'JRU Students', NULL, NULL, NULL, NULL, NULL, '1500 - Sample budget request', '13914-H_30908.pdf', 'Pending', '2022-10-06', '2022-10-06', NULL);
 
 -- --------------------------------------------------------
 
@@ -918,7 +924,8 @@ ALTER TABLE `tb_position`
 ALTER TABLE `tb_projectmonitoring`
   ADD PRIMARY KEY (`project_id`),
   ADD KEY `project_course_id` (`course_id`),
-  ADD KEY `project_org_id` (`org_id`);
+  ADD KEY `project_org_id` (`org_id`),
+  ADD KEY `project_position_id` (`position_id`);
 
 --
 -- Indexes for table `tb_results`
@@ -1014,7 +1021,7 @@ ALTER TABLE `tb_officers_archive`
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `tb_usertypes`
@@ -1127,7 +1134,8 @@ ALTER TABLE `tb_pkcastkey`
 --
 ALTER TABLE `tb_projectmonitoring`
   ADD CONSTRAINT `project_course_id` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_position_id` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_results`
