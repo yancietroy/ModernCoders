@@ -395,7 +395,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
 
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                          <!--<div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
@@ -425,34 +425,34 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                               </div>
-                            </div>
+                            </div>-->
 
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="#" >Name of Organization:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="org_id" >Name of Organization:</label>
+                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Requested By:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="requested_by">Requested By:</label>
+                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Position:</label>
-                             <select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <?php
+                              <label class="form-label" for="position_id">Position:</label>
+                             <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <?php/**
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }
-                              ?>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                                        }**/
+                              ?>-->
+                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                         </div>
@@ -512,6 +512,9 @@ if(isset($_SESSION['msg'])){
                 $('#project_type').val(data.project_type);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
+                $('#org_id').val(data.org_id);
+                $('#requested_by').val(data.requested_by);
+                $('#position_id').val(data.position_id);
                 $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);

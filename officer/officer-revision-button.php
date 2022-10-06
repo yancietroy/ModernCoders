@@ -41,7 +41,8 @@
                 `no_of_beneficiary` ='$nob',
                 `estimated_budget` ='$eb',
                 `project_desc` ='$pd',
-                `status` ='$s'
+                `status` ='$s',
+                `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
@@ -60,7 +61,7 @@
         if($row)
         {
         $query = "UPDATE `tb_projectmonitoring` SET
-                `status` ='$s'
+                `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
@@ -79,7 +80,7 @@
         if($row)
         {
         $query = "UPDATE `tb_projectmonitoring` SET
-                `status` ='$s'
+                `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
@@ -98,7 +99,7 @@
         if($row)
         {
         $query = "UPDATE `tb_projectmonitoring` SET
-                `status` ='$s'
+                `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>

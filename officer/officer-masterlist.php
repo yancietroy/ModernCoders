@@ -322,8 +322,8 @@ if(isset($_SESSION['msg'])){
                      </div>
                      <div class="col-4 col-md-3 mb-4">
                      <div class="form-outline">
-                       <label class="form-label" for="#" >Status Date:</label>
-                       <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                       <label class="form-label" for="status_date" >Date For Revision:</label>
+                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                      </div>
                    </div>
                        </div>
@@ -336,8 +336,8 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control" style="background-color: #fff;" readonly  />
+                            <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly  />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Project name field cannot be blank!</div>
                           </div>
@@ -427,42 +427,52 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="#" >Name of Organization:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="org_id" >Name of Organization:</label>
+                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Requested By:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="requested_by">Requested By:</label>
+                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Position:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="position_id">Position:</label>
+                             <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <?php/**
+                                $query = "SELECT position_id, position FROM tb_position";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }**/
+                              ?>
+                              </select> -->
+                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                         </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  ">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="3" style="background-color: #fff;" readonly></textarea>
+                              <label class="form-label" for="objectives" >Objectives:</label>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline projectdesc">
-                              <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                              <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"  style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
+                        </div>
                       <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
@@ -488,20 +498,22 @@ if(isset($_SESSION['msg'])){
                 console.log(data);
                 $('#project_id').val(data.project_id);
                 $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
+                $('#organizer').val(data.organizer);
                 $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
                 $('#status').val(data.status);
                 $('#date_submitted').val(data.date_submitted);
+                $('#status_date').val(data.status_date);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
                 $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#org_id').val(data.org_id);
+                $('#requested_by').val(data.requested_by);
+                $('#position_id').val(data.position_id);
+                $('#attachments').val(data.attachments);
+                $('#objectives').val(data.objectives);
+                $('#budget_req').val(data.budget_req);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
