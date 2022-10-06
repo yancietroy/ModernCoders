@@ -175,6 +175,12 @@ if(isset($_SESSION['msg'])){
                     $eb = " ";
                     $a = " ";
                     $r = " ";
+                    $or =" ";
+                //    $sd = $row['status_date'];
+                    $rb = " ";
+                    $br =" ";
+                    $oid =" ";
+                    $pst =" ";
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -190,10 +196,11 @@ if(isset($_SESSION['msg'])){
                             <th class='none'>Start Date</th>
                             <th class='none'>End Date</th>
                             <th class='none'>Participants</th>
-                            <th class='none'>Number of Participants</th>
-                            <th class='none'>Beneficiary</th>
-                            <th class='none'>Number of Beneficiary</th>
-                            <th class='none'>Budget Source</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
                             <th class='none'>Remarks</th>
@@ -217,13 +224,15 @@ if(isset($_SESSION['msg'])){
                         $sd =$row['start_date'];
                         $ed =$row['end_date'];
                         $p =$row['participants'];
-                        $np =$row['no_of_participants'];
-                        $b = $row['beneficiary'];
-                        $nb = $row['no_of_beneficiary'];
-                        $bs =$row['budget_source'];
-                        $eb =$row['estimated_budget'];
+                        $or =$row['organizer'];
+                    //    $sd = $row['status_date'];
+                        $rb = $row['requested_by'];
+                        $br =$row['budget_req'];
+                        $oid =$row['org_id'];
+                        $pst =$row['position_id'];
                         $a = $row['attachments'];
                         $r =$row['remarks'];
+                        $eb =$row['estimated_budget'];
 
                         echo "<tr>
                               <td> $pi  </td>
@@ -234,16 +243,17 @@ if(isset($_SESSION['msg'])){
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               </td>
-                              <td> $pt  </td>
-                              <td> $pc  </td>
                               <td> $pd  </td>
-                              <td> $sd </td>
+                              <td> $pc  </td>
+                              <td> $pt  </td>
+                                <td> $sd  </td>
                               <td> $ed </td>
                               <td> $p  </td>
-                              <td> $np  </td>
-                              <td> $b  </td>
-                              <td> $nb  </td>
-                              <td> $bs </td>
+                              <td> $or  </td>
+                              <td> $rb  </td>
+                              <td> $br </td>
+                              <td> $oid  </td>
+                              <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
                               <td> $r  </td>
@@ -253,25 +263,26 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Venue</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
-                              <th>Actions</th>
-                              <th>Project Description</th>
-                              <th>Project Category</th>
-                              <th>Project Type</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
-                              <th>Participants</th>
-                              <th>Number of Participants</th>
-                              <th>Beneficiary</th>
-                              <th>Number of Beneficiary</th>
-                              <th>Budget Source</th>
-                              <th>Estimated Budget</th>
-                              <th>Attachment</th>
-                              <th>Remarks</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
+                            <th class='none'>Project Description</th>
+                            <th class='none'>Project Category</th>
+                            <th class='none'>Project Type</th>
+                            <th class='none'>Start Date</th>
+                            <th class='none'>End Date</th>
+                            <th class='none'>Participants</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
+                            <th class='none'>Estimated Budget</th>
+                            <th class='none'>Attachment</th>
+                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -383,7 +394,7 @@ if(isset($_SESSION['msg'])){
                             <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
-                          <!--
+
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -414,7 +425,7 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                               </div>
-                            </div>-->
+                            </div>
 
                         </div>
                         <div class="row">
@@ -433,14 +444,14 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label">Position:</label>
-                              <!-- <select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly> 
-                              <?php/**
+                             <select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <?php
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }**/
-                              ?>-->
+                                        }
+                              ?>
                               <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
@@ -595,7 +606,8 @@ if(isset($_SESSION['msg'])){
         { "width": "130px" },
         { "width": "130px" },
         { "width": "100px" },
-        { "width": "80px" }
+        { "width": "80px" },
+        { "width": "100px" }
   ],
             select: 'single',
           buttons: [
