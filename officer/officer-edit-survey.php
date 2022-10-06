@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -65,8 +65,7 @@ if(isset($_SESSION['msg'])){
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -107,7 +106,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -128,65 +127,17 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3"><a class="" href="officer-profile.php" title="view student officer profile" aria-label="profile">Student Officer Profile</a></h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                </div>
-                <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                    <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Name:</label>
-                      <h5>$row[1]</h5>
-                      <label class='text-muted mt-3'>Section:</label>
-                      <h5>$row[4]</h5>
-                  </div>
-                  <div class='col-12 col-md-4 mt-2'>
-                    <label class='text-muted'>JRU ID:</label>
-                    <h5>19-255322</h5>
-                    <label class='text-muted mt-3'>Email:</label>
-                    <h6>$row[3]</h6>
-                  </div>
-                  <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>
-                      <label class='text-muted mt-3'>Course:</label>
-                      <h6 class='fs-6'>$row[2]</h6>
-                  ";
-                      /**<label class='text-muted'>Position:</label>
-                      <h5>Year $row[5] </h5>
-                          </div>";**/
-                  }
-                  ?>
-              </div>
+      <?php
 
-            </div>
-          </div>
-        </div>
-      </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
-              <a href="officer-orgs.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Footer -->
+  $qry = $conn->query("SELECT * FROM tb_survey_set where id = ".$_GET['id'])->fetch_array();
+  foreach($qry as $k => $v){
+  	if($k == 'title')
+  		$k = 'stitle';
+  	$$k = $v;
+  }
+  include 'officer-add-survey.php';
+  ?>
+    <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
