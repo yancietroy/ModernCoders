@@ -345,13 +345,13 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-12 col-sm-3 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="project_name" >Project name:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;"  />
                           </div>
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
-                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly  />
+                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;"   />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Project name field cannot be blank!</div>
                           </div>
@@ -359,7 +359,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
+                            <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;"  />
                           </div>
                         </div>
                         </div>
@@ -370,24 +370,24 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                           <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
+                          <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;"  />
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
+                            <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;"  />
                           </div>
                         </div>
                             <div class="row">
                           <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="start_date" >Start Date:</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
+                              <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;"  />
                             </div>
                           </div>
                           <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="end_date" >End Date:</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
+                              <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;"  />
                             </div>
                           </div>
                         </div>
@@ -395,7 +395,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="participants" >Participants:</label>
-                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;"  />
                             </div>
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
@@ -471,13 +471,13 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  ">
                               <label class="form-label" for="objectives" >Objectives:</label>
-                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" ></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-2">
                             <div class="form-outline  ">
                               <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                              <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" ></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -485,7 +485,7 @@ if(isset($_SESSION['msg'])){
                               <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                              <div class="input-group flex-nowrap">
                             <span class="input-group-text" id="addon-wrapping">PHP</span>
-                           <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                           <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;"  />
                            </div>
                          </div>
                        </div>
