@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2022 at 01:19 PM
+-- Generation Time: Oct 07, 2022 at 01:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -87,6 +87,33 @@ CREATE TABLE `tb_admin_archive` (
 
 INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
 (23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_answers`
+--
+
+CREATE TABLE `tb_answers` (
+  `id` int(30) NOT NULL,
+  `survey_id` int(30) NOT NULL,
+  `user_id` int(30) NOT NULL,
+  `answer` text NOT NULL,
+  `question_id` int(30) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_answers`
+--
+
+INSERT INTO `tb_answers` (`id`, `survey_id`, `user_id`, `answer`, `question_id`, `date_created`) VALUES
+(1, 1, 2, 'Sample Only', 4, '2020-11-10 14:46:07'),
+(2, 1, 2, '[JNmhW],[zZpTE]', 2, '2020-11-10 14:46:07'),
+(3, 1, 2, 'dAWTD', 1, '2020-11-10 14:46:07'),
+(4, 1, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tempus turpis, sed fermentum risus. Praesent vitae velit rutrum, dictum massa nec, pharetra felis. Phasellus enim augue, laoreet in accumsan dictum, mollis nec lectus. Aliquam id viverra nisl. Proin quis posuere nulla. Nullam suscipit eget leo ut suscipit.', 4, '2020-11-10 15:59:43'),
+(5, 1, 3, '[qCMGO],[JNmhW]', 2, '2020-11-10 15:59:43'),
+(6, 1, 3, 'esNuP', 1, '2020-11-10 15:59:43');
 
 -- --------------------------------------------------------
 
@@ -442,8 +469,7 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
 CREATE TABLE `tb_pkanswerkey` (
   `question_id` int(9) NOT NULL,
   `answer` varchar(8000) NOT NULL,
-  `student_id` int(9) NOT NULL,
-  `survey_id` int(2) NOT NULL
+  `student_id` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -550,12 +576,37 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `cour
 (20, NULL, NULL, NULL, 'JRU Fun Run', NULL, NULL, 'Outreach', 'Onsite', NULL, 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, NULL, 'Pending', '2022-09-06', NULL, ''),
 (21, NULL, NULL, NULL, 'JRU esports tryout', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, NULL, 'Approved', '2022-09-06', NULL, 'project approved'),
 (22, NULL, NULL, NULL, 'JRU Hyflex Seminar', NULL, NULL, 'Extra Curricular', 'Online', NULL, 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, NULL, 'For Revision', '2022-09-06', NULL, 'need to adjust the date'),
-(23, NULL, NULL, NULL, 'CSE tech showcase', NULL, NULL, 'Curricular', 'Onsite', NULL, 'CSE tech showcase for CSE students', '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, NULL, 'Rejected', '2022-09-06', NULL, 'already been done this year'),
+(23, NULL, NULL, NULL, 'CSE tech showcase', NULL, NULL, 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', NULL, '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, NULL, 'Rejected', '2022-09-06', NULL, 'already been done this year'),
 (24, NULL, NULL, NULL, 'CSE movie showing', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, NULL, 'Cancelled', '2022-09-06', NULL, 'Project cancelled.'),
 (25, NULL, NULL, NULL, 'CSE Coding Challenge', NULL, NULL, 'Curricular', 'Online', NULL, 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, NULL, 'Done', '2022-09-06', NULL, 'great work, project approved.'),
 (26, NULL, NULL, NULL, 'JRU virtual seminar', NULL, NULL, 'Curricular', 'Online', NULL, 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, NULL, 'Ongoing', '2022-09-06', NULL, 'project approved.'),
 (48, NULL, NULL, NULL, 'Sample Project 7', NULL, NULL, 'Curricular', 'Onsite', NULL, 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, NULL, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL, NULL),
-(53, 1, 8, NULL, 'Sample Project 8', 'Bienvenido Legaspi', 'COMSOC', 'Seminar', 'Online', 'Sample OBJ', NULL, '2022-10-06 19:00:00', '2022-10-06 20:00:00', 'Home', 'JRU Students', NULL, NULL, NULL, NULL, NULL, '1500 - Sample budget request', '13914-H_30908.pdf', 'Pending', '2022-10-06', '2022-10-06', NULL);
+(53, 1, 8, NULL, 'Sample Project 8', 'Bienvenido Legaspi', 'COMSOC', 'Seminar', 'Online', 'Sample OBJ', NULL, '2022-10-06 19:00:00', '2022-10-06 20:00:00', 'Home', 'JRU Students', NULL, NULL, NULL, NULL, NULL, '1500 - Sample budget request', '13914-H_30908.pdf', 'For Revision', '2022-10-06', '2022-10-06', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_questions`
+--
+
+CREATE TABLE `tb_questions` (
+  `id` int(30) NOT NULL,
+  `question` text NOT NULL,
+  `frm_option` text NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `order_by` int(11) NOT NULL,
+  `survey_id` int(30) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_questions`
+--
+
+INSERT INTO `tb_questions` (`id`, `question`, `frm_option`, `type`, `order_by`, `survey_id`, `date_created`) VALUES
+(1, 'Sample Survey Question using Radio Button', '{\"cKWLY\":\"Option 1\",\"esNuP\":\"Option 2\",\"dAWTD\":\"Option 3\",\"eZCpf\":\"Option 4\"}', 'radio_opt', 3, 1, '2020-11-10 12:04:46'),
+(2, 'Question for Checkboxes', '{\"qCMGO\":\"Checkbox label 1\",\"JNmhW\":\"Checkbox label 2\",\"zZpTE\":\"Checkbox label 3\",\"dOeJi\":\"Checkbox label 4\"}', 'check_opt', 2, 1, '2020-11-10 12:25:13'),
+(4, 'Sample question for the text field', '', 'textfield_s', 1, 1, '2020-11-10 13:34:21');
 
 -- --------------------------------------------------------
 
@@ -675,19 +726,6 @@ CREATE TABLE `tb_students_archive` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_survey`
---
-
-CREATE TABLE `tb_survey` (
-  `survey_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `question` varchar(8000) NOT NULL,
-  `response` varchar(8000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_surveyresult`
 --
 
@@ -698,6 +736,33 @@ CREATE TABLE `tb_surveyresult` (
   `response` varchar(8000) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_survey_set`
+--
+
+CREATE TABLE `tb_survey_set` (
+  `id` int(30) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(30) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_survey_set`
+--
+
+INSERT INTO `tb_survey_set` (`id`, `title`, `description`, `user_id`, `start_date`, `end_date`, `date_created`) VALUES
+(1, 'Sample Survey', 'Sample Only', 0, '2020-11-06', '2020-12-10', '2020-11-10 09:57:47'),
+(2, 'Survey 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tempus turpis, sed fermentum risus. Praesent vitae velit rutrum, dictum massa nec, pharetra felis. Phasellus enim augue, laoreet in accumsan dictum, mollis nec lectus. ', 0, '2020-10-15', '2020-12-30', '2020-11-10 14:12:09'),
+(3, 'Survey 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tempus turpis, sed fermentum risus. Praesent vitae velit rutrum, dictum massa nec, pharetra felis. ', 0, '2020-09-01', '2020-11-27', '2020-11-10 14:12:33'),
+(4, 'Survey 23', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tempus turpis, sed fermentum risus. Praesent vitae velit rutrum, dictum massa nec, pharetra felis. ', 0, '2020-09-10', '2020-11-27', '2020-11-10 14:14:03'),
+(5, 'Sample Survey 101', 'Sample only', 0, '2020-10-01', '2020-11-23', '2020-11-10 14:14:29');
 
 -- --------------------------------------------------------
 
@@ -770,6 +835,12 @@ ALTER TABLE `tb_admin`
 --
 ALTER TABLE `tb_admin_archive`
   ADD PRIMARY KEY (`ADMIN_ID`);
+
+--
+-- Indexes for table `tb_answers`
+--
+ALTER TABLE `tb_answers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_audit_trail`
@@ -894,8 +965,7 @@ ALTER TABLE `tb_orgs`
 -- Indexes for table `tb_pkanswerkey`
 --
 ALTER TABLE `tb_pkanswerkey`
-  ADD KEY `pkAnswerKey_studentID_fk` (`student_id`),
-  ADD KEY `pkAnswerKey_surveyID_fk` (`survey_id`);
+  ADD KEY `pkAnswerKey_studentID_fk` (`student_id`);
 
 --
 -- Indexes for table `tb_pkapplykey`
@@ -926,6 +996,12 @@ ALTER TABLE `tb_projectmonitoring`
   ADD KEY `project_course_id` (`course_id`),
   ADD KEY `project_org_id` (`org_id`),
   ADD KEY `project_position_id` (`position_id`);
+
+--
+-- Indexes for table `tb_questions`
+--
+ALTER TABLE `tb_questions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_results`
@@ -964,19 +1040,18 @@ ALTER TABLE `tb_students_archive`
   ADD PRIMARY KEY (`STUDENT_ID`);
 
 --
--- Indexes for table `tb_survey`
---
-ALTER TABLE `tb_survey`
-  ADD PRIMARY KEY (`survey_id`),
-  ADD KEY `survey_event_id_fk` (`event_id`);
-
---
 -- Indexes for table `tb_surveyresult`
 --
 ALTER TABLE `tb_surveyresult`
   ADD PRIMARY KEY (`RESULTS_ID`),
   ADD KEY `suveyResult_org_id_fk` (`ORG_ID`),
   ADD KEY `suveyResult_event_id_fk` (`event_id`);
+
+--
+-- Indexes for table `tb_survey_set`
+--
+ALTER TABLE `tb_survey_set`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_thread`
@@ -1006,6 +1081,12 @@ ALTER TABLE `tb_vote`
 --
 
 --
+-- AUTO_INCREMENT for table `tb_answers`
+--
+ALTER TABLE `tb_answers`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
@@ -1022,6 +1103,18 @@ ALTER TABLE `tb_officers_archive`
 --
 ALTER TABLE `tb_projectmonitoring`
   MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `tb_questions`
+--
+ALTER TABLE `tb_questions`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tb_survey_set`
+--
+ALTER TABLE `tb_survey_set`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_usertypes`
@@ -1079,12 +1172,6 @@ ALTER TABLE `tb_disc_topic`
   ADD CONSTRAINT `discTopic_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_event`
---
-ALTER TABLE `tb_event`
-  ADD CONSTRAINT `event_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `tb_morg`
 --
 ALTER TABLE `tb_morg`
@@ -1111,8 +1198,7 @@ ALTER TABLE `tb_orgs`
 -- Constraints for table `tb_pkanswerkey`
 --
 ALTER TABLE `tb_pkanswerkey`
-  ADD CONSTRAINT `pkAnswerKey_studentID_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pkAnswerKey_surveyID_fk` FOREIGN KEY (`survey_id`) REFERENCES `tb_survey` (`survey_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pkAnswerKey_studentID_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_pkapplykey`
@@ -1152,12 +1238,6 @@ ALTER TABLE `tb_students`
   ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_morg` (`MORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_usertype_id_fk` FOREIGN KEY (`USER_TYPE`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_survey`
---
-ALTER TABLE `tb_survey`
-  ADD CONSTRAINT `survey_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `tb_event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_surveyresult`
