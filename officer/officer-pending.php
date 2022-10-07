@@ -190,7 +190,7 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Project Description</th>
+                            <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
                             <th class='none'>Start Date</th>
@@ -203,7 +203,6 @@ if(isset($_SESSION['msg'])){
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -219,7 +218,7 @@ if(isset($_SESSION['msg'])){
                         $v = $row['venue'];
                         $s = $row['status'];
                         $pt = $row['project_type'];
-                        $pc =$row['project_category'];
+                        $obj =$row['objectives'];
                         $pd =$row['project_desc'];
                         $sd =$row['start_date'];
                         $ed =$row['end_date'];
@@ -243,20 +242,19 @@ if(isset($_SESSION['msg'])){
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               </td>
-                              <td> $pd  </td>
+                              <td> $obj  </td>
                               <td> $pc  </td>
                               <td> $pt  </td>
-                                <td> $sd  </td>
+                              <td> $sd </td>
                               <td> $ed </td>
                               <td> $p  </td>
                               <td> $or  </td>
                               <td> $rb  </td>
-                              <td> $br </td>
+                              <td> $br  </td>
                               <td> $oid  </td>
                               <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
-                              <td> $r  </td>
                               </tr>
                           ";
                       }
@@ -269,7 +267,7 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Project Description</th>
+                            <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
                             <th class='none'>Start Date</th>
@@ -282,7 +280,6 @@ if(isset($_SESSION['msg'])){
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -432,6 +429,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="org_id" >Name of Organization:</label>
+
                               <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
@@ -464,17 +462,27 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline projectdesc">
+                            <div class="form-outline ">
                               <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                          <div class="col-12 col-md-12 mb-4">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
+                           <div class="form-outline">
+
+                              <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
+                             <div class="input-group flex-nowrap">
+                            <span class="input-group-text" id="addon-wrapping">PHP</span>
+                           <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                           </div>
+                         </div>
+                       </div>
+                          <!--  <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
-                          </div>
+                          </div>!-->
                         </div>
                     </div>
                     <div class="modal-footer px-0 py-0 pt-2">
@@ -509,12 +517,14 @@ if(isset($_SESSION['msg'])){
                 $('#date_submitted').val(data.date_submitted);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
+                $('#project_desc').val(data.project_desc);
                 $('#project_type').val(data.project_type);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
                 $('#org_id').val(data.org_id);
                 $('#requested_by').val(data.requested_by);
                 $('#position_id').val(data.position_id);
+                $('#estimated_budget').val(data.estimated_budget);
                 $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
@@ -609,8 +619,7 @@ if(isset($_SESSION['msg'])){
         { "width": "130px" },
         { "width": "130px" },
         { "width": "100px" },
-        { "width": "80px" },
-        { "width": "100px" }
+        { "width": "80px" }
   ],
             select: 'single',
           buttons: [
@@ -620,7 +629,7 @@ if(isset($_SESSION['msg'])){
            title: 'JRU Organizations Portal -   Pending List',
            footer: true,
          exportOptions: {
-           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
        },
          } ,
             //{
@@ -639,7 +648,7 @@ if(isset($_SESSION['msg'])){
               title: 'JRU Organizations Portal -   Pending List',
               footer: true,
               exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+             columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
             },
             orientation : 'landscape',
           pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -649,7 +658,7 @@ if(isset($_SESSION['msg'])){
               title: 'JRU Organizations Portal -   Pending List',
               footer: true,
               exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+               columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
             },
             customize: function(win)
             {

@@ -60,13 +60,13 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li class="active">
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
           <li>
             <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
           </li>
-          <li class="active">
+          <li>
             <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
           </li>
           <li>
@@ -334,7 +334,7 @@ if(isset($_SESSION['msg'])){
                               <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
                             </div>
                           </div>
-                          <div class="col-6 col-md-4 mb-4 ">
+                          <div class="col-12 col-md-4 mb-4 ">
                             <label class="form-label" for="last_name">Last name </label>
                             <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
                           </div>
@@ -392,13 +392,13 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="section">Section:</label>
-                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;"  />
+                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;"  readonly/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="year_level" >Year Level:</label>
-                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');"  />
+                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <input type="hidden" name="profile_pic" id="profile_pic" class="form-control"/>
@@ -407,18 +407,18 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="birthdate" >Birthdate:</label>
-                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  />
+                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="age" >Age:</label>
-                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" />
+                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" readonly/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="gender" >Gender</label>
-                              <select class="form-select" name="gender" id="gender">
+                              <select class="form-select" name="gender" id="gender" readonly>
                                 <option value="Female">Female</option>
                                 <option value="Male">Male</option>
                               </select>

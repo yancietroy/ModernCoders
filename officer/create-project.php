@@ -295,12 +295,25 @@ if(isset($_SESSION['msg'])){
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget request." required></textarea>
+                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget breakdown." required></textarea>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Objectives field cannot be blank!</div>
               </div>
             </div>
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
+             <div class="form-outline">
+
+                <label class="form-label" for="estimated_budget" id="asterisk" >Estimated Budget:</label>
+               <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="addon-wrapping">PHP</span>
+              <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" required />
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback">Budget field cannot be blank!</div>
+             </div>
+           </div>
+         </div>
           </div>
+
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
@@ -325,7 +338,7 @@ if(isset($_SESSION['msg'])){
       </div>
       </div>
       <?php
-              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc) || isset($p) || isset($obj) ||  isset($br) || isset($_POST['submit']))
+              if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit']))
                 {
                   $pn = $_POST['project_name'];
                   $o = $_POST['organizer'];
@@ -337,13 +350,15 @@ if(isset($_SESSION['msg'])){
                   $p = $_POST['participants'];
                   $obj = $_POST['objectives'];
                   $br = $_POST['budget_req'];
+                 $eb = $_POST['estimated_budget'];
                   $s = "Pending";
+
                   $pname = rand(1000,100000)."-".$_FILES['attachments']['name'];
                   $destination = 'attachments/' . $pname;
                   $tname = $_FILES['attachments']['tmp_name'];
                   move_uploaded_file($tname, $destination);
 
-                    $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, date_submitted, status, attachments, status_date, requested_by, org_id, position_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID')";
+                    $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID')";
                       $result = @mysqli_query($conn, $query);
 
                       echo "<script type='text/javascript'>
