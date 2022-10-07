@@ -149,12 +149,12 @@ if(isset($_SESSION['msg'])){
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo "$si"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo "$data[YEAR_LEVEL]"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo "$data[SECTION]"; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
+              <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
             <div class="col-12 col-lg-8">
-              <div class="card card-profile shadow">
+              <div class="card card-profile shadow" id="card-large">
                 <div class="card-header bg-transparent border-0">
                     <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
@@ -208,24 +208,24 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                   </table>
-                  <div class="card-body mt-2 p-4 pt-0" id="card-show">
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">Gender:</strong> <?php echo "$data[GENDER]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">Birthdate:</strong><?php echo "$data[BIRTHDATE]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">Age:</strong><?php echo "$data[AGE]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">Email:</strong><?php echo "$data[EMAIL]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">College:</strong><?php $query = "SELECT tb_students.COLLEGE_DEPT, tb_collegedept.college FROM tb_students INNER JOIN tb_collegedept ON tb_students.COLLEGE_DEPT=tb_collegedept.college_id WHERE tb_students.STUDENT_ID = '$id'";
+                  <div class="card-body mt-2 p-0 pt-0" id="card-show">
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[GENDER]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[BIRTHDATE]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Age:<br></strong><?php echo "$data[AGE]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Email:<br></strong><?php echo "$data[EMAIL]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_students.COLLEGE_DEPT, tb_collegedept.college FROM tb_students INNER JOIN tb_collegedept ON tb_students.COLLEGE_DEPT=tb_collegedept.college_id WHERE tb_students.STUDENT_ID = '$id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  ">Mother Organization:</strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Mother Organization:<br></strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></p>
-                              <p class="mb-2 pe-2"><strong class="pr-1  ">Birthdate:</strong><?php echo "$data[BIRTHDATE]"; ?></p>
-                              <p class="mb-2 pe-2"><strong class="pr-1  ">Role:</strong><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
+                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[BIRTHDATE]"; ?></p>
+                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
                                         $result = @mysqli_query($conn, $query);
                                         $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
 
-                              <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
-                              <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>
+                                        <!--  <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
+                                          <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>-->
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>

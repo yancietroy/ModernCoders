@@ -54,7 +54,7 @@ if(isset($_SESSION['message'])){
             	if(!empty($_POST['email']) || !empty($_POST['password'])) {
             		ob_start();
 
-            		$query = "Select officer_ID FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+            		$query = "SELECT officer_ID, org_id FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
             		$result = @mysqli_query($conn, $query);
             		$row = mysqli_fetch_array ($result);
 
@@ -62,6 +62,7 @@ if(isset($_SESSION['message'])){
             		{
             			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
                 $_SESSION['use'] = $row[0];
+                $_SESSION['org'] = $row[1];
                 if(isset($_SESSION['use'])){
                 header("Location:officer/officer-index.php");
                 @mysqli_close($conn);

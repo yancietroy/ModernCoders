@@ -480,7 +480,7 @@ $(document).ready(function () {
           responsive: true,
           keys: true,
           //select: true,
-       //scrollX:true,
+       //// scrollX:true,
       //    scrollCollapse: true,
           fixedheader:true,
       bautoWidth:false,

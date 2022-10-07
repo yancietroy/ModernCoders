@@ -1250,6 +1250,16 @@ display: none;
   width: 130%;
      margin-left: -15%;
 }
+#card-show p {
+
+  font-size:4vw;
+}
+
+#card-large {
+  justify-content: center;
+  width: 140%;
+     margin-left: -20%;
+}
  #orgs {
    margin-left: -5%;
  }

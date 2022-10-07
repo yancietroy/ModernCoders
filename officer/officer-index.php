@@ -135,7 +135,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4">
               <div class="row g-0">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
                 </div>
                 <?php
                   $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
@@ -173,7 +173,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <h4 class="ms-3">My Organizations</h4>
+      <h4 class="ms-5 mb-0">My Organizations</h4>
       <div class="row ms-4 mb-4 mt-4">
         <div class="col-12  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">

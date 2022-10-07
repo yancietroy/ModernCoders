@@ -170,6 +170,12 @@ if(isset($_SESSION['msg'])){
                     $eb = " ";
                     $a = " ";
                     $r = " ";
+                    $or =" ";
+                    $std = " ";
+                    $rb = " ";
+                    $br =" ";
+                    $oid =" ";
+                    $pst =" ";
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -179,16 +185,18 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Project Description</th>
+                            <th class='none'>Date Approved</th>
+                            <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
                             <th class='none'>Start Date</th>
                             <th class='none'>End Date</th>
                             <th class='none'>Participants</th>
-                            <th class='none'>Number of Participants</th>
-                            <th class='none'>Beneficiary</th>
-                            <th class='none'>Number of Beneficiary</th>
-                            <th class='none'>Budget Source</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
                             <th class='none'>Remarks</th>
@@ -207,18 +215,20 @@ if(isset($_SESSION['msg'])){
                         $v = $row['venue'];
                         $s = $row['status'];
                         $pt = $row['project_type'];
-                        $pc =$row['project_category'];
+                        $obj =$row['objectives'];
                         $pd =$row['project_desc'];
                         $sd =$row['start_date'];
                         $ed =$row['end_date'];
                         $p =$row['participants'];
-                        $np =$row['no_of_participants'];
-                        $b = $row['beneficiary'];
-                        $nb = $row['no_of_beneficiary'];
-                        $bs =$row['budget_source'];
-                        $eb =$row['estimated_budget'];
+                        $or =$row['organizer'];
+                        $std = $row['status_date'];
+                        $rb = $row['requested_by'];
+                        $br =$row['budget_req'];
+                        $oid =$row['org_id'];
+                        $pst =$row['position_id'];
                         $a = $row['attachments'];
                         $r =$row['remarks'];
+                        $eb =$row['estimated_budget'];
 
                         echo "<tr>
                               <td> $pi  </td>
@@ -228,17 +238,20 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
-                              <td> $pt  </td>
+                              <td> $std  </td>
+                              <td> $obj  </td>
                               <td> $pc  </td>
-                              <td> $pd  </td>
+                              <td> $pt  </td>
                               <td> $sd </td>
                               <td> $ed </td>
                               <td> $p  </td>
-                              <td> $np  </td>
-                              <td> $b  </td>
-                              <td> $nb  </td>
-                              <td> $bs </td>
+                              <td> $or  </td>
+                              <td> $rb  </td>
+                              <td> $br  </td>
+                              <td> $oid  </td>
+                              <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
                               <td> $r  </td>
@@ -248,25 +261,27 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Venue</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
-                              <th>Actions</th>
-                              <th>Project Description</th>
-                              <th>Project Category</th>
-                              <th>Project Type</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
-                              <th>Participants</th>
-                              <th>Number of Participants</th>
-                              <th>Beneficiary</th>
-                              <th>Number of Beneficiary</th>
-                              <th>Budget Source</th>
-                              <th>Estimated Budget</th>
-                              <th>Attachment</th>
-                              <th>Remarks</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
+                            <th class='none'>Date Approved</th>
+                            <th class='none'>Objectives</th>
+                            <th class='none'>Project Category</th>
+                            <th class='none'>Project Type</th>
+                            <th class='none'>Start Date</th>
+                            <th class='none'>End Date</th>
+                            <th class='none'>Participants</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
+                            <th class='none'>Estimated Budget</th>
+                            <th class='none'>Attachment</th>
+                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -316,8 +331,8 @@ if(isset($_SESSION['msg'])){
                      </div>
                      <div class="col-4 col-md-3 mb-4">
                      <div class="form-outline">
-                       <label class="form-label" for="date_approved" >Date Approved:</label>
-                       <input type="text" name="date_approved" id="date_approved" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                       <label class="form-label" for="status_date" >Date Approved:</label>
+                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                      </div>
                    </div>
                        </div>
@@ -330,8 +345,8 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="project_name" id="asterisk">Organizer:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control" style="background-color: #fff;" readonly  />
+                            <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly  />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Project name field cannot be blank!</div>
                           </div>
@@ -421,43 +436,55 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="#" >Name of Organization:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="org_id" >Name of Organization:</label>
+                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Requested By:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="requested_by">Requested By:</label>
+                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Position:</label>
-                              <input type="text" name="#" id="#" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <label class="form-label" for="position_id">Position:</label>
+                              <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <?php/**
+                                $query = "SELECT position_id, position FROM tb_position";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }
+                              **/?>-->
+                            </select>
+                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
                         </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  ">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="3" style="background-color: #fff;" readonly></textarea>
+                              <label class="form-label" for="objectives" >Objectives:</label>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline projectdesc">
-                              <label class="form-label" for="project_desc" id="asterisk">Budget Request:</label>
+                              <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"  style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                    <div class="modal-footer px-0 py-0 pt-2">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer px-2 py-2 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
                     </div>
@@ -482,20 +509,22 @@ if(isset($_SESSION['msg'])){
                 console.log(data);
                 $('#project_id').val(data.project_id);
                 $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
+                $('#organizer').val(data.organizer);
                 $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
                 $('#status').val(data.status);
                 $('#date_submitted').val(data.date_submitted);
+                $('#status_date').val(data.status_date);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
                 $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#org_id').val(data.org_id);
+                $('#requested_by').val(data.requested_by);
+                $('#position_id').val(data.position_id);
+                $('#attachments').val(data.attachments);
+                $('#objectives').val(data.objectives);
+                $('#budget_req').val(data.budget_req);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
@@ -568,25 +597,27 @@ if(isset($_SESSION['msg'])){
       bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "100px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" }
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "100px" },
+          { "width": "100px" },
+           { "width": "80px" }
   ],
             select: 'single',
           buttons: [
