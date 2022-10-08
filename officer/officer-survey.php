@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -51,7 +51,7 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li class="active">
+        <li>
           <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
 
         </li>
@@ -64,9 +64,8 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
-        <li>
+        <li class="active">
           <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -107,7 +106,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -128,65 +127,110 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3"><a class="" href="officer-profile.php" title="view student officer profile" aria-label="profile">Student Officer Profile</a></h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                </div>
-                <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                    <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Name:</label>
-                      <h5>$row[1]</h5>
-                      <label class='text-muted mt-3'>Section:</label>
-                      <h5>$row[4]</h5>
-                  </div>
-                  <div class='col-12 col-md-4 mt-2'>
-                    <label class='text-muted'>JRU ID:</label>
-                    <h5>19-255322</h5>
-                    <label class='text-muted mt-3'>Email:</label>
-                    <h6>$row[3]</h6>
-                  </div>
-                  <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>
-                      <label class='text-muted mt-3'>Course:</label>
-                      <h6 class='fs-6'>$row[2]</h6>
-                  ";
-                      /**<label class='text-muted'>Position:</label>
-                      <h5>Year $row[5] </h5>
-                          </div>";**/
-                  }
-                  ?>
-              </div>
-
-            </div>
-          </div>
+    
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4>Survey List</h4>
         </div>
       </div>
-      <h4 class="ms-5 mb-0">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+      <div class="col-lg-12">
+      	<div class="card card-outline card-primary">
+      		<div class="card-header">
+      			<div class="card-tools">
+      				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="officer-add-survey.php"><i class="fa fa-plus"></i> Add New Survey</a>
+      			</div>
+      		</div>
+      		<div class="card-body">
+      			<table class="table tabe-hover table-bordered" id="list">
+      				<colgroup>
+      					<col width="5%">
+      					<col width="20%">
+      					<col width="20%">
+      					<col width="20%">
+      					<col width="20%">
+      					<col width="15%">
+      				</colgroup>
+      				<thead>
+      					<tr>
+      						<th class="text-center">#</th>
+      						<th>Title</th>
+      						<th>Description</th>
+      						<th>Start</th>
+      						<th>End</th>
+      						<th>Action</th>
+      					</tr>
+      				</thead>
+      				<tbody>
+      					<?php
+      					$i = 1;
+      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc ");
+      					while($row= $qry->fetch_assoc()):
+      					?>
+      					<tr>
+      						<th class="text-center"><?php echo $i++ ?></th>
+      						<td><b><?php echo ucwords($row['title']) ?></b></td>
+      						<td><b class="truncate"><?php echo $row['description'] ?></b></td>
+      						<td><b><?php echo date("M d, Y",strtotime($row['start_date'])) ?></b></td>
+      						<td><b><?php echo date("M d, Y",strtotime($row['end_date'])) ?></b></td>
+      						<td class="text-center">
+      							<!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+      		                      Action
+      		                    </button>
+      		                    <div class="dropdown-menu" style="">
+      		                      <a class="dropdown-item" href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>">Edit</a>
+      		                      <div class="dropdown-divider"></div>
+      		                      <a class="dropdown-item delete_survey" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
+      		                    </div> -->
+      		                    <div class="btn-group">
+      		                        <a href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
+      		                          <i class="fas fa-edit"></i>
+      		                        </a>
+      		                        <a  href="./index.php?page=view_survey&id=<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
+      		                          <i class="fas fa-eye"></i>
+      		                        </a>
+      		                        <button type="button" class="btn btn-danger btn-flat delete_survey" data-id="<?php echo $row['id'] ?>">
+      		                          <i class="fas fa-trash"></i>
+      		                        </button>
+      	                      </div>
+      						</td>
+      					</tr>
+      				<?php endwhile; ?>
+      				</tbody>
+      			</table>
+      		</div>
+      	</div>
+      </div>
+      <script>
+      	$(document).ready(function(){
+      		$('#list').dataTable()
+      	$('.delete_survey').click(function(){
+      	_conf("Are you sure to delete this survey?","delete_survey",[$(this).attr('data-id')])
+      	})
+      	})
+      	function delete_survey($id){
+      		start_load()
+      		$.ajax({
+      			url:'ajax.php?action=delete_survey',
+      			method:'POST',
+      			data:{id:$id},
+      			success:function(resp){
+      				if(resp==1){
+      					alert_toast("Data successfully deleted",'success')
+      					setTimeout(function(){
+      						location.reload()
+      					},1500)
 
-              <a href="officer-orgs.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
+      				}
+      			}
+      		})
+      	}
+      </script>
 
-        <!-- Footer -->
+
+
+
+
+    <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">

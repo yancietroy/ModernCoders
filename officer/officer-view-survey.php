@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -65,8 +65,7 @@ if(isset($_SESSION['msg'])){
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        
+          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -107,7 +106,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -128,65 +127,137 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3"><a class="" href="officer-profile.php" title="view student officer profile" aria-label="profile">Student Officer Profile</a></h4>
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
-          <div class="card shadow border-0 rounded-lg mt-4 mb-5">
-            <div class="card-body p-4">
-              <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
-                </div>
-                <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
-                    <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Name:</label>
-                      <h5>$row[1]</h5>
-                      <label class='text-muted mt-3'>Section:</label>
-                      <h5>$row[4]</h5>
-                  </div>
-                  <div class='col-12 col-md-4 mt-2'>
-                    <label class='text-muted'>JRU ID:</label>
-                    <h5>19-255322</h5>
-                    <label class='text-muted mt-3'>Email:</label>
-                    <h6>$row[3]</h6>
-                  </div>
-                  <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>
-                      <label class='text-muted mt-3'>Course:</label>
-                      <h6 class='fs-6'>$row[2]</h6>
-                  ";
-                      /**<label class='text-muted'>Position:</label>
-                      <h5>Year $row[5] </h5>
-                          </div>";**/
-                  }
-                  ?>
-              </div>
 
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-12">
+      	<div class="row">
+      		<div class="col-md-4">
+      			<div class="card card-outline card-primary">
+      				<div class="card-header">
+      					<h3 class="card-title">Survey Details</h3>
+      				</div>
+      				<div class="card-body p-0 py-2">
+      					<div class="container-fluid">
+      						<p>Title: <b><?php echo $title ?></b></p>
+      						<p class="mb-0">Description:</p>
+      						<small><?php echo $description; ?></small>
+      						<p>Start: <b><?php echo date("M d, Y",strtotime($start_date)) ?></b></p>
+      						<p>End: <b><?php echo date("M d, Y",strtotime($end_date)) ?></b></p>
+      						<p>Have Taken: <b><?php echo number_format($answers) ?></b></p>
+
+      					</div>
+      					<hr class="border-primary">
+      				</div>
+      			</div>
+      		</div>
+      		<div class="col-md-8">
+      			<div class="card card-outline card-success">
+      				<div class="card-header">
+      					<h3 class="card-title"><b>Survey Questionaire</b></h3>
+      					<div class="card-tools">
+      						<button class="btn btn-block btn-sm btn-default btn-flat border-success new_question" type="button"><i class="fa fa-plus"></i> Add New Question</button>
+      					</div>
+      				</div>
+      				<form action="" id="manage-sort">
+      				<div class="card-body ui-sortable">
+      					<?php
+      					$question = $conn->query("SELECT * FROM tb_survey_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
+      					while($row=$question->fetch_assoc()):
+      					?>
+      					<div class="callout callout-info">
+      						<div class="row">
+      							<div class="col-md-12">
+      								<span class="dropleft float-right">
+      									<a class="fa fa-ellipsis-v text-dark" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+      									<div class="dropdown-menu" style="">
+      								        <a class="dropdown-item edit_question text-dark" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Edit</a>
+      								        <div class="dropdown-divider"></div>
+      								        <a class="dropdown-item delete_question text-dark" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
+      								     </div>
+      								</span>
+      							</div>
+      						</div>
+      						<h5><?php echo $row['question'] ?></h5>
+      						<div class="col-md-12">
+      						<input type="hidden" name="qid[]" value="<?php echo $row['id'] ?>">
+      							<?php
+      								if($row['type'] == 'radio_opt'):
+      									foreach(json_decode($row['frm_option']) as $k => $v):
+      							?>
+      							<div class="icheck-primary">
+      		                        <input type="radio" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>]" value="<?php echo $k ?>" checked="">
+      		                        <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
+      		                     </div>
+      								<?php endforeach; ?>
+      						<?php elseif($row['type'] == 'check_opt'):
+      									foreach(json_decode($row['frm_option']) as $k => $v):
+      							?>
+      							<div class="icheck-primary">
+      		                        <input type="checkbox" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>][]" value="<?php echo $k ?>" >
+      		                        <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
+      		                     </div>
+      								<?php endforeach; ?>
+      						<?php else: ?>
+      							<div class="form-group">
+      								<textarea name="answer[<?php echo $row['id'] ?>]" id="" cols="30" rows="4" class="form-control" placeholder="Write Something Here..."></textarea>
+      							</div>
+      						<?php endif; ?>
+      						</div>
+      					</div>
+      					<?php endwhile; ?>
+      				</div>
+      				</form>
+      			</div>
+      		</div>
+      	</div>
       </div>
-      <h4 class="ms-5 mb-0">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+      <script>
+      	$(document).ready(function(){
+      		$('.ui-sortable').sortable({
+      			placeholder: "ui-state-highlight",
+      			 update: function( ) {
+      			 	alert_toast("Saving question sort order.","info")
+      		        $.ajax({
+      		        	url:"ajax.php?action=action_update_qsort",
+      		        	method:'POST',
+      		        	data:$('#manage-sort').serialize(),
+      		        	success:function(resp){
+      		        		if(resp == 1){
+      			 				alert_toast("Question order sort successfully saved.","success")
+      		        		}
+      		        	}
+      		        })
+      		    }
+      		})
+      	})
+      	$('.new_question').click(function(){
+      		uni_modal("New Question","officer-managequestions-survey.php?sid=<?php echo $id ?>","large")
+      	})
+      	$('.edit_question').click(function(){
+      		uni_modal("New Question","officer-managequestions-survey.php?sid=<?php echo $id ?>&id="+$(this).attr('data-id'),"large")
+      	})
 
-              <a href="officer-orgs.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
+      	$('.delete_question').click(function(){
+      	_conf("Are you sure to delete this question?","delete_question",[$(this).attr('data-id')])
+      	})
+      	function delete_question($id){
+      		start_load()
+      		$.ajax({
+      			url:'ajax.php?action=delete_question',
+      			method:'POST',
+      			data:{id:$id},
+      			success:function(resp){
+      				if(resp==1){
+      					alert_toast("Data successfully deleted",'success')
+      					setTimeout(function(){
+      						location.reload()
+      					},1500)
 
-        <!-- Footer -->
+      				}
+      			}
+      		})
+      	}
+      </script>
+    <!-- Footer -->
       </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
