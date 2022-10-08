@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -46,7 +46,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -134,7 +134,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4">
               <div class="row g-0 justify-content-evenly">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                    <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
                   $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), signatory_type AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";

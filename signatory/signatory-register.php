@@ -8,7 +8,7 @@ include('../mysql_connect.php');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Signatory</title>
     <!-- our custom css -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->

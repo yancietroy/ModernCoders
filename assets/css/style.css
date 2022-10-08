@@ -817,9 +817,11 @@ div.table-stud {
   border-radius: 50%;
 }
 
+
 #indexpic {
-width: 150px;
-height: 140px;
+width: 120px;
+height: 120px;
+max-height: auto;
 object-fit: cover;
   border: 4px solid #F2AC1B;
 }

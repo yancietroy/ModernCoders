@@ -137,8 +137,8 @@ if(isset($_SESSION['msg'])){
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-3 d-none d-sm-block text-center ">
-                <img class="profile_img rounded-circle img-fluid" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
+                <div class="col-md-2 mb-2 mt-3 d-none d-sm-block text-center " id="indeximg">
+                <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
                   $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";

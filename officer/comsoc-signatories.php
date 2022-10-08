@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -47,13 +47,13 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="officer-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Officer</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -169,7 +169,6 @@ if(isset($_SESSION['msg'])){
                               <th>Last name</th>
                               <th>Email</th>
                               <th>Signatory Type</th>
-                              <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -191,10 +190,6 @@ if(isset($_SESSION['msg'])){
                             <td> $ln  </td>
                             <td> $e </td>
                             <td> $st </td>
-                            <td>
-                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                            <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
-                            </td>
                             </tr>
                         ";
                     }
@@ -616,18 +611,17 @@ if(isset($_SESSION['msg'])){
           { "width": "40px" },
           { "width": "130px" },
           { "width": "130px" },
-          { "width": "130px" },
-          { "width": "80px" }
+          { "width": "130px" }
     ],
               select: 'single',
       buttons: [
      'pageLength',
      {
        extend: 'excelHtml5',
-       title: 'JRU Computer Society Members Masterlist',
+       title: 'JRU Computer Society Signatory Masterlist',
        footer: true,
      exportOptions: {
-       columns: [0,1,2,3,4,6,7,8,9,10,11]
+         columns: [0,1,2,3,4]
      },
      } ,
         //{
@@ -643,20 +637,20 @@ if(isset($_SESSION['msg'])){
      //    } ,
         {
           extend: 'pdfHtml5',
-          title: 'JRU Computer Society Members Masterlist',
+          title: 'JRU Computer Society Signatory Masterlist',
           footer: true,
           exportOptions: {
-            columns: [0,1,2,3,4,5,7,8,9,10,11]
+            columns: [0,1,2,3,4]
         },
         orientation : 'landscape',
       pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
         } ,
         {
           extend: 'print',
-          title: 'JRU Computer Society Members Masterlist',
+          title: 'JRU Computer Society Signatory Masterlist',
           footer: true,
           exportOptions: {
-            columns: [0,1,2,3,4,5,7,8,9,10,11]
+            columns: [0,1,2,3,4]
         },
         customize: function(win)
         {

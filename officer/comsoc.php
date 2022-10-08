@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -40,13 +40,13 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="officer-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Officer</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -239,13 +239,13 @@ if(isset($_SESSION['msg'])){
                     <div class="col-lg-3 col-sm-6 mb-4">
                       <div class="card-counter bg-success">
                         <div class="inner">
-                          <h3><i class="bi bi-folder"></i></h3>
-                          <p>Projects</p>
+                          <h3><i class="bi bi-bell"></i></h3>
+                          <p>Notifications</p>
                         </div>
                         <div class="icon">
-                      <i class="bi bi-folder-fill"></i>
+                      <i class="bi bi-bell-fill"></i>
                         </div>
-                        <a href="officer-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="notif.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">

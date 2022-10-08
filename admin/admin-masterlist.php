@@ -47,7 +47,7 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="admin-index.php">
           <img src="../assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>

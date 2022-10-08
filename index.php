@@ -110,7 +110,14 @@ if(isset($_SESSION['message'])){
                   <option value="admin-login.php">Admin</option>
                 </select>
               </div>
-              <button class="w-100 btn btn-lg btn-primary mt-4 button" type="submit" name='submit'>Sign in</button>
+              <div class="d-flex justify-content-end mt-2">
+                <div class="form-check d-none">
+                                     <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                     <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                                 </div>
+                                     <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
+                             </div>
+              <button class="w-100 btn btn-lg btn-primary mt-3 mb-2 button" type="submit" name='submit'>Sign in</button>
 
               <hr class="my-4">
               <p class="mt-3 text-center">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Register</a>
