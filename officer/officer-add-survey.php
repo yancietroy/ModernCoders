@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -106,12 +106,12 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  $name = mysqli_fetch_array ($result);
+                  if ($name)
+                  { echo "$name[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
@@ -131,7 +131,7 @@ if(isset($_SESSION['msg'])){
       	<div class="card">
       		<div class="card-body">
       			<form action="" id="manage_survey">
-      				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+      				<input type="hidden" name="id" value="<?php echo isset($survey_id) ? $survey_id : '' ?>">
       				<div class="row">
       					<div class="col-md-6 border-right">
       						<div class="form-group">
@@ -157,7 +157,7 @@ if(isset($_SESSION['msg'])){
       				<hr>
       				<div class="col-lg-12 text-right justify-content-center d-flex">
       					<button class="btn btn-primary mr-2">Save</button>
-      					<button class="btn btn-secondary" type="button" onclick="location.href = 'index.php?page=survey_list'">Cancel</button>
+      					<button class="btn btn-secondary" type="button" onclick="location.href = 'officer-survey.php'">Cancel</button>
       				</div>
       			</form>
       		</div>
@@ -179,9 +179,8 @@ if(isset($_SESSION['msg'])){
       		    type: 'POST',
       			success:function(resp){
       				if(resp == 1){
-      					alert_toast('Data successfully saved.',"success");
       					setTimeout(function(){
-      						location.replace('index.php?page=survey_list')
+      						location.replace('officer-survey.php')
       					},1500)
       				}
       			}

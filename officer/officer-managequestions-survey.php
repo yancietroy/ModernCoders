@@ -141,7 +141,7 @@ foreach($qry as $k => $v){
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-sm-6 border-right">
-						<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+						<input type="hidden" name="id" value="<?php echo isset($survey_id) ? $survey_id : '' ?>">
 						<input type="hidden" name="sid" value="<?php echo isset($_GET['sid']) ? $_GET['sid'] : '' ?>">
 						<div class="form-group">
 							<label for="" class="control-label">Question</label>

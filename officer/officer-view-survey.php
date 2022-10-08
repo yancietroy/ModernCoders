@@ -135,6 +135,16 @@ if(isset($_SESSION['msg'])){
       				<div class="card-header">
       					<h3 class="card-title">Survey Details</h3>
       				</div>
+              <?php 
+              $qry = $conn->query("SELECT * FROM tb_survey_set where id = ".$_GET['id'])->fetch_array();
+              foreach($qry as $k => $v){
+                if($k == 'title')
+                  $k = 'stitle';
+                $$k = $v;
+                
+              }
+              $answers = $conn->query("SELECT distinct(user_id) from tb_answers where survey_id =".$_GET['id'])->num_rows;
+              ?>
       				<div class="card-body p-0 py-2">
       					<div class="container-fluid">
       						<p>Title: <b><?php echo $title ?></b></p>
@@ -160,7 +170,7 @@ if(isset($_SESSION['msg'])){
       				<form action="" id="manage-sort">
       				<div class="card-body ui-sortable">
       					<?php
-      					$question = $conn->query("SELECT * FROM tb_survey_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
+      					$question = $conn->query("SELECT * FROM tb_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
       					while($row=$question->fetch_assoc()):
       					?>
       					<div class="callout callout-info">
@@ -239,12 +249,12 @@ if(isset($_SESSION['msg'])){
       	$('.delete_question').click(function(){
       	_conf("Are you sure to delete this question?","delete_question",[$(this).attr('data-id')])
       	})
-      	function delete_question($id){
+      	function delete_question($q_id){
       		start_load()
       		$.ajax({
       			url:'ajax.php?action=delete_question',
       			method:'POST',
-      			data:{id:$id},
+      			data:{id:$q_id},
       			success:function(resp){
       				if(resp==1){
       					alert_toast("Data successfully deleted",'success')
