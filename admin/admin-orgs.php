@@ -168,6 +168,7 @@ if(isset($_SESSION['msg'])){
         </div>
 
         <div class="col-lg-6 col-2 mb-2 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i><span id="btntitle"> New Org</span</a>
             <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Org Archive</span></a>
         </div>
       </div>
@@ -232,15 +233,15 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_course";
+                    $query = "SELECT * FROM tb_orgs";
                     $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $college = " ";
+                    $oi = 0;
+                    $org = " ";
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='desktop'>Course ID</th>
-                                <th class='desktop'>Course</th>
+                                <th class='desktop'>Org ID</th>
+                                <th class='desktop'>Organization</th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -257,14 +258,14 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                        $ci = $row['course_id'];
-                        $c = $row['course'];
+                        $oi = $row['ORG_ID'];
+                        $org = $row['ORG'];
                         echo "<tr>
-                              <td> $ci  </td>
-                              <td> $c  </td>
+                              <td> $oi  </td>
+                              <td> $org  </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $ci . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $ci . "'>  <i class='bi bi-archive-fill'></i>  </button>
+                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
                           ";

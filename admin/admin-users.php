@@ -55,10 +55,10 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li  class="active">
+        <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li>
+      <li  class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
@@ -75,7 +75,7 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li>
+        <li >
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
