@@ -66,7 +66,7 @@ if(isset($_SESSION['msg'])){
         </li>
         <li>
           <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        
+
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -135,7 +135,7 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4">
               <div class="row g-0">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                      <img class="profile_img rounded-circle img-fluid" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
                   $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$id'";

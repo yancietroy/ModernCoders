@@ -60,7 +60,7 @@ if(isset($_SESSION['message'])){
 
             		if($row)
             		{
-            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+            			$_SESSION['msg'] = '';
                 $_SESSION['use'] = $row[0];
                 if(isset($_SESSION['use'])){
                 header("Location:signatory/signatory-index.php");
@@ -103,7 +103,7 @@ if(isset($_SESSION['message'])){
                   <option class="greyclr text-muted" selected disabled value="" >Select User</option>
                   <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
-                  <option value="signatory-login.php">Signatory</option>
+                      <!--<option value="index.php">Student</option>-->
                   <option value="admin-login.php">Admin</option>
                 </select>
               </div>

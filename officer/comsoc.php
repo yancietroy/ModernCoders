@@ -181,7 +181,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                         <i class="bi bi-person-badge"></i>
                         </div>
-                        <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -193,7 +193,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                           <i class="bi bi-person-rolodex"></i>
                         </div>
-                        <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6" id="eventhide">

@@ -44,9 +44,9 @@ if(isset($_SESSION['message'])){
                 <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
               </div>
             </div>
-            <p class=" h4 mb-2 text-center">JRU Student Organizations Portal</p>
+            <p class=" h4 mb-2 text-center" id="indextitle">JRU Student Organizations Portal</p>
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
-              <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Student Login</h1>
+              <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted" id="usertitle">Student Login</h1>
               <?php
             if(isset ($_POST['submit']))
             {
@@ -63,7 +63,7 @@ if(isset($_SESSION['message'])){
 
             		if($row)
             		{
-            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+            			$_SESSION['msg'] = '';
                 $_SESSION['use'] = $row[0];
                 if(isset($_SESSION['use'])){
                 header("Location:student/student-index.php");
@@ -104,7 +104,7 @@ if(isset($_SESSION['message'])){
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-4" id="select-opt">
                   <option class="greyclr" selected disabled value="" text-muted>Select User</option>
-                  <option value="index.php">Student</option>
+                  <!--<option value="index.php">Student</option>-->
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
                   <option value="admin-login.php">Admin</option>

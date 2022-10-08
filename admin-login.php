@@ -61,7 +61,7 @@ if(isset($_SESSION['message'])){
 
             		if($row)
             		{
-            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+            			$_SESSION['msg'] = '';
             			$_SESSION['use'] = $row[0];
               			if(isset($_SESSION['use'])){
             				header("Location:admin/admin-index.php");
@@ -105,7 +105,7 @@ if(isset($_SESSION['message'])){
                   <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
-                  <option value="admin-login.php">Admin</option>
+                      <!--<option value="index.php">Student</option>-->
                 </select>
               </div>
               <button class="w-100 btn btn-lg btn-primary mt-4 mb-4" type="submit" name='submit'>Sign in</button>

@@ -221,7 +221,7 @@ if(isset($_SESSION['msg'])){
       <!-- Event Details Modal -->
 
     <?php
-    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing'");
+    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing' OR status='Done'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
       $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));

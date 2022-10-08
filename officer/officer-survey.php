@@ -127,7 +127,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-    
+
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
           <h4>Survey List</h4>
@@ -185,7 +185,7 @@ if(isset($_SESSION['msg'])){
       		                        <a href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
       		                          <i class="fas fa-edit"></i>
       		                        </a>
-      		                        <a  href="./index.php?page=view_survey&id=<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
+      		                        <a  href="officer-view-survey.php<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
       		                          <i class="fas fa-eye"></i>
       		                        </a>
       		                        <button type="button" class="btn btn-danger btn-flat delete_survey" data-id="<?php echo $row['id'] ?>">

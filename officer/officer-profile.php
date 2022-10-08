@@ -215,6 +215,16 @@ if(isset($_SESSION['msg'])){
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
+                    <tr>
+                      <th width="30%">Side Organization	</th>
+                      <td width="2%">:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Position	</th>
+                      <td width="2%">:</td>
+                    <td></td>
+                    </tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[gender]"; ?></p>
@@ -232,8 +242,8 @@ if(isset($_SESSION['msg'])){
                                         $result = @mysqli_query($conn, $query);
                                         $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
 
-                            <!--  <p class="mb-2 pe-2"><strong class="pr-1  ">Side Organization:</strong></p>
-                              <p class="mb-2 pe-2"><strong class="pr-1  ">Position:</strong></p>-->
+                                        <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Side Organization:</strong>
+                                                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
