@@ -134,10 +134,10 @@ Class Action {
 				}
 			}
 		}
-		if(empty($survey_id)){
+		if(empty($id)){
 			$save = $this->db->query("INSERT INTO tb_survey_set set $data");
 		}else{
-			$save = $this->db->query("UPDATE tb_survey_set set $data where id = $survey_id");
+			$save = $this->db->query("UPDATE tb_survey_set set $data where id = $id");
 		}
 
 		if($save)
@@ -145,7 +145,7 @@ Class Action {
 	}
 	function delete_survey(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM tb_survey_set where id = ".$survey_id);
+		$delete = $this->db->query("DELETE FROM tb_survey_set where id = ".$id);
 		if($delete){
 			return 1;
 		}
@@ -171,10 +171,10 @@ Class Action {
 			}else{
 			$data .= ", frm_option='' ";
 			}
-		if(empty($q_id)){
+		if(empty($id)){
 			$save = $this->db->query("INSERT INTO tb_questions set $data");
 		}else{
-			$save = $this->db->query("UPDATE tb_questions set $data where id = $q_id");
+			$save = $this->db->query("UPDATE tb_questions set $data where id = $id");
 		}
 
 		if($save)
@@ -182,7 +182,7 @@ Class Action {
 	}
 	function delete_question(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM tb_questions where id = ".$q_id);
+		$delete = $this->db->query("DELETE FROM tb_questions where id = ".$id);
 		if($delete){
 			return 1;
 		}
@@ -202,7 +202,7 @@ Class Action {
 			foreach($qid as $k => $v){
 				$data = " survey_id=$survey_id ";
 				$data .= ", question_id='$qid[$k]' ";
-				$data .= ", user_id='{$_SESSION['login_id']}' ";
+				$data .= ", user_id='{$_SESSION['use']}' ";
 				if($type[$k] == 'check_opt'){
 					$data .= ", answer='[".implode("],[",$answer[$k])."]' ";
 				}else{

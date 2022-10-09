@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+$officer_id = $_SESSION['use'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -107,7 +107,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $name = mysqli_fetch_array ($result);
                   if ($name)
@@ -131,7 +131,7 @@ if(isset($_SESSION['msg'])){
       	<div class="card">
       		<div class="card-body">
       			<form action="" id="manage_survey">
-      				<input type="hidden" name="id" value="<?php echo isset($survey_id) ? $survey_id : '' ?>">
+      				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
       				<div class="row">
       					<div class="col-md-6 border-right">
       						<div class="form-group">
@@ -157,7 +157,7 @@ if(isset($_SESSION['msg'])){
       				<hr>
       				<div class="col-lg-12 text-right justify-content-center d-flex">
       					<button class="btn btn-primary mr-2">Save</button>
-      					<button class="btn btn-secondary" type="button" onclick="location.href = 'officer-survey.php'">Cancel</button>
+      					<button class="btn btn-secondary" type="button" onclick="location.href = 'officer-survey.php?page=officer-survey'">Cancel</button>
       				</div>
       			</form>
       		</div>
@@ -180,7 +180,7 @@ if(isset($_SESSION['msg'])){
       			success:function(resp){
       				if(resp == 1){
       					setTimeout(function(){
-      						location.replace('officer-survey.php')
+      						location.replace('officer-survey.php?page=officer-survey')
       					},1500)
       				}
       			}

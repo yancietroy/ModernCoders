@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+$officer_id = $_SESSION['use'];
 include('../mysql_connect.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -107,7 +107,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -143,11 +143,11 @@ if(isset($_SESSION['msg'])){
                 $$k = $v;
                 
               }
-              $answers = $conn->query("SELECT distinct(user_id) from tb_answers where survey_id =".$_GET['id'])->num_rows;
+              $answers = $conn->query("SELECT distinct(user_id) from tb_answers where survey_id =".$id)->num_rows;
               ?>
       				<div class="card-body p-0 py-2">
       					<div class="container-fluid">
-      						<p>Title: <b><?php echo $title ?></b></p>
+      						<p>Title: <b><?php echo $stitle ?></b></p>
       						<p class="mb-0">Description:</p>
       						<small><?php echo $description; ?></small>
       						<p>Start: <b><?php echo date("M d, Y",strtotime($start_date)) ?></b></p>
@@ -249,12 +249,12 @@ if(isset($_SESSION['msg'])){
       	$('.delete_question').click(function(){
       	_conf("Are you sure to delete this question?","delete_question",[$(this).attr('data-id')])
       	})
-      	function delete_question($q_id){
+      	function delete_question($id){
       		start_load()
       		$.ajax({
       			url:'ajax.php?action=delete_question',
       			method:'POST',
-      			data:{id:$q_id},
+      			data:{id:$id},
       			success:function(resp){
       				if(resp==1){
       					alert_toast("Data successfully deleted",'success')

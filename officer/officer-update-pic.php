@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+$officer_id = $_SESSION['use'];
 include('../mysql_connect.php');
 
 	$pname = rand(1000,100000)."-".$_FILES['profilePic']['name'];
@@ -15,7 +15,7 @@ include('../mysql_connect.php');
 
 		if($row)
 		{
-			$query = "UPDATE `tb_officers` SET `profile_pic` = '$pname' WHERE `officer_id` = '$id'";
+			$query = "UPDATE `tb_officers` SET `profile_pic` = '$pname' WHERE `officer_id` = '$officer_id'";
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
 			alert('Profile picture updated!')

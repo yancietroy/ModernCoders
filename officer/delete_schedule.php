@@ -6,7 +6,7 @@ if(!isset($_GET['project_id'])){
     exit;
 }
 
-$delete = $conn->query("DELETE FROM `tb_projectmonitoring` where project_id = '{$_GET['project_id']}'");
+$delete = $conn->query("DELETE FROM `tb_projectmonitoring` WHERE project_id = '{$_GET['project_id']}'");
 if($delete){
     echo "<script> alert('Event has deleted successfully.')
     	window.location.href='event-calendar.php' </script>";
