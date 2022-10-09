@@ -1182,6 +1182,28 @@ Survey
 }
 
 @media all and (min-width: 481px) and (max-width: 768px) {
+
+  #btntitle {
+    display: none;
+  }
+  #admintitle {
+    margin-top: 10px;
+    width: 60%;
+    font-size: 4vw;
+  }
+  #orgtitle {
+    margin-top: 10px;
+    width: 110%;
+    font-size: 4vw;
+  }
+  #comsoctitle {
+    width: 200%;
+    font-size: 4vw;
+  }
+  .breadcrumb {
+    width: 100%;
+    font-size: 15px;
+  }
   #proftable {
   display: none;
     }

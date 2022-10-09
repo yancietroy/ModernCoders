@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -132,7 +132,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = @mysqli_fetch_array ($result);
@@ -161,13 +161,13 @@ if(isset($_SESSION['msg'])){
 
       <!-- Page content -->
 
-      <div class="row ms-3 me-3 mt-2 mb-2">
+      <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>College Masterlist</h4>
+            <h4 id="orgtitle">College Masterlist</h4>
         </div>
-        <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Add College</a>
-            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> College Archive</a>
+          <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New College </span></a>
+            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Archive College</span></a>
         </div>
       </div>
 
