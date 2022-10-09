@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 09, 2022 at 02:01 PM
+-- Generation Time: Oct 09, 2022 at 02:28 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -56,17 +56,18 @@ CREATE TABLE `tb_admin` (
   `EMAIL` varchar(100) NOT NULL,
   `PASSWORD` varchar(60) NOT NULL,
   `USERTYPE_ID` int(3) DEFAULT NULL,
-  `ACCOUNT_CREATED` date DEFAULT NULL
+  `ACCOUNT_CREATED` date DEFAULT NULL,
+  `PROFILE_PIC` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_admin`
 --
 
-INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL),
-(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL),
-(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL);
+INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
+(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
+(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png'),
+(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,8 @@ CREATE TABLE `tb_admin_archive` (
   `EMAIL` varchar(100) NOT NULL,
   `PASSWORD` varchar(60) NOT NULL,
   `USERTYPE_ID` int(3) DEFAULT NULL,
-  `ACCOUNT_CREATED` date DEFAULT NULL
+  `ACCOUNT_CREATED` date DEFAULT NULL,
+  `PROFILE_PIC` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -631,20 +633,22 @@ CREATE TABLE `tb_signatories` (
   `last_name` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL,
   `usertype_id` int(3) DEFAULT NULL,
   `signatorytype_id` int(3) DEFAULT NULL,
   `college_dept` int(3) DEFAULT NULL,
   `org_id` int(3) DEFAULT NULL,
-  `account_created` date DEFAULT NULL
+  `account_created` date DEFAULT NULL,
+  `profile_pic` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_signatories`
 --
 
-INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`) VALUES
-(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', NULL, 3, NULL, NULL, NULL),
-(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, 1, NULL, NULL, NULL);
+INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `profile_pic`) VALUES
+(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Adviser', 3, 3, NULL, NULL, NULL, 'img_avatar.png'),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO', 3, 1, NULL, NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -658,11 +662,13 @@ CREATE TABLE `tb_signatories_archive` (
   `last_name` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(8000) DEFAULT NULL,
+  `signatory_type` varchar(100) DEFAULT NULL,
   `usertype_id` int(3) DEFAULT NULL,
   `signatorytype_id` int(3) DEFAULT NULL,
   `college_dept` int(3) DEFAULT NULL,
   `org_id` int(3) DEFAULT NULL,
-  `account_created` date DEFAULT NULL
+  `account_created` date DEFAULT NULL,
+  `profile_pic` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

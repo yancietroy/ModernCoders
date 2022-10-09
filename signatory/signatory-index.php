@@ -137,7 +137,7 @@ if(isset($_SESSION['msg'])){
                     <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), signatory_type AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
+                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                   $row = mysqli_fetch_array ($result);
                   if ($row)
