@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

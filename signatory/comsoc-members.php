@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -73,9 +73,9 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
+        <li>
         <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
         </li>
         </ul>
@@ -113,7 +113,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -134,16 +134,17 @@ if(isset($_SESSION['msg'])){
       </nav>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
+          <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
           <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> Members</li>
         </ol>
       </nav>
       <!-- Page content -->
+      <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>JRU Computer Society Members Masterlist</h4>
+        <div class="col-lg-6">
+          <h4>JRU Computer Society Members</h4>
         </div>
       </div>
 
@@ -210,7 +211,7 @@ if(isset($_SESSION['msg'])){
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
+
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -235,7 +236,7 @@ if(isset($_SESSION['msg'])){
          </div>
        </div>
      </div>
-   </div>
+    </div>
 
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
@@ -255,7 +256,7 @@ if(isset($_SESSION['msg'])){
       <div class="modal-dialog" id="modal-lg" role="document">
           <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+                      <h5 class="modal-title" id="exampleModalLabel"> View Student Details </h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -367,7 +368,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
-                                <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                                <label class="form-label" for="MORG_ID" >Main Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
                                     $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
@@ -643,4 +644,4 @@ if(isset($_SESSION['msg'])){
 
     </body>
 
-</html>
+    </html>

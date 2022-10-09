@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -66,9 +66,9 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
+        <li>
         <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
         </li>
         </ul>
@@ -106,7 +106,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -178,19 +178,19 @@ if(isset($_SESSION['msg'])){
                   <div class="icon">
                   <i class="bi bi-person-badge"></i>
                   </div>
-                  <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6">
                 <div class="card-counter bg-info">
                   <div class="inner">
-                    <h2><i class="bi bi-person-rolodex"></i></h2>
-                    <p>Signatories</p>
+                    <h2><i class="bi bi-bell"></i></h2>
+                    <p>Notifications</p>
                   </div>
                   <div class="icon">
-                    <i class="bi bi-person-rolodex"></i>
+                    <i class="bi bi-bell-fill"></i>
                   </div>
-                  <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6" id="eventhide">
@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                   <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-              <div class="col-lg-3 col-sm-6">
+              <!--  <div class="col-lg-3 col-sm-6">
                 <div class="card-counter bg-danger">
                   <div class="inner">
                     <h3><i class="bi bi-file-bar-graph"></i></h3>
@@ -217,7 +217,6 @@ if(isset($_SESSION['msg'])){
                   <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-
 
               <div class="col-lg-3 col-sm-6 mb-4">
                 <div class="card-counter done">
@@ -256,7 +255,7 @@ if(isset($_SESSION['msg'])){
                 </div>
               </div>
 
-           </div>
+           </div>-->
               <!--   <div class="col">
               Card with right text alignment
                 <div class="card text-end">

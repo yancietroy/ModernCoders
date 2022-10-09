@@ -369,7 +369,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
-                                <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                                <label class="form-label" for="MORG_ID" >Main Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
                                     $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";

@@ -3,7 +3,7 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -52,7 +52,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -71,9 +71,9 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
+        <li>
         <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
         </li>
         </ul>
@@ -110,7 +110,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -138,13 +138,22 @@ if(isset($_SESSION['msg'])){
             <div class="col-lg-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
-                  <img class="profile_img" src="../assets/img/img_avatar.png" alt="">
-                  <h3 class="pt-3">John Doe</h3>
+                  <div class="container">
+                        <img class="profile_img" src="<?php echo $profilepic; ?>"  id="profile-pic" alt="">
+                      <div class="middle">
+                        <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
+                          <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*"/>
+                      </div>
+                    </div>
+                  <h3 class="pt-3"><?php echo "$row[0]"; ?></h3>
                 </div>
-                <div class="card-body px-5">
-                  <p class="mb-0"><strong class="pr-1">JRU ID:</strong>19-255322</p>
-                  <p class="mb-0"><strong class="pr-1">Signatory ID:</strong>2</p>
-                  <p class="mb-0"><strong class="pr-1">Academic Year:</strong>2022</p>
+                <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$id'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array ($result);
+                  $si = $data['school_id'];?>
+                <div class="card-body text-center">
+                  <p class="mb-0"><strong class="pr-1">JRU ID:</strong><?php echo $si; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Signatory Type:</strong><?php echo $data['signatory_type']; ?></p>
                 </div>
               </div>
             </div>
@@ -154,37 +163,72 @@ if(isset($_SESSION['msg'])){
 
                   <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
                     <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i> Signatory Information</h3>
-                    <button type="button" class="btn btn-primary btn-sm" >Edit Profile</button>
                   </div>
                 </div>
                 <div class="card-body mt-2 pt-0">
-                  <table class="table table-bordered">
+                  <table class="table table-bordered" id="proftable">
+
                     <tr>
-                      <th width="30%">First Name</th>
+                      <th width="30%">First Name:</th>
                       <td width="2%">:</td>
-                      <td>John</td>
+                      <td><?php echo $data['first_name']; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Last Name</th>
+                      <th width="30%">Last Name:</th>
                       <td width="2%">:</td>
-                      <td>Doe</td>
-                    </tr>
-                    <tr>
-                      <th width="30%">Role	</th>
-                      <td width="2%">:</td>
-                      <td>SDO</td>
+                      <td><?php echo $data['last_name']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Email</th>
                       <td width="2%">:</td>
-                      <td>john.doe@my.jru.edu</td>
+                      <td><?php echo $data['email']; ?></td>
                     </tr>
                     <tr>
+                      <th width="30%">Signatory Type:	</th>
+                      <td width="2%">:</td>
+                      <td><?php echo $data['signatory_type']; ?></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Role:	</th>
+                      <td width="2%">:</td>
+                      <td><?php echo $data['user_type']; ?></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">College	</th>
+                      <td width="2%">:</td>
+                      <td><?php $query = "SELECT tb_signatories.college_dept, tb_collegedept.college FROM tb_signatories INNER JOIN tb_collegedept ON tb_signatories.college_dept=tb_collegedept.college_id WHERE tb_signatories.school_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
+                    </tr>
+                 <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td>JRU Computer Society (COMSOC)</td>
+                      <td></td>
                     </tr>
+                    <!--   <tr>
+                      <th width="30%">Side Organization	</th>
+                      <td width="2%">:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Position	</th>
+                      <td width="2%">:</td>
+                    <td></td>
+                  </tr>-->
                   </table>
+                  <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[first_name]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Last Name:<br></strong><?php echo "$data[last_name]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Signatory Type:<br></strong><?php echo "$data[signatory_type]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Role:<br></strong><?php echo "$data[user_type]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Organization:<br></strong><?php echo "$data[org_id]"; ?></p>
+
+                            </div>
+                  <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $id . "' >Change Password</button>";?>
+                  </div>
                 </div>
               </div>
             </div>
@@ -203,350 +247,399 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
     </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- signatory Modal -->
+  <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Signatory Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="signatory-update-button.php" method="POST">
+                <form action="signatory-update-profile.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                       <div class="col-4 col-md-2 mb-4">
+                       <!--<div class="col-12 col-md-2 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="project_id" >Project ID:</label>
-                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                           <label class="form-label" for="signatory_id" >Signatory ID:</label>
+                           <input type="text" name="signatory_id" id="signatory_id" class="form-control" style="background-color: #fff;" readonly/>
+                         </div>
+                       </div>-->
+                       <div class="col-12 col-md-2 col-sm-3 mb-4">
+                         <div class="form-outline">
+                           <label class="form-label" for="school_id" >JRU ID:</label>
+                           <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                       <div class="col-4 col-md-3 mb-4">
+                       <div class="col-12 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="account_created" >Account Created:</label>
+                         <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="row justify-content-between">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="project_name" >Project name:</label>
-                            <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <label class="form-label" for="signatory_type" >Signatory Type:</label>
+                            <select class="form-select" name="signatory_type" id="signatory_type" readonly>
+                            <?php
+                              $query = "SELECT signatory_type FROM tb_signatories";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
+                            </select>
                           </div>
                         </div>
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <label class="form-label" for="user_type" >Role</label>
+                            <select class="form-select" name="user_type" id="user_type" readonly>
+                            <?php
+                              $query = "SELECT user_type, user_type FROM user_type";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-4 mb-4">
+                          <div class="form-outline">
+                            <label class="form-label" for="org_id" >Organization:</label>
+                            <select class="form-select" name="org_id" id="org_id" readonly>
+                              <?php
+                              $query = "SELECT org_id FROM tb_orgs";
+                              $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                            ?>
+                            </select>
                           </div>
                         </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-4">
-                          <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="first_name" >First Name:</label>
+                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4 ">
+                            <label class="form-label" for="last_name">Last name </label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="email" >Email:</label>
+                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30"  />
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="start_date" >Start Date:</label>
-                              <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="end_date" >End Date:</label>
-                              <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="participants" >Participants:</label>
-                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="beneficiary">Beneficiary:</label>
-                              <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                              <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                              <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                              </div>
-                            </div>
-                          </div>
-                         <div class="row">
-                          <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline  projectdesc">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-12 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
-                          </div>
-                    <!--
-                          <div class="form-group">
-                              <label class="form-label" for="status">Project Status </label>
-                              <select class="mt-0 ms-0 form-select" name="status" id="" style="background-color: #fff;">
-                                <option class="greyclr" selected disabled value="" >Select Status</option>
-                                <option value="Cancelled">Cancelled</option>
-                                <option value="For Revision">For Revision</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Cancelled">Cancelled</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Ongoing">Ongoing</option>
-                                <option value="Implemented">Implemented</option>
+                              <label class="form-label" for="college_dept" >College:</label>
+                              <select class="form-select" name="college_dept" id="college_dept" readonly>
+                                <?php
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
                               </select>
+                            </div>
                           </div>
-                          -->
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="org_id" >Organization:</label>
+                              <select class="form-select" name="org_id" id="org_id" readonly>
+                                <?php
+                                $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }
+                              ?>
+                              </select>
+                            </div>
+                          </div>
+                      </div>
+
+                        <div class="row">
+
                         </div>
                     </div>
-                    <div class="modal-footer px-0 py-0 pt-2">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
-                 </form>
+                  </div>
+                </form>
             </div>
         </div>
   </div>
+    <div class="modal fade" id="changePass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Change Password </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="signatory-change-pass.php" method="POST" data-parsley-validate data-parsley-trigger="keyup">
+                    <div class="modal-body">
+                      <div class="col-12 col-md-12 justify-content-center ">
+                        <div class="form-outline">
+                          <input type="hidden" id="cid" name="cid" class="form-control">
+                           <label class="form-label" for="password" id="asterisk">New Password</label>
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
+                        data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                      <span class="errorspannewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <div class="form-outline">
+                      <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8"
+                        data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                      <span class="errorspanconfirmnewpassinput"></span>
+                      <div class="valid-feedback"> </div>
+                      <!--  <div class="invalid-feedback">Invalid Field!</div>-->
+                    </div>
+                         </div>
+                       </div>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> You are about to change your password. Are you sure?</p>
+                   </div>
+                   <div class="modal-footer py-2 px-3">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                       <button type="submit" name="changePassword" class="btn btn-info">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
-        $(document).on('click', '.editbtn', function(){
-           var project_id = $(this).attr("id");
+        $(document).on('click', '.viewbtn', function(){
+           var switch (expression) {
+             case expression:
+
+               break;
+             default:
+
+           } = $(this).attr("id");
            $.ajax({
-                url:"signatory-fetch-project.php",
+                url:"signatory-fetch-profile.php",
                 method:"POST",
-                data:{project_id:project_id},
+                data:{school_id:school_id},
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#project_id').val(data.project_id);
-                $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
-                $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
-                $('#status').val(data.status);
-                $('#date_submitted').val(data.date_submitted);
-                $('#start_date').val(data.start_date);
-                $('#end_date').val(data.end_date);
-                $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
-                $('#project_category').val(data.project_category);
-                $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
-                $('#project_remarks').val(data.remarks);
-                $('#editmodal').modal('show');
+                $('#school_id').val(data.school_id);
+              /*  $('#student_id').val(data.student_id);
+                $('#position_id').val(data.position_id);
+                $('#org_id').val(data.org_id);*/
+                $('#first_name').val(data.first_name);
+              /*  $('#middle_initial').val(data.middle_initial);*/
+                $('#last_name').val(data.last_name);
+              /*  $('#birthdate').val(data.birthdate);
+                $('#age').val(data.age);
+                $('#gender').val(data.gender);
+                $('#year_level').val(data.year_level);
+                $('#section').val(data.section);*/
+                $('#email').val(data.email);
+                $('#org_id').val(data.org_id);
+              /*  $('#password').val(data.password);*/
+                $('#college_dept').val(data.college_dept);
+                $('#signatory_type').val(data.signatory_type);
+                $('#user_type').val(data.user_type);
+                $('#account_created').val(data.account_created);
+                $('#profile_pic').val(data.profile_pic);
+                $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+
+            // UPPERCASE FIRST LETTER
+            document.getElementById("first_name").addEventListener("input", forceLower);
+            document.getElementById("middle_initial").addEventListener("input", forceLower);
+            document.getElementById("last_name").addEventListener("input", forceLower);
+            // Event handling functions are automatically passed a reference to the
+            // event that triggered them as the first argument (evt)
+            function forceLower(evt) {
+              // Get an array of desktop the words (in desktop lower case)
+              var words = evt.target.value.toLowerCase().split(/\s+/g);
+
+              // Loop through the array and replace the first letter with a cap
+              var newWords = words.map(function(element) {
+                // As long as we're not dealing with an empty array element, return the first letter
+                // of the word, converted to upper case and add the rest of the letters from this word.
+                // Return the final word to a new array
+                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
+              });
+
+              // Replace the original value with the updated array of capitalized words.
+              evt.target.value = newWords.join(" ");
+            }
         });
-    </script>
 
-
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- Sidebar collapse -->
-    <script src="../assets/js/form-validation.js"></script>
-    <!-- waves css
-    <script type="text/javascript">
-      Waves.attach('#sidebar ul li a');
-      Waves.init();
-    </script>-->
-    <!-- Datatable default  -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-
-    <!-- Datatable bs5
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript"
-      src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
-    </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>  -->
-    <script>
       $(document).ready(function() {
-          var myTable;
-      myTable =  $('#example').DataTable({
-        "createdRow": function( row, data, dataIndex ) {
-            if ( data[3] == "Rejected" ) {
-            $('td', row).eq(3).css('color', 'red');
-        }
-        if ( data[3] == "Approved" ) {
-        $('td', row).eq(3).css('color', 'green');
-        }
-        if ( data[3] == "Pending" ) {
-        $('td', row).eq(3).css('color', '#0d6efd');
-        }
-        if ( data[3] == "Ongoing" ) {
-        $('td', row).eq(3).css('color', '#0dcaf0');
-        }
-        if ( data[3] == "Done" ) {
-        $('td', row).eq(3).css('color', '#00C9A7');
-        }
-        if ( data[3] == "Approved" ) {
-        $('td', row).eq(3).css('color', 'green');
-        }
-        if ( data[3] == "For Revision" ) {
-        $('td', row).eq(3).css('color', '#FF9671');
-      }
-      if ( data[3] == "Cancelled" ) {
-      $('td', row).eq(3).css('color', 'grey');
-      }
-          },
-          responsive: true,
-          keys: true,
-          fixedheader:true,
-      bautoWidth:false,
-         dom: 'Bfrtip',"bFilter": true,
-         "columns": [
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" }
-  ],
-            select: 'single',
-          buttons: [
-         'pageLength',
-         {
-           extend: 'excelHtml5',
-           title: 'JRU Organizations Portal -   Revision List',
-           footer: true,
-         exportOptions: {
-           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-       },
-         } ,
-            //{
-            //  extend: 'csvHtml5',
-          //    title: 'JRU Organizations Portal - Officer Pending List',
-          //    footer: true,
-          //    customize: function (csv) {
-          //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
-        //    },
-        //    exportOptions: {
-        //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-        //  },
-        //    } ,
-            {
-              extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal -   Revision List',
-              footer: true,
-              exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+          $("#SECTION").inputmask("999A", {
+            autoUnmask: true,
+            onincomplete: function() {
+              $("#errorsection").show();
             },
-            orientation : 'landscape',
-          pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
-            } ,
-            {
-              extend: 'print',
-              title: 'JRU Organizations Portal -   Revision List',
-              footer: true,
-              exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-            },
-            customize: function(win)
-            {
 
-                var last = null;
-                var current = null;
-                var bod = [];
-
-                var css = '@page { size: landscape; font-size: 1em;}',
-                    head = win.document.head || win.document.getElementsByTagName('head')[0],
-                    style = win.document.createElement('style');
-
-                style.type = 'text/css';
-                style.media = 'print';
-
-                if (style.styleSheet)
-                {
-                  style.styleSheet.cssText = css;
-                }
-                else
-                {
-                  style.appendChild(win.document.createTextNode(css));
-                }
-
-                head.appendChild(style);
-         }
-      },
-          ]
-        });
-      myTable.columns.adjust().draw();
+            clearIncomplete: true,
+            removeMaskOnSubmit: true,
+            showMaskOnFocus: false,
+            showMaskOnHover: false,
+            oncomplete: function() {
+              $("#errorsection").hide();
+            }
+          });
         });
     </script>
-<script src="../assets/js/dataTables.altEditor.free.js" ></script>
-</body>
+    <script>
+    $(document).ready(function() {
+    $('#profilePic').change(function(){
+        var file_data = $('#profilePic').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('profilePic', file_data);
+        $.ajax({
+            url: "signatory-update-pic.php",
+            type: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                console.log(data);
+                location.reload();
+            }
+        });
+    });
+  });
+    </script>
+        <script>
+      $(document).on('click', '.passbtn', function(){
+        var school_id = $(this).attr("id");
+        $.ajax({
+                url:"signatory-fetch-profile.php",
+                method:"POST",
+                data:
+                {
+                  school_id:school_id
+                },
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#cid').val(data.school_id);
+                $('#changePass').modal('show');
+                }
+        });
+      });
+  </script>
 
-</html>
+
+      <!-- jQuery CDN - Slim version (=without AJAX) -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <!-- Popper.JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+      <!-- Sidebar collapse -->
+      <script src="../assets/js/form-validation.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+      <!-- waves css
+      <script type="text/javascript">
+        Waves.attach('#sidebar ul li a');
+        Waves.init();
+      </script>-->
+      <!-- Datatable default  -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+
+      <!-- Datatable bs5
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+      <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
+      </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+      </script>  -->
+
+      <!-- <script src="js/form-validation.js"></script>
+    Prevent Cut Copy Paste -->
+      <script>
+        $(document).ready(function() {
+          $('input:text').bind('cut copy paste', function(e) {
+            e.preventDefault();
+            return false;
+          });
+
+        });
+
+        document.addEventListener('click', function handleClickOutsideBox(event) {
+      const box = document.getElementById('box');
+
+      if (!box.contains(event.target)) {
+        box.style.display = 'none';
+      }
+    });
+      </script>
+
+      <!--image upload-->
+      <script>
+      $(document).ready(function() {
+
+
+      var readURL = function(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                  $('.profile-pic').attr('src', e.target.result);
+              }
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+
+      $(".file-upload").on('change', function(){
+          readURL(this);
+      });
+
+      $(".upload-button").on('click', function() {
+         $(".file-upload").click();
+      });
+  });
+      </script>
+      <!--input mask-->
+      <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+      <script src="../assets/js/inputmask-validation.js"></script>
+
+      <!--Uppercase first letter !-->
+      <script src="../assets/js/uppercase-firstletter.js"></script>
+
+      <!--password validation!-->
+      <script src="../assets/js/pass-validation.js"></script>
+
+      <!-- age validation !-->
+      <script src="../assets/js/age-validation.js"></script>
+  <script src="../assets/js/dataTables.altEditor.free.js" ></script>
+  </body>
+
+  </html>

@@ -235,7 +235,7 @@ if(isset($_SESSION['msg'])){
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
                                   <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[course]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Mother Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Main Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
                               <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
@@ -629,7 +629,7 @@ if(isset($_SESSION['msg'])){
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>  -->
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- <script src="js/form-validation.js"></script>
   Prevent Cut Copy Paste -->
     <script>
