@@ -127,7 +127,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-    
+
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
           <h4>Survey List</h4>
@@ -163,7 +163,7 @@ if(isset($_SESSION['msg'])){
       				<tbody>
       					<?php
       					$i = 1;
-      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc "); 
+      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc ");
       					while($row= $qry->fetch_assoc()):
       					?>
       					<tr>
@@ -224,9 +224,6 @@ if(isset($_SESSION['msg'])){
       		})
       	}
       </script>
-
-
-
 
 
     <!-- Footer -->

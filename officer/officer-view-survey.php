@@ -135,15 +135,15 @@ if(isset($_SESSION['msg'])){
       				<div class="card-header">
       					<h3 class="card-title">Survey Details</h3>
       				</div>
-              <?php 
+              <?php
               $qry = $conn->query("SELECT * FROM tb_survey_set where id = ".$_GET['id'])->fetch_array();
               foreach($qry as $k => $v){
                 if($k == 'title')
                   $k = 'stitle';
                 $$k = $v;
-                
+
               }
-              $answers = $conn->query("SELECT distinct(user_id) from tb_answers where survey_id =".$id)->num_rows;
+              $answers = $conn->query("SELECT distinct(user_id) from tb_survey_answers where survey_id =".$id)->num_rows;
               ?>
       				<div class="card-body p-0 py-2">
       					<div class="container-fluid">
@@ -170,7 +170,7 @@ if(isset($_SESSION['msg'])){
       				<form action="" id="manage-sort">
       				<div class="card-body ui-sortable">
       					<?php
-      					$question = $conn->query("SELECT * FROM tb_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
+      					$question = $conn->query("SELECT * FROM tb_survey_questions where survey_id = $id order by abs(order_by) asc,abs(id) asc");
       					while($row=$question->fetch_assoc()):
       					?>
       					<div class="callout callout-info">
