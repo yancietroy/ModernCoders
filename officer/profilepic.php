@@ -1,4 +1,4 @@
-<?php $query = "SELECT * FROM tb_officers WHERE officer_id = '$id'";
+<?php $query = "SELECT * FROM tb_officers WHERE officer_id = '$officer_id'";
       $result = @mysqli_query($conn, $query);
       $data = @mysqli_fetch_array ($result);
       $profilePic = $data['profile_pic'];

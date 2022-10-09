@@ -1,8 +1,8 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php');
+$officer_id = $_SESSION['use'];
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal Officer</title>
+  <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -40,13 +40,13 @@ if(isset($_SESSION['msg'])){
     <nav id="sidebar">
 
       <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="officer-index.php">
+        <a class="navbar-brand" href="index.html">
           <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Officer</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -106,8 +106,8 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -127,7 +127,7 @@ if(isset($_SESSION['msg'])){
       </nav>
 
       <!-- Page content -->
-
+    
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
           <h4>Survey List</h4>
@@ -163,7 +163,7 @@ if(isset($_SESSION['msg'])){
       				<tbody>
       					<?php
       					$i = 1;
-      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc ");
+      					$qry = $conn->query("SELECT * FROM tb_survey_set order by date(start_date) asc,date(end_date) asc "); 
       					while($row= $qry->fetch_assoc()):
       					?>
       					<tr>
@@ -182,10 +182,10 @@ if(isset($_SESSION['msg'])){
       		                      <a class="dropdown-item delete_survey" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
       		                    </div> -->
       		                    <div class="btn-group">
-      		                        <a href="./index.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
+      		                        <a href="./officer-add-survey.php?page=edit_survey&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat">
       		                          <i class="fas fa-edit"></i>
       		                        </a>
-      		                        <a  href="officer-view-survey.php<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
+      		                        <a  href="./officer-view-survey.php?page=view_survey&id=<?php echo $row['id'] ?>" class="btn btn-info btn-flat">
       		                          <i class="fas fa-eye"></i>
       		                        </a>
       		                        <button type="button" class="btn btn-danger btn-flat delete_survey" data-id="<?php echo $row['id'] ?>">
@@ -215,7 +215,6 @@ if(isset($_SESSION['msg'])){
       			data:{id:$id},
       			success:function(resp){
       				if(resp==1){
-      					alert_toast("Data successfully deleted",'success')
       					setTimeout(function(){
       						location.reload()
       					},1500)
