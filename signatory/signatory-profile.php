@@ -130,12 +130,12 @@ if(isset($_SESSION['msg'])){
       </nav>
 
 
-      <!-- Student Profile -->
+      <!-- Signatory Profile -->
     <h3 class="ms-3">Signatory Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-12 col-lg-4 mb-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -191,7 +191,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Role:	</th>
                       <td width="2%">:</td>
-                      <td><?php echo $data['user_type']; ?></td>
+                      <td><?php $query = "SELECT tb_signatories.usertype_id, tb_usertypes.user_type FROM tb_signatories INNER JOIN tb_usertypes ON tb_signatories.usertype_id=tb_usertypes.usertype_id WHERE tb_signatories.school_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">College	</th>
@@ -203,7 +205,9 @@ if(isset($_SESSION['msg'])){
                  <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td></td>
+                      <td><?php $query = "SELECT tb_signatories.org_id, tb_orgs.ORG FROM tb_signatories INNER JOIN tb_orgs ON tb_signatories.org_id=tb_orgs.ORG_id WHERE tb_signatories.school_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
                     <!--   <tr>
                       <th width="30%">Side Organization	</th>
@@ -286,7 +290,7 @@ if(isset($_SESSION['msg'])){
                             <label class="form-label" for="signatory_type" >Signatory Type:</label>
                             <select class="form-select" name="signatory_type" id="signatory_type" readonly>
                             <?php
-                              $query = "SELECT signatory_type FROM tb_signatories";
+                              $query = "SELECT signatory_id,signatory FROM tb_signatory_type";
                               $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
                                           echo '<option value="'.$data[0].'">'.$data[1].'</option>';
@@ -300,7 +304,7 @@ if(isset($_SESSION['msg'])){
                             <label class="form-label" for="user_type" >Role</label>
                             <select class="form-select" name="user_type" id="user_type" readonly>
                             <?php
-                              $query = "SELECT user_type, user_type FROM user_type";
+                              $query = "SELECT usertypes_id, user_type FROM tb_usertypes";
                               $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
                                           echo '<option value="'.$data[0].'">'.$data[1].'</option>';
@@ -314,7 +318,7 @@ if(isset($_SESSION['msg'])){
                             <label class="form-label" for="org_id" >Organization:</label>
                             <select class="form-select" name="org_id" id="org_id" readonly>
                               <?php
-                              $query = "SELECT org_id FROM tb_orgs";
+                              $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
                                           echo '<option value="'.$data[0].'">'.$data[1].'</option>';
@@ -430,13 +434,7 @@ if(isset($_SESSION['msg'])){
 
     <script>
         $(document).on('click', '.viewbtn', function(){
-           var switch (expression) {
-             case expression:
-
-               break;
-             default:
-
-           } = $(this).attr("id");
+           var school_id = $(this).attr("id");
            $.ajax({
                 url:"signatory-fetch-profile.php",
                 method:"POST",
@@ -460,8 +458,8 @@ if(isset($_SESSION['msg'])){
                 $('#org_id').val(data.org_id);
               /*  $('#password').val(data.password);*/
                 $('#college_dept').val(data.college_dept);
-                $('#signatory_type').val(data.signatory_type);
-                $('#user_type').val(data.user_type);
+                $('#signatory_type').val(data.signatorytype_id);
+                $('#user_type').val(data.usertype_id);
                 $('#account_created').val(data.account_created);
                 $('#profile_pic').val(data.profile_pic);
                 $('#viewmodal').modal('show');
@@ -490,23 +488,6 @@ if(isset($_SESSION['msg'])){
               // Replace the original value with the updated array of capitalized words.
               evt.target.value = newWords.join(" ");
             }
-        });
-
-      $(document).ready(function() {
-          $("#SECTION").inputmask("999A", {
-            autoUnmask: true,
-            onincomplete: function() {
-              $("#errorsection").show();
-            },
-
-            clearIncomplete: true,
-            removeMaskOnSubmit: true,
-            showMaskOnFocus: false,
-            showMaskOnHover: false,
-            oncomplete: function() {
-              $("#errorsection").hide();
-            }
-          });
         });
     </script>
     <script>
