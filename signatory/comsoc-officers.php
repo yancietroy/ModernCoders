@@ -76,7 +76,7 @@ if(isset($_SESSION['msg'])){
       <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
         <li>
-        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+<!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
         </ul>
       <!-- nav footer?
@@ -103,7 +103,7 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
