@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 07, 2022 at 01:47 PM
+-- Generation Time: Oct 09, 2022 at 02:01 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -54,17 +54,19 @@ CREATE TABLE `tb_admin` (
   `LAST_NAME` varchar(50) NOT NULL,
   `MIDDLE_INITIAL` char(2) NOT NULL,
   `EMAIL` varchar(100) NOT NULL,
-  `PASSWORD` varchar(60) NOT NULL
+  `PASSWORD` varchar(60) NOT NULL,
+  `USERTYPE_ID` int(3) DEFAULT NULL,
+  `ACCOUNT_CREATED` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_admin`
 --
 
-INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d'),
-(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4'),
-(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
+INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`) VALUES
+(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL),
+(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL),
+(32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -78,15 +80,10 @@ CREATE TABLE `tb_admin_archive` (
   `LAST_NAME` varchar(50) NOT NULL,
   `MIDDLE_INITIAL` char(2) NOT NULL,
   `EMAIL` varchar(100) NOT NULL,
-  `PASSWORD` varchar(60) NOT NULL
+  `PASSWORD` varchar(60) NOT NULL,
+  `USERTYPE_ID` int(3) DEFAULT NULL,
+  `ACCOUNT_CREATED` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_admin_archive`
---
-
-INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`) VALUES
-(23321313, 'Angelo', 'Dela Cruz', '', 'angelo.delacruz@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4');
 
 -- --------------------------------------------------------
 
@@ -634,16 +631,20 @@ CREATE TABLE `tb_signatories` (
   `last_name` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(8000) DEFAULT NULL,
-  `signatory_type` varchar(100) DEFAULT NULL
+  `usertype_id` int(3) DEFAULT NULL,
+  `signatorytype_id` int(3) DEFAULT NULL,
+  `college_dept` int(3) DEFAULT NULL,
+  `org_id` int(3) DEFAULT NULL,
+  `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_signatories`
 --
 
-INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`) VALUES
-(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Student Adviser'),
-(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO');
+INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`) VALUES
+(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', NULL, 3, NULL, NULL, NULL),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -657,8 +658,32 @@ CREATE TABLE `tb_signatories_archive` (
   `last_name` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(8000) DEFAULT NULL,
-  `signatory_type` varchar(100) DEFAULT NULL
+  `usertype_id` int(3) DEFAULT NULL,
+  `signatorytype_id` int(3) DEFAULT NULL,
+  `college_dept` int(3) DEFAULT NULL,
+  `org_id` int(3) DEFAULT NULL,
+  `account_created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_signatory_type`
+--
+
+CREATE TABLE `tb_signatory_type` (
+  `signatory_id` int(3) NOT NULL,
+  `signatory` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatory_type`
+--
+
+INSERT INTO `tb_signatory_type` (`signatory_id`, `signatory`) VALUES
+(1, 'SDO'),
+(2, 'Dean'),
+(3, 'Adviser');
 
 -- --------------------------------------------------------
 
@@ -828,13 +853,15 @@ ALTER TABLE `tb_action`
 -- Indexes for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  ADD PRIMARY KEY (`ADMIN_ID`);
+  ADD PRIMARY KEY (`ADMIN_ID`),
+  ADD KEY `admin_usertype_id_fk` (`USERTYPE_ID`);
 
 --
 -- Indexes for table `tb_admin_archive`
 --
 ALTER TABLE `tb_admin_archive`
-  ADD PRIMARY KEY (`ADMIN_ID`);
+  ADD PRIMARY KEY (`ADMIN_ID`),
+  ADD KEY `admin_usertype_id_fk` (`USERTYPE_ID`);
 
 --
 -- Indexes for table `tb_answers`
@@ -1015,13 +1042,27 @@ ALTER TABLE `tb_results`
 -- Indexes for table `tb_signatories`
 --
 ALTER TABLE `tb_signatories`
-  ADD PRIMARY KEY (`school_id`);
+  ADD PRIMARY KEY (`school_id`),
+  ADD KEY `signatories_collegedept_fk` (`college_dept`),
+  ADD KEY `signatories_orgid_fk` (`org_id`),
+  ADD KEY `signatories_type_fk` (`signatorytype_id`),
+  ADD KEY `signatories_usertype_id_fk` (`usertype_id`);
 
 --
 -- Indexes for table `tb_signatories_archive`
 --
 ALTER TABLE `tb_signatories_archive`
-  ADD PRIMARY KEY (`school_id`);
+  ADD PRIMARY KEY (`school_id`),
+  ADD KEY `signatories_collegedept_fk` (`college_dept`),
+  ADD KEY `signatories_orgid_fk` (`org_id`),
+  ADD KEY `signatories_type_fk` (`signatorytype_id`),
+  ADD KEY `signatories_usertype_id_fk` (`usertype_id`);
+
+--
+-- Indexes for table `tb_signatory_type`
+--
+ALTER TABLE `tb_signatory_type`
+  ADD PRIMARY KEY (`signatory_id`);
 
 --
 -- Indexes for table `tb_students`
@@ -1127,6 +1168,12 @@ ALTER TABLE `tb_usertypes`
 --
 
 --
+-- Constraints for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD CONSTRAINT `admin_usertype_id_fk` FOREIGN KEY (`USERTYPE_ID`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tb_audit_trail`
 --
 ALTER TABLE `tb_audit_trail`
@@ -1229,6 +1276,15 @@ ALTER TABLE `tb_projectmonitoring`
 ALTER TABLE `tb_results`
   ADD CONSTRAINT `result_candidate_id_fk` FOREIGN KEY (`CANDIDATE_ID`) REFERENCES `tb_candidate` (`CANDIDATE_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `result_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_signatories`
+--
+ALTER TABLE `tb_signatories`
+  ADD CONSTRAINT `signatories_collegedept_fk` FOREIGN KEY (`college_dept`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `signatories_orgid_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `signatories_type_fk` FOREIGN KEY (`signatorytype_id`) REFERENCES `tb_signatory_type` (`signatory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `signatories_usertype_id_fk` FOREIGN KEY (`usertype_id`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_students`
