@@ -40,7 +40,7 @@ Class Action {
 
 	function save_files(){
 		extract($_POST);
-		if(empty($id)){
+		if(empty($fid)){
 		if($_FILES['upload']['tmp_name'] != ''){
 					$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['upload']['name'];
 					$move = move_uploaded_file($_FILES['upload']['tmp_name'],'assets/uploads/'. $fname);
@@ -76,7 +76,7 @@ Class Action {
 						$data .= ", is_public = 1 ";
 						else
 						$data .= ", is_public = 0 ";
-						$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
+						$save = $this->db->query("UPDATE files set ".$data. " where id=".$fid);
 						if($save)
 						return json_encode(array('status'=>1));
 			}
@@ -88,10 +88,10 @@ Class Action {
 		$data .= ", username = '$username' ";
 		$data .= ", password = '$password' ";
 		$data .= ", type = '$type' ";
-		if(empty($id)){
+		if(empty($uid)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE users set ".$data." where id = ".$id);
+			$save = $this->db->query("UPDATE users set ".$data." where id = ".$uid);
 		}
 		if($save){
 			return 1;
@@ -101,19 +101,19 @@ Class Action {
 	function save_category(){
 		extract($_POST);
 		$data = " category = '$category' ";
-		if(empty($id)){
+		if(empty($scid)){
 			$save = $this->db->query("INSERT INTO category_list set ".$data);
 			if($save)
 				return 1;
 		}else{
-			$save = $this->db->query("UPDATE category_list set ".$data." where id =".$id);
+			$save = $this->db->query("UPDATE category_list set ".$data." where id =".$scid);
 			if($save)
 				return 2;
 		}
 	}
 	function delete_category(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM category_list where id=".$id);
+		$delete = $this->db->query("DELETE FROM category_list where id=".$dcid);
 		if($delete)
 			return 1;
 	}
@@ -121,12 +121,12 @@ Class Action {
 		extract($_POST);
 		$data = " title = '$title' ";
 		$data .= " , description = '$description' ";
-		if(empty($id)){
+		if(empty($svid)){
 			$save = $this->db->query("INSERT INTO voting_list set ".$data);
 			if($save)
 				return 1;
 		}else{
-			$save = $this->db->query("UPDATE voting_list set ".$data." where id =".$id);
+			$save = $this->db->query("UPDATE voting_list set ".$data." where id =".$svid);
 			if($save)
 				return 2;
 		}
@@ -134,22 +134,22 @@ Class Action {
 
 	function get_voting(){
 		extract($_POST);
-		$get = $this->db->query("SELECT * FROM voting_list where id=".$id);
+		$get = $this->db->query("SELECT * FROM voting_list where id=".$gvid);
 		if($get->num_rows > 0){
 			return json_encode($get->fetch_assoc());
 		}
 	}
 	function delete_voting(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM voting_list where id=".$id);
+		$delete = $this->db->query("DELETE FROM voting_list where id=".$dvid);
 		if($delete)
 			return 1;
 	}
 
 	function update_voting(){
 		extract($_POST);
-		$this->db->query("UPDATE voting_list set is_default = 0 where id !=".$id);
-		$update = $this->db->query("UPDATE voting_list set is_default = 1 where id= ".$id);
+		$this->db->query("UPDATE voting_list set is_default = 0 where id !=".$uvid);
+		$update = $this->db->query("UPDATE voting_list set is_default = 1 where id= ".$uvid);
 		if($update)
 			return 1;
 	}
@@ -171,20 +171,20 @@ Class Action {
 			}
 
 		}
-		if(empty($id)){
+		if(empty($soid)){
 			$save = $this->db->query("INSERT INTO voting_opt set ".$data);
 			if($save)
 				return 1;
 		}else{
-			$save = $this->db->query("UPDATE voting_opt set ".$data." where id=".$id);
+			$save = $this->db->query("UPDATE voting_opt set ".$data." where id=".$soid);
 			if($save)
 				return 2;
 		}
 	}
 	function delete_candidate(){
 		extract($_POST);
-		$path = $this->db->query("SELECT * FROM voting_opt where id=".$id)->fetch_array()['image_path'];
-		$delete = $this->db->query("DELETE FROM voting_opt where id=".$id);
+		$path = $this->db->query("SELECT * FROM voting_opt where id=".$dcid)->fetch_array()['image_path'];
+		$delete = $this->db->query("DELETE FROM voting_opt where id=".$dcid);
 		if($delete){
 			unlink('assets/img/'.$path);
 			return 1;
@@ -196,10 +196,10 @@ Class Action {
 		$data = " category_id = $category_id ";
 		$data .= ", voting_id = $voting_id ";
 		$data .= ", max_selection = $max_selection ";
-		if(empty($id)){
+		if(empty($ssid)){
 			$save = $this->db->query("INSERT INTO voting_cat_settings set ".$data);
 		}else{
-			$save = $this->db->query("UPDATE voting_cat_settings set ".$data." where id=".$id);
+			$save = $this->db->query("UPDATE voting_cat_settings set ".$data." where id=".$ssid);
 		}
 		if($save)
 			return 1;
