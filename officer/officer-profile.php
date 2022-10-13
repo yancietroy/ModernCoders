@@ -149,7 +149,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                   <h3 class="pt-3"><?php echo "$row[0]"; ?></h3>
                 </div>
-                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$id'";
+                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $data = @mysqli_fetch_array ($result);
                   $si = $data['student_id'];?>
@@ -192,7 +192,7 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">College	</th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
                     </tr>
@@ -204,14 +204,14 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                      <td><?php $query = "SELECT tb_officers.org_id, tb_orgs.ORG FROM tb_officers INNER JOIN tb_orgs ON tb_officers.org_id=tb_orgs.ORG_ID WHERE tb_officers.officer_id = '$officer_id'";
                                 $result = @mysqli_query($conn, $query);
-                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></td>
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Position	</th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
+                      <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$officer_id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
@@ -231,14 +231,14 @@ if(isset($_SESSION['msg'])){
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[birthdate]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Age:<br></strong><?php echo "$data[age]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
                                   <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[course]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Main Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Main Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
-                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$id'";
+                              <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$officer_id'";
                                         $result = @mysqli_query($conn, $query);
                                         $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
 
@@ -246,8 +246,8 @@ if(isset($_SESSION['msg'])){
                                                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $id . "' >Edit Profile</button>";?>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $id . "' >Change Password</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $officer_id . "' >Edit Profile</button>";?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $officer_id . "' >Change Password</button>";?>
                   </div>
                 </div>
 

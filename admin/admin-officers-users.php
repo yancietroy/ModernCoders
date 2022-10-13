@@ -436,7 +436,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="year_level" >Year Level:</label>
-                                <select class="form-select" name="gender" id="year_level">
+                                <select class="form-select" name="year_level" id="year_level">
                                   <option value="1">Year 1</option>
                                   <option value="2">Year 2</option>
                                   <option value="3">Year 3</option>
