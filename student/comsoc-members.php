@@ -152,7 +152,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -323,7 +323,12 @@ if(isset($_SESSION['msg'])){
                           <div class="row">
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                              <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
+                              <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" readonly>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                              </select>
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-4">
                               <div class="form-outline">

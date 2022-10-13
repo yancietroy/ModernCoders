@@ -57,7 +57,7 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
         </li>
-        <li class="active">
+        <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <!--<li>

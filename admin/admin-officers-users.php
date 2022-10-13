@@ -355,6 +355,28 @@ if(isset($_SESSION['msg'])){
                             <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required/>
                           </div>
                         </div>
+
+                        <div class="row">
+                        <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="birthdate" >Birthdate:</label>
+                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  required/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="age" >Age:</label>
+                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="gender" >Gender</label>
+                              <select class="form-select" name="gender" id="gender">
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                              </select>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
@@ -414,31 +436,16 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="year_level" >Year Level:</label>
-                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                                <select class="form-select" name="gender" id="year_level">
+                                  <option value="1">Year 1</option>
+                                  <option value="2">Year 2</option>
+                                  <option value="3">Year 3</option>
+                                  <option value="4">Year 4</option>
+                                </select>
+                            </div>
                             </div>
                           </div>
                           <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly/>
-                        </div>
-                        <div class="row">
-                        <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="birthdate" >Birthdate:</label>
-                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  required/>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="age" >Age:</label>
-                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="gender" >Gender</label>
-                              <select class="form-select" name="gender" id="gender">
-                                <option value="Female">Female</option>
-                                <option value="Male">Male</option>
-                              </select>
-                          </div>
                         </div>
                     </div>
                     <div class="modal-footer">

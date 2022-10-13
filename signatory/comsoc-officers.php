@@ -394,7 +394,12 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="year_level" >Year Level:</label>
-                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1" style="background-color: #fff;"   oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" readonly />
+                              <select class="form-select" name="year_level" id="year_level" readonly>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                              </select>
                             </div>
                           </div>
                           <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly/>
