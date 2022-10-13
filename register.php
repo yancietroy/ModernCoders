@@ -213,7 +213,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" onchange="FetchOrg(this.value)" required>
+                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                             $query = "SELECT course_id, course FROM tb_course";
@@ -301,7 +301,6 @@ include('mysql_connect.php');
 <script type="text/javascript">
   function FetchCourse(id){
     $('#course').html('');
-    $('#org').html('<option class="greyclr" selected disabled value="" text-muted>Select Organization</option>');
     $.ajax({
       type:'POST',
       url: 'register-dropdown.php',
@@ -313,7 +312,7 @@ include('mysql_connect.php');
     })
   }
 
-  function FetchOrg(id){ 
+   /*(function FetchOrg(id){ 
     $('#org').html('');
     $.ajax({
       type:'POST',
@@ -324,7 +323,7 @@ include('mysql_connect.php');
       }
 
     })
-  }
+  }*/
 </script>
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
