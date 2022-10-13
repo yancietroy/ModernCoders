@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 09, 2022 at 02:28 PM
+-- Generation Time: Oct 13, 2022 at 03:25 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -65,8 +65,8 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
-(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png'),
+(1, 'Bien', 'Legaspi', '', 'bienlegaspi@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
+(21212121, 'admin', '123', '', 'admin123@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
 (32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
@@ -385,9 +385,11 @@ CREATE TABLE `tb_officers` (
 --
 
 INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `birthdate`, `age`, `gender`, `year_level`, `college_dept`, `course`, `section`, `email`, `password`, `org_id`, `user_type`, `profile_pic`, `account_created`) VALUES
-(17401211, 1, 1, 'Legaspi', 'Bienvenido', '', '2000-06-13', 22, 'Male', '3', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 8, 2, '39899-ZoomPic.jpg', '2022-09-25'),
-(19255322, 7, 2, 'Saludo', 'Yancie Troy', 'Hernandez', '2000-10-03', 22, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 12, 2, 'img_avatar.png', '2022-10-04'),
-(17402211, 8, 4, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 12, 2, 'img_avatar.png', '2022-10-05');
+(19255532, 9, 1, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, '62803-profile.jpg', '2022-10-13'),
+(19255533, 10, 2, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
+(19255515, 11, 3, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
+(19255570, 12, 4, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
+(19255540, 13, 5, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 16, 2, 'img_avatar.png', '2022-10-13');
 
 -- --------------------------------------------------------
 
@@ -458,6 +460,18 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
 (22, 'José Rizal University Dance Troupe', NULL),
 (23, 'Teatro Rizal', NULL),
 (24, 'Junior Photographic Editors and Graphic Artists (JPEG)', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_orgs_archive`
+--
+
+CREATE TABLE `tb_orgs_archive` (
+  `ORG_ID` int(2) NOT NULL,
+  `ORG` varchar(100) NOT NULL,
+  `college_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -572,15 +586,9 @@ CREATE TABLE `tb_projectmonitoring` (
 --
 
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
-(20, NULL, NULL, NULL, 'JRU Fun Run', NULL, NULL, 'Outreach', 'Onsite', NULL, 'Fun Run for JRU', '2022-09-30 15:00:00', '2022-09-30 16:00:00', '80 Shaw Blvd.', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 10000, NULL, NULL, 'Pending', '2022-09-06', NULL, ''),
-(21, NULL, NULL, NULL, 'JRU esports tryout', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'tryout for esports gaming for jru students', '2022-09-29 16:00:00', '2022-09-29 16:00:00', 'JRU 3rd Floor', 'JRU Students', 50, 'JRU Students', 50, 'Student Council', 5000, NULL, NULL, 'Approved', '2022-09-06', NULL, 'project approved'),
-(22, NULL, NULL, NULL, 'JRU Hyflex Seminar', NULL, NULL, 'Extra Curricular', 'Online', NULL, 'JRU Hyflex Seminar for JRU students and parents', '2022-09-09 13:00:00', '2022-09-28 18:00:00', 'Zoom', 'JRU students and parents', 100, 'JRU students and parents', 100, 'Student Council', 10000, NULL, NULL, 'For Revision', '2022-09-06', NULL, 'need to adjust the date'),
-(23, NULL, NULL, NULL, 'CSE tech showcase', NULL, NULL, 'Curricular', 'Onsite', 'CSE tech showcase for CSE students', NULL, '2022-09-27 19:00:00', '2022-09-27 20:00:00', 'JRU Quadrangle', 'CSE students', 10, 'CSE students', 100, 'Accounting Office', 20000, NULL, NULL, 'Rejected', '2022-09-06', NULL, 'already been done this year'),
-(24, NULL, NULL, NULL, 'CSE movie showing', NULL, NULL, 'Extra Curricular', 'Onsite', NULL, 'CSE movie showing for CSE students', '2022-09-26 16:00:00', '2022-09-26 20:00:00', 'SM Megamall', 'CSE students', 30, 'CSE students', 30, 'Organization', 30000, NULL, NULL, 'Cancelled', '2022-09-06', NULL, 'Project cancelled.'),
-(25, NULL, NULL, NULL, 'CSE Coding Challenge', NULL, NULL, 'Curricular', 'Online', NULL, 'CSE Coding Challenge for CSE students', '2022-09-25 18:00:00', '2022-09-25 19:00:00', 'Zoom', 'CSE students', 100, 'CSE students', 100, 'Third Party', 5000, NULL, NULL, 'Done', '2022-09-06', NULL, 'great work, project approved.'),
-(26, NULL, NULL, NULL, 'JRU virtual seminar', NULL, NULL, 'Curricular', 'Online', NULL, 'JRU virtual seminar for jru students', '2022-09-24 16:00:00', '2022-09-24 17:00:00', 'Zoom', 'JRU students', 200, 'JRU students', 200, 'Accounting Office', 10000, NULL, NULL, 'Ongoing', '2022-09-06', NULL, 'project approved.'),
-(48, NULL, NULL, NULL, 'Sample Project 7', NULL, NULL, 'Curricular', 'Onsite', NULL, 'Sample', '2022-09-28 18:00:00', '2022-09-30 18:00:00', 'JRU Quadrangle', 'JRU Students', 100, 'JRU Students', 100, 'Student Council', 2000, NULL, '51831-Predicting the Total Sales of Shell Gasoline Station using Multiple Regression-1.pdf', 'Pending', '2022-09-28', NULL, NULL),
-(53, 1, 8, NULL, 'Sample Project 8', 'Bienvenido Legaspi', 'COMSOC', 'Seminar', 'Online', 'Sample OBJ', NULL, '2022-10-06 19:00:00', '2022-10-06 20:00:00', 'Home', 'JRU Students', NULL, NULL, NULL, NULL, NULL, '1500 - Sample budget request', '13914-H_30908.pdf', 'For Revision', '2022-10-06', '2022-10-06', '');
+(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '39416-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
+(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '29687-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
+(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '66023-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -647,8 +655,9 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `profile_pic`) VALUES
-(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Adviser', 3, 3, NULL, NULL, NULL, 'img_avatar.png'),
-(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO', 3, 1, NULL, NULL, NULL, 'img_avatar.png');
+(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', NULL, NULL, NULL, NULL, NULL, NULL),
+(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', NULL, NULL, NULL, NULL, NULL, NULL),
+(19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'SDO', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -670,6 +679,14 @@ CREATE TABLE `tb_signatories_archive` (
   `account_created` date DEFAULT NULL,
   `profile_pic` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_signatories_archive`
+--
+
+INSERT INTO `tb_signatories_archive` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `profile_pic`) VALUES
+(18202422, 'Jane', 'Doe', 'janedoe@jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 'Adviser', 3, 3, NULL, NULL, NULL, 'img_avatar.png'),
+(32232313, 'Lebron', 'James', 'lebron.james@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 'SDO', 3, 1, NULL, NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -723,9 +740,16 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
-(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 18, 'Male', '3', 'bienvenido.legaspiii@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '302I', 8, 12, 2, NULL, '8194-ZoomPic.jpg'),
-(17402211, 'Doe', 'Jane', 'J', '2000-06-13', 22, 'Female', '4', 'jane.doe@my.jru.edu', '9ad92c6b402eeb3332550ffe00f3970820847d92', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, '2022-10-04', 'img_avatar.png'),
-(19255322, 'Saludo', 'Yancie Troy', 'Hernandez', '1999-11-14', 22, 'Male', '4', 'yancietroy.saludo@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 12, NULL, 2, NULL, 'img_avatar.png');
+(18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255532, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', '24690-profile.jpg'),
+(19255533, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255540, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 16, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255561, 'Carreros', 'Kean', 'V', '1999-11-27', 22, 'Male', '4', 'kean.carreros@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 'Bachelor of Arts in Psychology (ABPsy)', '401I', 3, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(19255570, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(20255530, 'Vizcarra', 'Ericka', 'R', '2000-09-03', 22, 'Female', '3', 'ericka.vizcarra@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 'Bachelor of Science in Hospitality Management (BSHM)', '302I', 15, NULL, 1, '2022-10-13', 'img_avatar.png'),
+(20259030, 'Salopaso', 'Justine', 'E', '1999-03-23', 23, 'Male', '4', 'justine.salopaso@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance', '401I', 7, NULL, 1, '2022-10-13', 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -995,6 +1019,13 @@ ALTER TABLE `tb_orgs`
   ADD KEY `orgs_college_id_fk` (`college_id`);
 
 --
+-- Indexes for table `tb_orgs_archive`
+--
+ALTER TABLE `tb_orgs_archive`
+  ADD PRIMARY KEY (`ORG_ID`),
+  ADD KEY `orgs_college_id_fk` (`college_id`);
+
+--
 -- Indexes for table `tb_pkanswerkey`
 --
 ALTER TABLE `tb_pkanswerkey`
@@ -1137,7 +1168,7 @@ ALTER TABLE `tb_answers`
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
-  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tb_officers_archive`
@@ -1149,7 +1180,7 @@ ALTER TABLE `tb_officers_archive`
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `tb_questions`
