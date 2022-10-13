@@ -1,6 +1,6 @@
 <?php
 
-//action.php
+//action-admin-user.php
 
 include('../mysql_connect.php');
 

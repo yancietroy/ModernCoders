@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 09, 2022 at 02:28 PM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 11, 2022 at 04:11 PM
 -- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,9 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sample`
+-- Table structure for table `category_list`
 --
 
+CREATE TABLE `category_list` (
+  `id` int(30) NOT NULL,
+  `category` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category_list`
+--
+
+INSERT INTO `category_list` (`id`, `category`) VALUES
+(1, 'President'),
+(3, 'Vice President'),
+(4, 'Officer');
 
 -- --------------------------------------------------------
 
@@ -62,7 +75,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
-(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
+(1, 'John', 'Doe', '', 'johndoe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, '66528-1.png'),
 (21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png'),
 (32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png');
 
@@ -842,9 +855,36 @@ CREATE TABLE `tb_vote` (
   `DATE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voting_list`
+--
+
+CREATE TABLE `voting_list` (
+  `id` int(30) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `voting_list`
+--
+
+INSERT INTO `voting_list` (`id`, `title`, `description`, `is_default`) VALUES
+(1, 'Sample Voting', 'Sample only', 1),
+(3, 'Test Voting', 'Test Only', 0);
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `category_list`
+--
+ALTER TABLE `category_list`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_action`
@@ -1121,8 +1161,20 @@ ALTER TABLE `tb_vote`
   ADD KEY `vote_candidate_id_fk` (`CANDIDATE_ID`);
 
 --
+-- Indexes for table `voting_list`
+--
+ALTER TABLE `voting_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `category_list`
+--
+ALTER TABLE `category_list`
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_answers`
