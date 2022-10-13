@@ -322,21 +322,22 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3   min-vw-100" for="GENDER">Gender </label>
-                            <div class="btn-group">
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" readonly>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" readonly>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
-                              <!--<div class="valid-feedback check"> &#x2713;</div>
-                              <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                            </div>
+                            <label class="form-label" for="GENDER">Gender </label>
+                            <select class="form-select" name="GENDER" id="GENDER" readonly>
+                              <option value="Female">Female</option>
+                              <option value="Male">Male</option>
+                            </select>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
+                            <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" readonly>
+                              <option value="1">Year 1</option>
+                              <option value="2">Year 2</option>
+                              <option value="3">Year 3</option>
+                              <option value="4">Year 4</option>
+                            </select>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
@@ -346,7 +347,7 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="EMAIL" >Email:</label>
-                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" />
+                            <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;" />
                           </div>
                         </div>
                         <div class="row">
@@ -545,7 +546,7 @@ if(isset($_SESSION['msg'])){
                 $('#LAST_NAME').val(data.LAST_NAME);
                 $('#BIRTHDATE').val(data.BIRTHDATE);
                 $('#AGE').val(data.AGE);
-                $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
+                $('#GENDER').val(data.GENDER);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
                 $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);

@@ -184,7 +184,7 @@ if(isset($_SESSION['msg'])){
             </div>
             <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>!-->
+        </div>
 
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
@@ -197,7 +197,7 @@ if(isset($_SESSION['msg'])){
             </div>
             <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
+        </div>!-->
 <!--
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
@@ -326,13 +326,12 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
-                      <div class="col-4 col-md-2 col-sm-3 mb-4">
+                      <div class="col-12 col-md-4 col-sm-3 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="ORG_ID" >Organization ID:</label>
                            <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                       </div>
-                      <div class="row">
                         <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="ORG" >Organization name:</label>
@@ -341,6 +340,10 @@ if(isset($_SESSION['msg'])){
                         </div>
                       </div>
                        </div>
+                    </div>
+                    <div class="modal-footer py-2 px-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" name="view" class="btn btn-primary">Visit Org</button>
                     </div>
                   </div>
                 </form>

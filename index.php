@@ -34,14 +34,9 @@ if(isset($_SESSION['message'])){
         <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
           <div class="card-body px-4 ">
             <div class="row g-0 justify-content-center align-items-center mt-2">
-              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-              </div>
-              <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-              </div>
-              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+
+              <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
               </div>
             </div>
             <p class=" h4 mb-2 text-center" id="indextitle">JRU Student Organizations Portal</p>
@@ -110,13 +105,13 @@ if(isset($_SESSION['message'])){
                   <option value="admin-login.php">Admin</option>
                 </select>
               </div>
-              <div class="d-flex justify-content-end mt-2">
+              <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">
                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck">
                                      <label class="form-check-label" for="inlineFormCheck">Remember me</label>
                                  </div>
                                      <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
-                             </div>
+                             </div>-->
               <button class="w-100 btn btn-lg btn-primary mt-3 mb-2 button" type="submit" name='submit'>Sign in</button>
 
               <hr class="my-4">

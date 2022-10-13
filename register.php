@@ -82,10 +82,9 @@ include('mysql_connect.php');
                   VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul')";
                   $conn->exec($sql);
                   echo "
-                  <div class='callout bs-callout-success pb-0'>
-                    <h4>Successfuly registered!</h4>
-                    <p>please wait for approval in your email. <a href='index.php' class='text-blue-50 fw-bold'> Back to login</a></p>
-                  </div>";
+                  <script type='text/javascript'>
+                        alert('Successfully Registered!')
+                        window.location.href='index.php'</script>";
                   }
                      catch(PDOException $e)
                       {
@@ -297,7 +296,7 @@ include('mysql_connect.php');
   </div>
   </div>
   </div>
-  </section>    
+  </section>
 <script type="text/javascript">
   function FetchCourse(id){
     $('#course').html('');
@@ -312,7 +311,7 @@ include('mysql_connect.php');
     })
   }
 
-   /*(function FetchOrg(id){ 
+   /*(function FetchOrg(id){
     $('#org').html('');
     $.ajax({
       type:'POST',

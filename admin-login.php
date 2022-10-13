@@ -108,13 +108,13 @@ if(isset($_SESSION['message'])){
                       <!--<option value="index.php">Student</option>-->
                 </select>
               </div>
-              <div class="d-flex justify-content-end mt-2">
+              <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">
                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck">
                                      <label class="form-check-label" for="inlineFormCheck">Remember me</label>
                                  </div>
                                      <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
-                             </div>
+                             </div>-->
               <button class="w-100 btn btn-lg btn-primary mt-3 mb-2" type="submit" name='submit'>Sign in</button>
             </form>
           </div>
