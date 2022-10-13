@@ -7,7 +7,7 @@ if (isset($_POST['college_id']))
 	if ($result->num_rows > 0 ) 
 	{
 			echo '<option class="greyclr" selected disabled value="" text-muted>Select Course</option>';
-		 while ($row = $result->fetch_assoc()) 
+		 while ($row = $result->fetch_array()) 
 		 {
 		 	echo '<option value="' . $row[1] . '">' . $row[1] . '</option>';
 		 }
@@ -25,7 +25,7 @@ elseif (isset($_POST['org_id']))
 	if ($result->num_rows > 0 )
 	{
 		echo '<option class="greyclr" selected disabled value="" text-muted>Select Organization</option>';
-		while ($row = $result->fetch_assoc())
+		while ($row = $result->fetch_array())
 		{
 		 	echo '<option value="' . $row[0] .  '" >'. $row[1] . '</option>';
 		}
