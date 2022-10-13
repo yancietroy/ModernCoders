@@ -395,7 +395,7 @@ if(isset($_SESSION['msg'])){
                          <div class="col-12 col-md-6 col-sm-3 mb-4">
                            <div class="form-outline d-grid">
                              <label class="form-label">Download Attachment/s:</label>
-                           <button type="button" class="btn btn-secondary btn-md">Download</button>
+                           <a type="button" class="btn btn-secondary btn-md" href="download.php?file=<?php echo $rows['attachments'] ?>">Download</a>
                            </div>
                          </div>
                          <!--
