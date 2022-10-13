@@ -244,7 +244,6 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>

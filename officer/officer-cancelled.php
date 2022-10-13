@@ -516,7 +516,7 @@ if(isset($_SESSION['msg'])){
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="admin-delete-user.php" method="POST">
+        <form action="officer-delete-project.php" method="POST">
             <div class="modal-body">
               <div class="col-12 col-md-12 justify-content-center ">
                 <div class="form-outline">
@@ -574,7 +574,22 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
-
+    <script>
+      $(document).on('click', '.deletebtn', function(){
+        var project_id = $(this).attr("id");
+        $.ajax({
+                url:"officer-fetch-project.php",
+                method:"POST",
+                data:{project_id:project_id},
+                dataType:"json",
+                success:function(data){
+                console.log(data);
+                $('#delete_id').val(data.project_id);
+                $('#deletemodal').modal('show');
+                }
+            });
+        });
+    </script>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
