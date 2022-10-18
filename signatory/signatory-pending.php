@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li class="active">
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -105,7 +105,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -497,7 +497,7 @@ if(isset($_SESSION['msg'])){
                                 <option value="Approved">Approved</option>
                                 <option value="For Revision">For Revision</option>
                                 <option value="Rejected">Rejected</option>
-                                <option value="Cancelled">Cancelled</option>
+                                <option value="Reschedule">Reschedule</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Ongoing">Ongoing</option>
                                 <option value="Done">Done</option>
@@ -614,7 +614,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "For Revision" ) {
         $('td', row).eq(3).css('color', '#FF9671');
       }
-      if ( data[3] == "Cancelled" ) {
+      if ( data[3] == "Reschedule" ) {
       $('td', row).eq(3).css('color', 'grey');
       }
           },

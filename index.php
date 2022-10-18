@@ -34,7 +34,6 @@ if(isset($_SESSION['message'])){
         <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
           <div class="card-body px-4 ">
             <div class="row g-0 justify-content-center align-items-center mt-2">
-
               <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
                 <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
               </div>
@@ -102,7 +101,6 @@ if(isset($_SESSION['message'])){
                   <!--<option value="index.php">Student</option>-->
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
-                  <option value="admin-login.php">Admin</option>
                 </select>
               </div>
               <!--  <div class="d-flex justify-content-end mt-2">

@@ -100,7 +100,6 @@ if(isset($_SESSION['message'])){
                   <option value="index.php">Student</option>
                       <!--<option value="index.php">Student</option>-->
                   <option value="signatory-login.php">Signatory</option>
-                  <option value="admin-login.php">Admin</option>
                 </select>
               </div>
               <!--  <div class="d-flex justify-content-end mt-2">

@@ -101,12 +101,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -146,14 +146,15 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-6 col-6  mb-4">
           <h4>Create New Project</h4>
         </div>
+      </div>
           <div class="wrap shadow px-5 py-4 mx-auto mb-4">
             <div class="row justify-content-center text-align-center mb-2 ">
-              <div class="col-lg-3 col-3 ">
+              <div class="col-lg-3 ms-5 col-6 ">
                 <h7 id="titlejru">Jose Rizal University</h7>
               </div>
             </div>
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-5  mb-4">
+          <div class="row justify-content-center text-align-center">
+            <div class="col-lg-4 col-10  mb-4">
               <h3 id="titleproj">Activity Proposal Form</h3>
             </div>
           </div>
@@ -168,7 +169,7 @@ if(isset($_SESSION['msg'])){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
                 <input type="text" name="organizer" id="organizer" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>

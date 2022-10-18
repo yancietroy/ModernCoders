@@ -1599,7 +1599,7 @@ Survey
   display: none;
   }
   small {
-      font-size: 10px;
+      font-size: 9px;
   }
 #titlejru{
       display: none;
@@ -1607,8 +1607,6 @@ Survey
   }
 #titleproj {
   font-size: 5vw;
-  margin-left: -80%;
-  width: 300%;
 }
 .modal-footer {
 margin-left: -10%;

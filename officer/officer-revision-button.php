@@ -68,7 +68,7 @@
     } else if(isset($_POST['Cancel']))
     {
         $id = $_POST['project_id'];
-        $s = "Cancelled";
+        $s = "Reschedule";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
@@ -82,7 +82,7 @@
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
         alert('Status updated!')
-        window.location.href='officer-cancelled.php'</script>";
+        window.location.href='officer-reschedule.php'</script>";
         }
     } else if(isset($_POST['Ongoing']))
     {

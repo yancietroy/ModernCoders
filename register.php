@@ -28,15 +28,9 @@ include('mysql_connect.php');
           <div class="col-11 col-lg-9 col-xl-9">
             <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
               <div class="card-body px-5 py-3 pt-4 ">
-                <div class="row g-0 justify-content-center align-items-center ">
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                  </div>
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-                  </div>
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+                <div class="row g-0 justify-content-center align-items-center mt-2">
+                  <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
+                    <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
                   </div>
                 </div>
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>

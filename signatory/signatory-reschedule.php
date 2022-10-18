@@ -62,7 +62,7 @@ if(isset($_SESSION['msg'])){
 
         </li>
         <li>
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li class="active">
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -105,7 +105,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -134,14 +134,14 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-x-circle-fill"></i> Cancelled</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-clock-fill"></i> Reschedule</li>
         </ol>
       </nav>
 
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Cancelled List</h4>
+          <h4>Signatory Projects Reschedule List</h4>
         </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -149,7 +149,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Cancelled')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Reschedule')";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -185,7 +185,7 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Cancelled</th>
+                            <th class='none'>Date Reschedule</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -267,7 +267,7 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Cancelled</th>
+                            <th class='none'>Date Reschedule</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -584,7 +584,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "For Revision" ) {
         $('td', row).eq(3).css('color', '#FF9671');
       }
-      if ( data[3] == "Cancelled" ) {
+      if ( data[3] == "Reschedule" ) {
       $('td', row).eq(3).css('color', 'grey');
       }
           },
@@ -621,7 +621,7 @@ if(isset($_SESSION['msg'])){
          'pageLength',
          {
            extend: 'excelHtml5',
-           title: 'JRU Organizations Portal -   Cancelled List',
+           title: 'JRU Organizations Portal -   Reschedule List',
            footer: true,
          exportOptions: {
            columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -640,7 +640,7 @@ if(isset($_SESSION['msg'])){
         //    } ,
             {
               extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal -   Cancelled List',
+              title: 'JRU Organizations Portal -   Reschedule List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
@@ -650,7 +650,7 @@ if(isset($_SESSION['msg'])){
             } ,
             {
               extend: 'print',
-              title: 'JRU Organizations Portal -   Cancelled List',
+              title: 'JRU Organizations Portal -   Reschedule List',
               footer: true,
               exportOptions: {
                 columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]

@@ -57,7 +57,7 @@ if(isset($_SESSION['msg'])){
         </li>
 
         <li>
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -101,7 +101,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -147,13 +147,13 @@ if(isset($_SESSION['msg'])){
                             <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
                             <label class='text-muted mt-3'>Email:</label>
-                            <h6>$row[3]</h6>
+                            <h6>$row[2]</h6>
                           </div>
                           <div class='col-12 col-md-4 mt-2'>
                             <label class='text-muted'>JRU ID:</label>
                             <h5>$row[0]</h5>
                               <label class='text-muted mt-3'>Role:</label>
-                              <h6>$row[2]</h6>
+                              <h6>$row[3]</h6>
                           </div>
                           <div class='col-12 col-md-3 mt-2'>
                           </div>
@@ -166,17 +166,19 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
-              <a href="signatory-orgs.php" class="stretched-link"></a>
+      <h4 class="ms-4">Project Monitoring</h4>
+      <div class="row ms-5 mb-4 mt-4">
+          <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="card-counter primary">
+              <div class="inner">
+                <h3> <i class="bi bi-folder"></i></h3>
+                <p>Projects</p>
+              </div>
+              <div class="icon">
+         <i class="bi bi-folder-fill"></i>
+              </div>
+              <a href="signatory-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-          </div>
         </div>
 
 
