@@ -243,8 +243,9 @@ if(isset($_SESSION['msg'])){
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
+                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> 
+                              </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
