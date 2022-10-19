@@ -154,7 +154,7 @@ if(isset($_SESSION['msg'])){
               </div>
             </div>
           <div class="row justify-content-center text-align-center">
-            <div class="col-lg-4 col-10  mb-4">
+            <div class="col-lg-4 col-10 mb-4">
               <h3 id="titleproj">Activity Proposal Form</h3>
             </div>
           </div>
