@@ -1,5 +1,5 @@
 <?php
-    include('../mysql_connect.php');
+    include('../mysql_connect.php'); include('profilepic.php');
 
     if (isset($_POST['Revise']))
     {
@@ -13,7 +13,7 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
+        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
         alert('Status updated!')
@@ -31,7 +31,7 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
+        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
         alert('Status updated!')
@@ -49,7 +49,7 @@
 
         if($row)
         {
-        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr' WHERE `project_id` = '$id';";
+        $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
         echo "<script type='text/javascript'>
         alert('Status updated!')

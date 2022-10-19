@@ -2,13 +2,13 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../admin-login.php");
+    header("Location:index.php");
   }
 ?>
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ if(isset($_SESSION['msg'])){
         <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
       </li>
       <li class="d-lg-none">
-        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
       </li>
 
       </ul>
@@ -123,17 +123,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -144,7 +144,7 @@ if(isset($_SESSION['msg'])){
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
                   </ul>
               </li>
             </ul>
@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                                         <div class="form-outline">
 
                                           <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@.jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                                             >
                                           <div class="valid-feedback"></div>
                                         </div>
@@ -237,6 +237,7 @@ if(isset($_SESSION['msg'])){
 
                                     </div>
 
+                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                     <?php
                                 if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
@@ -260,8 +261,12 @@ if(isset($_SESSION['msg'])){
                                     $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
-                                          window.location = 'admin-administrators.php'
-                                          alert('Admin registered!')
+                                        Swal.fire({
+                                             icon: 'success',
+                                             title: 'Administrator Created',
+                                             confirmButtonColor: '#F2AC1B'
+
+                                         })
                                           </script>";
                                     }
                                        catch(PDOException $e)
@@ -348,7 +353,7 @@ if(isset($_SESSION['msg'])){
       $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
         var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@.jru.edu");
+        $("#email").attr("value", fname + "." + lname + "@jru.edu");
       });
     </script>
     <!--input mask-->

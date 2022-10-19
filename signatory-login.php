@@ -31,17 +31,12 @@ if(isset($_SESSION['message'])){
         <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
           <div class="card-body px-4 ">
             <div class="row g-0 justify-content-center align-items-center mt-2">
-              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2  d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-              </div>
-              <div class="col-xs-12 col-md-4 col-md-offset-3 mb-2 d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-              </div>
-              <div class="col-xs-12 col-md-3 col-md-offset-3 mb-2 d-none d-sm-block">
-                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+
+              <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
+                <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
               </div>
             </div>
-            <h4 class=" mb-2 text-center">JRU Student Organizations Portal</h4>
+            <p class=" h4 mb-2 text-center">JRU Student Organizations Portal</p>
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Signatory Login</h1>
               <?php
@@ -60,7 +55,7 @@ if(isset($_SESSION['message'])){
 
             		if($row)
             		{
-            			$_SESSION['msg'] = '<script>alert("Login Successful")</script>';
+            			$_SESSION['msg'] = '';
                 $_SESSION['use'] = $row[0];
                 if(isset($_SESSION['use'])){
                 header("Location:signatory/signatory-index.php");
@@ -72,7 +67,7 @@ if(isset($_SESSION['message'])){
                 {
                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
-                        <p>User does not exist in the database!</p></div>";
+                        <p>Invalid email or password!</p></div>";
 
                   }
                   }
@@ -86,7 +81,7 @@ if(isset($_SESSION['message'])){
                 }
                 ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>
@@ -100,14 +95,20 @@ if(isset($_SESSION['message'])){
               </div>
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-4" id="select-opt">
-                  <option class="greyclr text-muted" selected disabled value="" >Select User</option>
-                  <option value="login.php">Student</option>
+                  <option class="greyclr text-muted" selected disabled value="" >Signatory Login</option>
+                  <option value="index.php">Student</option>
                   <option value="officer-login.php">Officer</option>
-                  <option value="signatory-login.php">Signatory</option>
-                  <option value="admin-login.php">Admin</option>
+                      <!--<option value="index.php">Student</option>-->
                 </select>
               </div>
-              <button class="w-100 btn btn-lg btn-primary mt-4 mb-4 button" type="submit" name='submit'>Sign in</button>
+              <!--  <div class="d-flex justify-content-end mt-2">
+                <div class="form-check d-none">
+                                     <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                     <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                                 </div>
+                                     <div class="ml-auto"> <a href="#" id="forgot">Forgot Password?</a> </div>
+                             </div>-->
+              <button class="w-100 btn btn-lg btn-primary mt-3 mb-2button" type="submit" name='submit'>Sign in</button>
 
             </form>
           </div>

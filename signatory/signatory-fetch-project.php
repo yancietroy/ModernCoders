@@ -1,5 +1,5 @@
 <?php  
-include('../mysql_connect.php'); 
+include('../mysql_connect.php');
  if(isset($_POST["project_id"]))  
  {  
       $query = "SELECT * FROM tb_projectmonitoring WHERE project_id = '".$_POST["project_id"]."'";  

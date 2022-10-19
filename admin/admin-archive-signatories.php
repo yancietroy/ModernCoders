@@ -2,13 +2,13 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../admin-login.php");
+    header("Location:index.php");
   }
 ?>
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ if(isset($_SESSION['msg'])){
         <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
       </li>
       <li class="d-lg-none">
-        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
       </li>
 
       </ul>
@@ -123,17 +123,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -144,7 +144,7 @@ if(isset($_SESSION['msg'])){
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
                   </ul>
               </li>
             </ul>
@@ -388,7 +388,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -450,7 +450,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "90px" },

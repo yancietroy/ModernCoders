@@ -1,8 +1,8 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php');
+$officer_id = $_SESSION['use'];
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -17,7 +17,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
@@ -55,7 +55,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal Officer</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -74,7 +74,7 @@ if(isset($_SESSION['msg'])){
           <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
           <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
@@ -105,18 +105,18 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -146,8 +146,11 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Officer Projects Ongoing List</h4>
+          <h4 id="orgtitle">Project Ongoing</h4>
         </div>
+        <!--<div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-check-circle-fill"></i> <span id="btntitle">Ongoing Checklist </span></a>
+        </div>-->
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
@@ -175,25 +178,33 @@ if(isset($_SESSION['msg'])){
                     $eb = " ";
                     $a = " ";
                     $r = " ";
+                    $or =" ";
+                    $std = " ";
+                    $rb = " ";
+                    $br =" ";
+                    $oid =" ";
+                    $pst =" ";
                     echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                            <th class='all'>Project ID</th>
-                            <th class='all'>Project Name</th>
-                            <th class='all'>Venue</th>
-                            <th class='all'>Status</th>
-                            <th class='all'>Date Submitted</th>
-                            <th class='all'>Actions</th>
-                            <th class='none'>Project Description</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
+                            <th class='none'>Date Ongoing</th>
+                            <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
                             <th class='none'>Start Date</th>
                             <th class='none'>End Date</th>
                             <th class='none'>Participants</th>
-                            <th class='none'>Number of Participants</th>
-                            <th class='none'>Beneficiary</th>
-                            <th class='none'>Number of Beneficiary</th>
-                            <th class='none'>Budget Source</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
                             <th class='none'>Remarks</th>
@@ -212,18 +223,20 @@ if(isset($_SESSION['msg'])){
                         $v = $row['venue'];
                         $s = $row['status'];
                         $pt = $row['project_type'];
-                        $pc =$row['project_category'];
+                        $obj =$row['objectives'];
                         $pd =$row['project_desc'];
                         $sd =$row['start_date'];
                         $ed =$row['end_date'];
                         $p =$row['participants'];
-                        $np =$row['no_of_participants'];
-                        $b = $row['beneficiary'];
-                        $nb = $row['no_of_beneficiary'];
-                        $bs =$row['budget_source'];
-                        $eb =$row['estimated_budget'];
+                        $or =$row['organizer'];
+                        $std = $row['status_date'];
+                        $rb = $row['requested_by'];
+                        $br =$row['budget_req'];
+                        $oid =$row['org_id'];
+                        $pst =$row['position_id'];
                         $a = $row['attachments'];
                         $r =$row['remarks'];
+                        $eb =$row['estimated_budget'];
 
                         echo "<tr>
                               <td> $pi  </td>
@@ -233,17 +246,21 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> 
+                              </a>
                               </td>
-                              <td> $pt  </td>
+                              <td> $std  </td>
+                              <td> $obj  </td>
                               <td> $pc  </td>
-                              <td> $pd  </td>
+                              <td> $pt  </td>
                               <td> $sd </td>
                               <td> $ed </td>
                               <td> $p  </td>
-                              <td> $np  </td>
-                              <td> $b  </td>
-                              <td> $nb  </td>
-                              <td> $bs </td>
+                              <td> $or  </td>
+                              <td> $rb  </td>
+                              <td> $br  </td>
+                              <td> $oid  </td>
+                              <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
                               <td> $r  </td>
@@ -253,25 +270,27 @@ if(isset($_SESSION['msg'])){
                   echo "</tbody>
                         <tfoot>
                             <tr>
-                              <th>Project ID</th>
-                              <th>Project Name</th>
-                              <th>Venue</th>
-                              <th>Status</th>
-                              <th>Date Submitted</th>
-                              <th>Actions</th>
-                              <th>Project Description</th>
-                              <th>Project Category</th>
-                              <th>Project Type</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
-                              <th>Participants</th>
-                              <th>Number of Participants</th>
-                              <th>Beneficiary</th>
-                              <th>Number of Beneficiary</th>
-                              <th>Budget Source</th>
-                              <th>Estimated Budget</th>
-                              <th>Attachment</th>
-                              <th>Remarks</th>
+                            <th class='desktop'>Project ID</th>
+                            <th class='desktop'>Project Name</th>
+                            <th class='desktop'>Venue</th>
+                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Actions</th>
+                            <th class='none'>Date Ongoing</th>
+                            <th class='none'>Objectives</th>
+                            <th class='none'>Project Category</th>
+                            <th class='none'>Project Type</th>
+                            <th class='none'>Start Date</th>
+                            <th class='none'>End Date</th>
+                            <th class='none'>Participants</th>
+                            <th class='none'>Organizer</th>
+                            <th class='none'>Requested By</th>
+                            <th class='none'>Budget Request</th>
+                            <th class='none'>Organization</th>
+                            <th class='none'>Position</th>
+                            <th class='none'>Estimated Budget</th>
+                            <th class='none'>Attachment</th>
+                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -319,9 +338,15 @@ if(isset($_SESSION['msg'])){
                          <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                        </div>
                      </div>
+                     <div class="col-4 col-md-3 mb-4">
+                     <div class="form-outline">
+                       <label class="form-label" for="status_date" >Date Ongoing:</label>
+                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                     </div>
+                   </div>
                        </div>
                         <div class="row">
-                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <div class="col-12 col-md-12 col-sm-3 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="project_name" >Project name:</label>
                             <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -329,41 +354,45 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
+                            <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                            <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly  />
+                            <div class="valid-feedback"></div>
+                            <div class="invalid-feedback">Project name field cannot be blank!</div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="form-outline">
                             <label class="form-label" for="venue" >Venue:</label>
-                            <input type="text" name="venue" id="venue" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                            <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
                           </div>
                         </div>
                         </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                           <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                          <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
                           </div>
-                          <div class="col-12 col-md-4 mb-4">
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                          <label class="form-label" for="project_type" >Project Type:</label>
+                          <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="project_category" >Category:</label>
+                            <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
+                          </div>
+                        </div>
+                            <div class="row">
+                          <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="start_date" >Start Date:</label>
                               <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
                             </div>
                           </div>
-                          <div class="col-12 col-md-4 mb-4">
+                          <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="end_date" >End Date:</label>
                               <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
                             </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
                         </div>
                         <div class="row">
@@ -372,6 +401,17 @@ if(isset($_SESSION['msg'])){
                               <label class="form-label" for="participants" >Participants:</label>
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
+                          </div>
+                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label">Download Attachment/s:</label>
+                            <button type="button" class="btn btn-secondary btn-md">Download</button>
+                            </div>
+                          </div>
+                          <!--
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="budget_source" >Budget Source:</label>
+                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline">
@@ -393,26 +433,66 @@ if(isset($_SESSION['msg'])){
                                 <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
                               </div>
                             </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline d-grid">
-                                <label class="form-label">Download Attachment:</label>
-                              <button type="button" class="btn btn-secondary btn-md">Download</button>
-                              </div>
-                            </div>
+
                             <div class="col-12 col-md-3 col-sm-3 mb-4">
                               <div class="form-outline">
                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                               </div>
+                            </div>-->
+
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="org_id" >Name of Organization:</label>
+                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label" for="requested_by">Requested By:</label>
+                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label" for="position_id">Position:</label>
+                             <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <?php/**
+                                $query = "SELECT position_id, position FROM tb_position";
+                                $result = @mysqli_query($conn, $query);
+                                        while($data = @mysqli_fetch_array($result)) {
+                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                        }**/
+                              ?>
+                              </select> -->
+                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                            </div>
+                          </div>
+                        </div>
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
-                            <div class="form-outline  projectdesc">
-                              <label class="form-label" for="project_desc" >Project Description:</label>
-                              <textarea class="form-control" name="project_desc" id="project_desc" rows="6" style="background-color: #fff;" readonly></textarea>
+                            <div class="form-outline  ">
+                              <label class="form-label" for="objectives" >Objectives:</label>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
+                          <div class="col-12 col-md-12 col-sm-3 mb-2">
+                            <div class="form-outline  ">
+                              <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                              <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                           <div class="form-outline projectdesc">
+                              <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
+                             <div class="input-group flex-nowrap">
+                            <span class="input-group-text" id="addon-wrapping">PHP</span>
+                           <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                           </div>
+                         </div>
+                       </div>
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
@@ -420,7 +500,6 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                         </div>
-                    </div>
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
@@ -448,20 +527,23 @@ if(isset($_SESSION['msg'])){
                 console.log(data);
                 $('#project_id').val(data.project_id);
                 $('#project_name').val(data.project_name);
-                $('#project_desc').val(data.project_desc);
+                $('#organizer').val(data.organizer);
                 $('#venue').val(data.venue);
-                $('#estimated_budget').val(data.estimated_budget);
                 $('#status').val(data.status);
                 $('#date_submitted').val(data.date_submitted);
+                $('#status_date').val(data.status_date);
                 $('#start_date').val(data.start_date);
                 $('#end_date').val(data.end_date);
                 $('#project_type').val(data.project_type);
-                $('#budget_source').val(data.budget_source);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#beneficiary').val(data.beneficiary);
-                $('#no_of_participants').val(data.no_of_participants);
-                $('#no_of_beneficiary').val(data.no_of_beneficiary);
+                $('#org_id').val(data.ORG);
+                $('#requested_by').val(data.requested_by);
+                $('#position_id').val(data.position);
+                $('#attachments').val(data.attachments);
+                $('#objectives').val(data.objectives);
+                $('#budget_req').val(data.budget_req);
+                $('#estimated_budget').val(data.estimated_budget);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
@@ -521,35 +603,37 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "For Revision" ) {
         $('td', row).eq(3).css('color', '#FF9671');
       }
-      if ( data[3] == "Cancelled" ) {
+      if ( data[3] == "Reschedule" ) {
       $('td', row).eq(3).css('color', 'grey');
       }
           },
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "60px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "100px" },
-        { "width": "80px" }
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "60px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "80px" },
+           { "width": "130px" },
+           { "width": "130px" },
+           { "width": "100px" },
+           { "width": "100px" },
+          { "width": "100px" },
+           { "width": "80px" }
   ],
             select: 'single',
           buttons: [
@@ -559,7 +643,7 @@ if(isset($_SESSION['msg'])){
            title: 'JRU Organizations Portal -   Ongoing List',
            footer: true,
          exportOptions: {
-           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,18]
        },
          } ,
             //{
@@ -578,7 +662,7 @@ if(isset($_SESSION['msg'])){
               title: 'JRU Organizations Portal -   Ongoing List',
               footer: true,
               exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,18]
             },
             orientation : 'landscape',
           pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.

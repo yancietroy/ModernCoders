@@ -2,13 +2,13 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../admin-login.php");
+    header("Location:index.php");
   }
  ?>
 <!DOCTYPE html>
@@ -97,7 +97,7 @@ if(isset($_SESSION['msg'])){
           <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
         </li>
       </ul>
@@ -124,17 +124,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                       $result = @mysqli_query($conn, $query);
                       $row = mysqli_fetch_array ($result);
@@ -145,7 +145,7 @@ if(isset($_SESSION['msg'])){
                         <li>
                           <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                        <li><a class="dropdown-item" href="index.php">Logout</a></li>
                       </ul>
               </li>
             </ul>
@@ -159,9 +159,9 @@ if(isset($_SESSION['msg'])){
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
-              <div class="row g-0 justify-content-evenly">
+              <div class="row g-0 justify-content-between">
                 <div class="col-md-3  d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
                   $query = "SELECT admin_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), email AS name, EMAIL FROM tb_admin WHERE admin_id = '$id'";
@@ -190,12 +190,117 @@ if(isset($_SESSION['msg'])){
                   }
                   ?>
               </div>
-
             </div>
           </div>
+
+
+        </div>
+
+      </div>
+  <h4 class="ms-3">Site Management</h4>
+  <div class="row ms-3 me-3 mt-2">
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-primary">
+        <div class="inner">
+          <h2><i class="bi bi-people"></i></h2>
+          <p>User Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <a href="admin-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-info">
+        <div class="inner">
+          <h2><i class="bi bi-check-square"></i></h2>
+          <p>Approval Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-check-square-fill"></i>
+        </div>
+        <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter done">
+        <div class="inner">
+          <h2><i class="bi bi-node-plus"></i></h2>
+          <p>College Management</p>
+        </div>
+        <div class="icon">
+        <i class="bi bi-node-plus-fill"></i>
+        </div>
+        <a href="admin-college.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-success">
+        <div class="inner">
+          <h2><i class="bi bi-diagram-2"></i></h2>
+          <p>Course Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-diagram-2-fill"></i>
+        </div>
+        <a href="admin-course.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-counter bg-danger">
+        <div class="inner">
+          <h2><i class="bi bi-diagram-3"></i></h2>
+          <p>Org Management</p>
+        </div>
+        <div class="icon">
+          <i class="bi bi-diagram-3-fill"></i>
+        </div>
+        <a href="admin-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+
+
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter bg-warning">
+          <div class="inner">
+            <h2><i class="bi bi-check2-square"></i></h2>
+            <p>Election Management</p>
+          </div>
+          <div class="icon">
+              <i class="bi bi-check2-square"></i>
+          </div>
+          <a href="admin-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter events">
+          <div class="inner">
+            <h2><i class="bi bi-envelope"></i></h2>
+            <p>Message Management</p>
+          </div>
+          <div class="icon">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <a href="admin-message.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-counter masterlist">
+          <div class="inner">
+            <h2><i class="bi bi-bell"></i></h2>
+            <p>Notification</p>
+          </div>
+          <div class="icon">
+              <i class="bi bi-bell-fill"></i>
+          </div>
+          <a href="admin-notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
+    </div>
+
+ </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">

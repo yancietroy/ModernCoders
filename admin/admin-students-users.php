@@ -2,13 +2,13 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../admin-login.php");
+    header("Location:index.php");
   }
 ?>
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ if(isset($_SESSION['msg'])){
         <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
       </li>
       <li class="d-lg-none">
-        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
       </li>
       </ul>
       <!-- nav footer?
@@ -122,20 +122,20 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -143,7 +143,7 @@ if(isset($_SESSION['msg'])){
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
                   </ul>
               </li>
             </ul>
@@ -185,13 +185,13 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>First Name</th>
-                                <th class='all'>Middle Name</th>
-                                <th class='all'>Last name</th>
-                                <th class='all'>Age</th>
-                                <th class='all'>Gender</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Student ID</th>
+                                <th class='desktop'>First Name</th>
+                                <th class='desktop'>Middle Name</th>
+                                <th class='desktop'>Last name</th>
+                                <th class='desktop'>Age</th>
+                                <th class='desktop'>Gender</th>
+                                <th class='desktop'>Actions</th>
                                 <th class='none'>Course</th>
                                 <th class='none'>Email</th>
                                 <th class='none'>Birthdate</th>
@@ -307,8 +307,8 @@ if(isset($_SESSION['msg'])){
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Account Created:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="ACCOUNT_CREATED" >Account Created:</label>
+                         <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -344,22 +344,25 @@ if(isset($_SESSION['msg'])){
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
-                            <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
-                            <div class="btn-group">
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                              <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
-                              <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
-                              <!--<div class="valid-feedback check"> &#x2713;</div>
-                              <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                            </div>
+                            <label class="form-label" for="GENDER">Gender </label>
+                            <select class="form-select" name="GENDER" id="GENDER">
+                              <option value="Female">Female</option>
+                              <option value="Male">Male</option>
+                            </select>
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                            <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
-                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
+                                <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL">
+                                  <option value="1">Year 1</option>
+                                  <option value="2">Year 2</option> 
+                                  <option value="3">Year 3</option>
+                                  <option value="4">Year 4</option>
+                                </select>
+                            </div>
+                            </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="SECTION">Section:</label>
@@ -374,13 +377,13 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
+                              <label class="form-label" for="COLLEGE_DEPT" >College:</label>
+                              <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT" >
                                 <?php
-                                    $query = "SELECT college FROM tb_collegedept";
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
                                     while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                     }
                                 ?>
                               </select>
@@ -389,7 +392,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label select-label" for="COURSE" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
+                              <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" >
                                 <?php
                                       $query = "SELECT course FROM tb_course";
                                       $result = @mysqli_query($conn, $query);
@@ -402,7 +405,7 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                              <label class="form-label" for="MORG_ID" >Main Organization:</label>
                               <select class="form-select" name="MORG_ID" id="MORG_ID">
                                 <?php
                                   $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
@@ -450,6 +453,7 @@ if(isset($_SESSION['msg'])){
                             </select>
                             </div>
                           </div>
+                          <input type="hidden" name="PROFILE_PIC" id="PROFILE_PIC" class="form-control" readonly/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -488,7 +492,7 @@ if(isset($_SESSION['msg'])){
                 </form>
             </div>
         </div>
-    </div>
+      </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -506,19 +510,23 @@ if(isset($_SESSION['msg'])){
                 success:function(data){
                 console.log(data);
                 $('#STUDENT_ID').val(data.STUDENT_ID);
+                $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
                 $('#FIRST_NAME').val(data.FIRST_NAME);
                 $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
                 $('#LAST_NAME').val(data.LAST_NAME);
                 $('#BIRTHDATE').val(data.BIRTHDATE);
                 $('#AGE').val(data.AGE);
+                $('#GENDER').val(data.GENDER);
                 $('input[type=radio][id="GENDER"][value='+data.GENDER+']').prop('checked', true);
                 $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
                 $('#EMAIL').val(data.EMAIL);
+                $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
                 $('#COURSE').val(data.COURSE);
                 $('#SECTION').val(data.SECTION);
                 $('#MORG_ID').val(data.MORG_ID);
                 $('#USER_TYPE').val(data.USER_TYPE);
                 $('#PASSWORD').val(data.PASSWORD);
+                $('#PROFILE_PIC').val(data.PROFILE_PIC);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
@@ -531,7 +539,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -596,7 +604,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "40px" },

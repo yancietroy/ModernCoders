@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -97,17 +97,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -138,6 +138,7 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
 
       <!-- Page content -->
+
       <div class="row justify-content-center align-items-center text-align-center">
         <div class="col-12 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mb-5 mx-4 w-80 justify-content-center align-items-center text-align-center">
@@ -155,133 +156,57 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <div class="row ms-3 me-3 mt-2 justify-content-center">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h3>5</h3>
-              <p>Notifications</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-bell-fill" aria-hidden="true"></i>
-            </div>
-            <a href="user-notif.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
+      <div class="row ms-3 me-3 justify-content-evenly">
+       <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3>10</h3>
-              <p>Messages</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
-            </div>
-            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-<!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Rejected</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-trash-fill"></i>
-            </div>
-            <a href="signatory-rejected.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Cancelled</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-cancelled.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        </div>
-
-        <div class="row ms-3 me-3 mt-2">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-info">
-            <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
-              <p>Ongoing</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-ongoing.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter masterlist">
-            <div class="inner">
-              <h3><i class="bi bi-list-ul"></i></h3>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-card-list" aria-hidden="true"></i>
-            </div>
-            <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-            !-->
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter events">
-            <div class="inner">
-              <h3><i class="bi bi-file-bar-graph"></i></h3>
+              <h2> <i class="bi bi-file-bar-graph"></i></h2>
               <p>Survey</p>
             </div>
             <div class="icon">
-              <i class="bi bi-file-bar-graph-fill" aria-hidden="true"></i>
+          <i class="bi bi-file-bar-graph-fill"></i>
             </div>
             <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-
-        <div class="col-lg-3 col-sm-6 mb-4">
-          <div class="card-counter done">
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-warning">
             <div class="inner">
-              <h3><i class="bi bi-inbox"></i></h3>
-              <p>Forum</p>
+              <h2><i class="bi bi-envelope"></i></h2>
+              <p>Messages</p>
             </div>
             <div class="icon">
-          <i class="bi bi-inbox-fill"></i>
+              <i class="bi bi-envelope-fill"></i>
             </div>
-            <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+            <div class="col-lg-3 col-sm-6" id="eventhide">
+              <div class="card-counter events">
+                <div class="inner">
+                  <h2><i class="bi bi-calendar3"></i></h2>
+                  <p>Event Calendar</p>
+                </div>
+                <div class="icon">
+              <i class="bi bi-calendar3-fill"></i>
+                </div>
+                <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="card-counter done">
+                <div class="inner">
+                  <h2><i class="bi bi-inbox"></i></h2>
+                  <p>Forum</p>
+                </div>
+                <div class="icon">
+              <i class="bi bi-inbox-fill"></i>
+                </div>
+                <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
 
       </div>
-      <div class="row ms-3 me-3 mt-2 mb-4">
-        <iframe src="https://calendar.google.com/calendar/embed?src=224d17edec0317d2aa84db81e393ad757c841147fc67c4d01eaf72e8347769b3%40group.calendar.google.com&ctz=Asia%2FManila" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-      </div>
-
     </div>
 
       <div id="layoutAuthentication_footer">

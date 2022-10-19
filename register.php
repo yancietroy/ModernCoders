@@ -28,15 +28,9 @@ include('mysql_connect.php');
           <div class="col-11 col-lg-9 col-xl-9">
             <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
               <div class="card-body px-5 py-3 pt-4 ">
-                <div class="row g-0 justify-content-center align-items-center ">
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/csc-logo.png" alt="" width="82" height="80">
-                  </div>
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/jru-logo.png" alt="" width="110" height="110">
-                  </div>
-                  <div class="col-xs-12 col-md-2 col-md-offset-3 mb-4 d-none d-sm-block d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-sm-none d-md-block" src="assets/img/comsoc-logo.png" alt="" width="82" height="80">
+                <div class="row g-0 justify-content-center align-items-center mt-2">
+                  <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
+                    <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
                   </div>
                 </div>
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
@@ -45,7 +39,7 @@ include('mysql_connect.php');
 
                 <?php
               if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($_POST['submit']))
+               || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit']))
                 {
                   $fn = $_POST['first_name'];
                   $ln = $_POST['last_name'];
@@ -55,13 +49,16 @@ include('mysql_connect.php');
                   $g = $_POST['gender'];
                   $si = $_POST['studentid'];
                   $yl = $_POST['school_year'];
+                  $cd = $_POST['college_dept'];
                   $course = $_POST['course'];
                   $morgid = $_POST['org'];
                   $section = $_POST['section'];
                   $e = $_POST['email'];
                   $pass = $_POST['password'];
+                  $pp = "img_avatar.png";
+                  $ul = "1";
 
-                  $duplicate=mysqli_query($conn,"select * from tb_students where STUDENT_ID='$si' or EMAIL='$e'");
+                  $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
                   {
                     echo "
@@ -75,14 +72,13 @@ include('mysql_connect.php');
                   try {
                   $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW())";
+                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE)
+                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul')";
                   $conn->exec($sql);
                   echo "
-                  <div class='callout bs-callout-success pb-0'>
-                    <h4>Successfuly registered!</h4>
-                    <p>please wait for approval in your email. <a href='index.php' class='text-blue-50 fw-bold'> Back to login</a></p>
-                  </div>";
+                  <script type='text/javascript'>
+                        alert('Successfully Registered!')
+                        window.location.href='index.php'</script>";
                   }
                      catch(PDOException $e)
                       {
@@ -170,7 +166,7 @@ include('mysql_connect.php');
                   </div>
                   <div class="col-7 col-md-4   mb-4">
                     <label class="form-label select-label" id="asterisk">Year Level</label>
-                    <select class=" form-select" name="school_year" id="select-group" required>
+                    <select class="form-select" name="school_year" id="select-group" required>
                       <option class="greyclr" selected disabled value="">Select Year</option>
                       <option value="1">Year 1</option>
                       <option value="2">Year 2</option>
@@ -194,15 +190,15 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4   mb-4">
 
                     <label class="form-label select-label" id="asterisk">College</label>
-                    <select class="form-select form-select-sm" name="college" id="select-group" required>
+                    <select class="form-select form-select-sm" name="college_dept" id="college_dept" onchange="FetchCourse(this.value)" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                           $query = "SELECT college FROM tb_collegedept";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                           }
-                                           ?>
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>
@@ -210,13 +206,13 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="select-group" required>
+                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
-                            $query = "SELECT course FROM tb_course";
+                            $query = "SELECT course_id, course FROM tb_course";
                             $result = @mysqli_query($conn, $query);
                             while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                echo '<option value="'.$data[1].'">'.$data[1].'</option>';
                                             }
                                             ?>
                     </select>
@@ -225,7 +221,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" id="asterisk">Organization</label>
-                    <select class="form-select form-select-sm" name="org" id="select-group" required>
+                    <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
                            $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
@@ -295,7 +291,33 @@ include('mysql_connect.php');
   </div>
   </div>
   </section>
+<script type="text/javascript">
+  function FetchCourse(id){
+    $('#course').html('');
+    $.ajax({
+      type:'POST',
+      url: 'register-dropdown.php',
+      data : { college_id : id},
+      success : function(data){
+         $('#course').html(data);
+      }
 
+    })
+  }
+
+   /*(function FetchOrg(id){
+    $('#org').html('');
+    $.ajax({
+      type:'POST',
+      url: 'register-dropdown.php',
+      data : { org_id : id},
+      success : function(data){
+         $('#org').html(data);
+      }
+
+    })
+  }*/
+</script>
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
