@@ -452,11 +452,10 @@ if(isset($_SESSION['msg'])){
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
-                  </div>
                 </form>
+              </div>
             </div>
         </div>
-  </div>
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
