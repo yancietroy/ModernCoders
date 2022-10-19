@@ -166,7 +166,7 @@ if(isset($_SESSION['msg'])){
 </nav>
 
       <!-- Page content -->
-      <h4 class="ms-3">Position List</h4>
+      <h4 class="ms-3">Candidate List</h4>
       <div class="ms-3 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3"href="admin-elect-newCandidate.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Candidate </span></a>
         </div>

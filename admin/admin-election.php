@@ -167,8 +167,12 @@ if(isset($_SESSION['msg'])){
     <div class="col-lg-3 col-sm-6">
       <div class="card-counter bg-primary">
         <div class="inner">
-          <h2>3</h2>
-          <p>Positions</p>
+          <h2><?php $query = "SELECT COUNT(*) FROM tb_candidate";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h2>
+          <p>Candidates</p>
         </div>
         <div class="icon">
         <i class="bi bi-person-lines-fill"></i>
