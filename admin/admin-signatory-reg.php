@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -182,18 +182,19 @@ if(isset($_SESSION['msg'])){
                                       </div>
                                     </div>
 
-                                    <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
+                                      <!--<div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
                                       <label class="form-label" id="asterisk">Organization</label>
                                       <select class="form-select" name="org_id" id="org_id">
 
                                       </select>
-                                  </div>
+                                  </div>-->
 
                                     <div class="col-12 col-md-4  mb-4">
                                       <label class="form-label" id="asterisk">Signatory Type</label>
                                       <select class=" form-select" name="signatory_type" id="showme" required>
                                         <option class="greyclr" selected disabled value="">Select Type</option>
                                         <option value="Student Adviser">Student Adviser</option>
+                                        <option value="Dean">Dean</option>
                                         <option value="SDO">SDO</option>
                                       </select>
                                   </div>
@@ -327,12 +328,12 @@ if(isset($_SESSION['msg'])){
     </div>
     </div>
 
-    <script>
+      <!--<script>
       document.getElementById('showme').addEventListener('change', function () {
           var style = this.value == "Student Adviser" ? 'block' : 'none';
           document.getElementById('orghide').style.display = style;
       });
-    </script>
+    </script>-->
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

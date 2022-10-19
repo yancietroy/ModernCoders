@@ -6,51 +6,49 @@ include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+}
+  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:index.php");
   }
-?>
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
-
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
+  <!-- waves CSS CDN -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
 
-<!-- Datatable Default-->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
-
-  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <!-- Icons-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
 </head>
 
 <body>
   <div class="d-flex" id="wrapper">
-
     <!-- Sidebar  -->
     <nav id="sidebar">
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="admin-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
+      <div class="sidebar-header text-center justify-content-center align-items-center">
+        <a class="navbar-brand" href="signatory-index.php">
+          <img src="../assets/img/jru-logo.png" alt="..." width="90px" height="90px">
         </a>
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Administrator</h5>
+        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -58,10 +56,10 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li class="active">
+        <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -75,13 +73,13 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li>
+          <li class="active">
               <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
           </li>
           <li>
@@ -101,19 +99,20 @@ if(isset($_SESSION['msg'])){
 
       </ul>
       <!-- nav footer?
-      <ul class="list-unstyled CTAs">
-        <li>
-          <a>about</a>
-        </li>
-        <li>
-          <a>logout</a>
-        </li>
-      </ul> -->
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a>about</a>
+          </li>
+          <li>
+            <a>logout</a>
+          </li>
+        </ul> -->
     </nav>
+
     <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
+      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
         <div class="container-fluid">
           <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
             <i class="fas fa-align-justify"></i>
@@ -155,26 +154,24 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="admin-projects.php">Projects</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Archive</li>
+          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="admin-projects.php"><i class="bi bi-folder-fill"></i> Projects</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-hourglass-top"></i> Pending List</li>
         </ol>
       </nav>
 
       <!-- Page content -->
-
-      <div class="row ms-3 me-3 mt-2 mb-2">
+      <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Projects Archive</h4>
+          <h4>Officer Projects Pending List</h4>
         </div>
       </div>
-
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projects_archive";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending')";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -196,7 +193,7 @@ if(isset($_SESSION['msg'])){
                     $a = " ";
                     $r = " ";
                     $or =" ";
-                    $std = " ";
+                //    $sd = $row['status_date'];
                     $rb = " ";
                     $br =" ";
                     $oid =" ";
@@ -210,7 +207,6 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Done</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -224,7 +220,6 @@ if(isset($_SESSION['msg'])){
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -246,7 +241,7 @@ if(isset($_SESSION['msg'])){
                         $ed =$row['end_date'];
                         $p =$row['participants'];
                         $or =$row['organizer'];
-                        $std = $row['status_date'];
+                    //    $sd = $row['status_date'];
                         $rb = $row['requested_by'];
                         $br =$row['budget_req'];
                         $oid =$row['org_id'];
@@ -263,9 +258,9 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              </a>
                               </td>
-                              <td> $std  </td>
                               <td> $obj  </td>
                               <td> $pc  </td>
                               <td> $pt  </td>
@@ -279,7 +274,6 @@ if(isset($_SESSION['msg'])){
                               <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
-                              <td> $r  </td>
                               </tr>
                           ";
                       }
@@ -292,7 +286,6 @@ if(isset($_SESSION['msg'])){
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Done</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -306,7 +299,6 @@ if(isset($_SESSION['msg'])){
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -354,12 +346,6 @@ if(isset($_SESSION['msg'])){
                          <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                        </div>
                      </div>
-                     <div class="col-4 col-md-3 mb-4">
-                     <div class="form-outline">
-                       <label class="form-label" for="status_date" >Date Done:</label>
-                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                     </div>
-                   </div>
                        </div>
                         <div class="row">
                         <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -412,19 +398,19 @@ if(isset($_SESSION['msg'])){
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="participants" >Participants:</label>
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                        <!--  <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label">Download Attachment/s:</label>
                             <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
-                          <!--
+
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -462,6 +448,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="org_id" >Name of Organization:</label>
+
                               <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
@@ -475,13 +462,13 @@ if(isset($_SESSION['msg'])){
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
                              <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <?php/*  $query = "SELECT position_id, position FROM tb_position";
+                              <?php/**
+                                $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                         }**/
-                              ?>
-                              </select> -->
+                              ?>-->
                               <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
@@ -493,14 +480,15 @@ if(isset($_SESSION['msg'])){
                               <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                          <div class="col-12 col-md-12 col-sm-3 mb-2">
-                            <div class="form-outline  ">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
+                            <div class="form-outline ">
                               <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                          <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
-                           <div class="form-outline projectdesc">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
+                           <div class="form-outline">
+
                               <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                              <div class="input-group flex-nowrap">
                             <span class="input-group-text" id="addon-wrapping">PHP</span>
@@ -508,51 +496,24 @@ if(isset($_SESSION['msg'])){
                            </div>
                          </div>
                        </div>
-                          <div class="col-12 col-md-12 mb-4">
+                          <!--  <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
-                          </div>
+                          </div>!-->
                         </div>
+                    </div>
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                      <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
                         <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
-                        <button class="btn btn-md  btn-info"  name="Ongoing">Ongoing</a>!-->
                     </div>
                  </form>
             </div>
         </div>
   </div>
-  <!-- archive modal -->
-<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header py-3 px-3">
-            <h5 class="modal-title" id="exampleModalLabel"> Archive Project </h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <form action="admin-delete-projects.php" method="POST">
-            <div class="modal-body">
-              <div class="col-12 col-md-12 justify-content-center ">
-                <div class="form-outline">
-                   <label class="form-label" for="delete_id" >Project ID:</label>
-                   <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
-                 </div>
-               </div>
-                <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Project. Are you sure?</p>
-            </div>
-            <div class="modal-footer py-2 px-3">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" name="deletedata" class="btn btn-danger">Yes</button>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
+
     <!--For modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -561,7 +522,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.editbtn', function(){
            var project_id = $(this).attr("id");
            $.ajax({
-                url:"officer-fetch-project-archive.php",
+                url:"officer-fetch-project.php",
                 method:"POST",
                 data:{project_id:project_id},
                 dataType:"json",
@@ -593,25 +554,7 @@ if(isset($_SESSION['msg'])){
             });
         });
     </script>
-    <script>
-      $(document).on('click', '.deletebtn', function(){
-        var project_id = $(this).attr("id");
-        $.ajax({
-                url:"officer-fetch-project.php",
-                method:"POST",
-                data:
-                {
-                  project_id:project_id
-                },
-                dataType:"json",
-                success:function(data){
-                console.log(data);
-                $('#delete_id').val(data.project_id);
-                $('#deletemodal').modal('show');
-                }
-            });
-        });
-    </script>
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -666,7 +609,7 @@ if(isset($_SESSION['msg'])){
         if ( data[3] == "For Revision" ) {
         $('td', row).eq(3).css('color', '#FF9671');
       }
-      if ( data[3] == "Cancelled" ) {
+      if ( data[3] == "Reschedule" ) {
       $('td', row).eq(3).css('color', 'grey');
       }
           },
@@ -674,39 +617,38 @@ if(isset($_SESSION['msg'])){
           keys: true,
           fixedheader:true,
       bautoWidth:false,
+        //  scrollX:true,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
-           { "width": "60px" },
-           { "width": "130px" },
-           { "width": "130px" },
-           { "width": "100px" },
-           { "width": "80px" },
-           { "width": "60px" },
-           { "width": "130px" },
-           { "width": "130px" },
-           { "width": "100px" },
-           { "width": "80px" },
-           { "width": "60px" },
-           { "width": "130px" },
-           { "width": "130px" },
-           { "width": "100px" },
-           { "width": "80px" },
-           { "width": "130px" },
-           { "width": "130px" },
-           { "width": "100px" },
-           { "width": "100px" },
-          { "width": "100px" },
-           { "width": "80px" }
+        { "width": "60px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" },
+        { "width": "60px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" },
+        { "width": "60px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" },
+        { "width": "130px" },
+        { "width": "130px" },
+        { "width": "100px" },
+        { "width": "80px" }
   ],
             select: 'single',
           buttons: [
          'pageLength',
          {
            extend: 'excelHtml5',
-           title: 'JRU Organizations Portal -   Done List',
+           title: 'JRU Organizations Portal -   Pending List',
            footer: true,
          exportOptions: {
-           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+           columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
        },
          } ,
             //{
@@ -722,20 +664,20 @@ if(isset($_SESSION['msg'])){
         //    } ,
             {
               extend: 'pdfHtml5',
-              title: 'JRU Organizations Portal -   Done List',
+              title: 'JRU Organizations Portal -   Pending List',
               footer: true,
               exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+             columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
             },
             orientation : 'landscape',
           pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
             } ,
             {
               extend: 'print',
-              title: 'JRU Organizations Portal -   Done List',
+              title: 'JRU Organizations Portal -   Pending List',
               footer: true,
               exportOptions: {
-                columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+               columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
             },
             customize: function(win)
             {
