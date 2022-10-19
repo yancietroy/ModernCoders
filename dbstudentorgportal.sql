@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 13, 2022 at 03:25 PM
+-- Generation Time: Oct 19, 2022 at 05:57 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,16 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sample`
+--
+
+CREATE TABLE `sample` (
+  `Sample` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -125,15 +135,22 @@ CREATE TABLE `tb_audit_trail` (
 
 CREATE TABLE `tb_candidate` (
   `CANDIDATE_ID` int(2) NOT NULL,
-  `ORG_ID` int(2) NOT NULL,
-  `POSITION_ID` int(2) NOT NULL,
-  `STUDENT_NO` int(9) NOT NULL,
-  `LAST_NAME` varchar(50) NOT NULL,
-  `FIRST_NAME` varchar(50) NOT NULL,
-  `MIDDLE_INITIAL` varchar(2) NOT NULL,
-  `course` varchar(10) NOT NULL,
-  `section` varchar(10) NOT NULL
+  `ORG_ID` int(2) DEFAULT NULL,
+  `POSITION_ID` int(2) DEFAULT NULL,
+  `STUDENT_NO` int(9) DEFAULT NULL,
+  `LAST_NAME` varchar(50) DEFAULT NULL,
+  `FIRST_NAME` varchar(50) DEFAULT NULL,
+  `MIDDLE_INITIAL` varchar(2) DEFAULT NULL,
+  `course` varchar(10) DEFAULT NULL,
+  `section` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_candidate`
+--
+
+INSERT INTO `tb_candidate` (`CANDIDATE_ID`, `ORG_ID`, `POSITION_ID`, `STUDENT_NO`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_INITIAL`, `course`, `section`) VALUES
+(4, 12, 1, 17401211, 'Legaspi', 'Bienvenido', NULL, NULL, '402I');
 
 -- --------------------------------------------------------
 
@@ -576,9 +593,9 @@ CREATE TABLE `tb_projectmonitoring` (
 --
 
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
-(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '39416-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '29687-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '66023-SAMPLE DOCUMENT.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL);
+(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
+(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
+(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -730,6 +747,7 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, 1, '2022-10-19', 'img_avatar.png'),
 (18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, 1, '2022-10-13', 'img_avatar.png'),
 (19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
 (19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
@@ -1155,6 +1173,12 @@ ALTER TABLE `tb_answers`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tb_candidate`
+--
+ALTER TABLE `tb_candidate`
+  MODIFY `CANDIDATE_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
@@ -1211,8 +1235,7 @@ ALTER TABLE `tb_audit_trail`
 --
 ALTER TABLE `tb_candidate`
   ADD CONSTRAINT `candidate_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `candidate_position_id_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `candidate_studentid_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `candidate_position_id_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_course`
