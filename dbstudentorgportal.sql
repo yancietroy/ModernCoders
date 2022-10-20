@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 19, 2022 at 05:57 PM
+-- Generation Time: Oct 20, 2022 at 04:18 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -26,6 +26,10 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `sample`
 --
+
+CREATE TABLE `sample` (
+  `Sample` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -307,6 +311,7 @@ CREATE TABLE `tb_event` (
 CREATE TABLE `tb_morg` (
   `MORG_ID` int(2) NOT NULL,
   `MOTHER_ORG` varchar(100) NOT NULL,
+  `logo` varchar(200) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -315,23 +320,23 @@ CREATE TABLE `tb_morg` (
 -- Dumping data for table `tb_morg`
 --
 
-INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `college_id`, `course_id`) VALUES
-(1, 'Association of Students of History (ASH)', 1, NULL),
-(2, 'Criminal Justice Students Society (CJSS)', 1, NULL),
-(3, 'Liberal Arts Students Organization (LASO)', 1, NULL),
-(4, 'Mathematics Society (MATHSOC)', 1, NULL),
-(5, 'Young, Educators Society (YES)', 2, NULL),
-(6, 'Junior Finance and Economics Society (JFINECS)', 2, NULL),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 2, NULL),
-(8, 'Management Society (MANSOC)', 2, NULL),
-(9, 'Supply Management Society (SMS)', 2, NULL),
-(10, 'Young Marketers Association (YMA)', 2, NULL),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 3, NULL),
-(12, 'Computer Society (COMSOC)', 3, NULL),
-(13, 'Electronics Engineering League (ECEL)', 3, NULL),
-(14, 'Association of Tourism Management Students (ATOMS)', 4, NULL),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4, NULL),
-(16, 'Nursing Society (NURSOC)', 5, NULL);
+INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `logo`, `college_id`, `course_id`) VALUES
+(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, NULL),
+(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, NULL),
+(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, NULL),
+(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, NULL),
+(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 2, NULL),
+(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, NULL),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, NULL),
+(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, NULL),
+(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, NULL),
+(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, NULL),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, NULL),
+(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, NULL),
+(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, NULL),
+(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, NULL),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, NULL),
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -431,6 +436,7 @@ CREATE TABLE `tb_officers_archive` (
 CREATE TABLE `tb_orgs` (
   `ORG_ID` int(2) NOT NULL,
   `ORG` varchar(100) NOT NULL,
+  `logo` varchar(100) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -438,31 +444,31 @@ CREATE TABLE `tb_orgs` (
 -- Dumping data for table `tb_orgs`
 --
 
-INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `college_id`) VALUES
-(1, 'Association of Students of History (ASH)', 1),
-(2, 'Criminal Justice Students Society (CJSS)', 1),
-(3, 'Liberal Arts Students Organization (LASO)', 1),
-(4, 'Mathematics Society (MATHSOC)', 1),
-(5, 'Young, Educators Society (YES)', 1),
-(6, 'Junior Finance and Economics Society (JFINECS)', 2),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 2),
-(8, 'Management Society (MANSOC)', 2),
-(9, 'Supply Management Society (SMS)', 2),
-(10, 'Young Marketers Association (YMA)', 2),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 3),
-(12, 'Computer Society (COMSOC)', 3),
-(13, 'Electronics Engineering League (ECEL)', 3),
-(14, 'Association of Tourism Management Students (ATOMS)', 4),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 4),
-(16, 'Nursing Society (NURSOC)', 5),
-(17, 'José Rizal University Book Buddies', NULL),
-(18, 'Young Rizalian Servant Leaders (YRSL)', NULL),
-(19, 'Golden Z Club', NULL),
-(20, 'International Students Association (ISA)', NULL),
-(21, 'José Rizal University Chorale', NULL),
-(22, 'José Rizal University Dance Troupe', NULL),
-(23, 'Teatro Rizal', NULL),
-(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', NULL);
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`) VALUES
+(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1),
+(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1),
+(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1),
+(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1),
+(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1),
+(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2),
+(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2),
+(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2),
+(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3),
+(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3),
+(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3),
+(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4),
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5),
+(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL),
+(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL),
+(19, 'Golden Z Club', 'jrusop-logo2.png', NULL),
+(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL),
+(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL),
+(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL),
+(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -591,7 +597,8 @@ CREATE TABLE `tb_projectmonitoring` (
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
 (54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
 (55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL);
+(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
+(57, 5, 16, NULL, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Pending', '2022-10-20', '2022-10-20', NULL);
 
 -- --------------------------------------------------------
 
@@ -1190,7 +1197,7 @@ ALTER TABLE `tb_officers_archive`
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tb_questions`
