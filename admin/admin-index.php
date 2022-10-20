@@ -124,12 +124,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -276,25 +276,25 @@ if(isset($_SESSION['msg'])){
       <div class="col-lg-3 col-sm-6">
         <div class="card-counter events">
           <div class="inner">
-            <h2><i class="bi bi-envelope"></i></h2>
-            <p>Message Management</p>
+            <h2><i class="bi bi-folder"></i></h2>
+            <p>Project Management</p>
           </div>
           <div class="icon">
-            <i class="bi bi-envelope-fill"></i>
+            <i class="bi bi-folder-fill"></i>
           </div>
-          <a href="admin-message.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="admin-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <div class="col-lg-3 col-sm-6">
         <div class="card-counter masterlist">
           <div class="inner">
-            <h2><i class="bi bi-bell"></i></h2>
-            <p>Notification</p>
+            <h2><i class="bi bi-clock-history"></i></h2>
+            <p>Audit Trail</p>
           </div>
           <div class="icon">
-              <i class="bi bi-bell-fill"></i>
+            <i class="bi bi-clock-history"></i>
           </div>
-          <a href="admin-notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="admin-audit.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
 

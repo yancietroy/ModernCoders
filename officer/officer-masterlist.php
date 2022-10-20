@@ -244,8 +244,8 @@ if(isset($_SESSION['msg'])){
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> 
-                              </a>  
+                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
@@ -394,16 +394,10 @@ if(isset($_SESSION['msg'])){
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="participants" >Participants:</label>
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline d-grid">
-                              <label class="form-label">Download Attachment/s:</label>
-                            <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
                           <!--

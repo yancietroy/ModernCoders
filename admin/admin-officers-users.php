@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -452,10 +452,11 @@ if(isset($_SESSION['msg'])){
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
+                  </div>
                 </form>
-              </div>
             </div>
         </div>
+  </div>
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

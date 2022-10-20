@@ -27,7 +27,7 @@ if(isset($_SESSION['msg'])){
 
 <!-- Datatable Default-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -55,10 +55,10 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li class="active">
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li class="active">
+      <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
@@ -67,10 +67,10 @@ if(isset($_SESSION['msg'])){
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
-            <li>
+            <li  class=" ">
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
-            <li  class="active">
+            <li>
               <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
             </li>
           </ul>
@@ -78,26 +78,26 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
-              <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-          </li>
-          <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
-          </li>
-          <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <li>
+                <a href="admin-students.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
-        </ul>
-      </li>
-      <li>
-        <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-      </li>
-      <li>
-        <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-      </li>
-      <li class="d-lg-none">
-      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-      </li>
+            <li>
+                <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+            </li>
+            <li>
+                <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              </li>
+          </ul>
+        </li>
+        <li>
+          <a href="admin-students.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>
+        <li>
+          <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        </li>
+        <li class="d-lg-none">
+        <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+        </li>
 
       </ul>
       <!-- nav footer?
@@ -139,13 +139,13 @@ if(isset($_SESSION['msg'])){
                   $row = mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                  </ul>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="index.php">Logout</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -156,98 +156,128 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item">User Management</li>
-            <li class="breadcrumb-item"><a href="admin-administrators.php">Admin</a></li>
-          <li class="breadcrumb-item active" aria-current="page">New Admin</li>
+              <li class="breadcrumb-item"><a href="admin-course.php">Course Management</a></li>
+          <li class="breadcrumb-item active" aria-current="page">New Course</li>
         </ol>
       </nav>
 
       <!-- Page content -->
 
-      <div class="row justify-content-center align-items-center">
+              <div class="row justify-content-center align-items-center">
       <div class="col-11 col-lg-11 col-xl-11">
-        <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
+        <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
           <div class="card-body px-5 py-3 pt-4 ">
             <div class="row g-0 justify-content-center align-items-center ">
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
-                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Course Registration</h3>
 
                                     <!-- <form class="was-validated"> -->
-                                    <div class="row justify-content-between">
+                                    <!--   <div class="row justify-content-between">
                                     <div class="col-12 col-md-4  mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="schoolId" id="asterisk">Admin ID</label>
-                                        <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
+                                        <label class="form-label" for="schoolId" id="asterisk">Org ID</label>
+                                        <input type="text" name="schoolId" id="schoolId" class="form-control" placeholder="##-###### " required />
                                         <div class="valid-feedback"> </div>
-                                      </div>
+                                      </div> college id is auto increment
                                     </div>
+
+
+                                    <div class="col-12 col-md-4  mb-4">
+                                      <label class="form-label" id="asterisk">Organization Type</label>
+                                      <select class=" form-select" name="signatory_type" id="showme" required>
+                                        <option class="greyclr" selected disabled value="">Select Type</option>
+                                        <option value="Academic">Academic</option>
+                                        <option value="Non-Academic">Non-Academic</option>
+                                      </select>
                                   </div>
+
+                                  <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
+                                  <label class="form-label" id="asterisk">Assign Course</label>
+                                  <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" >
+                                    <option class="greyclr" selected disabled value="">Select Course</option>
+                                    <?php/*
+                                          $query = "SELECT course FROM tb_course";
+                                          $result = @mysqli_query($conn, $query);
+                                          while($data = @mysqli_fetch_array($result)) {
+                                              echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                          }
+                                    */?>
+                                  </select>
+                              </div>
+                                    </div>-->
                                   <div class="row justify-content-between">
-                                    <div class="col-12 col-md-6 col-sm-3 mb-4">
+                                    <div class="col-12 col-md-12 col-sm-3 mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="firstName" id="asterisk">First name</label>
-                                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
+                                        <label class="form-label" for="orgname" id="asterisk">Course Name</label>
+                                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required/>
                                         <div class="valid-feedback"></div>
                                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                                       </div>
                                     </div>
-                                    <div class="col-12 col-md-6  mb-4">
+                                    <div class="col-12 col-md-12  mb-4">
+                                    <label class="form-label" id="asterisk">Assign College</label>
+                                    <select class="form-select" style="width:100%;" name="COLLEGE_DEPT" id="COLLEGE_DEPT" required>
+                                      <option class="greyclr" selected disabled value="">Select College</option>
+                                      <?php
+                                            $query = "SELECT college FROM tb_collegedept";
+                                            $result = @mysqli_query($conn, $query);
+                                            while($data = @mysqli_fetch_array($result)) {
+                                                echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                            }
+                                      ?>
+                                    </select>
+                                </div>
+                                    <!--<div class="col-12 col-md-6  mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="last_name" id="asterisk">Last name</label>
-                                        <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest2" class="form-control form-control-lg" required="" />
+
+                                        <label class="form-label" for="lastName" id="asterisk">Abbreviation</label>
+                                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="10"  oninput="this.value = this.value.toUpperCase()" class="form-control form-control-lg" required />
                                         <div class="valid-feedback"> </div>
-                                        <!--<div class="invalid-feedback">Last name field invalid!</div>-->
+                                        <div class="invalid-feedback">Last name field invalid!</div>
                                       </div>
                                     </div>
                                   </div>
                                     <div class="row mb-0">
-                                      <div class="col-12 col-md-4 mb-4">
+                                      <div class="col-12 col-md-6 col-sm-3 mb-4">
                                         <div class="form-outline">
-
-                                          <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
-                                            >
-                                          <div class="valid-feedback"></div>
-                                        </div>
+                                          <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
+                                          <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
+                                            <option class="greyclr" selected disabled value="">Select Adviser</option>
+                                            <?php
+                                                  $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
+                                                  $result = @mysqli_query($conn, $query);
+                                                  while($data = @mysqli_fetch_array($result)) {
+                                                      echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                                  }
+                                            ?>
+                                          </select>
                                       </div>
-
-                                      <div class="col-12 col-md-4 ">
-                                        <div class="form-outline">
-
-                                          <label class="form-label" for="password" id="asterisk">Password</label>
-                                          <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
-                                            data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
-                                          <span class="errorspannewpassinput"></span>
-                                          <div class="valid-feedback"> </div>
-                                      </div>
-                                  </div>
-                                      <div class="col-12 col-md-4">
-                                        <div class="form-outline">
-                                          <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                                          <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
-                                            data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
-                                          <span class="errorspanconfirmnewpassinput"></span>
-                                          <div class="valid-feedback"> </div>
-                                        </div>
-                                      </div>
-
                                     </div>
+                                      <div class="col-12 col-md-6  mb-4">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="lastName" id="asterisk">Organization Logo</label>
+                                          <input class="form-control" name="attachments" id="orgpic" type="file" accept="image/*"/ id="orgpic" required single>
+                                          <div class="valid-feedback"> </div>
+                                        </div>-->
+                                          <!--<div class="invalid-feedback">Last name field invalid!</div>    </div>-->
+
+                                  </div>
                                     <div class="col-12 col-md-12 mt-0 mb-4">
                                       <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
                                     </div>
 
-                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
                                   {
-                                    $si = $_POST['studentid'];
-                                    $fn = $_POST['first_name'];
-                                    $ln = $_POST['last_name'];
+                                    $si = $_POST['schoolId'];
+                                    $fn = $_POST['firstName'];
+                                    $ln = $_POST['lastName'];
+                                    $st = $_POST['signatory_type'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
-                                    $duplicate=mysqli_query($conn,"select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
+                                    $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
@@ -258,12 +288,12 @@ if(isset($_SESSION['msg'])){
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
-                                             title: 'Administrator Created',
+                                             title: 'Signatory Created',
                                              confirmButtonColor: '#F2AC1B'
 
                                          })
@@ -276,7 +306,7 @@ if(isset($_SESSION['msg'])){
                                         }
                                     $conn = null;
                                     }
-                                    }
+                                  }
                                 ?>
                                   </form>
        </div>
@@ -309,7 +339,13 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
-  <!-- Student Modal -->
+
+      <script>
+      document.getElementById('showme').addEventListener('change', function () {
+          var style = this.value == "Academic" ? 'block' : 'none';
+          document.getElementById('orghide').style.display = style;
+      });
+    </script>
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
