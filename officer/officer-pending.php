@@ -240,8 +240,8 @@ if(isset($_SESSION['msg'])){
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> 
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $obj  </td>
@@ -381,16 +381,10 @@ if(isset($_SESSION['msg'])){
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
+                          <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="participants" >Participants:</label>
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline d-grid">
-                              <label class="form-label">Download Attachment/s:</label>
-                            <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
 
@@ -490,7 +484,7 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
+                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Reschedule</a>
                     </div>
                  </form>
             </div>
@@ -526,7 +520,6 @@ if(isset($_SESSION['msg'])){
                 $('#org_id').val(data.ORG);
                 $('#requested_by').val(data.requested_by);
                 $('#position_id').val(data.position);
-                $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
                 $('#estimated_budget').val(data.estimated_budget);
@@ -535,6 +528,10 @@ if(isset($_SESSION['msg'])){
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+        });
+
+          $(document).on( "click", '#btndl2', function(e){
+            $('#btndl').trigger('click');
         });
     </script>
 

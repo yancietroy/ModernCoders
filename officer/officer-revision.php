@@ -242,8 +242,8 @@ if(isset($_SESSION['msg'])){
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>  
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
@@ -325,19 +325,19 @@ if(isset($_SESSION['msg'])){
                        <div class="col-4 col-md-2 mb-4">
                          <div class="form-outline">
                            <label class="form-label" for="project_id" >Project ID:</label>
-                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                           <input type="text" name="project_id" id="project_id" class="form-control form-control-md"   readonly/>
                          </div>
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
                          <label class="form-label" for="date_submitted" >Date Submitted:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                         <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md"   readonly />
                        </div>
                      </div>
                      <div class="col-4 col-md-3 mb-4">
                      <div class="form-outline">
                        <label class="form-label" for="status_date" >Date For Revision:</label>
-                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                       <input type="text" name="status_date" id="status_date" class="form-control form-control-md"   readonly />
                      </div>
                    </div>
                        </div>
@@ -350,7 +350,7 @@ if(isset($_SESSION['msg'])){
                         </div>
                         <div class="col-12 col-md-6 col-sm-3 mb-4">
                           <div class="form-outline">
-                            <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                            <label class="form-label" for="organizer" >Organizer:</label>
                             <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;"   />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Project name field cannot be blank!</div>
@@ -366,15 +366,32 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                           <label class="form-label" for="status" >Project Status:</label>
-                          <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                          <input type="text" name="status" id="status" class="form-control"   readonly />
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                           <label class="form-label" for="project_type" >Project Type:</label>
-                          <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;"  />
+                          <select class="mt-0 ms-0 form-select" name="project_type" id="project_type"  style="background-color: #fff;">
+                            <option class="greyclr" selected disabled value="" >Select Type</option>
+                            <option value="Curricular">Curricular</option>
+                            <option value="Extra Curricular">Extra Curricular</option>
+                            <option value="Outreach">Outreach</option>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Competition">Competition</option>
+                            <option value="Assembly">Assembly</option>
+                            <option value="Socialization/Teambuilding">Socialization/Teambuilding</option>
+                            <option value="Student Learning Circle">Student Learning Circle</option>
+                            <option value="Showcase">Showcase</option>
+                            <option value="Other">Other</option>
+                          </select>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="project_category" >Category:</label>
-                            <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;"  />
+                            <select class="mt-0 ms-0 form-select" name="project_category" id="project_category">
+                              <option class="greyclr" selected disabled value="" >Select Category</option>
+                              <option value="Onsite">Onsite</option>
+                              <option value="Online">Online</option>
+                              <option value="Hybrid">Hybrid</option>
+                            </select>
                           </div>
                         </div>
                             <div class="row">
@@ -400,10 +417,11 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-6 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
-                              <label class="form-label">Download Attachment/s:</label>
-                            <button type="button" class="btn btn-secondary btn-md">Download</button>
+                              <label class="form-label">Upload Attachment/s:</label>
+                              <input class="form-control" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
                             </div>
                           </div>
+                      </div>
                           <!--
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
@@ -435,26 +453,24 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                               </div>
-                            </div>-->
-
-                        </div>
+                            </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="org_id" >Name of Organization:</label>
-                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md"   readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label" for="requested_by">Requested By:</label>
-                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md"   readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
-                             <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                             <!--<select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
                               <?php/**
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
@@ -462,11 +478,11 @@ if(isset($_SESSION['msg'])){
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                         }**/
                               ?>
-                              </select> -->
-                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                              </select>
+                              <input type="text" name="position_id" id="position_id" class="form-control form-control-md"   readonly />
                             </div>
                           </div>
-                        </div>
+                        </div>-->
                          <div class="row">
                           <div class="col-12 col-md-12 col-sm-3 mb-4">
                             <div class="form-outline  ">
@@ -476,7 +492,7 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-12 col-sm-3 mb-2">
                             <div class="form-outline  ">
-                              <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                              <label class="form-label" for="budget_req">Budget Request:</label>
                               <textarea class="form-control" name="budget_req" id="budget_req" rows="6"  style="background-color: #fff;" ></textarea>
                             </div>
                           </div>
@@ -492,13 +508,13 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
+                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6"   readonly></textarea>
                             </div>
                           </div>
                         </div>
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
+                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Reschedule</a>
                         <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button>   <!--  update and change status to pending-->
                     </div>
                  </form>
