@@ -2,7 +2,8 @@
 ob_start();
 session_start();
 $officer_id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -137,7 +138,11 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; }?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> Members</li>
         </ol>
       </nav>
@@ -154,7 +159,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE ORG_ID = '$orgid' OR MORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";

@@ -2,7 +2,8 @@
 ob_start();
 session_start();
 $officer_id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -131,7 +132,11 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; }?></li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -148,10 +153,14 @@ if(isset($_SESSION['msg'])){
                         <div class="card-body p-4 mx-auto px-auto">
                           <div class="row g-0 ">
                             <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                              <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                              <img src="<?php echo $logoPic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                             </div>
                               <div class='col-12 col-md-10 mt-4'>
-                                <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                                <h3 class="justify-content-center align-items-center text-align-center"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                                    $result = @mysqli_query($conn, $query);
+                                    $row = mysqli_fetch_array ($result);
+                                    if ($row)
+                                    { echo "$row[1]"; }?></h3>
                           </div>
                           </div>
 

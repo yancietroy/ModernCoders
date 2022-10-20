@@ -2,7 +2,8 @@
 ob_start();
 session_start();
 $officer_id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -146,7 +147,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE ORG_ID='$orgid' OR MORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";

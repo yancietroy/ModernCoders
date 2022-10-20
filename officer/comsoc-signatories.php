@@ -1,8 +1,9 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$officer_id = $_SESSION['use'];
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -114,7 +115,7 @@ if(isset($_SESSION['msg'])){
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$id'";
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -137,7 +138,11 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i></i><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; }?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> Signatories</li>
         </ol>
       </nav>
@@ -217,103 +222,6 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
     </div> -->
-
-      <!-- Footer -->
-    <div id="layoutAuthentication_footer">
-      <footer class="py-2 bg-light mt-3">
-        <div class="container-fluid px-4">
-          <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-  </div>
-<!-- Student Modal -->
-<div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" id="modal-lg" role="document">
-      <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel"> View Signatory Details </h5>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <form action="admin-update-signatories.php" method="POST">
-                  <div class="modal-body">
-                    <div class="container-md">
-                      <div class="row justify-content-between">
-                     <div class="col-4 col-md-2 col-sm-3 mb-4">
-                       <div class="form-outline">
-                         <label class="form-label" for="school_id" >JRU ID:</label>
-                         <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly/>
-                       </div>
-                     </div>
-                     <div class="col-4 col-md-3 mb-4">
-                     <div class="form-outline">
-                       <label class="form-label" for="date_submitted" >Account Created:</label>
-                       <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
-                     </div>
-                   </div>
-                     </div>
-                      <div class="row justify-content-between">
-                      <div class="col-12 col-md-6 mb-4">
-                        <div class="form-outline">
-                          <label class="form-label" for="first_name" >First name:</label>
-                          <input type="text" name="first_name" id="first_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly  />
-                        </div>
-                      </div>
-                        <div class="col-12 col-md-6 mb-4">
-                        <label class="form-label" for="last_name" >Last Name:</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly  />
-                        </div>
-                        </div>
-                      <div class="row">
-                        <div class="col-12 col-md-4 col-sm-3 mb-2">
-                          <label class="form-label" for="email" >Email:</label>
-                          <input type="text" name="email" id="email" class="form-control"  pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly  />
-                        </div>
-                        <div class="col-12 col-md-4 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="signatory_type" >Signatory Type:</label>
-                            <select class="form-select" name="signatory_type" id="signatory_type">
-                            <?php
-                              $query = "SELECT signatory_type FROM tb_signatories";
-                              $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                      }
-                            ?>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-4 mb-4">
-                          <div class="form-outline">
-                            <label class="form-label" for="org_id" >Organization:</label>
-                            <select class="form-select" name="org_id" id="org_id">
-                            <?php
-                              $query = "SELECT org_id, org FROM tb_orgs";
-                              $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                            ?>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer pt-2 pb-0">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
-                  </div>
-                </div>
-              </form>
-          </div>
-      </div>
-</div>
-
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light mt-3">
@@ -326,257 +234,6 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
-
-    <!-- Student Modal -->
-    <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" id="modal-lg" role="document">
-          <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel"> View Student Details </h5>
-                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <form action="admin-update-users.php" method="POST">
-                      <div class="modal-body">
-                        <div class="container-fluid">
-                          <div class="row justify-content-between">
-                         <div class="col-4 col-md-2 col-sm-3 mb-4">
-                           <div class="form-outline">
-                             <label class="form-label" for="student_id" >Student ID:</label>
-                             <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly/>
-                           </div>
-                         </div>
-                         <div class="col-4 col-md-3 mb-4">
-                         <div class="form-outline">
-                           <label class="form-label" for="account_created" >Account Created:</label>
-                           <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
-                         </div>
-                       </div>
-                         </div>
-                          <div class="row">
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="first_name" >First name:</label>
-                              <input type="text" name="first_name" id="first_name" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   readonly/>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="MIDDLE_NAME" >Middle Name:</label>
-                              <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"  readonly />
-                            </div>
-                          </div>
-                            <div class="col-12 col-md-4 mb-4">
-                            <label class="form-label" for="last_name" >Last Name:</label>
-                            <input type="text" name="last_name" id="last_name" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"  readonly />
-                            </div>
-                            </div>
-                          <div class="row">
-                            <div class="col-12 col-md-4 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="birthdate" >Birthdate:</label>
-                                <input id="birthdate" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  style="background-color: #fff;" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-4 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="age" >Age:</label>
-                                <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" readonly/>
-                              </div>
-                            </div>
-                            <div class="col-6 col-md-4 mb-4 ">
-                              <label class="mb-3 me-5 min-vw-100" for="gender">Gender </label>
-                              <div class="btn-group">
-                                <input type="radio" class="btn-check" name="gender" id="gender" value="Male" readonly>
-                                <label class="btn btn-sm me-2 btn-outline-secondary" for="gender">Male</label>
-                                <input type="radio" class="btn-check" name="gender" id="gender" value="Female" readonly>
-                                <label class="btn btn-sm me-2 btn-outline-secondary" for="gender">Female</label>
-                                <!--<div class="valid-feedback check"> &#x2713;</div>
-                                <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-12 col-md-4 col-sm-3 mb-2">
-                              <label class="form-label" for="year_level" >Year Level:</label>
-                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
-                            </div>
-                            <div class="col-12 col-md-4 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="section">Section:</label>
-                                <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;" readonly />
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-4 col-sm-3 mb-2">
-                              <label class="form-label" for="email" >Email:</label>
-                              <input type="text" name="email" id="email" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;"  readonly />
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-12 col-md-4 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="college" >College:</label>
-                                <select class="form-select" name="college" id="college" readonly>
-                                  <?php
-                                      $query = "SELECT college FROM tb_collegedept";
-                                      $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                      }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-4 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label select-label" for="course" >Course:</label>
-                                <select class="form-select" style="width:100%;" name="course" id="course" readonly>
-                                  <?php
-                                        $query = "SELECT course FROM tb_course";
-                                        $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                        }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-12 col-md-4 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="org_id" >Main Organization:</label>
-                                <select class="form-select" name="org_id" id="org_id" readonly>
-                                  <?php
-                                    $query = "SELECT org_id, MOTHER_ORG FROM tb_morg";
-                                    $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <input type="hidden" name="PASSWORD" id="PASSWORD">
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <!--<button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
-                      </div>
-                    </div>
-                  </form>
-              </div>
-          </div>
-    </div>
-
-        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header py-3 px-3">
-                      <h5 class="modal-title" id="exampleModalLabel"> Archive Student Data </h5>
-                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <form action="admin-delete-user.php" method="POST">
-                      <div class="modal-body">
-                        <div class="col-12 col-md-12 justify-content-center ">
-                          <div class="form-outline">
-                             <label class="form-label" for="delete_id" >Student ID:</label>
-                             <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
-                           </div>
-                         </div>
-                          <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
-                      </div>
-                      <div class="modal-footer py-2 px-3">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-
-      <script>
-          $(document).on('click', '.viewbtn', function(){
-             var STUDENT_ID = $(this).attr("id");
-             $.ajax({
-                  url:"comsoc-fetch-officer.php",
-                  method:"POST",
-                  data:
-                  {
-                    STUDENT_ID:STUDENT_ID
-                  },
-                  dataType:"json",
-                  success:function(data){
-                  console.log(data);
-                  $('#student_id').val(data.student_id);
-                  $('#first_name').val(data.first_name);
-                  $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
-                  $('#last_name').val(data.last_name);
-                  $('#birthdate').val(data.birthdate);
-                  $('#age').val(data.age);
-                  $('input[type=radio][id="gender"][value='+data.gender+']').prop('checked', true);
-                  $('#year_level').val(data.year_level);
-                  $('#email').val(data.email);
-                  $('#course').val(data.course);
-                  $('#section').val(data.section);
-                  $('#org_id').val(data.org_id);
-                  $('#account_created').val(data.account_created);
-                  $('#college_dept').val(data.college_dept);
-                  $('#position_id').val(data.position_id);
-                  $('#viewmodal').modal('show');
-                  $('#modal-lg').css('max-width','70%');
-                  }
-              });
-
-              // UPPERCASE FIRST LETTER
-              document.getElementById("FIRST_NAME").addEventListener("input", forceLower);
-              document.getElementById("MIDDLE_NAME").addEventListener("input", forceLower);
-              document.getElementById("LAST_NAME").addEventListener("input", forceLower);
-              // Event handling functions are automatically passed a reference to the
-              // event that triggered them as the first argument (evt)
-              function forceLower(evt) {
-                // Get an array of desktop the words (in desktop lower case)
-                var words = evt.target.value.toLowerCase().split(/\s+/g);
-
-                // Loop through the array and replace the first letter with a cap
-                var newWords = words.map(function(element) {
-                  // As long as we're not dealing with an empty array element, return the first letter
-                  // of the word, converted to upper case and add the rest of the letters from this word.
-                  // Return the final word to a new array
-                  return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
-                });
-
-                // Replace the original value with the updated array of capitalized words.
-                evt.target.value = newWords.join(" ");
-              }
-
-
-          });
-      </script>
-
-      <script>
-        $(document).on('click', '.deletebtn', function(){
-          var STUDENT_ID = $(this).attr("id");
-          $.ajax({
-                  url:"comsoc-fetch-user.php",
-                  method:"POST",
-                  data:
-                  {
-                    STUDENT_ID:STUDENT_ID
-                  },
-                  dataType:"json",
-                  success:function(data){
-                  console.log(data);
-                  $('#delete_id').val(data.STUDENT_ID);
-                  $('#deletemodal').modal('show');
-                  }
-              });
-          });
-      </script>
     <?php @mysqli_close($conn); ?>
       <!-- jQuery CDN - Slim version (=without AJAX) -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
