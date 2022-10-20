@@ -13,7 +13,7 @@ if(isset($_SESSION['message'])){
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
   <!-- Our Custom CSS  -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
@@ -93,15 +93,13 @@ if(isset($_SESSION['message'])){
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
+              <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-4" id="select-opt" required>
-                  <option class="greyclr" selected disabled value="" text-muted>Select User</option>
-                  <option value="">Signatory</option>
+                <select class="selectpicker form-select mt-2" id="select-opt" required>
+                  <option class="greyclr" selected disabled value="" text-muted>Signatory</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="index.php">Student</option>
                 </select>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Please select a user type!</div>
               </div>
               <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">
