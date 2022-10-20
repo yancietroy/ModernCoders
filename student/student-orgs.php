@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$morg_id = $_SESSION['morg_id'];
+$secOrg_id = $_SESSION['org_id'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -148,9 +150,14 @@ if(isset($_SESSION['msg'])){
       <div class="row ms-3 me-3 mt-2">
         <div class="col-12  col-md-5 mt-2"  id="orgs">
           <div class="card display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <img src="<?php echo $logoPic; ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; } 
+              @mysqli_close($conn);?></h5>
 
               <a href="comsoc.php" class="stretched-link"></a>
             </div>
