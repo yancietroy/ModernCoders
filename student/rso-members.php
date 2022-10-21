@@ -20,7 +20,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> rso</li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -433,7 +433,7 @@ if(isset($_SESSION['msg'])){
           $(document).on('click', '.viewbtn', function(){
              var STUDENT_ID = $(this).attr("id");
              $.ajax({
-                  url:"comsoc-fetch-user.php",
+                  url:"rso-fetch-user.php",
                   method:"POST",
                   data:
                   {
@@ -490,7 +490,7 @@ if(isset($_SESSION['msg'])){
         $(document).on('click', '.deletebtn', function(){
           var STUDENT_ID = $(this).attr("id");
           $.ajax({
-                  url:"comsoc-fetch-user.php",
+                  url:"rso-fetch-user.php",
                   method:"POST",
                   data:
                   {

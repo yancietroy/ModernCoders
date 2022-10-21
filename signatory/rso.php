@@ -18,7 +18,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -129,7 +129,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> rso</li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -145,7 +145,7 @@ if(isset($_SESSION['msg'])){
                   <div class="card-body p-4 mx-auto px-auto">
                     <div class="row g-0 ">
                       <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                        <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                        <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                       </div>
                         <div class='col-12 col-md-10 mt-4'>
                           <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
@@ -166,7 +166,7 @@ if(isset($_SESSION['msg'])){
                   <div class="icon">
                   <i class="bi bi-file-person"></i>
                   </div>
-                  <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="rso-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6">
@@ -178,7 +178,7 @@ if(isset($_SESSION['msg'])){
                   <div class="icon">
                   <i class="bi bi-person-badge"></i>
                   </div>
-                  <a href="comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6">

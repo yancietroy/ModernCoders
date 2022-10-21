@@ -17,7 +17,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -141,7 +141,7 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4 id="comsoctitle">Signatory Projects Pending List</h4>
+          <h4 id="rsotitle">Signatory Projects Pending List</h4>
         </div>
         <div class='callout bs-callout-success pb-2'  id="hidden">
             <h4>Project Status Updated!</h4>
@@ -242,8 +242,8 @@ if(isset($_SESSION['msg'])){
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
+                                  <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
@@ -386,19 +386,19 @@ if(isset($_SESSION['msg'])){
                          </div>
                        </div>
                        <div class="row">
-                         <div class="col-12 col-md-6 col-sm-3 mb-4">
+                         <div class="col-12 col-md-12 mb-4">
                            <div class="form-outline">
                              <label class="form-label" for="participants" >Participants:</label>
                              <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                            </div>
                          </div>
-                         <div class="col-12 col-md-6 col-sm-3 mb-4">
+                           <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
                            <div class="form-outline d-grid">
                              <label class="form-label">Download Attachment/s:</label>
-                           <a type="button" class="btn btn-secondary btn-md" href="download.php?file=<?php echo $rows['attachments'] ?>">Download</a>
+                           <button type="button" class="btn btn-secondary btn-md">Download</button>
                            </div>
                          </div>
-                         <!--
+
                          <div class="col-12 col-md-4 col-sm-3 mb-2">
                            <label class="form-label" for="budget_source" >Budget Source:</label>
                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />

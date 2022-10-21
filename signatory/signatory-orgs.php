@@ -18,7 +18,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -150,11 +150,11 @@ if(isset($_SESSION['msg'])){
       <div class="row ms-3 me-3 mt-2">
         <div class="col-12  col-md-5 mt-2"  id="orgs">
           <div class="card display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <img src="../assets/img/rso-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
 
-              <a href="comsoc.php" class="stretched-link"></a>
+              <a href="rso.php" class="stretched-link"></a>
             </div>
           </div>
         </div>

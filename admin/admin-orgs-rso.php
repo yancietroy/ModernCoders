@@ -15,7 +15,7 @@ if(isset($_SESSION['msg'])){
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -157,7 +157,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item"><a href="admin-orgs.php">Orgs Management</a></li>
-                <li class="breadcrumb-item active" aria-current="page">COMSOC</li>
+                <li class="breadcrumb-item active" aria-current="page">rso</li>
         </ol>
       </nav>
 
@@ -165,7 +165,7 @@ if(isset($_SESSION['msg'])){
 
                   <div class="row ms-3 me-3 mt-2 mb-2">
                     <div class="col-lg-6 col-7">
-                      <h4 id="comsoctitle">Student Organizations Management</h4>
+                      <h4 id="rsotitle">Student Organizations Management</h4>
                     </div>
                   </div>
                   <div class="row justify-content-center align-items-center text-align-center">
@@ -174,7 +174,7 @@ if(isset($_SESSION['msg'])){
                         <div class="card-body p-4 mx-auto px-auto">
                           <div class="row g-0 ">
                             <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                              <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                              <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                             </div>
                               <div class='col-12 col-md-10 mt-4'>
                                 <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
@@ -195,7 +195,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                         <i class="bi bi-file-person"></i>
                         </div>
-                        <a href="admin-orgs-comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-orgs-rso-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -207,7 +207,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                         <i class="bi bi-person-badge"></i>
                         </div>
-                        <a href="admin-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-orgs-rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -219,7 +219,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                           <i class="bi bi-person-rolodex"></i>
                         </div>
-                        <a href="admin-orgs-comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-orgs-rso-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6" id="eventhide">
@@ -269,7 +269,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                       <i class="bi bi-folder-fill"></i>
                         </div>
-                        <a href="admin-projects-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-projects-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">

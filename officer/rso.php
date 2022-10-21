@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -144,7 +144,7 @@ if(isset($_SESSION['msg'])){
 
                   <div class="row ms-3 me-3 mt-2 mb-2">
                     <div class="col-lg-6 col-7">
-                      <h4 id="comsoctitle">Student Organizations Management</h4>
+                      <h4 id="rsotitle">Student Organizations Management</h4>
                     </div>
                   </div>
                   <div class="row justify-content-center align-items-center text-align-center">
@@ -178,7 +178,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                         <i class="bi bi-file-person"></i>
                         </div>
-                        <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="rso-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -190,7 +190,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                         <i class="bi bi-person-badge"></i>
                         </div>
-                        <a href="comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6">
@@ -202,7 +202,7 @@ if(isset($_SESSION['msg'])){
                         <div class="icon">
                           <i class="bi bi-person-rolodex"></i>
                         </div>
-                        <a href="comsoc-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="rso-signatories.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-sm-6" id="eventhide">
