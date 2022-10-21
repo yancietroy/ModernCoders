@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 20, 2022 at 04:18 PM
+-- Generation Time: Oct 21, 2022 at 03:04 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -25,7 +25,11 @@ SET time_zone = "+00:00";
 
 --
 -- Table structure for table `sample`
+--
 
+CREATE TABLE `sample` (
+  `Sample` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -332,7 +336,8 @@ INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `logo`, `college_id`, `course_id
 (13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, NULL),
 (14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, NULL),
 (15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, NULL),
-(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, NULL);
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, NULL),
+(17, 'Police Club (PC)', '37192-', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -661,9 +666,9 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `profile_pic`) VALUES
-(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', NULL, NULL, NULL, NULL, NULL, NULL),
-(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', NULL, NULL, NULL, NULL, NULL, NULL),
-(19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'SDO', NULL, NULL, NULL, NULL, NULL, NULL);
+(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, NULL, 12, NULL, 'img_avatar.png'),
+(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, NULL, 12, NULL, 'img_avatar.png'),
+(19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'SDO', 3, 2, NULL, NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -1178,6 +1183,12 @@ ALTER TABLE `tb_candidate`
   MODIFY `CANDIDATE_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `tb_morg`
+--
+ALTER TABLE `tb_morg`
+  MODIFY `MORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
@@ -1188,6 +1199,12 @@ ALTER TABLE `tb_officers`
 --
 ALTER TABLE `tb_officers_archive`
   MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tb_orgs`
+--
+ALTER TABLE `tb_orgs`
+  MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
