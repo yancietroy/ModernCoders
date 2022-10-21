@@ -184,24 +184,24 @@ if(isset($_SESSION['msg'])){
 
                                     <div class="col-12 col-md-4  mb-4">
                                       <label class="form-label" id="asterisk">Organization Type</label>
-                                      <select class=" form-select" name="signatory_type" id="showme" required>
+                                      <select class=" form-select" name="org_type" id="showme" required>
                                         <option class="greyclr" selected disabled value="">Select Type</option>
                                         <option value="Academic">Academic</option>
                                         <option value="Non-Academic">Non-Academic</option>
                                       </select>
                                   </div>
 
-                                  <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
-                                  <label class="form-label" id="asterisk">Assign Course</label>
-                                  <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" required>
-                                    <option class="greyclr" selected disabled value="">Select Course</option>
+                                  <div class="col-12 col-md-6  mb-4" style='display:none;' id="orghide">
+                                  <label class="form-label" id="asterisk">College Department</label>
+                                  <select class="form-select" style="width:100%;" name="college_id" id="college_id">
+                                    <option class="greyclr" selected disabled value="">Select College</option>
                                     <?php
-                                          $query = "SELECT course FROM tb_course";
-                                          $result = @mysqli_query($conn, $query);
-                                          while($data = @mysqli_fetch_array($result)) {
-                                              echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                          }
-                                    ?>
+                                         $query = "SELECT * FROM tb_collegedept";
+                                         $result = @mysqli_query($conn, $query);
+                                         while($data = @mysqli_fetch_array($result)) {
+                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                                         }
+                                           ?>
                                   </select>
                               </div>
                                     </div>
@@ -218,7 +218,7 @@ if(isset($_SESSION['msg'])){
                                       <div class="form-outline">
 
                                         <label class="form-label" for="lastName" id="asterisk">Abbreviation</label>
-                                        <input type="text" name="lastName" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="10"  oninput="this.value = this.value.toUpperCase()" class="form-control form-control-lg" required />
+                                        <input type="text" name="abbrev" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="10"  oninput="this.value = this.value.toUpperCase()" class="form-control form-control-lg"/>
                                         <div class="valid-feedback"> </div>
                                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                                       </div>
@@ -231,7 +231,7 @@ if(isset($_SESSION['msg'])){
                                           <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" required>
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
                                             <?php
-                                                  $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
+                                                  $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=3";
                                                   $result = @mysqli_query($conn, $query);
                                                   while($data = @mysqli_fetch_array($result)) {
                                                       echo '<option value="'.$data[0].'">'.$data[0].'</option>';
@@ -243,7 +243,7 @@ if(isset($_SESSION['msg'])){
                                       <div class="col-12 col-md-6  mb-4">
                                         <div class="form-outline">
                                           <label class="form-label" for="lastName" id="asterisk">Organization Logo</label>
-                                          <input class="form-control" name="attachments" id="orgpic" type="file" accept="image/*"/ id="orgpic" required single>
+                                          <input class="form-control" name="orgpic" id="orgpic" type="file" accept="image/*"/ id="orgpic" required single>
                                           <div class="valid-feedback"> </div>
                                           <!--<div class="invalid-feedback">Last name field invalid!</div>-->
                                         </div>
@@ -256,35 +256,63 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($ot) || isset($ci) || isset($org) || isset($pname) || isset($tname) || isset($destination) || isset($duplicate) || isset($mDuplicate) || isset($_POST['submit']))
                                   {
-                                    $si = $_POST['schoolId'];
-                                    $fn = $_POST['firstName'];
-                                    $ln = $_POST['lastName'];
-                                    $st = $_POST['signatory_type'];
-                                    $e = $_POST['email'];
-                                    $p = $_POST['password'];
-                                    $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
+                                    $ot = $_POST['org_type'];
+                                    $ci = $_POST['college_id'];
+                                    $org = $_POST['orgname'] . ' (' . $_POST['abbrev'] . ')';
+
+                                    $pname = rand(1000,100000)."-".$_FILES['orgpic']['name'];
+                                    $destination = '../assets/img/logos' . $pname;
+                                    $tname = $_FILES['orgpic']['tmp_name'];
+                                    move_uploaded_file($tname, $destination);
+
+                                    /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
+                                    $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
-                                            alert('User already exists!')
+                                            alert('Organization already exists!')
+                                            window.location.href='admin-orgs-reg.php'
+                                            </script>";
+                                    }else if (mysqli_num_rows($mduplicate)>0)
+                                    {
+                                      echo "<script type='text/javascript'>
+                                            alert('Organization already exists!')
+                                            window.location.href='admin-orgs-reg.php'
                                             </script>";
                                     }
-                                    else{
+                                    else{*/
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                                    if ($ot == "Non-Academic"){
+                                    $sql = "INSERT INTO tb_orgs(ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
-                                             title: 'Signatory Created',
+                                             title: 'Organization Created',
                                              confirmButtonColor: '#F2AC1B'
 
-                                         })
+                                         }).then(function() {
+                                              window.location = 'admin-orgs-reg.php';
+                                          });
                                           </script>";
+                                    }else{
+                                      $sql = "INSERT INTO tb_morg(MOTHER_ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
+                                      $conn->exec($sql);
+                                      echo "<script type='text/javascript'>
+                                        Swal.fire({
+                                             icon: 'success',
+                                             title: 'Organization Created',
+                                             confirmButtonColor: '#F2AC1B'
+
+                                         }).then(function() {
+                                              window.location = 'admin-orgs-reg.php';
+                                          });
+                                          </script>";
+                                    }
                                     }
                                        catch(PDOException $e)
                                         {
@@ -292,7 +320,7 @@ if(isset($_SESSION['msg'])){
                                               " . $e->getMessage();
                                         }
                                     $conn = null;
-                                    }
+                                    //}
                                   }
                                 ?>
                                   </form>
@@ -326,15 +354,12 @@ if(isset($_SESSION['msg'])){
       </div>
     </div>
     </div>
-
       <script>
       document.getElementById('showme').addEventListener('change', function () {
           var style = this.value == "Academic" ? 'block' : 'none';
           document.getElementById('orghide').style.display = style;
       });
-    </script>
-
-
+      </script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
