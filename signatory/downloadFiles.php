@@ -9,7 +9,7 @@ if (isset($_GET['project_id'])) {
     $result = mysqli_query($conn, $sql);
 
     $file = mysqli_fetch_assoc($result);
-    $filepath = 'attachments/' . $file['attachments'];
+    $filepath = '../officer/attachments/' . $file['attachments'];
 
     if (file_exists($filepath)) {
         header('Content-Description: File Transfer');
