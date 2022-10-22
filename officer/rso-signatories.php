@@ -159,7 +159,8 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
           <?php
-                  $query = "SELECT * FROM `tb_signatories`";
+                  $query = "SELECT * FROM `tb_signatories` WHERE  ORG_ID = '$orgid' OR signatorytype_id='1' OR signatorytype_id='2' ";
+                  /*  $query = "tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory, tb_orgs.ORG FROM tb_signatories JOIN tb_signatory_type ON tb_signatories.signatorytype_id = tb_signatory_type.signatory_id JOIN tb_orgs ON tb_orgs.ORG_ID = tb_signatories.org_id";*/
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
                   $si = " ";

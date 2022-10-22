@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -208,8 +208,8 @@ if(isset($_SESSION['msg'])){
                                   <div class="row justify-content-between">
                                     <div class="col-12 col-md-12 col-sm-3 mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="orgname" id="asterisk">College Department Name</label>
-                                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required="" />
+                                        <label class="form-label" for="collegename" id="asterisk">College Department Name</label>
+                                        <input type="text" name="collegename" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required="" />
                                         <div class="valid-feedback"></div>
                                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                                       </div>
@@ -230,13 +230,13 @@ if(isset($_SESSION['msg'])){
                                           <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
                                           <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
-                                            <?php
+                                            <?php/*
                                                   $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
                                                   $result = @mysqli_query($conn, $query);
                                                   while($data = @mysqli_fetch_array($result)) {
                                                       echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                                                   }
-                                            ?>
+                                          */  ?>
                                           </select>
                                       </div>
                                     </div>
@@ -256,31 +256,34 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($collegename) || isset($_POST['submit']))
                                   {
-                                    $si = $_POST['schoolId'];
-                                    $fn = $_POST['firstName'];
-                                    $ln = $_POST['lastName'];
-                                    $st = $_POST['signatory_type'];
-                                    $e = $_POST['email'];
-                                    $p = $_POST['password'];
-                                    $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
+                                      $collegename = $_POST['collegename'];
+                                    /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
+                                    $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
-                                            alert('User already exists!')
+                                            alert('Organization already exists!')
+                                            window.location.href='admin-orgs-reg.php'
+                                            </script>";
+                                    }else if (mysqli_num_rows($mduplicate)>0)
+                                    {
+                                      echo "<script type='text/javascript'>
+                                            alert('Organization already exists!')
+                                            window.location.href='admin-orgs-reg.php'
                                             </script>";
                                     }
-                                    else{
+                                    else{*/
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                                    $sql = "INSERT INTO tb_collegedept(college) VALUES('$collegename')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
-                                             title: 'Signatory Created',
+                                             title: 'College Department Created',
                                              confirmButtonColor: '#F2AC1B'
 
                                          })
@@ -292,7 +295,7 @@ if(isset($_SESSION['msg'])){
                                               " . $e->getMessage();
                                         }
                                     $conn = null;
-                                    }
+                                    //}
                                   }
                                 ?>
                                   </form>

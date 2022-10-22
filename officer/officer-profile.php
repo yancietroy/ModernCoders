@@ -210,22 +210,21 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Position	</th>
+                      <th width="30%">Role	</th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$officer_id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Side Organization	</th>
-                      <td width="2%">:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
                       <th width="30%">Position	</th>
                       <td width="2%">:</td>
-                    <td></td>
+                      <td><?php $query = "SELECT tb_officers.position_id, tb_position.position FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE tb_officers.officer_id = '$officer_id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[position]"; } ?>
+                    </td>
                     </tr>
+                    <tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[gender]"; ?></p>
