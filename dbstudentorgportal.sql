@@ -27,10 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `sample`
 --
 
-CREATE TABLE `sample` (
-  `Sample` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --

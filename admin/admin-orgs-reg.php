@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!-- <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -228,7 +228,7 @@ if(isset($_SESSION['msg'])){
                                       <div class="col-12 col-md-6 col-sm-3 mb-4">
                                         <div class="form-outline">
                                           <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
-                                          <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" required>
+                                          <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
                                             <?php
                                                   $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=3";

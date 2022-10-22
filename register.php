@@ -16,6 +16,7 @@ include('mysql_connect.php');
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
     referrerpolicy="no-referrer" />
   <!-- bootstrap css -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
@@ -77,8 +78,16 @@ include('mysql_connect.php');
                   $conn->exec($sql);
                   echo "
                   <script type='text/javascript'>
-                        alert('Successfully Registered!')
-                        window.location.href='index.php'</script>";
+                      Swal.fire({
+                           allowOutsideClick: false,
+                           icon: 'success',
+                           title: 'Successfuly Registered',
+                           text:'Please check your email to verify your account',
+                           confirmButtonColor: '#F2AC1B'
+                       }).then(function() {
+                            window.location = 'index.php';
+                        });
+                        </script>";
                   }
                      catch(PDOException $e)
                       {
