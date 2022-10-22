@@ -65,11 +65,11 @@ if(isset($_SESSION['msg'])){
         </li>
         <li>
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
+        </li>-->
         <li class="d-lg-none">
       <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
-        </li>-->
+    </li>
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -100,7 +100,7 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <!--    <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->-->
+              <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -180,7 +180,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Signatory Type: </th>
                       <td width="2%">:</td>
-                      <td><?php echo $data['signatory_type']; ?></td>
+                      <td>><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">College </th>
@@ -197,14 +199,14 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
 
-                    <!--  <tr>
+                     <tr>
                       <th width="30%">Role: </th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_signatories.usertype_id, tb_usertypes.user_type FROM tb_signatories INNER JOIN tb_usertypes ON tb_signatories.usertype_id=tb_usertypes.usertype_id WHERE tb_signatories.school_id = '$id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
-                    <tr>
+                  <!--  <tr>
                       <th width="30%">Side Organization </th>
                       <td width="2%">:</td>
                       <td></td>

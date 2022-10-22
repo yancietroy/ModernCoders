@@ -224,7 +224,6 @@ if(isset($_SESSION['msg'])){
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[position]"; } ?>
                     </td>
                     </tr>
-                    <tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[gender]"; ?></p>

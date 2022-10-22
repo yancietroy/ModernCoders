@@ -182,20 +182,31 @@ if(isset($_SESSION['msg'])){
                                       </div>
                                     </div>
 
-                                      <!--<div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
-                                      <label class="form-label" id="asterisk">Organization</label>
-                                      <select class="form-select" name="org_id" id="org_id">
-
-                                      </select>
-                                  </div>-->
+                                      <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
+                                        <label class="form-label" id="asterisk">College Department</label>
+                                        <select class="form-select" style="width:100%;" name="college_id" id="college_id">
+                                          <option class="greyclr" selected disabled value="">Select College</option>
+                                          <?php
+                                               $query = "SELECT * FROM tb_collegedept";
+                                               $result = @mysqli_query($conn, $query);
+                                               while($data = @mysqli_fetch_array($result)) {
+                                                   echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                                               }
+                                                 ?>
+                                        </select>
+                                  </div>
 
                                     <div class="col-12 col-md-4  mb-4">
                                       <label class="form-label" id="asterisk">Signatory Type</label>
-                                      <select class=" form-select" name="signatory_type" id="showme" required>
+                                      <select class=" form-select" name="signatory_type" id="showme"  onchange="showDiv(this)" required>
                                         <option class="greyclr" selected disabled value="">Select Type</option>
-                                        <option value="Student Adviser">Student Adviser</option>
-                                        <option value="Dean">Dean</option>
-                                        <option value="SDO">SDO</option>
+                                        <?php
+                                            $query = "SELECT signatory_id, signatory FROM tb_signatory_type";
+                                            $result = @mysqli_query($conn, $query);
+                                            while($data = @mysqli_fetch_array($result)) {
+                                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                            }
+                                        ?>
                                       </select>
                                   </div>
                                     </div>
@@ -328,12 +339,21 @@ if(isset($_SESSION['msg'])){
     </div>
     </div>
 
-      <!--<script>
-      document.getElementById('showme').addEventListener('change', function () {
+      <script>
+    /*  document.getElementById('showme').addEventListener('change', function () {
           var style = this.value == "Student Adviser" ? 'block' : 'none';
           document.getElementById('orghide').style.display = style;
-      });
-    </script>-->
+      });*/
+
+      function showDiv(select){
+     if(select.value=="1"){
+      document.getElementById('orghide').style.display = "none";
+     } else{
+      document.getElementById('orghide').style.display = "block";
+     }
+  }
+
+    </script>
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
