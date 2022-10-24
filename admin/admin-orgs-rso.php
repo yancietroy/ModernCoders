@@ -1,8 +1,16 @@
 <?php
 ob_start();
 session_start();
+if(!isset($_POST['ORG']) || !isset($_POST['ORG_ID'])) // If session is not set then redirect to Login Page
+  {
+    header("Location:admin-orgs.php");
+  }
+$_SESSION['ORG'] = $_POST['ORG'];
+$_SESSION['ORG_ID'] = $_POST['ORG_ID'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -157,7 +165,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
               <li class="breadcrumb-item"><a href="admin-orgs.php">Orgs Management</a></li>
-                <li class="breadcrumb-item active" aria-current="page">rso</li>
+                <li class="breadcrumb-item active" aria-current="page"><?php echo "$orgName"; ?></li>
         </ol>
       </nav>
 
@@ -174,10 +182,10 @@ if(isset($_SESSION['msg'])){
                         <div class="card-body p-4 mx-auto px-auto">
                           <div class="row g-0 ">
                             <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                              <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                              <img src="<?php echo $logoPic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                             </div>
                               <div class='col-12 col-md-10 mt-4'>
-                                <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                                <h3 class="justify-content-center align-items-center text-align-center"><?php echo "$orgName";?></h3>
                           </div>
                           </div>
 

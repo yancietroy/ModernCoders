@@ -216,7 +216,7 @@ if(isset($_SESSION['msg'])){
                                     </div>
                                     <div class="col-12 col-md-12  mb-4">
                                     <label class="form-label" id="asterisk">Assign College</label>
-                                    <select class="form-select" style="width:100%;" name="college_id" id="college_id">
+                                    <select class="form-select" style="width:100%;" name="college_id" id="college_id" required/>
                                       <option class="greyclr" selected disabled value="">Select College</option>
                                       <?php
                                            $query = "SELECT * FROM tb_collegedept";
@@ -243,12 +243,12 @@ if(isset($_SESSION['msg'])){
                                           <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
                                           <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
-                                            <?php
+                                            <?php/*
                                                   $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
                                                   $result = @mysqli_query($conn, $query);
                                                   while($data = @mysqli_fetch_array($result)) {
                                                       echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                                  }
+                                                  }*/
                                             ?>
                                           </select>
                                       </div>
@@ -293,14 +293,13 @@ if(isset($_SESSION['msg'])){
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_course(course,college_id) VALUES('$cn','$ci')";
+                                    $sql = "INSERT INTO tb_course(course,college_id) VALUES('$cn',NULLIF('$ci',''))";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
                                              title: 'Course Created',
                                              confirmButtonColor: '#F2AC1B'
-
                                          })
                                           </script>";
                                     }

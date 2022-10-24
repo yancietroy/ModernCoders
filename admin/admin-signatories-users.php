@@ -176,7 +176,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM `tb_signatories`";
+                    $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $si = " ";
@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                         $fn = $row['first_name'];
                         $ln = $row['last_name'];
                         $e = $row['email'];
-                        $st = $row['signatory_type'];
+                        $st = $row['signatory'];
 
                         echo "<tr>
                               <td> $si  </td>
