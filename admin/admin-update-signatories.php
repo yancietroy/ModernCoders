@@ -9,17 +9,27 @@ if (isset ($_POST['updatedata']))
 	$st = $_POST['signatory_type'];
 	$si = $_POST['school_id'];
 	$e = $_POST['email'];
-
+$cd = $_POST['college_id'];
+  $oid = $_POST['orgid'];
+	$ul = $_POST['usertype_id'];
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);
 	$row = @mysqli_fetch_array($result);
 
 		if($row)
 		{
-			$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatory_type` = '$st',  `email` = '$e' WHERE `school_id` = '$si'";
+			$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatory_type` = '$st', `college_id` = '$cd', `orgid` = '$oid',  `email` = '$e', `usertype_id` = '$ut' WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
 			header("Location:admin-signatories-users.php");
+			if ($ul = 3)
+		{
+			$query =  "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
+			VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), '$cd','$oid',NOW(), '$pp', '$ul')";
+						$result = @mysqli_query($conn, $query);
+			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
+			header("Location:admin-signatories-users.php");
 		}
-}
-?>
+		}
+	}
+	?>

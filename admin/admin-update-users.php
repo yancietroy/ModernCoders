@@ -34,7 +34,7 @@ if (isset ($_POST['updatedata']))
 			header("Location:admin-students-users.php");
 			if ($ut = 2)
 		{
-			$query = "INSERT INTO tb_officers(student_id, position_id, last_name, first_name, middle_initial, birthdate, age, gender, year_level, college_dept, course, section, email, password, org_id, user_type, profile_pic,  account_created)
+				$query = "INSERT INTO tb_officers(student_id, position_id, last_name, first_name, middle_initial, birthdate, age, gender, year_level, college_dept, course, section, email, password, org_id, user_type, profile_pic,  account_created)
                   VALUES('$si', '$pos_id', '$ln', '$fn', '$mn', '$bdate', '$age', '$g', '$yl', '$cd', '$course', '$section', '$e', '$pass', '$morg', '$ut', '$profilepic', NOW())";
             $result = @mysqli_query($conn, $query);
 			$_SESSION['message'] = '<script>alert("Update Successful")</script>';

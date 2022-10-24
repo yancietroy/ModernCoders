@@ -180,7 +180,7 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Signatory Type: </th>
                       <td width="2%">:</td>
-                      <td>><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                      <td><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></td>
                     </tr>

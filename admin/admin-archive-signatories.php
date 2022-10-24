@@ -529,7 +529,7 @@ if(isset($_SESSION['msg'])){
    });
    myTable.columns.adjust().draw();
    });
-   </script>Signatory
+   </script>
   <script src="../assets/js/age-validation.js"></script>
 </body>
 

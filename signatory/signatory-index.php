@@ -137,7 +137,7 @@ if(isset($_SESSION['msg'])){
                     <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
+                  $query = "SELECT school_id, tb_signatories.signatorytype_id, tb_signatory_type.signatory, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories  INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -145,15 +145,15 @@ if(isset($_SESSION['msg'])){
                     echo "
                           <div class='col-12 col-md-4 mt-2'>
                             <label class='text-muted'>Name:</label>
-                            <h5>$row[1]</h5>
+                            <h5>$row[3]</h5>
                             <label class='text-muted mt-3'>Email:</label>
-                            <h6>$row[2]</h6>
+                            <h6>$row[4]</h6>
                           </div>
                           <div class='col-12 col-md-4 mt-2'>
                             <label class='text-muted'>JRU ID:</label>
                             <h5>$row[0]</h5>
                               <label class='text-muted mt-3'>Role:</label>
-                              <h6>$row[3]</h6>
+                              <h6>$row[2]</h6>
                           </div>
                           <div class='col-12 col-md-3 mt-2'>
                           </div>

@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
                       <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT officer_id , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers WHERE officer_id = '$officer_id'";
+                  $query = "SELECT tb_officers.position_id, tb_position.position , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE officer_id = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -147,21 +147,21 @@ if(isset($_SESSION['msg'])){
                     echo "
                     <div class='col-12 col-md-3 mt-2'>
                       <label class='text-muted'>Name:</label>
-                      <h5>$row[1]</h5>
+                      <h5>$row[2]</h5>
                       <label class='text-muted mt-3'>Section:</label>
-                      <h5>$row[4]</h5>
+                      <h5>$row[5]</h5>
                   </div>
                   <div class='col-12 col-md-4 mt-2'>
                     <label class='text-muted'>JRU ID:</label>
                     <h5>19-255322</h5>
                     <label class='text-muted mt-3'>Email:</label>
-                    <h6>$row[3]</h6>
+                    <h6>$row[4]</h6>
                   </div>
                   <div class='col-12 col-md-3 mt-2'>
-                      <label class='text-muted'>Officer ID:</label>
-                      <h5>$row[0]</h5>
+                      <label class='text-muted'>Position:</label>
+                      <h5>$row[1]</h5>
                       <label class='text-muted mt-3'>Course:</label>
-                      <h6 class='fs-6'>$row[2]</h6>
+                      <h6 class='fs-6'>$row[3]</h6>
                   ";
                       /**<label class='text-muted'>Position:</label>
                       <h5>Year $row[5] </h5>
@@ -184,7 +184,7 @@ if(isset($_SESSION['msg'])){
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
-                  { echo "$row[1]"; } 
+                  { echo "$row[1]"; }
               @mysqli_close($conn);?></h5>
 
               <a href="officer-orgs.php" class="stretched-link"></a>

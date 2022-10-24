@@ -148,13 +148,13 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
           <div class="wrap shadow px-5 py-4 mx-auto mb-4">
-            <div class="row justify-content-center text-align-center mb-2 ">
-              <div class="col-lg-3 ms-5 col-6 ">
+            <div class="row ms-3 me-3 text-center ">
+              <div class="col-lg-12 col-12">
                 <h7 id="titlejru">Jose Rizal University</h7>
               </div>
             </div>
-          <div class="row justify-content-center text-align-center">
-            <div class="col-lg-4 col-10 mb-4">
+            <div class="row ms-3 me-3 text-center mb-2">
+              <div class="col-lg-12 col-12  mb-4">
               <h3 id="titleproj">Activity Proposal Form</h3>
             </div>
           </div>

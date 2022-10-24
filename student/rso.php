@@ -138,7 +138,7 @@ if(isset($_SESSION['msg'])){
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   $mOrg_name = $row['MOTHER_ORG'];
-                  echo "$mOrg_name"; 
+                  echo "$mOrg_name";
           ?></li>
         </ol>
       </nav>
@@ -179,13 +179,13 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-warning">
             <div class="inner">
-              <h2><i class="bi bi-envelope"></i></h2>
-              <p>Messages</p>
+              <h2>  <i class="bi bi-check2-square"></i></h2>
+              <p>Election</p>
             </div>
             <div class="icon">
-              <i class="bi bi-envelope-fill"></i>
+                <i class="bi bi-check2-square"></i>
             </div>
-            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="election-student-index.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
             <div class="col-lg-3 col-sm-6" id="eventhide">

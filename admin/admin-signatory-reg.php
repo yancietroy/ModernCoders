@@ -173,7 +173,7 @@ if(isset($_SESSION['msg'])){
                                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Signatory Registration Form</h3>
 
                                     <!-- <form class="was-validated"> -->
-                                    <div class="row justify-content-between">
+                                    <div class="row justify-content-start">
                                     <div class="col-12 col-md-4  mb-4">
                                       <div class="form-outline">
                                         <label class="form-label" for="schoolId" id="asterisk">JRU ID</label>
@@ -181,7 +181,21 @@ if(isset($_SESSION['msg'])){
                                         <div class="valid-feedback"> </div>
                                       </div>
                                     </div>
-
+                                  </div>
+                                    <div class="row justify-content-between">
+                                      <div class="col-12 col-md-4  mb-4">
+                                        <label class="form-label" id="asterisk">Signatory Type</label>
+                                        <select class=" form-select" name="signatory_type" id="showme"  onchange="showDiv(this)" required>
+                                          <option class="greyclr" selected disabled value="">Select Type</option>
+                                          <?php
+                                              $query = "SELECT signatory_id, signatory FROM tb_signatory_type";
+                                              $result = @mysqli_query($conn, $query);
+                                              while($data = @mysqli_fetch_array($result)) {
+                                                  echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                              }
+                                          ?>
+                                        </select>
+                                    </div>
                                       <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
                                         <label class="form-label" id="asterisk">College Department</label>
                                         <select class="form-select" style="width:100%;" name="college_id" id="college_id">
@@ -195,20 +209,19 @@ if(isset($_SESSION['msg'])){
                                                  ?>
                                         </select>
                                   </div>
-
-                                    <div class="col-12 col-md-4  mb-4">
-                                      <label class="form-label" id="asterisk">Signatory Type</label>
-                                      <select class=" form-select" name="signatory_type" id="showme"  onchange="showDiv(this)" required>
-                                        <option class="greyclr" selected disabled value="">Select Type</option>
-                                        <?php
-                                            $query = "SELECT signatory_id, signatory FROM tb_signatory_type";
-                                            $result = @mysqli_query($conn, $query);
-                                            while($data = @mysqli_fetch_array($result)) {
-                                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                            }
-                                        ?>
-                                      </select>
-                                  </div>
+                                  <div class="col-12 col-md-4  mb-4">
+                                    <label class="form-label">Organization</label>
+                                    <select class=" form-select" name="orgid" id="showme">
+                                      <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
+                                      <?php
+                                           $query = "SELECT ORG, ORG_ID FROM tb_orgs";
+                                           $result = @mysqli_query($conn, $query);
+                                           while($data = @mysqli_fetch_array($result)) {
+                                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
+                                                           }
+                                                           ?>
+                                    </select>
+                                </div>
                                     </div>
                                   <div class="row justify-content-between">
                                     <div class="col-12 col-md-6 col-sm-3 mb-4">
@@ -275,19 +288,30 @@ if(isset($_SESSION['msg'])){
                                     $ln = $_POST['lastName'];
                                     $st = $_POST['signatory_type'];
                                     $e = $_POST['email'];
+                                    $cd = $_POST['college_id'];
                                     $p = $_POST['password'];
+                                    $oid = $_POST['orgid'];
+                                    $pp = "img_avatar.png";
+                                    $ul = "3";
                                     $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
-                                            alert('User already exists!')
+                                          Swal.fire({
+                                               icon: 'error',
+                                               title: 'Error!',
+                                               text: 'User Already Exists!',
+                                               confirmButtonColor: '#F2AC1B'
+
+                                           })
                                             </script>";
                                     }
                                     else{
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatory_type, email, password) VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'))";
+                                    $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
+                                    VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), '$cd','$oid',NOW(), '$pp', '$ul')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({

@@ -251,7 +251,13 @@ if(isset($_SESSION['msg'])){
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
-                                            alert('User already exists!')
+                                          Swal.fire({
+                                               icon: 'error',
+                                               title: 'Error!',
+                                               text: 'User Already Exists!',
+                                               confirmButtonColor: '#F2AC1B'
+
+                                           })
                                             </script>";
                                     }
                                     else{

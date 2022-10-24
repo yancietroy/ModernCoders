@@ -252,7 +252,7 @@ if(isset($_SESSION['msg'])){
                           <p>Election</p>
                         </div>
                         <div class="icon">
-                      <i class="bi bi-check2-square"></i> 
+                      <i class="bi bi-check2-square"></i>
                         </div>
                         <a href="notif.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
@@ -260,13 +260,13 @@ if(isset($_SESSION['msg'])){
                     <div class="col-lg-3 col-sm-6">
                       <div class="card-counter masterlist">
                         <div class="inner">
-                          <h3><i class="bi bi-envelope"></i> </h3>
-                          <p>Messages</p>
+                          <h3><i class="bi bi-folder"></i> </h3>
+                          <p>Projects</p>
                         </div>
                         <div class="icon">
-                          <i class="bi bi-envelope-fill"></i>
+                          <i class="bi bi-folder-fill"></i>
                         </div>
-                        <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="officer-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
 

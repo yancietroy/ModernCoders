@@ -62,12 +62,15 @@ include('mysql_connect.php');
                   $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
                   if (mysqli_num_rows($duplicate)>0)
                   {
-                    echo "
-                          <div class='callout bs-callout-warning pb-0' id='box'>
-                            <h4>Error!</h4>
-                            <p>student id or email already exists in the database!</p>
-                          </div>
-                          ";
+                    echo "<script type='text/javascript'>
+                        Swal.fire({
+                             icon: 'error',
+                             title: 'Error!',
+                             text: 'User Already Exists!',
+                             confirmButtonColor: '#F2AC1B'
+
+                         })
+                          </script>";
                   }
                   else{
                   try {

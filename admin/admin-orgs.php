@@ -317,7 +317,7 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Update Organization Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> View Organization Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -332,10 +332,10 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                       </div>
-                        <div class="col-12 col-md-4 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="ORG" >Organization name:</label>
-                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   required/>
+                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   readonly/>
                             </div>
                         </div>
                       </div>
@@ -343,7 +343,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" name="view" class="btn btn-primary">Visit Org</button>
+                        <button type="button" name="view"  onclick='window.location.assign("admin-orgs-rso.php")' class="btn btn-primary">Visit Org</button>
                     </div>
                   </div>
                 </form>
