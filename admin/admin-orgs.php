@@ -322,7 +322,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-update-org.php" method="POST">
+                <form action="admin-orgs-rso.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -343,7 +343,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" name="view"  onclick='window.location.assign("admin-orgs-rso.php")' class="btn btn-primary">Visit Org</button>
+                        <button type="submit" name="view" class="btn btn-primary">Visit Org</button>
                     </div>
                   </div>
                 </form>

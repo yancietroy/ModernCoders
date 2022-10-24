@@ -281,7 +281,7 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($_POST['submit']))
+                                if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($cd) || isset($oid) || isset($_POST['submit']))
                                   {
                                     $si = $_POST['schoolId'];
                                     $fn = $_POST['firstName'];
@@ -293,7 +293,7 @@ if(isset($_SESSION['msg'])){
                                     $oid = $_POST['orgid'];
                                     $pp = "img_avatar.png";
                                     $ul = "3";
-                                    $duplicate=mysqli_query($conn,"select * from tb_signatories where school_id='$si' or EMAIL='$e'");
+                                    $duplicate=mysqli_query($conn,"SELECT * FROM tb_signatories WHERE school_id='$si' OR EMAIL='$e'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
@@ -311,15 +311,16 @@ if(isset($_SESSION['msg'])){
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                     $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
-                                    VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), '$cd','$oid',NOW(), '$pp', '$ul')";
+                                    VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), NULLIF('$cd',''), NULLIF('$oid',''), NOW(), '$pp', '$ul')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
                                              title: 'Signatory Created',
                                              confirmButtonColor: '#F2AC1B'
-
-                                         })
+                                         }).then(function() {
+                                              window.location = 'admin-signatory-reg.php';
+                                            });
                                           </script>";
                                     }
                                        catch(PDOException $e)

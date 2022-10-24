@@ -2,6 +2,8 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -160,7 +162,7 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="admin-orgs-rso.php"> <i class="bi bi-people-fill"></i> rso</a></li>
+          <li class="breadcrumb-item"><a href="admin-orgs-rso.php"> <i class="bi bi-people-fill"></i><?php echo"$orgName"; ?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-calendar3"></i> Event Calendar</li>
         </ol>
       </nav>
@@ -248,7 +250,7 @@ if(isset($_SESSION['msg'])){
       <!-- Event Details Modal -->
 
     <?php
-    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing'");
+    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing' OR org_id='$orgid'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
       $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
