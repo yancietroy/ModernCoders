@@ -2,7 +2,8 @@
 ob_start();
 session_start();
 $officer_id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$orgid = $_SESSION['org'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -18,7 +19,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -68,7 +69,7 @@ if(isset($_SESSION['msg'])){
           <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
         </li>
       </ul>
@@ -96,12 +97,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -148,11 +149,16 @@ if(isset($_SESSION['msg'])){
       <div class="row ms-3 me-3 mt-2">
         <div class="col-12  col-md-5 mt-2"  id="orgs">
           <div class="card display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <img src="<?php echo $logoPic; ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2" >JRU Computer Society</h5>
+              <h5 class="card-title text-center mt-2" ><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; } 
+              @mysqli_close($conn);?></h5>
 
-              <a href="comsoc.php" class="stretched-link"></a>
+              <a href="rso.php" class="stretched-link"></a>
             </div>
           </div>
         </div>

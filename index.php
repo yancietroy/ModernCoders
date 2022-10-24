@@ -14,7 +14,9 @@ if(isset($_SESSION['message'])){
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/> <link rel="shortcut icon" type="image/jpg" href="assets/img/jrusop-fav.ico"/>
+
+
   <title>JRU Student Organizations Portal</title>
   <!-- Our Custom CSS  -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
@@ -51,14 +53,16 @@ if(isset($_SESSION['message'])){
             	if(!empty($_POST['email']) || !empty($_POST['password'])) {
             		ob_start();
 
-            		$query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+                $query = "Select STUDENT_ID FROM tb_students WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
             		$result = @mysqli_query($conn, $query);
             		$row = mysqli_fetch_array ($result);
 
             		if($row)
             		{
             			$_SESSION['msg'] = '';
-                $_SESSION['use'] = $row[0];
+                $_SESSION['use'] = $row['STUDENT_ID'];
+                $_SESSION['morg_id'] = $row['MORG_ID'];
+                $_SESSION['org_id'] = $row['ORG_ID'];
                 if(isset($_SESSION['use'])){
                 header("Location:student/student-index.php");
                 @mysqli_close($conn);
@@ -95,15 +99,13 @@ if(isset($_SESSION['message'])){
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
+              <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-4" id="select-opt" required>
-                  <option class="greyclr" selected disabled value="" text-muted>Select User</option>
-                  <option value="">Student</option>
+                <select class="selectpicker form-select mt-2" id="select-opt">
+                  <option class="greyclr" selected disabled value="" text-muted>Student</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="signatory-login.php">Signatory</option>
                 </select>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Please select a user type!</div>
               </div>
               <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">

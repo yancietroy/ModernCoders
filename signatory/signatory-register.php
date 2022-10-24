@@ -36,7 +36,7 @@ include('../mysql_connect.php'); include('profilepic.php');
                       <img class="mb-2 mx-auto text-center" src="../assets/img/jru-logo.png" alt="" width="110" height="110">
                     </div>
                     <!--		<div class="col-xs-12 col-md-3 col-md-offset-3 mb-4 d-none d-sm-block">
-                        <img class="mb-3 mx-auto d-none d-md-block" src="../assets/img/comsoc-logo.png" alt="" width="82" height="80">
+                        <img class="mb-3 mx-auto d-none d-md-block" src="../assets/img/rso-logo.png" alt="" width="82" height="80">
                       </div>-->
                   </div>
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Signatory Registration Form</h3>

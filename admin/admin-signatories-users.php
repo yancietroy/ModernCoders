@@ -15,7 +15,7 @@ if(isset($_SESSION['msg'])){
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -279,8 +279,8 @@ if(isset($_SESSION['msg'])){
                        </div>
                        <div class="col-4 col-md-3 mb-4">
                        <div class="form-outline">
-                         <label class="form-label" for="date_submitted" >Account Created:</label>
-                         <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                         <label class="form-label" for="account_created" >Account Created:</label>
+                         <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                      </div>
                        </div>
@@ -295,26 +295,54 @@ if(isset($_SESSION['msg'])){
                           <label class="form-label" for="last_name" >Last Name:</label>
                           <input type="text" name="last_name" id="last_name" class="form-control form-control-lg"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required  />
                           </div>
+                        </div>
+                      <div class="row justify-content-between">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="signatory_type" >Signatory Type:</label>
+                              <select class="form-select" name="signatory_type" id="signatory_type">
+                                <?php
+                                    $query = "SELECT signatory_id, signatory FROM tb_signatory_type";
+                                    $result = @mysqli_query($conn, $query);
+                                    while($data = @mysqli_fetch_array($result)) {
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                    }
+                                ?>
+                              </select>
+                            </div>
                           </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="user_type" >User Type:</label>
+                              <select class="form-select" name="user_type" id="user_type">
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
                             <input type="text" name="email" id="email" class="form-control"  pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required  />
                           </div>
-                          <div class="col-12 col-md-4 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="signatory_type" >Signatory Type:</label>
-                              <select class="form-select" name="signatory_type" id="signatory_type">
+                            <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" id="asterisk">College Department</label>
+                            <select class="form-select" style="width:100%;" name="college_id" id="college_id">
                               <?php
-                                $query = "SELECT signatory_type FROM tb_signatories";
-                                $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[0].'</option>';
-                                        }
-                              ?>
-                              </select>
-                            </div>
-                          </div>
+                                   $query = "SELECT * FROM tb_collegedept";
+                                   $result = @mysqli_query($conn, $query);
+                                   while($data = @mysqli_fetch_array($result)) {
+                                       echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                                   }
+                                     ?>
+                            </select>
+                        </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="org_id" >Organization:</label>
@@ -381,11 +409,15 @@ if(isset($_SESSION['msg'])){
                 dataType:"json",
                 success:function(data){
                 console.log(data);
+                $('#account_created').val(data.account_created);
                 $('#school_id').val(data.school_id);
                 $('#first_name').val(data.first_name);
                 $('#last_name').val(data.last_name);
                 $('#email').val(data.email);
-                $('#signatory_type').val(data.signatory_type);
+                $('#org_id').val(data.org_id);
+                $('#user_type').val(data.usertype_id);
+                $('#college_id').val(data.college_dept);
+                $('#signatory_type').val(data.signatorytype_id);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
@@ -537,7 +569,7 @@ if(isset($_SESSION['msg'])){
    });
    myTable.columns.adjust().draw();
    });
-   </script>Signatory
+   </script>
   <script src="../assets/js/age-validation.js"></script>
 </body>
 
