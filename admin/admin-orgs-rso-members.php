@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/orglogopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -157,7 +159,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="admin-orgs.php">Orgs Management</a></li>
-          <li class="breadcrumb-item"><a href="admin-orgs-rso.php">rso</a></li>
+          <li class="breadcrumb-item"><a href="admin-orgs-rso.php"><?php echo $orgName; ?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> Members</li>
         </ol>
       </nav>
@@ -178,7 +180,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = '$orgid' OR ORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
