@@ -247,6 +247,8 @@ if(isset($_SESSION['msg'])){
                                     $ln = $_POST['last_name'];
                                     $e = $_POST['email'];
                                     $p = $_POST['password'];
+                                    $pp = "img_avatar.png";
+                                    $ul = "4";
                                     $duplicate=mysqli_query($conn,"select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
@@ -264,7 +266,7 @@ if(isset($_SESSION['msg'])){
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
+                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD,  ACCOUNT_CREATED, PROFILE_PIC, USERTYPE_ID) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'),NOW(), '$pp', '$ul')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({

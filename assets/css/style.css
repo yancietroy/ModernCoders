@@ -1133,6 +1133,12 @@ Survey
   border-radius: 50%;
 }
 
+.logo_img {
+  object-fit: cover;
+  border: 2px solid #F2AC1B;
+   width: 80px;
+  height: 80px;
+}
 
 #indexpic {
 width: 120px;
