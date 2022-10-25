@@ -115,9 +115,9 @@ if(isset($_SESSION['msg'])){
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  $name = mysqli_fetch_array ($result);
+                  if ($name)
+                  { echo "$name[0]"; } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
                   <li>
@@ -138,9 +138,9 @@ if(isset($_SESSION['msg'])){
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="rso.php"> <i class="bi bi-people-fill"></i></i></i><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[1]"; }?></a></li>
+                  $orgName = mysqli_fetch_array ($result);
+                  if ($orgName)
+                  { echo "$orgName[1]"; }?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-calendar3"></i> Event Calendar</li>
         </ol>
       </nav>
@@ -169,8 +169,8 @@ if(isset($_SESSION['msg'])){
                                       <input type="text" class="form-control form-control-sm rounded-0" name="project_name" id="project_name" required>
                                   </div>
                                   <div class="form-group mb-2">
-                                      <label for="project_desc" class="control-label">Description</label>
-                                      <textarea rows="3" class="form-control form-control-sm rounded-0" name="project_desc" id="project_desc" required></textarea>
+                                      <label for="project_desc" class="control-label">Objectives</label>
+                                      <textarea rows="3" class="form-control form-control-sm rounded-0" name="objectives" id="objectives" required></textarea>
                                   </div>
                                   <div class="form-group mb-2">
                                       <label for="start_date" class="control-label">Start Date</label>
@@ -206,8 +206,8 @@ if(isset($_SESSION['msg'])){
                           <dl>
                               <dt class="text-muted">Event Name</dt>
                               <dd id="project_name" class="fw-bold fs-4"></dd>
-                              <dt class="text-muted">Description</dt>
-                              <dd id="project_desc" class=""></dd>
+                              <dt class="text-muted">Objectives</dt>
+                              <dd id="objectives" class=""></dd>
                               <dt class="text-muted">Start Date</dt>
                               <dd id="start" class=""></dd>
                               <dt class="text-muted">End Date</dt>
@@ -228,7 +228,7 @@ if(isset($_SESSION['msg'])){
       <!-- Event Details Modal -->
 
     <?php
-    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' AND status='Ongoing' AND status='Done' AND ORG_ID = '$orgid'");
+    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Ongoing' OR status='Done' OR org_id = '$orgid'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
       $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
@@ -236,13 +236,13 @@ if(isset($_SESSION['msg'])){
       $sched_res[$row['project_id']] = $row;
     }
     ?>
-    <?php
-    if(isset($conn)) $conn->close();
-    ?>
     </body>
     <script>
       var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
     </script>
+     <?php
+    if(isset($conn)) $conn->close();
+    ?>
     <script src="../assets/js/eventcalendar.js"></script>
 
 
