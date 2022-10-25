@@ -181,11 +181,11 @@ if(isset($_SESSION['msg'])){
                       <div class="card shadow border-0 rounded-lg mb-4 mx-4 w-80 justify-content-center align-items-center text-align-center">
                         <div class="card-body p-4 mx-auto px-auto">
                           <div class="row g-0 ">
-                            <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                              <img src="<?php echo $logoPic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                            <div class="col-md-2 d-none d-sm-block text-center">
+                              <img src="<?php echo $logoPic; ?>" class="rounded-circle logo_img " alt="..." >
                             </div>
-                              <div class='col-12 col-md-10 mt-4'>
-                                <h3 class="justify-content-center align-items-center text-align-center"><?php echo "$orgName";?></h3>
+                              <div class='col-12 col-md-10 pt-4'>
+                                <h3 class="justify-content-center align-items-center text-center"><?php echo "$orgName";?></h3>
                           </div>
                           </div>
 
@@ -283,13 +283,13 @@ if(isset($_SESSION['msg'])){
                     <div class="col-lg-3 col-sm-6">
                       <div class="card-counter masterlist">
                         <div class="inner">
-                          <h3><i class="bi bi-envelope"></i> </h3>
-                          <p>Messages</p>
+                          <h3>  <i class="bi bi-check2-square"></i></h3>
+                          <p>Election</p>
                         </div>
                         <div class="icon">
-                          <i class="bi bi-envelope-fill"></i>
+                            <i class="bi bi-check2-square"></i>
                         </div>
-                        <a href="signatory-masterlist.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="admin-orgs-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
 

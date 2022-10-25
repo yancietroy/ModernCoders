@@ -227,22 +227,22 @@ if(isset($_SESSION['msg'])){
       </div>
       <!-- Event Details Modal -->
 
-    <?php
-    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved' AND status='Ongoing' AND status='Done' AND ORG_ID = '$orgid'");
-    $sched_res = [];
-    foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
-      $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
-      $row['edate'] = date("F d, Y h:i A",strtotime($row['end_date']));
-      $sched_res[$row['project_id']] = $row;
-    }
-    ?>
-    <?php
-    if(isset($conn)) $conn->close();
-    ?>
-    </body>
-    <script>
-      var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
-    </script>
+      <?php
+      $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved' OR status='Done'");
+      $sched_res = [];
+      foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
+        $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
+        $row['edate'] = date("F d, Y h:i A",strtotime($row['end_date']));
+        $sched_res[$row['project_id']] = $row;
+      }
+      ?>
+      <?php
+      if(isset($conn)) $conn->close();
+      ?>
+      </body>
+      <script>
+        var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+      </script>
     <script src="../assets/js/eventcalendar.js"></script>
 
 

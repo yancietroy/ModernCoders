@@ -330,7 +330,12 @@ if(isset($_SESSION['msg'])){
                           <div class="row">
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                              <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
+                              <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" style="background-color: #fff;" readonly>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                              </select>
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-4">
                               <div class="form-outline">
@@ -374,7 +379,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
-                                <label class="form-label" for="MORG_ID" >Main Organization:</label>
+                                <label class="form-label" for="MORG_ID" >Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
                                     $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";

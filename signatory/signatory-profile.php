@@ -148,7 +148,9 @@ if(isset($_SESSION['msg'])){
                   $si = $data['school_id'];?>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">JRU ID:</strong><?php echo $si; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Role:</strong><?php echo $data['signatory_type']; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Position:</strong><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                            $result = @mysqli_query($conn, $query);
+                            $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></p>
                 </div>
               </div>
             </div>
@@ -221,7 +223,9 @@ if(isset($_SESSION['msg'])){
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[first_name]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Last Name:<br></strong><?php echo "$data[last_name]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Signatory Type:<br></strong><?php echo "$data[signatory_type]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Signatory Type:<br></strong><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></p>
                  <p class="mb-2 pe-2"><strong class="pr-1  text-muted">College:<br></strong><?php $query = "SELECT tb_signatories.college_dept, tb_collegedept.college FROM tb_signatories INNER JOIN tb_collegedept ON tb_signatories.college_dept=tb_collegedept.college_id WHERE tb_signatories.school_id = '$id'";
                            $result = @mysqli_query($conn, $query);
                            $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>

@@ -139,7 +139,7 @@ if(isset($_SESSION['msg'])){
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
-                  { echo "$row[1]"; } 
+                  { echo "$row[1]"; }
               ?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-calendar3"></i> Event Calendar</li>
         </ol>
@@ -228,7 +228,7 @@ if(isset($_SESSION['msg'])){
       <!-- Event Details Modal -->
 
     <?php
-    $schedules = $conn->query("SELECT * FROM `tb_projectmonitoring` WHERE status='Approved'");
+    $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
       $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));

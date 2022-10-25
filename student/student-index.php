@@ -51,7 +51,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations </h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -184,7 +184,7 @@ if(isset($_SESSION['msg'])){
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
-                  { echo "$row[1]"; } 
+                  { echo "$row[1]"; }
               @mysqli_close($conn);?></h5>
 
               <a href="rso.php" class="stretched-link"></a>

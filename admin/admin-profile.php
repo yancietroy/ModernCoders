@@ -183,7 +183,7 @@ if(isset($_SESSION['msg'])){
             <div class="col-lg-8 col-12 ">
               <div class="card shadow-sm" id="card-large">
                 <div class="card-header bg-transparent border-0">
-                    <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
+                    <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Admin Information</h3>
                 </div>
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered" id="proftable">
@@ -192,11 +192,6 @@ if(isset($_SESSION['msg'])){
                       <th width="30%">FIRST NAME</th>
                       <td width="2%">:</td>
                       <td><?php echo $data['FIRST_NAME']; ?></td>
-                    </tr>
-                    <tr>
-                      <th width="30%">MIDDLE NAME</th>
-                      <td width="2%">:</td>
-                      <td><?php echo $data['MIDDLE_INITIAL']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">LAST NAME</th>
@@ -210,9 +205,8 @@ if(isset($_SESSION['msg'])){
                     </tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[gender]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Middle Name:<br></strong><?php echo "$data[birthdate]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Last Name:<br></strong><?php echo "$data[age]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[FIRST_NAME]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Last Name:<br></strong><?php echo "$data[LAST_NAME]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[EMAIL]"; ?></p>
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">

@@ -138,7 +138,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="rso.php"> <i class="bi bi-people-fill"></i><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+          <li class="breadcrumb-item"><a href="rso.php"> <i class="bi bi-people-fill"></i> <?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -314,7 +314,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="position_id" >Position:</label>
-                            <select class="form-select" name="position_id" id="position_id">
+                            <select class="form-select" name="position_id" id="position_id"  style="background-color: #fff;" readonly>
                             <?php
                               $query = "SELECT position_id, position FROM tb_position";
                               $result = @mysqli_query($conn, $query);
@@ -328,7 +328,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
-                            <select class="form-select" name="org_id" id="org_id" >
+                            <select class="form-select" name="org_id" id="org_id"  style="background-color: #fff;" readonly>
                               <?php
                               $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
@@ -344,18 +344,18 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="first_name" >First Name:</label>
-                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
+                              <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="middle_initial" >Middle Name:</label>
-                              <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
+                              <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;" readonly/>
                             </div>
                           </div>
                           <div class="col-6 col-md-4 mb-4 ">
                             <label class="form-label" for="last_name">Last name </label>
-                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required/>
+                            <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;" readonly/>
                           </div>
                         </div>
 
@@ -363,18 +363,18 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="birthdate" >Birthdate:</label>
-                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  required/>
+                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"   style="background-color: #fff;" readonly/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="age" >Age:</label>
-                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
+                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;"  style="background-color: #fff;" readonly/>
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="gender" >Gender</label>
-                              <select class="form-select" name="gender" id="gender">
+                              <select class="form-select" name="gender" id="gender" style="background-color: #fff;" readonly>
                                 <option value="Female">Female</option>
                                 <option value="Male">Male</option>
                               </select>
@@ -383,12 +383,12 @@ if(isset($_SESSION['msg'])){
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="email" >Email:</label>
-                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required />
+                            <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;"  pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30"  style="background-color: #fff;" readonly />
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="college_dept" >College:</label>
-                              <select class="form-select" name="college_dept" id="college_dept" >
+                              <select class="form-select" name="college_dept" id="college_dept"  style="background-color: #fff;" readonly>
                                 <?php
                                     $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
@@ -403,7 +403,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <div class="form-outline">
                               <label class="form-label" for="course" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="course" id="course" >
+                              <select class="form-select" style="width:100%;" name="course" id="course"  style="background-color: #fff;" readonly>
                                 <?php
                                   $query = "SELECT course_id, course FROM tb_course";
                                   $result = @mysqli_query($conn, $query);
@@ -419,7 +419,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="user_type" >User Type:</label>
-                              <select class="form-select" name="user_type" id="user_type">
+                              <select class="form-select" name="user_type" id="user_type" style="background-color: #fff;" readonly>
                                 <?php
                                   $query = "SELECT * FROM tb_usertypes";
                                   $result = @mysqli_query($conn, $query);
@@ -433,13 +433,13 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="section">Section:</label>
-                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;" required />
+                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;"  style="background-color: #fff;" readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="year_level" >Year Level:</label>
-                                <select class="form-select" name="year_level" id="year_level">
+                                <select class="form-select" name="year_level" id="year_level" style="background-color: #fff;" readonly>
                                   <option value="1">Year 1</option>
                                   <option value="2">Year 2</option>
                                   <option value="3">Year 3</option>
