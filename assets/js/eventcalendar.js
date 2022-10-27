@@ -28,7 +28,7 @@
                 var id = info.event.id
                 if (!!scheds[id]) {
                     _details.find('#project_name').text(scheds[id].project_name)
-                    _details.find('#objectives').text(scheds[id].objectives)
+                    _details.find('#project_desc').text(scheds[id].project_desc)
                     _details.find('#start').text(scheds[id].sdate)
                     _details.find('#end').text(scheds[id].edate)
                     _details.find('#edit,#delete').attr('data-id', id)
@@ -59,7 +59,7 @@
                 console.log(String(scheds[id].start_date), String(scheds[id].start_date).replace(" ", "\\t"))
                 _form.find('[name="project_id"]').val(id)
                 _form.find('[name="project_name"]').val(scheds[id].project_name)
-                _form.find('[name="objectives"]').val(scheds[id].objectives)
+                _form.find('[name="project_desc"]').val(scheds[id].project_desc)
                 _form.find('[name="start_date"]').val(String(scheds[id].start_date).replace(" ", "T"))
                 _form.find('[name="end_date"]').val(String(scheds[id].end_date).replace(" ", "T"))
                 $('#event-details-modal').modal('hide')

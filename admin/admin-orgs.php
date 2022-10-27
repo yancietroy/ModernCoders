@@ -15,7 +15,7 @@ if(isset($_SESSION['msg'])){
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -123,12 +123,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -182,7 +182,7 @@ if(isset($_SESSION['msg'])){
             <div class="icon">
               <i class="bi bi-diagram-3-fill"></i>
             </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -190,12 +190,12 @@ if(isset($_SESSION['msg'])){
           <div class="card-counter success">
             <div class="inner">
               <h2><i class="bi bi-pc-display"></i></h2>
-              <p>rso</p>
+              <p>COMSOC</p>
             </div>
             <div class="icon">
                 <i class="bi bi-pc-display"></i>
             </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-comsoc.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>!-->
 <!--
@@ -317,12 +317,12 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> View Organization Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Update Organization Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-orgs-rso.php" method="POST">
+                <form action="admin-update-org.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -332,10 +332,10 @@ if(isset($_SESSION['msg'])){
                            <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                       </div>
-                        <div class="col-12 col-md-6 mb-4">
+                        <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="ORG" >Organization name:</label>
-                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   readonly/>
+                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   required/>
                             </div>
                         </div>
                       </div>
@@ -343,7 +343,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="view" class="btn btn-primary">Visit Org</button>
+                        <button type="button" name="view" class="btn btn-primary">Visit Org</button>
                     </div>
                   </div>
                 </form>

@@ -1,6 +1,6 @@
 <?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
       $result = @mysqli_query($conn, $query);
-      $data = @mysqli_fetch_array($result);
+      $data = @mysqli_fetch_array ($result);
       $logoPic = $data['logo'];
       $logoUserPic = "../assets/img/logos/" . $logoPic;
       $defaultLogoPic ="../assets/img/logos/jru-logo.png";

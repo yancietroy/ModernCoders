@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal Officer</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -73,7 +73,7 @@ if(isset($_SESSION['msg'])){
           <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -101,12 +101,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -148,13 +148,13 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
           <div class="wrap shadow px-5 py-4 mx-auto mb-4">
-            <div class="row ms-3 me-3 text-center ">
-              <div class="col-lg-12 col-12">
+            <div class="row justify-content-center text-align-center mb-2 ">
+              <div class="col-lg-3 ms-5 col-6 ">
                 <h7 id="titlejru">Jose Rizal University</h7>
               </div>
             </div>
-            <div class="row ms-3 me-3 text-center mb-2">
-              <div class="col-lg-12 col-12  mb-4">
+          <div class="row justify-content-center text-align-center">
+            <div class="col-lg-4 col-10 mb-4">
               <h3 id="titleproj">Activity Proposal Form</h3>
             </div>
           </div>
