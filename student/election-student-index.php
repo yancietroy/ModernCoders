@@ -3,24 +3,114 @@ ob_start();
 session_start();
 $id = $_SESSION['use'];
 $morg_id = $_SESSION['morg_id'];
-$secOrg_id = $_SESSION['org_id'];
-include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+$secorg_id = $_SESSION['org_id'];
+include('../mysql_connect.php');
+include('profilepic.php');
+include('../assets/img/logopics.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+} else if (!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+{
+  header("Location:../index.php");
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:../index.php");
+
+if (isset($_POST['submit-votes'])) {
+  $pre = "INSERT INTO `tb_votes`(VOTER_ID,ELECTION_ID,POSITION_ID,CANDIDATE_ID,CAST_DATE) VALUES ";
+  $values = [];
+  $castdate = date('Y-m-d');
+  $eid = $_POST['election-id'];
+
+  foreach ($_POST as $key => $candidateid) {
+    if (str_starts_with($key, "vote-")) {
+      $position = str_replace("vote-", "", $key);
+      array_push($values, "('$id','$eid','$position','$candidateid','$castdate')");
+    }
   }
- ?>
+
+  $sqlSubmit = $pre . implode(',', $values);
+  if (@mysqli_query($conn, $sqlSubmit)) {
+    echo "<script>alert('Votes successfully submitted.')</script>";
+  } else {
+    echo "<script>alert('Error occured while submitting your votes. Please try again.')</script>";
+  }
+}
+
+$curdate = date('Y-m-d');
+$hasElection = 0;
+$morgHasElection = false;
+
+$election_id = -1;
+$title = "";
+$description = "";
+$start_date = $curdate;
+$end_date = $curdate;
+$candidates = [];
+
+$sql = "SELECT * FROM tb_elections WHERE ORG_ID='$morg_id' AND ELECTION_TYPE='2' AND ('$curdate'>=START_DATE AND '$curdate'<=END_DATE)";
+if ($res = @mysqli_query($conn, $sql)) {
+  if ($res->num_rows > 0) {
+    $morgHasElection = true;
+    $hasElection = 2;
+
+    $row = $res->fetch_assoc();
+    $election_id = $row['ELECTION_ID'];
+    $title = $row['TITLE'];
+    $description = $row['DESCRIPTION'];
+    $start_date = $row['START_DATE'];
+    $end_date = $row['END_DATE'];
+  }
+}
+
+// Check if user already casted vote
+$sqlCheckVote = mysqli_query(
+  $conn,
+  "SELECT COUNT(*) As total_records FROM `tb_votes` WHERE ELECTION_ID='$election_id' AND VOTER_ID='$id'"
+);
+$total_records = @mysqli_fetch_array($sqlCheckVote);
+$total_records = $total_records['total_records'];
+
+if ($total_records > 0) $morgHasElection = false;
+
+if (!$morgHasElection) {
+  $sql = "SELECT * FROM tb_elections WHERE ORG_ID='$secorg_id' AND ELECTION_TYPE='3' AND ('$curdate'>=START_DATE AND '$curdate'<=END_DATE)";
+  if ($res = @mysqli_query($conn, $sql)) {
+    if ($res->num_rows > 0) {
+      $hasElection = 3;
+
+      $row = $res->fetch_assoc();
+      $election_id = $row['ELECTION_ID'];
+      $title = $row['TITLE'];
+      $description = $row['DESCRIPTION'];
+      $start_date = $row['START_DATE'];
+      $end_date = $row['END_DATE'];
+    }
+  }
+}
+
+// Check if user already casted vote
+$sqlCheckVote = mysqli_query(
+  $conn,
+  "SELECT COUNT(*) As total_records FROM `tb_votes` WHERE ELECTION_ID='$election_id' AND VOTER_ID='$id'"
+);
+$total_records = @mysqli_fetch_array($sqlCheckVote);
+$total_records = $total_records['total_records'];
+if ($total_records > 0) $hasElection = 0;
+
+if ($hasElection > 0) {
+  $sqlCandidates = "SELECT tb_candidate.*,tb_students.LAST_NAME,tb_students.FIRST_NAME,tb_students.MIDDLE_NAME,tb_students.SECTION FROM tb_candidate LEFT JOIN tb_students ON tb_candidate.STUDENT_NO=tb_students.STUDENT_ID WHERE tb_candidate.ELECTION_ID='$election_id'";
+  if ($res = @mysqli_query($conn, $sqlCandidates)) {
+    $candidates = $res->fetch_all(MYSQLI_ASSOC);
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -28,8 +118,7 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -51,7 +140,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations </h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -72,7 +161,7 @@ if(isset($_SESSION['msg'])){
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
 
         </li>
       </ul>
@@ -100,12 +189,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -113,10 +202,11 @@ if(isset($_SESSION['msg'])){
 
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
@@ -139,329 +229,98 @@ if(isset($_SESSION['msg'])){
         </ol>
       </nav>
       <!-- Page content -->
-      <h4 class="ms-3 mb-4">Current Active Election</h4>
-      <form method="POST" action="vote_result.php">
-        <div class="container-fluid">
-          <div class="row justify-content-center align-items-center">
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
+      <?php
+      if ($hasElection > 0) {
+      ?>
+        <h4 class="ms-3 mb-4">ELECTION: <?= $title ?></h4>
+        <p class="ms-3"><?= $description ?></p>
+        <h6 class="ms-3 mb-4">Election Date: <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+        <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+          <div class="card-body px-2 mx-3 py-3 pt-4">
+            <form method="POST" action="">
+              <input type="text" name="election-id" value="<?= $election_id ?>" style="display:none;">
+              <?php
+              $sql = "SELECT POSITION_ID as id,position FROM tb_position";
+              if ($res = @mysqli_query($conn, $sql)) {
+                $count = 0;
+                while ($row = $res->fetch_assoc()) {
+                  $count++;
+              ?>
+                  <div class="card card-primary shadow-sm mb-2">
+                    <div class="card-header text-center">
+                      <?= $row['position'] ?>
+                    </div>
+                    <div class="card-body">
+                      <table id="table-pos-<?= $row['id'] ?>" class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                          <th style="width: 60px;"></th>
+                          <th>Name</th>
+                          <th>Section</th>
+                        </thead>
+                        <tbody>
+                          <?php
+                          global $posid;
+                          $posid = $row['id'];
+                          $found = count(array_filter($candidates, function ($item) {
+                            global $posid;
+                            return isset($item['POSITION_ID']) && $posid == $item['POSITION_ID'];
+                          }));
 
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>
+                          if ($found > 0) {
+                          ?>
+                            <tr style="cursor: pointer" onclick="$('#vote-abstain<?= $count ?>').prop('checked', true);">
+                              <td class="text-center"><input type="radio" id="vote-abstain<?= $count ?>" name="vote-<?= $row['id'] ?>" value="-1" checked></td>
+                              <td class="text-secondary">Abstain</td>
+                              <td></td>
+                            </tr>
+                            <?php
+                            foreach ($candidates as $candidate) {
+                              if ($candidate['POSITION_ID'] == $row['id']) {
+                            ?>
+                                <tr style="cursor: pointer" onclick="$('#vote-<?= $candidate['CANDIDATE_ID']  ?>').prop('checked', true);">
+                                  <td class="text-center"><input type="radio" id="vote-<?= $candidate['CANDIDATE_ID'] ?>" name="vote-<?= $row['id'] ?>" value="<?= $candidate['CANDIDATE_ID'] ?>"></td>
+                                  <td><?= $candidate['FIRST_NAME'] . " " . $candidate['MIDDLE_NAME'] . " " . $candidate['LAST_NAME'] ?></td>
+                                  <td><?= $candidate['SECTION'] ?></td>
+                                </tr>
+                            <?php
+                              }
+                            }
+                          } else {
+                            ?>
+                            <tr>
+                              <td colspan="3" class="text-center text-danger">No Candidates</td>
+                            </tr>
+                          <?php
+                          }
 
-                    PRESIDENT</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-              $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 1") or die(mysqli_errno());
-              while($fetch = $query->fetch_array())
-              {
-            ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="pres_id" class="president"></center>
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                  <?php
+              <?php
+                }
               }
-            ?>
-                </div>
+              ?>
 
+              <div class="mt-5 mb-2 text-center">
+                <button type="submit" name="submit-votes" class="btn btn-primary col-3" id="submit-votes-votes">Submit Votes</button>
               </div>
-            </div>
 
+            </form>
 
-            <div class="col-lg-10 col-md-10 col-12 mb-4 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>
-                    VICE PRESIDENT FOR INTERNAL AFFAIRS</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 2") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
+          </div>
+        </div>
+      <?php
+      } else {
       ?>
-                  <div id="position">
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="vpinternal_id" class="vpinternal"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>VICE PRESIDENT FOR EXTERNAL AFFAIRS</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 3") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div class="card-body" style="background-color:;">
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="vpexternal_id" class="vpexternal"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm ">
-                <div class="card-header">
-                  <center>SECRETARY</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 4") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="secretary_id" class="secretary"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>Assistant Secretary</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 5") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div id="position">
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="asSec_id" class="asSec"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>TREASURER</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-      $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 6") or die(mysqli_errno());
-      while($fetch = $query->fetch_array())
-      {
-    ?>
-                  <div id="position">
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="treasurer_id" class="treasurer"></center>
-                  </div>
-                  <?php
+        <div class="text-center">
+          <h4>NO ACTIVE ELECTION</h4>
+        </div>
+      <?php
       }
-    ?>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>AUDITOR</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 7") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-          {
-      ?>
-                  <div id="position">
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="auditor_id" class="auditor"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>P.R.O</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 8") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="pro_id" class="pro"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>P.R.O. Internal</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 9") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="proInt_id" class="proInt"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-10 col-md-10 col-12 mb-4">
-              <div class="card card-primary shadow-sm">
-                <div class="card-header">
-                  <center>P.R.O. External</center>
-                </div>
-                <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 10") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="proExt_id" class="proExt"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-    </div>
-  </div>
-</div>
-<div class="col-lg-10 col-md-10 col-12 mb-4">
-  <div class="card card-primary shadow-sm">
-    <div class="card-header">
-      <center>Assistant P.R.O.</center>
-    </div>
-    <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 11") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="aPro_id" class="aPro"></center>
-                  </div>
 
-                  <?php
-        }
       ?>
-    </div>
-  </div>
-</div>
-<div class="col-lg-10 col-md-10 col-12 mb-4">
-  <div class="card card-primary shadow-sm">
-    <div class="card-header">
-      <center>Business Manager</center>
-    </div>
-    <div class="card-body" style="background-color:;">
-                  <?php
-      $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 12") or die(mysqli_errno());
-      while($fetch = $query->fetch_array())
-      {
-    ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="busman_id" class="busman"></center>
-                  </div>
-                  <?php
-    }
-    ?>
-  </div>
-</div>
-</div>
-<div class="col-lg-10 col-md-10 col-12 mb-4">
-<div class="card card-primary shadow-sm">
-  <div class="card-header">
-    <center>Overall Chairman</center>
-  </div>
-  <div class="card-body" style="background-color:;">
-                  <?php
-      $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 13") or die(mysqli_errno());
-      while($fetch = $query->fetch_array())
-      {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="oc_id" class="oc"></center>
-                  </div>
-
-                  <?php
-      }
-      ?>
-    </div>
-  </div>
-</div>
-<div class="col-lg-10 col-md-10 col-12 mb-4">
-  <div class="card card-primary shadow-sm">
-    <div class="card-header">
-      <center>Overall Co-Chairman</center>
-    </div>
-    <div class="card-body" style="background-color:;">
-                  <?php
-        $query = $conn->query("SELECT * FROM `tb_candidate` WHERE `POSITION_ID` = 14") or die(mysqli_errno());
-        while($fetch = $query->fetch_array())
-        {
-      ?>
-                  <div>
-                    <center><button type="button" class="btn btn-primary btn-xs" style="border-radius:60px;margin-top:4px;"><?php echo $fetch['FIRST_NAME']." ".$fetch['LAST_NAME']?></button></center>
-                    <center><input type="checkbox" value="<?php echo $fetch['CANDIDATE_ID'] ?>" name="ococ_id" class="ococ"></center>
-                  </div>
-                  <?php
-        }
-      ?>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-end align-items-end">
-              <div class="col-lg-4 col-md-4 col-12">
-                <center><button class="btn btn-success ballot" type="submit" name="submit">Submit Ballot</button></center>
-              </div>
-            </div>
-
-      </form>
-
       <!-- Footer -->
     </div>
     <div id="layoutAuthentication_footer">
@@ -492,130 +351,7 @@ if(isset($_SESSION['msg'])){
 
   <script type="text/javascript">
     $(document).ready(function() {
-      $(".president").on("change", function() {
-        if ($(".president:checked").length == 1) {
-          $(".president").attr("disabled", "disabled");
-          $(".president:checked").removeAttr("disabled");
-        } else {
-          $(".president").removeAttr("disabled");
-        }
-      });
 
-      $(".vpinternal").on("change", function() {
-        if ($(".vpinternal:checked").length == 1) {
-          $(".vpinternal").attr("disabled", "disabled");
-          $(".vpinternal:checked").removeAttr("disabled");
-        } else {
-          $(".vpinternal").removeAttr("disabled");
-        }
-      });
-
-      $(".vpexternal").on("change", function() {
-        if ($(".vpexternal:checked").length == 1) {
-          $(".vpexternal").attr("disabled", "disabled");
-          $(".vpexternal:checked").removeAttr("disabled");
-        } else {
-          $(".vpexternal").removeAttr("disabled");
-        }
-      });
-
-      $(".secretary").on("change", function() {
-        if ($(".secretary:checked").length == 1) {
-          $(".secretary").attr("disabled", "disabled");
-          $(".secretary:checked").removeAttr("disabled");
-        } else {
-          $(".secretary").removeAttr("disabled");
-        }
-      });
-
-      $(".asSec").on("change", function() {
-        if ($(".asSec:checked").length == 1) {
-          $(".asSec").attr("disabled", "disabled");
-          $(".asSec:checked").removeAttr("disabled");
-        } else {
-          $(".asSec").removeAttr("disabled");
-        }
-      });
-
-      $(".treasurer").on("change", function() {
-        if ($(".treasurer:checked").length == 1) {
-          $(".treasurer").attr("disabled", "disabled");
-          $(".treasurer:checked").removeAttr("disabled");
-        } else {
-          $(".treasurer").removeAttr("disabled");
-        }
-
-      });
-
-      $(".auditor").on("change", function() {
-        if ($(".auditor:checked").length == 1) {
-          $(".auditor").attr("disabled", "disabled");
-          $(".auditor:checked").removeAttr("disabled");
-        } else {
-          $(".auditor").removeAttr("disabled");
-        }
-      });
-
-      $(".pro").on("change", function() {
-        if ($(".pro:checked").length == 1) {
-          $(".pro").attr("disabled", "disabled");
-          $(".pro:checked").removeAttr("disabled");
-        } else {
-          $(".pro").removeAttr("disabled");
-        }
-      });
-
-      $(".proInt").on("change", function() {
-        if ($(".proInt:checked").length == 1) {
-          $(".proInt").attr("disabled", "disabled");
-          $(".proInt:checked").removeAttr("disabled");
-        } else {
-          $(".proInt").removeAttr("disabled");
-        }
-      });
-
-      $(".proExt").on("change", function() {
-        if ($(".proExt:checked").length == 1) {
-          $(".proExt").attr("disabled", "disabled");
-          $(".proExt:checked").removeAttr("disabled");
-        } else {
-          $(".proExt").removeAttr("disabled");
-        }
-      });
-
-      $(".aPro").on("change", function() {
-        if ($(".aPro:checked").length == 1) {
-          $(".aPro").attr("disabled", "disabled");
-          $(".aPro:checked").removeAttr("disabled");
-        } else {
-          $(".aPro").removeAttr("disabled");
-        }
-      });
-
-      $(".busman").on("change", function() {
-        if ($(".busman:checked").length == 1) {
-          $(".busman").attr("disabled", "disabled");
-          $(".busman:checked").removeAttr("disabled");
-        } else {
-          $(".busman").removeAttr("disabled");
-        }
-      });
-      $(".oc").on("change", function() {
-        if ($(".oc:checked").length == 1) {
-          $(".oc").attr("disabled", "disabled");
-          $(".oc:checked").removeAttr("disabled");
-        } else {
-          $(".oc").removeAttr("disabled");
-        }
-      });
-      $(".ococ").on("change", function() {
-        if ($(".ococ:checked").length == 1) {
-          $(".ococ").attr("disabled", "disabled");
-          $(".ococ:checked").removeAttr("disabled");
-        } else {
-          $(".ococ").removeAttr("disabled");
-        }
-      });
     });
   </script>
 </body>
