@@ -2,21 +2,22 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:index.php");
-  }
- ?>
+include('../mysql_connect.php');
+include('profilepic.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+} else if (!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+{
+  header("Location:index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -26,8 +27,7 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -81,14 +81,14 @@ if(isset($_SESSION['msg'])){
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-          </li>
-          <li>
+            </li>
+            <li>
               <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
-          </li>
-          <li>
+            </li>
+            <li>
               <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
             </li>
-        </ul>
+          </ul>
         </li>
         <li class="active">
           <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
@@ -97,7 +97,7 @@ if(isset($_SESSION['msg'])){
           <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-        <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+          <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
         </li>
       </ul>
@@ -124,101 +124,87 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                      $result = @mysqli_query($conn, $query);
-                      $row = mysqli_fetch_array ($result);
-                      if ($row)
-                      { echo "$row[0]"; } ?></span></a>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                      </ul>
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="index.php">Logout</a></li>
+                </ul>
               </li>
             </ul>
           </div>
         </div>
       </nav>
 
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-      <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-check2-square"></i> Election</li>
-    </ol>
-  </nav>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-check2-square"></i> Election</li>
+        </ol>
+      </nav>
       <!-- Page content -->
       <h4 class="ms-3">Election Dashboard</h4>
 
 
-  <div class="row ms-3 me-3 mt-2">
-    <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-primary">
-        <div class="inner">
-          <h2><?php $query = "SELECT COUNT(*) FROM tb_candidate";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h2>
-          <p>Candidates</p>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-primary">
+            <div class="inner">
+              <h2> <i class="bi bi-plus-circle"></i></h2>
+              <p>Create Election</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-plus-circle-fill"></i>
+            </div>
+            <a href="admin-election-create.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
-        <div class="icon">
-        <i class="bi bi-person-lines-fill"></i>
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter done">
+            <div class="inner">
+              <h2>2</h2>
+              <p>Election List</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-clipboard-data-fill"></i>
+            </div>
+            <a href="admin-election-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
-        <a href="admin-election-positions.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-      <div class="card-counter done">
-        <div class="inner">
-          <h2>2</h2>
-          <p>Election List</p>
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-secondary">
+            <div class="inner">
+              <h2> <i class="bi bi-archive"></i></h2>
+              <p>Archive</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-archive-fill"></i>
+            </div>
+            <a href="admin-archive-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
-        <div class="icon">
-      <i class="bi bi-clipboard-data-fill"></i>
-        </div>
-        <a href="admin-election-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-warning">
-        <div class="inner">
-          <h2><i class="bi bi-bar-chart-steps"></i></h2>
-          <p>Results</p>
-        </div>
-        <div class="icon">
-        <i class="bi bi-bar-chart-steps"></i>
-        </div>
-        <a href="admin-course.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-secondary">
-        <div class="inner">
-          <h2>  <i class="bi bi-archive"></i></h2>
-          <p>Archive</p>
-        </div>
-        <div class="icon">
-            <i class="bi bi-archive-fill"></i>
-        </div>
-        <a href="admin-election-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
 
 
- </div>
+      </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
