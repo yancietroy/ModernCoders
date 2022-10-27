@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$morg_id = $_SESSION['morg_id'];
+$secOrg_id = $_SESSION['org_id'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -97,12 +99,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -132,7 +134,12 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> COMSOC</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  $mOrg_name = $row['MOTHER_ORG'];
+                  echo "$mOrg_name"; 
+          ?></li>
         </ol>
       </nav>
       <!-- Page content -->
@@ -145,10 +152,10 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4 px-4 mx-4">
               <div class="row g-0 ">
                 <div class="col-md-2 d-none d-sm-block text-center mt-2">
-                  <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="102" height="100">
+                  <img src="<?php echo $logoPic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="102" height="100">
                 </div>
                   <div class='col-12 col-md-10 mt-3'>
-                    <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                    <h3 class="justify-content-center align-items-center text-align-center"><?php echo "$mOrg_name";  ?></h3>
               </div>
               </div>
 
@@ -158,30 +165,30 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="row ms-3 me-3 justify-content-evenly">
        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
+          <div class="card-counter bg-info">
             <div class="inner">
-              <h2><i class="bi bi-file-person"></i></h2>
-              <p>Members</p>
+              <h2> <i class="bi bi-file-bar-graph"></i></h2>
+              <p>Survey</p>
             </div>
             <div class="icon">
-            <i class="bi bi-file-person"></i>
+          <i class="bi bi-file-bar-graph-fill"></i>
             </div>
-            <a href="comsoc-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-warning">
             <div class="inner">
-              <h2><i class="bi bi-person-badge"></i></h2>
-              <p>Officers</p>
+              <h2><i class="bi bi-envelope"></i></h2>
+              <p>Messages</p>
             </div>
             <div class="icon">
-            <i class="bi bi-person-badge"></i>
+              <i class="bi bi-envelope-fill"></i>
             </div>
-            <a href="officer-orgs-comsoc-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-3 col-sm-6" id="eventhide">
               <div class="card-counter events">
                 <div class="inner">
                   <h2><i class="bi bi-calendar3"></i></h2>

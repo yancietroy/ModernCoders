@@ -2,13 +2,13 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 } else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
-    header("Location:../admin-login.php");
+    header("Location:index.php");
   }
 ?>
 <!DOCTYPE html>
@@ -96,7 +96,7 @@ if(isset($_SESSION['msg'])){
         <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
       </li>
       <li class="d-lg-none">
-        <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
       </li>
 
       </ul>
@@ -123,17 +123,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -144,7 +144,7 @@ if(isset($_SESSION['msg'])){
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../admin-login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
                   </ul>
               </li>
             </ul>
@@ -191,16 +191,16 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Officer ID</th>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>Position</th>
+                                <th class='desktop'>Officer ID</th>
+                                <th class='desktop'>Student ID</th>
+                                <th class='desktop'>Position</th>
                                 <th class='none'>Organization</th>
-                                <th class='all'>First Name</th>
+                                <th class='desktop'>First Name</th>
                                 <th class='none'>Middle Name</th>
-                                <th class='all'>Last name</th>
+                                <th class='desktop'>Last name</th>
                                 <th class='none'>Email</th>
                                 <th class='none'>Course</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -325,7 +325,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
-                            <select class="form-select" name="org_id" id="org_id" readonly>
+                            <select class="form-select" name="org_id" id="org_id" >
                               <?php
                               $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
@@ -362,13 +362,13 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="college" >College:</label>
-                              <select class="form-select" name="college" id="college" readonly>
+                              <label class="form-label" for="college_dept" >College:</label>
+                              <select class="form-select" name="college_dept" id="college_dept" >
                                 <?php
-                                    $query = "SELECT college FROM tb_collegedept";
+                                    $query = "SELECT college_id, college FROM tb_collegedept";
                                     $result = @mysqli_query($conn, $query);
                                     while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[0].'</option>';
+                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                     }
                                 ?>
                               </select>
@@ -378,7 +378,7 @@ if(isset($_SESSION['msg'])){
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <div class="form-outline">
                               <label class="form-label" for="course" >Course:</label>
-                              <select class="form-select" style="width:100%;" name="course" id="course" readonly>
+                              <select class="form-select" style="width:100%;" name="course" id="course" >
                                 <?php
                                   $query = "SELECT course_id, course FROM tb_course";
                                   $result = @mysqli_query($conn, $query);
@@ -389,7 +389,56 @@ if(isset($_SESSION['msg'])){
                               </select>
                             </div>
                           </div>
-
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="user_type" >User Type:</label>
+                              <select class="form-select" name="user_type" id="user_type">
+                                <?php
+                                  $query = "SELECT * FROM tb_usertypes";
+                                  $result = @mysqli_query($conn, $query);
+                                      while($data = @mysqli_fetch_array($result)) {
+                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                      }
+                                ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="section">Section:</label>
+                              <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;" required />
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="year_level" >Year Level:</label>
+                              <input type="text" name="year_level" id="year_level" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                            </div>
+                          </div>
+                          <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly/>
+                        </div>
+                        <div class="row">
+                        <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="birthdate" >Birthdate:</label>
+                              <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old"  required/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 mb-4">
+                            <div class="form-outline">
+                              <label class="form-label" for="age" >Age:</label>
+                              <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required/>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                            <label class="form-label" for="gender" >Gender</label>
+                              <select class="form-select" name="gender" id="gender">
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                              </select>
+                          </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -421,8 +470,18 @@ if(isset($_SESSION['msg'])){
                 $('#first_name').val(data.first_name);
                 $('#middle_initial').val(data.middle_initial);
                 $('#last_name').val(data.last_name);
+                $('#birthdate').val(data.birthdate);
+                $('#age').val(data.age);
+                $('#gender').val(data.gender);
+                $('#year_level').val(data.year_level);
+                $('#section').val(data.section);
                 $('#email').val(data.email);
+                $('#password').val(data.password);
+                $('#college_dept').val(data.college_dept);
                 $('#course').val(data.course);
+                $('#user_type').val(data.user_type);
+                $('#account_created').val(data.account_created);
+                $('#profile_pic').val(data.profile_pic);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
@@ -435,7 +494,7 @@ if(isset($_SESSION['msg'])){
             // Event handling functions are automatically passed a reference to the
             // event that triggered them as the first argument (evt)
             function forceLower(evt) {
-              // Get an array of all the words (in all lower case)
+              // Get an array of desktop the words (in desktop lower case)
               var words = evt.target.value.toLowerCase().split(/\s+/g);
 
               // Loop through the array and replace the first letter with a cap
@@ -478,7 +537,7 @@ if(isset($_SESSION['msg'])){
           responsive: true,
           keys: true,
           fixedheader:true,
-          bautoWidth:false,
+      bautoWidth:false,
          dom: 'Bfrtip',"bFilter": true,
          "columns": [
         { "width": "40px" },

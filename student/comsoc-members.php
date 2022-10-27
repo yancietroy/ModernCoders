@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
+$morg_id = $_SESSION['morg_id'];
+$secOrg_id = $_SESSION['org_id'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -102,12 +104,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -142,8 +144,8 @@ if(isset($_SESSION['msg'])){
       </nav>
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>JRU Computer Society Members Masterlist</h4>
+        <div class="col-lg-6">
+          <h4>JRU Computer Society Members</h4>
         </div>
       </div>
 
@@ -152,7 +154,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -163,13 +165,13 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>First Name</th>
-                                <th class='all'>Middle Name</th>
-                                <th class='all'>Last name</th>
-                                <th class='all'>Age</th>
-                                <th class='all'>Gender</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Student ID</th>
+                                <th class='desktop'>First Name</th>
+                                <th class='desktop'>Middle Name</th>
+                                <th class='desktop'>Last name</th>
+                                <th class='desktop'>Age</th>
+                                <th class='desktop'>Gender</th>
+                                <th class='desktop'>Actions</th>
                                 <th class='none'>Course</th>
                                 <th class='none'>Email</th>
                                 <th class='none'>Birthdate</th>
@@ -323,7 +325,12 @@ if(isset($_SESSION['msg'])){
                           <div class="row">
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                              <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
+                              <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" readonly>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                              </select>
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-4">
                               <div class="form-outline">
@@ -367,7 +374,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
-                                <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                                <label class="form-label" for="MORG_ID" >Main Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
                                     $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
@@ -460,7 +467,7 @@ if(isset($_SESSION['msg'])){
               // Event handling functions are automatically passed a reference to the
               // event that triggered them as the first argument (evt)
               function forceLower(evt) {
-                // Get an array of all the words (in all lower case)
+                // Get an array of desktop the words (in desktop lower case)
                 var words = evt.target.value.toLowerCase().split(/\s+/g);
 
                 // Loop through the array and replace the first letter with a cap
@@ -525,7 +532,7 @@ if(isset($_SESSION['msg'])){
             responsive: true,
             keys: true,
             fixedheader:true,
-            bautoWidth:false,
+        bautoWidth:false,
            dom: 'Bfrtip',"bFilter": true,
            "columns": [
           { "width": "40px" },

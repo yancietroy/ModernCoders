@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -53,7 +53,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -64,7 +64,7 @@ if(isset($_SESSION['msg'])){
         </li>
 
         <li class="active">
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -73,10 +73,10 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
-        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        <li>
+<!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
         </ul>
       <!-- nav footer?
@@ -103,17 +103,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -134,16 +134,17 @@ if(isset($_SESSION['msg'])){
       </nav>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="officer-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
+          <li class="breadcrumb-item"><a href="signatory-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
           <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> Members</li>
         </ol>
       </nav>
       <!-- Page content -->
+      <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
-        <div class="col-lg-6 col-7">
-          <h4>JRU Computer Society Members Masterlist</h4>
+        <div class="col-lg-6">
+          <h4>JRU Computer Society Members</h4>
         </div>
       </div>
 
@@ -152,7 +153,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -163,13 +164,13 @@ if(isset($_SESSION['msg'])){
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='all'>Student ID</th>
-                                <th class='all'>First Name</th>
-                                <th class='all'>Middle Name</th>
-                                <th class='all'>Last name</th>
-                                <th class='all'>Age</th>
-                                <th class='all'>Gender</th>
-                                <th class='all'>Actions</th>
+                                <th class='desktop'>Student ID</th>
+                                <th class='desktop'>First Name</th>
+                                <th class='desktop'>Middle Name</th>
+                                <th class='desktop'>Last name</th>
+                                <th class='desktop'>Age</th>
+                                <th class='desktop'>Gender</th>
+                                <th class='desktop'>Actions</th>
                                 <th class='none'>Course</th>
                                 <th class='none'>Email</th>
                                 <th class='none'>Birthdate</th>
@@ -210,7 +211,7 @@ if(isset($_SESSION['msg'])){
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
+
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -235,7 +236,7 @@ if(isset($_SESSION['msg'])){
          </div>
        </div>
      </div>
-   </div>
+    </div>
 
         <!-- Footer -->
       <div id="layoutAuthentication_footer">
@@ -255,7 +256,7 @@ if(isset($_SESSION['msg'])){
       <div class="modal-dialog" id="modal-lg" role="document">
           <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+                      <h5 class="modal-title" id="exampleModalLabel"> View Student Details </h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -323,7 +324,12 @@ if(isset($_SESSION['msg'])){
                           <div class="row">
                             <div class="col-12 col-md-4 col-sm-3 mb-2">
                               <label class="form-label" for="YEAR_LEVEL" >Year Level:</label>
-                              <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1"  oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" style="background-color: #fff;" readonly />
+                              <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" readonly>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                              </select>
                             </div>
                             <div class="col-12 col-md-4 col-sm-3 mb-4">
                               <div class="form-outline">
@@ -367,7 +373,7 @@ if(isset($_SESSION['msg'])){
                             </div>
                             <div class="col-12 col-md-4 mb-4">
                               <div class="form-outline">
-                                <label class="form-label" for="MORG_ID" >Mother Organization:</label>
+                                <label class="form-label" for="MORG_ID" >Main Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
                                     $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
@@ -460,7 +466,7 @@ if(isset($_SESSION['msg'])){
               // Event handling functions are automatically passed a reference to the
               // event that triggered them as the first argument (evt)
               function forceLower(evt) {
-                // Get an array of all the words (in all lower case)
+                // Get an array of desktop the words (in desktop lower case)
                 var words = evt.target.value.toLowerCase().split(/\s+/g);
 
                 // Loop through the array and replace the first letter with a cap
@@ -525,7 +531,7 @@ if(isset($_SESSION['msg'])){
             responsive: true,
             keys: true,
             fixedheader:true,
-            bautoWidth:false,
+        bautoWidth:false,
            dom: 'Bfrtip',"bFilter": true,
            "columns": [
           { "width": "40px" },
@@ -643,4 +649,4 @@ if(isset($_SESSION['msg'])){
 
     </body>
 
-</html>
+    </html>

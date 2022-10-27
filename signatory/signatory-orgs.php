@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -46,7 +46,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -57,7 +57,7 @@ if(isset($_SESSION['msg'])){
         </li>
 
         <li class="active">
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -66,10 +66,10 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
-        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        <li>
+<!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
         </ul>
       <!-- nav footer?
@@ -96,17 +96,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -138,10 +138,9 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Student Organizations</h4>
+          <h4 id="orgtitle">Student Organizations</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="#" role="button"><i class="bi bi-plus-circle-fill"></i> Join Org</a>
         </div>
       </div>
         <!--  <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">
@@ -149,7 +148,7 @@ if(isset($_SESSION['msg'])){
         </div>-->
 
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-6  col-md-5 mt-2"  id="orgs">
+        <div class="col-12  col-md-5 mt-2"  id="orgs">
           <div class="card display: inline-block cards">
             <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">

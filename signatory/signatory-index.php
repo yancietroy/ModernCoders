@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-include('../mysql_connect.php');
+include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -19,7 +19,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>JRU Student Organizations Portal</title>
+  <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -46,7 +46,7 @@ if(isset($_SESSION['msg'])){
       </div>
       <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Signatory</h5>
       </div>
 
       <ul class="list-unstyled components p-2">
@@ -57,7 +57,7 @@ if(isset($_SESSION['msg'])){
         </li>
 
         <li>
-          <a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
+          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
         </li>
         <li>
           <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
@@ -66,10 +66,10 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-        <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
-        <li class="d-lg-none">
-        <a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+        <li>
+<!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
         </ul>
       <!-- nav footer?
@@ -96,17 +96,17 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="../assets/img/img_avatar.png" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
@@ -134,10 +134,10 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4">
               <div class="row g-0 justify-content-evenly">
                 <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="../assets/img/img_avatar.png" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                    <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME), signatory_type AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
+                  $query = "SELECT school_id, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories WHERE school_id = '$id'";
                   $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -147,13 +147,13 @@ if(isset($_SESSION['msg'])){
                             <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
                             <label class='text-muted mt-3'>Email:</label>
-                            <h6>$row[3]</h6>
+                            <h6>$row[2]</h6>
                           </div>
                           <div class='col-12 col-md-4 mt-2'>
                             <label class='text-muted'>JRU ID:</label>
                             <h5>$row[0]</h5>
                               <label class='text-muted mt-3'>Role:</label>
-                              <h6>$row[2]</h6>
+                              <h6>$row[3]</h6>
                           </div>
                           <div class='col-12 col-md-3 mt-2'>
                           </div>
@@ -166,17 +166,19 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-4 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
-
-              <a href="signatory-orgs.php" class="stretched-link"></a>
+      <h4 class="ms-4">Project Monitoring</h4>
+      <div class="row ms-5 mb-4 mt-4">
+          <div class="col-lg-3 col-sm-6 mb-4">
+            <div class="card-counter primary">
+              <div class="inner">
+                <h3> <i class="bi bi-folder"></i></h3>
+                <p>Projects</p>
+              </div>
+              <div class="icon">
+         <i class="bi bi-folder-fill"></i>
+              </div>
+              <a href="signatory-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-          </div>
         </div>
 
 

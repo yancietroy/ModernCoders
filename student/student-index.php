@@ -2,8 +2,9 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
-
-include('../mysql_connect.php'); include('profilepic.php');
+$morg_id = $_SESSION['morg_id'];
+$secOrg_id = $_SESSION['org_id'];
+include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -99,12 +100,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height:  25px;"></i>
+                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -133,15 +134,15 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
       <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-lg-10 col-xl-11">
+        <div class="col-10 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
-                <div class="col-md-2 mb-2 mt-4 d-none d-sm-block text-center ">
-                  <img src="<?php echo $profilepic; ?>" class="rounded-circle img-fluid " alt="..." style="border: 4px solid #F2AC1B" width="102" height="100">
+                <div class="col-md-2 mb-2 mt-3 d-none d-sm-block text-center " id="indeximg">
+                <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id'";
+                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id' AND MORG_ID = '$morg_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -165,7 +166,6 @@ if(isset($_SESSION['msg'])){
                             <label class='text-muted'>Year Level:</label>
                             <h5>Year $row[5] </h5>
                         </div>";
-                        @mysqli_close($conn);
                         }
                         ?>
               </div>
@@ -176,11 +176,16 @@ if(isset($_SESSION['msg'])){
       </div>
       <h4 class="ms-3">My Organizations</h4>
       <div class="row ms-3 mb-4 mt-4">
-        <div class="col-6  col-md-5  " id="orgs">
+        <div class="col-12  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">
-            <img src="../assets/img/comsoc-logo.png" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <img src="<?php echo $logoPic; ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2">JRU Computer Society</h5>
+              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[1]"; } 
+              @mysqli_close($conn);?></h5>
 
               <a href="comsoc.php" class="stretched-link"></a>
             </div>
