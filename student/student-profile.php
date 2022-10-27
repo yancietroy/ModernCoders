@@ -198,9 +198,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Organization	</th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
+                      <td><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$id'";
                                 $result = @mysqli_query($conn, $query);
-                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></td>
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Role	</th>
