@@ -282,11 +282,11 @@ if (isset($_POST['create-election'])) {
                     <div class="mb-4 row">
                         <div class="col">
                             <label class="form-label" for="STARTDATE">Start Date</label>
-                            <input class="form-control" type="date" name="STARTDATE" id="STARTDATE" required>
+                            <input class="form-control" type="date" name="STARTDATE" id="STARTDATE" min="<?php echo date("Y-m-d"); ?>" required>
                         </div>
                         <div class="col">
                             <label class="form-label" for="ENDDATE">End Date</label>
-                            <input class="form-control" type="date" name="ENDDATE" id="ENDDATE" required>
+                            <input class="form-control" type="date" name="ENDDATE" id="ENDDATE" min="<?php echo date("Y-m-d"); ?>" required>
                         </div>
                     </div>
                     <div class="mb-4 row">

@@ -1,4 +1,4 @@
- <?php
+<?php
 ob_start();
 session_start();
 $id = $_SESSION['use'];
@@ -55,13 +55,13 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li>
+        <li >
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
       <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -75,10 +75,10 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li class="active">
+        <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
@@ -89,7 +89,7 @@ if(isset($_SESSION['msg'])){
             </li>
         </ul>
       </li>
-      <li>
+      <li class="active">
         <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
       </li>
       <li>
@@ -98,7 +98,6 @@ if(isset($_SESSION['msg'])){
       <li class="d-lg-none">
       <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
       </li>
-
       </ul>
       <!-- nav footer?
       <ul class="list-unstyled CTAs">
@@ -136,16 +135,16 @@ if(isset($_SESSION['msg'])){
                 <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
                   <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
+                  $row = @mysqli_fetch_array ($result);
                   if ($row)
                   { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                </ul>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
+                  </ul>
               </li>
             </ul>
           </div>
@@ -155,8 +154,9 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Orgs Management</li>
+          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="admin-election.php"><i class="bi bi-check2-square"></i> Election</a></li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"><i class="bi bi-person-badge-fill"></i> Position List</li>
         </ol>
       </nav>
 
@@ -164,83 +164,28 @@ if(isset($_SESSION['msg'])){
 
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-            <h4 id="orgtitle">Student Organizations</h4>
+            <h4 id="orgtitle">Position List</h4>
         </div>
           <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="admin-orgs-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Org </span></a>
-            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Org Archive</span></a>
+          <a class="btn btn-default btn-circle button px-3" href="admin-position-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Position </span></a>
+            <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="#" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Position Archive</span></a>
         </div>
       </div>
-
-      <div class="row ms-3 me-3 mt-2">
-      <!--  <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h2><i class="bi bi-diagram-3-fill"></i></h2>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-diagram-3-fill"></i>
-            </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter success">
-            <div class="inner">
-              <h2><i class="bi bi-pc-display"></i></h2>
-              <p>rso</p>
-            </div>
-            <div class="icon">
-                <i class="bi bi-pc-display"></i>
-            </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-<!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h2><i class="bi bi-person-x-fill"></i></h2>
-              <p>Inactive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-person-x"></i>
-            </div>
-            <a href="admin-students-users-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h2><i class="bi bi-archive-fill"></i></h2>
-              <p>Archive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-archive"></i>
-            </div>
-            <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-
-        </div>
 
         <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
           <div class="card-body px-2 mx-3 py-3 pt-4 ">
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_orgs";
+                    $query = "SELECT * FROM tb_position";
                     $result = @mysqli_query($conn,$query);
-                    $oi = 0;
-                    $org = " ";
+                    $i = 0;
+                    $p = " ";
                     echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='desktop'>Org ID</th>
-                                <th class='desktop'>Organization</th>
+                                <th class='desktop'>Position ID</th>
+                                <th class='desktop'>Position</th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -248,7 +193,7 @@ if(isset($_SESSION['msg'])){
                       ";
                       /*
                       <th>College</th>
-                      <th>Organization</th>
+                      <th>Position</th>
                       <th>Position</th>
                       <th>Account Created</th>
                       */
@@ -257,20 +202,20 @@ if(isset($_SESSION['msg'])){
                       // output data of each row
                       while($row = $result->fetch_assoc())
                       {
-                        $oi = $row['ORG_ID'];
-                        $org = $row['ORG'];
+                        $pi = $row['POSITION_ID'];
+                        $p = $row['position'];
                         echo "<tr>
-                              <td> $oi  </td>
-                              <td> $org  </td>
+                              <td> $pi  </td>
+                              <td> $p </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
+                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $pi . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
                           ";
                           /*
                           <td>College</td>
-                          <td>Organization</td>
+                          <td>Position</td>
                           <td>Position</td>
                           <th>Account Created</th>
                         */
@@ -317,25 +262,25 @@ if(isset($_SESSION['msg'])){
     <div class="modal-dialog" id="modal-lg" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> View Organization Details </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> View Position Details </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-orgs-rso.php" method="POST">
+                <form action="admin-update-position.php" method="POST">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
                       <div class="col-12 col-md-4 col-sm-3 mb-4">
                          <div class="form-outline">
-                           <label class="form-label" for="ORG_ID" >Organization ID:</label>
-                           <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly/>
+                           <label class="form-label" for="POSITION_ID" >Position ID:</label>
+                           <input type="text" name="POSITION_ID" id="POSITION_ID" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                       </div>
                         <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="ORG" >Organization name:</label>
-                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"/>
+                              <label class="form-label" for="position" >Position Name:</label>
+                              <input type="text" name="position" id="position" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"/>
                             </div>
                         </div>
                       </div>
@@ -343,8 +288,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="updatedata" class="btn btn-success">Update Org</button>
-                        <button type="submit" name="view" class="btn btn-primary">Visit Org</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
                     </div>
                   </div>
                 </form>
@@ -356,20 +300,20 @@ if(isset($_SESSION['msg'])){
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Archive Oganization Data </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Archive Position </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="admin-delete-org.php" method="POST">
+                <form action="admin-delete-position.php" method="POST">
                     <div class="modal-body">
                       <div class="col-12 col-md-12 justify-content-center ">
                         <div class="form-outline">
-                           <label class="form-label" for="delete_id" >Organization ID:</label>
+                           <label class="form-label" for="delete_id" >Position ID:</label>
                            <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly/>
                          </div>
                        </div>
-                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Organization. Are you sure?</p>
+                       <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Position. Are you sure?</p>
                    </div>
                    <div class="modal-footer py-2 px-3">
                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -383,62 +327,41 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
     <script>
-        $(document).on('click', '.editbtn', function(){
-           var ORG_ID = $(this).attr("id");
+        $(document).on('click', '.viewbtn', function(){
+           var POSITION_ID = $(this).attr("id");
            $.ajax({
-                url:"admin-fetch-org.php",
+                url:"admin-fetch-position.php",
                 method:"POST",
                 data:
                 {
-                  ORG_ID:ORG_ID
+                  POSITION_ID:POSITION_ID
                 },
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#ORG_ID').val(data.ORG_ID);
-                $('#ORG').val(data.ORG);
+                $('#POSITION_ID').val(data.POSITION_ID);
+                $('#position').val(data.position);
                 $('#viewmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
                 }
             });
-
-            // UPPERCASE FIRST LETTER
-            document.getElementById("ORG").addEventListener("input", forceLower);
-            // event that triggered them as the first argument (evt)
-            function forceLower(evt) {
-              // Get an array of desktop the words (in desktop lower case)
-              var words = evt.target.value.toLowerCase().split(/\s+/g);
-
-              // Loop through the array and replace the first letter with a cap
-              var newWords = words.map(function(element) {
-                // As long as we're not dealing with an empty array element, return the first letter
-                // of the word, converted to upper case and add the rest of the letters from this word.
-                // Return the final word to a new array
-                return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
-              });
-
-              // Replace the original value with the updated array of capitalized words.
-              evt.target.value = newWords.join(" ");
-            }
-
-
         });
     </script>
 
     <script>
       $(document).on('click', '.deletebtn', function(){
-        var ORG_ID = $(this).attr("id");
+        var POSITION_ID = $(this).attr("id");
         $.ajax({
-                url:"admin-fetch-org.php",
+                url:"admin-fetch-position.php",
                 method:"POST",
                 data:
                 {
-                  ORG_ID:ORG_ID
+                  POSITION_ID:POSITION_ID
                 },
                 dataType:"json",
                 success:function(data){
                 console.log(data);
-                $('#delete_id').val(data.ORG_ID);
+                $('#delete_id').val(data.POSITION_ID);
                 $('#deletemodal').modal('show');
                 }
             });
@@ -483,7 +406,7 @@ if(isset($_SESSION['msg'])){
    'pageLength',
    {
      extend: 'excelHtml5',
-     title: 'JRU Organizations Portal -  Course Masterlist',
+     title: 'JRU Organizations Portal -  Position Masterlist',
      footer: true,
    exportOptions: {
      columns: [0,1]
@@ -502,7 +425,7 @@ if(isset($_SESSION['msg'])){
    //    } ,
       {
         extend: 'pdfHtml5',
-        title: 'JRU Organizations Portal - Course Masterlist',
+        title: 'JRU Organizations Portal - Position Masterlist',
         footer: true,
         exportOptions: {
           columns: [0,1]
@@ -512,7 +435,7 @@ if(isset($_SESSION['msg'])){
       } ,
       {
         extend: 'print',
-        title: 'JRU Organizations Portal -  Course Masterlist',
+        title: 'JRU Organizations Portal -  Position Masterlist',
         footer: true,
         exportOptions: {
           columns: [0,1]
@@ -524,7 +447,7 @@ if(isset($_SESSION['msg'])){
           var current = null;
           var bod = [];
 
-          var css = '@page { size: landscape; font-size: 1em;}',
+          var css = '@page { size: portrait; font-size: 1em;}',
               head = win.document.head || win.document.getElementsByTagName('head')[0],
               style = win.document.createElement('style');
 
@@ -567,7 +490,6 @@ if(isset($_SESSION['msg'])){
 
       });
     </script>
-
     <!--input mask-->
     <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="../assets/js/inputmask-validation.js"></script>

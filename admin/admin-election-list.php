@@ -344,7 +344,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal -  Student Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+							columns: [0, 1, 2, 3,5]
 						},
 					},
 					//{
@@ -363,7 +363,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal - Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+							columns:  [0, 1, 2, 3, 5]
 						},
 						orientation: 'landscape',
 						pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -373,7 +373,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal -  Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+							columns: [0, 1, 2, 3,5]
 						},
 						customize: function(win) {
 

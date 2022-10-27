@@ -228,16 +228,6 @@ INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
 -- Table structure for table `tb_disc`
 --
 
-CREATE TABLE `tb_disc` (
-  `disc_id` int(11) NOT NULL,
-  `disc_topic_id` int(11) DEFAULT NULL,
-  `ORG_ID` int(2) DEFAULT NULL,
-  `officer_id` int(2) DEFAULT NULL,
-  `likes` int(11) DEFAULT NULL,
-  `dislikes` int(11) DEFAULT NULL,
-  `no_of_replies` int(11) DEFAULT NULL,
-  `reply_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -269,7 +259,6 @@ INSERT INTO `tb_disc_groups` (`group_id`, `name`, `visibility`) VALUES
 CREATE TABLE `tb_disc_reply` (
   `reply_id` int(11) NOT NULL,
   `reply` int(11) NOT NULL,
-  `disc_id` int(11) NOT NULL,
   `disc_topic_id` int(11) NOT NULL,
   `org_id` int(11) NOT NULL,
   `subj_id` int(255) DEFAULT NULL
@@ -1062,12 +1051,6 @@ ALTER TABLE `tb_course`
 --
 -- Indexes for table `tb_disc`
 --
-ALTER TABLE `tb_disc`
-  ADD PRIMARY KEY (`disc_id`),
-  ADD KEY `disc_discTopic_id_fk` (`disc_topic_id`),
-  ADD KEY `disc_org_id_fk` (`ORG_ID`),
-  ADD KEY `disc_officer_id_fk` (`officer_id`),
-  ADD KEY `disc_reply_id_fk` (`reply_id`);
 
 --
 -- Indexes for table `tb_disc_groups`
@@ -1080,7 +1063,7 @@ ALTER TABLE `tb_disc_groups`
 --
 ALTER TABLE `tb_disc_reply`
   ADD PRIMARY KEY (`reply_id`),
-  ADD KEY `discReply_disc_id_fk` (`disc_id`),
+
   ADD KEY `discReply_discTopic_id_fk` (`disc_topic_id`),
   ADD KEY `discReply_org_id_fk` (`org_id`),
   ADD KEY `discReply_subj_id_fk` (`subj_id`);
@@ -1434,19 +1417,14 @@ ALTER TABLE `tb_course`
 
 --
 -- Constraints for table `tb_disc`
---
-ALTER TABLE `tb_disc`
-  ADD CONSTRAINT `disc_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `disc_officer_id_fk` FOREIGN KEY (`officer_id`) REFERENCES `tb_officers` (`officer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `disc_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `disc_reply_id_fk` FOREIGN KEY (`reply_id`) REFERENCES `tb_disc_reply` (`reply_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 --
 -- Constraints for table `tb_disc_reply`
 --
 ALTER TABLE `tb_disc_reply`
   ADD CONSTRAINT `discReply_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_disc_id_fk` FOREIGN KEY (`disc_id`) REFERENCES `tb_disc` (`disc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+
   ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `discReply_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

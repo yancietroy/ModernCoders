@@ -90,7 +90,7 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li>
-          <a href="admin-students.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>

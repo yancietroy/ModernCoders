@@ -55,7 +55,7 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li class="active">
+        <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
       <li>
@@ -89,7 +89,7 @@ if(isset($_SESSION['msg'])){
               </li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
@@ -155,9 +155,10 @@ if(isset($_SESSION['msg'])){
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="admin-course.php">Course Management</a></li>
-          <li class="breadcrumb-item active" aria-current="page">New Course</li>
+          <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
+          <li class="breadcrumb-item"><a href="admin-election.php"><i class="bi bi-check2-square"></i> Election</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a href="admin-position-list.php"><i class="bi bi-person-badge-fill"></i> Position List</a></li>
+          <li class="breadcrumb-item active" aria-current="page">New Position</li>
         </ol>
       </nav>
 
@@ -169,7 +170,7 @@ if(isset($_SESSION['msg'])){
           <div class="card-body px-5 py-3 pt-4 ">
             <div class="row g-0 justify-content-center align-items-center ">
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
-                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Course Registration</h3>
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Position Registration</h3>
 
                                     <!-- <form class="was-validated"> -->
                                     <!--   <div class="row justify-content-between">
@@ -192,9 +193,9 @@ if(isset($_SESSION['msg'])){
                                   </div>
 
                                   <div class="col-12 col-md-4  mb-4" style='display:none;' id="orghide">
-                                  <label class="form-label" id="asterisk">Assign Course</label>
+                                  <label class="form-label" id="asterisk">Assign Position</label>
                                   <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" >
-                                    <option class="greyclr" selected disabled value="">Select Course</option>
+                                    <option class="greyclr" selected disabled value="">Select Position</option>
                                     <?php/*
                                           $query = "SELECT course FROM tb_course";
                                           $result = @mysqli_query($conn, $query);
@@ -208,26 +209,26 @@ if(isset($_SESSION['msg'])){
                                   <div class="row justify-content-between">
                                     <div class="col-12 col-md-12 col-sm-3 mb-4">
                                       <div class="form-outline">
-                                        <label class="form-label" for="coursename" id="asterisk">Course Name</label>
-                                        <input type="text" name="coursename" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required/>
+                                        <label class="form-label" for="position" id="asterisk">Position Name</label>
+                                        <input type="text" name="position" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required/>
                                         <div class="valid-feedback"></div>
                                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                                       </div>
                                     </div>
-                                    <div class="col-12 col-md-12  mb-4">
+                                  <!--  <div class="col-12 col-md-12  mb-4">
                                     <label class="form-label" id="asterisk">Assign College</label>
                                     <select class="form-select" style="width:100%;" name="college_id" id="college_id">
                                       <option class="greyclr" selected disabled value="">Select College</option>
-                                      <?php
+                                      <?php/*
                                            $query = "SELECT * FROM tb_collegedept";
                                            $result = @mysqli_query($conn, $query);
                                            while($data = @mysqli_fetch_array($result)) {
                                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                             }
-                                      ?>
+                                      */?>
                                     </select>
                                 </div>
-                                    <!--<div class="col-12 col-md-6  mb-4">
+                                    <div class="col-12 col-md-6  mb-4">
                                       <div class="form-outline">
 
                                         <label class="form-label" for="lastName" id="asterisk">Abbreviation</label>
@@ -243,13 +244,13 @@ if(isset($_SESSION['msg'])){
                                           <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
                                           <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
-                                            <?php
+                                            <?php/*
                                                   $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
                                                   $result = @mysqli_query($conn, $query);
                                                   while($data = @mysqli_fetch_array($result)) {
                                                       echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                                                   }
-                                            ?>
+                                          */  ?>
                                           </select>
                                       </div>
                                     </div>
@@ -269,10 +270,9 @@ if(isset($_SESSION['msg'])){
 
 
                                     <?php
-                                if (isset($cn) || isset($ci) || isset($_POST['submit']))
+                                if (isset($p) || isset($_POST['submit']))
                                   {
-                                    $cn = $_POST['coursename'];
-                                    $ci = $_POST['college_id'];
+                                    $pn = $_POST['position'];
 
                                   /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
                                   $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
@@ -293,12 +293,12 @@ if(isset($_SESSION['msg'])){
                                     try {
                                     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_course(course,college_id) VALUES('$cn','$ci')";
+                                    $sql = "INSERT INTO tb_position(position) VALUES('$pn')";
                                     $conn->exec($sql);
                                     echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
-                                             title: 'Course Created',
+                                             title: 'Position Created',
                                              confirmButtonColor: '#F2AC1B'
 
                                          })
@@ -345,12 +345,7 @@ if(isset($_SESSION['msg'])){
     </div>
     </div>
 
-      <script>
-      document.getElementById('showme').addEventListener('change', function () {
-          var style = this.value == "Academic" ? 'block' : 'none';
-          document.getElementById('orghide').style.display = style;
-      });
-    </script>
+    
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
