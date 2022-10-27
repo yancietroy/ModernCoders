@@ -192,15 +192,15 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-          <li class="breadcrumb-item"><a href="student-orgs.php"> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="comsoc.php"></i></i> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+          <li class="breadcrumb-item"><a href="student-orgs.php"><i class="bi bi-people-fill"></i> Organizations</a></li>
+          <li class="breadcrumb-item"><a href="rso.php"><i class="bi bi-people-fill"></i> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
                                                                     $result = @mysqli_query($conn, $query);
                                                                     $row = mysqli_fetch_array($result);
                                                                     if ($row) {
                                                                       echo "$row[1]";
                                                                     }
                                                                     ?></a></li>
-          <li class="breadcrumb-item"><a href="forum-user.php"> Discussion Forum</a></li>
+          <li class="breadcrumb-item"><a href="forum-user.php">  <i class="bi bi-inbox-fill"></i> Discussion Forum</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"><?= $topicsubject ?></li>
         </ol>
       </nav>

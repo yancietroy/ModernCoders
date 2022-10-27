@@ -250,7 +250,7 @@ if(isset($_SESSION['msg'])){
       <!-- Event Details Modal -->
 
     <?php
-    $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date FROM `tb_projectmonitoring`");
+    $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date FROM `tb_projectmonitoring` WHERE org_id='$orgid'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
       $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_date']));
