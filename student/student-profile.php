@@ -20,7 +20,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -68,7 +68,7 @@ if(isset($_SESSION['msg'])){
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
         </li>
       </ul>
@@ -96,12 +96,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -196,29 +196,27 @@ if(isset($_SESSION['msg'])){
                       <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Main Organization	</th>
+                      <th width="30%">Organization	</th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Position	</th>
+                      <th width="30%">Role	</th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
                     </tr>
-                    <tr>
-                      <th width="30%">Side Organization	</th>
-                      <td width="2%">:</td>
-                      <td></td>
-                    </tr>
-                    <tr>
+                  <!--  <tr>
                       <th width="30%">Position	</th>
                       <td width="2%">:</td>
-                    <td></td>
-                    </tr>
+                      <td><?php/* $query = "SELECT tb_students.position_id, tb_position.position FROM tb_students INNER JOIN tb_position ON tb_students.position_id=tb_position.POSITION_ID WHERE tb_students.STUDENT_ID = '$officer_id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[position]"; } */?>
+                    </td>
+                  </tr>-->
                   </table>
                   <div class="card-body mt-2 p-0 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Gender:<br></strong> <?php echo "$data[GENDER]"; ?></p>
@@ -229,15 +227,15 @@ if(isset($_SESSION['msg'])){
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[COURSE]"; ?></[td]>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Main Organization:<br></strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Organization:<br></strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$id'";
                               $result = @mysqli_query($conn, $query);
                               $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[MOTHER_ORG]"; } ?></p>
                               <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$id'";
                                         $result = @mysqli_query($conn, $query);
                                         $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></p>
 
-                                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Side Organization:</strong>
-                                                <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>
+                                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Position:</strong>
+                                              <!--  <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>-->
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>";?>
@@ -383,7 +381,7 @@ if(isset($_SESSION['msg'])){
                           </div>
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="MORG_ID" >Main Organization:</label>
+                              <label class="form-label" for="MORG_ID" >Student Organization:</label>
                               <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                 <?php
                                   $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";

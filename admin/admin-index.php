@@ -16,7 +16,7 @@ if(isset($_SESSION['msg'])){
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -124,12 +124,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -198,7 +198,7 @@ if(isset($_SESSION['msg'])){
 
       </div>
   <h4 class="ms-3">Site Management</h4>
-  <div class="row ms-3 me-3 mt-2">
+  <div class="row ms-3 me-3 mt-2 justify-content-between">
     <div class="col-lg-3 col-sm-6">
       <div class="card-counter bg-primary">
         <div class="inner">
@@ -211,7 +211,7 @@ if(isset($_SESSION['msg'])){
         <a href="admin-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
+  <!--  <div class="col-lg-3 col-sm-6">
       <div class="card-counter bg-info">
         <div class="inner">
           <h2><i class="bi bi-check-square"></i></h2>
@@ -222,7 +222,7 @@ if(isset($_SESSION['msg'])){
         </div>
         <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
-    </div>
+    </div>-->
     <div class="col-lg-3 col-sm-6">
       <div class="card-counter done">
         <div class="inner">
@@ -259,7 +259,8 @@ if(isset($_SESSION['msg'])){
         <a href="admin-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
-
+</div>
+  <div class="row ms-3 me-3 mt-2 justify-content-between">
 
       <div class="col-lg-3 col-sm-6">
         <div class="card-counter bg-warning">
@@ -286,6 +287,30 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
       <div class="col-lg-3 col-sm-6">
+         <div class="card-counter bg-info">
+           <div class="inner">
+             <h2><i class="bi bi-inbox"></i> </h2>
+             <p>Forum Management</p>
+           </div>
+           <div class="icon">
+            <i class="bi bi-inbox-fill"></i>
+           </div>
+           <a href="admin-audit.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+         </div>
+       </div>
+       <div class="col-lg-3 col-sm-6">
+          <div class="card-counter masterlist">
+            <div class="inner">
+              <h2><i class="bi bi-file-bar-graph"></i> </h2>
+              <p>Survey Management</p>
+            </div>
+            <div class="icon">
+            <i class="bi bi-file-bar-graph-fill"></i>
+            </div>
+            <a href="admin-audit.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+     <!--<div class="col-lg-3 col-sm-6">
         <div class="card-counter masterlist">
           <div class="inner">
             <h2><i class="bi bi-clock-history"></i></h2>
@@ -296,7 +321,7 @@ if(isset($_SESSION['msg'])){
           </div>
           <a href="admin-audit.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
-      </div>
+      </div>-->
 
     </div>
 

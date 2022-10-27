@@ -10,6 +10,7 @@ if (isset ($_POST['updatedata']))
 	$mn = $_POST['MIDDLE_NAME'];
 	$bdate = $_POST['BIRTHDATE'];
 	$age = $_POST['AGE'];
+	$e = $_POST['EMAIL'];
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);
@@ -17,7 +18,7 @@ if (isset ($_POST['updatedata']))
 
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age' WHERE `STUDENT_ID` = '$si'";
+			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `EMAIL` = '$e' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
 			alert('Successfuly updated!')

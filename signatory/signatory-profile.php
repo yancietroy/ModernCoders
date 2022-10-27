@@ -17,7 +17,7 @@ if(isset($_SESSION['msg'])){
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -65,11 +65,11 @@ if(isset($_SESSION['msg'])){
         </li>
         <li>
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
-
         </li>-->
+        <li class="d-lg-none">
+      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+
+    </li>
       </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
@@ -95,12 +95,12 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <!--    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+              <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -148,7 +148,9 @@ if(isset($_SESSION['msg'])){
                   $si = $data['school_id'];?>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">JRU ID:</strong><?php echo $si; ?></p>
-                  <p class="mb-0"><strong class="pr-1">Signatory Type:</strong><?php echo $data['signatory_type']; ?></p>
+                  <p class="mb-0"><strong class="pr-1">Position:</strong><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                            $result = @mysqli_query($conn, $query);
+                            $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></p>
                 </div>
               </div>
             </div>
@@ -180,14 +182,9 @@ if(isset($_SESSION['msg'])){
                     <tr>
                       <th width="30%">Signatory Type: </th>
                       <td width="2%">:</td>
-                      <td><?php echo $data['signatory_type']; ?></td>
-                    </tr>
-                    <tr>
-                      <th width="30%">Role: </th>
-                      <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_signatories.usertype_id, tb_usertypes.user_type FROM tb_signatories INNER JOIN tb_usertypes ON tb_signatories.usertype_id=tb_usertypes.usertype_id WHERE tb_signatories.school_id = '$id'";
+                      <td><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
                                 $result = @mysqli_query($conn, $query);
-                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></td>
                     </tr>
                     <tr>
                       <th width="30%">College </th>
@@ -203,7 +200,15 @@ if(isset($_SESSION['msg'])){
                                 $result = @mysqli_query($conn, $query);
                                 $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></td>
                     </tr>
-                    <!--   <tr>
+
+                     <tr>
+                      <th width="30%">Role: </th>
+                      <td width="2%">:</td>
+                      <td><?php $query = "SELECT tb_signatories.usertype_id, tb_usertypes.user_type FROM tb_signatories INNER JOIN tb_usertypes ON tb_signatories.usertype_id=tb_usertypes.usertype_id WHERE tb_signatories.school_id = '$id'";
+                                $result = @mysqli_query($conn, $query);
+                                $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[user_type]"; } ?></td>
+                    </tr>
+                  <!--  <tr>
                       <th width="30%">Side Organization </th>
                       <td width="2%">:</td>
                       <td></td>
@@ -218,9 +223,15 @@ if(isset($_SESSION['msg'])){
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[first_name]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Last Name:<br></strong><?php echo "$data[last_name]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Signatory Type:<br></strong><?php echo "$data[signatory_type]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Role:<br></strong><?php echo "$data[user_type]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Organization:<br></strong><?php echo "$data[org_id]"; ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Signatory Type:<br></strong><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[signatory]"; } ?></p>
+                 <p class="mb-2 pe-2"><strong class="pr-1  text-muted">College:<br></strong><?php $query = "SELECT tb_signatories.college_dept, tb_collegedept.college FROM tb_signatories INNER JOIN tb_collegedept ON tb_signatories.college_dept=tb_collegedept.college_id WHERE tb_signatories.school_id = '$id'";
+                           $result = @mysqli_query($conn, $query);
+                           $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[college]"; } ?></p>
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Organization:<br></strong><?php $query = "SELECT tb_signatories.org_id, tb_orgs.ORG FROM tb_signatories INNER JOIN tb_orgs ON tb_signatories.org_id=tb_orgs.ORG_id WHERE tb_signatories.school_id = '$id'";
+                              $result = @mysqli_query($conn, $query);
+                              $row = @mysqli_fetch_array ($result); if ($row){ echo "$row[ORG]"; } ?></p>
 
                             </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
@@ -243,7 +254,7 @@ if(isset($_SESSION['msg'])){
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="student-update-profile.php" method="POST"  data-parsley-validate data-parsley-trigger="keyup">
+                <form action="signatory-update-profile.php" method="POST"  data-parsley-validate data-parsley-trigger="keyup">
                     <div class="modal-body">
                       <div class="container-fluid">
                         <div class="row justify-content-between">
@@ -259,22 +270,8 @@ if(isset($_SESSION['msg'])){
                          <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                        </div>
                           </div>
-                       <div class="col-5 col-md-3 mb-4">
-                       <div class="form-outline">
-                            <label class="form-label" for="signatory_type" >Signatory Type:</label>
-                            <select class="form-select" name="signatory_type" id="signatory_type" readonly>
-                            <?php
-                              $query = "SELECT signatory_id,signatory FROM tb_signatory_type";
-                              $result = @mysqli_query($conn, $query);
-                                      while($data = @mysqli_fetch_array($result)) {
-                                          echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                      }
-                            ?>
-                            </select>
-                          </div>
-                     </div>
                        </div>
-                        <div class="row">
+                        <div class="row justify-content-between">
                         <div class="col-12 col-md-4 mb-4">
                           <div class="form-outline">
                             <label class="form-label" for="first_name" >First name:</label>
@@ -287,7 +284,18 @@ if(isset($_SESSION['msg'])){
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-12 col-md-4 mb-4">
+
+                       <div class="col-5 col-md-4 mb-4">
+                       <div class="form-outline">
+                            <label class="form-label" for="signatory_type" >Signatory Type:</label>
+                            <select class="form-select" name="signatory_type" id="signatory_type" readonly >
+                              <option value="Student Adviser">Student Adviser</option>
+                              <option value="Dean">Dean</option>
+                              <option value="SDO">SDO</option>
+                            </select>
+                          </div>
+                     </div>
+                        <!--  <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                             <label class="form-label" for="user_type" >Role:</label>
                               <select class="form-select" name="user_type" id="user_type" readonly>
@@ -300,7 +308,7 @@ if(isset($_SESSION['msg'])){
                                 ?>
                               </select>
                           </div>
-                          </div>
+                        </div>-->
                           <div class="col-12 col-md-4 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="org_id" >Organization:</label>
@@ -432,7 +440,7 @@ if(isset($_SESSION['msg'])){
                 $('#email').val(data.email);
                 $('#org_id').val(data.org_id);
                 $('#college_dept').val(data.college_dept);
-                $('#signatory_type').val(data.signatorytype_id);
+                $('#signatory_type').val(data.signatory_type);
                 $('#user_type').val(data.usertype_id);
                 $('#account_created').val(data.account_created);
                 $('#profile_pic').val(data.profile_pic);
