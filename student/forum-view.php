@@ -230,7 +230,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             <div class="ibox-content forum-container ">
 
               <div class="row">
-                <div class="col-2 text-center">
+                <div class="col-12 col-md-2 mb-4 text-center">
                   <h6 class="mt-3"><?= $makerName ?></h6>
                   <img class="rounded-circle me-lg-2" src="<?= "pictures/" . $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
                   <div style="overflow: hidden; text-overflow: ellipsis;">
@@ -258,7 +258,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                   <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
                   <h6 class="mt-3 text-secondary" style="font-size: 12px;">Posted: <?= date('M. d Y', $threadid) ?></h6>
                 </div>
-                <div class="col border p-3">
+                <div class="col-12 col-md-10 border p-3">
                   <div style="overflow: hidden; text-overflow: ellipsis;">
                     <h4 class="text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $threadTitle ?></h4>
                   </div>

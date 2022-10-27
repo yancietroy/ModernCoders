@@ -315,7 +315,12 @@ if ($hasElection > 0) {
       } else {
       ?>
         <div class="text-center">
-          <h4>NO ACTIVE ELECTION</h4>
+          <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-5">No Active Election</h1>
+            <p class="lead">There is no active election at the moment.</p>
+          </div>
+        </div>
         </div>
       <?php
       }

@@ -37,7 +37,7 @@ if (isset($_POST['save-election'])) {
     // Check if date already exists
     $sqlCheckDate = mysqli_query(
         $conn,
-        "SELECT COUNT(*) As total_records FROM `tb_elections` WHERE ELECTION_ID<>$data_electionid AND ORG_ID='$orgid' AND (('$startdate'>=START_DATE AND '$startdate'<=END_DATE) 
+        "SELECT COUNT(*) As total_records FROM `tb_elections` WHERE ELECTION_ID<>$data_electionid AND ORG_ID='$orgid' AND (('$startdate'>=START_DATE AND '$startdate'<=END_DATE)
         OR ('$enddate'>=START_DATE AND '$enddate'<=END_DATE)
         OR (START_DATE>='$startdate' AND START_DATE<='$enddate')
         OR (END_DATE>='$startdate' AND END_DATE<='$enddate'))"
@@ -286,6 +286,8 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
                 </ol>
             </nav>
 
+  <h4 class="ms-3 mb-4">View Election</h4>
+
             <!-- Page content -->
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <form method="POST" action="" class="card-body px-2 mx-3 py-3 pt-4 ">
@@ -381,10 +383,10 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
 
                     <div class="d-flex flex-row justify-content-center w-100 mt-5">
                         <button type="submit" name="save-election" class="btn btn-primary col-3" id="save-election" style="<?= $enable_edit ? "" : "display: none;" ?>">Save Changes</button>
-                        <h4 class="mb-3" style="<?= $enable_edit ? "display: none;" : "" ?>">You cannot edit an ongoing or completed election.</h4>
                     </div>
 
             </div>
+              <p class="ms-3 text-muted" style="<?= $enable_edit ? "display: none;" : "" ?>"><em>* You cannot edit an ongoing or completed election.</em></p>
         </div>
 
 
@@ -395,9 +397,12 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
                         <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
                     </div>
                 </div>
+
             </footer>
         </div>
+
     </div>
+
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

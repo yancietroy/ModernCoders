@@ -43,7 +43,7 @@ if (isset($_POST['create-election'])) {
         // Check if date already exists
         $sqlCheckDate = mysqli_query(
             $conn,
-            "SELECT COUNT(*) As total_records FROM `tb_elections` WHERE ORG_ID='$orgid' AND (('$startdate'>=START_DATE AND '$startdate'<=END_DATE) 
+            "SELECT COUNT(*) As total_records FROM `tb_elections` WHERE ORG_ID='$orgid' AND (('$startdate'>=START_DATE AND '$startdate'<=END_DATE)
     OR ('$enddate'>=START_DATE AND '$enddate'<=END_DATE)
     OR (START_DATE>='$startdate' AND START_DATE<='$enddate')
     OR (END_DATE>='$startdate' AND END_DATE<='$enddate'))"
@@ -238,24 +238,32 @@ if (isset($_POST['create-election'])) {
             </nav>
 
             <!-- Page content -->
-            <h4 class="ms-3 mb-2">Create an Election</h4>
+            <h4 class="ms-3 mb-4">Create an Election</h4>
             <input type="text" id="selected_org" value="<?= $selected_org ?>" style="display: none;">
 
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <form method="POST" action="" class="card-body px-2 mx-3 py-3 pt-4 ">
                     <div class="mb-4">
-                        <label class="form-label">Election For</label>
-                        <div class="col">
-
+                        <label class="form-label">Election For:</label>
+                            <div class="row">
+                        <div class="col-12 col-sm">
+                              <div class="custom-control custom-radio col-12 col-md-12">
                             <input id="type-mother" name="ORG-TYPE" value="2" type="radio" <?= $selected_type == 2 ? "checked" : "" ?>>
                             <label for="type-mother" class="mr-4 align-middle">Mother Organizations</label>
-
-                            <input id="type-side" name="ORG-TYPE" value="3" type="radio" <?= $selected_type == 3 ? "checked" : "" ?>>
-                            <label for="type-side" class="mr-4">Side Organizations</label>
-
-                            <input id="type-parent" name="ORG-TYPE" value="1" type="radio" <?= $selected_type == 1 ? "checked" : "" ?>>
-                            <label for="type-parent">JRU Student Organization Council</label>
+                          </div>
                         </div>
+                        <div class="col-12 col-sm">
+                       <div class="custom-control custom-radio col-12 col-md-12">
+                <input id="type-side" name="ORG-TYPE" value="3" type="radio" <?= $selected_type == 3 ? "checked" : "" ?>>
+                <label for="type-side" class="mr-4">Side Organizations</label>
+              </div>
+                     </div>
+                     <div class="col-12 col-sm">
+                    <div class="custom-control custom-radio col-12 col-md-12">
+                      <input id="type-parent" name="ORG-TYPE" value="1" type="radio" <?= $selected_type == 1 ? "checked" : "" ?>>
+                      <label for="type-parent">Central Student Council</label>
+           </div>
+                  </div>
                     </div>
 
                     <div class="mb-4" id="orgcontainer">
@@ -285,7 +293,7 @@ if (isset($_POST['create-election'])) {
                         <label class="form-label" for="STARTDATE">Candidates</label>
                         <div class="row align-items-center mb-2 m-0">
                             <input class="form-control col mr-2" type="text" name="searchtext" id="searchtext" placeholder="Search Names...">
-                            <button type="button" class="btn btn-primary col-2" id="searchbtn">Search</button>
+                            <button type="button" class="btn btn-primary col-2" id="searchbtn"><i class="bi bi-search"></i> <span id="btntitle"> Search</span></button>
                         </div>
                         <div id="selections">
                             <select class="list-group m-0 w-100" id="listselections" size="6">
@@ -306,7 +314,7 @@ if (isset($_POST['create-election'])) {
                     </div>
 
                     <div class="d-flex flex-row justify-content-center w-100 mt-5 mb-2">
-                        <button type="submit" name="create-election" class="btn btn-primary col-3" id="createelection">Create Election</button>
+                        <button type="submit" name="create-election" class="btn btn-primary col-6 col-md-5" id="createelection">Create Election</button>
                     </div>
 
             </div>

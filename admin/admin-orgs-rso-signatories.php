@@ -180,7 +180,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
           <?php
-                  $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id = '$orgid' OR signatorytype_id='1' OR signatorytype_id='2'";
+                  $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id = '$orgid' OR signatorytype_id='1'";
                   $result = @mysqli_query($conn,$query);
                   $i = 0;
                   $si = " ";

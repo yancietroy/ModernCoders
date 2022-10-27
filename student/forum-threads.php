@@ -226,7 +226,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                 </div>
               </div>
 
-
+<div class="table-responsive-xxl">
               <table class="table">
                 <thead>
                   <th style="min-width: 400px;">Thread</th>
@@ -275,7 +275,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                               if ($thread['last_reply'] > 0) {
                               ?>
                                 <div class="forum-sub-title small">By <?= $thread['last_reply_name'] ?></div>
-                                <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
+                                <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <br><?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
                               <?php
                               }
                               ?>
@@ -295,7 +295,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                   ?>
                 </tbody>
               </table>
-
+</div>
               <?php
               if ($total_records > 0) {
               ?>
