@@ -77,16 +77,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
         </li>
@@ -211,18 +211,6 @@ if(isset($_SESSION['msg'])){
         <a href="admin-users.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
-  <!--  <div class="col-lg-3 col-sm-6">
-      <div class="card-counter bg-info">
-        <div class="inner">
-          <h2><i class="bi bi-check-square"></i></h2>
-          <p>Approval Management</p>
-        </div>
-        <div class="icon">
-          <i class="bi bi-check-square-fill"></i>
-        </div>
-        <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>-->
     <div class="col-lg-3 col-sm-6">
       <div class="card-counter done">
         <div class="inner">
@@ -250,17 +238,30 @@ if(isset($_SESSION['msg'])){
     <div class="col-lg-3 col-sm-6">
       <div class="card-counter bg-danger">
         <div class="inner">
-          <h2><i class="bi bi-diagram-3"></i></h2>
+          <h2><i class="bi bi-briefcase"></i> </h2>
           <p>Org Management</p>
         </div>
         <div class="icon">
-          <i class="bi bi-diagram-3-fill"></i>
+      <i class="bi bi-briefcase-fill"></i>
         </div>
         <a href="admin-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
 </div>
-  <div class="row ms-3 me-3 mt-2 justify-content-between">
+
+<!--  <div class="col-lg-3 col-sm-6">
+  <div class="card-counter bg-info">
+    <div class="inner">
+      <h2><i class="bi bi-check-square"></i></h2>
+      <p>Approval Management</p>
+    </div>
+    <div class="icon">
+      <i class="bi bi-check-square-fill"></i>
+    </div>
+    <a href="admin-approval.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</div>-->
+<!--  <div class="row ms-3 me-3 mt-2 justify-content-between">
 
       <div class="col-lg-3 col-sm-6">
         <div class="card-counter bg-warning">
@@ -310,7 +311,7 @@ if(isset($_SESSION['msg'])){
             <a href="admin-audit.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-     <!--<div class="col-lg-3 col-sm-6">
+     <div class="col-lg-3 col-sm-6">
         <div class="card-counter masterlist">
           <div class="inner">
             <h2><i class="bi bi-clock-history"></i></h2>
