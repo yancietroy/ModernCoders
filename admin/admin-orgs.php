@@ -335,7 +335,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="ORG" >Organization name:</label>
-                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"/>
+                              <input type="text" name="ORG" id="ORG" class="form-control"  maxlength="100"  style="background-color: #fff;"/>
                             </div>
                         </div>
                       </div>
