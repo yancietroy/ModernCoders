@@ -2,16 +2,17 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:index.php");
   }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +172,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND ORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
