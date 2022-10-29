@@ -1,6 +1,10 @@
 <?php
 ob_start();
 session_start();
+$org_id = $_SESSION['org_id'];
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 $ssid = $_GET['project_id'];
 //$ssid = $_SESSION['pid'];

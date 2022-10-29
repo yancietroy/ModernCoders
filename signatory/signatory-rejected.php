@@ -1,6 +1,10 @@
 <?php
 ob_start();
 session_start();
+$org_id = $_SESSION['org_id'];
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
 include('../mysql_connect.php'); include('profilepic.php');
@@ -149,7 +153,11 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
+                    if(isset($org_id) == NULL){
                     $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Rejected')";
+                  }else{
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Rejected') AND org_id = '$org_id'";
+                  }
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -516,12 +524,13 @@ if(isset($_SESSION['msg'])){
                 $('#project_type').val(data.project_type);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#org_id').val(data.org_id);
+                $('#org_id').val(data.ORG);
                 $('#requested_by').val(data.requested_by);
-                $('#position_id').val(data.position_id);
+                $('#position_id').val(data.position);
                 $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
+                $('#estimated_budget').val(data.estimated_budget);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');

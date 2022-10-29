@@ -516,12 +516,13 @@ if(isset($_SESSION['msg'])){
                 $('#project_type').val(data.project_type);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#org_id').val(data.org_id);
+                $('#org_id').val(data.ORG);
                 $('#requested_by').val(data.requested_by);
-                $('#position_id').val(data.position_id);
+                $('#position_id').val(data.position);
                 $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
+                $('#estimated_budget').val(data.estimated_budget);
                 $('#project_remarks').val(data.remarks);
                 $('#editmodal').modal('show');
                 $('#modal-lg').css('max-width','70%');
