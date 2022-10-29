@@ -49,7 +49,7 @@ if(isset($_SESSION['message'])){
             	if(!empty($_POST['email']) || !empty($_POST['password'])) {
             		ob_start();
 
-            		$query = "Select school_ID FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+            		$query = "SELECT * FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
             		$result = @mysqli_query($conn, $query);
             		$row = mysqli_fetch_array ($result);
 
@@ -57,6 +57,7 @@ if(isset($_SESSION['message'])){
             		{
             			$_SESSION['msg'] = '';
                 $_SESSION['use'] = $row[0];
+                $_SESSION['org_id'] = $row['org_id'];
                 if(isset($_SESSION['use'])){
                 header("Location:signatory/signatory-index.php");
                 @mysqli_close($conn);

@@ -1,6 +1,10 @@
 <?php
 ob_start();
 session_start();
+$org_id = $_SESSION['org_id'];
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
