@@ -2,16 +2,17 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:index.php");
   }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,16 +73,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li class="active">
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li class="active">
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          <li>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>
@@ -153,7 +154,8 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-              <li class="breadcrumb-item"> <i class="bi bi-diagram-3-fill"></i> Orgs Management</li>
+          <li class="breadcrumb-item"> <i class="bi bi-diagram-3-fill"></i> Orgs Management</li>
+          <li class="breadcrumb-item"><a href="admin-orgs.php"><?php echo "$orgName"; ?></a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-folder-fill"></i> Projects</li>
         </ol>
       </nav>
@@ -172,7 +174,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -189,7 +191,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -206,7 +208,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -223,7 +225,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-secondary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -242,7 +244,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -258,7 +260,7 @@ if(isset($_SESSION['msg'])){
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -273,10 +275,10 @@ if(isset($_SESSION['msg'])){
         </div>
 
 
-        <div class="col-lg-3 col-sm-6 mb-4">
+        <div class="col-lg-3 col-sm-6 ">
           <div class="card-counter events">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
+              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND ORG_ID = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)
@@ -304,7 +306,7 @@ if(isset($_SESSION['msg'])){
           </div>
         </div>
       </div>
-    </div>
+
       <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">

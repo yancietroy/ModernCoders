@@ -77,16 +77,16 @@ if (isset($_SESSION['msg'])) {
           </ul>
         </li>
         <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
             </li>
             <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
             </li>
             <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
           </ul>
         </li>
@@ -181,13 +181,33 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h2>2</h2>
+              <h2><?php $query = "SELECT COUNT(TITLE) FROM tb_elections";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h2>
               <p>Election List</p>
             </div>
             <div class="icon">
               <i class="bi bi-clipboard-data-fill"></i>
             </div>
             <a href="admin-election-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-info">
+            <div class="inner">
+              <h2><?php $query = "SELECT COUNT(position) FROM tb_position";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array ($result);
+                  if ($row)
+                  { echo "$row[0]"; } ?></h2>
+              <p>Position List</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-person-badge-fill"></i>
+            </div>
+            <a href="admin-position-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">

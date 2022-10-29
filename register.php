@@ -236,7 +236,7 @@ include('mysql_connect.php');
                     <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
-                           $query = "SELECT MOTHER_ORG, MORG_ID FROM tb_morg";
+                           $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 1";
                            $result = @mysqli_query($conn, $query);
                            while($data = @mysqli_fetch_array($result)) {
                                echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';

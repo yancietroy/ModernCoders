@@ -76,16 +76,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li class="active">
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li class="active">
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>
@@ -335,7 +335,7 @@ if(isset($_SESSION['msg'])){
                         <div class="col-12 col-md-6 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="ORG" >Organization name:</label>
-                              <input type="text" name="ORG" id="ORG" class="form-control"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20"  style="background-color: #fff;"   readonly/>
+                              <input type="text" name="ORG" id="ORG" class="form-control"  maxlength="100"  style="background-color: #fff;"/>
                             </div>
                         </div>
                       </div>
@@ -343,6 +343,7 @@ if(isset($_SESSION['msg'])){
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="updatedata" class="btn btn-success">Update Org</button>
                         <button type="submit" name="view" class="btn btn-primary">Visit Org</button>
                     </div>
                   </div>

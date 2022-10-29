@@ -147,16 +147,16 @@ function getVotes($election_id, $position_id, $candidate_id)
                     </ul>
                 </li>
                 <li>
-                    <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+                    <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
                     <ul class="collapse list-unstyled" id="orgsSubmenu">
                         <li>
                             <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
                         </li>
                         <li>
-                            <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+                            <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
                         </li>
                         <li>
-                            <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+                            <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
                         </li>
                     </ul>
                 </li>
@@ -232,28 +232,32 @@ function getVotes($election_id, $position_id, $candidate_id)
                     <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-bar-chart-steps"></i> Election Result</li>
                 </ol>
             </nav>
-
+  <h4 class="ms-3 mb-4">Election List</h4>
             <!-- Page content -->
-            <div class="ms-3 d-flex flex-row align-items-center">
-                <h4 class="flex-grow-1">ELECTION: <?= $data_title ?></h4>
-                <button class="btn btn-primary btn-sm px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Show Result
-                </button>
-            </div>
-            <h6 class="ms-3 mb-3"><?= $data_desc ?></h6>
-            <h6 class="ms-3">Election Date: <?= date("F d, Y", strtotime($data_startdate)) . " to " . date("F d, Y", strtotime($data_enddate)) ?></h6>
-            <div class="ms-3 mb-4 row">
-                <div class="col-sm m-0 p-0">
-                    <h6>Total Number of Voters: <?= $total_voters ?></h6>
-                </div>
-                <div class="col-sm m-0 p-0">
-                    <h6>Current Number of Votes: <?= $total_votes ?></h6>
-                </div>
-                <div class="col-sm m-0 p-0">
-                    <h6>Pending Number of Votes: <?= $total_pending ?></h6>
-                </div>
-            </div>
+            <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+                <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
+                  <div class="ms-3 d-flex flex-row align-items-center">
+                      <h3 class="flex-grow-1 lead"><strong class="pr-1 text-muted ">Name:<br></strong> <?= $data_title ?></h3>
+                  </div>
+            <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $data_desc ?></h6>
+            <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($data_startdate)) . " to " . date("F d, Y", strtotime($data_enddate)) ?></h6>
+            <div class="ms-3 mb-3 row">
+                <div class="col-sm m-0 p-0">
+                    <h6><strong class="pr-1 text-muted mb-3">Total Number of Voters:<br></strong> <?= $total_voters ?></h6>
+                </div>
+                <div class="col-sm m-0 p-0">
+                    <h6><strong class="pr-1 text-muted mb-3">Current Number of Votes:<br></strong> <?= $total_votes ?></h6>
+                </div>
+                <div class="col-sm m-0 p-0">
+                    <h6><strong class="pr-1 text-muted mb-3">Pending Number of Votes:<br></strong> <?= $total_pending ?></h6>
+                </div>
+            </div>
+              <button class="btn btn-primary btn-sm px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Show Result
+              </button>
+          </div>
+          </div>
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <div class="card-body px-2 mx-3 py-3 pt-4 ">
 

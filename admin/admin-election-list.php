@@ -89,13 +89,13 @@ if (isset($_SESSION['msg'])) {
 					<a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
 					<ul class="collapse list-unstyled" id="orgsSubmenu">
 						<li>
-							<a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+							<a href="admin-orgs.php"><i class="bi bi-diagram-3"></i> <span>Organizations</span></a>
 						</li>
 						<li>
 							<a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
 						</li>
 						<li>
-							<a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+							<a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
 						</li>
 					</ul>
 				</li>
@@ -344,7 +344,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal -  Student Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+							columns: [0, 1, 2, 3,5]
 						},
 					},
 					//{
@@ -363,7 +363,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal - Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+							columns:  [0, 1, 2, 3, 5]
 						},
 						orientation: 'landscape',
 						pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -373,7 +373,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal -  Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+							columns: [0, 1, 2, 3,5]
 						},
 						customize: function(win) {
 

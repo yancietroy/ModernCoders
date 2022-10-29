@@ -76,16 +76,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
           <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>
@@ -205,7 +205,7 @@ if(isset($_SESSION['msg'])){
                                         <div class="form-outline">
 
                                           <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
+                                          <input type="email" class="form-control" id="email" name="email" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
                                             >
                                           <div class="valid-feedback"></div>
                                         </div>

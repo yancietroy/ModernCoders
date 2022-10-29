@@ -76,21 +76,21 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li  class="active">
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
               <li>
-                <a href="admin-students.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
+                <a href="admin-students.php"><i class="bi bi-diagram-3"></i> <span>Organizations</span></a>
             </li>
             <li>
-                <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+                <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
             </li>
             <li>
-                <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+                <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
               </li>
           </ul>
         </li>
         <li>
-          <a href="admin-students.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
         <li>
           <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>

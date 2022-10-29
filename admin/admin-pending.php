@@ -2,16 +2,17 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:index.php");
   }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,16 +75,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li class="active">
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li class="active">
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          <li    >
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>
@@ -171,7 +172,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -257,8 +258,8 @@ if(isset($_SESSION['msg'])){
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $obj  </td>
@@ -404,14 +405,8 @@ if(isset($_SESSION['msg'])){
                               <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                             </div>
                           </div>
-                        <!--  <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline d-grid">
-                              <label class="form-label">Download Attachment/s:</label>
-                            <button type="button" class="btn btn-secondary btn-md">Download</button>
-                            </div>
-                          </div>
 
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+                          <!--<div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
@@ -507,7 +502,7 @@ if(isset($_SESSION['msg'])){
                     <div class="modal-footer px-0 py-0 pt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Cancel Project</a>
+                        <button class="btn btn-md btn-outline-secondary" name="Cancel" >Reschedule</a>
                     </div>
                  </form>
             </div>
@@ -543,7 +538,6 @@ if(isset($_SESSION['msg'])){
                 $('#org_id').val(data.ORG);
                 $('#requested_by').val(data.requested_by);
                 $('#position_id').val(data.position);
-                $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
                 $('#estimated_budget').val(data.estimated_budget);
@@ -552,6 +546,10 @@ if(isset($_SESSION['msg'])){
                 $('#modal-lg').css('max-width','70%');
                 }
             });
+        });
+
+          $(document).on( "click", '#btndl2', function(e){
+            $('#btndl').trigger('click');
         });
     </script>
 

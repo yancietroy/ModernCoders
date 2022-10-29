@@ -2,16 +2,17 @@
 ob_start();
 session_start();
 $id = $_SESSION['use'];
+$orgName = $_SESSION['ORG'];
+$orgid = $_SESSION['ORG_ID'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
+} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
   {
     header("Location:index.php");
   }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,16 +75,16 @@ if(isset($_SESSION['msg'])){
           </ul>
         </li>
         <li class="active">
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
+            <li class="active">
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li class="active">
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          <li  >
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>
@@ -171,7 +172,7 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision')";
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND ORG_ID = '$orgid'";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";

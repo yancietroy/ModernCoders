@@ -135,14 +135,14 @@ if (isset($_SESSION['msg'])) {
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i></i> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+          <li class="breadcrumb-item"><a href="rso.php"> <i class="bi bi-people-fill"></i></i> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
                                                                                                   $result = @mysqli_query($conn, $query);
                                                                                                   $row = mysqli_fetch_array($result);
                                                                                                   if ($row) {
                                                                                                     echo "$row[1]";
                                                                                                   }
                                                                                                   ?></a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page">Discussion Forum</li>
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-inbox-fill"></i> Discussion Forum</li>
         </ol>
       </nav>
       <!-- Page content -->
