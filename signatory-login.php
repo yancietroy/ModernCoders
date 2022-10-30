@@ -58,6 +58,7 @@ if(isset($_SESSION['message'])){
             			$_SESSION['msg'] = '';
                 $_SESSION['use'] = $row[0];
                 $_SESSION['org_id'] = $row['org_id'];
+                $_SESSION['signatory_type_id'] = $row['signatorytype_id'];
                 if(isset($_SESSION['use'])){
                 header("Location:signatory/signatory-index.php");
                 @mysqli_close($conn);

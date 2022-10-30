@@ -193,7 +193,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"><i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="rso.php"><i class="bi bi-people-fill"></i> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+          <li class="breadcrumb-item"><a href="rso.php"><i class="bi bi-people-fill"></i> <?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$morg_id'";
                                                                     $result = @mysqli_query($conn, $query);
                                                                     $row = mysqli_fetch_array($result);
                                                                     if ($row) {

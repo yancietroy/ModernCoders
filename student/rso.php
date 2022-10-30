@@ -134,10 +134,10 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item active" id="active" aria-current="page"> <?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+          <li class="breadcrumb-item active" id="active" aria-current="page"> <?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$morg_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
-                  $mOrg_name = $row['MOTHER_ORG'];
+                  $mOrg_name = $row['ORG'];
                   echo "$mOrg_name";
           ?></li>
         </ol>
