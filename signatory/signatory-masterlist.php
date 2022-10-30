@@ -1,8 +1,12 @@
 <?php
 ob_start();
 session_start();
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
+$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -149,7 +153,11 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring";
+                    if(isset($org_id) == NULL){
+                      $query = "SELECT * FROM tb_projectmonitoring";
+                    }else{
+                      $query = "SELECT * FROM tb_projectmonitoring WHERE org_id = '$org_id'";
+                    }
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";

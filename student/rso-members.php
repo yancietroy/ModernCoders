@@ -154,7 +154,7 @@ if(isset($_SESSION['msg'])){
                 <div class="row g-0 justify-content-center ">
         <div class="table-responsive ms-2">
             <?php
-                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 AND ORG_ID = 12";
+                    $query = "SELECT * FROM tb_students WHERE MORG_ID = 12 OR ORG_ID = 12";
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -377,7 +377,7 @@ if(isset($_SESSION['msg'])){
                                 <label class="form-label" for="MORG_ID" >Main Organization:</label>
                                 <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                                   <?php
-                                    $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                                    $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE org_type_id = 1";
                                     $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';

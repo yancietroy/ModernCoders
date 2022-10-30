@@ -1,4 +1,4 @@
-<?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+<?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$morg_id'";
       $result = @mysqli_query($conn, $query);
       $data = @mysqli_fetch_array ($result);
       $logoPic = $data['logo'];

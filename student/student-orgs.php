@@ -152,7 +152,7 @@ if(isset($_SESSION['msg'])){
           <div class="card display: inline-block cards">
             <img src="<?php echo $logoPic; ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
-              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_morg WHERE MORG_ID = '$morg_id'";
+              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$morg_id'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array ($result);
                   if ($row)

@@ -7,6 +7,7 @@ if(!isset($_SESSION['org_id'])){
 }
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
+$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -153,11 +154,13 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    if(isset($org_id) == NULL){
-                      $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
-                    }else{
-                      $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND org_id = '$org_id'";
-                    }
+                  if(isset($org_id) == NULL && $stid == 2){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+                  }elseif(isset($org_id) == NULL && $stid == 1){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+                  }elseif($stid == 3){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND org_id = '$org_id'";
+                  }
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
