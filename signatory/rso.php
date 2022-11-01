@@ -1,29 +1,26 @@
 <?php
 ob_start();
 session_start();
-$org_id = $_SESSION['org_id'];
-if(!isset($_SESSION['org_id'])){
-  unset($org_id);
+
+include('../router.php');
+route(3);
+
+$data_userid = $_SESSION['USER-ID'];
+include('../mysql_connect.php');
+include('profilepic.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-$id = $_SESSION['use'];
-$stid = $_SESSION['signatory_type_id'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:../signatory-login.php");
-  }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal Signatory</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -31,8 +28,7 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -71,12 +67,12 @@ if(isset($_SESSION['msg'])){
         <a href="#pageSubmenu"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>-->
         <li>
-      <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
+          <!--  <a href="#"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>-->
         </li>
         <li>
-<!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+          <!--<a href="#"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
-        </ul>
+      </ul>
       <!-- nav footer?
         <ul class="list-unstyled CTAs">
           <li>
@@ -101,22 +97,23 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$data_userid'";
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
                   <li>
@@ -139,78 +136,78 @@ if(isset($_SESSION['msg'])){
       </nav>
       <!-- Page content -->
 
-            <div class="row ms-3 me-3 mt-2 mb-2">
-              <div class="col-lg-6 col-7">
-                <h4>Student Organizations Management</h4>
+      <div class="row ms-3 me-3 mt-2 mb-2">
+        <div class="col-lg-6 col-7">
+          <h4>Student Organizations Management</h4>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center text-align-center">
+        <div class="col-12 col-lg-10 col-xl-11">
+          <div class="card shadow border-0 rounded-lg mb-4 mx-4 w-80 justify-content-center align-items-center text-align-center">
+            <div class="card-body p-4 mx-auto px-auto">
+              <div class="row g-0 ">
+                <div class="col-md-2 d-none d-sm-block text-center mt-3">
+                  <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                </div>
+                <div class='col-12 col-md-10 mt-4'>
+                  <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
+                </div>
               </div>
-            </div>
-            <div class="row justify-content-center align-items-center text-align-center">
-              <div class="col-12 col-lg-10 col-xl-11">
-                <div class="card shadow border-0 rounded-lg mb-4 mx-4 w-80 justify-content-center align-items-center text-align-center">
-                  <div class="card-body p-4 mx-auto px-auto">
-                    <div class="row g-0 ">
-                      <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                        <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
-                      </div>
-                        <div class='col-12 col-md-10 mt-4'>
-                          <h3 class="justify-content-center align-items-center text-align-center">JRU Computer Society</h3>
-                    </div>
-                    </div>
 
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="row ms-3 me-3">
-             <div class="col-lg-3 col-sm-6">
-                <div class="card-counter primary">
-                  <div class="inner">
-                    <h2><i class="bi bi-file-person"></i></h2>
-                    <p>Members</p>
-                  </div>
-                  <div class="icon">
-                  <i class="bi bi-file-person"></i>
-                  </div>
-                  <a href="rso-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="card-counter bg-warning">
-                  <div class="inner">
-                    <h2><i class="bi bi-person-badge"></i></h2>
-                    <p>Officers</p>
-                  </div>
-                  <div class="icon">
-                  <i class="bi bi-person-badge"></i>
-                  </div>
-                  <a href="rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="card-counter bg-info">
-                  <div class="inner">
-                    <h2><i class="bi bi-bell"></i></h2>
-                    <p>Notifications</p>
-                  </div>
-                  <div class="icon">
-                    <i class="bi bi-bell-fill"></i>
-                  </div>
-                  <a href="notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6" id="eventhide">
-                <div class="card-counter events">
-                  <div class="inner">
-                    <h2><i class="bi bi-calendar3"></i></h2>
-                    <p>Event Calendar</p>
-                  </div>
-                  <div class="icon">
-                <i class="bi bi-calendar3-fill"></i>
-                  </div>
-                  <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-              <!--  <div class="col-lg-3 col-sm-6">
+          </div>
+        </div>
+      </div>
+      <div class="row ms-3 me-3">
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter primary">
+            <div class="inner">
+              <h2><i class="bi bi-file-person"></i></h2>
+              <p>Members</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-file-person"></i>
+            </div>
+            <a href="rso-members.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-warning">
+            <div class="inner">
+              <h2><i class="bi bi-person-badge"></i></h2>
+              <p>Officers</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-person-badge"></i>
+            </div>
+            <a href="rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="card-counter bg-info">
+            <div class="inner">
+              <h2><i class="bi bi-bell"></i></h2>
+              <p>Notifications</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-bell-fill"></i>
+            </div>
+            <a href="notifs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6" id="eventhide">
+          <div class="card-counter events">
+            <div class="inner">
+              <h2><i class="bi bi-calendar3"></i></h2>
+              <p>Event Calendar</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-calendar3-fill"></i>
+            </div>
+            <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!--  <div class="col-lg-3 col-sm-6">
                 <div class="card-counter bg-danger">
                   <div class="inner">
                     <h3><i class="bi bi-file-bar-graph"></i></h3>
@@ -261,7 +258,7 @@ if(isset($_SESSION['msg'])){
               </div>
 
            </div>-->
-              <!--   <div class="col">
+        <!--   <div class="col">
               Card with right text alignment
                 <div class="card text-end">
                   <div class="card-body">
@@ -273,30 +270,30 @@ if(isset($_SESSION['msg'])){
               </div>
             </div> -->
 
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+        <div id="layoutAuthentication_footer">
+          <footer class="py-2 bg-light">
+            <div class="container-fluid px-4">
+              <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+              </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </div>
-    </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- form validation/sidebar toggle -->
-    <script src="../assets/js/form-validation.js"></script>
-    <!-- waves js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script> <!-- JavaScript validation -->
-    <script type="text/javascript">
-      Waves.attach('#sidebar ul li a');
-      Waves.init();
-    </script>
+      <!-- jQuery CDN - Slim version (=without AJAX) -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+      <!-- form validation/sidebar toggle -->
+      <script src="../assets/js/form-validation.js"></script>
+      <!-- waves js -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+      </script> <!-- JavaScript validation -->
+      <script type="text/javascript">
+        Waves.attach('#sidebar ul li a');
+        Waves.init();
+      </script>
 </body>
 
 </html>

@@ -2,6 +2,10 @@
 include('../mysql_connect.php');
 ob_start();
 session_start();
+
+include('../router.php');
+route(1);
+
 if (isset ($_POST['updatedata']))
 {
 	$si = $_POST['STUDENT_ID'];
@@ -24,4 +28,3 @@ if (isset ($_POST['updatedata']))
 			alert('Successfuly updated!')
 			window.location.href='student-profile.php'</script>";		}
 }
-?>

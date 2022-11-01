@@ -1,21 +1,25 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:index.php");
-  }
+
+include('../router.php');
+route(0);
+
+$data_userid = $_SESSION['USER-ID'];
+include('../mysql_connect.php');
+include('profilepic.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -25,8 +29,8 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
 
-<!-- Datatable Default-->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
+  <!-- Datatable Default-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -58,7 +62,7 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li>
+        <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
@@ -67,7 +71,7 @@ if(isset($_SESSION['msg'])){
             <li>
               <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
             </li>
-            <li  class=" ">
+            <li class=" ">
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
             <li>
@@ -78,15 +82,15 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
-              <li>
-                <a href="admin-students.php"><i class="bi bi-diagram-3"></i> <span>Organizations</span></a>
+            <li>
+              <a href="admin-students.php"><i class="bi bi-diagram-3"></i> <span>Organizations</span></a>
             </li>
             <li>
-                <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
             </li>
             <li>
-                <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
-              </li>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
+            </li>
           </ul>
         </li>
         <li class="active">
@@ -96,7 +100,7 @@ if(isset($_SESSION['msg'])){
           <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-        <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+          <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
 
       </ul>
@@ -128,17 +132,18 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$data_userid'";
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
                   <li>
@@ -164,16 +169,16 @@ if(isset($_SESSION['msg'])){
 
       <!-- Page content -->
 
-              <div class="row justify-content-center align-items-center">
-      <div class="col-11 col-lg-11 col-xl-11">
-        <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
-          <div class="card-body px-5 py-3 pt-4 ">
-            <div class="row g-0 justify-content-center align-items-center ">
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
-                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Position Registration</h3>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-11 col-lg-11 col-xl-11">
+          <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+            <div class="card-body px-5 py-3 pt-4 ">
+              <div class="row g-0 justify-content-center align-items-center ">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Position Registration</h3>
 
-                                    <!-- <form class="was-validated"> -->
-                                    <!--   <div class="row justify-content-between">
+                  <!-- <form class="was-validated"> -->
+                  <!--   <div class="row justify-content-between">
                                     <div class="col-12 col-md-4  mb-4">
                                       <div class="form-outline">
                                         <label class="form-label" for="schoolId" id="asterisk">Org ID</label>
@@ -196,36 +201,36 @@ if(isset($_SESSION['msg'])){
                                   <label class="form-label" id="asterisk">Assign Position</label>
                                   <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" >
                                     <option class="greyclr" selected disabled value="">Select Position</option>
-                                    <?php/*
+                                    <? php/*
                                           $query = "SELECT course FROM tb_course";
                                           $result = @mysqli_query($conn, $query);
                                           while($data = @mysqli_fetch_array($result)) {
                                               echo '<option value="'.$data[0].'">'.$data[0].'</option>';
                                           }
-                                    */?>
+                                    */ ?>
                                   </select>
                               </div>
                                     </div>-->
-                                  <div class="row justify-content-between">
-                                    <div class="col-12 col-md-12 col-sm-3 mb-4">
-                                      <div class="form-outline">
-                                        <label class="form-label" for="position" id="asterisk">Position Name</label>
-                                        <input type="text" name="position" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50"  class="form-control form-control-lg" required/>
-                                        <div class="valid-feedback"></div>
-                                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
-                                      </div>
-                                    </div>
-                                  <!--  <div class="col-12 col-md-12  mb-4">
+                  <div class="row justify-content-between">
+                    <div class="col-12 col-md-12 col-sm-3 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="position" id="asterisk">Position Name</label>
+                        <input type="text" name="position" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50" class="form-control form-control-lg" required />
+                        <div class="valid-feedback"></div>
+                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
+                      </div>
+                    </div>
+                    <!--  <div class="col-12 col-md-12  mb-4">
                                     <label class="form-label" id="asterisk">Assign College</label>
                                     <select class="form-select" style="width:100%;" name="college_id" id="college_id">
                                       <option class="greyclr" selected disabled value="">Select College</option>
-                                      <?php/*
+                                      <? php/*
                                            $query = "SELECT * FROM tb_collegedept";
                                            $result = @mysqli_query($conn, $query);
                                            while($data = @mysqli_fetch_array($result)) {
                                                echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                             }
-                                      */?>
+                                      */ ?>
                                     </select>
                                 </div>
                                     <div class="col-12 col-md-6  mb-4">
@@ -244,7 +249,7 @@ if(isset($_SESSION['msg'])){
                                           <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
                                           <select class="form-select" style="width:100%;" name="Signatory" id="Signatory" >
                                             <option class="greyclr" selected disabled value="">Select Adviser</option>
-                                            <?php/*
+                                            <? php/*
                                                   $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatory_type='Adviser'";
                                                   $result = @mysqli_query($conn, $query);
                                                   while($data = @mysqli_fetch_array($result)) {
@@ -260,21 +265,20 @@ if(isset($_SESSION['msg'])){
                                           <input class="form-control" name="attachments" id="orgpic" type="file" accept="image/*"/ id="orgpic" required single>
                                           <div class="valid-feedback"> </div>
                                         </div>-->
-                                          <!--<div class="invalid-feedback">Last name field invalid!</div>    </div>-->
+                    <!--<div class="invalid-feedback">Last name field invalid!</div>    </div>-->
 
-                                  </div>
-                                    <div class="col-12 col-md-12 mt-0 mb-4">
-                                      <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
+                  </div>
+                  <div class="col-12 col-md-12 mt-0 mb-4">
+                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
-                                    </div>
+                  </div>
 
 
-                                    <?php
-                                if (isset($p) || isset($_POST['submit']))
-                                  {
-                                    $pn = $_POST['position'];
+                  <?php
+                  if (isset($p) || isset($_POST['submit'])) {
+                    $pn = $_POST['position'];
 
-                                  /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
+                    /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
                                   $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
                                   if (mysqli_num_rows($duplicate)>0)
                                   {
@@ -290,12 +294,12 @@ if(isset($_SESSION['msg'])){
                                           </script>";
                                   }
                                   else{*/
-                                    try {
-                                    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-                                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_position(position) VALUES('$pn')";
-                                    $conn->exec($sql);
-                                    echo "<script type='text/javascript'>
+                    try {
+                      $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                      $sql = "INSERT INTO tb_position(position) VALUES('$pn')";
+                      $conn->exec($sql);
+                      echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
                                              title: 'Position Created',
@@ -303,23 +307,21 @@ if(isset($_SESSION['msg'])){
 
                                          })
                                           </script>";
-                                    }
-                                       catch(PDOException $e)
-                                        {
-                                              echo $sql . "
+                    } catch (PDOException $e) {
+                      echo $sql . "
                                               " . $e->getMessage();
-                                        }
-                                    $conn = null;
-                                    //}
-                                  }
-                                ?>
-                                  </form>
-       </div>
-     </div>
-   </div>
+                    }
+                    $conn = null;
+                    //}
+                  }
+                  ?>
+                </form>
+              </div>
+            </div>
+          </div>
 
 
-     </div>
+        </div>
         <!--   <div class="col">
         Card with right text alignment
           <div class="card text-end">
@@ -333,19 +335,19 @@ if(isset($_SESSION['msg'])){
       </div> -->
 
         <!-- Footer -->
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light mt-3">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+        <div id="layoutAuthentication_footer">
+          <footer class="py-2 bg-light mt-3">
+            <div class="container-fluid px-4">
+              <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+              </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </div>
     </div>
-    </div>
 
-    
+
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -357,7 +359,7 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
-  <!-- Sidebar collapse -->
+    <!-- Sidebar collapse -->
     <script type="text/javascript">
       $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {

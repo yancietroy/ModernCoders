@@ -1,15 +1,26 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+
+include('../router.php');
+route(0);
+
 include('../mysql_connect.php');
-include('profilepic.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Election";
+$nav_breadcrumbs = [
+    ["Home", "admin-index.php", "bi-house-fill"],
+    ["Election", "admin-election.php", "bi-check2-square"],
+    ["Election Archive", "admin-archive-election.php", "bi-archive-fill"],
+    ["Election Results", "", ""],
+];
+
 if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']); #display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if (!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-{
-    header("Location:index.php");
 }
 
 $election_id = $_GET['id'] ?? -1;
@@ -18,7 +29,7 @@ if ($election_id == -1) {
     header('location:admin-archive-election.php');
 }
 
-$sql = "SELECT * FROM `tb_elections` WHERE ELECTION_ID='$election_id'";
+$sql = "SELECT * FROM `tb_elections_archive` WHERE ELECTION_ID='$election_id'";
 if ($res = @mysqli_query($conn, $sql)) {
     if ($res->num_rows > 0) {
         $row = $res->fetch_assoc();
@@ -38,12 +49,12 @@ $sqlCandidates = "SELECT tb_candidate.*,tb_students.LAST_NAME,tb_students.FIRST_
 if ($res = @mysqli_query($conn, $sqlCandidates)) {
     $candidates = $res->fetch_all(MYSQLI_ASSOC);
 }
-if ($data_type == 2) {
+if ($data_type == 1) {
     $sqlTotalVoters = mysqli_query(
         $conn,
         "SELECT COUNT(*) As total_records FROM `tb_students` WHERE MORG_ID='$data_orgid'"
     );
-} else if ($data_type == 3) {
+} else if ($data_type == 2) {
     $sqlTotalVoters = mysqli_query(
         $conn,
         "SELECT COUNT(*) As total_records FROM `tb_students` WHERE ORG_ID='$data_orgid'"
@@ -112,150 +123,39 @@ function getVotes($election_id, $position_id, $candidate_id)
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar  -->
-        <nav id="sidebar">
+        <?php include("include/sidebar.php") ?>
 
-            <div class="sidebar-header text-center">
-                <a class="navbar-brand" href="admin-index.php">
-                    <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-                </a>
-            </div>
-            <div class="sidebar-heading mt-3 text-center">
-
-                <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Administrator</h5>
-            </div>
-
-            <ul class="list-unstyled components p-2">
-
-                <li>
-                    <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
-                        </li>
-                        <li>
-                            <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
-                        </li>
-                        <li>
-                            <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
-                        </li>
-                        <li>
-                            <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
-                    <ul class="collapse list-unstyled" id="orgsSubmenu">
-                        <li>
-                            <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-                        </li>
-                        <li>
-                            <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
-                        </li>
-                        <li>
-                            <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-                </li>
-                <li>
-                    <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-                </li>
-                <li class="d-lg-none">
-                    <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-                </li>
-            </ul>
-            <!-- nav footer?
-      <ul class="list-unstyled CTAs">
-        <li>
-          <a>about</a>
-        </li>
-        <li>
-          <a>logout</a>
-        </li>
-      </ul> -->
-        </nav>
-        <!-- Navbar  -->
         <div id="content">
 
-            <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
-                <div class="container-fluid">
-                    <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+            <!-- Navbar/Header  -->
+            <?php include("include/header.php") ?>
 
-                    <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                                    <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                                    <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                                                                            $result = @mysqli_query($conn, $query);
-                                                                            $row = mysqli_fetch_array($result);
-                                                                            if ($row) {
-                                                                                echo "$row[0]";
-                                                                            } ?></span></a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider" />
-                                    </li>
-                                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="admin-election.php"><i class="bi bi-check2-square"></i> Election</a></li>
-                    <li class="breadcrumb-item"><a href="admin-election-list.php"><i class="bi bi-archive-fill"></i> Election Archive</a></li>
-                    <li class="breadcrumb-item active" id="active" aria-current="page"> <i class="bi bi-bar-chart-steps"></i> Election Result</li>
-                </ol>
-            </nav>
+            <!-- breadcrumb -->
+            <?php include("include/breadcrumb.php") ?>
 
             <!-- Page content -->
-            <div class="ms-3 d-flex flex-row align-items-center">
-                <h4 class="flex-grow-1">ELECTION: <?= $data_title ?></h4>
-                <button class="btn btn-primary btn-sm px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Show Result
-                </button>
-            </div>
-            <h6 class="ms-3 mb-3"><?= $data_desc ?></h6>
-            <h6 class="ms-3">Election Date: <?= date("F d, Y", strtotime($data_startdate)) . " to " . date("F d, Y", strtotime($data_enddate)) ?></h6>
-            <div class="ms-3 mb-4 row">
-                <div class="col-sm m-0 p-0">
-                    <h6>Total Number of Voters: <?= $total_voters ?></h6>
-                </div>
-                <div class="col-sm m-0 p-0">
-                    <h6>Current Number of Votes: <?= $total_votes ?></h6>
-                </div>
-                <div class="col-sm m-0 p-0">
-                    <h6>Pending Number of Votes: <?= $total_pending ?></h6>
-                </div>
-            </div>
-
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <div class="card-body px-2 mx-3 py-3 pt-4 ">
+
+                    <div class="ms-3 d-flex flex-row align-items-center">
+                        <h3 class="flex-grow-1 lead"><strong class="pr-1 text-muted ">Name:<br></strong> <?= $data_title ?></h3>
+                    </div>
+                    <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $data_desc ?></h6>
+                    <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($data_startdate)) . " to " . date("F d, Y", strtotime($data_enddate)) ?></h6>
+                    <div class="ms-3 mb-3 row">
+                        <div class="col-sm m-0 p-0">
+                            <h6><strong class="pr-1 text-muted mb-3">Total Number of Voters:<br></strong> <?= $total_voters ?></h6>
+                        </div>
+                        <div class="col-sm m-0 p-0">
+                            <h6><strong class="pr-1 text-muted mb-3">Current Number of Votes:<br></strong> <?= $total_votes ?></h6>
+                        </div>
+                        <div class="col-sm m-0 p-0">
+                            <h6><strong class="pr-1 text-muted mb-3">Pending Number of Votes:<br></strong> <?= $total_pending ?></h6>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm px-4 ml-3 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Show Result
+                    </button>
 
                     <div class="collapse mb-4" id="collapseExample">
                         <div class="card card-body">
@@ -300,7 +200,7 @@ function getVotes($election_id, $position_id, $candidate_id)
                                                             $winnername = "There are more than 1 winner";
                                                             $invalidWinner = true;
                                                         } else {
-                                                            if ($data_type == 1) {
+                                                            if ($data_type == 0) {
                                                                 $sqlGetName = "SELECT last_name as ln,first_name as fn,middle_initial as mn FROM tb_officers WHERE student_id='$winnerid'";
                                                             } else {
                                                                 $sqlGetName = "SELECT LAST_NAME as ln,FIRST_NAME as fn,MIDDLE_NAME as mn FROM tb_students WHERE STUDENT_ID='$winnerid'";
@@ -330,6 +230,11 @@ function getVotes($election_id, $position_id, $candidate_id)
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+                <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
                     <?php
                     $sql = "SELECT POSITION_ID as id,position FROM tb_position";

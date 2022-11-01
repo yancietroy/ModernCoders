@@ -1,16 +1,27 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:index.php");
-  }
- ?>
+
+include('../router.php');
+route(0);
+
+include('../mysql_connect.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Election";
+$nav_breadcrumbs = [
+  ["Home", "admin-index.php", "bi-house-fill"],
+  ["Election", "admin-election.php", "bi-check2-square"],
+  ["Positions", "", ""],
+];
+
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,11 +38,10 @@ if(isset($_SESSION['msg'])){
   <link rel="stylesheet" href="../assets/css/style.css">
 
   <!-- Datatable Default-->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
 
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -46,148 +56,39 @@ if(isset($_SESSION['msg'])){
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="admin-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Administrator</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li>
-          <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
-        </li>
-        <li>
-          <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
-          <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
-              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
-            </li>
-            <li>
-              <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
-            </li>
-            <li>
-              <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
-            </li>
-            <li>
-              <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
-          <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
-              <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-          </li>
-          <li>
-              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
-          </li>
-          <li>
-              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
-            </li>
-        </ul>
-        </li>
-        <li class="active">
-          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-        <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-      <ul class="list-unstyled CTAs">
-        <li>
-          <a>about</a>
-        </li>
-        <li>
-          <a>logout</a>
-        </li>
-      </ul> -->
-    </nav>
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                      $result = @mysqli_query($conn, $query);
-                      $row = mysqli_fetch_array ($result);
-                      if ($row)
-                      { echo "$row[0]"; } ?></span></a>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                      </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="admin-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
-    <li class="breadcrumb-item"><a href="admin-election.php"><i class="bi bi-check2-square"></i> Election</a></li>
-    <li class="breadcrumb-item active" id="active" aria-current="page">   <i class="bi bi-person-lines-fill"></i> Positions</li>
-  </ol>
-</nav>
+      <!-- breadcrumb -->
+      <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
       <h4 class="ms-3">Candidate List</h4>
       <div class="ms-3 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3"href="admin-elect-newCandidate.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Candidate </span></a>
-        </div>
+        <a class="btn btn-default btn-circle button px-3" href="admin-elect-newCandidate.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Candidate </span></a>
+      </div>
       <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
-          <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                <div class="row g-0 justify-content-center ">
-        <div class="table-responsive ms-2">
-            <?php
-                    $query = "SELECT  tb_candidate.CANDIDATE_ID, tb_candidate.STUDENT_NO, tb_candidate.FIRST_NAME, tb_candidate.MIDDLE_INITIAL, tb_candidate.LAST_NAME, tb_candidate.section, tb_candidate.course, tb_position.position, tb_orgs.ORG FROM tb_candidate JOIN tb_position ON tb_candidate.POSITION_ID = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_candidate.ORG_ID";
-                    $result = @mysqli_query($conn,$query);
-                    $i = 0;
-                    $ci = " ";
-                    $p = " ";
-                    $org = " ";
-                    $fn = " ";
-                    $mn = " ";
-                    $ln = " ";
-                    $s = " ";
-                    $c = " ";
-                    $si = " ";
-                    echo "<table id='admin-candidates-table' class='py-3 display nowrap w-100 ms-0 stud'>
+        <div class="card-body px-2 mx-3 py-3 pt-4 ">
+          <div class="row g-0 justify-content-center ">
+            <div class="table-responsive ms-2">
+              <?php
+              $query = "SELECT  tb_candidate.CANDIDATE_ID, tb_candidate.STUDENT_NO, tb_candidate.FIRST_NAME, tb_candidate.MIDDLE_INITIAL, tb_candidate.LAST_NAME, tb_candidate.section, tb_candidate.course, tb_position.position, tb_orgs.ORG FROM tb_candidate JOIN tb_position ON tb_candidate.POSITION_ID = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_candidate.ORG_ID";
+              $result = @mysqli_query($conn, $query);
+              $i = 0;
+              $ci = " ";
+              $p = " ";
+              $org = " ";
+              $fn = " ";
+              $mn = " ";
+              $ln = " ";
+              $s = " ";
+              $c = " ";
+              $si = " ";
+              echo "<table id='admin-candidates-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th class='desktop'>Candidate ID</th>
@@ -204,22 +105,20 @@ if(isset($_SESSION['msg'])){
                         </thead>
                         <tbody>
                       ";
-                  if ($result !== false && $result->num_rows > 0)
-                  {
-                      // output data of each row
-                      while($row = $result->fetch_assoc())
-                      {
-                        $ci = $row['CANDIDATE_ID'];
-                        $si = $row['STUDENT_NO'];
-                        $p = $row['position'];
-                        $org = $row['ORG'];
-                        $fn = $row['FIRST_NAME'];
-                        $mn = $row['MIDDLE_INITIAL'];
-                        $ln = $row['LAST_NAME'];
-                        $s = $row['section'];
-                        $c = $row['course'];
+              if ($result !== false && $result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                  $ci = $row['CANDIDATE_ID'];
+                  $si = $row['STUDENT_NO'];
+                  $p = $row['position'];
+                  $org = $row['ORG'];
+                  $fn = $row['FIRST_NAME'];
+                  $mn = $row['MIDDLE_INITIAL'];
+                  $ln = $row['LAST_NAME'];
+                  $s = $row['section'];
+                  $c = $row['course'];
 
-                        echo "<tr>
+                  echo "<tr>
                               <td> $ci  </td>
                               <td> $si  </td>
                               <td> $p  </td>
@@ -235,17 +134,17 @@ if(isset($_SESSION['msg'])){
                               </td>
                               </tr>
                           ";
-                      }
-                  echo "</tbody>
+                }
+                echo "</tbody>
                         </table>";
-                  }
-                    //$conn->close();
-                  ?>
+              }
+              //$conn->close();
+              ?>
 
-         </div>
-       </div>
-     </div>
-   </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">
@@ -272,99 +171,115 @@ if(isset($_SESSION['msg'])){
     Waves.init();
   </script>
   <!-- Datatable -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-   <script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+  <script>
     $(document).ready(function() {
-        $('#admin-candidates-table').DataTable( {
-          responsive: true,
-          keys: true,
-          fixedheader:true,
-      bautoWidth:false,
-         dom: 'Bfrtip',"bFilter": true,
-         "columns": [
-        { "width": "40px" },
-        { "width": "40px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "130px" },
-        { "width": "80px" },
-        { "width": "150px" },
-        { "width": "60px" },
-        { "width": "60px" },
-        { "width": "70px" }
-  ],
-            select: 'single',
-    buttons: [
-   'pageLength',
-   {
-     extend: 'excelHtml5',
-     title: 'JRU Organizations Portal -  Officer Masterlist',
-     footer: true,
-   exportOptions: {
-     columns: [0,1,2,3,4,5,6,7]
-   },
-   } ,
-      //{
-      //  extend: 'csvHtml5',
-    //    title: 'JRU Organizations Portal - Officer Pending List',
-    //    footer: true,
-    //    customize: function (csv) {
-    //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
-   //    },
-   //    exportOptions: {
-   //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-   //  },
-   //    } ,
-      {
-        extend: 'pdfHtml5',
-        title: 'JRU Organizations Portal - Officer Masterlist',
-        footer: true,
-        exportOptions: {
-          columns: [0,1,2,3,4,5,6,7]
-      },
-      orientation : 'landscape',
-    pageSize : 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
-      } ,
-      {
-        extend: 'print',
-        title: 'JRU Organizations Portal -  Officer Masterlist',
-        footer: true,
-        exportOptions: {
-          columns: [0,1,2,3,4,5,6,7]
-      },
-      customize: function(win)
-      {
-
-          var last = null;
-          var current = null;
-          var bod = [];
-
-          var css = '@page { size: landscape; font-size: 1em;}',
-              head = win.document.head || win.document.getElementsByTagName('head')[0],
-              style = win.document.createElement('style');
-
-          style.type = 'text/css';
-          style.media = 'print';
-
-          if (style.styleSheet)
+      $('#admin-candidates-table').DataTable({
+        responsive: true,
+        keys: true,
+        fixedheader: true,
+        bautoWidth: false,
+        dom: 'Bfrtip',
+        "bFilter": true,
+        "columns": [{
+            "width": "40px"
+          },
           {
-            style.styleSheet.cssText = css;
-          }
-          else
+            "width": "40px"
+          },
           {
-            style.appendChild(win.document.createTextNode(css));
+            "width": "130px"
+          },
+          {
+            "width": "130px"
+          },
+          {
+            "width": "130px"
+          },
+          {
+            "width": "80px"
+          },
+          {
+            "width": "150px"
+          },
+          {
+            "width": "60px"
+          },
+          {
+            "width": "60px"
+          },
+          {
+            "width": "70px"
           }
+        ],
+        select: 'single',
+        buttons: [
+          'pageLength',
+          {
+            extend: 'excelHtml5',
+            title: 'JRU Organizations Portal -  Officer Masterlist',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+            },
+          },
+          //{
+          //  extend: 'csvHtml5',
+          //    title: 'JRU Organizations Portal - Officer Pending List',
+          //    footer: true,
+          //    customize: function (csv) {
+          //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
+          //    },
+          //    exportOptions: {
+          //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+          //  },
+          //    } ,
+          {
+            extend: 'pdfHtml5',
+            title: 'JRU Organizations Portal - Officer Masterlist',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+            },
+            orientation: 'landscape',
+            pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+          },
+          {
+            extend: 'print',
+            title: 'JRU Organizations Portal -  Officer Masterlist',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+            },
+            customize: function(win) {
 
-          head.appendChild(style);
-   }
-   },
-    ]
-   });
-   myTable.columns.adjust().draw();
-   });
-   </script>
+              var last = null;
+              var current = null;
+              var bod = [];
+
+              var css = '@page { size: landscape; font-size: 1em;}',
+                head = win.document.head || win.document.getElementsByTagName('head')[0],
+                style = win.document.createElement('style');
+
+              style.type = 'text/css';
+              style.media = 'print';
+
+              if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+              } else {
+                style.appendChild(win.document.createTextNode(css));
+              }
+
+              head.appendChild(style);
+            }
+          },
+        ]
+      });
+      myTable.columns.adjust().draw();
+    });
+  </script>
 </body>
 
 </html>

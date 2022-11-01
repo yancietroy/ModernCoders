@@ -2,6 +2,10 @@
 include('../mysql_connect.php');
 ob_start();
 session_start();
+
+include('../router.php');
+route(3);
+
 if (isset ($_POST['updatedata']))
 {
 	$si = $_POST['school_id'];
@@ -22,4 +26,3 @@ if (isset ($_POST['updatedata']))
 		}
 
 }
-?>

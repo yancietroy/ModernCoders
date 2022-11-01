@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+$id = $_SESSION['USER-ID'];
 include('../mysql_connect.php');
 
 	$pname = rand(1000,100000)."-".$_FILES['profilePic']['name'];
@@ -21,5 +21,3 @@ include('../mysql_connect.php');
 			alert('Profile picture updated!')
 			window.location.href='student-profile.php'</script>";
 		}
-
-?>
