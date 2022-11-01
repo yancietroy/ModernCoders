@@ -1,8 +1,13 @@
 <?php
 ob_start();
 session_start();
+$org_id = $_SESSION['org_id'];
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
+$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message

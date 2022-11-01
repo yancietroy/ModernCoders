@@ -1,8 +1,13 @@
 <?php
 ob_start();
 session_start();
+$org_id = $_SESSION['org_id'];
+if(!isset($_SESSION['org_id'])){
+  unset($org_id);
+}
 $id = $_SESSION['use'];
 unset($_SESSION['pid']);
+$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php'); include('profilepic.php');
 if(isset($_SESSION['msg'])){
     print_r($_SESSION['msg']);#display message
@@ -154,7 +159,13 @@ if(isset($_SESSION['msg'])){
       <div class="row g-0 mt-4 justify-content-center">
         <div class="table-responsive ms-0">
                 <?php
-                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending')";
+                  if(isset($org_id) == NULL && $stid == 2){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
+                  }elseif(isset($org_id) == NULL && $stid == 1){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
+                  }elseif($stid == 3){
+                    $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$org_id' AND approval_id = 1";
+                  }
                     $result = @mysqli_query($conn,$query);
                     $i = 0;
                     $ds = " ";
@@ -545,9 +556,9 @@ if(isset($_SESSION['msg'])){
                 $('#project_type').val(data.project_type);
                 $('#project_category').val(data.project_category);
                 $('#participants').val(data.participants);
-                $('#org_id').val(data.org_id);
+                $('#org_id').val(data.ORG);
                 $('#requested_by').val(data.requested_by);
-                $('#position_id').val(data.position_id);
+                $('#position_id').val(data.position);
                 $('#attachments').val(data.attachments);
                 $('#objectives').val(data.objectives);
                 $('#budget_req').val(data.budget_req);
