@@ -1,24 +1,26 @@
 <?php
 ob_start();
 session_start();
-session_destroy();
-session_start();
-if(isset($_SESSION['message'])){
-    print_r($_SESSION['message']);#display message
-    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
+
+include('../router.php');
+route(-1);
+
+if (isset($_SESSION['message'])) {
+  print_r($_SESSION['message']); #display message
+  unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
 }
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
   <link rel="stylesheet" type="text/css" title="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!--Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
@@ -40,49 +42,46 @@ if(isset($_SESSION['message'])){
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Admin Login</h1>
               <?php
-            if(isset ($_POST['submit']))
-            {
-            	include('../mysql_connect.php');
-            	$e = $_POST['email'];
-            	$p = $_POST['password'];
+              if (isset($_POST['submit'])) {
+                include('../mysql_connect.php');
+                $e = $_POST['email'];
+                $p = $_POST['password'];
 
-            	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-            		ob_start();
+                if (!empty($_POST['email']) || !empty($_POST['password'])) {
+                  ob_start();
 
-            		$query = "Select ADMIN_ID, FIRST_NAME , LAST_NAME FROM tb_admin WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-            		$result = @mysqli_query($conn, $query);
-            		$row = mysqli_fetch_array ($result);
+                  $query = "SELECT ADMIN_ID,FIRST_NAME,LAST_NAME FROM tb_admin WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
 
-            		if($row)
-            		{
-            			$_SESSION['msg'] = '';
-            			$_SESSION['use'] = $row[0];
-              			if(isset($_SESSION['use'])){
-            				header("Location:admin-index.php");
-            				@mysqli_close($conn);
-            				exit();
-            			}
-            		}
-            		else
-            		{
-                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                  if ($row) {
+                    $_SESSION['msg'] = '';
+
+                    $_SESSION['USER-TYPE'] = 0;
+                    $_SESSION['USER-ID'] = $row[0];
+                    $_SESSION['USER-NAME'] = $row[1] . " " . $row[2];
+
+                    if (isset($_SESSION['USER-TYPE'])) {
+                      header("Location:admin-index.php");
+                      @mysqli_close($conn);
+                      exit();
+                    }
+                  } else {
+                    echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Invalid email or password!</p></div>";
-
                   }
-                  }
-                  else
+                } else
                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Please enter email and password!</p></div>";
-            	mysqli_close($conn);
+                mysqli_close($conn);
 
-            	ob_end_flush();
-            }
-            ?>
+                ob_end_flush();
+              }
+              ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
-                <label class="text-muted" for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" title="Please provide a Jose Rizal University e-mail address" required> <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>
               </div>
@@ -120,7 +119,7 @@ if(isset($_SESSION['message'])){
   <!-- form validation/sidebar toggle -->
   <script src="assets/js/form-validation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
+  <script type="text/javascript">
     document.addEventListener('click', function handleClickOutsideBox(event) {
       const box = document.getElementById('box');
 
@@ -128,7 +127,7 @@ if(isset($_SESSION['message'])){
         box.style.display = 'none';
       }
     });
-    </script>
+  </script>
   <!-- waves js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   </script> <!-- JavaScript validation -->
@@ -138,17 +137,17 @@ if(isset($_SESSION['message'])){
   </script>
 
   <script type="text/javascript">
-  $(document).ready(function () {
-  $("#select-opt").change(function() {
-    var $option = $(this).find(':selected');
-    var url = $option.val();
-    if (url != "") {
-      url += "?text=" + encodeURIComponent($option.text());
-      // Show URL rather than redirect
-      window.location.href = url;
-    }
-  });
-});
+    $(document).ready(function() {
+      $("#select-opt").change(function() {
+        var $option = $(this).find(':selected');
+        var url = $option.val();
+        if (url != "") {
+          url += "?text=" + encodeURIComponent($option.text());
+          // Show URL rather than redirect
+          window.location.href = url;
+        }
+      });
+    });
   </script>
 </body>
 

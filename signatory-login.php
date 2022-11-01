@@ -1,25 +1,29 @@
 <?php
 ob_start();
+//session_start();
+//session_destroy();
 session_start();
-session_destroy();
-session_start();
-if(isset($_SESSION['message'])){
-    print_r($_SESSION['message']);#display message
-    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
+
+include('router.php');
+route(-1);
+
+if (isset($_SESSION['message'])) {
+  print_r($_SESSION['message']); #display message
+  unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
 }
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
   <!-- Our Custom CSS  -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
   <!-- Waves CSS  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap CSS  -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
@@ -40,46 +44,43 @@ if(isset($_SESSION['message'])){
             <form method="POST" class="requires-validation" novalidate autocomplete="off">
               <h1 class="fs-4 card-title fw-bold mb-3 text-uppercase text-center text-muted">Signatory Login</h1>
               <?php
-            if(isset ($_POST['submit']))
-            {
-            	include('mysql_connect.php');
-            	$e = $_POST['email'];
-            	$p = $_POST['password'];
+              if (isset($_POST['submit'])) {
+                include('mysql_connect.php');
+                $e = $_POST['email'];
+                $p = $_POST['password'];
 
-            	if(!empty($_POST['email']) || !empty($_POST['password'])) {
-            		ob_start();
+                if (!empty($_POST['email']) || !empty($_POST['password'])) {
+                  ob_start();
 
-            		$query = "Select school_ID FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
-            		$result = @mysqli_query($conn, $query);
-            		$row = mysqli_fetch_array ($result);
+                  $query = "SELECT school_ID,first_name,last_name,org_id FROM tb_signatories WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
 
-            		if($row)
-            		{
-            			$_SESSION['msg'] = '';
-                $_SESSION['use'] = $row[0];
-                if(isset($_SESSION['use'])){
-                header("Location:signatory/signatory-index.php");
-                @mysqli_close($conn);
-                exit();
-                }
-                }
-                else
-                {
-                  echo "<div class='callout bs-callout-warning pb-0' id='box'>
+                  if ($row) {
+                    $_SESSION['msg'] = '';
+                    $_SESSION['USER-TYPE'] = 3;
+                    $_SESSION['USER-ID'] = $row[0];
+                    $_SESSION['USER-ORG'] = $row[3];
+                    $_SESSION['USER-NAME'] = $row[1] . " " . $row[2];
+                    if (isset($_SESSION['USER-TYPE'])) {
+                      header("Location:signatory/signatory-index.php");
+                      @mysqli_close($conn);
+                      exit();
+                    }
+                  } else {
+                    echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Invalid email or password!</p></div>";
-
                   }
-                  }
-                  else
+                } else
                   echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
                         <p>Please enter email and password!</p></div>";
                 mysqli_close($conn);
 
                 ob_end_flush();
-                }
-                ?>
+              }
+              ?>
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
@@ -95,7 +96,7 @@ if(isset($_SESSION['message'])){
               </div>
               <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-2" id="select-opt" required>
+                <select class="selectpicker form-select mt-2 py-3" id="select-opt">
                   <option class="greyclr" selected disabled value="" text-muted>Signatory</option>
                   <option value="officer-login.php">Officer</option>
                   <option value="index.php">Student</option>
@@ -128,7 +129,7 @@ if(isset($_SESSION['message'])){
   <!-- form validation/sidebar toggle -->
   <script src="assets/js/form-validation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
+  <script type="text/javascript">
     document.addEventListener('click', function handleClickOutsideBox(event) {
       const box = document.getElementById('box');
 
@@ -136,21 +137,20 @@ if(isset($_SESSION['message'])){
         box.style.display = 'none';
       }
     });
-
-    </script>
-    <script type="text/javascript">
-    $(document).ready(function () {
-    $("#select-opt").change(function() {
-      var $option = $(this).find(':selected');
-      var url = $option.val();
-      if (url != "") {
-        url += "?text=" + encodeURIComponent($option.text());
-        // Show URL rather than redirect
-        window.location.href = url;
-      }
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#select-opt").change(function() {
+        var $option = $(this).find(':selected');
+        var url = $option.val();
+        if (url != "") {
+          url += "?text=" + encodeURIComponent($option.text());
+          // Show URL rather than redirect
+          window.location.href = url;
+        }
+      });
     });
-  });
-    </script>
+  </script>
 
 </body>
 

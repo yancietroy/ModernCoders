@@ -1,19 +1,21 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+
+include('../router.php');
+route(1);
+
+$data_userid = $_SESSION['USER-ID'];
 $morg_id = $_SESSION['morg_id'];
 $secOrg_id = $_SESSION['org_id'];
-include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+include('../mysql_connect.php');
+include('profilepic.php');
+include('../assets/img/logopics.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:../index.php");
-  }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +23,7 @@ if(isset($_SESSION['msg'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -28,13 +31,12 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-<!-- calendar
+  <!-- calendar
 <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
 <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
 </head>
@@ -71,7 +73,7 @@ if(isset($_SESSION['msg'])){
           <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
         </li>
         <li class="d-lg-none">
-          <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>
+          <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
 
         </li>
       </ul>
@@ -104,17 +106,18 @@ if(isset($_SESSION['msg'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                   <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$data_userid'";
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
                   <li>
@@ -134,7 +137,7 @@ if(isset($_SESSION['msg'])){
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="student-index.php"><i class="bi bi-house-fill"></i> Home</a></li>
           <li class="breadcrumb-item"><a href="student-orgs.php"> <i class="bi bi-people-fill"></i> Organizations</a></li>
-          <li class="breadcrumb-item"><a href="comsoc.php"> <i class="bi bi-people-fill"></i> COMSOC</a></li>
+          <li class="breadcrumb-item"><a href="rso.php"> <i class="bi bi-people-fill"></i> rso</a></li>
           <li class="breadcrumb-item active" id="active" aria-current="page">Discussion Forum</li>
         </ol>
       </nav>
@@ -147,11 +150,11 @@ if(isset($_SESSION['msg'])){
             <div class="card-body p-4 mx-auto px-auto">
               <div class="row g-0 ">
                 <div class="col-md-2 d-none d-sm-block text-center mt-3">
-                  <img src="../assets/img/comsoc-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
+                  <img src="../assets/img/rso-logo.png" class="rounded-circle img-fluid " alt="..." style="border: 2px solid #F2AC1B" width="122" height="150">
                 </div>
-                  <div class='col-12 col-md-10 mt-4'>
-                    <h3 class="justify-content-center align-items-center text-align-center">Discussion Forum</h3>
-              </div>
+                <div class='col-12 col-md-10 mt-4'>
+                  <h3 class="justify-content-center align-items-center text-align-center">Discussion Forum</h3>
+                </div>
               </div>
 
             </div>
@@ -184,15 +187,16 @@ if(isset($_SESSION['msg'])){
             <a href="msg.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-<!--
+        <!--
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h3>
               <p>Rejected</p>
             </div>
             <div class="icon">
@@ -207,9 +211,10 @@ if(isset($_SESSION['msg'])){
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Cancelled')";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h3>
               <p>Cancelled</p>
             </div>
             <div class="icon">
@@ -227,9 +232,10 @@ if(isset($_SESSION['msg'])){
             <div class="inner">
               <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
                   $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></h3>
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h3>
               <p>Ongoing</p>
             </div>
             <div class="icon">
@@ -274,7 +280,7 @@ if(isset($_SESSION['msg'])){
               <p>Forum</p>
             </div>
             <div class="icon">
-          <i class="bi bi-inbox-fill"></i>
+              <i class="bi bi-inbox-fill"></i>
             </div>
             <a href="user-forum.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -287,31 +293,31 @@ if(isset($_SESSION['msg'])){
         </div>
       </div>
     </div>
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-            </div>
+    <div id="layoutAuthentication_footer">
+      <footer class="py-2 bg-light">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
+  </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- jQuery CDN - Slim version (=without AJAX) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- form validation/sidebar toggle -->
-    <script src="../assets/js/form-validation.js"></script>
-    <!--WAVES CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script> <!-- JavaScript validation -->
-    <script type="text/javascript">
-      Waves.attach('#sidebar ul li a');
-      Waves.init();
-    </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+  <!-- form validation/sidebar toggle -->
+  <script src="../assets/js/form-validation.js"></script>
+  <!--WAVES CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script> <!-- JavaScript validation -->
+  <script type="text/javascript">
+    Waves.attach('#sidebar ul li a');
+    Waves.init();
+  </script>
 </body>
 
 </html>

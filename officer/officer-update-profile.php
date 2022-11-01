@@ -2,6 +2,10 @@
 include('../mysql_connect.php');
 ob_start();
 session_start();
+
+include('../router.php');
+route(2);
+
 if (isset ($_POST['updatedata']))
 {
 	$oi = $_POST['officer_id'];
@@ -33,4 +37,3 @@ if (isset ($_POST['updatedata']))
 		}
 	
 }
-?>

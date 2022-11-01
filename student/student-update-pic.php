@@ -1,7 +1,11 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
+
+include('../router.php');
+route(1);
+
+$data_userid = $_SESSION['USER-ID'];
 include('../mysql_connect.php');
 
 	$pname = rand(1000,100000)."-".$_FILES['profilePic']['name'];
@@ -15,11 +19,9 @@ include('../mysql_connect.php');
 
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `PROFILE_PIC` = '$pname' WHERE `STUDENT_ID` = '$id'";
+			$query = "UPDATE `tb_students` SET `PROFILE_PIC` = '$pname' WHERE `STUDENT_ID` = '$data_userid'";
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
 			alert('Profile picture updated!')
 			window.location.href='student-profile.php'</script>";		
 		}
-
-?>

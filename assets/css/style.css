@@ -1133,6 +1133,12 @@ Survey
   border-radius: 50%;
 }
 
+.logo_img {
+  object-fit: cover;
+  border: 2px solid #F2AC1B;
+   width: 80px;
+  height: 80px;
+}
 
 #indexpic {
 width: 120px;
@@ -1538,7 +1544,7 @@ Survey
     width: 110%;
     font-size: 4vw;
   }
-  #comsoctitle {
+  #rsotitle {
     width: 200%;
     font-size: 4vw;
   }
@@ -1613,7 +1619,7 @@ Survey
   width: 110%;
   font-size: 4vw;
 }
-#comsoctitle {
+#rsotitle {
   width: 200%;
   font-size: 4vw;
 }

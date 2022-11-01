@@ -1,21 +1,24 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-include('../mysql_connect.php'); include('profilepic.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:index.php");
-  }
+$data_userid = $_SESSION['USER-ID'];
+include('../mysql_connect.php');
+include('profilepic.php');
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+} else if (!isset($_SESSION['USER-ID'])) // If session is not set then redirect to Login Page
+{
+  header("Location:index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
 
   <!-- Bootstrap CSS CDN -->
@@ -25,8 +28,8 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
 
-<!-- Datatable Default-->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css"/>
+  <!-- Datatable Default-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
 
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -58,7 +61,7 @@ if(isset($_SESSION['msg'])){
         <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
-      <li class="active">
+        <li class="active">
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
@@ -70,34 +73,34 @@ if(isset($_SESSION['msg'])){
             <li>
               <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
             </li>
-            <li  class="active">
+            <li class="active">
               <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
-          </li>
-          <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
-          </li>
-          <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
             </li>
-        </ul>
-      </li>
-      <li>
-        <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-      </li>
-      <li>
-        <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-      </li>
-      <li class="d-lg-none">
-      <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-      </li>
+            <li>
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
+            </li>
+            <li>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
+        </li>
+        <li>
+          <a href="admin-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
+        </li>
+        <li class="d-lg-none">
+          <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
+        </li>
 
       </ul>
       <!-- nav footer?
@@ -123,29 +126,30 @@ if(isset($_SESSION['msg'])){
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!-- <i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                  </ul>
+                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
+                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$data_userid'";
+                                                        $result = @mysqli_query($conn, $query);
+                                                        $row = mysqli_fetch_array($result);
+                                                        if ($row) {
+                                                          echo "$row[0]";
+                                                        } ?></span></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="index.php">Logout</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -156,8 +160,8 @@ if(isset($_SESSION['msg'])){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-              <li class="breadcrumb-item">User Management</li>
-            <li class="breadcrumb-item"><a href="admin-administrators.php">Admin</a></li>
+          <li class="breadcrumb-item">User Management</li>
+          <li class="breadcrumb-item"><a href="admin-administrators.php">Admin</a></li>
           <li class="breadcrumb-item active" aria-current="page">New Admin</li>
         </ol>
       </nav>
@@ -165,102 +169,104 @@ if(isset($_SESSION['msg'])){
       <!-- Page content -->
 
       <div class="row justify-content-center align-items-center">
-      <div class="col-11 col-lg-11 col-xl-11">
-        <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
-          <div class="card-body px-5 py-3 pt-4 ">
-            <div class="row g-0 justify-content-center align-items-center ">
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
-                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
+        <div class="col-11 col-lg-11 col-xl-11">
+          <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
+            <div class="card-body px-5 py-3 pt-4 ">
+              <div class="row g-0 justify-content-center align-items-center ">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Administrator Registration Form</h3>
 
-                                    <!-- <form class="was-validated"> -->
-                                    <div class="row justify-content-between">
-                                    <div class="col-12 col-md-4  mb-4">
-                                      <div class="form-outline">
-                                        <label class="form-label" for="schoolId" id="asterisk">Admin ID</label>
-                                        <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
-                                        <div class="valid-feedback"> </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row justify-content-between">
-                                    <div class="col-12 col-md-6 col-sm-3 mb-4">
-                                      <div class="form-outline">
-                                        <label class="form-label" for="firstName" id="asterisk">First name</label>
-                                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
-                                        <div class="valid-feedback"></div>
-                                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
-                                      </div>
-                                    </div>
-                                    <div class="col-12 col-md-6  mb-4">
-                                      <div class="form-outline">
-                                        <label class="form-label" for="last_name" id="asterisk">Last name</label>
-                                        <input type="text" name="last_name"  onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest2" class="form-control form-control-lg" required="" />
-                                        <div class="valid-feedback"> </div>
-                                        <!--<div class="invalid-feedback">Last name field invalid!</div>-->
-                                      </div>
-                                    </div>
-                                  </div>
-                                    <div class="row mb-0">
-                                      <div class="col-12 col-md-4 mb-4">
-                                        <div class="form-outline">
+                  <!-- <form class="was-validated"> -->
+                  <div class="row justify-content-between">
+                    <div class="col-12 col-md-4  mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="schoolId" id="asterisk">Admin ID</label>
+                        <input type="text" name="studentid" id="studentid" class="form-control" placeholder="##-###### " required />
+                        <div class="valid-feedback"> </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row justify-content-between">
+                    <div class="col-12 col-md-6 col-sm-3 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="firstName" id="asterisk">First name</label>
+                        <input type="text" name="first_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest" class="form-control form-control-lg" required="" />
+                        <div class="valid-feedback"></div>
+                        <!--<div class="invalid-feedback">First name field invalid!</div>-->
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6  mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="last_name" id="asterisk">Last name</label>
+                        <input type="text" name="last_name" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" id="txtTest2" class="form-control form-control-lg" required="" />
+                        <div class="valid-feedback"> </div>
+                        <!--<div class="invalid-feedback">Last name field invalid!</div>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-0">
+                    <div class="col-12 col-md-4 mb-4">
+                      <div class="form-outline">
 
-                                          <label class="form-label" for="email" id="asterisk">Email</label>
-                                          <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"
-                                            >
-                                          <div class="valid-feedback"></div>
-                                        </div>
-                                      </div>
+                        <label class="form-label" for="email" id="asterisk">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;">
+                        <div class="valid-feedback"></div>
+                      </div>
+                    </div>
 
-                                      <div class="col-12 col-md-4 ">
-                                        <div class="form-outline">
+                    <div class="col-12 col-md-4 ">
+                      <div class="form-outline">
 
-                                          <label class="form-label" for="password" id="asterisk">Password</label>
-                                          <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
-                                            data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
-                                          <span class="errorspannewpassinput"></span>
-                                          <div class="valid-feedback"> </div>
-                                      </div>
-                                  </div>
-                                      <div class="col-12 col-md-4">
-                                        <div class="form-outline">
-                                          <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                                          <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8"
-                                            data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
-                                          <span class="errorspanconfirmnewpassinput"></span>
-                                          <div class="valid-feedback"> </div>
-                                        </div>
-                                      </div>
+                        <label class="form-label" for="password" id="asterisk">Password</label>
+                        <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput" data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                        <span class="errorspannewpassinput"></span>
+                        <div class="valid-feedback"> </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
+                        <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" onChange="checkPasswordMatch();" data-parsley-minlength="8" data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                        <span class="errorspanconfirmnewpassinput"></span>
+                        <div class="valid-feedback"> </div>
+                      </div>
+                    </div>
 
-                                    </div>
-                                    <div class="col-12 col-md-12 mt-0 mb-4">
-                                      <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
+                  </div>
+                  <div class="col-12 col-md-12 mt-0 mb-4">
+                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Register</button>
 
-                                    </div>
+                  </div>
 
-                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                                    <?php
-                                if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit']))
-                                  {
-                                    $si = $_POST['studentid'];
-                                    $fn = $_POST['first_name'];
-                                    $ln = $_POST['last_name'];
-                                    $e = $_POST['email'];
-                                    $p = $_POST['password'];
-                                    $duplicate=mysqli_query($conn,"select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
-                                    if (mysqli_num_rows($duplicate)>0)
-                                    {
-                                      echo "<script type='text/javascript'>
-                                            alert('User already exists!')
+                  <?php
+                  if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit'])) {
+                    $si = $_POST['studentid'];
+                    $fn = $_POST['first_name'];
+                    $ln = $_POST['last_name'];
+                    $e = $_POST['email'];
+                    $p = $_POST['password'];
+                    $pp = "img_avatar.png";
+                    $ul = "4";
+                    $duplicate = mysqli_query($conn, "select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
+                    if (mysqli_num_rows($duplicate) > 0) {
+                      echo "<script type='text/javascript'>
+                                          Swal.fire({
+                                               icon: 'error',
+                                               title: 'Error!',
+                                               text: 'User Already Exists!',
+                                               confirmButtonColor: '#F2AC1B'
+
+                                           })
                                             </script>";
-                                    }
-                                    else{
-                                    try {
-                                    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-                                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'))";
-                                    $conn->exec($sql);
-                                    echo "<script type='text/javascript'>
+                    } else {
+                      try {
+                        $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $sql = "INSERT INTO tb_admin(ADMIN_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD,  ACCOUNT_CREATED, PROFILE_PIC, USERTYPE_ID) VALUES('$si', '$fn', '$ln', '$e', SHA('$p'),NOW(), '$pp', '$ul')";
+                        $conn->exec($sql);
+                        echo "<script type='text/javascript'>
                                         Swal.fire({
                                              icon: 'success',
                                              title: 'Administrator Created',
@@ -268,23 +274,21 @@ if(isset($_SESSION['msg'])){
 
                                          })
                                           </script>";
-                                    }
-                                       catch(PDOException $e)
-                                        {
-                                              echo $sql . "
+                      } catch (PDOException $e) {
+                        echo $sql . "
                                               " . $e->getMessage();
-                                        }
-                                    $conn = null;
-                                    }
-                                    }
-                                ?>
-                                  </form>
-       </div>
-     </div>
-   </div>
+                      }
+                      $conn = null;
+                    }
+                  }
+                  ?>
+                </form>
+              </div>
+            </div>
+          </div>
 
 
-     </div>
+        </div>
         <!--   <div class="col">
         Card with right text alignment
           <div class="card text-end">
@@ -298,18 +302,18 @@ if(isset($_SESSION['msg'])){
       </div> -->
 
         <!-- Footer -->
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light mt-3">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+        <div id="layoutAuthentication_footer">
+          <footer class="py-2 bg-light mt-3">
+            <div class="container-fluid px-4">
+              <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+              </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        </div>
       </div>
     </div>
-    </div>
-  <!-- Student Modal -->
+    <!-- Student Modal -->
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -321,7 +325,7 @@ if(isset($_SESSION['msg'])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
-  <!-- Sidebar collapse -->
+    <!-- Sidebar collapse -->
     <script type="text/javascript">
       $(document).ready(function() {
         $('#sidebarCollapse').on('click', function() {

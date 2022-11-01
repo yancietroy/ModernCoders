@@ -2,6 +2,10 @@
 include('../mysql_connect.php');
 ob_start();
 session_start();
+
+include('../router.php');
+route(0);
+
 if (isset ($_POST['changePassword']))
 {
 	$si = $_POST['cid'];
@@ -20,4 +24,3 @@ if (isset ($_POST['changePassword']))
 			window.location.href='admin-profile.php'</script>";
 		}
 }
-?>
