@@ -9,6 +9,8 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Home";
 

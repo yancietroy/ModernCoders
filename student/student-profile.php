@@ -6,11 +6,9 @@ include('../router.php');
 route(1);
 
 $data_userid = $_SESSION['USER-ID'];
-$morg_id = $_SESSION['morg_id'];
-$secOrg_id = $_SESSION['org_id'];
+
 include('../mysql_connect.php');
 include('profilepic.php');
-include('../assets/img/logopics.php');
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -121,7 +119,6 @@ if (isset($_SESSION['msg'])) {
                     <hr class="dropdown-divider" />
                   </li>
                   <li><a class="dropdown-item" href="../index.php">Logout</a></li>
-
                 </ul>
               </li>
             </ul>

@@ -1,7 +1,7 @@
 <nav id="sidebar">
 
     <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="admin-index.php">
+        <a class="navbar-brand" href="signatory-index.php">
             <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
     </div>
@@ -13,7 +13,7 @@
     <ul class="list-unstyled components p-2">
 
         <li <?= str_starts_with($nav_selected, "Home") ? 'class="active"' : "" ?>>
-            <a href="student-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
+            <a href="signatory-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
         <li <?= str_starts_with($nav_selected, "Projects") ? 'class="active"' : "" ?>>
             <a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> <span>Projects</span></a>
