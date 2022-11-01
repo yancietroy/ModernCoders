@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 31, 2022 at 05:48 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 01, 2022 at 10:42 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -92,6 +92,27 @@ INSERT INTO `tb_answers` (`id`, `survey_id`, `user_id`, `answer`, `question_id`,
 (4, 1, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tempus turpis, sed fermentum risus. Praesent vitae velit rutrum, dictum massa nec, pharetra felis. Phasellus enim augue, laoreet in accumsan dictum, mollis nec lectus. Aliquam id viverra nisl. Proin quis posuere nulla. Nullam suscipit eget leo ut suscipit.', 4, '2020-11-10 15:59:43'),
 (5, 1, 3, '[qCMGO],[JNmhW]', 2, '2020-11-10 15:59:43'),
 (6, 1, 3, 'esNuP', 1, '2020-11-10 15:59:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_approval_type`
+--
+
+CREATE TABLE `tb_approval_type` (
+  `approval_id` int(2) NOT NULL,
+  `approval_pos` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_approval_type`
+--
+
+INSERT INTO `tb_approval_type` (`approval_id`, `approval_pos`) VALUES
+(1, 'Adviser'),
+(2, 'Dean'),
+(3, 'SDO'),
+(4, 'Approved');
 
 -- --------------------------------------------------------
 
@@ -494,7 +515,9 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`) VAL
 CREATE TABLE `tb_orgs_archive` (
   `ORG_ID` int(2) NOT NULL,
   `ORG` varchar(100) NOT NULL,
-  `college_id` int(11) DEFAULT NULL
+  `logo` varchar(100) DEFAULT NULL,
+  `college_id` int(11) DEFAULT NULL,
+  `org_type_id` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -582,6 +605,7 @@ CREATE TABLE `tb_projectmonitoring` (
   `budget_req` varchar(3000) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
+  `approval_id` int(2) DEFAULT NULL,
   `date_submitted` date DEFAULT NULL,
   `status_date` date DEFAULT NULL,
   `remarks` longtext DEFAULT NULL
@@ -591,11 +615,11 @@ CREATE TABLE `tb_projectmonitoring` (
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
-(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Approved', '2022-10-13', '2022-10-13', NULL),
-(57, 5, 16, NULL, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Pending', '2022-10-20', '2022-10-20', NULL);
+INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `approval_id`, `date_submitted`, `status_date`, `remarks`) VALUES
+(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Pending', 1, '2022-10-13', '2022-11-01', ''),
+(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Pending', 1, '2022-10-13', '2022-10-13', NULL),
+(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Approved', 4, '2022-10-13', '2022-10-13', NULL),
+(57, 5, 16, NULL, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Pending', 1, '2022-10-20', '2022-10-20', NULL);
 
 -- --------------------------------------------------------
 
@@ -950,6 +974,12 @@ ALTER TABLE `tb_answers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_approval_type`
+--
+ALTER TABLE `tb_approval_type`
+  ADD PRIMARY KEY (`approval_id`);
+
+--
 -- Indexes for table `tb_candidate`
 --
 ALTER TABLE `tb_candidate`
@@ -1045,7 +1075,8 @@ ALTER TABLE `tb_orgs`
 --
 ALTER TABLE `tb_orgs_archive`
   ADD PRIMARY KEY (`ORG_ID`),
-  ADD KEY `orgs_college_id_fk` (`college_id`);
+  ADD KEY `orgs_college_id_fk` (`college_id`),
+  ADD KEY `orgs_org_type_id_fk` (`org_type_id`);
 
 --
 -- Indexes for table `tb_org_type`
@@ -1066,7 +1097,8 @@ ALTER TABLE `tb_projectmonitoring`
   ADD PRIMARY KEY (`project_id`),
   ADD KEY `project_course_id` (`course_id`),
   ADD KEY `project_org_id` (`org_id`),
-  ADD KEY `project_position_id` (`position_id`);
+  ADD KEY `project_position_id` (`position_id`),
+  ADD KEY `project_approval_id` (`approval_id`);
 
 --
 -- Indexes for table `tb_questions`
@@ -1180,6 +1212,12 @@ ALTER TABLE `tb_answers`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tb_approval_type`
+--
+ALTER TABLE `tb_approval_type`
+  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tb_candidate`
 --
 ALTER TABLE `tb_candidate`
@@ -1231,6 +1269,12 @@ ALTER TABLE `tb_officers_archive`
 -- AUTO_INCREMENT for table `tb_orgs`
 --
 ALTER TABLE `tb_orgs`
+  MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `tb_orgs_archive`
+--
+ALTER TABLE `tb_orgs_archive`
   MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
@@ -1318,6 +1362,12 @@ ALTER TABLE `tb_officers`
   ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_usertype_id_fk` FOREIGN KEY (`user_type`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_projectmonitoring`
+--
+ALTER TABLE `tb_projectmonitoring`
+  ADD CONSTRAINT `project_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `tb_approval_type` (`approval_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
