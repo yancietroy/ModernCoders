@@ -1,18 +1,21 @@
 <?php
 session_start();
 ini_set('display_errors', 1);
-Class Action {
+class Action
+{
 	private $db;
 
-	public function __construct() {
+	public function __construct()
+	{
 		ob_start();
-   	include('../mysql_connect.php');
-    
-    $this->db = $conn;
+		include('../mysql_connect.php');
+
+		$this->db = $conn;
 	}
-	function __destruct() {
-	    $this->db->close();
-	    ob_end_flush();
+	function __destruct()
+	{
+		$this->db->close();
+		ob_end_flush();
 	}
 
 	/**function login(){
@@ -122,103 +125,110 @@ Class Action {
 		}
 	}**/
 
-	function save_survey(){
+	function save_survey()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k => $v){
-			if(!in_array($k, array('id')) && !is_numeric($k)){
-				if(empty($data)){
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id')) && !is_numeric($k)) {
+				if (empty($data)) {
 					$data .= " $k='$v' ";
-				}else{
+				} else {
 					$data .= ", $k='$v' ";
 				}
 			}
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$save = $this->db->query("INSERT INTO tb_survey_set set $data");
-		}else{
+		} else {
 			$save = $this->db->query("UPDATE tb_survey_set set $data where id = $id");
 		}
 
-		if($save)
+		if ($save)
 			return 1;
 	}
-	function delete_survey(){
+	function delete_survey()
+	{
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM tb_survey_set where id = ".$id);
-		if($delete){
+		$delete = $this->db->query("DELETE FROM tb_survey_set where id = " . $id);
+		if ($delete) {
 			return 1;
 		}
 	}
-	
-	function save_question(){
+
+	function save_question()
+	{
 		extract($_POST);
-			$data = " survey_id=$sid ";
-			$data .= ", question='$question' ";
-			$data .= ", type='$type' ";
-			if($type != 'textfield_s'){
-				$arr = array();
-				foreach ($label as $k => $v) {
-					$i = 0 ;
-					while($i == 0){
-						$k = substr(str_shuffle(str_repeat($x='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(5/strlen($x)) )),1,5);
-						if(!isset($arr[$k]))
-							$i = 1;
-					}
-					$arr[$k] = $v;
+		$data = " survey_id=$sid ";
+		$data .= ", question='$question' ";
+		$data .= ", type='$type' ";
+		if ($type != 'textfield_s') {
+			$arr = array();
+			foreach ($label as $k => $v) {
+				$i = 0;
+				while ($i == 0) {
+					$k = substr(str_shuffle(str_repeat($x = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(5 / strlen($x)))), 1, 5);
+					if (!isset($arr[$k]))
+						$i = 1;
 				}
-			$data .= ", frm_option='".json_encode($arr)."' ";
-			}else{
-			$data .= ", frm_option='' ";
+				$arr[$k] = $v;
 			}
-		if(empty($id)){
+			$data .= ", frm_option='" . json_encode($arr) . "' ";
+		} else {
+			$data .= ", frm_option='' ";
+		}
+		if (empty($id)) {
 			$save = $this->db->query("INSERT INTO tb_questions set $data");
-		}else{
+		} else {
 			$save = $this->db->query("UPDATE tb_questions set $data where id = $id");
 		}
 
-		if($save)
+		if ($save)
 			return 1;
 	}
-	function delete_question(){
+	function delete_question()
+	{
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM tb_questions where id = ".$id);
-		if($delete){
+		$delete = $this->db->query("DELETE FROM tb_questions where id = " . $id);
+		if ($delete) {
 			return 1;
 		}
 	}
-	function action_update_qsort(){
+	function action_update_qsort()
+	{
 		extract($_POST);
 		$i = 0;
-		foreach($qid as $k => $v){
+		foreach ($qid as $k => $v) {
 			$i++;
 			$update[] = $this->db->query("UPDATE tb_questions set order_by = $i where id = $v");
 		}
-		if(isset($update))
+		if (isset($update))
 			return 1;
 	}
-	function save_answer(){
+	function save_answer()
+	{
 		extract($_POST);
-			foreach($qid as $k => $v){
-				$data = " survey_id=$survey_id ";
-				$data .= ", question_id='$qid[$k]' ";
-				$data .= ", user_id='{$_SESSION['use']}' ";
-				if($type[$k] == 'check_opt'){
-					$data .= ", answer='[".implode("],[",$answer[$k])."]' ";
-				}else{
-					$data .= ", answer='$answer[$k]' ";
-				}
-				$save[] = $this->db->query("INSERT INTO tb_answers set $data");
+		foreach ($qid as $k => $v) {
+			$data = " survey_id=$survey_id ";
+			$data .= ", question_id='$qid[$k]' ";
+			$data .= ", user_id='{$_SESSION['USER-ID']}' ";
+			if ($type[$k] == 'check_opt') {
+				$data .= ", answer='[" . implode("],[", $answer[$k]) . "]' ";
+			} else {
+				$data .= ", answer='$answer[$k]' ";
 			}
-					
+			$save[] = $this->db->query("INSERT INTO tb_answers set $data");
+		}
 
-		if(isset($save))
+
+		if (isset($save))
 			return 1;
 	}
-	function delete_comment(){
+	function delete_comment()
+	{
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM comments where id = ".$id);
-		if($delete){
+		$delete = $this->db->query("DELETE FROM comments where id = " . $id);
+		if ($delete) {
 			return 1;
 		}
 	}

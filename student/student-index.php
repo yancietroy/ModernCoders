@@ -1,26 +1,31 @@
 <?php
 ob_start();
 session_start();
-$id = $_SESSION['use'];
-$morg_id = $_SESSION['morg_id'];
-$secOrg_id = $_SESSION['org_id'];
-include('../mysql_connect.php'); include('profilepic.php'); include('../assets/img/logopics.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
+
+include('../router.php');
+route(1);
+
+include('../mysql_connect.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(1, $data_userid);
+$nav_selected = "Home";
+
+if (isset($_SESSION['msg'])) {
+  print_r($_SESSION['msg']); #display message
+  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
-  else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:../index.php");
-  }
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
+  <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
   <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -28,8 +33,7 @@ if(isset($_SESSION['msg'])){
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Waves CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -42,112 +46,29 @@ if(isset($_SESSION['msg'])){
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="student-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li class="active">
-          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        </li>
-        <li>
-          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
-        </li>
-
-        <li>
-          <a href="election-student-index.php"> <i class="bi bi-check2-square"></i> <span>Election</span></a>
-
-        </li>
-        <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-      <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-        <ul class="list-unstyled CTAs">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>logout</a>
-          </li>
-        </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[0]"; } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
-
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Page content -->
-      <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile" >Student Profile</a></h4>
+      <!-- Page Content -->
+      <h4 class="ms-3"><a class="" href="student-profile.php" title="view student profile" aria-label="profile">Student Profile</a></h4>
       <div class="row justify-content-center align-items-center">
         <div class="col-10 col-lg-10 col-xl-11">
           <div class="card shadow border-0 rounded-lg mt-4 mb-5">
             <div class="card-body p-4">
               <div class="row g-0">
                 <div class="col-md-2 mb-2 mt-3 d-none d-sm-block text-center " id="indeximg">
-                <img class="profile_img rounded-circle" src="<?php echo $profilepic; ?>"  id="indexpic" alt="">
+                  <img class="profile_img rounded-circle" src="<?= $data_picture ?>" id="indexpic" alt="">
                 </div>
                 <?php
-                  $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$id' AND MORG_ID = '$morg_id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  {
-                    echo "
+                $query = "SELECT STUDENT_ID , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION, YEAR_LEVEL FROM tb_students WHERE STUDENT_ID = '$data_userid'";
+                $result = @mysqli_query($conn, $query);
+                $row = mysqli_fetch_array($result);
+                if ($row) {
+                  echo "
                           <div class='col-12 col-md-3 mt-2'>
                             <label class='text-muted'>Name:</label>
                             <h5>$row[1]</h5>
@@ -166,34 +87,35 @@ if(isset($_SESSION['msg'])){
                             <label class='text-muted'>Year Level:</label>
                             <h5>Year $row[5] </h5>
                         </div>";
-                        }
-                        ?>
+                }
+                ?>
               </div>
 
             </div>
           </div>
         </div>
       </div>
-      <h4 class="ms-3">My Organizations</h4>
-      <div class="row ms-3 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
-          <div class="card shadow-md display: inline-block cards">
-            <img src="<?php echo $logoPic; ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$morg_id'";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array ($result);
-                  if ($row)
-                  { echo "$row[1]"; }
-              @mysqli_close($conn);?></h5>
 
-              <a href="rso.php" class="stretched-link"></a>
+      <h4 class="ms-3">My Organizations</h4>
+      <div class="d-flex flex-row flex-wrap">
+        <?php
+        foreach ($_SESSION['USER-ORGS'] as $o_id => $o_name) {
+        ?>
+          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" style="min-height: 250px; max-height:250px; min-width:400px; max-width: 400px;">
+            <img src="<?= getOrgLogo($o_id) ?>" style="width:150px;height:150px;" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-2"><?= $o_name ?></h5>
+
+              <a href="rso.php?id=<?= $o_id ?>" class="stretched-link"></a>
             </div>
           </div>
-        </div>
-
-        <!-- Footer -->
+        <?php
+        }
+        ?>
       </div>
+
+
+      <!-- Footer -->
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">

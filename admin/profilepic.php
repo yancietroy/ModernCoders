@@ -1,4 +1,4 @@
-<?php $query = "SELECT * FROM tb_admin WHERE ADMIN_ID = '$id'";
+<?php $query = "SELECT * FROM tb_admin WHERE admin_id = '$data_userid'";
       $result = @mysqli_query($conn, $query);
       $data = @mysqli_fetch_array ($result);
       $profilePic = $data['PROFILE_PIC'];

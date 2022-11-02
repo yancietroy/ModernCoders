@@ -1,23 +1,13 @@
 <?php
 ob_start();
 session_start();
-$org_id = $_SESSION['org_id'];
-if(!isset($_SESSION['org_id'])){
-  unset($org_id);
-}
-$id = $_SESSION['use'];
-unset($_SESSION['pid']);
+
+$orgid = $_SESSION['USER-ORG'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php');
-if(isset($_SESSION['msg'])){
-    print_r($_SESSION['msg']);#display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if(!isset($_SESSION['use'])) // If session is not set then redirect to Login Page
-  {
-    header("Location:../signatory-login.php");
-  }
-    include('../mysql_connect.php');
-if ($stid == 3){
+
+if ($data_signatorytype == 3){
     if (isset($_POST['Revise']))
     {
         $id = $_POST['project_id'];
@@ -74,7 +64,7 @@ if ($stid == 3){
         window.location.href='signatory-pending.php'</script>";
         }
     }
-}elseif($stid == 2){
+}elseif($data_signatorytype == 2){
     if (isset($_POST['Revise']))
     {
         $id = $_POST['project_id'];
@@ -133,7 +123,7 @@ if ($stid == 3){
         window.location.href='signatory-pending.php'</script>";
         }
     }
-}elseif($stid == 1){
+}elseif($data_signatorytype == 1){
     if (isset($_POST['Revise']))
     {
         $id = $_POST['project_id'];
