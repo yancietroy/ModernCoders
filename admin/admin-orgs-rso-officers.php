@@ -265,7 +265,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" />
                   </div>
                 </div>
-                <div class="col-6 col-md-4 mb-4 ">
+                <div class="col-12 col-md-4 mb-4 ">
                   <label class="form-label" for="last_name">Last name </label>
                   <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" required />
                 </div>
