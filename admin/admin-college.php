@@ -55,13 +55,13 @@ if(isset($_SESSION['msg'])){
 
       <ul class="list-unstyled components p-2">
 
-        <li class="active">
+        <li>
           <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
         </li>
       <li>
           <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li class="active">
+            <li>
               <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
             </li>
             <li>
@@ -75,17 +75,17 @@ if(isset($_SESSION['msg'])){
             </li>
           </ul>
         </li>
-        <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Orgs Management</span></a>
+        <li class="active">
+          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
           <ul class="collapse list-unstyled" id="orgsSubmenu">
             <li>
               <a href="admin-orgs.php"><i class="fas fa-briefcase"></i> <span>Organizations</span></a>
           </li>
-          <li>
-              <a href="admin-projects.php"><i class="fas fa-copy"></i> <span>Projects</span></a>
+          <li class="active">
+              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
           </li>
           <li>
-              <a href="admin-forums.php"><i class="bi bi-inbox-fill"></i> <span>Forums</span></a>
+              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
             </li>
         </ul>
       </li>

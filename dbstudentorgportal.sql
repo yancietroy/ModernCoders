@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 27, 2022 at 08:29 AM
+-- Generation Time: Oct 28, 2022 at 02:39 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,23 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dbstudentorgportal`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sample`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_action`
---
-
-CREATE TABLE `tb_action` (
-  `action_id` bigint(18) NOT NULL,
-  `action_type` varchar(8000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -113,19 +96,6 @@ INSERT INTO `tb_answers` (`id`, `survey_id`, `user_id`, `answer`, `question_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_audit_trail`
---
-
-CREATE TABLE `tb_audit_trail` (
-  `audit_id` bigint(18) NOT NULL,
-  `action_id` bigint(18) NOT NULL,
-  `description` varchar(8000) NOT NULL,
-  `date_time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_candidate`
 --
 
@@ -149,7 +119,9 @@ INSERT INTO `tb_candidate` (`CANDIDATE_ID`, `ELECTION_ID`, `POSITION_ID`, `STUDE
 (24, 12, 1, 19255515),
 (25, 12, 1, 19255531),
 (26, 12, 3, 19255532),
-(27, 12, 3, 19255570);
+(27, 12, 3, 19255570),
+(28, 14, 1, 19255540),
+(29, 15, 1, 18255530);
 
 -- --------------------------------------------------------
 
@@ -225,13 +197,6 @@ INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_disc`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_disc_groups`
 --
 
@@ -259,6 +224,7 @@ INSERT INTO `tb_disc_groups` (`group_id`, `name`, `visibility`) VALUES
 CREATE TABLE `tb_disc_reply` (
   `reply_id` int(11) NOT NULL,
   `reply` int(11) NOT NULL,
+  `disc_id` int(11) NOT NULL,
   `disc_topic_id` int(11) NOT NULL,
   `org_id` int(11) NOT NULL,
   `subj_id` int(255) DEFAULT NULL
@@ -311,7 +277,7 @@ CREATE TABLE `tb_disc_threads` (
 
 INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`) VALUES
 (1666674027, 1, 19255531, 1, 'Troy Saludo', 'This is a thread title', 'thread message  alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad ', 0, 0, 1666828931, 'Jose Ricardo Ayala'),
-(1666840471, 1, 19255531, 1, 'Troy Saludo', 'New Thread', '<p><strong>Hello,</strong></p>\r\n<p><em>This is a new thread</em></p>\r\n<p><a href=\"https://getbootstrap.com/\" target=\"_blank\" rel=\"noopener\">By</a></p>\r\n<p><strong>Me</strong></p>', 0, 0, 1666840795, 'Troy Saludo'),
+(1666840471, 1, 19255531, 1, 'Troy Saludo', 'New Thread', '<p><strong>Hello,</strong></p>\n<p><em>This is a new thread</em></p>\n<p><a href=\"https://getbootstrap.com/\" target=\"_blank\" rel=\"noopener\">By</a></p>\n<p><strong>Me</strong></p>', 0, 0, 1666840795, 'Troy Saludo'),
 (1666841158, 1, 19255531, 1, 'Troy Saludo', 'New Thread 2', '<p><strong>asdas dsa&nbsp;</strong></p>\r\n<p>aslkdm sladmsak</p>\r\n<p><em><a href=\"https://www.php.net/manual/en/timezones.asia.php\" target=\"_blank\" rel=\"noopener\">asl;d,sla&nbsp;</a></em></p>', 0, 0, 1666841158, 'Troy Saludo'),
 (1666841889, 1, 19255531, 1, 'Troy Saludo', 'Another thread', '<p>asdsa dsa dsa dsa<strong> dsad sa msg body</strong></p>', 0, 0, 1666841889, 'Troy Saludo');
 
@@ -364,7 +330,9 @@ CREATE TABLE `tb_elections` (
 
 INSERT INTO `tb_elections` (`ELECTION_ID`, `ELECTION_TYPE`, `ORG_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`) VALUES
 (12, 3, 12, 'COMSOC (Side) Election', 'COMSOC (Side) Election asdsa dsadsa', '2022-10-26', '2022-11-02'),
-(13, 2, 12, 'New Election Testing', 'sad sad asd saaaa', '2022-10-25', '2022-10-29');
+(13, 2, 12, 'New Election Testing', 'sad sad asd saaaa', '2022-10-25', '2022-10-29'),
+(14, 2, 16, 'Test', 'Test', '2022-10-27', '2022-10-28'),
+(15, 2, 6, 'Test', 'Test', '2022-10-27', '2022-10-28');
 
 -- --------------------------------------------------------
 
@@ -394,78 +362,6 @@ INSERT INTO `tb_elections_archive` (`ELECTION_ID`, `ELECTION_TYPE`, `ORG_ID`, `T
 (9, 2, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
 (10, 2, 12, 'rewrewrwe', 'werwererere', '2022-08-21', '2022-09-10'),
 (11, 1, 0, 'test soc', 'asdsadsa', '2022-10-23', '2022-11-02');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_event`
---
-
-CREATE TABLE `tb_event` (
-  `event_id` int(10) NOT NULL,
-  `ORG_ID` int(2) NOT NULL,
-  `event` varchar(9000) NOT NULL,
-  `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_morg`
---
-
-CREATE TABLE `tb_morg` (
-  `MORG_ID` int(2) NOT NULL,
-  `MOTHER_ORG` varchar(100) NOT NULL,
-  `logo` varchar(200) DEFAULT NULL,
-  `college_id` int(11) DEFAULT NULL,
-  `course_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_morg`
---
-
-INSERT INTO `tb_morg` (`MORG_ID`, `MOTHER_ORG`, `logo`, `college_id`, `course_id`) VALUES
-(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, NULL),
-(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, NULL),
-(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, NULL),
-(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, NULL),
-(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 2, NULL),
-(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, NULL),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, NULL),
-(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, NULL),
-(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, NULL),
-(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, NULL),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, NULL),
-(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, NULL),
-(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, NULL),
-(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, NULL),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, NULL),
-(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, NULL),
-(17, 'Police Club (PC)', '37192-', 1, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_msg`
---
-
-CREATE TABLE `tb_msg` (
-  `msg_id` bigint(18) NOT NULL,
-  `Msg` varchar(9000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_msg_reply`
---
-
-CREATE TABLE `tb_msg_reply` (
-  `msg_reply_id` bigint(18) NOT NULL,
-  `msg` varchar(8000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -544,38 +440,39 @@ CREATE TABLE `tb_orgs` (
   `ORG_ID` int(2) NOT NULL,
   `ORG` varchar(100) NOT NULL,
   `logo` varchar(100) DEFAULT NULL,
-  `college_id` int(11) DEFAULT NULL
+  `college_id` int(11) DEFAULT NULL,
+  `org_type_id` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_orgs`
 --
 
-INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`) VALUES
-(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1),
-(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1),
-(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1),
-(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1),
-(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1),
-(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2),
-(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2),
-(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2),
-(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3),
-(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3),
-(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3),
-(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4),
-(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5),
-(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL),
-(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL),
-(19, 'Golden Z Club', 'jrusop-logo2.png', NULL),
-(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL),
-(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL),
-(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL),
-(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL),
-(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL);
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`) VALUES
+(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, 1),
+(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, 1),
+(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, 1),
+(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, 1),
+(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1, 1),
+(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, 1),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, 1),
+(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, 1),
+(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, 1),
+(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, 1),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, 1),
+(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, 1),
+(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, 1),
+(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, 1),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, 1),
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, 1),
+(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL, 2),
+(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL, 2),
+(19, 'Golden Z Club', 'jrusop-logo2.png', NULL, 2),
+(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL, 2),
+(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL, 2),
+(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL, 2),
+(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL, 2),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -592,39 +489,21 @@ CREATE TABLE `tb_orgs_archive` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_pkanswerkey`
+-- Table structure for table `tb_org_type`
 --
 
-CREATE TABLE `tb_pkanswerkey` (
-  `question_id` int(9) NOT NULL,
-  `answer` varchar(8000) NOT NULL,
-  `student_id` int(9) NOT NULL
+CREATE TABLE `tb_org_type` (
+  `org_type_id` int(2) NOT NULL,
+  `org_type` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tb_pkapplykey`
+-- Dumping data for table `tb_org_type`
 --
 
-CREATE TABLE `tb_pkapplykey` (
-  `INTERVIEW` varchar(8000) NOT NULL,
-  `STUDENT_ID` int(9) NOT NULL,
-  `ORG_ID` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_pkcastkey`
---
-
-CREATE TABLE `tb_pkcastkey` (
-  `VOTE_ID` int(2) NOT NULL,
-  `STUDENT_NO` int(9) NOT NULL,
-  `POSITION_ID` int(2) NOT NULL,
-  `CANDIDATE_VOTED` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `tb_org_type` (`org_type_id`, `org_type`) VALUES
+(1, 'Academic'),
+(2, 'Non-Academic');
 
 -- --------------------------------------------------------
 
@@ -994,12 +873,6 @@ INSERT INTO `tb_votes` (`VOTE_ID`, `VOTER_ID`, `ELECTION_ID`, `POSITION_ID`, `CA
 --
 
 --
--- Indexes for table `tb_action`
---
-ALTER TABLE `tb_action`
-  ADD PRIMARY KEY (`action_id`);
-
---
 -- Indexes for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
@@ -1018,13 +891,6 @@ ALTER TABLE `tb_admin_archive`
 --
 ALTER TABLE `tb_answers`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_audit_trail`
---
-ALTER TABLE `tb_audit_trail`
-  ADD PRIMARY KEY (`audit_id`),
-  ADD KEY `auditTrail_action_id_fk` (`action_id`);
 
 --
 -- Indexes for table `tb_candidate`
@@ -1049,10 +915,6 @@ ALTER TABLE `tb_course`
   ADD KEY `course_college_id_fk` (`college_id`);
 
 --
--- Indexes for table `tb_disc`
---
-
---
 -- Indexes for table `tb_disc_groups`
 --
 ALTER TABLE `tb_disc_groups`
@@ -1063,7 +925,7 @@ ALTER TABLE `tb_disc_groups`
 --
 ALTER TABLE `tb_disc_reply`
   ADD PRIMARY KEY (`reply_id`),
-
+  ADD KEY `discReply_disc_id_fk` (`disc_id`),
   ADD KEY `discReply_discTopic_id_fk` (`disc_topic_id`),
   ADD KEY `discReply_org_id_fk` (`org_id`),
   ADD KEY `discReply_subj_id_fk` (`subj_id`);
@@ -1101,33 +963,6 @@ ALTER TABLE `tb_elections_archive`
   ADD PRIMARY KEY (`ELECTION_ID`);
 
 --
--- Indexes for table `tb_event`
---
-ALTER TABLE `tb_event`
-  ADD PRIMARY KEY (`event_id`),
-  ADD KEY `event_org_id_fk` (`ORG_ID`);
-
---
--- Indexes for table `tb_morg`
---
-ALTER TABLE `tb_morg`
-  ADD PRIMARY KEY (`MORG_ID`),
-  ADD KEY `morg_college_id_fk` (`college_id`),
-  ADD KEY `morg_course_id_fk` (`course_id`);
-
---
--- Indexes for table `tb_msg`
---
-ALTER TABLE `tb_msg`
-  ADD PRIMARY KEY (`msg_id`);
-
---
--- Indexes for table `tb_msg_reply`
---
-ALTER TABLE `tb_msg_reply`
-  ADD PRIMARY KEY (`msg_reply_id`);
-
---
 -- Indexes for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
@@ -1154,7 +989,8 @@ ALTER TABLE `tb_officers_archive`
 --
 ALTER TABLE `tb_orgs`
   ADD PRIMARY KEY (`ORG_ID`),
-  ADD KEY `orgs_college_id_fk` (`college_id`);
+  ADD KEY `orgs_college_id_fk` (`college_id`),
+  ADD KEY `orgs_org_type_id_fk` (`org_type_id`);
 
 --
 -- Indexes for table `tb_orgs_archive`
@@ -1164,25 +1000,10 @@ ALTER TABLE `tb_orgs_archive`
   ADD KEY `orgs_college_id_fk` (`college_id`);
 
 --
--- Indexes for table `tb_pkanswerkey`
+-- Indexes for table `tb_org_type`
 --
-ALTER TABLE `tb_pkanswerkey`
-  ADD KEY `pkAnswerKey_studentID_fk` (`student_id`);
-
---
--- Indexes for table `tb_pkapplykey`
---
-ALTER TABLE `tb_pkapplykey`
-  ADD KEY `student_applyKeyStudentID_fk` (`STUDENT_ID`),
-  ADD KEY `student_appleKeyOrgID_fk` (`ORG_ID`);
-
---
--- Indexes for table `tb_pkcastkey`
---
-ALTER TABLE `tb_pkcastkey`
-  ADD KEY `pkCastkey_voteID_fk` (`VOTE_ID`),
-  ADD KEY `pkCastkey_studentNO_fk` (`STUDENT_NO`),
-  ADD KEY `pkCastkey_positionID_fk` (`POSITION_ID`);
+ALTER TABLE `tb_org_type`
+  ADD PRIMARY KEY (`org_type_id`);
 
 --
 -- Indexes for table `tb_position`
@@ -1295,7 +1116,7 @@ ALTER TABLE `tb_answers`
 -- AUTO_INCREMENT for table `tb_candidate`
 --
 ALTER TABLE `tb_candidate`
-  MODIFY `CANDIDATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `CANDIDATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tb_course`
@@ -1325,19 +1146,13 @@ ALTER TABLE `tb_disc_topics`
 -- AUTO_INCREMENT for table `tb_elections`
 --
 ALTER TABLE `tb_elections`
-  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_elections_archive`
 --
 ALTER TABLE `tb_elections_archive`
   MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `tb_morg`
---
-ALTER TABLE `tb_morg`
-  MODIFY `MORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`
@@ -1356,6 +1171,12 @@ ALTER TABLE `tb_officers_archive`
 --
 ALTER TABLE `tb_orgs`
   MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `tb_position`
+--
+ALTER TABLE `tb_position`
+  MODIFY `POSITION_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
@@ -1398,12 +1219,6 @@ ALTER TABLE `tb_admin`
   ADD CONSTRAINT `admin_usertype_id_fk` FOREIGN KEY (`USERTYPE_ID`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_audit_trail`
---
-ALTER TABLE `tb_audit_trail`
-  ADD CONSTRAINT `auditTrail_action_id_fk` FOREIGN KEY (`action_id`) REFERENCES `tb_action` (`action_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `tb_candidate`
 --
 ALTER TABLE `tb_candidate`
@@ -1416,24 +1231,13 @@ ALTER TABLE `tb_course`
   ADD CONSTRAINT `course_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_disc`
-
-
---
 -- Constraints for table `tb_disc_reply`
 --
 ALTER TABLE `tb_disc_reply`
   ADD CONSTRAINT `discReply_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-
+  ADD CONSTRAINT `discReply_disc_id_fk` FOREIGN KEY (`disc_id`) REFERENCES `tb_disc` (`disc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `discReply_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_morg`
---
-ALTER TABLE `tb_morg`
-  ADD CONSTRAINT `morg_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `morg_course_id_fk` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_officers`
@@ -1449,28 +1253,8 @@ ALTER TABLE `tb_officers`
 -- Constraints for table `tb_orgs`
 --
 ALTER TABLE `tb_orgs`
-  ADD CONSTRAINT `orgs_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_pkanswerkey`
---
-ALTER TABLE `tb_pkanswerkey`
-  ADD CONSTRAINT `pkAnswerKey_studentID_fk` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_pkapplykey`
---
-ALTER TABLE `tb_pkapplykey`
-  ADD CONSTRAINT `student_appleKeyOrgID_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_applyKeyStudentID_fk` FOREIGN KEY (`STUDENT_ID`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_pkcastkey`
---
-ALTER TABLE `tb_pkcastkey`
-  ADD CONSTRAINT `pkCastkey_positionID_fk` FOREIGN KEY (`POSITION_ID`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pkCastkey_studentNO_fk` FOREIGN KEY (`STUDENT_NO`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pkCastkey_voteID_fk` FOREIGN KEY (`VOTE_ID`) REFERENCES `tb_vote` (`VOTE_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `orgs_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orgs_org_type_id_fk` FOREIGN KEY (`org_type_id`) REFERENCES `tb_org_type` (`org_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_projectmonitoring`
@@ -1494,7 +1278,7 @@ ALTER TABLE `tb_signatories`
 --
 ALTER TABLE `tb_students`
   ADD CONSTRAINT `student_college_id_fk` FOREIGN KEY (`COLLEGE_DEPT`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_morg` (`MORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_usertype_id_fk` FOREIGN KEY (`USER_TYPE`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
