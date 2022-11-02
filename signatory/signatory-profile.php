@@ -9,7 +9,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "";
 $nav_breadcrumbs = [
   ["", "", ""],
