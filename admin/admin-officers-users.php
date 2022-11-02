@@ -131,8 +131,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $e </td>
                               <td> $c </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i> </button>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               </tr>
                           ";
@@ -370,7 +370,7 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">Officer ID:</label>
+                <label class="form-label" for="delete_id">Officer Student ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
@@ -389,12 +389,12 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var officer_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
         url: "admin-fetch-officer.php",
         method: "POST",
         data: {
-          officer_id: officer_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {
@@ -448,17 +448,17 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script>
     $(document).on('click', '.deletebtn', function() {
-      var officer_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
         url: "admin-fetch-officer.php",
         method: "POST",
         data: {
-          officer_id: officer_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#delete_id').val(data.officer_id);
+          $('#delete_id').val(data.student_id);
           $('#deletemodal').modal('show');
         }
       });

@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
+              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Pending') AND tb_projectmonitoring.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -145,7 +145,7 @@ if (isset($_SESSION['msg'])) {
                   $s = $row['status'];
                   $pt = $row['project_type'];
                   $obj = $row['objectives'];
-                  $pd = $row['project_desc'];
+                  //$pd = $row['project_desc'];
                   $sd = $row['start_date'];
                   $ed = $row['end_date'];
                   $p = $row['participants'];
@@ -153,10 +153,10 @@ if (isset($_SESSION['msg'])) {
                   //    $sd = $row['status_date'];
                   $rb = $row['requested_by'];
                   $br = $row['budget_req'];
-                  $oid = $row['org_id'];
-                  $pst = $row['position_id'];
+                  $oid = $row['ORG'];
+                  $pst = $row['position'];
                   $a = $row['attachments'];
-                  $r = $row['remarks'];
+                  //$r = $row['remarks'];
                   $eb = $row['estimated_budget'];
 
                   echo "<tr>
