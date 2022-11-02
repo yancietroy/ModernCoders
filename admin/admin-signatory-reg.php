@@ -6,7 +6,18 @@ include('../router.php');
 route(0);
 
 include('../mysql_connect.php');
-include('profilepic.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "User Management / Signatories";
+$nav_breadcrumbs = [
+  ["Home", "admin-index.php", "bi-house-fill"],
+  ["User Management", "", ""],
+  ["Signatories", "admin-signatories.php", ""],
+  ["New Signatory", "", "active"],
+];
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -44,130 +55,17 @@ if (isset($_SESSION['msg'])) {
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="admin-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Administrator</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li>
-          <a href="admin-index.php"><i class="bi bi-house-fill"></i> <span>Home</span></a>
-        </li>
-        <li class="active">
-          <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>User Management</span></a>
-          <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
-              <a href="admin-students.php"><i class="bi bi-person-badge"></i> <span>Students</span></a>
-            </li>
-            <li>
-              <a href="admin-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
-            </li>
-            <li class="active">
-              <a href="admin-signatories.php"><i class="bi bi-person-check-fill"></i> <span>Signatories</span></a>
-            </li>
-            <li>
-              <a href="admin-administrators.php"><i class="ri-user-2-fill"></i> <span>Admin</span></a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#orgsSubmenu" data-bs-toggle="collapse" href="#orgsSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-diagram-3-fill"></i> <span>Site Management</span></a>
-          <ul class="collapse list-unstyled" id="orgsSubmenu">
-            <li>
-              <a href="admin-students.php"><i class="bi bi-diagram-3"></i> <span>Organizations</span></a>
-            </li>
-            <li>
-              <a href="admin-college.php"><i class="bi bi-node-plus"></i> <span>College</span></a>
-            </li>
-            <li>
-              <a href="admin-course.php"><i class="bi bi-diagram-2"></i> <span>Course</span></a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="admin-survey.pho"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-        </li>
-
-      </ul>
-      <!-- nav footer?
-      <ul class="list-unstyled CTAs">
-        <li>
-          <a>about</a>
-        </li>
-        <li>
-          <a>logout</a>
-        </li>
-      </ul> -->
-    </nav>
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar shadow navbar-expand navbar-light bg-light" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
-
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_admin WHERE ADMIN_ID = '$data_userid'";
-                                                        $result = @mysqli_query($conn, $query);
-                                                        $row = mysqli_fetch_array($result);
-                                                        if ($row) {
-                                                          echo "$row[0]";
-                                                        } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="admin-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="index.php">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
       <!-- breadcrumb -->
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-          <li class="breadcrumb-item">User Management</li>
-          <li class="breadcrumb-item"><a href="admin-signatories.php">Signatories</a></li>
-          <li class="breadcrumb-item active" aria-current="page">New Signatory</li>
-        </ol>
-      </nav>
+      <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-
       <div class="row justify-content-center align-items-center">
         <div class="col-11 col-lg-11 col-xl-11">
           <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
