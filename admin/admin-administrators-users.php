@@ -252,6 +252,7 @@ if (isset($_SESSION['msg'])) {
             $('#FIRST_NAME').val(data.FIRST_NAME);
             $('#LAST_NAME').val(data.LAST_NAME);
             $('#EMAIL').val(data.EMAIL);
+            $('#date_submitted').val(data.ACCOUNT_CREATED);
             $('#viewmodal').modal('show');
             $('#modal-lg').css('max-width', '70%');
           }
