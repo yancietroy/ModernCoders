@@ -440,8 +440,14 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <?php
+                  if ($_SESSION['USER-POS'] <= 5 ){
+                ?>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
-                  <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
+                <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
+                <?php 
+                  } 
+                ?>
               </div>
         </form>
       </div>

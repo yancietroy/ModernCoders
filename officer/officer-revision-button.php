@@ -18,6 +18,7 @@
         $eb = $_POST['estimated_budget'];
         $obj = $_POST['objectives'];
         $s = "Pending";
+        $ati = 1;
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
@@ -39,6 +40,7 @@
                 `budget_req` ='$br',
                 `estimated_budget` ='$eb',
                 `status` ='$s',
+                `approval_id` ='$ati',
                 `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
