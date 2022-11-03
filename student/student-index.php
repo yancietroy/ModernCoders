@@ -12,10 +12,6 @@ $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Home";
 
-if (isset($_SESSION['msg'])) {
-  print_r($_SESSION['msg']); #display message
-  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +97,7 @@ if (isset($_SESSION['msg'])) {
         <?php
         foreach ($_SESSION['USER-ORGS'] as $o_id => $o_name) {
         ?>
-          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" style="min-height: 250px; max-height:250px; min-width:400px; max-width: 400px;">
+          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" id="indexcard">
             <img src="<?= getOrgLogo($o_id) ?>" style="width:150px;height:150px;" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2"><?= $o_name ?></h5>

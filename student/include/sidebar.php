@@ -1,7 +1,7 @@
 <nav id="sidebar">
 
     <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="admin-index.php">
+        <a class="navbar-brand" href="student-index.php">
             <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
         </a>
     </div>

@@ -10,8 +10,8 @@
 html,
 body {
   font-family: 'Inter', sans-serif;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   margin: 0 !important;
   padding: 0 !important;
   background-size: 100% 100%;
@@ -1521,11 +1521,23 @@ Survey
       max-height:90%;
       overflow-y: auto;
   }
+  #indexcard {
+    min-height: 250px;
+     max-height:250px;
+     min-width:400px;
+      max-width: 400px;
+  }
 }
 
 @media all and (min-width: 769px) and (max-width: 1024px) {
   #card-show {
     display: none;
+  }
+  #indexcard {
+    min-height: 250px;
+     max-height:250px;
+     min-width:400px;
+      max-width: 400px;
   }
 }
 
@@ -1600,6 +1612,12 @@ Survey
     margin-top:50%;
       max-height:90%;
       overflow-y: auto;
+  }
+  #indexcard {
+    min-height: 250px;
+     max-height:250px;
+     min-width:400px;
+      max-width: 400px;
   }
  }
 
@@ -1682,6 +1700,10 @@ display: none;
   }
 #indextitle {
 font-size: 6vw;
+}
+#indexcard {
+  min-height: 150px;
+   min-width:200px;
 }
 #usertitle {
 font-size:6vw !important;

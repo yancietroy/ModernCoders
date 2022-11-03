@@ -344,7 +344,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".pdf,.zip,.rar,.7zip" id="formFileMultiple" required multiple>
                   </div>
                 </div>
               </div>
