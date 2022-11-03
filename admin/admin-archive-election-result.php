@@ -57,7 +57,7 @@ if ($data_type == 1) {
 } else if ($data_type == 2) {
     $sqlTotalVoters = mysqli_query(
         $conn,
-        "SELECT COUNT(*) As total_records FROM `tb_students` WHERE ORG_ID='$data_orgid'"
+        "SELECT COUNT(*) As total_records FROM `tb_students` WHERE ORG_IDS LIKE '%[$data_orgid]%'"
     );
 } else {
     $sqlTotalVoters = mysqli_query(

@@ -189,7 +189,7 @@ if (isset($_SESSION['msg'])) {
                       $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                       if ($ot == "Non-Academic") {
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', '$ci', '2')";
+                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
                         $conn->exec($sql);
                         echo "<script type='text/javascript'>
                                         Swal.fire({
@@ -202,7 +202,7 @@ if (isset($_SESSION['msg'])) {
                                           });
                                           </script>";
                       } else {
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', '$ci', '1')";
+                        $sql = "INSERT INTO tb_morg(MOTHER_ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
                         $conn->exec($sql);
                         echo "<script type='text/javascript'>
                                         Swal.fire({

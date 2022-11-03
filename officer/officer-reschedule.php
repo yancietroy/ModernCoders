@@ -442,14 +442,8 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <?php
-                  if ($_SESSION['USER-POS'] <= 5 ){
-                ?>
                 <button type="submit" name="updatedata" class="btn btn-primary">Restore Project</button> <!--  update and change status to pending-->
                 <!--  update and change status to pending-->
-                <?php 
-                  } 
-                ?>
               </div>
         </form>
       </div>

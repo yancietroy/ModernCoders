@@ -313,20 +313,20 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <!--<div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
                     <select class="form-select" name="user_type" id="user_type">
-                      <?php/*
+                      <?php
                       $query = "SELECT * FROM tb_usertypes";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
                       }
-                      */?>
+                      ?>
                     </select>
                   </div>
-                </div>-->
+                </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="section">Section:</label>
@@ -533,7 +533,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
             },
           },
           //{
@@ -552,7 +552,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -562,7 +562,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7]
             },
             customize: function(win) {
 

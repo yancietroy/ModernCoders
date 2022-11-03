@@ -5,10 +5,13 @@ session_start();
 include('../router.php');
 route(1);
 
-$data_userid = $_SESSION['USER-ID'];
-
 include('../mysql_connect.php');
-include('profilepic.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(1, $data_userid);
+$nav_selected = "Home";
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -40,93 +43,14 @@ if (isset($_SESSION['msg'])) {
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="student-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li class="active">
-          <a href="student-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        </li>
-        <li>
-          <a href="student-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
-        </li>
-        <li>
-          <a href="election-student-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-        <ul class="list-unstyled CTAs">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>logout</a>
-          </li>
-        </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_students WHERE STUDENT_ID = '$data_userid'";
-                                                        $result = @mysqli_query($conn, $query);
-                                                        $name = @mysqli_fetch_array($result);
-                                                        if ($name) {
-                                                          echo "$name[0]";
-                                                        } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="student-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../index.php">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Student Profile -->
+      <!-- Page Content -->
       <h3 class="ms-3">Student Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
@@ -135,13 +59,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $profilepic; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?php echo "$name[0]"; ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
@@ -199,7 +123,7 @@ if (isset($_SESSION['msg'])) {
                       <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Organization </th>
+                      <th width="30%">Main Organization </th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
@@ -207,6 +131,21 @@ if (isset($_SESSION['msg'])) {
                           if ($row) {
                             echo "$row[ORG]";
                           } ?></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Side Organizations </th>
+                      <td width="2%">:</td>
+                      <td>
+                        <?php
+                        $orgs = array_keys($_SESSION['USER-ORGS']);
+                        $orgs = implode("','", array_slice($orgs, 1));
+                        $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID IN ('$orgs')";
+                        $result = @mysqli_query($conn, $query);
+                        while ($row = @mysqli_fetch_array($result)) {
+                          echo $row[0] . "<br>";
+                        }
+                        ?>
+                      </td>
                     </tr>
                     <tr>
                       <th width="30%">Role </th>
@@ -239,11 +178,11 @@ if (isset($_SESSION['msg'])) {
                                                                                                   echo "$row[college]";
                                                                                                 } ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[COURSE]"; ?></[td]>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Organization:<br></strong><?php $query = "SELECT tb_students.MORG_ID, tb_morg.MOTHER_ORG FROM tb_students INNER JOIN tb_morg ON tb_students.MORG_ID=tb_morg.MORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Organization:<br></strong><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
                                                                                                     $result = @mysqli_query($conn, $query);
                                                                                                     $row = @mysqli_fetch_array($result);
                                                                                                     if ($row) {
-                                                                                                      echo "$row[MOTHER_ORG]";
+                                                                                                      echo "$row[ORG]";
                                                                                                     } ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_students.USER_TYPE, tb_usertypes.user_type FROM tb_students INNER JOIN tb_usertypes ON tb_students.USER_TYPE=tb_usertypes.usertype_id WHERE tb_students.STUDENT_ID = '$data_userid'";
                                                                                             $result = @mysqli_query($conn, $query);
@@ -402,7 +341,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Student Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                       <?php
-                      $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                      $query = "SELECT ORG_ID,ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';

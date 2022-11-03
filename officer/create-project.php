@@ -277,8 +277,6 @@ if (isset($_SESSION['msg'])) {
           $eb = $_POST['estimated_budget'];
           $s = "Pending";
           $aid = '1';
-          $userName = $_SESSION['USER-NAME'];
-          $posID = $_SESSION['USER-POS'];
 
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;

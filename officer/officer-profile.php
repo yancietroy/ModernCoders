@@ -5,11 +5,14 @@ session_start();
 include('../router.php');
 route(2);
 
-$officer_id = $_SESSION['USER-ID'];
-$orgid = $_SESSION['org'];
 include('../mysql_connect.php');
-include('profilepic.php');
-include('../assets/img/orglogopics.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$orgid = $_SESSION['USER-ORG'];
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Home";
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -51,94 +54,14 @@ if (isset($_SESSION['msg'])) {
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90px" height="90px">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal Officer</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li class="active">
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        <li>
-          <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
-        </li>
-        <li>
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
-        </li>
-        <li>
-          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-          <ul class="list-unstyled CTAs">
-            <li>
-              <a>about</a>
-            </li>
-            <li>
-              <a>logout</a>
-            </li>
-          </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
-                                                        $result = @mysqli_query($conn, $query);
-                                                        $row = mysqli_fetch_array($result);
-                                                        if ($row) {
-                                                          echo "$row[0]";
-                                                        } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../officer-login.php">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- Officer Profile -->
+      <!-- Page content -->
       <h3 class="ms-3">Officer Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
@@ -147,15 +70,15 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $profilepic; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?php echo "$row[0]"; ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
-                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$officer_id'";
+                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
                 $data = @mysqli_fetch_array($result);
                 $si = $data['student_id']; ?>
@@ -198,7 +121,7 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">College </th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
+                      <td><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
                           $row = @mysqli_fetch_array($result);
                           if ($row) {
@@ -213,7 +136,7 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">Organization </th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.org_id, tb_orgs.ORG FROM tb_officers INNER JOIN tb_orgs ON tb_officers.org_id=tb_orgs.ORG_ID WHERE tb_officers.officer_id = '$officer_id'";
+                      <td><?php $query = "SELECT tb_officers.org_id, tb_orgs.ORG FROM tb_officers INNER JOIN tb_orgs ON tb_officers.org_id=tb_orgs.ORG_ID WHERE tb_officers.officer_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
                           $row = @mysqli_fetch_array($result);
                           if ($row) {
@@ -223,7 +146,7 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">Role </th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$officer_id'";
+                      <td><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
                           $row = @mysqli_fetch_array($result);
                           if ($row) {
@@ -233,7 +156,7 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">Position </th>
                       <td width="2%">:</td>
-                      <td><?php $query = "SELECT tb_officers.position_id, tb_position.position FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE tb_officers.officer_id = '$officer_id'";
+                      <td><?php $query = "SELECT tb_officers.position_id, tb_position.position FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE tb_officers.officer_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
                           $row = @mysqli_fetch_array($result);
                           if ($row) {
@@ -247,27 +170,27 @@ if (isset($_SESSION['msg'])) {
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Birthdate:<br></strong><?php echo "$data[birthdate]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Age:<br></strong><?php echo "$data[age]"; ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Email:<br></strong><?php echo "$data[email]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">College:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$data_userid'";
                                                                                                 $result = @mysqli_query($conn, $query);
                                                                                                 $row = @mysqli_fetch_array($result);
                                                                                                 if ($row) {
                                                                                                   echo "$row[college]";
                                                                                                 } ?></p>
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Course:<br></strong><?php echo "$data[course]"; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$officer_id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1  text-muted">Organization:<br></strong><?php $query = "SELECT tb_officers.college_dept, tb_collegedept.college FROM tb_officers INNER JOIN tb_collegedept ON tb_officers.college_dept=tb_collegedept.college_id WHERE tb_officers.officer_id = '$data_userid'";
                                                                                                     $result = @mysqli_query($conn, $query);
                                                                                                     $row = @mysqli_fetch_array($result);
                                                                                                     if ($row) {
                                                                                                       echo "$row[college]";
                                                                                                     } ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$officer_id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:<br></strong><?php $query = "SELECT tb_officers.user_type, tb_usertypes.user_type FROM tb_officers INNER JOIN tb_usertypes ON tb_officers.user_type=tb_usertypes.usertype_id WHERE tb_officers.officer_id = '$data_userid'";
                                                                                             $result = @mysqli_query($conn, $query);
                                                                                             $row = @mysqli_fetch_array($result);
                                                                                             if ($row) {
                                                                                               echo "$row[user_type]";
                                                                                             } ?></p>
 
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Position:<br></strong><?php $query = "SELECT tb_officers.position_id, tb_position.position FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE tb_officers.officer_id = '$officer_id'";
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Position:<br></strong><?php $query = "SELECT tb_officers.position_id, tb_position.position FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE tb_officers.officer_id = '$data_userid'";
                                                                                                 $result = @mysqli_query($conn, $query);
                                                                                                 $row = @mysqli_fetch_array($result);
                                                                                                 if ($row) {
@@ -275,8 +198,8 @@ if (isset($_SESSION['msg'])) {
                                                                                                 } ?></p>
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $officer_id . "' >Edit Profile</button>"; ?>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $officer_id . "' >Change Password</button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $data_userid . "' >Edit Profile</button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $data_userid . "' >Change Password</button>"; ?>
                   </div>
                 </div>
 

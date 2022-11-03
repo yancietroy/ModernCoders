@@ -81,17 +81,11 @@ if (isset($_SESSION['msg'])) {
               $query = "SELECT * FROM tb_students WHERE ORG_ID = '$orgid' OR MORG_ID = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
-              $si = " ";
-              $fn = " ";
-              $mn = " ";
-              $ln = " ";
-              $a = " ";
-              $g = " ";
-              $e = " ";
-              $bd = " ";
-              $yl = " ";
-              $se = " ";
-              $c = " ";
+              $ds = " ";
+              $pi = " ";
+              $pn = " ";
+              $v = " ";
+              $s = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -305,7 +299,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $query = "SELECT ORG_ID,ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -327,7 +321,7 @@ if (isset($_SESSION['msg'])) {
     </div>
   </div>
 
-  <!--<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header py-3 px-3">
@@ -353,7 +347,7 @@ if (isset($_SESSION['msg'])) {
         </form>
       </div>
     </div>
-  </div>-->
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
