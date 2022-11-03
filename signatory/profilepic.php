@@ -1,7 +1,7 @@
-<?php $query = "SELECT * FROM tb_admin WHERE admin_id = '$data_userid'";
+<?php $query = "SELECT * FROM tb_signatories WHERE school_id = '$id'";
       $result = @mysqli_query($conn, $query);
       $data = @mysqli_fetch_array ($result);
-      $profilePic = $data['PROFILE_PIC'];
+      $profilePic = $data['profile_pic'];
       $userPic = "pictures/" . $profilePic;
       $defaultPic ="pictures/img_avatar.png";
       $profilepic = (file_exists($userPic)) ? $userPic : $defaultPic;

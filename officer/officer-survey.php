@@ -60,6 +60,8 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
+      <h4 class="ms-3">Survey Dashboard</h4>
+
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
@@ -88,7 +90,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-clipboard-data-fill"></i>
             </div>
-            <a href="admin-election-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-survey-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -101,7 +103,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-archive-fill"></i>
             </div>
-            <a href="admin-archive-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="officer-archive-survey-list.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>

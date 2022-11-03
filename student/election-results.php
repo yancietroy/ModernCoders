@@ -11,6 +11,10 @@ include('include/get-userdata.php');
 $orgid = $_GET['id'] ?? -1;
 $orgName = $_SESSION['USER-ORGS'][$orgid] ?? "";
 
+if ($orgid <= 0 || !array_key_exists($orgid, $_SESSION['USER-ORGS'])) {
+    header("location:student-index.php");
+}
+
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";

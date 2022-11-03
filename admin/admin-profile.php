@@ -10,10 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(0, $data_userid);
-$nav_selected = "";
-$nav_breadcrumbs = [
-  ["", "", ""],
-];
+$nav_selected = "Home";
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -50,7 +47,7 @@ if (isset($_SESSION['msg'])) {
 <body>
   <div class="d-flex" id="wrapper">
 
-        <!-- Sidebar  -->
+    <!-- Sidebar  -->
     <?php include("include/sidebar.php") ?>
 
     <div id="content">
@@ -67,13 +64,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $data_picture; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM `tb_admin` WHERE ADMIN_ID = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
@@ -175,7 +172,7 @@ if (isset($_SESSION['msg'])) {
                           <div class="form-outline">
                             <label class="form-label" for="position_id" >Position:</label>
                             <select class="form-select" name="position_id" id="position_id" readonly>
-                            <? php/*
+                            <1? php/*
                               $query = "SELECT position_id, position FROM tb_position";
                               $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
@@ -189,7 +186,7 @@ if (isset($_SESSION['msg'])) {
                           <div class="form-outline">
                             <label class="form-label" for="org_id" >Organization:</label>
                             <select class="form-select" name="org_id" id="org_id" readonly>
-                              <? php/*
+                              <1? php/*
                               $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                               $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {
@@ -227,7 +224,7 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                               <label class="form-label" for="user_type" >User Type:</label>
                               <select class="form-select" name="user_type" id="user_type" readonly>
-                                <? php/*
+                                <1? php/*
                                   $query = "SELECT * FROM tb_usertypes";
                                   $result = @mysqli_query($conn, $query);
                                       while($data = @mysqli_fetch_array($result)) {

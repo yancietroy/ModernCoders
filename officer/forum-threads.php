@@ -49,6 +49,26 @@ if (isset($_POST['create-thread'])) {
     }
 }
 
+if (isset($_POST['lock-thread'])) {
+    $threadlock = $_POST['lock-id'] ?? -1;
+    $sqlLock = "UPDATE tb_disc_threads SET locked='1' WHERE thread_id='$threadlock'";
+    if (mysqli_query($conn, $sqlLock)) {
+        echo "<script>alert('Thread has been locked successfully.')</script>";
+    } else {
+        echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+    }
+}
+
+if (isset($_POST['unlock-thread'])) {
+    $threadunlock = $_POST['unlock-id'] ?? -1;
+    $sqlUnlock = "UPDATE tb_disc_threads SET locked='0' WHERE thread_id='$threadunlock'";
+    if (mysqli_query($conn, $sqlUnlock)) {
+        echo "<script>alert('Thread has been unlocked successfully.')</script>";
+    } else {
+        echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+    }
+}
+
 $topicsubject = "";
 $topicdesc = "";
 $topicicon = "";
@@ -152,6 +172,21 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                             <a href="forum-view.php?topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                                 <?= $thread['title'] ?>
                                                             </a>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="d-flex flex-row">
+                                                                <?php
+                                                                if ($thread['locked'] == 0) {
+                                                                ?>
+                                                                    <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;">Lock</a>
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;">Unlock</a>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -278,6 +313,56 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             </div>
         </div>
 
+        <div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header py-3 px-3">
+                        <h5 class="modal-title" id="exampleModalLabel"> Lock Thread </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="?topic=<?= $topicid ?>" method="POST">
+                        <div class="modal-body">
+                            <div class="col-12 col-md-12 justify-content-center ">
+                                <p>Are you sure do you want to lock this thread?</p>
+                                <input type="text" id="lock-id" name="lock-id" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="modal-footer py-2 px-3">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" name="lock-thread" class="btn btn-primary">Lock</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header py-3 px-3">
+                        <h5 class="modal-title" id="exampleModalLabel"> Unlock Thread </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="?topic=<?= $topicid ?>" method="POST">
+                        <div class="modal-body">
+                            <div class="col-12 col-md-12 justify-content-center ">
+                                <p>Are you sure do you want to unlock this thread?</p>
+                                <input type="text" id="unlock-id" name="unlock-id" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="modal-footer py-2 px-3">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" name="unlock-thread" class="btn btn-primary">Unlock</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -337,6 +422,16 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             $(document).on('click', '.createbtn', function() {
                 $('#createModal').modal('show');
             });
+
+            function lockThread(id) {
+                $('#lock-id').val(id);
+                $('#lockModal').modal('show');
+            }
+
+            function unlockThread(id) {
+                $('#unlock-id').val(id);
+                $('#unlockModal').modal('show');
+            }
         </script>
 </body>
 

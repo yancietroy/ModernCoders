@@ -22,9 +22,6 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 
-$selected_type = $_GET['type'] ?? 1;
-$selected_org = $_GET['org'] ?? -1;
-
 
 if (isset($_POST['create-election'])) {
     // Get General Information
@@ -140,14 +137,13 @@ if (isset($_POST['create-election'])) {
 
             <!-- Page content -->
             <h4 class="ms-3 mb-4">Create New Election</h4>
-            <input type="text" id="selected_org" value="<?= $selected_org ?>" style="display: none;">
 
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <form method="POST" action="" class="card-body px-2 mx-3 mb-4 py-3 pt-4 ">
                     <div class="mb-4" id="orgcontainer">
                         <label class="form-label" for="ORG">Organization</label>
                         <select class="form-select" name="ORG" id="ORG" required>
-                            <option value="0">JRU Student Organization Council</option>
+                            <option value="0::0">JRU Student Organization Council</option>
                             <?php
                             $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE ORG_TYPE_ID = 1";
                             if ($resOrgs = @mysqli_query($conn, $queryOrgs)) {
@@ -247,13 +243,19 @@ if (isset($_POST['create-election'])) {
             $('#can-' + id).remove();
         }
 
-        $(document).on('click', '#searchbtn', function() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
+        $(document).on('change', '#ORG', function() {
+            $('#candidatestable > tbody').empty();
+            $('#listselections').empty();
+            $('#searchtext').val('');
+        });
 
+        $(document).on('click', '#searchbtn', function() {
             const query = $('#searchtext').val();
-            const orgid = $('#ORG').val();
-            const type = urlParams.get('type');
+            const orgval = $('#ORG').val();
+
+            const orgid = orgval.split("::")[0];
+            const type = orgval.split("::")[1];
+
             $.ajax({
                 url: "include/admin-search-name.php",
                 method: "POST",
@@ -306,7 +308,7 @@ if (isset($_POST['create-election'])) {
 
                                 output = '<tr id="can-' + selectedval + '"><td class="align-middle">' + selectedtext + '</td>\n<td>' + selector + '</td>\n<td>' + delBtn + '</td>\n</tr>';
 
-                                $('#candidatestable tr:last').after(output);
+                                $('#candidatestable > tbody').append(output);
                             }
                         }
                     })

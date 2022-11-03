@@ -1,4 +1,10 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+require 'vendor/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/src/SMTP.php';
+
 session_start();
 include('mysql_connect.php');
 ?>
@@ -13,56 +19,55 @@ include('mysql_connect.php');
   <!-- our custom css -->
   <link rel="stylesheet" type="text/css" title="stylesheet" href="assets/css/style.css">
   <!-- waves css-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- bootstrap css -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
 <body class="bg">
 
 
-    <section class="h-100">
-      <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-11 col-lg-9 col-xl-9">
-            <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
-              <div class="card-body px-5 py-3 pt-4 ">
-                <div class="row g-0 justify-content-center align-items-center mt-2">
-                  <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
-                    <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
-                  </div>
+  <section class="h-100">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-11 col-lg-9 col-xl-9">
+          <div class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
+            <div class="card-body px-5 py-3 pt-4 ">
+              <div class="row g-0 justify-content-center align-items-center mt-2">
+                <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">
+                  <img class="mb-3 mx-auto d-none d-md-block" src="assets/img/jrusop-logo2.png" alt="" width="180" height="130">
                 </div>
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
+              </div>
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Student Registration Form</h3>
 
-                <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
+              <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
 
-                <?php
-              if (isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
-               || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit']))
-                {
-                  $fn = $_POST['first_name'];
-                  $ln = $_POST['last_name'];
-                  $mn = $_POST['middle_name'];
-                  $date = $_POST['birthdate'];
-                  $age = $_POST['age'];
-                  $g = $_POST['gender'];
-                  $si = $_POST['studentid'];
-                  $yl = $_POST['school_year'];
-                  $cd = $_POST['college_dept'];
-                  $course = $_POST['course'];
-                  $morgid = $_POST['org'];
-                  $section = $_POST['section'];
-                  $e = $_POST['email'];
-                  $pass = $_POST['password'];
-                  $pp = "img_avatar.png";
-                  $ul = "1";
+              <?php
+              if (
+                isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
+                || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit'])
+              ) {
+                $fn = $_POST['first_name'];
+                $ln = $_POST['last_name'];
+                $mn = $_POST['middle_name'];
+                $date = $_POST['birthdate'];
+                $age = $_POST['age'];
+                $g = $_POST['gender'];
+                $si = $_POST['studentid'];
+                $yl = $_POST['school_year'];
+                $cd = $_POST['college_dept'];
+                $course = $_POST['course'];
+                $morgid = $_POST['org'];
+                $section = $_POST['section'];
+                $e = $_POST['email'];
+                $pass = $_POST['password'];
+                $pp = "img_avatar.png";
+                $ul = "1";
 
-                  $duplicate=mysqli_query($conn,"SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
-                  if (mysqli_num_rows($duplicate)>0)
-                  {
-                    echo "<script type='text/javascript'>
+                $duplicate = mysqli_query($conn, "SELECT * FROM tb_students WHERE STUDENT_ID='$si' OR EMAIL='$e'");
+                if (mysqli_num_rows($duplicate) > 0) {
+                  echo "<script type='text/javascript'>
                         Swal.fire({
                              icon: 'error',
                              title: 'Error!',
@@ -71,38 +76,80 @@ include('mysql_connect.php');
 
                          })
                           </script>";
+                } else {
+                  // Configuration:
+                  $vc = rand(1000000000, 9999999999);
+                  $emailFrom = "capstonemailer.2022@gmail.com"; // Yung Email ng Sender
+                  $password = "cdexrbjomiuqghbd"; // App Password ng Sender
+                  $email = "$e"; // Email Recipient (Where to send)
+                  $subject = "JRUSOP Registration - Email Verification"; // Subject/header of the email
+                  $body = "Kindly verify your email address using the link below:<br><b><a href='localhost/JRUSOPNEW/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
+                  $host = "smtp.gmail.com";
+
+                  $mail = new PHPMailer(true);
+
+                  //Server settings
+                  $mail->isSMTP();
+                  $mail->Host = $host;
+                  $mail->SMTPAuth = true;
+                  $mail->Username = $emailFrom;
+                  $mail->Password = $password;
+                  $mail->SMTPOptions = array(
+                    'ssl' => array(
+                      'verify_peer' => false,
+                      'verify_peer_name' => false,
+                      'allow_self_signed' => true
+                    )
+                  );
+                  $mail->SMTPSecure = 'ssl';
+                  $mail->Port = 465;
+
+                  //Send Email
+                  $mail->setFrom($emailFrom);
+
+                  //Recipients
+                  $mail->addAddress($email);
+                  $mail->addReplyTo($emailFrom);
+
+                  $mail->isHTML(true);
+                  $mail->Subject = $subject;
+                  $mail->Body    = $body;
+
+                  // Returns true if successfully sent otherwise false
+                  if ($mail->send()) {
+                    $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE, VCODE)
+                    VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul', '$vc')";
+
+                    try {
+                      /*$conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                      $conn->exec($sql);*/
+                      mysqli_query($conn, $sql);
+                      echo "
+                    <script type='text/javascript'>
+                        Swal.fire({
+                             allowOutsideClick: false,
+                             icon: 'success',
+                             title: 'Successfuly Registered',
+                             text:'Please check your email to verify your account',
+                             confirmButtonColor: '#F2AC1B'
+                         }).then(function() {
+                              window.location = 'index.php';
+                          });
+                          </script>";
+                    } catch (PDOException $e) {
+                      echo $sql . "
+                              " . $e->getMessage();
+                    }
                   }
-                  else{
-                  try {
-                  $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-                  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $sql = "INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE)
-                  VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul')";
-                  $conn->exec($sql);
-                  echo "
-                  <script type='text/javascript'>
-                      Swal.fire({
-                           allowOutsideClick: false,
-                           icon: 'success',
-                           title: 'Successfuly Registered',
-                           text:'Please check your email to verify your account',
-                           confirmButtonColor: '#F2AC1B'
-                       }).then(function() {
-                            window.location = 'index.php';
-                        });
-                        </script>";
-                  }
-                     catch(PDOException $e)
-                      {
-                            echo $sql . "
-                            " . $e->getMessage();
-                      }
+
+
                   $conn = null;
-                  }
-                  }
-                  ?>
-                <!-- <form class="was-validated"> -->
-                <form method="post" action="register.php" id="form" name="form"  data-parsley-validate data-parsley-trigger="keyup">
+                }
+              }
+              ?>
+              <!-- <form class="was-validated"> -->
+              <form method="post" action="register.php" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup">
                 <div class="row">
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -205,12 +252,12 @@ include('mysql_connect.php');
                     <select class="form-select form-select-sm" name="college_dept" id="college_dept" onchange="FetchCourse(this.value)" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select College</option>
                       <?php
-                                    $query = "SELECT college_id, college FROM tb_collegedept";
-                                    $result = @mysqli_query($conn, $query);
-                                    while($data = @mysqli_fetch_array($result)) {
-                                        echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                    }
-                                ?>
+                      $query = "SELECT college_id, college FROM tb_collegedept";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a college program</div>-->
                   </div>
@@ -221,12 +268,12 @@ include('mysql_connect.php');
                     <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
-                            $query = "SELECT course_id, course FROM tb_course";
-                            $result = @mysqli_query($conn, $query);
-                            while($data = @mysqli_fetch_array($result)) {
-                                echo '<option value="'.$data[1].'">'.$data[1].'</option>';
-                                            }
-                                            ?>
+                      $query = "SELECT course_id, course FROM tb_course";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a course</div>-->
                   </div>
@@ -236,12 +283,12 @@ include('mysql_connect.php');
                     <select class="form-select form-select-sm" name="org" id="org" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                       <?php
-                           $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 1";
-                           $result = @mysqli_query($conn, $query);
-                           while($data = @mysqli_fetch_array($result)) {
-                               echo '<option value="' . $data[1] .  '" >'. $data[0] . '</option>';
-                                           }
-                                           ?>
+                      $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 1";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[1] .  '" >' . $data[0] . '</option>';
+                      }
+                      ?>
                     </select>
                     <!--<div class="invalid-feedback">Please select a organization</div>-->
                   </div>
@@ -251,7 +298,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address" style="background-color:">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address">
                       <div class="valid-feedback"></div>
                       <!--<div class="invalid-feedback">Student ID field invalid</div>-->
                     </div>
@@ -261,8 +308,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="password" id="asterisk">Password</label>
-                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput"
-                        data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
+                      <input type="password" class="form-control password" name="password" id="txtNewPassword" data-parsley-trigger="keyup" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput" data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
                       <span class="errorspannewpassinput"></span>
                       <div class="valid-feedback"> </div>
                       <!--<div class="invalid-feedback">Must be at least 8 characters long &#013;
@@ -276,8 +322,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 mb-2">
                     <div class="form-outline">
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8"
-                        data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8" data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
                       <span class="errorspanconfirmnewpassinput"></span>
                       <div class="valid-feedback"> </div>
                       <!--  <div class="invalid-feedback">Invalid Field!</div>-->
@@ -293,42 +338,46 @@ include('mysql_connect.php');
                 </p>
 
 
-  </form>
+              </form>
 
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   </section>
-<script type="text/javascript">
-  function FetchCourse(id){
-    $('#course').html('');
-    $.ajax({
-      type:'POST',
-      url: 'register-dropdown.php',
-      data : { college_id : id},
-      success : function(data){
-         $('#course').html(data);
-      }
+  <script type="text/javascript">
+    function FetchCourse(id) {
+      $('#course').html('');
+      $.ajax({
+        type: 'POST',
+        url: 'register-dropdown.php',
+        data: {
+          college_id: id
+        },
+        success: function(data) {
+          $('#course').html(data);
+        }
 
-    })
-  }
+      })
+    }
 
-   /*(function FetchOrg(id){
-    $('#org').html('');
-    $.ajax({
-      type:'POST',
-      url: 'register-dropdown.php',
-      data : { org_id : id},
-      success : function(data){
-         $('#org').html(data);
-      }
+    function FetchOrg(id) {
+      $('#org').html('');
+      $.ajax({
+        type: 'POST',
+        url: 'register-dropdown.php',
+        data: {
+          org_id: id
+        },
+        success: function(data) {
+          $('#org').html(data);
+        }
 
-    })
-  }*/
-</script>
+      })
+    }
+  </script>
   <!-- JQUERY -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -361,12 +410,12 @@ Prevent Cut Copy Paste -->
     });
 
     document.addEventListener('click', function handleClickOutsideBox(event) {
-  const box = document.getElementById('box');
+      const box = document.getElementById('box');
 
-  if (!box.contains(event.target)) {
-    box.style.display = 'none';
-  }
-});
+      if (!box.contains(event.target)) {
+        box.style.display = 'none';
+      }
+    });
   </script>
 
   <!--email generator-->

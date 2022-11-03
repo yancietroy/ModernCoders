@@ -10,12 +10,8 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
-$nav_selected = "";
-$nav_breadcrumbs = [
-  ["", "", ""],
-];
+$nav_selected = "Home";
 
-include('../mysql_connect.php');
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -54,7 +50,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Navbar/Header  -->
       <?php include("include/header.php") ?>
 
-      <!-- Student Profile -->
+      <!-- Page Content -->
       <h3 class="ms-3">Student Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
@@ -63,13 +59,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $data_picture; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
@@ -127,7 +123,7 @@ if (isset($_SESSION['msg'])) {
                       <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Organization </th>
+                      <th width="30%">Main Organization </th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
@@ -135,6 +131,21 @@ if (isset($_SESSION['msg'])) {
                           if ($row) {
                             echo "$row[ORG]";
                           } ?></td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Side Organizations </th>
+                      <td width="2%">:</td>
+                      <td>
+                        <?php
+                        $orgs = array_keys($_SESSION['USER-ORGS']);
+                        $orgs = implode("','", array_slice($orgs, 1));
+                        $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID IN ('$orgs')";
+                        $result = @mysqli_query($conn, $query);
+                        while ($row = @mysqli_fetch_array($result)) {
+                          echo $row[0] . "<br>";
+                        }
+                        ?>
+                      </td>
                     </tr>
                     <tr>
                       <th width="30%">Role </th>
@@ -184,8 +195,8 @@ if (isset($_SESSION['msg'])) {
                       <!--  <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>-->
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $data_userid . "' >Edit Profile</button>"; ?>
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $data_userid . "' >Change Password</button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $si . "' >Edit Profile</button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm passbtn' id='" . $si . "' >Change Password</button>"; ?>
                   </div>
 
                 </div>
@@ -330,7 +341,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Student Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $query = "SELECT ORG_ID,ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
