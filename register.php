@@ -265,13 +265,13 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4  mb-4">
 
                     <label class="form-label select-label" size="5" id="asterisk">Course</label>
-                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" onclick="FetchOrg(this.value)" required>
+                    <select class="form-select form-select-sm" style="width:100%;" name="course" id="course" required>
                       <option class="greyclr" selected disabled value="" text-muted>Select Course</option>
                       <?php
                       $query = "SELECT course_id, course FROM tb_course";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[1] . '">' . $data[1] . '</option>';
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
                       }
                       ?>
                     </select>
