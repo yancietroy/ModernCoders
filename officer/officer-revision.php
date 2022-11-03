@@ -445,8 +445,8 @@ if (isset($_SESSION['msg'])) {
                 ?>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
                 <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
-                <?php
-                  }
+                <?php 
+                  } 
                 ?>
               </div>
         </form>

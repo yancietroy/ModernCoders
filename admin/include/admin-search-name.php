@@ -10,7 +10,7 @@ if (isset($_POST["query"])) {
         $sql = "SELECT STUDENT_ID as id,LAST_NAME as lname,FIRST_NAME as fname,MIDDLE_NAME as mname,SECTION as section FROM tb_students WHERE MORG_ID='$orgid' AND (LAST_NAME LIKE '%$query%' OR MIDDLE_NAME LIKE '%$query%' OR FIRST_NAME LIKE '%$query%')";
     } else if ($type == 2) {
         // Side Org
-        $sql = "SELECT STUDENT_ID as id,LAST_NAME as lname,FIRST_NAME as fname,MIDDLE_NAME as mname,SECTION as section FROM tb_students WHERE ORG_ID='$orgid' AND (LAST_NAME LIKE '%$query%' OR MIDDLE_NAME LIKE '%$query%' OR FIRST_NAME LIKE '%$query%')";
+        $sql = "SELECT STUDENT_ID as id,LAST_NAME as lname,FIRST_NAME as fname,MIDDLE_NAME as mname,SECTION as section FROM tb_students WHERE ORG_IDS LIKE '%[$orgid]%' AND (LAST_NAME LIKE '%$query%' OR MIDDLE_NAME LIKE '%$query%' OR FIRST_NAME LIKE '%$query%')";
     } else {
         // Student Council
         $sql = "SELECT student_id as id,last_name as lname,first_name as fname,middle_initial as mname,section FROM tb_officers WHERE last_name LIKE '%$query%' OR first_name LIKE '%$query%'";

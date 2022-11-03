@@ -346,7 +346,7 @@ if (isset($_SESSION['msg'])) {
                     <select class="form-select" name="position_id" id="position_id">
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <?php
-                      $query = "SELECT * FROM tb_position"; 
+                      $query = "SELECT * FROM tb_position";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';

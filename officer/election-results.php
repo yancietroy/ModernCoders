@@ -109,7 +109,7 @@ function getVotes($election_id, $position_id, $candidate_id)
             <?php
             if ($hasResults) {
             ?>
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
                 <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
               <div class="ms-3 d-flex flex-row align-items-center">
@@ -120,6 +120,7 @@ function getVotes($election_id, $position_id, $candidate_id)
               </div>
             </div>
   <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+
                 <div class="card card-body">
                     <table class="table table-bordered">
                         <thead class="thead-light">
@@ -190,7 +191,6 @@ function getVotes($election_id, $position_id, $candidate_id)
                         </tbody>
                     </table>
                 </div>
-              </div>
             <?php
             } else {
             ?>

@@ -11,6 +11,10 @@ include('include/get-userdata.php');
 $orgid = $_GET['id'] ?? -1;
 $orgName = $_SESSION['USER-ORGS'][$orgid] ?? "";
 
+if ($orgid <= 0 || !array_key_exists($orgid, $_SESSION['USER-ORGS'])) {
+    header("location:student-index.php");
+}
+
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";
@@ -121,7 +125,8 @@ function getVotes($election_id, $position_id, $candidate_id)
                 </div>
                 <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
                 <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
-</div>
+
+                </div>
 </div>
 <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
     <div class="card-body px-2 mx-3 py-3 pt-4">
@@ -194,7 +199,6 @@ function getVotes($election_id, $position_id, $candidate_id)
                         </tbody>
                     </table>
                 </div>
-              </div>
             </div>
         </div>
             <?php

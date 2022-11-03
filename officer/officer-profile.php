@@ -5,17 +5,14 @@ session_start();
 include('../router.php');
 route(2);
 
-$orgid = $_SESSION['USER-ORG'];
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$data_picture = getProfilePicture(2, $data_userid);
-$nav_selected = "";
-$nav_breadcrumbs = [
-  ["", "", ""],
-];
-include('../assets/img/orglogopics.php');
+$orgid = $_SESSION['USER-ORG'];
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Home";
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -64,7 +61,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Navbar/Header  -->
       <?php include("include/header.php") ?>
 
-      <!-- Officer Profile -->
+      <!-- Page content -->
       <h3 class="ms-3">Officer Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
@@ -73,13 +70,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $data_picture; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);

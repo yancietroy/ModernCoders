@@ -168,8 +168,8 @@ if (isset($_SESSION['msg'])) {
                   </div>
                   <div class="col-4 col-md-3 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="date_submitted">Account Created:</label>
-                      <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                      <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
+                      <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                     </div>
                   </div>
                 </div>
@@ -252,7 +252,7 @@ if (isset($_SESSION['msg'])) {
             $('#FIRST_NAME').val(data.FIRST_NAME);
             $('#LAST_NAME').val(data.LAST_NAME);
             $('#EMAIL').val(data.EMAIL);
-            $('#date_submitted').val(data.ACCOUNT_CREATED);
+            $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
             $('#viewmodal').modal('show');
             $('#modal-lg').css('max-width', '70%');
           }

@@ -84,7 +84,7 @@ if (isset($_SESSION['msg'])) {
           <h4 id="rsotitle"><?php echo $orgName; ?> Members</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
         </div>
       </div>
 
@@ -149,7 +149,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i>  </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -176,32 +176,19 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
 
-
-    </div>
-    <!--   <div class="col">
-        Card with right text alignment
-          <div class="card text-end">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary">Know more</a>
+      <!-- Footer -->
+      <div id="layoutAuthentication_footer">
+        <footer class="py-2 bg-light mt-3">
+          <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
             </div>
           </div>
-        </div>
-      </div> -->
-
-    <!-- Footer -->
-    <div id="layoutAuthentication_footer">
-      <footer class="py-2 bg-light mt-3">
-        <div class="container-fluid px-4">
-          <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   </div>
-  </div>
+
   <!-- Student Modal -->
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
@@ -239,7 +226,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="MIDDLE_NAME">Middle Name:</label>
-                    <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;" />
+                    <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;"/>
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
@@ -297,7 +284,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="COLLEGE_DEPT">College:</label>
                     <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT">
                       <?php
-                      $query = "SELECT college_id, college FROM tb_collegedept";
+                      $query = "SELECT * FROM tb_collegedept";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -325,7 +312,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Main Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $query = "SELECT ORG_ID,ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -356,7 +343,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>
                     <select class="form-select" name="position_id" id="position_id">
@@ -372,7 +359,6 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
                 <input type="hidden" name="PROFILE_PIC" id="PROFILE_PIC" class="form-control" readonly />
-              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -433,7 +419,6 @@ if (isset($_SESSION['msg'])) {
           $('#LAST_NAME').val(data.LAST_NAME);
           $('#BIRTHDATE').val(data.BIRTHDATE);
           $('#AGE').val(data.AGE);
-          $('#GENDER').val(data.GENDER);
           $('input[type=radio][id="GENDER"][value=' + data.GENDER + ']').prop('checked', true);
           $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
           $('#EMAIL').val(data.EMAIL);
@@ -635,7 +620,7 @@ if (isset($_SESSION['msg'])) {
   <!-- JavaScript validation -->
   <script src="../assets/js/bootstrap-validation.js"></script>
   <!-- <script src="js/form-validation.js"></script>
-  Prevent Cut Copy Paste -->
+    Prevent Cut Copy Paste -->
   <script>
     $(document).ready(function() {
       $('input:text').bind('cut copy paste', function(e) {

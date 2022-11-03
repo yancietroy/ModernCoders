@@ -11,6 +11,10 @@ include('include/get-userdata.php');
 $orgid = $_GET['id'] ?? -1;
 $orgName = $_SESSION['USER-ORGS'][$orgid] ?? "";
 
+if ($orgid <= 0 || !array_key_exists($orgid, $_SESSION['USER-ORGS'])) {
+    header("location:student-index.php");
+}
+
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";
@@ -132,16 +136,9 @@ if ($hasElection) {
             <?php
             if ($hasElection && !$hasVoted) {
             ?>
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-                <div class="card-body px-2 mx-3 py-3 pt-4 ">
-
-              <div class="ms-3 d-flex flex-row align-items-center">
-                  <h3 class="flex-grow-1 lead"><strong class="pr-1  text-muted ">Name:<br></strong> <?= $title ?></h3>
-              </div>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
-          <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
-              </div>
-            </div>
+                <h4 class="ms-3 mb-4">ELECTION: <?= $title ?></h4>
+                <p class="ms-3"><?= $description ?></p>
+                <h6 class="ms-3 mb-4">Election Date: <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                 <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                     <div class="card-body px-2 mx-3 py-3 pt-4">
                         <form method="POST" action="?id=$orgid">

@@ -9,12 +9,12 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "";
-$nav_breadcrumbs = [
-  ["", "", ""],
-];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_picture = getProfilePicture(1, $data_userid);
+$nav_selected = "Home";
 
+unset($_SESSION['pid']);
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -52,7 +52,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Navbar/Header  -->
       <?php include("include/header.php") ?>
 
-      <!-- Signatory Profile -->
+      <!-- Page Content -->
       <h3 class="ms-3">Signatory Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
@@ -61,13 +61,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $data_picture; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?= $data_picture ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
@@ -124,7 +124,7 @@ if (isset($_SESSION['msg'])) {
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_signatories.college_dept, tb_collegedept.college FROM tb_signatories INNER JOIN tb_collegedept ON tb_signatories.college_dept=tb_collegedept.college_id WHERE tb_signatories.school_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
-                          $row = @mysqli_fetch_array($result);
+                          $row = @mysqli_fetch_assoc($result);
                           if ($row) {
                             echo "$row[college]";
                           } ?></td>
@@ -134,7 +134,7 @@ if (isset($_SESSION['msg'])) {
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_signatories.org_id, tb_orgs.ORG FROM tb_signatories INNER JOIN tb_orgs ON tb_signatories.org_id=tb_orgs.ORG_id WHERE tb_signatories.school_id = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
-                          $row = @mysqli_fetch_array($result);
+                          $row = @mysqli_fetch_assoc($result);
                           if ($row) {
                             echo "$row[ORG]";
                           } ?></td>

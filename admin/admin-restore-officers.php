@@ -14,7 +14,7 @@ if(isset($_POST['restoredata']))
             $result = @mysqli_query($conn, $query);
             if($result)
             {
-                $query = "UPDATE tb_students SET USER_TYPE = 2 WHERE STUDENT_ID='".$_POST["student_id"]."'";
+              $query = "UPDATE tb_students SET USER_TYPE = 2 WHERE STUDENT_ID='".$_POST["student_id"]."'";
                 $result = @mysqli_query($conn, $query);
                 if($result)
                 {
@@ -25,12 +25,12 @@ if(isset($_POST['restoredata']))
             }
             else
             {
-                echo '<script> alert("Data Not Deleted"); </script>';
+                echo '<script type="text/javascript"> alert("Data Not Deleted"); </script>';
             }
         }
         else
         {
-            echo '<script> alert("Data Not Deleted"); </script>';
+            echo '<script type="text/javascript"> alert("Data Not Deleted"); </script>';
         }
     }
 }

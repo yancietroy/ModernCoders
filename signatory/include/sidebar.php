@@ -7,7 +7,7 @@
     </div>
     <div class="sidebar-heading mt-3 text-center">
 
-        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal</h5>
+        <h5 class="mt-2 p-0 ">JRU Student Organizations Portal Signatory</h5>
     </div>
 
     <ul class="list-unstyled components p-2">

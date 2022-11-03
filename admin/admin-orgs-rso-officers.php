@@ -84,7 +84,7 @@ if (isset($_SESSION['msg'])) {
           <h4 id="rsotitle"><?php echo $orgName; ?> Officers</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
         </div>
       </div>
 
@@ -106,22 +106,22 @@ if (isset($_SESSION['msg'])) {
               $c = " ";
               $si = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
-                          <thead>
-                            <tr>
-                                <th class='desktop'>Officer ID</th>
-                                <th class='desktop'>Student ID</th>
-                                <th class='desktop'>Position</th>
-                                <th class='none'>Organization</th>
-                                <th class='desktop'>First Name</th>
-                                <th class='none'>Middle Name</th>
-                                <th class='desktop'>Last name</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Course</th>
-                                <th class='desktop'>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
+                        <thead>
+                          <tr>
+                              <th class='desktop'>Officer ID</th>
+                              <th class='desktop'>Student ID</th>
+                              <th class='desktop'>Position</th>
+                              <th class='none'>Organization</th>
+                              <th class='desktop'>First Name</th>
+                              <th class='none'>Middle Name</th>
+                              <th class='desktop'>Last name</th>
+                              <th class='none'>Email</th>
+                              <th class='none'>Course</th>
+                              <th class='desktop'>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    ";
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
@@ -136,24 +136,24 @@ if (isset($_SESSION['msg'])) {
                   $c = $row['course'];
 
                   echo "<tr>
-                              <td> $oi  </td>
-                              <td> $si  </td>
-                              <td> $p  </td>
-                              <td> $org  </td>
-                              <td> $fn  </td>
-                              <td> $mn </td>
-                              <td> $ln </td>
-                              <td> $e </td>
-                              <td> $c </td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
-                              </td>
-                              </tr>
-                          ";
+                            <td> $oi  </td>
+                            <td> $si  </td>
+                            <td> $p  </td>
+                            <td> $org  </td>
+                            <td> $fn  </td>
+                            <td> $mn </td>
+                            <td> $ln </td>
+                            <td> $e </td>
+                            <td> $c </td>
+                            <td>
+                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                            <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
+                            </td>
+                            </tr>
+                        ";
                 }
                 echo "</tbody>
-                        </table>";
+                      </table>";
               }
               //$conn->close();
               ?>
@@ -166,7 +166,7 @@ if (isset($_SESSION['msg'])) {
 
     </div>
     <!--   <div class="col">
-        Card with right text alignment
+      Card with right text alignment
           <div class="card text-end">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -473,7 +473,7 @@ if (isset($_SESSION['msg'])) {
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#delete_id').val(data.student_id);
+          $('#delete_id').val(data.officer_id);
           $('#deletemodal').modal('show');
         }
       });
@@ -548,7 +548,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
           },
           //{
@@ -567,7 +567,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -577,7 +577,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7,8]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
             customize: function(win) {
 

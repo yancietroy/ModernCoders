@@ -58,7 +58,6 @@ if (isset($_SESSION['message'])) {
 
                   if ($row) {
                     $_SESSION['msg'] = '';
-                    $_SESSION['org'] = $row[1];
                     $_SESSION['USER-TYPE'] = 2;
                     $_SESSION['USER-ID'] = $row[0];
                     $_SESSION['USER-ORG'] = $row[1];
@@ -70,6 +69,7 @@ if (isset($_SESSION['message'])) {
                       if ($resOrgName->num_rows > 0) {
                         $org = $resOrgName->fetch_assoc();
                         $_SESSION['USER-ORG-NAME'] = $org['ORG'];
+                        $_SESSION['USER-ORG-TYPE'] = $org['org_type_id'];
                       }
                     }
 

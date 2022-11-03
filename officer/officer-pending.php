@@ -104,7 +104,6 @@ if (isset($_SESSION['msg'])) {
               $a = " ";
               $r = " ";
               $or = " ";
-              //    $sd = $row['status_date'];
               $rb = " ";
               $br = " ";
               $oid = " ";
@@ -116,21 +115,21 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Project Name</th>
                             <th class='desktop'>Venue</th>
                             <th class='desktop'>Status</th>
-                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Date Submitted:</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Objectives</th>
-                            <th class='none'>Project Category</th>
-                            <th class='none'>Project Type</th>
-                            <th class='none'>Start Date</th>
-                            <th class='none'>End Date</th>
-                            <th class='none'>Participants</th>
-                            <th class='none'>Organizer</th>
-                            <th class='none'>Requested By</th>
-                            <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
-                            <th class='none'>Position</th>
-                            <th class='none'>Estimated Budget</th>
-                            <th class='none'>Attachment</th>
+                            <th class='none'>Objectives: </th>
+                            <th class='none'>Project Category: </th>
+                            <th class='none'>Project Type: </th>
+                            <th class='none'>Start Date: </th>
+                            <th class='none'>End Date: </th>
+                            <th class='none'>Participants: </th>
+                            <th class='none'>Organizer: </th>
+                            <th class='none'>Requested By: </th>
+                            <th class='none'>Budget Request: </th>
+                            <th class='none'>Organization: </th>
+                            <th class='none'>Position: </th>
+                            <th class='none'>Estimated Budget: </th>
+                            <th class='none'>Attachment: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -145,12 +144,11 @@ if (isset($_SESSION['msg'])) {
                   $s = $row['status'];
                   $pt = $row['project_type'];
                   $obj = $row['objectives'];
-                  //$pd = $row['project_desc'];
+                  $pc = $row['project_category'];
                   $sd = $row['start_date'];
                   $ed = $row['end_date'];
                   $p = $row['participants'];
                   $or = $row['organizer'];
-                  //    $sd = $row['status_date'];
                   $rb = $row['requested_by'];
                   $br = $row['budget_req'];
                   $oid = $row['ORG'];

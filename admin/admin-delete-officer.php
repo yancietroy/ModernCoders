@@ -9,11 +9,12 @@ if(isset($_POST['deletedata']))
         $result = @mysqli_query($conn, $query);
         if($result)
         {
+
             $query = "DELETE FROM tb_officers WHERE student_id='".$_POST["delete_id"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
-                $query = "UPDATE tb_students SET USER_TYPE = 1 WHERE STUDENT_ID='".$_POST["delete_id"]."'";
+              $query = "UPDATE tb_students SET USER_TYPE = 1 WHERE STUDENT_ID='".$_POST["delete_id"]."'";
                 $result = @mysqli_query($conn, $query);
                 if($result)
                 {
