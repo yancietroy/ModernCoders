@@ -94,7 +94,7 @@ if (isset($_SESSION['msg'])) {
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="50" required />
+                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Project name field cannot be blank!</div>
               </div>
@@ -139,7 +139,7 @@ if (isset($_SESSION['msg'])) {
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" maxlength="50" required />
+                <input type="text" name="participants" id="participants" class="form-control" maxlength="100" required />
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
@@ -243,13 +243,13 @@ if (isset($_SESSION['msg'])) {
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment/s:</label>
-                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf,.zip,.rar,.7zip" id="formFileMultiple" required multiple>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-8 col-sm-3 mb-4">
-              <small class="text-muted">*Note: Attach necessary documents in this form that will support your request
+              <small class="text-muted">*Note: Upload a zip file containing necessary documents in this form that will support your request
                 (invitation letter, quotation of provider, Program of the Activity etc.) <br>
 
                 *Note: Please attach other request form/ file
