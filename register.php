@@ -271,7 +271,7 @@ include('mysql_connect.php');
                       $query = "SELECT course_id, course FROM tb_course";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                        echo '<option value="' . $data[1] . '">' . $data[1] . '</option>';
                       }
                       ?>
                     </select>
@@ -361,10 +361,6 @@ include('mysql_connect.php');
         }
 
       })
-    }
-
-    function FetchOrg(id) {
-      $('#org').html('');
       $.ajax({
         type: 'POST',
         url: 'register-dropdown.php',
