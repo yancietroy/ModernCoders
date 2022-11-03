@@ -5,10 +5,16 @@ session_start();
 include('../router.php');
 route(3);
 
-$data_userid = $_SESSION['USER-ID'];
-unset($_SESSION['pid']);
 include('../mysql_connect.php');
-include('profilepic.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$data_picture = getProfilePicture(3, $data_userid);
+$nav_selected = "";
+$nav_breadcrumbs = [
+  ["", "", ""],
+];
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -39,95 +45,12 @@ if (isset($_SESSION['msg'])) {
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center">
-        <a class="navbar-brand" href="student-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90" height="90">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
-
-        <h5 class="mt-2 mb-3 p-0 ">JRU Student Organizations Portal Signatory</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li class="active">
-          <a href="signatory-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        </li>
-        <li>
-          <!--<a href="signatory-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>-->
-        </li>
-        <li>
-          <a href="signatory-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
-        </li>
-        <!--<li>
-          <a href="election-student-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="user-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>-->
-        <li class="d-lg-none">
-          <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-        <ul class="list-unstyled CTAs">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>logout</a>
-          </li>
-        </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
     <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
-
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE school_id = '$data_userid'";
-                                                        $result = @mysqli_query($conn, $query);
-                                                        $row = mysqli_fetch_array($result);
-                                                        if ($row) {
-                                                          echo "$row[0]";
-                                                        } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="signatory-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../signatory-login.php">Logout</a></li>
-
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <!-- Navbar/Header  -->
+      <?php include("include/header.php") ?>
 
       <!-- Signatory Profile -->
       <h3 class="ms-3">Signatory Profile</h3>
@@ -138,13 +61,13 @@ if (isset($_SESSION['msg'])) {
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
-                    <img class="profile_img" src="<?php echo $profilepic; ?>" id="profile-pic" alt="">
+                    <img class="profile_img" src="<?php echo $data_picture; ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?php echo "$row[0]"; ?></h3>
+                  <h3 class="pt-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></h3>
                 </div>
                 <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
