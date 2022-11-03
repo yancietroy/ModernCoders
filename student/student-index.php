@@ -12,10 +12,6 @@ $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Home";
 
-if (isset($_SESSION['msg'])) {
-  print_r($_SESSION['msg']); #display message
-  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +97,7 @@ if (isset($_SESSION['msg'])) {
         <?php
         foreach ($_SESSION['USER-ORGS'] as $o_id => $o_name) {
         ?>
-          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" style="min-height: 250px; max-height:250px; min-width:400px; max-width: 400px;">
+          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" id='indexcard'>
             <img src="<?= getOrgLogo($o_id) ?>" style="width:150px;height:150px;" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2"><?= $o_name ?></h5>
@@ -132,7 +128,7 @@ if (isset($_SESSION['msg'])) {
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <!-- form validation/sidebar toggle -->
+    <!-- form validation/sidebar toggle-->
     <script src="../assets/js/form-validation.js"></script>
     <!--WAVES CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">

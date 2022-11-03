@@ -180,8 +180,8 @@ if (isset($_SESSION['msg'])) {
                                                                                               echo "$row[user_type]";
                                                                                             } ?></p>
 
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Position:</strong>
-                      <!--  <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>-->
+                    <!--   <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Position:</strong>
+                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">Role:</strong></p>-->
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $data_userid . "' >Edit Profile</button>"; ?>

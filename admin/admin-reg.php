@@ -352,14 +352,14 @@ if (isset($_SESSION['msg'])) {
 
       });
     </script>
-    <!--email generator-->
+    <!--email generator
     <script>
       $("#txtTest, #txtTest2").on('input', function() {
         var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
         var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
         $("#email").attr("value", fname + "." + lname + "@jru.edu");
       });
-    </script>
+    </script>-->
     <!--input mask-->
     <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="../assets/js/inputmask-validation.js"></script>

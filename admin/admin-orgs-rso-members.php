@@ -149,7 +149,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               <td> $c</td>
                               <td> $e </td>
@@ -176,19 +176,32 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
 
-      <!-- Footer -->
-      <div id="layoutAuthentication_footer">
-        <footer class="py-2 bg-light mt-3">
-          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+
+    </div>
+    <!--   <div class="col">
+        Card with right text alignment
+          <div class="card text-end">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+              <a href="#" class="btn btn-primary">Know more</a>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </div> -->
+
+    <!-- Footer -->
+    <div id="layoutAuthentication_footer">
+      <footer class="py-2 bg-light mt-3">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
-
+  </div>
   <!-- Student Modal -->
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
@@ -211,8 +224,8 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="date_submitted">Account Created:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
+                    <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -226,7 +239,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="MIDDLE_NAME">Middle Name:</label>
-                    <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;" required />
+                    <input type="text" name="MIDDLE_NAME" id="MIDDLE_NAME" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" style="background-color: #fff;" />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
@@ -248,21 +261,24 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 ">
-                  <label class="mb-3 me-5 min-vw-100" for="GENDER">Gender </label>
-                  <div class="btn-group">
-                    <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Male" required>
-                    <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Male</label>
-                    <input type="radio" class="btn-check" name="GENDER" id="GENDER" value="Female" required>
-                    <label class="btn btn-sm me-2 btn-outline-secondary" for="GENDER">Female</label>
-                    <!--<div class="valid-feedback check"> &#x2713;</div>
-                                <div class="invalid-feedback mv-up">Please select a gender!</div>-->
-                  </div>
+                  <label class="form-label" for="GENDER">Gender </label>
+                  <select class="form-select" name="GENDER" id="GENDER">
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                  </select>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="YEAR_LEVEL">Year Level:</label>
-                  <input type="text" name="YEAR_LEVEL" id="YEAR_LEVEL" class="form-control" maxlength="1" oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" required />
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="YEAR_LEVEL">Year Level:</label>
+                    <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL">
+                      <option value="1">Year 1</option>
+                      <option value="2">Year 2</option>
+                      <option value="3">Year 3</option>
+                      <option value="4">Year 4</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
@@ -278,13 +294,13 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="college">College:</label>
-                    <select class="form-select" name="college" id="college" readonly>
+                    <label class="form-label" for="COLLEGE_DEPT">College:</label>
+                    <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT">
                       <?php
-                      $query = "SELECT college FROM tb_collegedept";
+                      $query = "SELECT college_id, college FROM tb_collegedept";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[0] . '</option>';
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
                       }
                       ?>
                     </select>
@@ -293,7 +309,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label select-label" for="COURSE">Course:</label>
-                    <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
+                    <select class="form-select" style="width:100%;" name="COURSE" id="COURSE">
                       <?php
                       $query = "SELECT course FROM tb_course";
                       $result = @mysqli_query($conn, $query);
@@ -309,7 +325,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Main Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
-                      $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -319,7 +335,44 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="PASSWORD" id="PASSWORD">
+              <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="USER_TYPE">User Type:</label>
+                    <select class="form-select" name="USER_TYPE" id="USER_TYPE">
+                      <?php
+                      $query = "SELECT * FROM tb_usertypes WHERE usertype_id = '1' OR usertype_id = '2'";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="USER_TYPE">Password:</label>
+                    <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="position_id">Officer position:</label>
+                    <select class="form-select" name="position_id" id="position_id">
+                      <option class="greyclr" selected disabled value="" text-muted>------</option>
+                      <?php
+                      $query = "SELECT * FROM tb_position";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <input type="hidden" name="PROFILE_PIC" id="PROFILE_PIC" class="form-control" readonly />
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -374,18 +427,23 @@ if (isset($_SESSION['msg'])) {
         success: function(data) {
           console.log(data);
           $('#STUDENT_ID').val(data.STUDENT_ID);
+          $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
           $('#FIRST_NAME').val(data.FIRST_NAME);
           $('#MIDDLE_NAME').val(data.MIDDLE_NAME);
           $('#LAST_NAME').val(data.LAST_NAME);
           $('#BIRTHDATE').val(data.BIRTHDATE);
           $('#AGE').val(data.AGE);
+          $('#GENDER').val(data.GENDER);
           $('input[type=radio][id="GENDER"][value=' + data.GENDER + ']').prop('checked', true);
           $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
           $('#EMAIL').val(data.EMAIL);
+          $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
           $('#COURSE').val(data.COURSE);
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);
+          $('#USER_TYPE').val(data.USER_TYPE);
           $('#PASSWORD').val(data.PASSWORD);
+          $('#PROFILE_PIC').val(data.PROFILE_PIC);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -577,7 +635,7 @@ if (isset($_SESSION['msg'])) {
   <!-- JavaScript validation -->
   <script src="../assets/js/bootstrap-validation.js"></script>
   <!-- <script src="js/form-validation.js"></script>
-    Prevent Cut Copy Paste -->
+  Prevent Cut Copy Paste -->
   <script>
     $(document).ready(function() {
       $('input:text').bind('cut copy paste', function(e) {
