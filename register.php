@@ -83,7 +83,7 @@ include('mysql_connect.php');
                   $password = "!jsknvB78ag*"; // App Password ng Sender
                   $email = "$e"; // Email Recipient (Where to send)
                   $subject = "JRUSOP Registration - Email Verification"; // Subject/header of the email
-                  $body = "Kindly verify your email address using the link below:<br><b><a href='localhost/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
+                  $body = "Kindly verify your email address using the link below:<br><b><a href='https://jrusop.com/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
                   $host = "smtp.hostinger.com";
 
                   $mail = new PHPMailer(true);
