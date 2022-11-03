@@ -79,12 +79,12 @@ include('mysql_connect.php');
                 } else {
                   // Configuration:
                   $vc = rand(1000000000, 9999999999);
-                  $emailFrom = "capstonemailer.2022@gmail.com"; // Yung Email ng Sender
-                  $password = "cdexrbjomiuqghbd"; // App Password ng Sender
+                  $emailFrom = "studentportalorg@jrusop.com"; // Yung Email ng Sender
+                  $password = "!jsknvB78ag*"; // App Password ng Sender
                   $email = "$e"; // Email Recipient (Where to send)
                   $subject = "JRUSOP Registration - Email Verification"; // Subject/header of the email
-                  $body = "Kindly verify your email address using the link below:<br><b><a href='localhost/JRUSOPNEW/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
-                  $host = "smtp.gmail.com";
+                  $body = "Kindly verify your email address using the link below:<br><b><a href='localhost/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
+                  $host = "smtp.hostinger.com";
 
                   $mail = new PHPMailer(true);
 
