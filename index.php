@@ -65,36 +65,40 @@ if (isset($_SESSION['message'])) {
                   $row = mysqli_fetch_array($result);
 
                   if ($row) {
-                    $_SESSION['msg'] = '';
+                    if ($row['VCODE'] != "") {
+                      echo "<script>alert('Please verify your email address before you login.')</script>";
+                    } else {
+                      $_SESSION['msg'] = '';
 
-                    $_SESSION['USER-TYPE'] = 1;
-                    $_SESSION['USER-ID'] = $row['STUDENT_ID'];
-                    $_SESSION['USER-NAME'] = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
-                    $_SESSION['USER-MORG'] = $row['MORG_ID'];
+                      $_SESSION['USER-TYPE'] = 1;
+                      $_SESSION['USER-ID'] = $row['STUDENT_ID'];
+                      $_SESSION['USER-NAME'] = $row['FIRST_NAME'] . " " . $row['LAST_NAME'];
+                      $_SESSION['USER-MORG'] = $row['MORG_ID'];
 
-                    $orgids = [$row['MORG_ID']];
-                    foreach (explode(',', $row['ORG_IDS']) as $org) {
-                      $curorg = str_replace("[", "", $org);
-                      $curorg = str_replace("]", "", $curorg);
-                      array_push($orgids, $curorg);
-                    }
-                    $orgids_string = implode("','", $orgids);
+                      $orgids = [$row['MORG_ID']];
+                      foreach (explode(',', $row['ORG_IDS']) as $org) {
+                        $curorg = str_replace("[", "", $org);
+                        $curorg = str_replace("]", "", $curorg);
+                        array_push($orgids, $curorg);
+                      }
+                      $orgids_string = implode("','", $orgids);
 
-                    $orgs = [];
-                    $queryOrgs = "SELECT ORG_ID,ORG FROM tb_orgs WHERE ORG_ID IN ('$orgids_string')";
-                    if ($resOrg = @mysqli_query($conn, $queryOrgs)) {
-                      if ($resOrg->num_rows > 0) {
-                        while ($rowOrg = $resOrg->fetch_assoc()) {
-                          $orgs[$rowOrg['ORG_ID']] = $rowOrg['ORG'];
+                      $orgs = [];
+                      $queryOrgs = "SELECT ORG_ID,ORG FROM tb_orgs WHERE ORG_ID IN ('$orgids_string')";
+                      if ($resOrg = @mysqli_query($conn, $queryOrgs)) {
+                        if ($resOrg->num_rows > 0) {
+                          while ($rowOrg = $resOrg->fetch_assoc()) {
+                            $orgs[$rowOrg['ORG_ID']] = $rowOrg['ORG'];
+                          }
                         }
                       }
-                    }
-                    $_SESSION['USER-ORGS'] = $orgs;
+                      $_SESSION['USER-ORGS'] = $orgs;
 
-                    if (isset($_SESSION['USER-TYPE'])) {
-                      header("Location:student/student-index.php");
-                      @mysqli_close($conn);
-                      exit();
+                      if (isset($_SESSION['USER-TYPE'])) {
+                        header("Location:student/student-index.php");
+                        @mysqli_close($conn);
+                        exit();
+                      }
                     }
                   } else {
                     echo "<div class='callout bs-callout-warning pb-0' id='box' id='box'>

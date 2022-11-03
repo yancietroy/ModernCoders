@@ -11,6 +11,10 @@ include('include/get-userdata.php');
 $orgid = $_GET['id'] ?? -1;
 $orgName = $_SESSION['USER-ORGS'][$orgid] ?? "";
 
+if ($orgid <= 0 || !array_key_exists($orgid, $_SESSION['USER-ORGS'])) {
+  header("location:student-index.php");
+}
+
 $data_userid = $_SESSION['USER-ID'];
 $data_name = $_SESSION['USER-NAME'];
 $data_picture = getProfilePicture(1, $data_userid);
@@ -211,11 +215,11 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                 <nav class="mt-4 d-flex flex-row justify-content-end">
                   <ul class="pagination">
                     <li class="page-item">
-                      <a href="?page=1$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
+                      <a href="?page=1&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
                     </li>
                     <li class="page-item">
                       <a href="?page=<?php if ($page_no == 1) echo "1";
-                                      else echo $page_no - 1; ?>$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
+                                      else echo $page_no - 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
                     </li>
 
                     <?php
@@ -223,7 +227,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                       for ($i = 1; $i <= $total_no_of_pages; $i++) {
                     ?>
                         <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                          <a href="?page=<?= $i ?>$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                          <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
                         </li>
                         <?php
                       }
@@ -247,7 +251,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         if ($page_no == $i) {
                         ?>
                           <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                            <a href="?page=<?= $i ?>$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                            <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
                           </li>
                     <?php
                         }
@@ -257,10 +261,10 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
 
                     <li class="page-item">
                       <a href="?page=<?php if ($page_no == $total_no_of_pages) echo $total_no_of_pages;
-                                      else echo $page_no + 1; ?>$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
+                                      else echo $page_no + 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
                     </li>
                     <li class="page-item">
-                      <a href="?page=<?= $total_no_of_pages ?>$id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
+                      <a href="?page=<?= $total_no_of_pages ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
                     </li>
                   </ul>
                 </nav>

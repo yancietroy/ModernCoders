@@ -9,6 +9,11 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $orgid = $_GET['id'] ?? -1;
+
+if ($orgid <= 0 || !array_key_exists($orgid, $_SESSION['USER-ORGS'])) {
+  header("location:student-index.php");
+}
+
 $orgName = $_SESSION['USER-ORGS'][$orgid];
 
 $data_userid = $_SESSION['USER-ID'];

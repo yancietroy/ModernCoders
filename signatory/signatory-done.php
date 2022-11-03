@@ -10,6 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -77,7 +78,13 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+              if(isset($orgid) == NULL && $data_signatorytype == 2){
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+              }elseif($data_signatorytype == 3){
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND org_id = '$orgid'";
+              }
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -446,9 +453,9 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.org_id);
+          $('#org_id').val(data.ORG);
           $('#requested_by').val(data.requested_by);
-          $('#position_id').val(data.position_id);
+          $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
           $('#budget_req').val(data.budget_req);

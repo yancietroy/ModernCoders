@@ -309,7 +309,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Main Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
-                      $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                      $query = "SELECT ORG_ID,ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';

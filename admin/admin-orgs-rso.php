@@ -162,7 +162,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-file-bar-graph-fill" aria-hidden="true"></i>
             </div>
-            <a href="user-survey.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-survey.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

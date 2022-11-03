@@ -10,6 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -67,7 +68,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 2";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 3";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -85,7 +93,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND approval_id = 4";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND approval_id = 4";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND org_id = '$orgid' AND approval_id = 4";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -103,7 +118,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND org_id = '$orgid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -121,7 +143,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-secondary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule')";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule')";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$orgid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -141,7 +170,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -158,7 +194,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND org_id = '$orgid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -177,7 +220,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6 mb-4">
           <div class="card-counter events">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
+              <h3><?php
+                  if(isset($orgid) == NULL && $data_signatorytype == 2){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
+                  }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
+                  }elseif($data_signatorytype == 3){
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {

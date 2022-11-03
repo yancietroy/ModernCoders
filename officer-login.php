@@ -52,23 +52,24 @@ if (isset($_SESSION['message'])) {
                 if (!empty($_POST['email']) || !empty($_POST['password'])) {
                   ob_start();
 
-                  $query = "SELECT officer_ID,org_id,first_name,last_name FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
+                  $query = "SELECT officer_ID,org_id,first_name,last_name,position_id FROM tb_officers WHERE EMAIL='$e' AND PASSWORD=SHA('$p')";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
 
                   if ($row) {
                     $_SESSION['msg'] = '';
-                    $_SESSION['org'] = $row[1];
                     $_SESSION['USER-TYPE'] = 2;
                     $_SESSION['USER-ID'] = $row[0];
                     $_SESSION['USER-ORG'] = $row[1];
                     $_SESSION['USER-NAME'] = $row[2] . " " . $row[3];
+                    $_SESSION['USER-POS'] = $row[4];
                     $orgid = $row[1];
                     $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
                     if ($resOrgName = @mysqli_query($conn, $query)) {
                       if ($resOrgName->num_rows > 0) {
                         $org = $resOrgName->fetch_assoc();
                         $_SESSION['USER-ORG-NAME'] = $org['ORG'];
+                        $_SESSION['USER-ORG-TYPE'] = $org['org_type_id'];
                       }
                     }
 

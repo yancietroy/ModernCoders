@@ -9,12 +9,9 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$data_orgid = $_SESSION['USER-ORG'];
+$orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(0, $data_userid);
 $nav_selected = "Home";
-
-$officer_id = $_SESSION['USER-ID'];
-$orgid = $_SESSION['org'];
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -64,7 +61,7 @@ if (isset($_SESSION['msg'])) {
                   <img class="profile_img rounded-circle" src="<?= $data_picture ?>" id="indexpic" alt="">
                 </div>
                 <?php
-                $query = "SELECT tb_officers.position_id, tb_position.position , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE officer_id = '$officer_id'";
+                $query = "SELECT tb_officers.position_id, tb_position.position , CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, COURSE, EMAIL, SECTION FROM tb_officers INNER JOIN tb_position ON tb_officers.position_id=tb_position.POSITION_ID WHERE officer_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
                 $row = mysqli_fetch_array($result);
                 if ($row) {

@@ -1,6 +1,10 @@
 <?php
 ob_start();
 session_start();
+
+include('../router.php');
+route(2);
+
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
@@ -16,12 +20,57 @@ $nav_breadcrumbs = [
     ["Create New Survey", "", ""],
 ];
 
+if (isset($_POST['create-survey'])) {
+    $title = $_POST['TITLE'];
+    $description = $_POST['DESC'];
+    $startdate = $_POST['STARTDATE'];
+    $enddate = $_POST['ENDDATE'];
+    $questions = [];
+    foreach ($_POST as $key => $value) {
+        if (str_starts_with($key, "entry-")) {
+            $type = explode("-", $key)[2];
+            $question = "";
+            $choices = "";
+
+            if ($type >= 4 && $type <= 6) {
+                // 4,5,6
+                $val = explode("::", $value);
+                $question = $val[0];
+                $choices = $val[1];
+            } else {
+                // 1,2,3,7
+                $question = $value;
+            }
+            array_push($questions, ["$type", "$question", "$choices"]);
+        }
+    }
+    $timestamp = time();
+    $query = "INSERT INTO tb_surveys (survey_id,title,description,start_date,end_date,org_id) VALUES ('$timestamp','$title','$description','$startdate','$enddate','$orgid')";
+    if ($resGen = @mysqli_query($conn, $query)) {
+        $query = "INSERT INTO tb_survey_questions (survey_id,question,type,choices) VALUES ";
+        $values = [];
+        foreach ($questions as $data) {
+            $q = $data[1];
+            $t = $data[0];
+            $c = $data[2];
+            $val = "('$timestamp','$q','$t','$c')";
+            array_push($values, $val);
+        }
+        $query = $query . implode(",", $values);
+
+        if ($resQ = @mysqli_query($conn, $query)) {
+            header('location:officer-survey-list.php');
+        } else {
+            echo "<script>alert('Unexpected error while saving the survey questions. Please try again.')</script>";
+        }
+    } else {
+        echo "<script>alert('Unexpected error while saving the survey details. Please try again.')</script>";
+    }
+}
+
 if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']); #display message
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-} else if (!isset($_SESSION['USER-ID'])) // If session is not set then redirect to Login Page
-{
-    header("Location:../officer-login.php");
 }
 ?>
 
@@ -96,7 +145,14 @@ if (isset($_SESSION['msg'])) {
                     </div>
 
                     <div class="mb-4 border" style="min-height:100px;">
-
+                        <table id="qtable" class="table table-bordered" style="table-layout: fixed;">
+                            <thead class="thead-light">
+                                <th style="width: 200px;">Type</th>
+                                <th>Question</th>
+                                <th style="width: 200px;">Action</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
 
                     <div class="d-flex flex-row justify-content-center w-100 mt-5 mb-2">
@@ -137,7 +193,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="add-text" class="btn btn-info">Add Field</button>
+                        <button type="button" id="add-text" class="btn btn-info" data-bs-dismiss="modal">Add Field</button>
                     </div>
                 </div>
             </div>
@@ -162,7 +218,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="add-mtext" class="btn btn-info">Add Field</button>
+                        <button type="button" id="add-mtext" class="btn btn-info" data-bs-dismiss="modal">Add Field</button>
                     </div>
                 </div>
             </div>
@@ -187,7 +243,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="add-num" class="btn btn-info">Add Field</button>
+                        <button type="button" id="add-num" class="btn btn-info" data-bs-dismiss="modal">Add Field</button>
                     </div>
                 </div>
             </div>
@@ -212,7 +268,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="add-rating" class="btn btn-info">Add Field</button>
+                        <button type="button" id="add-rating" class="btn btn-info" data-bs-dismiss="modal">Add Field</button>
                     </div>
                 </div>
             </div>
@@ -243,12 +299,11 @@ if (isset($_SESSION['msg'])) {
                     <div class="modal-footer py-2 px-3">
                         <button type="button" id="add-choices-addbtn" class="btn btn-primary mr-3">Add Choices</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" id="add-choices" class="btn btn-info">Add Field</button>
+                        <button type="button" id="add-choices" class="btn btn-info" data-bs-dismiss="modal">Add Field</button>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -263,6 +318,130 @@ if (isset($_SESSION['msg'])) {
             Waves.attach('#sidebar ul li a');
             Waves.attach('.button');
             Waves.init();
+        </script>
+        <script>
+            let entryCount = 1;
+
+            $(document).on('click', '#add-text', function() {
+                var question = $('#add-text-question').val();
+                var output = `
+                    <tr id="entry-${entryCount}">
+                        <td>TextBox</td>
+                        <td>
+                            <input type="text" name="entry-${entryCount}-1" value="${question}" style="display: none;">
+                            ${question}
+                        </td>
+                        <td>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                        </td>
+                    </tr>
+                `;
+                $('#qtable > tbody').append(output);
+                entryCount++;
+            });
+            $(document).on('click', '#add-mtext', function() {
+                var question = $('#add-mtext-question').val();
+                var output = `
+                    <tr id="entry-${entryCount}">
+                        <td>Multiline</td>
+                        <td>
+                            <input type="text" name="entry-${entryCount}-2" value="${question}" style="display: none;">
+                            ${question}
+                        </td>
+                        <td>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                        </td>
+                    </tr>
+                `;
+                $('#qtable > tbody').append(output);
+                entryCount++;
+            });
+            $(document).on('click', '#add-num', function() {
+                var question = $('#add-num-question').val();
+                var output = `
+                    <tr id="entry-${entryCount}">
+                        <td>Numeric</td>
+                        <td>
+                            <input type="text" name="entry-${entryCount}-3" value="${question}" style="display: none;">
+                            ${question}
+                        </td>
+                        <td>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                        </td>
+                    </tr>
+                `;
+                $('#qtable > tbody').append(output);
+                entryCount++;
+            });
+            $(document).on('click', '#add-rating', function() {
+                var question = $('#add-rating-question').val();
+                var output = `
+                    <tr id="entry-${entryCount}">
+                        <td>Rating</td>
+                        <td>
+                            <input type="text" name="entry-${entryCount}-7" value="${question}" style="display: none;">
+                            ${question}
+                        </td>
+                        <td>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                        </td>
+                    </tr>
+                `;
+                $('#qtable > tbody').append(output);
+                entryCount++;
+            });
+
+            $(document).on('click', '#add-choices', function() {
+                var question = $('#add-choices-question').val();
+                var choices = [];
+                $('#add-choices-list').children('input').each(function(i) {
+                    if ($(this).val() != "") {
+                        choices.push($(this).val());
+                    }
+                });
+
+                var value = `
+                    ${question}
+                    <br>
+                    <br>
+                    <i>
+                        Choices:<br> - 
+                        ${choices.join("<br> - ")}
+                    </i>
+                `;
+
+                var type = "";
+                var typeval = 6;
+                if ($('#add-choices-type').val() == "1") {
+                    type = "Checkboxes";
+                    typeval = 4;
+                } else if ($('#add-choices-type').val() == "2") {
+                    type = "Radiobutton";
+                    typeval = 5;
+                } else if ($('#add-choices-type').val() == "3") {
+                    type = "Dropdown";
+                    typeval = 6;
+                }
+
+                var output = `
+                    <tr id="entry-${entryCount}">
+                        <td>${type}</td>
+                        <td>
+                            <input type="text" name="entry-${entryCount}-${typeval}" value="${question}::${choices.join(";;")}" style="display: none;">
+                            ${value}
+                        </td>
+                        <td>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                        </td>
+                    </tr>
+                `;
+                $('#qtable > tbody').append(output);
+                entryCount++;
+            });
+
+            function deleteEntry(id) {
+                $("#" + id).remove();
+            }
         </script>
         <script>
             let choiceIndex = 1;
