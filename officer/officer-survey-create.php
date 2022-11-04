@@ -131,21 +131,21 @@ if (isset($_SESSION['msg'])) {
                             <input class="form-control" type="date" name="ENDDATE" id="ENDDATE" min="<?php echo date("Y-m-d"); ?>" required>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="ENDDATE">Add Question</label>
-                        <div class="d-flex flex-row">
-                            <button class="btn btn-primary small ms-2 btnText" type="button">Text</button>
-                            <button class="btn btn-primary small ms-2 btnMText" type="button">Multiline Text</button>
-                            <button class="btn btn-primary small ms-2 btnNum" type="button">Numeric</button>
-                            <button class="btn btn-primary small ms-2 btnCb" type="button">Checkboxes</button>
-                            <button class="btn btn-primary small ms-2 btnRb" type="button">Radiobutton</button>
-                            <button class="btn btn-primary small ms-2 btnDd" type="button">Dropdown</button>
-                            <button class="btn btn-primary small ms-2 btnRate" type="button">Rating</button>
-                        </div>
+                    <div class="mb-4 row">
+                          <div class="col-12">
+                        <label class="form-label" for="ENDDATE">Add Question</label><br>
+                            <button class="btn btn-primary small ms-2 btnText my-2" type="button">Text</button>
+                            <button class="btn btn-primary small ms-2 btnMText my-2" type="button">Multiline Text</button>
+                            <button class="btn btn-primary small ms-2 btnNum my-2" type="button">Numeric</button>
+                            <button class="btn btn-primary small ms-2 btnCb my-2" type="button">Checkboxes</button>
+                            <button class="btn btn-primary small ms-2 btnRb my-2" type="button">Radiobutton</button>
+                            <button class="btn btn-primary small ms-2 btnDd my-2" type="button">Dropdown</button>
+                            <button class="btn btn-primary small ms-2 btnRate my-2" type="button">Rating</button>
                     </div>
-
+              </div>
                     <div class="mb-4 border" style="min-height:100px;">
-                        <table id="qtable" class="table table-bordered" style="table-layout: fixed;">
+                      <div class="table-responsive-xl">
+                        <table id="qtable" class="table table-bordered" style="">
                             <thead class="thead-light">
                                 <th style="width: 200px;">Type</th>
                                 <th>Question</th>
@@ -154,6 +154,7 @@ if (isset($_SESSION['msg'])) {
                             <tbody></tbody>
                         </table>
                     </div>
+                  </div>
 
                     <div class="d-flex flex-row justify-content-center w-100 mt-5 mb-2">
                         <button type="submit" name="create-survey" class="btn btn-primary col-6 col-md-5" id="create-survey">Create Survey</button>
@@ -332,7 +333,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
                         </td>
                     </tr>
                 `;
@@ -349,7 +350,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
                         </td>
                     </tr>
                 `;
@@ -366,7 +367,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
                         </td>
                     </tr>
                 `;
@@ -383,7 +384,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
                         </td>
                     </tr>
                 `;
@@ -405,7 +406,7 @@ if (isset($_SESSION['msg'])) {
                     <br>
                     <br>
                     <i>
-                        Choices:<br> - 
+                        Choices:<br> -
                         ${choices.join("<br> - ")}
                     </i>
                 `;
@@ -431,7 +432,7 @@ if (isset($_SESSION['msg'])) {
                             ${value}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')">Delete Question</a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
                         </td>
                     </tr>
                 `;

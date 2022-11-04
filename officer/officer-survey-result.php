@@ -188,11 +188,12 @@ if (isset($_SESSION['msg'])) {
                     </div>
 
                     <div class="mb-4">
-                        <table class="table table-bordered" style="table-layout: fixed;">
+                      <div class="table-responsive-xl">
+                        <table id="qtable" class="table table-bordered" style="">
                             <thead class="thead-light">
                                 <th style="width: max-content;">Questions</th>
                                 <th style="width: max-content;">Choices</th>
-                                <th style="width: 200px;">Responses</th>
+                                <th style="width: max-content;">Responses</th>
                             </thead>
                             <tbody>
                                 <?php
@@ -206,7 +207,8 @@ if (isset($_SESSION['msg'])) {
                                             <tr>
                                                 <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
                                                 <td>Unable to tally objective type questions.</td>
-                                                <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers">View Answers</a></td>
+                                                <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
+
                                             </tr>
                                         <?php
                                         } else {
@@ -235,8 +237,8 @@ if (isset($_SESSION['msg'])) {
                 <div class="card-body px-2 mx-3 mb-4 py-3 pt-4 ">
                     <h5 class="mb-4">Response Logs</h5>
                     <div class="row g-0 justify-content-center ">
-                        <div class="table-responsive ms-2">
-                            <table id='survey-table' class='py-3 display nowrap w-100 ms-0 stud'>
+                      <div class="table-responsive-xl">
+                        <table id="qtable" class="table table-bordered" style="">
                                 <thead>
                                     <tr>
                                         <th>Respondent</th>

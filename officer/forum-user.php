@@ -63,10 +63,8 @@ if (isset($_SESSION['msg'])) {
             <!-- Page content -->
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-
-                        <div class="ibox-content forum-container ">
+                  <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                      <div class="card-body px-2 mx-3 py-3 pt-4 ">
                             <?php
                             $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility='0' OR visibility='2' OR visibility='5'";
                             if ($res = @mysqli_query($conn, $sqlGroups)) {

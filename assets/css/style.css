@@ -707,6 +707,10 @@ Projects
   display: none;
 }
 
+table.forum td {
+  padding: 0;
+}
+
 table.master {
   margin: 0 auto;
   clear: both;

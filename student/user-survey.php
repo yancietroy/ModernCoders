@@ -136,9 +136,14 @@ if (isset($_SESSION['msg'])) {
       <?php
       if ($hasSurvey) {
       ?>
-        <h4 class="ms-3 mb-4">Title: <?= $title ?></h4>
+      <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+          <div class="card-body px-2 mx-3 py-3 pt-4 ">
+
+        <h3 class="ms-3 mb-4"> <?= $title ?></h3>
         <p class="ms-3"><?= $description ?></p>
-        <h6 class="ms-3 mb-4">Availability: <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+        <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted ">Availability:<br></strong><?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+      </div>
+    </div>
         <form action="" method="POST" class="survey-form w-100 p-5">
           <input type="text" name="survey-id" style="display: none;" value="<?= $survey_id ?>">
           <?php
