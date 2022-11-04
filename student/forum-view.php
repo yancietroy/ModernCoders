@@ -268,7 +268,7 @@ if (isset($_POST['post-reply'])) {
                           <div class="col">
                             <div class="d-flex flex-row">
                               <img class="rounded-circle me-lg-2" src="<?= checkProfilePicture($ownerType, $ownerPic) ?>" alt="" style="width: 38px; height: 38px;border: 2px solid #F2AC1B;">
-                              <div class="col">
+                              <div class="col-12 col-md-10">
                                 <div class="row">
                                   <h6 style="font-size: 16px; margin: 0px;"><?= $reply['user_name'] ?></h6>
                                 </div>
@@ -280,7 +280,7 @@ if (isset($_POST['post-reply'])) {
                             </div>
 
                           </div>
-                          <div class="col-2">
+                          <div class="col-12 col-lg-4 col-md-4 d-none d-sm-block">
                             <h6 class="text-secondary text-right" style="font-size: 12px;"><?= date('M. d, Y h:i A', $reply['reply_id']) ?></h6>
                           </div>
                         </div>

@@ -156,7 +156,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                       <tr>
                         <td style="min-width: 400px; max-width: 400px;">
                           <div class="row">
-                            <div class="col-md-9 mt-2" style="overflow: hidden; text-overflow: ellipsis;">
+                            <div class="col-md-9 col-9 mt-2" style="overflow: hidden; text-overflow: ellipsis;">
                               <a href="forum-view.php?id=<?= $orgid ?>&topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 <?= $thread['title'] ?>
                               </a>
@@ -165,7 +165,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         </td>
                         <td class="align-middle">
                           <div class="row justify-content-center mb-2">
-                            <div class="col-md-12 mt-2">
+                            <div class="col-md-12 col-12 mt-2">
                               <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
                               <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
                             </div>
@@ -173,7 +173,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         </td>
                         <td class="align-middle">
                           <div class="row justify-content-center mb-2">
-                            <div class="col-md-9 mt-2 ">
+                            <div class="col-md-9 col-12 mt-2 ">
                               <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
                               <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
                             </div>
@@ -181,7 +181,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         </td>
                         <td class="align-middle">
                           <div class="row justify-content-center mb-2">
-                            <div class="col-md-12 mt-2">
+                            <div class="col-md-12 col-12 mt-2">
                               <?php
                               if ($thread['last_reply'] > 0) {
                               ?>
