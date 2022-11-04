@@ -15,7 +15,7 @@ if ($id == -1) {
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Survey";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],

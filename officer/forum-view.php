@@ -24,7 +24,7 @@ if ($threadid <= 0) {
 $data_userid = $_SESSION['USER-ID'];
 $data_name = $_SESSION['USER-NAME'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
