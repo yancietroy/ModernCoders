@@ -269,13 +269,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="BIRTHDATE">Birthdate:</label>
-                    <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old" required />
+                    <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old"  style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="AGE">Age:</label>
-                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required />
+                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" readonly />
                   </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 ">
@@ -304,7 +304,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="EMAIL">Email:</label>
-                  <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;" />
+                  <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;" readonly/>
                 </div>
               </div>
               <div class="row">

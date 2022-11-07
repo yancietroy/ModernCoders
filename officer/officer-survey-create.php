@@ -133,12 +133,12 @@ if (isset($_SESSION['msg'])) {
                     </div>
                     <div class="mb-4 row">
                           <div class="col-12">
-                        <label class="form-label" for="ENDDATE">Add Question</label><br>
+                        <label class="form-label" for="ENDDATE">Type of Question:</label><br>
                             <button class="btn btn-primary small ms-2 btnText my-2" type="button">Text</button>
                             <button class="btn btn-primary small ms-2 btnMText my-2" type="button">Multiline Text</button>
                             <button class="btn btn-primary small ms-2 btnNum my-2" type="button">Numeric</button>
                             <button class="btn btn-primary small ms-2 btnCb my-2" type="button">Checkboxes</button>
-                            <button class="btn btn-primary small ms-2 btnRb my-2" type="button">Radiobutton</button>
+                            <button class="btn btn-primary small ms-2 btnRb my-2" type="button">Radio Button</button>
                             <button class="btn btn-primary small ms-2 btnDd my-2" type="button">Dropdown</button>
                             <button class="btn btn-primary small ms-2 btnRate my-2" type="button">Rating</button>
                     </div>
@@ -148,7 +148,7 @@ if (isset($_SESSION['msg'])) {
                         <table id="qtable" class="table table-bordered" style="">
                             <thead class="thead-light">
                                 <th style="width: 200px;">Type</th>
-                                <th>Question</th>
+                                <th>Question:</th>
                                 <th style="width: 200px;">Action</th>
                             </thead>
                             <tbody></tbody>
@@ -187,7 +187,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
-                                <label class="form-label" for="add-text-question">Question</label>
+                                <label class="form-label" for="add-text-question">Question:</label>
                                 <input type="text" id="add-text-question" class="form-control" />
                             </div>
                         </div>
@@ -212,7 +212,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
-                                <label class="form-label" for="add-mtext-question">Question</label>
+                                <label class="form-label" for="add-mtext-question">Question:</label>
                                 <input type="text" id="add-mtext-question" class="form-control" />
                             </div>
                         </div>
@@ -237,7 +237,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
-                                <label class="form-label" for="add-num-question">Question</label>
+                                <label class="form-label" for="add-num-question">Question:</label>
                                 <input type="text" id="add-num-question" class="form-control" />
                             </div>
                         </div>
@@ -262,7 +262,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
-                                <label class="form-label" for="add-rating-question">Question</label>
+                                <label class="form-label" for="add-rating-question">Question:</label>
                                 <input type="text" id="add-rating-question" class="form-control" />
                             </div>
                         </div>
@@ -288,7 +288,7 @@ if (isset($_SESSION['msg'])) {
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
                                 <input type="text" id="add-choices-type" style="display: none;">
-                                <label class="form-label" for="add-choices-question">Question</label>
+                                <label class="form-label" for="add-choices-question">Question:</label>
                                 <input type="text" id="add-choices-question" class="form-control" />
                                 <label class="form-label mt-4" for="add-choices-list">Choices</label>
                                 <div class="form-outline mb-3" id="add-choices-list">
@@ -333,7 +333,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
                         </td>
                     </tr>
                 `;
@@ -350,7 +350,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
                         </td>
                     </tr>
                 `;
@@ -367,7 +367,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
                         </td>
                     </tr>
                 `;
@@ -384,7 +384,7 @@ if (isset($_SESSION['msg'])) {
                             ${question}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
                         </td>
                     </tr>
                 `;
@@ -432,7 +432,7 @@ if (isset($_SESSION['msg'])) {
                             ${value}
                         </td>
                         <td>
-                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question </span></a>
+                            <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
                         </td>
                     </tr>
                 `;

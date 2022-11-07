@@ -109,9 +109,9 @@ if (isset($_SESSION['msg'])) {
                                                 <td><?= $row['start_date'] ?></td>
                                                 <td><?= $row['end_date'] ?></td>
                                                 <td>
-                                                    <button type='button' class='btn btn-success btn-sm viewbtn' id="<?= $row['survey_id'] ?>"> <i class='bi bi-list-ul'></i> </button>
-                                                    <button type='button' class='btn btn-warning text-white btn-sm resultbtn' id="<?= $row['survey_id'] ?>"> <i class='bi bi-bar-chart-steps'></i> </button>
-                                                    <button type='button' class='btn btn-secondary btn-sm deletebtn' id="<?= $row['survey_id'] ?>"> <i class=' bi bi-archive-fill'></i> </button>
+                                                    <button type='button' class='btn btn-success btn-sm viewbtn' title='View Survey'  id="<?= $row['survey_id'] ?>"> <i class='bi bi-list-ul'></i> </button>
+                                                    <button type='button' class='btn btn-warning text-white btn-sm resultbtn' title='Survey Results'  id="<?= $row['survey_id'] ?>"> <i class='bi bi-bar-chart-steps'></i> </button>
+                                                    <button type='button' class='btn btn-secondary btn-sm deletebtn' title='Archive Survey'  id="<?= $row['survey_id'] ?>"> <i class=' bi bi-archive-fill'></i> </button>
                                                 </td>
                                                 <td><?= $row['description'] ?></td>
                                             </tr>

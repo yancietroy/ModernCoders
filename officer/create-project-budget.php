@@ -46,6 +46,19 @@ $nav_breadcrumbs = [
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
+<style>
+
+table, td, th {
+    border:1px solid  #00226C;;
+    text-align: center;
+}
+th {
+    background-color: #00226C;;
+    color:white;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+</style>
 
 <body>
   <div class="d-flex" id="wrapper">
@@ -61,7 +74,7 @@ $nav_breadcrumbs = [
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
+      <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" novalidate data-parsley-validate data-parsley-trigger="keyup" parsley-use-html5-constraints>
         <div class="row ms-3 me-3 mt-2">
           <div class="col-lg-6 col-6  mb-4">
             <h4>Create New Project</h4>
@@ -142,7 +155,7 @@ $nav_breadcrumbs = [
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" data-parsley-required required />
+                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" required />
                 <div class="valid-feedback"></div>
               </div>
             </div>
@@ -207,23 +220,26 @@ $nav_breadcrumbs = [
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget breakdown." required></textarea>
+                <input type="text" class="form-control" maxlength="3" id="numOfRows" placeholder="number of rows" data-parsley-type="number" required />
                 <div class="valid-feedback"></div>
               </div>
+            <div id="amortizationTable"></div>
             </div>
+              <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+        <button class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
+       </div>
               <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text">₱</span>
-                  </div>
-                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" data-parsley-errors-container=".invalid-feedback" data-parsley-required required/>
+        <div class="input-group-prepend">
+            <span class="input-group-text">₱</span>
+        </div>
+                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required/>
                   <div class="valid-feedback"></div>
-                  <div class="invalid-feedback"></div>
                 </div>
 
               </div>
@@ -375,6 +391,29 @@ $nav_breadcrumbs = [
     $(this).val(n);
   })
 })
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('#amortTable').click(function () {
+            var i = $('#numOfRows').val();
+            var s2 = "<table><th>Item No.</th><th>Price</th>"
+            for (var j = 0; j < i; j++) {
+                s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' class='payment' id='payment" + (j + 1) + "' /></td></tr>";
+            }
+            s2 += "<tr><td></td><td><input type='text' id='paymentSum' readonly='readonly' style='background-color:#C0C0C0' /></td></tr></table>";
+            $('#amortizationTable').html(s2);
+        });
+
+        $("#amortizationTable").on("change", ".payment", function () {    // <-- Only changed this line
+            var sum = 0;
+            $(".payment").each(function () {
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    sum += parseFloat(this.value);
+                }
+            });
+            $('#paymentSum').val(sum);
+        });
+    });
     </script>
 </body>
 
