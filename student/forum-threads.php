@@ -47,7 +47,7 @@ if (isset($_POST['create-thread'])) {
   $sqlInsert = "INSERT INTO tb_disc_threads(thread_id,topic_id,user_id,user_type,name,title,message,views,replies,last_reply,last_reply_name) VALUES
 ('$timestamp','$topicid','$data_userid','1','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";
   if ($res = @mysqli_query($conn, $sqlInsert)) {
-    header('location:forum-view.php?topic=' . $topicid . '&thread=' . $timestamp);
+    header('location:forum-view.php?id='.$orgid.'&topic=' . $topicid . '&thread=' . $timestamp);
   } else {
     echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
   }

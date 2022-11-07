@@ -49,7 +49,7 @@ $nav_breadcrumbs = [
 <style>
 
 table, td, th {
-    border:1px solid  #00226C;;
+    border:1px solid  #00226C;
     text-align: center;
 }
 th {
@@ -226,10 +226,10 @@ th {
                 <input type="text" class="form-control" maxlength="3" id="numOfRows" placeholder="number of rows" data-parsley-type="number" required />
                 <div class="valid-feedback"></div>
               </div>
-            <div id="amortizationTable"></div>
+            <div id="amortizationTable" class="mt-4"></div>
             </div>
               <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
-        <button class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
+        <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
        </div>
               <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
@@ -396,9 +396,9 @@ th {
     $(document).ready(function () {
         $('#amortTable').click(function () {
             var i = $('#numOfRows').val();
-            var s2 = "<table><th>Item No.</th><th>Price</th>"
+            var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
             for (var j = 0; j < i; j++) {
-                s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' class='payment' id='payment" + (j + 1) + "' /></td></tr>";
+                s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text'></td><td><input type='text' class='payment' id='payment" + (j + 1) + "' /></td></tr>";
             }
             s2 += "<tr><td></td><td><input type='text' id='paymentSum' readonly='readonly' style='background-color:#C0C0C0' /></td></tr></table>";
             $('#amortizationTable').html(s2);
@@ -411,7 +411,7 @@ th {
                     sum += parseFloat(this.value);
                 }
             });
-            $('#paymentSum').val(sum);
+            $('#estimated_budget').val(sum);
         });
     });
     </script>
