@@ -16,8 +16,8 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Projects", "officer-projects.php", ""],
-  ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
+  ["Discussion Board", "forum-user.php", ""],
+  ["Create New Topic", "create-topic.php", "bi-plus-circle-fill"],
 ];
 
 ?>
@@ -46,19 +46,6 @@ $nav_breadcrumbs = [
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
-<style>
-
-table, td, th {
-    border:1px solid  #00226C;
-    text-align: center;
-}
-th {
-    background-color: #00226C;;
-    color:white;
-    padding-right: 20px;
-    padding-left: 10px;
-}
-</style>
 
 <body>
   <div class="d-flex" id="wrapper">
@@ -77,176 +64,73 @@ th {
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
         <div class="row ms-3 me-3 mt-2">
           <div class="col-lg-6 col-6  mb-4">
-            <h4>Create New Project</h4>
+            <h4>Create New Topic</h4>
           </div>
         </div>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
-          <div class="row ms-3 me-3 text-center ">
-            <div class="col-lg-12 col-12">
-              <h7 id="titlejru">Jose Rizal University</h7>
-            </div>
-          </div>
-          <div class="row ms-3 me-3 text-center mb-2">
-            <div class="col-lg-12 col-12  mb-4">
-              <h3 id="titleproj">Activity Proposal Form</h3>
-            </div>
-          </div>
           <div class="row">
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+            <div class="col-12 col-md-12 col-sm-3 mb-4 mt-4">
               <div class="form-outline">
-                <label class="form-label" for="project_name" id="asterisk">Project name:</label>
+                <label class="form-label" for="project_name" id="asterisk">Topic name:</label>
                 <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" maxlength="50" required />
                 <div class="valid-feedback"></div>
 
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
-                <div class="valid-feedback"></div>
-
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="venue" id="asterisk">Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" maxlength="50" required />
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
-              <label class="form-label select-label" for="project_type" id="asterisk">Project Type:</label>
+              <label class="form-label select-label" for="project_type" id="asterisk">Topic Icon:</label>
               <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" required>
-                <option class="greyclr" selected disabled value="">Select Type</option>
-                <option value="Curricular">Curricular</option>
-                <option value="Extra Curricular">Extra Curricular</option>
-                <option value="Outreach">Outreach</option>
-                <option value="Seminar">Seminar</option>
-                <option value="Competition">Competition</option>
-                <option value="Assembly">Assembly</option>
-                <option value="Socialization/Teambuilding">Socialization/Teambuilding</option>
-                <option value="Student Learning Circle">Student Learning Circle</option>
-                <option value="Showcase">Showcase</option>
-                <option value="Other">Other</option>
+                <option value="bi bi-chat-square-dots-fill">Discussion</option>
+                <option value="bi bi-clipboard-fill">Reminder</option>
+                <option value="bi bi-megaphone-fill">Announcement</option>
+                <option value="bi bi-lightning-charge-fill">Introduction</option>
               </select>
               <div class="valid-feedback"> </div>
 
             </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4">
               <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
               <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
-                <option class="greyclr" selected disabled value="">Select Category</option>
-                <option value="Onsite">Onsite</option>
-                <option value="Online">Online</option>
-                <option value="Hybrid">Hybrid</option>
+                <option value="1">General</option>
+                <option value="2">Organization</option>
+                <option value="3">Officers</option>
               </select>
               <div class="valid-feedback"> </div>
             </div>
-            <div class="col-12 col-md-4 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" maxlength="100" required />
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" required />
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="end_date" id="asterisk">End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" required />
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-            <!--
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="no_of_participants" id="asterisk">No. of Participants:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" required />
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Number of Participants field cannot be blank!</div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="beneficiary" id="asterisk">Beneficiary:</label>
-                <input type="text" name="beneficiary" id="beneficiary" class="form-control"  maxlength="50" required />
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Beneficiary field cannot be blank!</div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="no_of_beneficiary" id="asterisk">No. of Beneficiary:</label>
-                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" required />
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Number of Beneficiary field cannot be blank!</div>
-              </div>
-            </div>
-            </div>
-            <div class="col-12 col-md-3 col-sm-3 mb-4">
-              <label class="form-label select-label" for="budget_source" id="asterisk">Budget Request:</label>
-              <select class="mt-0 ms-0 form-select" name="budget_source" id="budget_source" required>
-                <option class="greyclr" selected disabled value="" >Select Budget Source</option>
-                <option value="Student Council">Student Council</option>
-                <option value="Organization">Student Organization</option>
-                <option value="Accounting Office">Accounting Office</option>
-                <option value="Third Party">Third Party</option>
-                <option value="Third Party">None</option>
-              </select>
-              <div class="valid-feedback">  </div>
-              <div class="invalid-feedback">Category field cannot be blank!</div>
-              <label class="form-label mt-4" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-              <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" required />
-              <div class="valid-feedback"></div>
-              <div class="invalid-feedback">Budget field cannot be blank!</div>
-            </div>-->
 
-          </div>
 
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="objectives" id="asterisk">Objectives:</label>
-                <textarea class="form-control" name="objectives" id="objectives" rows="3" placeholder="Enter project objectives and details." required></textarea>
+                <label class="form-label" for="objectives" id="asterisk">Description:</label>
+                <textarea class="form-control" name="objectives" id="objectives" rows="3" placeholder="Enter topic description" required></textarea>
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+          <!--  <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                <input type="text" class="form-control" maxlength="2" id="numOfRows"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder="Item Quantity" required />
+                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget breakdown." required></textarea>
                 <div class="valid-feedback"></div>
               </div>
-            <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
             </div>
-              <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
-        <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
-       </div>
               <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">₱</span>
-        </div>
-                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget"  style="background-color: #fff;" readonly/>
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">₱</span>
+                  </div>
+                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" data-parsley-errors-container=".invalid-feedback" data-parsley-required required/>
                   <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
                 </div>
 
               </div>
-              </div>
+            </div>-->
           </div>
 
-          <div class="row">
+          <!--<div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachments:</label>
@@ -261,7 +145,7 @@ th {
                 *Note: Please attach other request form/ file
                 (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
                 *Note: Please be mindful about submitting project proposals during exam week</small>
-            </div>
+            </div>-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">
               <input class="btn btn-primary btn-lg" name="submit" type="submit" value="Submit">
@@ -378,7 +262,7 @@ th {
       window.history.replaceState( null, null, window.location.href );
     }
 
-    $('#estimated_budget').on("change keyup paste click", function(e) {
+    $('#estimated_budget').keydown(function(e) {
   setTimeout(() => {
     let parts = $(this).val().split(".");
     let v = parts[0].replace(/\D/g, ""),
@@ -391,29 +275,6 @@ th {
     $(this).val(n);
   })
 })
-    </script>
-    <script>
-    $(document).ready(function () {
-        $('#amortTable').click(function () {
-            var i = $('#numOfRows').val();
-            var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
-            for (var j = 0; j < i; j++) {
-                s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc'></td><td><input type='text' class='payment' id='payment" + (j + 1) + "' /></td></tr>";
-            }
-            s2 += "</table>";
-            $('#amortizationTable').html(s2);
-        });
-
-        $("#amortizationTable").on("change", ".payment", function () {    // <-- Only changed this line
-            var sum = 0;
-            $(".payment").each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    sum += parseFloat(this.value);
-                }
-            });
-            $('#estimated_budget').val(sum);
-        });
-    });
     </script>
 </body>
 

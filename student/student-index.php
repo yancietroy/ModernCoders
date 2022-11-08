@@ -92,7 +92,14 @@ $nav_selected = "Home";
         </div>
       </div>
 
-      <h4 class="ms-3">My Organizations</h4>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4 id="orgtitle">My Organizations</h4>
+        </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="join-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Join Organization </span></a>
+        </div>
+      </div>
       <div class="d-flex flex-row flex-wrap">
         <?php
         foreach ($_SESSION['USER-ORGS'] as $o_id => $o_name) {

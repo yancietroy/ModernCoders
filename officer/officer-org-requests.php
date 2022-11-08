@@ -16,8 +16,7 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Projects", "officer-projects.php", ""],
-  ["Ongoing", "", ""],
+  ["Org Applications", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -54,7 +53,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -74,18 +73,15 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4 id="orgtitle">Project Ongoing</h4>
+          <h4> Student Application List</h4>
         </div>
-        <!--<div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-check-circle-fill"></i> <span id="btntitle">Ongoing Checklist </span></a>
-        </div>-->
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.status_date, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments, tb_projectmonitoring.remarks FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Ongoing') AND tb_projectmonitoring.org_id = '$orgid'";
+              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Pending') AND tb_projectmonitoring.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -107,7 +103,6 @@ if (isset($_SESSION['msg'])) {
               $a = " ";
               $r = " ";
               $or = " ";
-              $std = " ";
               $rb = " ";
               $br = " ";
               $oid = " ";
@@ -119,9 +114,8 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Project Name</th>
                             <th class='desktop'>Venue</th>
                             <th class='desktop'>Status</th>
-                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Date Submitted:</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Ongoing: </th>
                             <th class='none'>Objectives: </th>
                             <th class='none'>Project Category: </th>
                             <th class='none'>Project Type: </th>
@@ -135,7 +129,6 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Position: </th>
                             <th class='none'>Estimated Budget: </th>
                             <th class='none'>Attachment: </th>
-                            <th class='none'>Remarks: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -155,13 +148,12 @@ if (isset($_SESSION['msg'])) {
                   $ed = $row['end_date'];
                   $p = $row['participants'];
                   $or = $row['organizer'];
-                  $std = $row['status_date'];
                   $rb = $row['requested_by'];
                   $br = $row['budget_req'];
                   $oid = $row['ORG'];
                   $pst = $row['position'];
                   $a = $row['attachments'];
-                  $r = $row['remarks'];
+                  //$r = $row['remarks'];
                   $eb = $row['estimated_budget'];
 
                   echo "<tr>
@@ -171,11 +163,10 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
-                              <td> $std  </td>
                               <td> $obj  </td>
                               <td> $pc  </td>
                               <td> $pt  </td>
@@ -189,7 +180,6 @@ if (isset($_SESSION['msg'])) {
                               <td> $pst  </td>
                               <td> $eb  </td>
                               <td> $a  </td>
-                              <td> $r  </td>
                               </tr>
                           ";
                 }
@@ -202,7 +192,6 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Ongoing</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -216,7 +205,6 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -262,12 +250,6 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
                     <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-4 col-md-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="status_date">Date Ongoing:</label>
-                    <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -328,8 +310,8 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <!--
-                          <div class="col-12 col-md-4 col-sm-3 mb-2">
+
+                <!--<div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                           </div>
@@ -366,6 +348,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Name of Organization:</label>
+
                     <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -379,14 +362,14 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
                     <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <1?php/**
+                              <1? php
+                              /**
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                         }**/
-                              ?>
-                              </select> -->
+                              ?>-->
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -398,14 +381,15 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-2">
-                  <div class="form-outline  ">
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                  <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
-                  <div class="form-outline projectdesc">
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                  <div class="form-outline">
+
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping">PHP</span>
@@ -413,42 +397,25 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                 </div>
-                <!-- <div class="col-12 col-md-12 mb-4">
+                <!--  <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
-                          </div>
-                        </div>!-->
-                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
-                  <div class="form-outline">
-                    <label class="form-label" for="estimated_budget">Project Done Checkbox:</label><br>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" required>
-                      <label class="form-check-label" for="inlineCheckbox1">Documentation</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" required>
-                      <label class="form-check-label" for="inlineCheckbox2">Liquidation Report</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" required>
-                      <label class="form-check-label" for="inlineCheckbox3">Feedback</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer px-0 py-0 pt-2">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <?php
-                    if ($_SESSION['USER-POS'] <= 5 ){
-                  ?>
-                  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
-                  <button type="button" class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
-                  <button class="btn btn-md btn-done" name="Done"> Project Done</a>
-                  <?php
-                    }
-                  ?>
-                </div>
+                          </div>!-->
+              </div>
+            </div>
+            <div class="modal-footer px-0 py-0 pt-2">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <?php
+                if ($_SESSION['USER-POS'] <= 5 ){
+              ?>
+              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+              <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+              <?php
+                }
+              ?>
+            </div>
         </form>
       </div>
     </div>
@@ -485,7 +452,6 @@ if (isset($_SESSION['msg'])) {
           $('#org_id').val(data.ORG);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
-          $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
           $('#budget_req').val(data.budget_req);
           $('#estimated_budget').val(data.estimated_budget);
@@ -494,6 +460,10 @@ if (isset($_SESSION['msg'])) {
           $('#modal-lg').css('max-width', '70%');
         }
       });
+    });
+
+    $(document).on("click", '#btndl2', function(e) {
+      $('#btndl').trigger('click');
     });
   </script>
 
@@ -545,6 +515,9 @@ if (isset($_SESSION['msg'])) {
           if (data[3] == "Done") {
             $('td', row).eq(3).css('color', '#00C9A7');
           }
+          if (data[3] == "Approved") {
+            $('td', row).eq(3).css('color', 'green');
+          }
           if (data[3] == "For Revision") {
             $('td', row).eq(3).css('color', '#FF9671');
           }
@@ -556,6 +529,7 @@ if (isset($_SESSION['msg'])) {
         keys: true,
         fixedheader: true,
         bautoWidth: false,
+        //  scrollX:true,
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
@@ -613,12 +587,6 @@ if (isset($_SESSION['msg'])) {
             "width": "100px"
           },
           {
-            "width": "100px"
-          },
-          {
-            "width": "100px"
-          },
-          {
             "width": "80px"
           }
         ],
@@ -627,10 +595,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -   Ongoing List',
+            title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
             },
           },
           //{
@@ -646,20 +614,20 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal -   Ongoing List',
+            title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -   Ongoing List',
+            title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
             },
             customize: function(win) {
 
