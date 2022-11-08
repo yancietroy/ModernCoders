@@ -18,6 +18,7 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_admin` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_INITIAL` = '$mn', `EMAIL` = '$e' WHERE `ADMIN_ID` = '$ai'";
 			$result = @mysqli_query($conn, $query);
+			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
 			echo "<script type='text/javascript'>
 			alert('Successfuly updated!')
 			window.location.href='admin-profile.php'</script>";		}

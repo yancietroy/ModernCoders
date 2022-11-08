@@ -154,7 +154,7 @@ if (isset($_POST['$student_email']) || isset($_POST['submit'])) {
                               window.location = 'index.php';
                           });
                           </script>";
-                    } catch (PDOException $e) {
+                    } catch (PDOException $student_email) {
                       echo $sql . "
                               " . $e->getMessage();
                     }
