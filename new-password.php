@@ -1,14 +1,6 @@
-<?php
-ob_start();
-session_start();
-session_destroy();
-session_start();
-$_SESSION['loggedIn'] = true;
-if(isset($_SESSION['message'])){
-    print_r($_SESSION['message']);#display message
-    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
-}
- ?>
+<?php 
+include('mysql_connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +75,7 @@ box-shadow: none
         <p class="card-text py-2">
             Please enter your new password.
         </p>
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+                <form method="post" action="" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
         <div class="form-group py-1 pb-2">
         <div class="input-field"> <span class="fas fa-lock p-2"></span>
           <input type="password" class=" password" name="password" id="txtNewPassword" placeholder="New Password" data-parsley-minlength="8" maxlength="20" data-parsley-errors-container=".errorspannewpassinput" data-parsley-required-message="Please enter your password." data-parsley-uppercase="1" data-parsley-lowercase="1" data-parsley-number="1" data-parsley-special="1" data-parsley-required required />
@@ -97,7 +89,7 @@ box-shadow: none
          </div>
              <span class="errorspanconfirmnewpassinput"></span>
         </div>
-        <a href="#" class="btn btn-primary w-100">Reset password</a>
+        <button type="submit" name="submit" class="btn btn-primary w-100">Reset password</button>
         <div class="d-flex justify-content-between mt-4">
             <a class="" href="index.php">Login</a>
             <a class="" href="register.php">Register</a>
@@ -107,6 +99,39 @@ box-shadow: none
 </div>
 </div>
 </div>
+<?php
+if (isset($_POST['submit']) || isset($_POST['password'])) {
+  $pass = $_POST['password'];
+  include('mysql_connect.php');
+  $email = $_GET['email'] ?? -1;
+  if ($email <= 0) {
+      echo "<script>alert('Email is invalid.'); location.href='index.php';</script>";
+  } else {
+      $query = "SELECT * FROM tb_students WHERE EMAIL='$email'";
+      if ($res = @mysqli_query($conn, $query)) {
+          if ($res->num_rows > 0) {
+              $row = $res->fetch_assoc();
+              $student_id = $row['STUDENT_ID'];
+              $sql = "UPDATE tb_students SET PASSWORD = SHA('$pass') WHERE STUDENT_ID='$student_id'";
+              @mysqli_query($conn, $sql);
+              echo "<script type='text/javascript'>
+                        Swal.fire({
+                             allowOutsideClick: false,
+                             icon: 'success',
+                             title: 'Password Set!',
+                             text:'Please login JRU email to with your new password',
+                             confirmButtonColor: '#F2AC1B'
+                         }).then(function() {
+                              window.location = 'index.php';
+                          });
+                          </script>";
+          } else {
+              echo "<script>alert('Email is invalid.'); location.href='index.php';</script>";
+          }
+      }
+  }
+}
+?>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const togglePassword = document.querySelector("#togglePassword");

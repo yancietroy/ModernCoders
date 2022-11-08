@@ -502,7 +502,7 @@ if (isset($_SESSION['msg'])) {
           $('#GENDER').val(data.GENDER);
           $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
           $('#EMAIL').val(data.EMAIL);
-          $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
+          $('#college').val(data.COLLEGE_DEPT);
           $('#COURSE').val(data.COURSE);
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);

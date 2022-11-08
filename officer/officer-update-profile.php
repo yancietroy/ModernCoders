@@ -22,6 +22,8 @@ if (isset ($_POST['updatedata']))
 	$e = $_POST['email'];
 	$c = $_POST['course'];
 	$section = $_POST['section'];
+
+	$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
 	
 	$query = "SELECT * FROM tb_officers";
 	$result = @mysqli_query($conn, $query);

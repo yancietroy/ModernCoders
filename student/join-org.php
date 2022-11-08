@@ -73,7 +73,7 @@ $nav_breadcrumbs = [
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <label class="form-label select-label" id="asterisk">Organization</label>
-              <select class="form-select form-select-md" name="org" id="org" required>
+              <select class="form-select form-select-md" name="org_id" id="org_id" required>
                 <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                 <?php
                 $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 2";
@@ -89,8 +89,8 @@ $nav_breadcrumbs = [
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="objectives" id="asterisk">Reason to join org:</label>
-                <textarea class="form-control" name="objectives" id="objectives" rows="3" placeholder="why do you want to join this organization?" required></textarea>
+                <label class="form-label" for="reason" id="asterisk">Reason to join org:</label>
+                <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="why do you want to join this organization?" required></textarea>
                 <div class="valid-feedback"></div>
               </div>
             </div>
@@ -113,30 +113,14 @@ $nav_breadcrumbs = [
           exit();
         }
 
-        if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
+        if (isset($sorg_id) || isset($r) ||  isset($_POST['submit'])) {
         // Escape special characters, if any
-          $pn = $mysqli -> real_escape_string ($_POST['project_name']);
-          $o = $mysqli -> real_escape_string ($_POST['organizer']);
-          $vn = $mysqli -> real_escape_string ($_POST['venue']);
-          $pt = $mysqli -> real_escape_string ($_POST['project_type']);
-          $sdate = $mysqli -> real_escape_string ($_POST['start_date']);
-          $edate = $mysqli -> real_escape_string ($_POST['end_date']);
-          $pc = $mysqli -> real_escape_string ($_POST['project_category']);
-          $p = $mysqli -> real_escape_string ($_POST['participants']);
-          $obj = $mysqli -> real_escape_string ($_POST['objectives']);
-          $br = $mysqli -> real_escape_string ($_POST['budget_req']);
-          $eb = $mysqli -> real_escape_string ($_POST['estimated_budget']);
-          $s = "Pending";
-          $aid = '1';
+          $sorg_id = ',[' . $_POST['org_id'] . ']';
+          $r = $mysqli -> real_escape_string ($_POST['reason']);
+          $rq = "Pending";
           $userName = $_SESSION['USER-NAME'];
-          $posID = $_SESSION['USER-POS'];
 
-          $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
-          $destination = 'attachments/' . $pname;
-          $tname = $_FILES['attachments']['tmp_name'];
-          move_uploaded_file($tname, $destination);
-
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid')";
+          $query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '$data_userid'";
           $result = @mysqli_query($conn, $query);
 
           echo "<script type='text/javascript'>

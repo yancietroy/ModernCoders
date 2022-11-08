@@ -17,7 +17,7 @@ $nav_breadcrumbs = [
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
   ["Discussion Board", "forum-user.php", ""],
-  ["Create New Topic", "create-topic.php", "bi-plus-circle-fill"],
+  ["Create New Topic", "", "bi-plus-circle-fill"],
 ];
 
 ?>
@@ -71,15 +71,15 @@ $nav_breadcrumbs = [
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4 mt-4">
               <div class="form-outline">
-                <label class="form-label" for="project_name" id="asterisk">Topic name:</label>
-                <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" maxlength="50" required />
+                <label class="form-label" for="subject" id="asterisk">Topic name:</label>
+                <input type="text" name="subject" id="subject" class="form-control form-control-lg" maxlength="50" required />
                 <div class="valid-feedback"></div>
 
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <label class="form-label select-label" for="project_type" id="asterisk">Topic Icon:</label>
-              <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" required>
+              <label class="form-label select-label" for="icon" id="asterisk">Topic Icon:</label>
+              <select class="mt-0 ms-0 form-select" name="icon" id="icon" required>
                 <option value="bi bi-chat-square-dots-fill">Discussion</option>
                 <option value="bi bi-clipboard-fill">Reminder</option>
                 <option value="bi bi-megaphone-fill">Announcement</option>
@@ -89,11 +89,15 @@ $nav_breadcrumbs = [
 
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
-              <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
-              <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
-                <option value="1">General</option>
-                <option value="2">Organization</option>
-                <option value="3">Officers</option>
+              <label class="form-label select-label" for="group_id" id="asterisk">Category:</label>
+              <select class="mt-0 ms-0 form-select" name="group_id" id="group_id" required>
+                <?php
+                  $query = "SELECT * FROM tb_disc_groups";
+                  $result = @mysqli_query($conn, $query);
+                  while ($data = @mysqli_fetch_array($result)) {
+                    echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                  }
+                ?>
               </select>
               <div class="valid-feedback"> </div>
             </div>
@@ -102,50 +106,12 @@ $nav_breadcrumbs = [
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="objectives" id="asterisk">Description:</label>
-                <textarea class="form-control" name="objectives" id="objectives" rows="3" placeholder="Enter topic description" required></textarea>
+                <label class="form-label" for="description" id="asterisk">Description:</label>
+                <textarea class="form-control" name="description" id="description" rows="3" placeholder="Enter topic description" required></textarea>
                 <div class="valid-feedback"></div>
               </div>
             </div>
-          <!--  <div class="col-12 col-md-12 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget breakdown." required></textarea>
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-              <div class="col-12 col-md-12 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text">₱</span>
-                  </div>
-                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" data-parsley-errors-container=".invalid-feedback" data-parsley-required required/>
-                  <div class="valid-feedback"></div>
-                  <div class="invalid-feedback"></div>
-                </div>
-
-              </div>
-            </div>-->
           </div>
-
-          <!--<div class="row">
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachments:</label>
-                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
-                <div class="valid-feedback"></div>
-              </div>
-            </div>
-            <div class="col-12 col-md-8 col-sm-3 mb-4">
-              <small class="text-muted">*Note: Upload a zip file containing necessary documents in this form that will support your request
-                (invitation letter, quotation of provider, Program of the Activity etc.) <br>
-
-                *Note: Please attach other request form/ file
-                (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
-                *Note: Please be mindful about submitting project proposals during exam week</small>
-            </div>-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">
               <input class="btn btn-primary btn-lg" name="submit" type="submit" value="Submit">
@@ -160,40 +126,47 @@ $nav_breadcrumbs = [
           exit();
         }
 
-        if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
+        if (isset($s) || isset($gi) || isset($i) || isset($d) || isset($_POST['submit'])) {
         // Escape special characters, if any
-          $pn = $mysqli -> real_escape_string ($_POST['project_name']);
-          $o = $mysqli -> real_escape_string ($_POST['organizer']);
-          $vn = $mysqli -> real_escape_string ($_POST['venue']);
-          $pt = $mysqli -> real_escape_string ($_POST['project_type']);
-          $sdate = $mysqli -> real_escape_string ($_POST['start_date']);
-          $edate = $mysqli -> real_escape_string ($_POST['end_date']);
-          $pc = $mysqli -> real_escape_string ($_POST['project_category']);
-          $p = $mysqli -> real_escape_string ($_POST['participants']);
-          $obj = $mysqli -> real_escape_string ($_POST['objectives']);
-          $br = $mysqli -> real_escape_string ($_POST['budget_req']);
-          $eb = $mysqli -> real_escape_string ($_POST['estimated_budget']);
-          $s = "Pending";
-          $aid = '1';
-          $userName = $_SESSION['USER-NAME'];
-          $posID = $_SESSION['USER-POS'];
-
-          $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
-          $destination = 'attachments/' . $pname;
-          $tname = $_FILES['attachments']['tmp_name'];
-          move_uploaded_file($tname, $destination);
-
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid')";
+          $s = $mysqli -> real_escape_string ($_POST['subject']);
+          $gi = $mysqli -> real_escape_string ($_POST['group_id']);
+          $i = $mysqli -> real_escape_string ($_POST['icon']);
+          $d = $mysqli -> real_escape_string ($_POST['description']);
+          if($gi == 3){
+          $v = 2;
+          $query = "INSERT INTO tb_disc_topics(subject, group_id, icon, description, org_id, visibility) VALUES('$s', '$gi', '$i', '$d', '$orgid', '$v')";
           $result = @mysqli_query($conn, $query);
-
           echo "<script type='text/javascript'>
                           Swal.fire({
                                icon: 'success',
-                               title: 'Project Created',
+                               title: 'Topic Created',
                                 confirmButtonColor: '#F2AC1B'
                            })
                             </script>";
-
+          }elseif($gi == 4){
+          $v = 5;
+          $query = "INSERT INTO tb_disc_topics(subject, group_id, icon, description, org_id, visibility) VALUES('$s', '$gi', '$i', '$d', '$orgid', '$v')";
+          $result = @mysqli_query($conn, $query);
+          echo "<script type='text/javascript'>
+                          Swal.fire({
+                               icon: 'success',
+                               title: 'Topic Created',
+                                confirmButtonColor: '#F2AC1B'
+                           })
+                            </script>";
+          }else{
+          $v = 0;
+          $org_id = 0;
+          $query = "INSERT INTO tb_disc_topics(subject, group_id, icon, description, org_id, visibility) VALUES('$s', '$gi', '$i', '$d', '$org_id', '$v')";
+          $result = @mysqli_query($conn, $query);
+          echo "<script type='text/javascript'>
+                          Swal.fire({
+                               icon: 'success',
+                               title: 'Topic Created',
+                                confirmButtonColor: '#F2AC1B'
+                           })
+                            </script>";
+          }
           @mysqli_close($conn);
         }
         ?>
@@ -228,54 +201,5 @@ $nav_breadcrumbs = [
     <script src="../assets/js/date.js"></script>
     <!-- Datepicker cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-      $(document).ready(function() {
-        $('#start_date').datetimepicker({
-          changeMonth: true,
-          changeYear: true,
-          showButtonPanel: true,
-          formatTime: 'H:i',
-          formatDate: 'm.d.Y',
-          minDate: new Date()
-        });
-
-        $('#end_date').datetimepicker({
-          dateFormat: "dd-M-yy",
-          minDate: 0
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#start_date').bind('cut copy paste', function(e) {
-          e.preventDefault();
-          return false;
-        });
-        $('#end_date').bind('cut copy paste', function(e) {
-          e.preventDefault();
-          return false;
-        });
-      });
-    </script>
-    <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-
-    $('#estimated_budget').keydown(function(e) {
-  setTimeout(() => {
-    let parts = $(this).val().split(".");
-    let v = parts[0].replace(/\D/g, ""),
-      dec = parts[1]
-    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-    // use this for numeric calculations
-    // console.log('number for calculations: ', calc_num);
-    let n = new Intl.NumberFormat('en-EN').format(v);
-    n = dec !== undefined ? n + "." + dec : n;
-    $(this).val(n);
-  })
-})
-    </script>
 </body>
-
 </html>

@@ -16,6 +16,8 @@ if (isset ($_POST['updatedata']))
 	$age = $_POST['AGE'];
 	$e = $_POST['EMAIL'];
 
+	$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
+
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);
 	$row = mysqli_fetch_array($result);

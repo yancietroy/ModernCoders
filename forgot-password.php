@@ -1,13 +1,12 @@
 <?php
-ob_start();
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+require 'vendor/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/src/SMTP.php';
+
 session_start();
-session_destroy();
-session_start();
-$_SESSION['loggedIn'] = true;
-if(isset($_SESSION['message'])){
-    print_r($_SESSION['message']);#display message
-    unset($_SESSION['message']); #remove it from session array, so it doesn't get displayed twice
-}
+include('mysql_connect.php');
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +74,7 @@ box-shadow: none
 }
 </style>
 <body class="bg min-vh-100">
+  <form method="post" action="">
    <div class="d-flex flex-column min-vh-100 min-vw-100">
   <div class="d-flex flex-grow-1 justify-content-center align-items-center">
   <div class="card text-center" style="width: 350px;">
@@ -83,7 +83,7 @@ box-shadow: none
         <p class="card-text py-2">
             Enter your email address and we'll send you an email with instructions to reset your password.
         </p>
-        <div class="form-outline">
+        <div class="form-outline">          
           <div class="form-floating mb-3">
             <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
             <label class="text-muted" for="email">Email address</label>
@@ -91,7 +91,7 @@ box-shadow: none
             <div class="invalid-feedback">Email field invalid!</div>
           </div>
         </div>
-        <a href="#" class="btn btn-primary w-100">Reset password</a>
+        <button type="submit" name="submit" class="btn btn-primary w-100">Reset password</button>
         <div class="d-flex justify-content-between mt-4">
             <a class="" href="index.php">Login</a>
             <a class="" href="register.php">Register</a>
@@ -100,6 +100,67 @@ box-shadow: none
 </div>
 </div>
 </div>
+</form>
+<?php
+if (isset($_POST['$student_email']) || isset($_POST['submit'])) {
+                  $student_email = $_POST['email'];
+                  $emailFrom = "studentportalorg@jrusop.com"; // Yung Email ng Sender
+                  $password = "!jsknvB78ag*"; // App Password ng Sender
+                  $email = "$student_email"; // Email Recipient (Where to send)
+                  $subject = "JRUSOP New password - Email Verification"; // Subject/header of the email
+                  $body = "Kindly change your password using the link below:<br><b><a href='localhost/new-password.php?email=$student_email'>CHANGE PASSWORD</a></b>"; // Body/Message of the email
+                  $host = "smtp.hostinger.com";
+
+                  $mail = new PHPMailer(true);
+
+                  //Server settings
+                  $mail->isSMTP();
+                  $mail->Host = $host;
+                  $mail->SMTPAuth = true;
+                  $mail->Username = $emailFrom;
+                  $mail->Password = $password;
+                  $mail->SMTPOptions = array(
+                    'ssl' => array(
+                      'verify_peer' => false,
+                      'verify_peer_name' => false,
+                      'allow_self_signed' => true
+                    )
+                  );
+                  $mail->SMTPSecure = 'ssl';
+                  $mail->Port = 465;
+
+                  //Send Email
+                  $mail->setFrom($emailFrom);
+
+                  //Recipients
+                  $mail->addAddress($email);
+                  $mail->addReplyTo($emailFrom);
+
+                  $mail->isHTML(true);
+                  $mail->Subject = $subject;
+                  $mail->Body    = $body;
+
+                 if ($mail->send()) { 
+                  try {
+                      echo "
+                    <script type='text/javascript'>
+                        Swal.fire({
+                             allowOutsideClick: false,
+                             icon: 'success',
+                             title: 'Email Sent',
+                             text:'Please check your JRU email to change your password',
+                             confirmButtonColor: '#F2AC1B'
+                         }).then(function() {
+                              window.location = 'index.php';
+                          });
+                          </script>";
+                    } catch (PDOException $e) {
+                      echo $sql . "
+                              " . $e->getMessage();
+                    }
+                  }
+                }
+?>
 <script>
     const togglePassword = document.querySelector("#togglePassword");
     const password = document.querySelector("#password");
