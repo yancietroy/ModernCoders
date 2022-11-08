@@ -102,7 +102,6 @@ box-shadow: none
 <?php
 if (isset($_POST['submit']) || isset($_POST['password'])) {
   $pass = $_POST['password'];
-  include('mysql_connect.php');
   $email = $_GET['email'] ?? -1;
   if ($email <= 0) {
       echo "<script>alert('Email is invalid.'); location.href='index.php';</script>";
