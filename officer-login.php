@@ -105,6 +105,13 @@ if (isset($_SESSION['message'])) {
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Password field invalid!</div>
               </div>
+              <div class="d-flex justify-content-between mt-3 mb-2">
+                <div class="form-check">
+                                     <input class="form-check-input" type="checkbox" onclick="showPass()" id="inlineFormCheck">
+                                     <label class="form-check-label" for="inlineFormCheck">Show Password</label>
+                                 </div>
+                                     <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
+                             </div>
               <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-2 py-3" id="select-opt">
@@ -129,6 +136,16 @@ if (isset($_SESSION['message'])) {
       </div>
     </div>
   </div>
+  <script>
+  function showPass() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+  </script>
 
   <!-- waves js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
