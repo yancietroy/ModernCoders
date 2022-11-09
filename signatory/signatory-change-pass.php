@@ -8,7 +8,7 @@ route(3);
 
 if (isset ($_POST['changePassword']))
 {
-	$si =  $_POST['cid'];
+	$si =  $mysqli -> real_escape_string ($_POST['cid']);
 	$pass =  $mysqli -> real_escape_string ($_POST['password']);
 
 	$query = "SELECT * FROM tb_signatories";
@@ -17,7 +17,7 @@ if (isset ($_POST['changePassword']))
 
 		if($row)
 		{
-			$query = "UPDATE `tb_signatories` SET `password` = SHA('$pass') WHERE `tb_signatories` = '$si'";
+			$query = "UPDATE `tb_signatories` SET `password` = SHA('$pass') WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
 			alert('Successfuly updated!')
