@@ -241,7 +241,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="AGE">Age:</label>
-                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required />
+                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required />
                   </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 ">

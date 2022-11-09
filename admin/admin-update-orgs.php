@@ -6,7 +6,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $ci = $_POST["ORG_ID"];
-    $c = $_POST["ORG"];
+    $c =  $mysqli -> real_escape_string ($_POST["ORG"]);
     $query = "SELECT * FROM tb_orgs";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);

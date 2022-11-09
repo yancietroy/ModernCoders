@@ -325,13 +325,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" required/>
+                    <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" required/>
+                    <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
                   </div>
                 </div>
               </div>

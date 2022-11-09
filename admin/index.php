@@ -44,8 +44,8 @@ if (isset($_SESSION['message'])) {
               <?php
               if (isset($_POST['submit'])) {
                 include('../mysql_connect.php');
-                $e = $_POST['email'];
-                $p = $_POST['password'];
+                $e =  $mysqli -> real_escape_string ($_POST['email']);
+                $p =  $mysqli -> real_escape_string ($_POST['password']);
 
                 if (!empty($_POST['email']) || !empty($_POST['password'])) {
                   ob_start();
@@ -81,7 +81,7 @@ if (isset($_SESSION['message'])) {
               }
               ?>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" title="Please provide a Jose Rizal University e-mail address" placeholder="name@my.jru.edu" required> 
+                <input type="email" class="form-control" id="email" name="email" title="Please provide a Jose Rizal University e-mail address" placeholder="name@my.jru.edu" required>
                 <label class="text-muted" for="email">Email address</label>
                 <div class="valid-feedback"></div>
                 <div class="invalid-feedback">Email field invalid!</div>

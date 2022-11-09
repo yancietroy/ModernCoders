@@ -29,11 +29,11 @@ if ($data_electionid == -1) header('location:admin-election.php');
 // Save Election
 if (isset($_POST['save-election'])) {
     // Get General Information
-    $orgid = $_POST['ORG'];
-    $title = $_POST['TITLE'];
-    $description = $_POST['DESC'];
-    $startdate = $_POST['STARTDATE'];
-    $enddate = $_POST['ENDDATE'];
+    $orgid =  $mysqli -> real_escape_string ($_POST['ORG']);
+    $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
+    $description =  $mysqli -> real_escape_string ($_POST['DESC']);
+    $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
+    $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
 
     // Get Candidates + Position
     $candidates = [];

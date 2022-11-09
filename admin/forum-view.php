@@ -53,10 +53,10 @@ if (isset($_SESSION['msg'])) {
 }
 
 if (isset($_POST['post-reply'])) {
-    $replymsg = $_POST['reply-msg'] ?? "";
+    $replymsg =  $mysqli -> real_escape_string ($_POST['reply-msg']) ?? "";
     if ($replymsg != "") {
         $timestamp = time();
-        $sqlPost = "INSERT INTO tb_disc_replies(reply_id,thread_id,user_type,user_id,user_name,message) VALUES 
+        $sqlPost = "INSERT INTO tb_disc_replies(reply_id,thread_id,user_type,user_id,user_name,message) VALUES
     ('$timestamp','$threadid','0','$data_userid','$data_name','$replymsg')";
         if (@mysqli_query($conn, $sqlPost)) {
             // Increment replies

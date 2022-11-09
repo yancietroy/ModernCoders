@@ -27,7 +27,7 @@ $nav_breadcrumbs = [
 
 
 if (isset($_POST['submit-response'])) {
-  $survey_id = $_POST['survey-id'];
+  $survey_id =  $mysqli -> real_escape_string ($_POST['survey-id']);
   $timestamp = time();
   $query = "INSERT INTO tb_survey_answers(survey_id,question_id,student_no,answer,submitted) VALUES ";
 

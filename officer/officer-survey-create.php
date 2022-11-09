@@ -21,10 +21,10 @@ $nav_breadcrumbs = [
 ];
 
 if (isset($_POST['create-survey'])) {
-    $title = $_POST['TITLE'];
-    $description = $_POST['DESC'];
-    $startdate = $_POST['STARTDATE'];
-    $enddate = $_POST['ENDDATE'];
+  $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
+  $description =  $mysqli -> real_escape_string ($_POST['DESC']);
+  $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
+  $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
     $questions = [];
     foreach ($_POST as $key => $value) {
         if (str_starts_with($key, "entry-")) {

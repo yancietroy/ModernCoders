@@ -4,11 +4,11 @@ ob_start();
 session_start();
 if (isset ($_POST['updatedata']))
 {
-	$ai = $_POST['ADMIN_ID'];
-	$fn = $_POST['FIRST_NAME'];
-	$ln = $_POST['LAST_NAME'];
-	$mn = $_POST['MIDDLE_INITIAL'];
-	$e = $_POST['EMAIL'];
+	$ai =  $mysqli -> real_escape_string ($_POST['ADMIN_ID']);
+	$fn =  $mysqli -> real_escape_string ($_POST['FIRST_NAME']);
+	$ln =  $mysqli -> real_escape_string ($_POST['LAST_NAME']);
+	$mn =  $mysqli -> real_escape_string ($_POST['MIDDLE_INITIAL']);
+	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
 
 	$query = "SELECT * FROM tb_admin";
 	$result = @mysqli_query($conn, $query);

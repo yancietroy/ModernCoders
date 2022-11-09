@@ -26,10 +26,10 @@ if (isset($_SESSION['msg'])) {
 if (isset($_POST['create-election'])) {
     // Get General Information
     $orgid = explode("::", $_POST['ORG'])[0];
-    $title = $_POST['TITLE'];
-    $description = $_POST['DESC'];
-    $startdate = $_POST['STARTDATE'];
-    $enddate = $_POST['ENDDATE'];
+    $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
+    $description =  $mysqli -> real_escape_string ($_POST['DESC']);
+    $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
+    $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
     $type = explode("::", $_POST['ORG'])[1];
 
     if ($orgid == -1) {

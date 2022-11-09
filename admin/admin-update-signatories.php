@@ -4,14 +4,14 @@ ob_start();
 session_start();
 if (isset ($_POST['updatedata']))
 {
-	$fn = $_POST['first_name'];
-	$ln = $_POST['last_name'];
-	$st = $_POST['signatory_type'];
-	$si = $_POST['school_id'];
-	$e = $_POST['email'];
-	$cd = $_POST['college_id'];
-  $oid = $_POST['org_id'];
-	$ul = $_POST['user_type'];
+	$fn =  $mysqli -> real_escape_string ($_POST['first_name']);
+	$ln =  $mysqli -> real_escape_string ($_POST['last_name']);
+	$st =  $mysqli -> real_escape_string ($_POST['signatory_type']);
+	$si =  $mysqli -> real_escape_string ($_POST['school_id']);
+	$e =  $mysqli -> real_escape_string ($_POST['email']);
+	$cd =  $mysqli -> real_escape_string ($_POST['college_id']);
+  $oid =  $mysqli -> real_escape_string ($_POST['org_id']);
+	$ul =  $mysqli -> real_escape_string ($_POST['user_type']);
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);
 	$row = @mysqli_fetch_array($result);

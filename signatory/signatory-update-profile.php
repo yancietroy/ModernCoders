@@ -8,9 +8,9 @@ route(3);
 
 if (isset ($_POST['updatedata']))
 {
-	$si = $_POST['school_id'];
-	$fn = $_POST['first_name'];
-	$ln = $_POST['last_name'];
+	$si =  $mysqli -> real_escape_string ($_POST['school_id']);
+	$fn =  $mysqli -> real_escape_string ($_POST['first_name']);
+	$ln =  $mysqli -> real_escape_string ($_POST['last_name']);
 
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);

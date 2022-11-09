@@ -442,8 +442,8 @@ if (isset($_SESSION['msg'])) {
                   <?php
                     if ($_SESSION['USER-POS'] <= 5 ){
                   ?>
-                  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
-                  <button type="button" class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>-->
+                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
                   <button class="btn btn-md btn-done" name="Done"> Project Done</a>
                   <?php
                     }

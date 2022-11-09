@@ -253,12 +253,6 @@ $nav_breadcrumbs = [
           </div>
         </div>
         <?php
-        $mysqli = new mysqli("$servername","$username","$password","$database");
-
-        if ($mysqli -> connect_errno) {
-          echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-          exit();
-        }
 
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
         // Escape special characters, if any

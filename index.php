@@ -54,8 +54,8 @@ if (isset($_SESSION['message'])) {
               <?php
               if (isset($_POST['submit'])) {
                 include('mysql_connect.php');
-                $e = $_POST['email'];
-                $p = $_POST['password'];
+                $e =  $mysqli -> real_escape_string ($_POST['email']);
+                $p =  $mysqli -> real_escape_string ($_POST['password']);
 
                 if (!empty($_POST['email']) || !empty($_POST['password'])) {
                   ob_start();

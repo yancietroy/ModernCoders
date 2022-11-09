@@ -8,25 +8,25 @@ route(2);
 
 if (isset ($_POST['updatedata']))
 {
-	$oi = $_POST['officer_id'];
-	$pos = $_POST['position_id'];
-	$org = $_POST['org_id'];
-	$fn = $_POST['first_name'];
-	$ln = $_POST['last_name'];
-	$mn = $_POST['middle_initial'];
-	$bdate = $_POST['birthdate'];
-	$age = $_POST['age'];
-	$g = $_POST['gender'];
-	$yl = $_POST['year_level'];
-	$cd = $_POST['college_dept'];
-	$e = $_POST['email'];
-	$c = $_POST['course'];
-	$section = $_POST['section'];
-	
+	$oi =  $mysqli -> real_escape_string ($_POST['officer_id']);
+	$pos =  $mysqli -> real_escape_string ($_POST['position_id']);
+	$org =  $mysqli -> real_escape_string ($_POST['org_id']);
+	$fn =  $mysqli -> real_escape_string ($_POST['first_name']);
+	$ln =  $mysqli -> real_escape_string ($_POST['last_name']);
+	$mn =  $mysqli -> real_escape_string ($_POST['middle_initial']);
+	$bdate =  $mysqli -> real_escape_string ($_POST['birthdate']);
+	$age =  $mysqli -> real_escape_string ($_POST['age']);
+	$g =  $mysqli -> real_escape_string ($_POST['gender']);
+	$yl =  $mysqli -> real_escape_string ($_POST['year_level']);
+	$cd =  $mysqli -> real_escape_string ($_POST['college_dept']);
+	$e =  $mysqli -> real_escape_string ($_POST['email']);
+	$c =  $mysqli -> real_escape_string ($_POST['course']);
+	$section =  $mysqli -> real_escape_string ($_POST['section']);
+
 	$query = "SELECT * FROM tb_officers";
 	$result = @mysqli_query($conn, $query);
 	$row = mysqli_fetch_array($result);
-			
+
 		if($row)
 		{
 			$query = "UPDATE `tb_officers` SET `position_id` = '$pos', `org_id` = '$org', `first_name` = '$fn', `last_name` = '$ln', `middle_initial` = '$mn', `birthdate`= '$bdate', `age`= '$age', `gender`= '$g', `year_level`= '$yl', `college_dept`= '$cd', `section`= '$section', `email` = '$e', `course` = '$c'  WHERE `officer_id` = '$oi'";
@@ -36,5 +36,5 @@ if (isset ($_POST['updatedata']))
                     alert('Details Updated')
                     window.location.href='officer-profile.php'</script>";
 		}
-	
+
 }

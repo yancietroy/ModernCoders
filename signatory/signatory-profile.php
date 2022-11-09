@@ -306,7 +306,7 @@ if (isset($_SESSION['msg'])) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="student-change-pass.php" method="POST" data-parsley-validate data-parsley-trigger="keyup">
+            <form action="signatory-change-pass.php" method="POST" data-parsley-validate data-parsley-trigger="keyup">
               <div class="modal-body">
                 <div class="col-12 col-md-12 justify-content-center ">
                   <div class="form-outline">

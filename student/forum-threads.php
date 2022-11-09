@@ -40,9 +40,10 @@ if (isset($_SESSION['msg'])) {
 }
 
 if (isset($_POST['create-thread'])) {
-  $addtitle = $_POST['add-title'];
-  $addmsg = $_POST['add-msg'];
+  $addtitle =  $_POST['add-title'];
+  $addmsg =  $_POST['add-msg'];
   $addmsg =  str_replace("'", "''", $addmsg);
+  $addtitle =  str_replace("'", "''", $addtitle);
   $timestamp = time();
   $sqlInsert = "INSERT INTO tb_disc_threads(thread_id,topic_id,user_id,user_type,name,title,message,views,replies,last_reply,last_reply_name) VALUES
 ('$timestamp','$topicid','$data_userid','1','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";

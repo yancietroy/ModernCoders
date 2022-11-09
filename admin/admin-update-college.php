@@ -6,7 +6,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $ci = $_POST["college_id"];
-    $c = $_POST["college"];
+    $c =  $mysqli -> real_escape_string ($_POST["college"]);
     $query = "SELECT * FROM tb_collegedept";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);
