@@ -276,7 +276,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="college">College:</label>
-                    <select class="form-select" name="college" id="college" readonly>
+                    <select class="form-select" name="college" id="college">
                       <?php
                       $query = "SELECT college FROM tb_collegedept";
                       $result = @mysqli_query($conn, $query);
@@ -290,7 +290,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label select-label" for="COURSE">Course:</label>
-                    <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
+                    <select class="form-select" style="width:100%;" name="COURSE" id="COURSE">
                       <?php
                       $query = "SELECT course FROM tb_course";
                       $result = @mysqli_query($conn, $query);
@@ -306,7 +306,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="MORG_ID">Main Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
-                      $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -322,7 +322,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="USER_TYPE">User Type:</label>
                     <select class="form-select" name="USER_TYPE" id="USER_TYPE">
                       <?php
-                      $query = "SELECT * FROM tb_usertypes";
+                      $query = "SELECT * FROM tb_usertypes WHERE usertype_id = 1 OR usertype_id = 2";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -341,6 +341,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>
                     <select class="form-select" name="position_id" id="position_id">
+                      <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <?php
                       $query = "SELECT * FROM tb_position";
                       $result = @mysqli_query($conn, $query);
