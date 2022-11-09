@@ -107,8 +107,9 @@ if (isset($_POST['$student_email']) || isset($_POST['submit'])) {
                   $emailFrom = "studentportalorg@jrusop.com"; // Yung Email ng Sender
                   $password = "!jsknvB78ag*"; // App Password ng Sender
                   $email = "$student_email"; // Email Recipient (Where to send)
+                  $enc_email = SHA1($student_email);
                   $subject = "JRUSOP New password - Email Verification"; // Subject/header of the email
-                  $body = "Kindly change your password using the link below:<br><b><a href='localhost/new-password.php?email=$student_email'>CHANGE PASSWORD</a></b>"; // Body/Message of the email
+                  $body = "Kindly change your password using the link below:<br><b><a href='localhost/new-password.php?m=$enc_email'>CHANGE PASSWORD</a></b>"; // Body/Message of the email
                   $host = "smtp.hostinger.com";
 
                   $mail = new PHPMailer(true);

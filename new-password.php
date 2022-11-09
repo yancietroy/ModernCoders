@@ -102,11 +102,12 @@ box-shadow: none
 <?php
 if (isset($_POST['submit']) || isset($_POST['password'])) {
   $pass = $_POST['password'];
-  $email = $_GET['email'] ?? -1;
+  $email = $_GET['m'] ?? -1;
+  $m = SHA1($email);
   if ($email <= 0) {
       echo "<script>alert('Email is invalid.'); location.href='index.php';</script>";
   } else {
-      $query = "SELECT * FROM tb_students WHERE EMAIL='$email'";
+      $query = "SELECT * FROM tb_students WHERE EMAIL = $m";
       if ($res = @mysqli_query($conn, $query)) {
           if ($res->num_rows > 0) {
               $row = $res->fetch_assoc();
