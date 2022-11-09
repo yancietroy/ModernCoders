@@ -11,7 +11,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
@@ -61,19 +61,31 @@ if (isset($_SESSION['msg'])) {
             <?php include("include/breadcrumb.php") ?>
 
             <!-- Page content -->
+            <div class="row ms-3 me-3 mt-2">
+              <div class="col-lg-6 col-7">
+                <h4 id="orgtitle">Discussion Board</h4>
+              </div>
+              <?php
+              if ($_SESSION['USER-POS'] <= 5 ){
+              ?>
+              <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+                <a class="btn btn-default btn-circle button px-3" href="create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
+              </div>
+              <?php
+              }
+              ?>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-
-                        <div class="ibox-content forum-container ">
+                  <div class="card shadow-sm card-registration mb-4 mt-4" style="border-radius: 15px;">
+                      <div class="card-body px-2 mx-4 ">
                             <?php
                             $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility='0' OR visibility='2' OR visibility='5'";
                             if ($res = @mysqli_query($conn, $sqlGroups)) {
                                 while ($groups = $res->fetch_assoc()) {
                                     $groupid = $groups['group_id'];
                             ?>
-                                    <div class="forum-title mt-4">
+                                    <div class="forum-title">
                                         <h3><?= $groups['name'] ?></h3>
                                     </div>
                                     <?php

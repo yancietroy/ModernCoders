@@ -8,8 +8,8 @@ route(1);
 
 if (isset ($_POST['changePassword']))
 {
-	$si = $_POST['cid'];
-	$pass = $_POST['password'];
+	$si =  $mysqli -> real_escape_string ($_POST['cid']);
+	$pass =  $mysqli -> real_escape_string ($_POST['password']);
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);

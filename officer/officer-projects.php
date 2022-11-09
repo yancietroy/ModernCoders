@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -76,8 +76,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Project </span></a>
         </div>
-        <?php 
-        } 
+        <?php
+        }
         ?>
       </div>
       <div class="row ms-3 me-3 mt-2">

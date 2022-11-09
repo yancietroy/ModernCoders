@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -324,13 +324,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;" value="" style="background-color: #fff;" />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;" value="" style="background-color: #fff;" />
                   </div>
                 </div>
               </div>
@@ -344,7 +344,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
                   </div>
                 </div>
               </div>
@@ -422,14 +422,18 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
-                  <div class="form-outline projectdesc">
-                    <label class="form-label" for="estimated_budget">Estimated Budget:</label>
-                    <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
-                      <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" />
-                    </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                <div class="form-outline projectdesc">
+                  <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
+                  <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">₱</span>
+          </div>
+                    <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required/>
+                    <div class="valid-feedback"></div>
                   </div>
+
+                </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
@@ -445,8 +449,8 @@ if (isset($_SESSION['msg'])) {
                 ?>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
                 <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
-                <?php 
-                  } 
+                <?php
+                  }
                 ?>
               </div>
         </form>
@@ -496,7 +500,25 @@ if (isset($_SESSION['msg'])) {
       });
     });
   </script>
+  <script>
+  if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
 
+  $('#estimated_budget').keydown(function(e) {
+setTimeout(() => {
+  let parts = $(this).val().split(".");
+  let v = parts[0].replace(/\D/g, ""),
+    dec = parts[1]
+  let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+  // use this for numeric calculations
+  // console.log('number for calculations: ', calc_num);
+  let n = new Intl.NumberFormat('en-EN').format(v);
+  n = dec !== undefined ? n + "." + dec : n;
+  $(this).val(n);
+})
+})
+  </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

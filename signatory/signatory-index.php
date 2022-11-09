@@ -91,8 +91,8 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
       <h4 class="ms-4">Project Monitoring</h4>
-      <div class="row ms-5 mb-4 mt-4">
-        <div class="col-lg-3 col-sm-6 mb-4">
+      <div class="row ms-2 mb-4 mt-4">
+        <div class="col-lg-3 col-8 mb-4">
           <div class="card-counter primary">
             <div class="inner">
               <h3> <i class="bi bi-folder"></i></h3>

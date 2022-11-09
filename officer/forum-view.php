@@ -24,7 +24,7 @@ if ($threadid <= 0) {
 $data_userid = $_SESSION['USER-ID'];
 $data_name = $_SESSION['USER-NAME'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
@@ -41,10 +41,10 @@ if (isset($_SESSION['msg'])) {
 }
 
 if (isset($_POST['post-reply'])) {
-    $replymsg = $_POST['reply-msg'] ?? "";
+    $replymsg =  $mysqli -> real_escape_string ($_POST['reply-msg']) ?? "";
     if ($replymsg != "") {
         $timestamp = time();
-        $sqlPost = "INSERT INTO tb_disc_replies(reply_id,thread_id,user_type,user_id,user_name,message) VALUES 
+        $sqlPost = "INSERT INTO tb_disc_replies(reply_id,thread_id,user_type,user_id,user_name,message) VALUES
     ('$timestamp','$threadid','2','$data_userid','$data_name','$replymsg')";
         if (@mysqli_query($conn, $sqlPost)) {
             // Increment replies
@@ -173,43 +173,42 @@ if (isset($_POST['post-reply'])) {
             <!-- Page content -->
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-                        <div class="ibox-content forum-container ">
+                  <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                      <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
                             <div class="row">
-                                <div class="col-2 text-center">
-                                    <h6 class="mt-3"><?= $makerName ?></h6>
-                                    <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
+                              <div class="col-12 col-md-2 mb-4 text-center">
+                                  <h6 class="mt-3"><?= $makerName ?></h6>
+                                  <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
+                                  <div style="overflow: hidden; text-overflow: ellipsis;">
+                                      <h6 class="mt-3" style="color:#F2AC1B; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
+                                  </div>
+                                  <?php
+                                  if ($threadUserType == 0) {
+                                  ?>
+                                      <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
+                                  <?php
+                                  } else if ($threadUserType == 3) {
+                                  ?>
+                                      <h6 style="font-size: 13px;">SIGNATORY</h6>
+                                  <?php
+                                  } else if ($threadUserType == 2) {
+                                  ?>
+                                      <h6 style="font-size: 13px;">OFFICER</h6>
+                                      <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                                  <?php
+                                  } else if ($threadUserType == 1) {
+                                  ?>
+                                      <h6 style="font-size: 13px;">STUDENT</h6>
+                                      <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                                  <?php
+                                  }
+                                  ?>
+                                  <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
+                              </div>
+                               <div class="col-12 col-md-10 border p-3">
                                     <div style="overflow: hidden; text-overflow: ellipsis;">
-                                        <h6 class="mt-3" style="color:#F2AC1B; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
-                                    </div>
-                                    <?php
-                                    if ($threadUserType == 0) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
-                                    <?php
-                                    } else if ($threadUserType == 3) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">SIGNATORY</h6>
-                                    <?php
-                                    } else if ($threadUserType == 2) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">OFFICER</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    } else if ($threadUserType == 1) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">STUDENT</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    }
-                                    ?>
-                                    <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
-                                </div>
-                                <div class="col border p-3">
-                                    <div style="overflow: hidden; text-overflow: ellipsis;">
-                                        <h4 class="text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px;"><?= $threadTitle ?></h4>
+                                        <h3 class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $threadTitle ?></h2>
                                     </div>
                                     <hr style="color: #dee2e6; margin-top: 5px;">
 
@@ -260,7 +259,7 @@ if (isset($_POST['post-reply'])) {
                                     ?>
                                             <div class="w-100 border p-3 mt-3 mb-3" style="min-height: 100px;">
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-10">
                                                         <div class="d-flex flex-row">
                                                             <img class="rounded-circle me-lg-2" src="<?= checkProfilePicture($ownerType, $ownerPic) ?>" alt="" style="width: 38px; height: 38px;border: 2px solid #F2AC1B;">
                                                             <div class="col">
@@ -275,7 +274,7 @@ if (isset($_POST['post-reply'])) {
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-12 col-lg-4 col-md-4 d-none d-sm-block">
                                                         <h6 class="text-secondary text-right" style="font-size: 12px;"><?= date('M. d, Y h:i A', $reply['reply_id']) ?></h6>
                                                     </div>
                                                 </div>

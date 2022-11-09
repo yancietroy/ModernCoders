@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -20,10 +20,6 @@ $nav_breadcrumbs = [
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
 
-if (isset($_SESSION['msg'])) {
-  print_r($_SESSION['msg']); #display message
-  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +61,7 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <form action="" method="post" class="requires-validation" enctype="multipart/form-data" novalidate>
+      <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
         <div class="row ms-3 me-3 mt-2">
           <div class="col-lg-6 col-6  mb-4">
             <h4>Create New Project</h4>
@@ -88,15 +84,15 @@ if (isset($_SESSION['msg'])) {
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
                 <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" maxlength="50" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Project name field cannot be blank!</div>
+
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="50" required />
+                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Project name field cannot be blank!</div>
+
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
@@ -104,7 +100,6 @@ if (isset($_SESSION['msg'])) {
                 <label class="form-label" for="venue" id="asterisk">Venue:</label>
                 <input type="text" name="venue" id="venue" class="form-control" maxlength="50" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Venue field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -123,7 +118,7 @@ if (isset($_SESSION['msg'])) {
                 <option value="Other">Other</option>
               </select>
               <div class="valid-feedback"> </div>
-              <div class="invalid-feedback">Project Type field cannot be blank!</div>
+
             </div>
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <label class="form-label select-label" for="project_category" id="asterisk">Category:</label>
@@ -134,14 +129,12 @@ if (isset($_SESSION['msg'])) {
                 <option value="Hybrid">Hybrid</option>
               </select>
               <div class="valid-feedback"> </div>
-              <div class="invalid-feedback">Category field cannot be blank!</div>
             </div>
             <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="participants" id="asterisk">Participants:</label>
-                <input type="text" name="participants" id="participants" class="form-control" maxlength="50" required />
+                <input type="text" name="participants" id="participants" class="form-control" maxlength="100" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Participants field cannot be blank!</div>
               </div>
             </div>
           </div>
@@ -149,9 +142,8 @@ if (isset($_SESSION['msg'])) {
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="start_date" id="asterisk">Start Date:</label>
-                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" required />
+                <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" data-parsley-required required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
@@ -159,7 +151,6 @@ if (isset($_SESSION['msg'])) {
                 <label class="form-label" for="end_date" id="asterisk">End Date:</label>
                 <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" required />
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Date field Invalid!</div>
               </div>
             </div>
             <!--
@@ -214,7 +205,6 @@ if (isset($_SESSION['msg'])) {
                 <label class="form-label" for="objectives" id="asterisk">Objectives:</label>
                 <textarea class="form-control" name="objectives" id="objectives" rows="3" placeholder="Enter project objectives and details." required></textarea>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Objectives field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -222,34 +212,34 @@ if (isset($_SESSION['msg'])) {
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                 <textarea class="form-control" name="budget_req" id="budget_req" rows="6" placeholder="Enter details of budget breakdown." required></textarea>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Objectives field cannot be blank!</div>
               </div>
             </div>
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+              <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                <div class="input-group flex-nowrap">
-                  <span class="input-group-text" id="addon-wrapping">PHP</span>
-                  <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" required />
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">₱</span>
+                  </div>
+                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" data-parsley-errors-container=".invalid-feedback" data-parsley-required required/>
                   <div class="valid-feedback"></div>
-                  <div class="invalid-feedback">Budget field cannot be blank!</div>
+                  <div class="invalid-feedback"></div>
                 </div>
+
               </div>
-            </div>
+              </div>
           </div>
 
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachment/s:</label>
-                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                <label class="form-label mb-2" for="attachments" id="asterisk">Upload Attachments:</label>
+                <input class="form-control mt-3" name="attachments" id="attachments" type="file" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Upload attachment field cannot be blank!</div>
               </div>
             </div>
             <div class="col-12 col-md-8 col-sm-3 mb-4">
-              <small class="text-muted">*Note: Attach necessary documents in this form that will support your request
+              <small class="text-muted">*Note: Upload a zip file containing necessary documents in this form that will support your request
                 (invitation letter, quotation of provider, Program of the Activity etc.) <br>
 
                 *Note: Please attach other request form/ file
@@ -263,18 +253,20 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
         <?php
+
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
-          $pn = $_POST['project_name'];
-          $o = $_POST['organizer'];
-          $vn = $_POST['venue'];
-          $pt = $_POST['project_type'];
-          $sdate = $_POST['start_date'];
-          $edate = $_POST['end_date'];
-          $pc = $_POST['project_category'];
-          $p = $_POST['participants'];
-          $obj = $_POST['objectives'];
-          $br = $_POST['budget_req'];
-          $eb = $_POST['estimated_budget'];
+        // Escape special characters, if any
+          $pn = $mysqli -> real_escape_string ($_POST['project_name']);
+          $o = $mysqli -> real_escape_string ($_POST['organizer']);
+          $vn = $mysqli -> real_escape_string ($_POST['venue']);
+          $pt = $mysqli -> real_escape_string ($_POST['project_type']);
+          $sdate = $mysqli -> real_escape_string ($_POST['start_date']);
+          $edate = $mysqli -> real_escape_string ($_POST['end_date']);
+          $pc = $mysqli -> real_escape_string ($_POST['project_category']);
+          $p = $mysqli -> real_escape_string ($_POST['participants']);
+          $obj = $mysqli -> real_escape_string ($_POST['objectives']);
+          $br = $mysqli -> real_escape_string ($_POST['budget_req']);
+          $eb = $mysqli -> real_escape_string ($_POST['estimated_budget']);
           $s = "Pending";
           $aid = '1';
           $userName = $_SESSION['USER-NAME'];
@@ -295,7 +287,7 @@ if (isset($_SESSION['msg'])) {
                                 confirmButtonColor: '#F2AC1B'
                            })
                             </script>";
-          //header("location:login.php");
+
           @mysqli_close($conn);
         }
         ?>
@@ -314,6 +306,7 @@ if (isset($_SESSION['msg'])) {
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
@@ -357,6 +350,25 @@ if (isset($_SESSION['msg'])) {
           return false;
         });
       });
+    </script>
+    <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+
+    $('#estimated_budget').keydown(function(e) {
+  setTimeout(() => {
+    let parts = $(this).val().split(".");
+    let v = parts[0].replace(/\D/g, ""),
+      dec = parts[1]
+    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+    // use this for numeric calculations
+    // console.log('number for calculations: ', calc_num);
+    let n = new Intl.NumberFormat('en-EN').format(v);
+    n = dec !== undefined ? n + "." + dec : n;
+    $(this).val(n);
+  })
+})
     </script>
 </body>
 

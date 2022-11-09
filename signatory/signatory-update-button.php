@@ -3,9 +3,9 @@
 
     if (isset($_POST['updatedata']) || isset($pr) || isset($s))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
-        $s = $_POST['status'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
+        $s =  $mysqli -> real_escape_string ($_POST['status']);
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);

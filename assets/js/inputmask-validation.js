@@ -28,6 +28,7 @@ $(document).ready(function() {
     }
   });
 });
+/*
 $(document).ready(function() {
   $("#section").inputmask("999A", {
     autoUnmask: true,
@@ -60,3 +61,4 @@ $(document).ready(function() {
     }
   });
 });
+*/

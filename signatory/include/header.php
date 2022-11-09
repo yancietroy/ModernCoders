@@ -11,11 +11,16 @@
                         <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                    </a>
-                </li>
+                <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height: 25px;"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
+          <li><a class="dropdown-item" href="#">
+                <strong class="me-2">Project Name</strong><br/>
+  <small class="text-muted  me-2"><em>By Officer Name</em></small></a></li>
+        </ul>
+      </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                         <span class="d-none d-lg-inline-flex mr-3"><?= $_SESSION["USER-NAME"] ?? "No Name" ?></span>

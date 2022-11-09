@@ -26,10 +26,10 @@ if (isset($_SESSION['msg'])) {
 if (isset($_POST['create-election'])) {
     // Get General Information
     $orgid = explode("::", $_POST['ORG'])[0];
-    $title = $_POST['TITLE'];
-    $description = $_POST['DESC'];
-    $startdate = $_POST['STARTDATE'];
-    $enddate = $_POST['ENDDATE'];
+    $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
+    $description =  $mysqli -> real_escape_string ($_POST['DESC']);
+    $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
+    $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
     $type = explode("::", $_POST['ORG'])[1];
 
     if ($orgid == -1) {
@@ -303,7 +303,7 @@ if (isset($_POST['create-election'])) {
                                     selector_options += '<option value="' + item.id + '">' + item.position + '</option>\n';
                                 });
 
-                                delBtn = '<a class="align-middle text-white btn btn-danger" onclick="deleteCandidate(\'' + selectedval + '\')">Delete Candidate</a>';
+                                delBtn = '<a class="align-middle text-white btn btn-danger" onclick="deleteCandidate(\'' + selectedval + '\')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Candidate </span></a>';
                                 selector = '<select class="form-select" name="pos-' + selectedval + '">' + selector_options + '</select>';
 
                                 output = '<tr id="can-' + selectedval + '"><td class="align-middle">' + selectedtext + '</td>\n<td>' + selector + '</td>\n<td>' + delBtn + '</td>\n</tr>';

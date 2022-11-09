@@ -10,8 +10,8 @@ include('../mysql_connect.php');
 if ($data_signatorytype == 3){
     if (isset($_POST['Revise']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "For Revision";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
@@ -28,8 +28,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Reject']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Rejected";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
@@ -46,8 +46,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Approve']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Pending";
         $ati = 2;
 
@@ -67,8 +67,8 @@ if ($data_signatorytype == 3){
 }elseif($data_signatorytype == 2){
     if (isset($_POST['Revise']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "For Revision";
         $ati = 1;
 
@@ -86,8 +86,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Reject']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Rejected";
         $ati = 1;
 
@@ -105,8 +105,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Approve']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Pending";
         $ati = 3;
 
@@ -126,8 +126,8 @@ if ($data_signatorytype == 3){
 }elseif($data_signatorytype == 1){
     if (isset($_POST['Revise']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "For Revision";
         $ati = 1;
 
@@ -145,8 +145,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Reject']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Rejected";
         $ati = 1;
 
@@ -164,8 +164,8 @@ if ($data_signatorytype == 3){
         }
     } else if (isset($_POST['Approve']))
     {
-        $id = $_POST['project_id'];
-        $pr = $_POST['project_remarks'];
+        $id =  $mysqli -> real_escape_string ($_POST['project_id']);
+        $pr =  $mysqli -> real_escape_string ($_POST['project_remarks']);
         $s = "Approved";
         $ati = 4;
 

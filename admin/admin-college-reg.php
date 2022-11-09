@@ -160,7 +160,7 @@ if (isset($_SESSION['msg'])) {
 
                   <?php
                   if (isset($collegename) || isset($_POST['submit'])) {
-                    $collegename = $_POST['collegename'];
+                    $collegename =  $mysqli -> real_escape_string ($_POST['collegename']);
                     /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
                                     $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
                                     if (mysqli_num_rows($duplicate)>0)
