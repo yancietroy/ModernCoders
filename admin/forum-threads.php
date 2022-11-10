@@ -46,19 +46,21 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 
+$error = -1;
 
 if (isset($_POST['create-thread'])) {
-  $addtitle =  $_POST['add-title'];
-  $addmsg =  $_POST['add-msg'];
-  $addmsg =  str_replace("'", "''", $addmsg);
-  $addtitle =  str_replace("'", "''", $addtitle);
+    $addtitle =  $_POST['add-title'];
+    $addmsg =  $_POST['add-msg'];
+    $addmsg =  str_replace("'", "''", $addmsg);
+    $addtitle =  str_replace("'", "''", $addtitle);
     $timestamp = time();
     $sqlInsert = "INSERT INTO tb_disc_threads(thread_id,topic_id,user_id,user_type,name,title,message,views,replies,last_reply,last_reply_name) VALUES
   ('$timestamp','$topicid','$data_userid','0','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";
     if ($res = @mysqli_query($conn, $sqlInsert)) {
-          header('location:forum-view.php?id=' . $orgid . '&topic=' . $topicid . '&thread=' . $timestamp);
+        header('location:forum-view.php?id=' . $orgid . '&topic=' . $topicid . '&thread=' . $timestamp);
     } else {
-        echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+        $error = 0;
+        //echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
     }
 }
 
@@ -68,9 +70,11 @@ if (isset($_POST['delete-thread'])) {
     $sqlDel2 = "DELETE FROM tb_disc_replies WHERE thread_id='$threadDel'";
     if (mysqli_query($conn, $sqlDel)) {
         mysqli_query($conn, $sqlDel2);
-        echo "<script>alert('Thread has been deleted successfully.')</script>";
+        $error = 1;
+        //echo "<script>alert('Thread has been deleted successfully.')</script>";
     } else {
-        echo "<script>alert('Failed removing the thread. Please try again.')</script>";
+        $error = 2;
+        //echo "<script>alert('Failed removing the thread. Please try again.')</script>";
     }
 }
 
@@ -78,9 +82,11 @@ if (isset($_POST['lock-thread'])) {
     $threadlock = $_POST['lock-id'] ?? -1;
     $sqlLock = "UPDATE tb_disc_threads SET locked='1' WHERE thread_id='$threadlock'";
     if (mysqli_query($conn, $sqlLock)) {
-        echo "<script>alert('Thread has been locked successfully.')</script>";
+        $error = 3;
+        //echo "<script>alert('Thread has been locked successfully.')</script>";
     } else {
-        echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+        $error = 4;
+        //echo "<script>alert('Failed locking the thread. Please try again.')</script>";
     }
 }
 
@@ -88,9 +94,11 @@ if (isset($_POST['unlock-thread'])) {
     $threadunlock = $_POST['unlock-id'] ?? -1;
     $sqlUnlock = "UPDATE tb_disc_threads SET locked='0' WHERE thread_id='$threadunlock'";
     if (mysqli_query($conn, $sqlUnlock)) {
-        echo "<script>alert('Thread has been unlocked successfully.')</script>";
+        $error = 5;
+        //echo "<script>alert('Thread has been unlocked successfully.')</script>";
     } else {
-        echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+        $error = 6;
+        //echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
     }
 }
 
@@ -359,7 +367,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="?topic=<?= $topicid ?>" method="POST">
+                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <p>Are you sure do you want to lock this thread?</p>
@@ -384,7 +392,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="?topic=<?= $topicid ?>" method="POST">
+                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <p>Are you sure do you want to unlock this thread?</p>
@@ -409,7 +417,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="?topic=<?= $topicid ?>" method="POST">
+                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <p>Are you sure do you want to delete this thread?</p>
@@ -434,7 +442,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="?topic=<?= $topicid ?>" method="POST">
+                <form action="id=<?= $orgid ?>&?topic=<?= $topicid ?>" method="POST">
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">
@@ -453,6 +461,24 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             </div>
         </div>
     </div>
+
+    <?php
+    if ($error == 0) {
+        echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+    } else if ($error == 1) {
+        echo "<script>alert('Thread has been deleted successfully.')</script>";
+    } else if ($error == 2) {
+        echo "<script>alert('Failed removing the thread. Please try again.')</script>";
+    } else if ($error == 3) {
+        echo "<script>alert('Thread has been locked successfully.')</script>";
+    } else if ($error == 4) {
+        echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+    } else if ($error == 5) {
+        echo "<script>alert('Thread has been unlocked successfully.')</script>";
+    } else if ($error == 6) {
+        echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+    }
+    ?>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -484,7 +510,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
     <script type="text/javascript">
         tinymce.init({
             selector: '#add-msg',
-            plugins: 'link image textcolor',
+            plugins: 'link image',
             menubar: 'edit view insert format',
             toolbar: 'undo redo | styles | bold italic underline forecolor backcolor | link | alignleft aligncenter alignright',
         });

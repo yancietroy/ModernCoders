@@ -65,15 +65,30 @@ if (isset($_SESSION['msg'])) {
                     <h4 id="orgtitle"><?= $_SESSION['USER-ORG-NAME'] ?> Election</h4>
                 </div>
             </div>
+
             <div class="row ms-3 me-3 mt-2">
                 <div class="col-lg-3 col-sm-6">
-                    <div class="card-counter success">
+                    <div class="card-counter primary">
                         <div class="inner">
                             <h3><i class="bi bi-play-circle"></i></h3>
-                            <p>Election Results</p>
+                            <p>Election In Progress</p>
                         </div>
                         <div class="icon">
                             <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
+                        </div>
+                        <a href="officer-election-active.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card-counter success">
+                        <div class="inner">
+                            <h3><i class="bi bi-clipboard2-data"></i></h3>
+                            <p>Election Results</p>
+                        </div>
+                        <div class="icon">
+                            <i class="bi bi-clipboard2-data-fill" aria-hidden="true"></i>
                         </div>
                         <a href="officer-election-results.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                     </div>

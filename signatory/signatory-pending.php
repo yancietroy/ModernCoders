@@ -11,7 +11,6 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -84,11 +83,21 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if(isset($orgid) == NULL && $data_signatorytype == 2){
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND (college_id = '$data_collegeid' AND approval_id = 2)";
-              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+              /*
+              if (isset($orgid) == false && $data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
+              } elseif (isset($orgid) == false && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
-              }elseif($data_signatorytype == 3){
+              } elseif ($data_signatorytype == 3) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
+              }
+
+              */
+              if ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
+              } elseif ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
+              } elseif ($data_signatorytype == 3) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
               }
               $result = @mysqli_query($conn, $query);
@@ -499,7 +508,7 @@ if (isset($_SESSION['msg'])) {
 
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Popper.JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <!-- Bootstrap JS -->

@@ -17,7 +17,7 @@ $nav_breadcrumbs = [
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
     ["Election", "officer-election-index.php", ""],
-    ["Election Results", "", ""],
+    ["Active Election", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -26,7 +26,7 @@ if (isset($_SESSION['msg'])) {
 }
 
 $curdate = date('Y-m-d');
-$hasResults = false;
+$hasElection = false;
 
 $election_id = -1;
 $title = "";
@@ -35,10 +35,10 @@ $start_date = $curdate;
 $end_date = $curdate;
 $candidates = [];
 
-$sql = "SELECT * FROM tb_elections WHERE ORG_ID='$orgid' AND CURDATE() > END_DATE AND CURDATE() <= DATE_ADD(END_DATE, INTERVAL 7 DAY) ORDER BY END_DATE DESC";
+$sql = "SELECT * FROM tb_elections WHERE ORG_ID='$orgid' AND CURDATE() >= START_DATE AND CURDATE() <= END_DATE ORDER BY END_DATE DESC";
 if ($res = @mysqli_query($conn, $sql)) {
     if ($res->num_rows > 0) {
-        $hasResults = true;
+        $hasElection = true;
 
         $row = $res->fetch_assoc();
         $election_id = $row['ELECTION_ID'];
@@ -50,7 +50,7 @@ if ($res = @mysqli_query($conn, $sql)) {
     }
 }
 
-if ($hasResults) {
+if ($hasElection) {
     $candidates = [];
     $sqlCandidates = "SELECT tb_candidate.*,tb_students.LAST_NAME,tb_students.FIRST_NAME,tb_students.MIDDLE_NAME,tb_students.SECTION FROM tb_candidate LEFT JOIN tb_students ON tb_candidate.STUDENT_NO=tb_students.STUDENT_ID WHERE tb_candidate.ELECTION_ID='$election_id'";
     if ($res = @mysqli_query($conn, $sqlCandidates)) {
@@ -133,7 +133,7 @@ function getVotes($election_id, $position_id, $candidate_id)
                 <h4><?= $_SESSION['USER-ORG-NAME'] ?> Election Results</h4>
             </div>
             <?php
-            if ($hasResults) {
+            if ($hasElection) {
             ?>
                 <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                     <div class="card-body px-2 mx-3 py-3 pt-4 ">
@@ -151,84 +151,7 @@ function getVotes($election_id, $position_id, $candidate_id)
                                 <h6><strong class="pr-1 text-muted mb-3">Total Number of Votes:<br></strong> <?= $total_votes ?></h6>
                             </div>
                             <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Students who didn't vote:<br></strong> <?= $total_pending ?></h6>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-sm px-4 ml-3 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            Show Results
-                        </button>
-
-                        <div class="collapse mb-4" id="collapseExample">
-                            <div class="card card-body">
-                                <table class="table table-bordered">
-                                    <thead class="thead-light">
-                                        <th>Position</th>
-                                        <th>Candidate</th>
-                                        <th>Total Votes</th>
-                                        <th>Total Abstain</th>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $sql = "SELECT POSITION_ID as id,position FROM tb_position";
-                                        if ($respos = @mysqli_query($conn, $sql)) {
-                                            while ($row = $respos->fetch_assoc()) {
-                                                $pos_id = $row['id'];
-                                                $posname = $row['position'];
-
-                                                $found = count(array_filter($candidates, function ($item) {
-                                                    global $pos_id;
-                                                    return isset($item['POSITION_ID']) && $pos_id == $item['POSITION_ID'];
-                                                }));
-
-                                                if ($found > 0) {
-                                                    $sqlWinner = "SELECT tb_votes.CANDIDATE_ID,count(*) as votes,tb_candidate.STUDENT_NO as studentno FROM `tb_votes` LEFT JOIN `tb_candidate` ON tb_votes.CANDIDATE_ID=tb_candidate.CANDIDATE_ID WHERE tb_votes.ELECTION_ID='$election_id' AND tb_votes.POSITION_ID='$pos_id' AND tb_votes.CANDIDATE_ID<>'-1' GROUP BY tb_votes.CANDIDATE_ID ORDER BY count(*) DESC";
-                                                    $votes = 0;
-                                                    $invalidWinner = false;
-                                                    if ($res = @mysqli_query($conn, $sqlWinner)) {
-                                                        if ($res->num_rows > 0) {
-                                                            $candidate = $res->fetch_assoc();
-                                                            $votes = $candidate['votes'];
-                                                            $winnerid = $candidate['studentno'];
-                                                            $winnername = "";
-
-                                                            $votes2 = -1;
-                                                            if ($res->num_rows > 1) {
-                                                                $candidate2 = $res->fetch_assoc();
-                                                                $votes2 = $candidate2['votes'];
-                                                            }
-
-                                                            if ($votes == $votes2) {
-                                                                $winnername = "There are more than 1 winner";
-                                                                $invalidWinner = true;
-                                                            } else {
-                                                                $sqlGetName = "SELECT LAST_NAME as ln,FIRST_NAME as fn,MIDDLE_NAME as mn FROM tb_students WHERE STUDENT_ID='$winnerid'";
-
-                                                                if ($res1 = @mysqli_query($conn, $sqlGetName)) {
-                                                                    if ($res1->num_rows > 0) {
-                                                                        $row1 = $res1->fetch_assoc();
-                                                                        $winnername = $row1['fn'] . " " . $row1['mn'] . " " . $row1['ln'];
-                                                                    }
-                                                                }
-                                                            }
-                                                        } else {
-                                                            $winnername = "No Winner";
-                                                            $invalidWinner = true;
-                                                        }
-                                                    }
-                                        ?>
-                                                    <tr>
-                                                        <td><?= $posname ?></td>
-                                                        <td <?= $invalidWinner ? "class='text-danger'" : "" ?>><?= $winnername ?? "" ?></td>
-                                                        <td><?= $votes ?></td>
-                                                        <td><?= getVotes($election_id, $pos_id, "-1") ?></td>
-                                                    </tr>
-                                        <?php
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                <h6><strong class="pr-1 text-muted mb-3">Pending Votes:<br></strong> <?= $total_pending ?></h6>
                             </div>
                         </div>
                     </div>
