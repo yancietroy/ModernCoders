@@ -4,10 +4,10 @@ ob_start();
 session_start();
 if (isset ($_POST['updatedata']))
 {
-	$fn = $_POST['FIRST_NAME'];
-	$ln = $_POST['LAST_NAME'];
-	$sid = $_POST['ADMIN_ID'];
-	$e = $_POST['EMAIL'];
+	$fn =  $mysqli -> real_escape_string ($_POST['FIRST_NAME']);
+	$ln =  $mysqli -> real_escape_string ($_POST['LAST_NAME']);
+	$sid =  $mysqli -> real_escape_string ($_POST['ADMIN_ID']);
+	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);

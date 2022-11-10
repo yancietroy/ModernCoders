@@ -11,6 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -83,11 +84,21 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if(isset($orgid) == NULL && $data_signatorytype == 2){
+              /*
+              if (isset($orgid) == false && $data_signatorytype == 2) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
-              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+              } elseif (isset($orgid) == false && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
-              }elseif($data_signatorytype == 3){
+              } elseif ($data_signatorytype == 3) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
+              }
+
+              */
+              if ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND (college_id = '$data_collegeid' AND approval_id = 2)";
+              } elseif ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
+              } elseif ($data_signatorytype == 3) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
               }
               $result = @mysqli_query($conn, $query);
@@ -368,8 +379,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="org">Name of Organization:</label>
+                    <input type="text" name="org" id="org" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -423,6 +434,8 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
                 <!--
                           <div class="form-group">
                               <label class="form-label" for="status">Project Status </label>
@@ -481,7 +494,8 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#org').val(data.ORG);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
@@ -489,6 +503,7 @@ if (isset($_SESSION['msg'])) {
           $('#budget_req').val(data.budget_req);
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
+          $('#college_id').val(data.college_id);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -498,7 +513,7 @@ if (isset($_SESSION['msg'])) {
 
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Popper.JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <!-- Bootstrap JS -->

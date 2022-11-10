@@ -181,14 +181,14 @@ if (isset($_SESSION['msg'])) {
 
                   <?php
                   if (isset($si) || isset($fn) || isset($ln) || isset($st) || isset($e) || isset($p) || isset($cd) || isset($oid) || isset($_POST['submit'])) {
-                    $si = $_POST['schoolId'];
-                    $fn = $_POST['firstName'];
-                    $ln = $_POST['lastName'];
-                    $st = $_POST['signatory_type'];
-                    $e = $_POST['email'];
-                    $cd = $_POST['college_id'];
-                    $p = $_POST['password'];
-                    $oid = $_POST['orgid'];
+                    $si =  $mysqli -> real_escape_string ($_POST['schoolId']);
+                    $fn =  $mysqli -> real_escape_string ($_POST['firstName']);
+                    $ln =  $mysqli -> real_escape_string ($_POST['lastName']);
+                    $st =  $mysqli -> real_escape_string ($_POST['signatory_type']);
+                    $e =  $mysqli -> real_escape_string ($_POST['email']);
+                    $cd =  $mysqli -> real_escape_string ($_POST['college_id']);
+                    $p =  $mysqli -> real_escape_string ($_POST['password']);
+                    $oid =  $mysqli -> real_escape_string ($_POST['orgid']);
                     $pp = "img_avatar.png";
                     $ul = "3";
                     $duplicate = mysqli_query($conn, "SELECT * FROM tb_signatories WHERE school_id='$si' OR EMAIL='$e'");

@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
@@ -145,13 +145,13 @@ function getVotes($election_id, $position_id, $candidate_id)
                         <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                         <div class="ms-3 mb-3 row">
                             <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Total Number of Voters:<br></strong> <?= $total_voters ?></h6>
+                                <h6><strong class="pr-1 text-muted mb-3">Total Number of Students:<br></strong> <?= $total_voters ?></h6>
                             </div>
                             <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Current Number of Votes:<br></strong> <?= $total_votes ?></h6>
+                                <h6><strong class="pr-1 text-muted mb-3">Total Number of Votes:<br></strong> <?= $total_votes ?></h6>
                             </div>
                             <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Pending Number of Votes:<br></strong> <?= $total_pending ?></h6>
+                                <h6><strong class="pr-1 text-muted mb-3">Students who didn't vote:<br></strong> <?= $total_pending ?></h6>
                             </div>
                         </div>
                         <button class="btn btn-primary btn-sm px-4 ml-3 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

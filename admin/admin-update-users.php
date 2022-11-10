@@ -4,21 +4,21 @@ ob_start();
 session_start();
 if (isset ($_POST['updatedata']))
 {
-	$fn = $_POST['FIRST_NAME'];
-	$ln = $_POST['LAST_NAME'];
-	$mn = $_POST['MIDDLE_NAME'];
-	$bdate = $_POST['BIRTHDATE'];
-	$age = $_POST['AGE'];
-	$g = $_POST['GENDER'];
-	$si = $_POST['STUDENT_ID'];
-	$yl = $_POST['YEAR_LEVEL'];
-	$course = $_POST['COURSE'];
-	$section = $_POST['SECTION'];
-	$morg = $_POST['MORG_ID'];
-	$e = $_POST['EMAIL'];
-	$cd = $_POST['COLLEGE_DEPT'];
-	$ut = $_POST['USER_TYPE'];
-	$pass = $_POST['PASSWORD'];
+	$fn =  $mysqli -> real_escape_string ($_POST['FIRST_NAME']);
+	$ln =  $mysqli -> real_escape_string ($_POST['LAST_NAME']);
+	$mn =  $mysqli -> real_escape_string ($_POST['MIDDLE_NAME']);
+	$bdate =  $mysqli -> real_escape_string ($_POST['BIRTHDATE']);
+	$age =  $mysqli -> real_escape_string ($_POST['AGE']);
+	$g =  $mysqli -> real_escape_string ($_POST['GENDER']);
+	$si =  $mysqli -> real_escape_string ($_POST['STUDENT_ID']);
+	$yl =  $mysqli -> real_escape_string ($_POST['YEAR_LEVEL']);
+	$course =  $mysqli -> real_escape_string ($_POST['COURSE']);
+	$section =  $mysqli -> real_escape_string ($_POST['SECTION']);
+	$morg =  $mysqli -> real_escape_string ($_POST['MORG_ID']);
+	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
+	$cd =  $mysqli -> real_escape_string ($_POST['COLLEGE_DEPT']);
+	$ut =  $mysqli -> real_escape_string ($_POST['USER_TYPE']);
+	$pass =  $mysqli -> real_escape_string ($_POST['PASSWORD']);
 	$pos_id = $_POST['position_id'];
 	$profilepic = $_POST['PROFILE_PIC'];
 

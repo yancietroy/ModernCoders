@@ -15,7 +15,6 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-size: 100% 100%;
-  /* overflow-x: hidden; */
   max-width: 100%;
 }
 
@@ -674,17 +673,14 @@ Projects
   display: block;
 }
 
-.currency {
-  padding-left: 22px;
+.input-group-text
+{
+    background-color:#FFF;
 }
-
-.currency-symbol {
-  position: absolute;
-  padding: 4px 7px;
-  font-size: 17px;
-  padding-top: 5px;
+.input-group .input-group-text + .form-control
+{
+    border-left:none;
 }
-
 .wrap {
   background: white;
 }
@@ -705,6 +701,10 @@ Projects
 
 #layoutAuthentication_footer {
   display: none;
+}
+
+table.forum td {
+  padding: 0;
 }
 
 table.master {

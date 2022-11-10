@@ -6,7 +6,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $ci = $_POST["course_id"];
-    $c = $_POST["course"];
+    $c =  $mysqli -> real_escape_string ($_POST["course"]);
     $query = "SELECT * FROM tb_course";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);

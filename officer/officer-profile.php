@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Home";
 
 if (isset($_SESSION['msg'])) {
@@ -268,7 +268,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Organization:</label>
                     <select class="form-select" name="org_id" id="org_id" readonly>
@@ -304,7 +304,7 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="email">Email:</label>
-                  <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" />
+                  <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">

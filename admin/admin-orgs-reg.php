@@ -160,9 +160,9 @@ if (isset($_SESSION['msg'])) {
 
                   <?php
                   if (isset($ot) || isset($ci) || isset($org) || isset($pname) || isset($tname) || isset($destination) || isset($duplicate) || isset($mDuplicate) || isset($_POST['submit'])) {
-                    $ot = $_POST['org_type'];
+                    $ot =  $mysqli -> real_escape_string ($_POST['org_type']);
                     $ci = $_POST['college_id'];
-                    $org = $_POST['orgname'] . ' (' . $_POST['abbrev'] . ')';
+                    $org =  $mysqli -> real_escape_string ($_POST['orgname']) . ' (' .  $mysqli -> real_escape_string ($_POST['abbrev']) . ')';
 
                     $pname = rand(1000, 100000) . "-" . $_FILES['orgpic']['name'];
                     $destination = '../assets/img/logos' . $pname;

@@ -6,7 +6,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $pi = $_POST["POSITION_ID"];
-    $p = $_POST["position"];
+    $p =  $mysqli -> real_escape_string ($_POST["position"]);
     $query = "SELECT * FROM tb_position";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);

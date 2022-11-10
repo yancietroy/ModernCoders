@@ -44,24 +44,32 @@ include('mysql_connect.php');
               <h4 class="mb-4 pb-2 pb-md-0 mb-md-4">Personal details</h4>
 
               <?php
+              $mysqli = new mysqli("$servername","$username","$password","$database");
+
+              if ($mysqli -> connect_errno) {
+                echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                exit();
+              }
+
               if (
                 isset($fn) || isset($ln) || isset($mn) || isset($date) || isset($date) || isset($age) || isset($g) || isset($si) || isset($yl) || isset($course) || isset($course) || isset($morg)
                 || isset($section) || isset($e) || isset($pass) || isset($cd) || isset($_POST['submit'])
               ) {
-                $fn = $_POST['first_name'];
-                $ln = $_POST['last_name'];
-                $mn = $_POST['middle_name'];
-                $date = $_POST['birthdate'];
-                $age = $_POST['age'];
-                $g = $_POST['gender'];
-                $si = $_POST['studentid'];
-                $yl = $_POST['school_year'];
-                $cd = $_POST['college_dept'];
-                $course = $_POST['course'];
-                $morgid = $_POST['org'];
-                $section = $_POST['section'];
-                $e = $_POST['email'];
-                $pass = $_POST['password'];
+                    // Escape special characters, if any
+                $fn = $mysqli -> real_escape_string ($_POST['first_name']);
+                $ln = $mysqli -> real_escape_string ($_POST['last_name']);
+                $mn = $mysqli -> real_escape_string ($_POST['middle_name']);
+                $date = $mysqli -> real_escape_string ($_POST['birthdate']);
+                $age = $mysqli -> real_escape_string ($_POST['age']);
+                $g = $mysqli -> real_escape_string ($_POST['gender']);
+                $si = $mysqli -> real_escape_string ($_POST['studentid']);
+                $yl = $mysqli -> real_escape_string ($_POST['school_year']);
+                $cd = $mysqli -> real_escape_string ($_POST['college_dept']);
+                $course = $mysqli -> real_escape_string ($_POST['course']);
+                $morgid = $mysqli -> real_escape_string ($_POST['org']);
+                $section = $mysqli -> real_escape_string ($_POST['section']);
+                $e = $mysqli -> real_escape_string ($_POST['email']);
+                $pass = $mysqli -> real_escape_string ($_POST['password']);
                 $pp = "img_avatar.png";
                 $ul = "1";
 
@@ -79,12 +87,12 @@ include('mysql_connect.php');
                 } else {
                   // Configuration:
                   $vc = rand(1000000000, 9999999999);
-                  $emailFrom = "capstonemailer.2022@gmail.com"; // Yung Email ng Sender
-                  $password = "cdexrbjomiuqghbd"; // App Password ng Sender
+                  $emailFrom = "studentportalorg@jrusop.com"; // Yung Email ng Sender
+                  $password = "!jsknvB78ag*"; // App Password ng Sender
                   $email = "$e"; // Email Recipient (Where to send)
                   $subject = "JRUSOP Registration - Email Verification"; // Subject/header of the email
-                  $body = "Kindly verify your email address using the link below:<br><b><a href='localhost/JRUSOPNEW/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
-                  $host = "smtp.gmail.com";
+                  $body = "Kindly verify your email address using the link below:<br><b><a href='https://jrusop.com/verify.php?code=$vc'>VERIFY EMAIL</a></b>"; // Body/Message of the email
+                  $host = "smtp.hostinger.com";
 
                   $mail = new PHPMailer(true);
 
@@ -149,7 +157,7 @@ include('mysql_connect.php');
               }
               ?>
               <!-- <form class="was-validated"> -->
-              <form method="post" action="register.php" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup">
+              <form method="post" action="register.php" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" parsley-use-html5-constraints  enctype="multipart/form-data" autocomplete="off">
                 <div class="row">
                   <div class="col-12 col-md-4 col-sm-3 mb-4">
                     <div class="form-outline">
@@ -206,6 +214,9 @@ include('mysql_connect.php');
 
                       <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                       <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
+
+                      <input type="radio" class="btn-check" name="gender" id="genderNeutral" value="Gender Neutral" autocomplete="off" required>
+                      <label class="btn btn-sm me-2 btn-outline-secondary" for="genderNeutral">Gender Neutral</label>
                       <!--<div class="valid-feedback check"> &#x2713;</div>
                       <div class="invalid-feedback mv-up">Please select a gender!</div>-->
                     </div>
@@ -239,7 +250,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="section" id="asterisk">Section</label>
-                      <input type="text" name="section" id="section" class="form-control" placeholder="####" required />
+                      <input type="text" name="section" id="section" class="form-control" maxlength="8" required />
                       <div class="valid-feedback"> </div>
                       <!--<div class="invalid-feedback" id="errorsection">section field invalid!</div>-->
                     </div>
@@ -298,7 +309,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"  readonly >
                       <div class="valid-feedback"></div>
                       <!--<div class="invalid-feedback">Student ID field invalid</div>-->
                     </div>
@@ -322,7 +333,7 @@ include('mysql_connect.php');
                   <div class="col-12 col-md-4 mb-2">
                     <div class="form-outline">
                       <label class="form-label" for="Confirmpassword" id="asterisk">Confirm Password</label>
-                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8" data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-equalto="#txtNewPassword" data-parsley-required required />
+                      <input type="password" class="form-control password" name="confirmpassword" id="txtConfirmPassword" maxlength="20" data-parsley-trigger="keyup" onChange="checkPasswordMatch();" data-parsley-minlength="8" data-parsley-errors-container=".errorspanconfirmnewpassinput" data-parsley-required-message="Please re-enter your password." data-parsley-pattern-message="Please match password" data-parsley-equalto="#txtNewPassword" data-parsley-required required />
                       <span class="errorspanconfirmnewpassinput"></span>
                       <div class="valid-feedback"> </div>
                       <!--  <div class="invalid-feedback">Invalid Field!</div>-->

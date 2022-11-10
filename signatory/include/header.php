@@ -11,10 +11,62 @@
                         <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height: 25px;"></i>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
+
+                        <li>
+                            <p class="m-0 mb-2 px-3">Notifications</p>
+
+                        </li>
+
+                        <?php
+                        $count = 0;
+                        $showAllBadge = false;
+                        $uid = $_SESSION['USER-ID'];
+                        $sql = "SELECT * FROM tb_notification WHERE receiver='$uid' ORDER BY notif_id DESC LIMIT 0,6";
+                        if ($resNotif = @mysqli_query($conn, $sql)) {
+                            if ($resNotif->num_rows > 0) {
+                                while ($row = $resNotif->fetch_assoc()) {
+                                    $id = $row['id'];
+                                    $data = $row['data'];
+                                    $isread = $row['is_read'];
+
+                                    $count++;
+                                    if ($count == 6 && $isread == "0") $showAllBadge = true;
+                                    if ($count == 6) continue;
+                        ?>
+                                    <li>
+                                        <a class="dropdown-item" href="#" onclick="<?= $data != "" ? "notifClick('$id','$data','$isread')" : "notifClick('$id','#','$isread')" ?>">
+                                            <strong class="me-2"><?= $row['title'] ?><?php if ($isread == 0) echo ' <span class="badge badge-pill badge-danger align-top">new</span>' ?></strong><br />
+                                            <small class="text-muted  me-2"><em><?= $row['message'] ?></em></small>
+                                        </a>
+                                    </li>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <li>
+                                    <p class="text-secondary px-5 py-3 text-nowrap" style="font-size: 14px;">No Recent Notification</p>
+
+                                </li>
+                        <?php
+                            }
+                        }
+                        ?>
+                        <hr class="m-0 p-0 mt-3 mb-2 mx-3 text-secondary">
+                        <li>
+                            <a class="dropdown-item m-0 p-0 text-center me-2" href="notifications.php">View All
+                                <?php if ($showAllBadge) {
+                                ?>
+                                    <span class="badge badge-pill badge-danger align-top">more</span>
+                                <?php
+                                } ?>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
@@ -34,3 +86,26 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function notifClick(id, link, read) {
+        if (read == "0") {
+            $.ajax({
+                type: 'POST',
+                url: 'include/read-notification.php',
+                data: {
+                    id: id
+                },
+                success: function(data) {}
+
+            });
+        }
+
+        if (link != "#" && link != "signatory-projects.php") {
+            location.href = link;
+        } else {
+            location.href = "signatory-projects.php?time=" + Math.floor(Math.random() * 1000);
+        }
+
+    }
+</script>

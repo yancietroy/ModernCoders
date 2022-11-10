@@ -15,7 +15,7 @@ if ($id == -1) {
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Survey";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
@@ -27,10 +27,10 @@ $nav_breadcrumbs = [
 ];
 
 if (isset($_POST['edit-survey'])) {
-    $title = $_POST['TITLE'];
-    $description = $_POST['DESC'];
-    $startdate = $_POST['STARTDATE'];
-    $enddate = $_POST['ENDDATE'];
+    $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
+    $description =  $mysqli -> real_escape_string ($_POST['DESC']);
+    $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
+    $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
     $questions = [];
     foreach ($_POST as $key => $value) {
         if (str_starts_with($key, "entry-")) {
@@ -183,7 +183,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
 
                     <div class="mb-4 border" style="min-height:100px;">
-                        <table id="qtable" class="table table-bordered" style="table-layout: fixed;">
+                      <div class="table-responsive-xl">
+                        <table id="qtable" class="table table-bordered" style="">
                             <thead class="thead-light">
                                 <th style="width: 80px;">#</th>
                                 <th style="width: 200px;">Type</th>
@@ -265,7 +266,7 @@ if (isset($_SESSION['msg'])) {
 
                 </form>
             </div>
-
+      </div>
             <?php
             if ($survey_status > 0) {
             ?>
@@ -522,7 +523,7 @@ if (isset($_SESSION['msg'])) {
                     <br>
                     <br>
                     <i>
-                        Choices:<br> - 
+                        Choices:<br> -
                         ${choices.join("<br> - ")}
                     </i>
                 `;

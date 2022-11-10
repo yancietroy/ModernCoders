@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -442,11 +442,11 @@ if (isset($_SESSION['msg'])) {
                   <?php
                     if ($_SESSION['USER-POS'] <= 5 ){
                   ?>
-                  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>-->
                   <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
                   <button class="btn btn-md btn-done" name="Done"> Project Done</a>
-                  <?php 
-                    } 
+                  <?php
+                    }
                   ?>
                 </div>
         </form>
