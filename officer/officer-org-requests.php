@@ -81,54 +81,23 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Pending') AND tb_projectmonitoring.org_id = '$orgid'";
+              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
-              $ds = " ";
-              $pi = " ";
-              $pn = " ";
-              $v = " ";
-              $s = " ";
-              $pt = " ";
-              $pc = " ";
-              $pd = " ";
-              $sd = " ";
-              $ed = " ";
-              $p = " ";
-              $np = " ";
-              $b = " ";
-              $nb = " ";
-              $bs = " ";
-              $eb = " ";
-              $a = " ";
+              $si = " ";
+              $n = " ";
               $r = " ";
-              $or = " ";
-              $rb = " ";
-              $br = " ";
-              $oid = " ";
-              $pst = " ";
+              $rs = " ";
+              $ds = " ";
               echo "<table id='example' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                            <th class='desktop'>Project ID</th>
-                            <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
-                            <th class='desktop'>Status</th>
-                            <th class='desktop'>Date Submitted:</th>
+                            <th class='desktop'>Student ID</th>
+                            <th class='desktop'>Name</th>
+                            <th class='desktop'>Request Status</th>
+                            <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Objectives: </th>
-                            <th class='none'>Project Category: </th>
-                            <th class='none'>Project Type: </th>
-                            <th class='none'>Start Date: </th>
-                            <th class='none'>End Date: </th>
-                            <th class='none'>Participants: </th>
-                            <th class='none'>Organizer: </th>
-                            <th class='none'>Requested By: </th>
-                            <th class='none'>Budget Request: </th>
-                            <th class='none'>Organization: </th>
-                            <th class='none'>Position: </th>
-                            <th class='none'>Estimated Budget: </th>
-                            <th class='none'>Attachment: </th>
+                            <th class='none'>Reason: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -136,75 +105,33 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
+                  $si = $row['student_id'];
+                  $n = $row['name'];
+                  $r = $row['reason'];
+                  $rs = $row['req_status'];
                   $ds = $row['date_submitted'];
-                  $pi = $row['project_id'];
-                  $pn = $row['project_name'];
-                  $v = $row['venue'];
-                  $s = $row['status'];
-                  $pt = $row['project_type'];
-                  $obj = $row['objectives'];
-                  $pc = $row['project_category'];
-                  $sd = $row['start_date'];
-                  $ed = $row['end_date'];
-                  $p = $row['participants'];
-                  $or = $row['organizer'];
-                  $rb = $row['requested_by'];
-                  $br = $row['budget_req'];
-                  $oid = $row['ORG'];
-                  $pst = $row['position'];
-                  $a = $row['attachments'];
-                  //$r = $row['remarks'];
-                  $eb = $row['estimated_budget'];
 
                   echo "<tr>
-                              <td> $pi  </td>
-                              <td> $pn  </td>
-                              <td> $v  </td>
-                              <td> $s  </td>
+                              <td> $si  </td>
+                              <td> $n  </td>
+                              <td> $rs  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
-                              </a>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
                               </td>
-                              <td> $obj  </td>
-                              <td> $pc  </td>
-                              <td> $pt  </td>
-                              <td> $sd </td>
-                              <td> $ed </td>
-                              <td> $p  </td>
-                              <td> $or  </td>
-                              <td> $rb  </td>
-                              <td> $br  </td>
-                              <td> $oid  </td>
-                              <td> $pst  </td>
-                              <td> $eb  </td>
-                              <td> $a  </td>
+                              <td> $r  </td>
                               </tr>
                           ";
                 }
                 echo "</tbody>
                         <tfoot>
                             <tr>
-                            <th class='desktop'>Project ID</th>
-                            <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
-                            <th class='desktop'>Status</th>
+                            <th class='desktop'>Student ID</th>
+                            <th class='desktop'>Name</th>
+                            <th class='desktop'>Request Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Objectives</th>
-                            <th class='none'>Project Category</th>
-                            <th class='none'>Project Type</th>
-                            <th class='none'>Start Date</th>
-                            <th class='none'>End Date</th>
-                            <th class='none'>Participants</th>
-                            <th class='none'>Organizer</th>
-                            <th class='none'>Requested By</th>
-                            <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
-                            <th class='none'>Position</th>
-                            <th class='none'>Estimated Budget</th>
-                            <th class='none'>Attachment</th>
+                            <th class='none'>Reason: </th>
                             </tr>
                         </tfoot>
                         </table>";
@@ -231,19 +158,19 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
+          <h5 class="modal-title" id="exampleModalLabel">Request Details: </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST">
+        <form action="officer-request-button.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
                 <div class="col-4 col-md-2 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="project_id">Project ID:</label>
-                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="student_id">Student ID:</label>
+                    <input type="text" name="student_id" id="student_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
@@ -256,153 +183,28 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
-                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
-                    <div class="valid-feedback"></div>
-                    <div class="invalid-feedback">Project name field cannot be blank!</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="venue">Venue:</label>
-                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="name">Student Name:</label>
+                    <input type="text" name="name" id="name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="project_type">Project Type:</label>
-                  <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="project_category">Category:</label>
-                  <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
+                  <label class="form-label" for="req_status">Request Status:</label>
+                  <select class="form-select" name="req_status" id="req_status" style="background-color: #fff;"/>
+                    <option value="Approved">Approved</option>
+                    <option value="Deny">Deny</option>
+                    <option value="Pending">Pending</option>
+                  </select>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="participants">Participants:</label>
-                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-
-                <!--<div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="beneficiary">Beneficiary:</label>
-                              <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                              <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                              </div>
-                            </div>
-
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                              <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                              </div>
-                            </div>-->
-
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline d-grid">
-                    <label class="form-label" for="requested_by">Requested By:</label>
-                    <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline d-grid">
-                    <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <1? php
-                              /**
-                                $query = "SELECT position_id, position FROM tb_position";
-                                $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }**/
-                              ?>-->
-                    <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline  ">
-                    <label class="form-label" for="objectives">Objectives:</label>
-                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
-                  </div>
-                </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline ">
-                    <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;" readonly></textarea>
+                    <label class="form-label" for="reason">Reason for Joining:</label>
+                    <textarea class="form-control" name="reason" id="reason" rows="6" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline">
-
-                    <label class="form-label" for="estimated_budget">Estimated Budget:</label>
-                    <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
-                      <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
-                    </div>
-                  </div>
-                </div>
-                <!--  <div class="col-12 col-md-12 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
-                          </div>!-->
               </div>
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
@@ -410,8 +212,7 @@ if (isset($_SESSION['msg'])) {
               <?php
                 if ($_SESSION['USER-POS'] <= 5 ){
               ?>
-              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-              <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+              <button type="submit" name="updatedata" class="btn btn-primary">Update Request</button>
               <?php
                 }
               ?>
@@ -427,35 +228,21 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.editbtn', function() {
-      var project_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
-        url: "officer-fetch-project.php",
+        url: "officer-fetch-requests.php",
         method: "POST",
         data: {
-          project_id: project_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#project_id').val(data.project_id);
-          $('#project_name').val(data.project_name);
-          $('#organizer').val(data.organizer);
-          $('#venue').val(data.venue);
-          $('#status').val(data.status);
+          $('#student_id').val(data.student_id);
+          $('#name').val(data.name);
+          $('#reason').val(data.reason);
+          $('#req_status').val(data.req_status);
           $('#date_submitted').val(data.date_submitted);
-          $('#status_date').val(data.status_date);
-          $('#start_date').val(data.start_date);
-          $('#end_date').val(data.end_date);
-          $('#project_type').val(data.project_type);
-          $('#project_category').val(data.project_category);
-          $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
-          $('#requested_by').val(data.requested_by);
-          $('#position_id').val(data.position);
-          $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
-          $('#estimated_budget').val(data.estimated_budget);
-          $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -500,29 +287,14 @@ if (isset($_SESSION['msg'])) {
       var myTable;
       myTable = $('#example').DataTable({
         "createdRow": function(row, data, dataIndex) {
-          if (data[3] == "Rejected") {
-            $('td', row).eq(3).css('color', 'red');
+          if (data[2] == "Deny") {
+            $('td', row).eq(2).css('color', 'red');
           }
-          if (data[3] == "Approved") {
-            $('td', row).eq(3).css('color', 'green');
+          if (data[2] == "Pending") {
+            $('td', row).eq(2).css('color', '#0d6efd');
           }
-          if (data[3] == "Pending") {
-            $('td', row).eq(3).css('color', '#0d6efd');
-          }
-          if (data[3] == "Ongoing") {
-            $('td', row).eq(3).css('color', '#0dcaf0');
-          }
-          if (data[3] == "Done") {
-            $('td', row).eq(3).css('color', '#00C9A7');
-          }
-          if (data[3] == "Approved") {
-            $('td', row).eq(3).css('color', 'green');
-          }
-          if (data[3] == "For Revision") {
-            $('td', row).eq(3).css('color', '#FF9671');
-          }
-          if (data[3] == "Reschedule") {
-            $('td', row).eq(3).css('color', 'grey');
+          if (data[2] == "Approved") {
+            $('td', row).eq(2).css('color', 'green');
           }
         },
         responsive: true,
@@ -549,45 +321,6 @@ if (isset($_SESSION['msg'])) {
           },
           {
             "width": "60px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "100px"
-          },
-          {
-            "width": "80px"
-          },
-          {
-            "width": "60px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "100px"
-          },
-          {
-            "width": "80px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "130px"
-          },
-          {
-            "width": "100px"
-          },
-          {
-            "width": "80px"
           }
         ],
         select: 'single',
@@ -595,10 +328,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -   Pending List',
+            title: 'JRU Organizations Portal -   Request List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 5]
             },
           },
           //{
@@ -614,20 +347,20 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal -   Pending List',
+            title: 'JRU Organizations Portal -   Request List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 5]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -   Pending List',
+            title: 'JRU Organizations Portal -   Request List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 5]
             },
             customize: function(win) {
 
