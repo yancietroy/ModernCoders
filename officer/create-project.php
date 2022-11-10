@@ -272,13 +272,14 @@ $nav_breadcrumbs = [
           $aid = '1';
           $userName = $_SESSION['USER-NAME'];
           $posID = $_SESSION['USER-POS'];
+          $collegeDept = $_SESSION['USER-COLLEGE'];
 
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid')";
+          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
           $result = @mysqli_query($conn, $query);
 
           $sqlGetSignatories = "SELECT school_id FROM tb_signatories WHERE org_id='$orgid'";
