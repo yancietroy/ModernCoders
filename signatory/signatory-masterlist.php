@@ -10,8 +10,6 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -79,13 +77,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if(isset($orgid) == NULL && $data_signatorytype == 2){
-                $query = "SELECT * FROM tb_projectmonitoring WHERE college_id = '$data_collegeid'";
-              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
-                $query = "SELECT * FROM tb_projectmonitoring";
-              }elseif($data_signatorytype == 3){
-                $query = "SELECT * FROM tb_projectmonitoring WHERE org_id = '$orgid'";
-              }
+              $query = "SELECT * FROM tb_projectmonitoring";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
