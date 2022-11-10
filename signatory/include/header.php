@@ -30,7 +30,7 @@
                         if ($resNotif = @mysqli_query($conn, $sql)) {
                             if ($resNotif->num_rows > 0) {
                                 while ($row = $resNotif->fetch_assoc()) {
-                                    $notifid = $row['notif_id'];
+                                    $id = $row['id'];
                                     $data = $row['data'];
                                     $isread = $row['is_read'];
 
@@ -39,7 +39,7 @@
                                     if ($count == 6) continue;
                         ?>
                                     <li>
-                                        <a class="dropdown-item" href="#" onclick="<?= $data != "" ? "notifClick('$notifid','$data','$isread')" : "notifClick('$notifid','#','$isread')" ?>">
+                                        <a class="dropdown-item" href="#" onclick="<?= $data != "" ? "notifClick('$id','$data','$isread')" : "notifClick('$id','#','$isread')" ?>">
                                             <strong class="me-2"><?= $row['title'] ?><?php if ($isread == 0) echo ' <span class="badge badge-pill badge-danger align-top">new</span>' ?></strong><br />
                                             <small class="text-muted  me-2"><em><?= $row['message'] ?></em></small>
                                         </a>
@@ -94,7 +94,7 @@
                 type: 'POST',
                 url: 'include/read-notification.php',
                 data: {
-                    notif_id: id
+                    id: id
                 },
                 success: function(data) {}
 

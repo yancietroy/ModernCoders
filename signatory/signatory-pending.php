@@ -379,8 +379,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="org">Name of Organization:</label>
+                    <input type="text" name="org" id="org" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -434,6 +434,8 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
                 <!--
                           <div class="form-group">
                               <label class="form-label" for="status">Project Status </label>
@@ -492,7 +494,8 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#org').val(data.ORG);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
@@ -500,6 +503,7 @@ if (isset($_SESSION['msg'])) {
           $('#budget_req').val(data.budget_req);
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
+          $('#college_id').val(data.college_id);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
