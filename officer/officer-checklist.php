@@ -225,11 +225,11 @@ if (isset($_SESSION['msg'])) {
 
                   <?php
                   if (isset($si) || isset($fn) || isset($ln) || isset($e) || isset($p) || isset($_POST['submit'])) {
-                    $si = $_POST['studentid'];
-                    $fn = $_POST['first_name'];
-                    $ln = $_POST['last_name'];
-                    $e = $_POST['email'];
-                    $p = $_POST['password'];
+                    $si =  $mysqli -> real_escape_string ($_POST['studentid']);
+                    $fn =  $mysqli -> real_escape_string ($_POST['first_name']);
+                    $ln =  $mysqli -> real_escape_string ($_POST['last_name']);
+                    $e =  $mysqli -> real_escape_string ($_POST['email']);
+                    $p =  $mysqli -> real_escape_string ($_POST['password']);
                     $duplicate = mysqli_query($conn, "select * from tb_admin where ADMIN_ID='$si' or EMAIL='$e'");
                     if (mysqli_num_rows($duplicate) > 0) {
                       echo "<script type='text/javascript'>

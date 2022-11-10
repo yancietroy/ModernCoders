@@ -168,8 +168,8 @@ if (isset($_SESSION['msg'])) {
                   </div>
                   <div class="col-4 col-md-3 mb-4">
                     <div class="form-outline">
-                      <label class="form-label" for="date_submitted">Account Created:</label>
-                      <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                      <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
+                      <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
                     </div>
                   </div>
                 </div>
@@ -192,7 +192,7 @@ if (isset($_SESSION['msg'])) {
                   </div>
                   <div class="col-12 col-md-4 col-sm-3 mb-2">
                     <label class="form-label" for="EMAIL">Email:</label>
-                    <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" required />
+                    <input type="text" name="EMAIL" id="EMAIL" class="form-control" title="Please provide a Jose Rizal University e-mail address" maxlength="30" style="background-color: #fff;" required />
                   </div>
                 </div>
               </div>
@@ -252,6 +252,7 @@ if (isset($_SESSION['msg'])) {
             $('#FIRST_NAME').val(data.FIRST_NAME);
             $('#LAST_NAME').val(data.LAST_NAME);
             $('#EMAIL').val(data.EMAIL);
+            $('#ACCOUNT_CREATED').val(data.ACCOUNT_CREATED);
             $('#viewmodal').modal('show');
             $('#modal-lg').css('max-width', '70%');
           }

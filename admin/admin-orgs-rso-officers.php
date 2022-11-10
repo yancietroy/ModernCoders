@@ -84,11 +84,11 @@ if (isset($_SESSION['msg'])) {
           <h4 id="rsotitle"><?php echo $orgName; ?> Officers</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
         </div>
       </div>
 
-      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+      <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-3 pt-4 ">
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
@@ -146,8 +146,8 @@ if (isset($_SESSION['msg'])) {
                             <td> $e </td>
                             <td> $c </td>
                             <td>
-                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
-                            <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i> </button>
+                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                            <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i> </button>
                             </td>
                             </tr>
                         ";
@@ -166,16 +166,16 @@ if (isset($_SESSION['msg'])) {
 
     </div>
     <!--   <div class="col">
-                        Card with right text alignment
-                          <div class="card text-end">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-                              <a href="#" class="btn btn-primary">Know more</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
+      Card with right text alignment
+          <div class="card text-end">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+              <a href="#" class="btn btn-primary">Know more</a>
+            </div>
+          </div>
+        </div>
+      </div> -->
 
     <!-- Footer -->
     <div id="layoutAuthentication_footer">
@@ -385,7 +385,7 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">Officer ID:</label>
+                <label class="form-label" for="delete_id">Officer Student ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
@@ -404,12 +404,12 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var officer_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
         url: "admin-fetch-officer.php",
         method: "POST",
         data: {
-          officer_id: officer_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {
@@ -463,12 +463,12 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script>
     $(document).on('click', '.deletebtn', function() {
-      var officer_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
         url: "admin-fetch-officer.php",
         method: "POST",
         data: {
-          officer_id: officer_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {
@@ -548,7 +548,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
           },
           //{
@@ -567,7 +567,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -577,7 +577,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Officer Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7]
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
             },
             customize: function(win) {
 

@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Reschedule') AND ORG_ID = '$orgid'";
+              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.status_date, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments, tb_projectmonitoring.remarks FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Reschedule') AND tb_projectmonitoring.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -118,21 +118,21 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date Reschedule</th>
-                            <th class='none'>Objectives</th>
-                            <th class='none'>Project Category</th>
-                            <th class='none'>Project Type</th>
-                            <th class='none'>Start Date</th>
-                            <th class='none'>End Date</th>
-                            <th class='none'>Participants</th>
-                            <th class='none'>Organizer</th>
-                            <th class='none'>Requested By</th>
-                            <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
-                            <th class='none'>Position</th>
-                            <th class='none'>Estimated Budget</th>
-                            <th class='none'>Attachment</th>
-                            <th class='none'>Remarks</th>
+                            <th class='none'>Date Reschedule: </th>
+                            <th class='none'>Objectives: </th>
+                            <th class='none'>Project Category: </th>
+                            <th class='none'>Project Type: </th>
+                            <th class='none'>Start Date: </th>
+                            <th class='none'>End Date: </th>
+                            <th class='none'>Participants: </th>
+                            <th class='none'>Organizer: </th>
+                            <th class='none'>Requested By: </th>
+                            <th class='none'>Budget Request: </th>
+                            <th class='none'>Organization: </th>
+                            <th class='none'>Position: </th>
+                            <th class='none'>Estimated Budget: </th>
+                            <th class='none'>Attachment: </th>
+                            <th class='none'>Remarks: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -147,7 +147,7 @@ if (isset($_SESSION['msg'])) {
                   $s = $row['status'];
                   $pt = $row['project_type'];
                   $obj = $row['objectives'];
-                  $pd = $row['project_desc'];
+                  $pc = $row['project_category'];
                   $sd = $row['start_date'];
                   $ed = $row['end_date'];
                   $p = $row['participants'];
@@ -155,8 +155,8 @@ if (isset($_SESSION['msg'])) {
                   $std = $row['status_date'];
                   $rb = $row['requested_by'];
                   $br = $row['budget_req'];
-                  $oid = $row['org_id'];
-                  $pst = $row['position_id'];
+                  $oid = $row['ORG'];
+                  $pst = $row['position'];
                   $a = $row['attachments'];
                   $r = $row['remarks'];
                   $eb = $row['estimated_budget'];
@@ -236,7 +236,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" enctype="multipart/form-data" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -272,13 +272,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" />
+                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" required/>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer">Organizer:</label>
-                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" />
+                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" required/>
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
@@ -286,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
-                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" />
+                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" required/>
                   </div>
                 </div>
               </div>
@@ -297,7 +297,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;">
+                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;"required>
                     <option class="greyclr" selected disabled value="">Select Type</option>
                     <option value="Curricular">Curricular</option>
                     <option value="Extra Curricular">Extra Curricular</option>
@@ -313,7 +313,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_category">Category:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category">
+                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category"required>
                     <option class="greyclr" selected disabled value="">Select Category</option>
                     <option value="Onsite">Onsite</option>
                     <option value="Online">Online</option>
@@ -325,13 +325,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
                   </div>
                 </div>
               </div>
@@ -339,13 +339,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="participants">Participants:</label>
-                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" />
+                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" required/>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".pdf" id="formFileMultiple" required multiple>
+                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
                   </div>
                 </div>
               </div>
@@ -415,23 +415,27 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline  ">
                     <label class="form-label" for="objectives">Objectives:</label>
-                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;"></textarea>
+                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;"required></textarea>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;"></textarea>
+                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;"required></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
-                  <div class="form-outline projectdesc">
-                    <label class="form-label" for="estimated_budget">Estimated Budget:</label>
-                    <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
-                      <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" />
-                    </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                <div class="form-outline projectdesc">
+                  <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
+                  <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">₱</span>
+          </div>
+                    <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required/>
+                    <div class="valid-feedback"></div>
                   </div>
+
+                </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
@@ -442,8 +446,14 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <?php
+                  if ($_SESSION['USER-POS'] <= 5 ){
+                ?>
                 <button type="submit" name="updatedata" class="btn btn-primary">Restore Project</button> <!--  update and change status to pending-->
                 <!--  update and change status to pending-->
+                <?php
+                  }
+                ?>
               </div>
         </form>
       </div>
@@ -478,10 +488,10 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
+          $('#attachments').val(data.attachments);
           $('#org_id').val(data.ORG);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
-          $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
           $('#budget_req').val(data.budget_req);
           $('#estimated_budget').val(data.estimated_budget);
@@ -492,7 +502,25 @@ if (isset($_SESSION['msg'])) {
       });
     });
   </script>
+  <script>
+  if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
 
+  $('#estimated_budget').keydown(function(e) {
+setTimeout(() => {
+  let parts = $(this).val().split(".");
+  let v = parts[0].replace(/\D/g, ""),
+    dec = parts[1]
+  let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+  // use this for numeric calculations
+  // console.log('number for calculations: ', calc_num);
+  let n = new Intl.NumberFormat('en-EN').format(v);
+  n = dec !== undefined ? n + "." + dec : n;
+  $(this).val(n);
+})
+})
+  </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

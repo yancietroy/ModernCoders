@@ -10,13 +10,13 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Members", "", ""],
+  ["Officers", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -78,7 +78,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_officers WHERE ORG_ID = '$orgid'";
+              $query = "SELECT tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.age, tb_officers.gender, tb_officers.email, tb_officers.birthdate, tb_officers.year_level, tb_officers.section, tb_officers.course, tb_collegedept.college, tb_orgs.ORG, tb_officers.account_created, tb_position.position FROM tb_officers JOIN tb_collegedept ON tb_collegedept.college_id=tb_officers.college_dept JOIN tb_orgs ON tb_orgs.ORG_ID=tb_officers.ORG_ID JOIN tb_position ON tb_position.POSITION_ID=tb_officers.position_id WHERE tb_officers.ORG_ID = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $fn = " ";
@@ -104,15 +104,15 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
-                                <th class='none'>College</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Organization</th>
-                                <th class='none'>Position</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Birthdate</th>
-                                <th class='none'>Year Level</th>
-                                <th class='none'>Section</th>
-                                <th class='none'>Account Created</th>
+                                <th class='none'>College: </th>
+                                <th class='none'>Course: </th>
+                                <th class='none'>Organization: </th>
+                                <th class='none'>Position: </th>
+                                <th class='none'>Email: </th>
+                                <th class='none'>Birthdate: </th>
+                                <th class='none'>Year Level: </th>
+                                <th class='none'>Section: </th>
+                                <th class='none'>Account Created: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -137,10 +137,10 @@ if (isset($_SESSION['msg'])) {
                   $yl = $row['year_level'];
                   $se = $row['section'];
                   $c = $row['course'];
-                  $cd = $row['college_dept'];
-                  $oi = $row['org_id'];
+                  $cd = $row['college'];
+                  $oi = $row['ORG'];
                   $ac = $row['account_created'];
-                  $pi = $row['position_id'];
+                  $pi = $row['position'];
                   echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>

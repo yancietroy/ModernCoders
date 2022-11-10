@@ -30,7 +30,7 @@ $nav_selected = "Site Management / Organizations";
 $nav_breadcrumbs = [
   ["Home", "admin-index.php", "bi-house-fill"],
   ["Site Management", "", ""],
-  ["Orgnizations", "admin-orgs.php", ""],
+  ["Organizations", "admin-orgs.php", ""],
   ["$orgName", "", ""],
 ];
 

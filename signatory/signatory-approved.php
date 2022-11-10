@@ -78,11 +78,11 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if(isset($orgid) == NULL && $data_signatorytype == 2){
+              if (isset($orgid) == NULL && $data_signatorytype == 2) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND approval_id = 4";
-              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+              } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND approval_id = 4";
-              }elseif($data_signatorytype == 3){
+              } elseif ($data_signatorytype == 3) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND org_id = '$orgid' AND approval_id = 4";
               }
               $result = @mysqli_query($conn, $query);
@@ -473,7 +473,7 @@ if (isset($_SESSION['msg'])) {
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Popper.JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <!-- Bootstrap JS -->

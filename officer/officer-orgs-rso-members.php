@@ -206,7 +206,6 @@ if (isset($_SESSION['msg'])) {
                               <td> $g</td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-
                               </td>
                               <td> $c</td>
                               <td> $e </td>

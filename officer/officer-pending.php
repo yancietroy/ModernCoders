@@ -10,7 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(0, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
+              $query = "SELECT tb_projectmonitoring.project_id, tb_projectmonitoring.project_name, tb_projectmonitoring.venue, tb_projectmonitoring.status, tb_projectmonitoring.date_submitted, tb_projectmonitoring.objectives, tb_projectmonitoring.project_category, tb_projectmonitoring.project_type, tb_projectmonitoring.start_date, tb_projectmonitoring.end_date, tb_projectmonitoring.participants, tb_projectmonitoring.organizer, tb_projectmonitoring.requested_by, tb_projectmonitoring.budget_req, tb_orgs.ORG, tb_position.position, tb_projectmonitoring.estimated_budget, tb_projectmonitoring.attachments FROM tb_projectmonitoring JOIN tb_orgs ON tb_orgs.ORG_ID=tb_projectmonitoring.org_id JOIN tb_position ON tb_position.POSITION_ID=tb_projectmonitoring.position_id WHERE tb_projectmonitoring.status IN('Pending') AND tb_projectmonitoring.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -104,7 +104,6 @@ if (isset($_SESSION['msg'])) {
               $a = " ";
               $r = " ";
               $or = " ";
-              //    $sd = $row['status_date'];
               $rb = " ";
               $br = " ";
               $oid = " ";
@@ -116,21 +115,21 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Project Name</th>
                             <th class='desktop'>Venue</th>
                             <th class='desktop'>Status</th>
-                            <th class='desktop'>Date Submitted</th>
+                            <th class='desktop'>Date Submitted:</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Objectives</th>
-                            <th class='none'>Project Category</th>
-                            <th class='none'>Project Type</th>
-                            <th class='none'>Start Date</th>
-                            <th class='none'>End Date</th>
-                            <th class='none'>Participants</th>
-                            <th class='none'>Organizer</th>
-                            <th class='none'>Requested By</th>
-                            <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
-                            <th class='none'>Position</th>
-                            <th class='none'>Estimated Budget</th>
-                            <th class='none'>Attachment</th>
+                            <th class='none'>Objectives: </th>
+                            <th class='none'>Project Category: </th>
+                            <th class='none'>Project Type: </th>
+                            <th class='none'>Start Date: </th>
+                            <th class='none'>End Date: </th>
+                            <th class='none'>Participants: </th>
+                            <th class='none'>Organizer: </th>
+                            <th class='none'>Requested By: </th>
+                            <th class='none'>Budget Request: </th>
+                            <th class='none'>Organization: </th>
+                            <th class='none'>Position: </th>
+                            <th class='none'>Estimated Budget: </th>
+                            <th class='none'>Attachment: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -145,18 +144,17 @@ if (isset($_SESSION['msg'])) {
                   $s = $row['status'];
                   $pt = $row['project_type'];
                   $obj = $row['objectives'];
-                  $pd = $row['project_desc'];
+                  $pc = $row['project_category'];
                   $sd = $row['start_date'];
                   $ed = $row['end_date'];
                   $p = $row['participants'];
                   $or = $row['organizer'];
-                  //    $sd = $row['status_date'];
                   $rb = $row['requested_by'];
                   $br = $row['budget_req'];
-                  $oid = $row['org_id'];
-                  $pst = $row['position_id'];
+                  $oid = $row['ORG'];
+                  $pst = $row['position'];
                   $a = $row['attachments'];
-                  $r = $row['remarks'];
+                  //$r = $row['remarks'];
                   $eb = $row['estimated_budget'];
 
                   echo "<tr>
@@ -410,8 +408,14 @@ if (isset($_SESSION['msg'])) {
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <?php
+                if ($_SESSION['USER-POS'] <= 5 ){
+              ?>
               <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
               <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+              <?php 
+                } 
+              ?>
             </div>
         </form>
       </div>

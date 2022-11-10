@@ -131,7 +131,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $e </td>
                               <td> $c </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $oi . "'><i class='bi bi-folder2-open'></i>  </button>
+                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'><i class='bi bi-folder2-open'></i>  </button>
 
                               </td>
                               </tr>
@@ -355,12 +355,12 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var officer_id = $(this).attr("id");
+      var student_id = $(this).attr("id");
       $.ajax({
         url: "admin-fetch-officer-archive.php",
         method: "POST",
         data: {
-          officer_id: officer_id
+          student_id: student_id
         },
         dataType: "json",
         success: function(data) {

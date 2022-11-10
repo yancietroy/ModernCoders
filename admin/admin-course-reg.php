@@ -173,7 +173,7 @@ if (isset($_SESSION['msg'])) {
 
                   <?php
                   if (isset($cn) || isset($ci) || isset($_POST['submit'])) {
-                    $cn = $_POST['coursename'];
+                    $cn =  $mysqli -> real_escape_string ($_POST['coursename']);
                     $ci = $_POST['college_id'];
 
                     /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");

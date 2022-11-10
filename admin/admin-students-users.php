@@ -241,7 +241,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="AGE">Age:</label>
-                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required />
+                    <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" required />
                   </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 ">
@@ -325,7 +325,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="USER_TYPE">User Type:</label>
                     <select class="form-select" name="USER_TYPE" id="USER_TYPE">
                       <?php
-                      $query = "SELECT * FROM tb_usertypes";
+                      $query = "SELECT * FROM tb_usertypes WHERE usertype_id = '1' OR usertype_id = '2'";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -344,6 +344,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>
                     <select class="form-select" name="position_id" id="position_id">
+                      <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <?php
                       $query = "SELECT * FROM tb_position";
                       $result = @mysqli_query($conn, $query);

@@ -12,10 +12,6 @@ $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Home";
 
-if (isset($_SESSION['msg'])) {
-  print_r($_SESSION['msg']); #display message
-  unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
 ?>
 
 <!DOCTYPE html>
@@ -96,12 +92,19 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
 
-      <h4 class="ms-3">My Organizations</h4>
+      <div class="row ms-3 me-3 mt-2">
+        <div class="col-lg-6 col-7">
+          <h4 id="orgtitle">My Organizations</h4>
+        </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="join-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Join Organization </span></a>
+        </div>
+      </div>
       <div class="d-flex flex-row flex-wrap">
         <?php
         foreach ($_SESSION['USER-ORGS'] as $o_id => $o_name) {
         ?>
-          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" style="min-height: 250px; max-height:250px; min-width:400px; max-width: 400px;">
+          <div class="card shadow-md ms-4 mt-4 display: inline-block cards" id="indexcard">
             <img src="<?= getOrgLogo($o_id) ?>" style="width:150px;height:150px;" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center mt-2"><?= $o_name ?></h5>
