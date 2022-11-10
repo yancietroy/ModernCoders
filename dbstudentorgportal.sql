@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 10, 2022 at 07:26 AM
+-- Generation Time: Nov 10, 2022 at 10:56 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -309,8 +309,8 @@ CREATE TABLE `tb_disc_threads` (
 --
 
 INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`, `locked`) VALUES
-(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 151, 1, 1667467278, 'Trisha Pega', 1),
-(1667472994, 2, 9, 2, 'Trisha Pega', 'Intro - Assistant Secretary', '<p>Hello my name is Trisha Pega, assistant secretary of JRU Computer Society</p>', 5, 0, 1667472994, 'Trisha Pega', 0),
+(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 152, 1, 1667467278, 'Trisha Pega', 1),
+(1667472994, 2, 9, 2, 'Trisha Pega', 'Intro - Assistant Secretary', '<p>Hello my name is Trisha Pega, assistant secretary of JRU Computer Society</p>', 6, 0, 1667472994, 'Trisha Pega', 0),
 (1667473049, 3, 9, 2, 'Trisha Pega', 'Does anyone like the new hyflex learning of JRU?', '<p>Personally, I like it</p>', 8, 3, 1668058191, 'Trisha Pega', 0),
 (1667473091, 4, 9, 2, 'Trisha Pega', 'Activity Plans', '<p>Hello, I would like to ask the schedule of activity and plans on it</p>', 19, 0, 1667473091, 'Trisha Pega', 0),
 (1667473129, 5, 9, 2, 'Trisha Pega', 'Meeting Schedule', '<p>May I know the next meeting schedule?</p>', 1, 0, 1667473129, 'Trisha Pega', 0),
@@ -465,7 +465,8 @@ INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name
 (19255533, 10, 6, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 2, 'img_avatar.png', '2022-10-13'),
 (19255515, 11, 14, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 2, 'img_avatar.png', '2022-10-13'),
 (19255570, 12, 13, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 2, 'img_avatar.png', '2022-10-13'),
-(19255540, 13, 5, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 16, 2, 'img_avatar.png', '2022-10-13');
+(19255540, 13, 5, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 16, 2, 'img_avatar.png', '2022-10-13'),
+(17401211, 14, 1, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 17, 2, 'img_avatar.png', '2022-11-10');
 
 -- --------------------------------------------------------
 
@@ -652,7 +653,7 @@ CREATE TABLE `tb_projectmonitoring` (
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `college_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `approval_id`, `date_submitted`, `status_date`, `remarks`) VALUES
 (54, 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done.'),
 (55, 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done'),
-(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Approved', 4, '2022-10-13', '2022-11-10', ''),
+(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Reschedule', 4, '2022-10-13', '2022-11-10', ''),
 (57, 5, 16, 5, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Approved', 4, '2022-10-20', '2022-11-03', NULL),
 (60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
 (61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
@@ -662,7 +663,7 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `coll
 (68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ', '48040-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'revise this'),
 (69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, '1500 - online fees', '90444-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'Revise date'),
 (71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', 'Approved'),
-(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '75617-', 'Reschedule', 1, '2022-11-04', '2022-11-08', '');
+(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '62386-', 'Pending', 1, '2022-11-04', '2022-11-10', '');
 
 -- --------------------------------------------------------
 
@@ -696,12 +697,21 @@ INSERT INTO `tb_questions` (`id`, `question`, `frm_option`, `type`, `order_by`, 
 --
 
 CREATE TABLE `tb_requests` (
+  `req_id` bigint(20) NOT NULL,
   `org_id` int(2) DEFAULT NULL,
   `student_id` int(9) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `reason` text DEFAULT NULL,
-  `req_status` varchar(20) DEFAULT NULL
+  `req_status` varchar(20) DEFAULT NULL,
+  `date_submitted` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_requests`
+--
+
+INSERT INTO `tb_requests` (`req_id`, `org_id`, `student_id`, `name`, `reason`, `req_status`, `date_submitted`) VALUES
+(1, 17, 19255532, 'Trisha Pega', 'Test123123 asdasdasd', 'Approved', NULL);
 
 -- --------------------------------------------------------
 
@@ -817,11 +827,11 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `ORG_IDS`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`, `VCODE`) VALUES
-(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, ',[17]', 1, '2022-10-19', 'img_avatar.png', '0'),
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 17, NULL, '', 2, '2022-10-19', 'img_avatar.png', ''),
 (18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
 (19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
 (19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '[23],[24]', 1, '2022-10-13', '45391-JRU Virtual Background 22_23 (3).jpg', ''),
-(19255532, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', '90883-309216109_802196107715395_8902535727642330451_n.png', ''),
+(19255532, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, ',[17]', 1, '2022-10-13', '90883-309216109_802196107715395_8902535727642330451_n.png', ''),
 (19255533, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
 (19255540, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 16, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
 (19255561, 'Carreros', 'Kean', 'V', '1999-11-27', 22, 'Male', '4', 'kean.carreros@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 'Bachelor of Arts in Psychology (ABPsy)', '401I', 3, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
@@ -1286,6 +1296,14 @@ ALTER TABLE `tb_questions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_requests`
+--
+ALTER TABLE `tb_requests`
+  ADD PRIMARY KEY (`req_id`),
+  ADD KEY `req_org_id` (`org_id`),
+  ADD KEY `req_student_id` (`student_id`);
+
+--
 -- Indexes for table `tb_signatories`
 --
 ALTER TABLE `tb_signatories`
@@ -1448,7 +1466,7 @@ ALTER TABLE `tb_notification`
 -- AUTO_INCREMENT for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
-  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `officer_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tb_officers_archive`
@@ -1485,6 +1503,12 @@ ALTER TABLE `tb_projectmonitoring`
 --
 ALTER TABLE `tb_questions`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tb_requests`
+--
+ALTER TABLE `tb_requests`
+  MODIFY `req_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_surveys`
@@ -1566,6 +1590,13 @@ ALTER TABLE `tb_officers`
 ALTER TABLE `tb_projectmonitoring`
   ADD CONSTRAINT `project_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `tb_approval_type` (`approval_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `project_college_id` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_requests`
+--
+ALTER TABLE `tb_requests`
+  ADD CONSTRAINT `req_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `req_student_id` FOREIGN KEY (`student_id`) REFERENCES `tb_students` (`STUDENT_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
