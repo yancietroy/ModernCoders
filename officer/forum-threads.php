@@ -34,6 +34,7 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 
+$error = -1;
 
 if (isset($_POST['create-thread'])) {
     $addtitle =  $_POST['add-title'];
@@ -46,7 +47,8 @@ if (isset($_POST['create-thread'])) {
     if ($res = @mysqli_query($conn, $sqlInsert)) {
         header('location:forum-view.php?topic=' . $topicid . '&thread=' . $timestamp);
     } else {
-        echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+        $error = 0;
+        //echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
     }
 }
 
@@ -54,9 +56,11 @@ if (isset($_POST['lock-thread'])) {
     $threadlock = $_POST['lock-id'] ?? -1;
     $sqlLock = "UPDATE tb_disc_threads SET locked='1' WHERE thread_id='$threadlock'";
     if (mysqli_query($conn, $sqlLock)) {
-        echo "<script>alert('Thread has been locked successfully.')</script>";
+        $error = 1;
+        //echo "<script>alert('Thread has been locked successfully.')</script>";
     } else {
-        echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+        $error = 2;
+        //echo "<script>alert('Failed locking the thread. Please try again.')</script>";
     }
 }
 
@@ -64,9 +68,11 @@ if (isset($_POST['unlock-thread'])) {
     $threadunlock = $_POST['unlock-id'] ?? -1;
     $sqlUnlock = "UPDATE tb_disc_threads SET locked='0' WHERE thread_id='$threadunlock'";
     if (mysqli_query($conn, $sqlUnlock)) {
-        echo "<script>alert('Thread has been unlocked successfully.')</script>";
+        $error = 3;
+        //echo "<script>alert('Thread has been unlocked successfully.')</script>";
     } else {
-        echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+        $error = 4;
+        //echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
     }
 }
 
@@ -134,173 +140,173 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             <!-- Page content -->
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                  <div class="col-lg-11 col-12">
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-                <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                            <div class="d-flex flex-row mb-4 align-items-center">
-                                <div class="forum-title flex-grow-1">
-                                  <h3  id="orgtitle">
-                    <span>
-                      <i class="mr-2 bi <?= $topicicon == "" ? "bi-chat-square-dots-fill" : $topicicon ?>"></i>
-                    </span> <?= $topicsubject ?>
-                  </h3>
-                </div>
-                <div>
-                  <button class="btn btn-primary small createbtn"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Thread </span></button>
+                    <div class="col-lg-11 col-12">
+                        <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                            <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                                <div class="d-flex flex-row mb-4 align-items-center">
+                                    <div class="forum-title flex-grow-1">
+                                        <h3 id="orgtitle">
+                                            <span>
+                                                <i class="mr-2 bi <?= $topicicon == "" ? "bi-chat-square-dots-fill" : $topicicon ?>"></i>
+                                            </span> <?= $topicsubject ?>
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary small createbtn"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Thread </span></button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="table-responsive-xl">
-                                        <table class="table forum no-cellpadding">
-                                <thead>
-                                    <th>Thread</th>
-                                    <th>Created</th>
-                                    <th>Statistics</th>
-                                    <th>Last Post</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sqlThreads = "SELECT thread_id,name,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
+                                <div class="table-responsive-xl">
+                                    <table class="table forum no-cellpadding">
+                                        <thead>
+                                            <th>Thread</th>
+                                            <th>Created</th>
+                                            <th>Statistics</th>
+                                            <th>Last Post</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sqlThreads = "SELECT thread_id,name,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
 
-                                    $res = $conn->query($sqlThreads);
-                                    if ($res->num_rows > 0) {
-                                        while ($thread = $res->fetch_assoc()) {
-                                    ?>
-                                            <tr>
-                                                <td style="min-width: 400px; max-width: 400px;">
-                                                  <div class="row">
-                                                    <div class="col-md-9  col-12 mt-2" style="overflow: hidden; text-overflow: ellipsis;">
-                                                            <a href="forum-view.php?topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                                <?= $thread['title'] ?>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-9 col-9">
-                                                            <div class="d-flex flex-row">
-                                                                <?php
-                                                                if ($thread['locked'] == 0) {
-                                                                ?>
-                                                                    <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;">Lock</a>
-                                                                <?php
-                                                                } else {
-                                                                ?>
-                                                                    <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;">Unlock</a>
-                                                                <?php
-                                                                }
-                                                                ?>
+                                            $res = $conn->query($sqlThreads);
+                                            if ($res->num_rows > 0) {
+                                                while ($thread = $res->fetch_assoc()) {
+                                            ?>
+                                                    <tr>
+                                                        <td style="min-width: 400px; max-width: 400px;">
+                                                            <div class="row">
+                                                                <div class="col-md-9  col-12 mt-2" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                    <a href="forum-view.php?topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                        <?= $thread['title'] ?>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-9 col-9">
+                                                                    <div class="d-flex flex-row">
+                                                                        <?php
+                                                                        if ($thread['locked'] == 0) {
+                                                                        ?>
+                                                                            <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;">Lock</a>
+                                                                        <?php
+                                                                        } else {
+                                                                        ?>
+                                                                            <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;">Unlock</a>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                  <div class="row justify-content-center mb-2">
-                                                    <div class="col-md-12 col-12 mt-2">
-                                                            <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
-                                                            <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
-                                                        </div>
-                                                    </div>
-                                                    <td class="align-middle">
-                                                      <div class="row justify-content-center mb-2">
-                                                        <div class="col-md-9 col-12 mt-2">
-                                                            <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
-                                                            <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                  <div class="row justify-content-center mb-2">
-                                                    <div class="col-md-12 col-12 mt-2">
-                                                            <?php
-                                                            if ($thread['last_reply'] > 0) {
-                                                            ?>
-                                                                <div class="forum-sub-title small">By <?= $thread['last_reply_name'] ?></div>
-                                                                <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                        }
-                                    } else {
-                                        ?>
-                                        <tr>
-                                            <td colspan="4" class="text-center">No threads in this Topic</td>
-                                        </tr>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-12 col-12 mt-2">
+                                                                    <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
+                                                                    <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
+                                                                </div>
+                                                            </div>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-9 col-12 mt-2">
+                                                                    <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
+                                                                    <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-12 col-12 mt-2">
+                                                                    <?php
+                                                                    if ($thread['last_reply'] > 0) {
+                                                                    ?>
+                                                                        <div class="forum-sub-title small">By <?= $thread['last_reply_name'] ?></div>
+                                                                        <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <tr>
+                                                    <td colspan="4" class="text-center">No threads in this Topic</td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+
+                                    <?php
+                                    if ($total_records > 0) {
+                                    ?>
+                                        <nav class="mt-4 d-flex flex-row justify-content-end">
+                                            <ul class="pagination">
+                                                <li class="page-item">
+                                                    <a href="?page=1&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="?page=<?php if ($page_no == 1) echo "1";
+                                                                    else echo $page_no - 1; ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
+                                                </li>
+
+                                                <?php
+                                                if ($total_no_of_pages <= 5) {
+                                                    for ($i = 1; $i <= $total_no_of_pages; $i++) {
+                                                ?>
+                                                        <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
+                                                            <a href="?page=<?= $i ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                                                        </li>
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    $mid;
+                                                    $after = $total_no_of_pages - $page_no;
+                                                    $before = $page_no - 1;
+
+                                                    if ($before >= 2 && $after >= 2) {
+                                                        $x = $page_no - 2;
+                                                        $y = $page_no + 2;
+                                                    } else if ($before < 2 && $after >= 2) {
+                                                        $x = $page_no - $before;
+                                                        $y = $page_no + 2 + (2 - $before);
+                                                    } else if ($before >= 2 && $after < 2) {
+                                                        $x = $page_no - 2 - (2 - $after);
+                                                        $y = $total_no_of_pages;
+                                                    }
+
+                                                    for ($i = $x; $i <= $y; $i++) {
+                                                        if ($page_no == $i) {
+                                                        ?>
+                                                            <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
+                                                                <a href="?page=<?= $i ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                                                            </li>
+                                                <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+
+                                                <li class="page-item">
+                                                    <a href="?page=<?php if ($page_no == $total_no_of_pages) echo $total_no_of_pages;
+                                                                    else echo $page_no + 1; ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="?page=<?= $total_no_of_pages ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     <?php
                                     }
                                     ?>
-                                </tbody>
-                            </table>
-
-                            <?php
-                            if ($total_records > 0) {
-                            ?>
-                                <nav class="mt-4 d-flex flex-row justify-content-end">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a href="?page=1&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="?page=<?php if ($page_no == 1) echo "1";
-                                                            else echo $page_no - 1; ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
-                                        </li>
-
-                                        <?php
-                                        if ($total_no_of_pages <= 5) {
-                                            for ($i = 1; $i <= $total_no_of_pages; $i++) {
-                                        ?>
-                                                <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                                                    <a href="?page=<?= $i ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
-                                                </li>
-                                                <?php
-                                            }
-                                        } else {
-                                            $mid;
-                                            $after = $total_no_of_pages - $page_no;
-                                            $before = $page_no - 1;
-
-                                            if ($before >= 2 && $after >= 2) {
-                                                $x = $page_no - 2;
-                                                $y = $page_no + 2;
-                                            } else if ($before < 2 && $after >= 2) {
-                                                $x = $page_no - $before;
-                                                $y = $page_no + 2 + (2 - $before);
-                                            } else if ($before >= 2 && $after < 2) {
-                                                $x = $page_no - 2 - (2 - $after);
-                                                $y = $total_no_of_pages;
-                                            }
-
-                                            for ($i = $x; $i <= $y; $i++) {
-                                                if ($page_no == $i) {
-                                                ?>
-                                                    <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                                                        <a href="?page=<?= $i ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
-                                                    </li>
-                                        <?php
-                                                }
-                                            }
-                                        }
-                                        ?>
-
-                                        <li class="page-item">
-                                            <a href="?page=<?php if ($page_no == $total_no_of_pages) echo $total_no_of_pages;
-                                                            else echo $page_no + 1; ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="?page=<?= $total_no_of_pages ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            <?php
-                            }
-                            ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
-</div>
 
             <!-- Footer -->
             <div id="layoutAuthentication_footer">
@@ -393,6 +399,19 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             </div>
         </div>
 
+        <?php
+        if ($error == 0) {
+            echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+        } else if ($error == 1) {
+            echo "<script>alert('Thread has been locked successfully.')</script>";
+        } else if ($error == 2) {
+            echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+        } else if ($error == 3) {
+            echo "<script>alert('Thread has been unlocked successfully.')</script>";
+        } else if ($error == 4) {
+            echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+        }
+        ?>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <!-- Bootstrap JS-->
@@ -411,7 +430,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         <script type="text/javascript">
             tinymce.init({
                 selector: '#add-msg',
-                plugins: 'link image textcolor',
+                plugins: 'link image',
                 menubar: 'edit view insert format',
                 toolbar: 'undo redo | styles | bold italic underline forecolor backcolor | link | alignleft aligncenter alignright',
             });

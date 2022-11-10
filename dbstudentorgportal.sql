@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 28, 2022 at 02:39 PM
+-- Generation Time: Nov 10, 2022 at 07:26 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -44,8 +44,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
-(1, 'Bien', 'Legaspi', '', 'bienlegaspi@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
-(21212121, 'admin', '123', '', 'admin123@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, 'img_avatar.png'),
+(1, 'John', 'Doe', '', 'john.doe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, NULL, '66528-1.png'),
 (32323232, 'Michael', 'Scott', '', 'michael.scott@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
@@ -65,6 +64,13 @@ CREATE TABLE `tb_admin_archive` (
   `ACCOUNT_CREATED` date DEFAULT NULL,
   `PROFILE_PIC` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_admin_archive`
+--
+
+INSERT INTO `tb_admin_archive` (`ADMIN_ID`, `FIRST_NAME`, `LAST_NAME`, `MIDDLE_INITIAL`, `EMAIL`, `PASSWORD`, `USERTYPE_ID`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
+(21212121, 'Joseph', 'Joestar', '', 'joseph.joestar@my.jru.edu', 'c5bcb280184841e400abbdc40cf83d9959cf7bc4', NULL, NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -96,6 +102,27 @@ INSERT INTO `tb_answers` (`id`, `survey_id`, `user_id`, `answer`, `question_id`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_approval_type`
+--
+
+CREATE TABLE `tb_approval_type` (
+  `approval_id` int(2) NOT NULL,
+  `approval_pos` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_approval_type`
+--
+
+INSERT INTO `tb_approval_type` (`approval_id`, `approval_pos`) VALUES
+(1, 'Adviser'),
+(2, 'Dean'),
+(3, 'SDO'),
+(4, 'Approved');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_candidate`
 --
 
@@ -121,7 +148,22 @@ INSERT INTO `tb_candidate` (`CANDIDATE_ID`, `ELECTION_ID`, `POSITION_ID`, `STUDE
 (26, 12, 3, 19255532),
 (27, 12, 3, 19255570),
 (28, 14, 1, 19255540),
-(29, 15, 1, 18255530);
+(29, 15, 1, 18255530),
+(30, 16, 1, 19255532),
+(31, 16, 1, 19255533),
+(32, 16, 2, 19255515),
+(33, 16, 2, 19255570),
+(34, 16, 4, 19255540),
+(35, 17, 1, 19255515),
+(36, 17, 2, 19255531),
+(37, 17, 3, 19255532),
+(38, 17, 4, 19255533),
+(39, 17, 5, 19255570),
+(40, 18, 1, 19255532),
+(41, 18, 2, 19255533),
+(42, 18, 3, 19255515),
+(43, 18, 4, 19255570),
+(44, 18, 5, 19255540);
 
 -- --------------------------------------------------------
 
@@ -213,43 +255,33 @@ CREATE TABLE `tb_disc_groups` (
 INSERT INTO `tb_disc_groups` (`group_id`, `name`, `visibility`) VALUES
 (1, 'General', 0),
 (2, 'Discussions', 0),
-(3, 'Officers Lounge', 2);
+(3, 'Officers Lounge', 2),
+(4, 'Org Only', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_disc_reply`
+-- Table structure for table `tb_disc_replies`
 --
 
-CREATE TABLE `tb_disc_reply` (
+CREATE TABLE `tb_disc_replies` (
   `reply_id` int(11) NOT NULL,
-  `reply` int(11) NOT NULL,
-  `disc_id` int(11) NOT NULL,
-  `disc_topic_id` int(11) NOT NULL,
-  `org_id` int(11) NOT NULL,
-  `subj_id` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_disc_subj`
---
-
-CREATE TABLE `tb_disc_subj` (
-  `subj_id` int(255) NOT NULL,
-  `subject` varchar(1000) DEFAULT NULL
+  `thread_id` int(11) NOT NULL,
+  `user_type` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(120) NOT NULL,
+  `message` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `edited` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_disc_subj`
+-- Dumping data for table `tb_disc_replies`
 --
 
-INSERT INTO `tb_disc_subj` (`subj_id`, `subject`) VALUES
-(1, 'General Discussion'),
-(2, 'Introductions'),
-(3, 'Announcements'),
-(4, 'Officers Discussion');
+INSERT INTO `tb_disc_replies` (`reply_id`, `thread_id`, `user_type`, `user_id`, `user_name`, `message`, `status`, `edited`) VALUES
+(1668058164, 1667473049, 2, 9, 'Trisha Pega', '<p>Sample replyssss</p>', 0, 1668058174),
+(1668058191, 1667473049, 2, 9, 'Trisha Pega', '<p>Replyyyy</p>', -1, 0);
 
 -- --------------------------------------------------------
 
@@ -268,18 +300,21 @@ CREATE TABLE `tb_disc_threads` (
   `views` int(11) NOT NULL,
   `replies` int(11) NOT NULL,
   `last_reply` int(11) NOT NULL,
-  `last_reply_name` varchar(120) NOT NULL
+  `last_reply_name` varchar(120) NOT NULL,
+  `locked` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_disc_threads`
 --
 
-INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`) VALUES
-(1666674027, 1, 19255531, 1, 'Troy Saludo', 'This is a thread title', 'thread message  alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad alskdmsla kmdlaks mdlmasl dmsakl mlkdsamdlksamkdsad ', 0, 0, 1666828931, 'Jose Ricardo Ayala'),
-(1666840471, 1, 19255531, 1, 'Troy Saludo', 'New Thread', '<p><strong>Hello,</strong></p>\n<p><em>This is a new thread</em></p>\n<p><a href=\"https://getbootstrap.com/\" target=\"_blank\" rel=\"noopener\">By</a></p>\n<p><strong>Me</strong></p>', 0, 0, 1666840795, 'Troy Saludo'),
-(1666841158, 1, 19255531, 1, 'Troy Saludo', 'New Thread 2', '<p><strong>asdas dsa&nbsp;</strong></p>\r\n<p>aslkdm sladmsak</p>\r\n<p><em><a href=\"https://www.php.net/manual/en/timezones.asia.php\" target=\"_blank\" rel=\"noopener\">asl;d,sla&nbsp;</a></em></p>', 0, 0, 1666841158, 'Troy Saludo'),
-(1666841889, 1, 19255531, 1, 'Troy Saludo', 'Another thread', '<p>asdsa dsa dsa dsa<strong> dsad sa msg body</strong></p>', 0, 0, 1666841889, 'Troy Saludo');
+INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`, `locked`) VALUES
+(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 151, 1, 1667467278, 'Trisha Pega', 1),
+(1667472994, 2, 9, 2, 'Trisha Pega', 'Intro - Assistant Secretary', '<p>Hello my name is Trisha Pega, assistant secretary of JRU Computer Society</p>', 5, 0, 1667472994, 'Trisha Pega', 0),
+(1667473049, 3, 9, 2, 'Trisha Pega', 'Does anyone like the new hyflex learning of JRU?', '<p>Personally, I like it</p>', 8, 3, 1668058191, 'Trisha Pega', 0),
+(1667473091, 4, 9, 2, 'Trisha Pega', 'Activity Plans', '<p>Hello, I would like to ask the schedule of activity and plans on it</p>', 19, 0, 1667473091, 'Trisha Pega', 0),
+(1667473129, 5, 9, 2, 'Trisha Pega', 'Meeting Schedule', '<p>May I know the next meeting schedule?</p>', 1, 0, 1667473129, 'Trisha Pega', 0),
+(1667906308, 12, 13, 2, 'Candid Patrice Cataneda', 'Sample Title For the newly made New topic button', '<p>Sample Message below title</p>', 3, 1, 1667906358, 'Candid Patrice Cataneda', 0);
 
 -- --------------------------------------------------------
 
@@ -302,11 +337,13 @@ CREATE TABLE `tb_disc_topics` (
 --
 
 INSERT INTO `tb_disc_topics` (`topic_id`, `group_id`, `subject`, `description`, `org_id`, `visibility`, `icon`) VALUES
-(1, 1, 'Announcement 1', 'Some announcement1 description here', 0, 0, ''),
-(2, 1, 'Announcement 2', 'Some announcement2 description here', 0, 0, ''),
-(3, 2, 'Discussions 1', 'discussion for everyone', 0, 0, ''),
-(4, 2, 'COMSOC Discussions only', 'COMSOC Discussions only descriptionasdkma slkmda slkdask', 12, 5, ''),
-(5, 3, 'COMSOC Topic', 'For COMSOC Officers Only', 12, 2, '');
+(1, 1, 'Announcements', 'Latest announcements from JRU', 0, 0, 'bi bi-clipboard-fill'),
+(2, 1, 'Introductions', 'New to the platform? Please stop by, say hi and tell us a bit about yourself.', 0, 0, 'bi bi-lightning-charge-fill'),
+(3, 2, 'General Discussions', 'Talk about anything.', 0, 0, ''),
+(4, 2, 'COMSOC Discussions only', 'COMSOC related discussions ', 12, 5, ''),
+(5, 3, 'COMSOC Officers', 'For COMSOC Officers Only', 12, 2, ''),
+(11, 4, 'Sample ComSoc Only', 'This thread is only available to ComSoc only!', 12, 5, 'bi bi-chat-square-dots-fill'),
+(12, 1, 'Sample General Discussion ', 'New Topic Button testing!', 0, 0, 'bi bi-chat-square-dots-fill');
 
 -- --------------------------------------------------------
 
@@ -329,10 +366,8 @@ CREATE TABLE `tb_elections` (
 --
 
 INSERT INTO `tb_elections` (`ELECTION_ID`, `ELECTION_TYPE`, `ORG_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`) VALUES
-(12, 3, 12, 'COMSOC (Side) Election', 'COMSOC (Side) Election asdsa dsadsa', '2022-10-26', '2022-11-02'),
-(13, 2, 12, 'New Election Testing', 'sad sad asd saaaa', '2022-10-25', '2022-10-29'),
-(14, 2, 16, 'Test', 'Test', '2022-10-27', '2022-10-28'),
-(15, 2, 6, 'Test', 'Test', '2022-10-27', '2022-10-28');
+(17, 1, 12, 'COMSOC Election Sample', 'A sample election', '2022-11-04', '2022-11-04'),
+(18, 0, 0, 'CSC Elections', 'CSC elections', '2022-11-04', '2022-11-04');
 
 -- --------------------------------------------------------
 
@@ -355,13 +390,43 @@ CREATE TABLE `tb_elections_archive` (
 --
 
 INSERT INTO `tb_elections_archive` (`ELECTION_ID`, `ELECTION_TYPE`, `ORG_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `END_DATE`) VALUES
-(5, 2, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
-(6, 2, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
-(7, 2, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
-(8, 2, 12, 'rewrewrwe', 'werwererere', '2022-08-21', '2022-09-10'),
-(9, 2, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
-(10, 2, 12, 'rewrewrwe', 'werwererere', '2022-08-21', '2022-09-10'),
-(11, 1, 0, 'test soc', 'asdsadsa', '2022-10-23', '2022-11-02');
+(8, 1, 12, 'rewrewrwe', 'werwererere', '2022-08-21', '2022-09-10'),
+(9, 1, 12, 'asdsadsadsa', 'asdsadsadsa', '2022-10-31', '2022-11-10'),
+(10, 1, 12, 'rewrewrwe', 'werwererere', '2022-08-21', '2022-09-10'),
+(11, 0, 0, 'test soc', 'asdsadsa', '2022-10-23', '2022-11-02'),
+(12, 1, 12, 'COMSOC Election', 'COMSOC Election asdsa dsadsa', '2022-10-26', '2022-11-11'),
+(13, 1, 12, 'New Election Testing', 'sad sad asd saaaa', '2022-10-25', '2022-10-29'),
+(14, 2, 16, 'Test', 'Test', '2022-10-27', '2022-10-28'),
+(15, 2, 6, 'Test', 'Test', '2022-10-27', '2022-10-28'),
+(16, 0, 0, 'SOC Election', 'asdasdsadsa', '2022-10-01', '2022-10-23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_notification`
+--
+
+CREATE TABLE `tb_notification` (
+  `id` int(11) NOT NULL,
+  `notif_id` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  `direction` int(11) NOT NULL,
+  `title` varchar(120) NOT NULL DEFAULT '',
+  `message` varchar(255) NOT NULL DEFAULT '',
+  `data` varchar(200) NOT NULL DEFAULT '',
+  `is_read` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_notification`
+--
+
+INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title`, `message`, `data`, `is_read`) VALUES
+(20, 1668061396, 19255532, 2, 'Feeding Program', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(21, 1668061396, 19255562, 1, 'Feeding Program', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
+(22, 1668061433, 19255532, 2, 'Feeding Program', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
+(23, 1668061433, 18202422, 1, 'Feeding Program', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
+(24, 1668061469, 19255532, 2, 'Feeding Program', 'Project has been approved by the SDO.', 'officer-approved.php', 1);
 
 -- --------------------------------------------------------
 
@@ -396,10 +461,10 @@ CREATE TABLE `tb_officers` (
 --
 
 INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `birthdate`, `age`, `gender`, `year_level`, `college_dept`, `course`, `section`, `email`, `password`, `org_id`, `user_type`, `profile_pic`, `account_created`) VALUES
-(19255532, 9, 1, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, '62803-profile.jpg', '2022-10-13'),
-(19255533, 10, 2, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
-(19255515, 11, 3, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
-(19255570, 12, 4, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', '2022-10-13'),
+(19255532, 9, 5, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, '83683-Screenshot (138).png', '2022-10-13'),
+(19255533, 10, 6, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 2, 'img_avatar.png', '2022-10-13'),
+(19255515, 11, 14, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 2, 'img_avatar.png', '2022-10-13'),
+(19255570, 12, 13, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 2, 'img_avatar.png', '2022-10-13'),
 (19255540, 13, 5, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 16, 2, 'img_avatar.png', '2022-10-13');
 
 -- --------------------------------------------------------
@@ -441,38 +506,39 @@ CREATE TABLE `tb_orgs` (
   `ORG` varchar(100) NOT NULL,
   `logo` varchar(100) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
-  `org_type_id` int(2) DEFAULT NULL
+  `org_type_id` int(2) DEFAULT NULL,
+  `course_ids` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_orgs`
 --
 
-INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`) VALUES
-(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, 1),
-(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, 1),
-(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, 1),
-(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, 1),
-(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1, 1),
-(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, 1),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, 1),
-(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, 1),
-(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, 1),
-(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, 1),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, 1),
-(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, 1),
-(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, 1),
-(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, 1),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, 1),
-(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, 1),
-(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL, 2),
-(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL, 2),
-(19, 'Golden Z Club', 'jrusop-logo2.png', NULL, 2),
-(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL, 2),
-(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL, 2),
-(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL, 2),
-(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL, 2),
-(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL, 2);
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`, `course_ids`) VALUES
+(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, 1, '[1],[2],[3],[4]'),
+(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, 1, '[1],[2],[3]'),
+(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, 1, '[1],[2],[3]'),
+(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, 1, '[1],[2]'),
+(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1, 1, '[3],[4]'),
+(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, 1, ''),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, 1, ''),
+(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, 1, ''),
+(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, 1, ''),
+(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, 1, ''),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, 1, ''),
+(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, 1, ''),
+(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, 1, ''),
+(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, 1, ''),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, 1, ''),
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, 1, ''),
+(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL, 2, ''),
+(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL, 2, ''),
+(19, 'Golden Z Club', 'jrusop-logo2.png', NULL, 2, ''),
+(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL, 2, ''),
+(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL, 2, ''),
+(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL, 2, ''),
+(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL, 2, ''),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL, 2, '');
 
 -- --------------------------------------------------------
 
@@ -483,7 +549,9 @@ INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`) VAL
 CREATE TABLE `tb_orgs_archive` (
   `ORG_ID` int(2) NOT NULL,
   `ORG` varchar(100) NOT NULL,
-  `college_id` int(11) DEFAULT NULL
+  `logo` varchar(100) DEFAULT NULL,
+  `college_id` int(11) DEFAULT NULL,
+  `org_type_id` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -551,7 +619,7 @@ CREATE TABLE `tb_projectmonitoring` (
   `project_id` int(11) NOT NULL,
   `position_id` int(3) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
-  `course_id` int(11) DEFAULT NULL,
+  `college_id` int(11) DEFAULT NULL,
   `project_name` varchar(100) DEFAULT NULL,
   `requested_by` varchar(100) DEFAULT NULL,
   `organizer` varchar(200) DEFAULT NULL,
@@ -570,7 +638,8 @@ CREATE TABLE `tb_projectmonitoring` (
   `estimated_budget` int(11) DEFAULT NULL,
   `budget_req` varchar(3000) DEFAULT NULL,
   `attachments` varchar(1000) DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `status` varchar(1000) DEFAULT NULL,
+  `approval_id` int(2) DEFAULT NULL,
   `date_submitted` date DEFAULT NULL,
   `status_date` date DEFAULT NULL,
   `remarks` longtext DEFAULT NULL
@@ -580,11 +649,20 @@ CREATE TABLE `tb_projectmonitoring` (
 -- Dumping data for table `tb_projectmonitoring`
 --
 
-INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `course_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `date_submitted`, `status_date`, `remarks`) VALUES
-(54, 1, 12, NULL, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(55, 1, 12, NULL, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Pending', '2022-10-13', '2022-10-13', NULL),
-(56, 1, 12, NULL, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Approved', '2022-10-13', '2022-10-13', NULL),
-(57, 5, 16, NULL, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Pending', '2022-10-20', '2022-10-20', NULL);
+INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `college_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `approval_id`, `date_submitted`, `status_date`, `remarks`) VALUES
+(54, 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done.'),
+(55, 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done'),
+(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Approved', 4, '2022-10-13', '2022-11-10', ''),
+(57, 5, 16, 5, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Approved', 4, '2022-10-20', '2022-11-03', NULL),
+(60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
+(61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
+(62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
+(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
+(64, 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Reschedule', 4, '2022-11-03', '2022-11-03', ''),
+(68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ', '48040-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'revise this'),
+(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, '1500 - online fees', '90444-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'Revise date'),
+(71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', 'Approved'),
+(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '75617-', 'Reschedule', 1, '2022-11-04', '2022-11-08', '');
 
 -- --------------------------------------------------------
 
@@ -614,6 +692,20 @@ INSERT INTO `tb_questions` (`id`, `question`, `frm_option`, `type`, `order_by`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_requests`
+--
+
+CREATE TABLE `tb_requests` (
+  `org_id` int(2) DEFAULT NULL,
+  `student_id` int(9) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `req_status` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_signatories`
 --
 
@@ -637,10 +729,10 @@ CREATE TABLE `tb_signatories` (
 --
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `profile_pic`) VALUES
-(18202422, 'John', 'Doe', 'johndoe@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', NULL, 3, 1, NULL, NULL, '2022-10-26', 'img_avatar.png'),
-(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, NULL, 'img_avatar.png'),
-(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, NULL, 'img_avatar.png'),
-(19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Dean', 3, 2, 3, NULL, NULL, 'img_avatar.png');
+(18202422, 'John', 'Doe', 'john.doe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 3, 1, NULL, NULL, '2022-10-26', 'img_avatar.png'),
+(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, '2022-10-26', 'img_avatar.png'),
+(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, '2022-10-26', 'img_avatar.png'),
+(19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Dean', 3, 2, 3, NULL, '2022-10-26', 'img_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -713,27 +805,29 @@ CREATE TABLE `tb_students` (
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL,
+  `ORG_IDS` varchar(200) NOT NULL,
   `USER_TYPE` int(2) DEFAULT NULL,
   `ACCOUNT_CREATED` date DEFAULT NULL,
-  `PROFILE_PIC` varchar(8000) DEFAULT NULL
+  `PROFILE_PIC` varchar(8000) DEFAULT NULL,
+  `VCODE` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_students`
 --
 
-INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`) VALUES
-(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, 1, '2022-10-19', 'img_avatar.png'),
-(18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255532, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', '24690-profile.jpg'),
-(19255533, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255540, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 16, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255561, 'Carreros', 'Kean', 'V', '1999-11-27', 22, 'Male', '4', 'kean.carreros@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 'Bachelor of Arts in Psychology (ABPsy)', '401I', 3, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(19255570, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(20255530, 'Vizcarra', 'Ericka', 'R', '2000-09-03', 22, 'Female', '3', 'ericka.vizcarra@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 'Bachelor of Science in Hospitality Management (BSHM)', '302I', 15, NULL, 1, '2022-10-13', 'img_avatar.png'),
-(20259030, 'Salopaso', 'Justine', 'E', '1999-03-23', 23, 'Male', '4', 'justine.salopaso@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance', '401I', 7, NULL, 1, '2022-10-13', 'img_avatar.png');
+INSERT INTO `tb_students` (`STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `ORG_IDS`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`, `VCODE`) VALUES
+(17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, ',[17]', 1, '2022-10-19', 'img_avatar.png', '0'),
+(18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '[23],[24]', 1, '2022-10-13', '45391-JRU Virtual Background 22_23 (3).jpg', ''),
+(19255532, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', '90883-309216109_802196107715395_8902535727642330451_n.png', ''),
+(19255533, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(19255540, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 16, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(19255561, 'Carreros', 'Kean', 'V', '1999-11-27', 22, 'Male', '4', 'kean.carreros@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 'Bachelor of Arts in Psychology (ABPsy)', '401I', 3, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(19255570, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(20255530, 'Vizcarra', 'Ericka', 'R', '2000-09-03', 22, 'Female', '3', 'ericka.vizcarra@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 'Bachelor of Science in Hospitality Management (BSHM)', '302I', 15, NULL, '', 1, '2022-10-13', 'img_avatar.png', ''),
+(20259030, 'Salopaso', 'Justine', 'E', '1999-03-23', 23, 'Male', '4', 'justine.salopaso@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance', '401I', 7, NULL, '', 1, '2022-10-13', 'img_avatar.png', '');
 
 -- --------------------------------------------------------
 
@@ -757,9 +851,11 @@ CREATE TABLE `tb_students_archive` (
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL,
+  `ORG_IDS` varchar(1000) DEFAULT NULL,
   `USER_TYPE` int(2) DEFAULT NULL,
   `ACCOUNT_CREATED` date DEFAULT NULL,
-  `PROFILE_PIC` varchar(8000) DEFAULT NULL
+  `PROFILE_PIC` varchar(8000) DEFAULT NULL,
+  `VCODE` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -775,6 +871,159 @@ CREATE TABLE `tb_surveyresult` (
   `response` varchar(8000) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_surveys`
+--
+
+CREATE TABLE `tb_surveys` (
+  `survey_id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `org_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_surveys`
+--
+
+INSERT INTO `tb_surveys` (`survey_id`, `title`, `description`, `start_date`, `end_date`, `org_id`) VALUES
+(1667534650, 'JRU Election Survey', 'An evaluation survey regarding the recent elections', '2022-11-04', '2022-11-04', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_surveys_archive`
+--
+
+CREATE TABLE `tb_surveys_archive` (
+  `survey_id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `org_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_surveys_archive`
+--
+
+INSERT INTO `tb_surveys_archive` (`survey_id`, `title`, `description`, `start_date`, `end_date`, `org_id`) VALUES
+(1667349399, 'Test Survey', 'sadsma dlsmakdlksamdlksadsa', '2022-11-03', '2022-11-12', 12),
+(1667469689, 'Another Survey Testing', 'All questions testing', '2022-11-03', '2022-11-05', 12),
+(1667495089, 'Feedback for ComSoc Technology and Innovation Seminar Series	', 'Feedback for ComSoc Technology and Innovation Seminar Series	', '2022-11-03', '2022-11-04', 12),
+(1667495356, 'ComSoc Technology and Innovation Seminar Series	', 'Feedback for ComSoc Technology and Innovation Seminar Series	', '2022-11-03', '2022-11-04', 12),
+(1667529827, 'test', 'test', '2022-11-05', '2022-11-05', 12),
+(1667529870, 'test', 'test', '2022-11-04', '2022-11-04', 12),
+(1667531577, 'rtes', 'tes', '2022-11-04', '2022-11-05', 12),
+(1667531711, 'test', 'test', '2022-11-04', '2022-11-04', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_survey_answers`
+--
+
+CREATE TABLE `tb_survey_answers` (
+  `answer_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `student_no` int(11) NOT NULL,
+  `answer` text NOT NULL,
+  `submitted` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_survey_answers`
+--
+
+INSERT INTO `tb_survey_answers` (`answer_id`, `survey_id`, `question_id`, `student_no`, `answer`, `submitted`) VALUES
+(13, 1667349399, 22, 19255531, '[0],[1]', 1667467892),
+(14, 1667349399, 23, 19255531, '3', 1667467892),
+(15, 1667349399, 24, 19255531, 'answer to 3 text', 1667467892),
+(16, 1667349399, 25, 19255531, 'answer to 4 mtext', 1667467892),
+(17, 1667349399, 26, 19255531, '23', 1667467892),
+(18, 1667469689, 27, 19255531, 'answer to q1', 1667471544),
+(19, 1667469689, 28, 19255531, 'answer to q2', 1667471544),
+(20, 1667469689, 29, 19255531, '23', 1667471544),
+(21, 1667469689, 30, 19255531, '[0],[2],[3]', 1667471544),
+(22, 1667469689, 31, 19255531, '[0]', 1667471544),
+(23, 1667469689, 32, 19255531, '[0]', 1667471544),
+(24, 1667469689, 33, 19255531, '2', 1667471544),
+(25, 1667495356, 38, 19255532, '4', 1667495548),
+(26, 1667495356, 39, 19255532, '[0]', 1667495548),
+(27, 1667495356, 40, 19255532, 'None so far', 1667495548),
+(28, 1667495356, 38, 19255532, '4', 1667495548),
+(29, 1667495356, 39, 19255532, '[0]', 1667495548),
+(30, 1667495356, 40, 19255532, 'None so far', 1667495548),
+(31, 1667495356, 38, 19255532, '4', 1667495548),
+(32, 1667495356, 39, 19255532, '[0]', 1667495548),
+(33, 1667495356, 40, 19255532, 'None so far', 1667495548),
+(34, 1667495356, 38, 19255532, '4', 1667495548),
+(35, 1667495356, 39, 19255532, '[0]', 1667495548),
+(36, 1667495356, 40, 19255532, 'None so far', 1667495548),
+(37, 1667495356, 38, 19255532, '4', 1667495548),
+(38, 1667495356, 39, 19255532, '[0]', 1667495548),
+(39, 1667495356, 40, 19255532, 'None so far', 1667495548),
+(40, 1667495356, 38, 19255532, '4', 1667495548),
+(41, 1667495356, 39, 19255532, '[0]', 1667495548),
+(42, 1667495356, 40, 19255532, 'None so far', 1667495548);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_survey_questions`
+--
+
+CREATE TABLE `tb_survey_questions` (
+  `question_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
+  `question` varchar(200) NOT NULL,
+  `type` int(11) NOT NULL,
+  `choices` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_survey_questions`
+--
+
+INSERT INTO `tb_survey_questions` (`question_id`, `survey_id`, `question`, `type`, `choices`) VALUES
+(22, 1667349399, 'sadsad sadsadsadas', 4, 'cb1;;cb2;;cb3'),
+(23, 1667349399, 'asdsadas dsad asda sda s q#2', 7, ''),
+(24, 1667349399, 'a sdadasd sada sdsa  text', 1, ''),
+(25, 1667349399, 'adasdlkmas ldkmaslkd m text', 2, ''),
+(26, 1667349399, 'asakmdlkmsaldk sam numeric', 3, ''),
+(27, 1667469689, 'question1 textbox', 1, ''),
+(28, 1667469689, 'question 2 multiline textbox', 2, ''),
+(29, 1667469689, 'question 3 numeric', 3, ''),
+(30, 1667469689, 'question 4 checkboxes', 4, 'cb choice 1;;cb choice 2;;cb choice 3;;cb choice 4'),
+(31, 1667469689, 'question 5 radio button', 5, 'radio 1;;radio 2'),
+(32, 1667469689, 'question 6 dropdown', 6, 'drop 1;;drop 2;;drop 3'),
+(33, 1667469689, 'question 7 rating', 7, ''),
+(37, 1667495089, 'Other feedback:', 0, ''),
+(38, 1667495356, 'How would you describe your experience with the event?', 7, ''),
+(39, 1667495356, 'Where did you hear about the event', 5, 'JRU Student Organizations Portal;;JRU Website;;Social Media;;Other'),
+(40, 1667495356, 'Any suggestions?', 2, ''),
+(41, 1667529827, 'test', 1, ''),
+(42, 1667529870, 'test', 1, ''),
+(51, 1667531577, 'fsafsafsa', 0, ''),
+(52, 1667531711, 'dsadsa', 1, ''),
+(53, 1667531711, 'dsadad', 2, ''),
+(54, 1667531711, 'sadsad', 3, ''),
+(55, 1667531711, 'fsafaf', 4, 'fasfasf;;fsdafsadfdf;;fasfas'),
+(56, 1667531711, 'fasfasf', 5, 'fasfsaf;;fasfasf;;fsafasfas'),
+(57, 1667531711, 'fsafasf', 6, 'fasfsa;;fasfsa;;fassafsa'),
+(58, 1667531711, 'asfsafasf', 7, ''),
+(59, 1667534650, 'State your name:', 1, ''),
+(60, 1667534650, 'How old are you?', 3, ''),
+(61, 1667534650, 'What year level are you?', 5, '1st Year;;2nd Year;;3rd Year;;4th Year'),
+(62, 1667534650, 'How would you describe your experience with the election held?', 7, ''),
+(63, 1667534650, 'Any feedback or suggestions?', 2, '');
 
 -- --------------------------------------------------------
 
@@ -866,7 +1115,12 @@ INSERT INTO `tb_votes` (`VOTE_ID`, `VOTER_ID`, `ELECTION_ID`, `POSITION_ID`, `CA
 (9, 19255515, 13, 1, 16, '2022-10-26'),
 (10, 19255515, 13, 2, 17, '2022-10-26'),
 (11, 19255532, 13, 1, 16, '2022-10-27'),
-(12, 19255532, 13, 2, 17, '2022-10-27');
+(12, 19255532, 13, 2, 17, '2022-10-27'),
+(16, 9, 16, 1, 30, '2022-10-30'),
+(17, 9, 16, 2, 32, '2022-10-30'),
+(18, 9, 16, 4, -1, '2022-10-30'),
+(19, 19255531, 12, 1, 24, '2022-10-31'),
+(20, 19255531, 12, 3, 26, '2022-10-31');
 
 --
 -- Indexes for dumped tables
@@ -891,6 +1145,12 @@ ALTER TABLE `tb_admin_archive`
 --
 ALTER TABLE `tb_answers`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_approval_type`
+--
+ALTER TABLE `tb_approval_type`
+  ADD PRIMARY KEY (`approval_id`);
 
 --
 -- Indexes for table `tb_candidate`
@@ -921,27 +1181,18 @@ ALTER TABLE `tb_disc_groups`
   ADD PRIMARY KEY (`group_id`);
 
 --
--- Indexes for table `tb_disc_reply`
+-- Indexes for table `tb_disc_replies`
 --
-ALTER TABLE `tb_disc_reply`
+ALTER TABLE `tb_disc_replies`
   ADD PRIMARY KEY (`reply_id`),
-  ADD KEY `discReply_disc_id_fk` (`disc_id`),
-  ADD KEY `discReply_discTopic_id_fk` (`disc_topic_id`),
-  ADD KEY `discReply_org_id_fk` (`org_id`),
-  ADD KEY `discReply_subj_id_fk` (`subj_id`);
-
---
--- Indexes for table `tb_disc_subj`
---
-ALTER TABLE `tb_disc_subj`
-  ADD PRIMARY KEY (`subj_id`);
+  ADD KEY `thread_id` (`thread_id`,`user_id`);
 
 --
 -- Indexes for table `tb_disc_threads`
 --
 ALTER TABLE `tb_disc_threads`
   ADD PRIMARY KEY (`thread_id`),
-  ADD KEY `topic_id` (`topic_id`);
+  ADD KEY `topic_id` (`topic_id`,`user_id`,`last_reply`);
 
 --
 -- Indexes for table `tb_disc_topics`
@@ -961,6 +1212,12 @@ ALTER TABLE `tb_elections`
 --
 ALTER TABLE `tb_elections_archive`
   ADD PRIMARY KEY (`ELECTION_ID`);
+
+--
+-- Indexes for table `tb_notification`
+--
+ALTER TABLE `tb_notification`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_officers`
@@ -997,7 +1254,8 @@ ALTER TABLE `tb_orgs`
 --
 ALTER TABLE `tb_orgs_archive`
   ADD PRIMARY KEY (`ORG_ID`),
-  ADD KEY `orgs_college_id_fk` (`college_id`);
+  ADD KEY `orgs_college_id_fk` (`college_id`),
+  ADD KEY `orgs_org_type_id_fk` (`org_type_id`);
 
 --
 -- Indexes for table `tb_org_type`
@@ -1016,9 +1274,10 @@ ALTER TABLE `tb_position`
 --
 ALTER TABLE `tb_projectmonitoring`
   ADD PRIMARY KEY (`project_id`),
-  ADD KEY `project_course_id` (`course_id`),
   ADD KEY `project_org_id` (`org_id`),
-  ADD KEY `project_position_id` (`position_id`);
+  ADD KEY `project_position_id` (`position_id`),
+  ADD KEY `project_approval_id` (`approval_id`),
+  ADD KEY `project_college_id` (`college_id`);
 
 --
 -- Indexes for table `tb_questions`
@@ -1077,6 +1336,31 @@ ALTER TABLE `tb_surveyresult`
   ADD KEY `suveyResult_event_id_fk` (`event_id`);
 
 --
+-- Indexes for table `tb_surveys`
+--
+ALTER TABLE `tb_surveys`
+  ADD PRIMARY KEY (`survey_id`);
+
+--
+-- Indexes for table `tb_surveys_archive`
+--
+ALTER TABLE `tb_surveys_archive`
+  ADD PRIMARY KEY (`survey_id`);
+
+--
+-- Indexes for table `tb_survey_answers`
+--
+ALTER TABLE `tb_survey_answers`
+  ADD PRIMARY KEY (`answer_id`);
+
+--
+-- Indexes for table `tb_survey_questions`
+--
+ALTER TABLE `tb_survey_questions`
+  ADD PRIMARY KEY (`question_id`),
+  ADD KEY `survey_id` (`survey_id`);
+
+--
 -- Indexes for table `tb_survey_set`
 --
 ALTER TABLE `tb_survey_set`
@@ -1113,10 +1397,16 @@ ALTER TABLE `tb_answers`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tb_approval_type`
+--
+ALTER TABLE `tb_approval_type`
+  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tb_candidate`
 --
 ALTER TABLE `tb_candidate`
-  MODIFY `CANDIDATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `CANDIDATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tb_course`
@@ -1128,31 +1418,31 @@ ALTER TABLE `tb_course`
 -- AUTO_INCREMENT for table `tb_disc_groups`
 --
 ALTER TABLE `tb_disc_groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_disc_threads`
---
-ALTER TABLE `tb_disc_threads`
-  MODIFY `thread_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1666841890;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_disc_topics`
 --
 ALTER TABLE `tb_disc_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_elections`
 --
 ALTER TABLE `tb_elections`
-  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_elections_archive`
 --
 ALTER TABLE `tb_elections_archive`
-  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ELECTION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `tb_notification`
+--
+ALTER TABLE `tb_notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`
@@ -1173,6 +1463,12 @@ ALTER TABLE `tb_orgs`
   MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `tb_orgs_archive`
+--
+ALTER TABLE `tb_orgs_archive`
+  MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `tb_position`
 --
 ALTER TABLE `tb_position`
@@ -1182,13 +1478,37 @@ ALTER TABLE `tb_position`
 -- AUTO_INCREMENT for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `tb_questions`
 --
 ALTER TABLE `tb_questions`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tb_surveys`
+--
+ALTER TABLE `tb_surveys`
+  MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1667534651;
+
+--
+-- AUTO_INCREMENT for table `tb_surveys_archive`
+--
+ALTER TABLE `tb_surveys_archive`
+  MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1667531712;
+
+--
+-- AUTO_INCREMENT for table `tb_survey_answers`
+--
+ALTER TABLE `tb_survey_answers`
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `tb_survey_questions`
+--
+ALTER TABLE `tb_survey_questions`
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `tb_survey_set`
@@ -1206,7 +1526,7 @@ ALTER TABLE `tb_usertypes`
 -- AUTO_INCREMENT for table `tb_votes`
 --
 ALTER TABLE `tb_votes`
-  MODIFY `VOTE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `VOTE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -1231,15 +1551,6 @@ ALTER TABLE `tb_course`
   ADD CONSTRAINT `course_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_disc_reply`
---
-ALTER TABLE `tb_disc_reply`
-  ADD CONSTRAINT `discReply_discTopic_id_fk` FOREIGN KEY (`disc_topic_id`) REFERENCES `tb_disc_topic` (`disc_topic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_disc_id_fk` FOREIGN KEY (`disc_id`) REFERENCES `tb_disc` (`disc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discReply_subj_id_fk` FOREIGN KEY (`subj_id`) REFERENCES `tb_disc_subj` (`subj_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `tb_officers`
 --
 ALTER TABLE `tb_officers`
@@ -1250,51 +1561,11 @@ ALTER TABLE `tb_officers`
   ADD CONSTRAINT `officers_usertype_id_fk` FOREIGN KEY (`user_type`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_orgs`
---
-ALTER TABLE `tb_orgs`
-  ADD CONSTRAINT `orgs_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orgs_org_type_id_fk` FOREIGN KEY (`org_type_id`) REFERENCES `tb_org_type` (`org_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `tb_projectmonitoring`
 --
 ALTER TABLE `tb_projectmonitoring`
-  ADD CONSTRAINT `project_course_id` FOREIGN KEY (`course_id`) REFERENCES `tb_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `project_org_id` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `project_position_id` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_signatories`
---
-ALTER TABLE `tb_signatories`
-  ADD CONSTRAINT `signatories_collegedept_fk` FOREIGN KEY (`college_dept`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `signatories_orgid_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `signatories_type_fk` FOREIGN KEY (`signatorytype_id`) REFERENCES `tb_signatory_type` (`signatory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `signatories_usertype_id_fk` FOREIGN KEY (`usertype_id`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_students`
---
-ALTER TABLE `tb_students`
-  ADD CONSTRAINT `student_college_id_fk` FOREIGN KEY (`COLLEGE_DEPT`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_morg_id_fk` FOREIGN KEY (`MORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_usertype_id_fk` FOREIGN KEY (`USER_TYPE`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_surveyresult`
---
-ALTER TABLE `tb_surveyresult`
-  ADD CONSTRAINT `suveyResult_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `tb_event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `suveyResult_org_id_fk` FOREIGN KEY (`ORG_ID`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_thread`
---
-ALTER TABLE `tb_thread`
-  ADD CONSTRAINT `thread_msg_id_fk` FOREIGN KEY (`msg_id`) REFERENCES `tb_msg` (`msg_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `thread_reply_id_fk` FOREIGN KEY (`reply_id`) REFERENCES `tb_msg_reply` (`msg_reply_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `project_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `tb_approval_type` (`approval_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `project_college_id` FOREIGN KEY (`college_id`) REFERENCES `tb_collegedept` (`college_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
