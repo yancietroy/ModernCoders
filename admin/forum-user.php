@@ -79,12 +79,18 @@ if (isset($_SESSION['msg'])) {
             <?php include("include/breadcrumb.php") ?>
 
             <!-- Page content -->
+            <div class="row ms-3 me-3 mt-2">
+              <div class="col-lg-6 col-7">
+                <h4 id="orgtitle">Discussion Board</h4>
+              </div>
+              <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+                <a class="btn btn-default btn-circle button px-3" href="admin-orgs-create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
+              </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-
-                        <div class="ibox-content forum-container ">
+                  <div class="card shadow-sm card-registration mb-4 mt-4" style="border-radius: 15px;">
+                      <div class="card-body px-2 mx-4 ">
                             <?php
                             $sqlGroups = "SELECT * FROM tb_disc_groups";
                             if ($res = @mysqli_query($conn, $sqlGroups)) {

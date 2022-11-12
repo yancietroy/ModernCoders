@@ -56,7 +56,14 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/header.php") ?>
 
       <!-- Page content -->
-      <h3 class="ms-3">Admin Profile</h3>
+      <div class="row ms-3 me-3 mt-2 mb-2">
+        <div class="col-lg-6 col-7">
+          <h3 id="rsotitle">Admin Profile</h3>
+        </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
+        </div>
+      </div>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">

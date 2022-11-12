@@ -194,13 +194,13 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
-              <h3> <i class="bi bi-check2-square"></i></h3>
-              <p>Election</p>
+              <h3> <i class="bi bi-card-heading"></i></h3>
+              <p>Org Profile</p>
             </div>
             <div class="icon">
-              <i class="bi bi-check2-square"></i>
+            <i class="bi bi-card-heading"></i>
             </div>
-            <a href="admin-election.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-orgs-profile.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

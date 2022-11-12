@@ -63,8 +63,8 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
           echo "<script type='text/javascript'>
                 Swal.fire({
                           icon: 'error',
-                          title: 'Application already Submited!',
-                          text: 'You Already Applied for an organization!',
+                          title: 'Side Organization Exists',
+                          text: 'You cannot join another student organization',
                           confirmButtonColor: '#F2AC1B'
                          }).then(function(){
                             window.location = 'student-index.php';

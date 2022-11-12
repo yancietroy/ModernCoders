@@ -133,7 +133,7 @@ if (isset($_SESSION['msg'])) {
       </div>
       <div class="row justify-content-center mx-3">
         <div class="col-lg-3 col-sm-6">
-          <div class="card-counter events">
+          <div class="card-counter bg-danger">
             <div class="inner">
               <h3><i class="bi bi-file-bar-graph"></i></h3>
               <p>Survey</p>
