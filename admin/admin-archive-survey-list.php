@@ -3,20 +3,32 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(2);
+route(0);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
+$orgName = "";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+    if ($orgRes->num_rows > 0) {
+        $row = $orgRes->fetch_assoc();
+        $orgName = $row['ORG'];
+    } else {
+        header('location:admin-orgs.php');
+    }
+}
+
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(2, $data_userid);
-$nav_selected = "Survey";
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Site Management / Organizations";
 $nav_breadcrumbs = [
-    ["Home", "officer-index.php", "bi-house-fill"],
-    ["Organizations", "officer-orgs.php", "bi-people-fill"],
-    [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Survey", "officer-survey.php", ""],
+    ["Home", "admin-index.php", "bi-house-fill"],
+    ["Site Management", "admin-users.php", ""],
+    ["Organizations", "admin-orgs.php", ""],
+    [$orgName, "admin-orgs-rso.php?id=$orgid", ""],
+    ["Survey", "admin-survey.php?id=$orgid", ""],
     ["Archive", "", ""],
 ];
 
@@ -25,7 +37,6 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,9 +44,11 @@ if (isset($_SESSION['msg'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
-    <title>JRU Student Organizations Portal Officer</title>
+    <title>JRU Student Organizations Portal</title>
+
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -43,16 +56,21 @@ if (isset($_SESSION['msg'])) {
     <!-- Datatable Default-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
 
-    <!-- waves CSS CDN -->
+    <!-- Waves CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Icons-->
+
+    <!-- Icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+
 </head>
 
 <body>
     <div class="d-flex" id="wrapper">
+
         <!-- Sidebar  -->
         <?php include("include/sidebar.php") ?>
 
@@ -74,7 +92,7 @@ if (isset($_SESSION['msg'])) {
             <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
                 <div class="card-body px-2 mx-3 py-3 pt-4 ">
                     <div class="row g-0 justify-content-center ">
-                        <div class="table-responsive ms-2">
+                        <div class="table-responsive-xxl ms-2">
                             <table id='survey-table' class='py-3 display nowrap w-100 ms-0 stud'>
                                 <thead>
                                     <tr>
@@ -144,11 +162,11 @@ if (isset($_SESSION['msg'])) {
         <script>
             $(document).on('click', '.viewbtn', function() {
                 var SURVEY_ID = $(this).attr("id");
-                location.href = "officer-archive-survey-view.php?id=" + SURVEY_ID;
+                location.href = "admin-archive-survey-view.php?id=" + SURVEY_ID;
             });
             $(document).on('click', '.resultbtn', function() {
                 var SURVEY_ID = $(this).attr("id");
-                location.href = "officer-archive-survey-result.php?id=" + SURVEY_ID;
+                location.href = "admin-archive-survey-result.php?id=" + SURVEY_ID;
             });
         </script>
         <!-- Datatable -->
@@ -248,6 +266,6 @@ if (isset($_SESSION['msg'])) {
                 });
             });
         </script>
-</body>
+    </body>
 
-</html>
+    </html>

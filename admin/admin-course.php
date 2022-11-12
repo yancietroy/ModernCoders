@@ -71,7 +71,7 @@ if (isset($_SESSION['msg'])) {
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3" href="admin-course-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Course </span></a>
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-course-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Course Archive</span></a>
+          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-archive-course.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Course Archive</span></a>
         </div>
       </div>
 

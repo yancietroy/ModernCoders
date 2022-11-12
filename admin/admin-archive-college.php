@@ -14,7 +14,8 @@ $nav_selected = "Site Management / Colleges";
 $nav_breadcrumbs = [
   ["Home", "admin-index.php", "bi-house-fill"],
   ["Site Management", "", ""],
-  ["Colleges", "", ""],
+  ["College", "admin-college.php", ""],
+  ["Archive", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -65,13 +66,9 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <div class="row ms-3 me-3 mt-2">
+      <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4 id="orgtitle">College Masterlist</h4>
-        </div>
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="admin-college-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New College </span></a>
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-archive-college.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> College Archive</span></a>
+          <h4>College Archive</h4>
         </div>
       </div>
 
@@ -110,7 +107,6 @@ if (isset($_SESSION['msg'])) {
                               <td> $c  </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $ci . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $ci . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
                           ";
@@ -163,12 +159,12 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Update College Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Restore College </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-college.php" method="POST">
+        <form action="admin-restore-college.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -187,38 +183,38 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
           </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
+            </div>
           </div>
+        </form>
       </div>
-      </form>
     </div>
-  </div>
   </div>
 
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive College Data </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-delete-college.php" method="POST">
+        <form action="admin-delete-user.php" method="POST">
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">College ID:</label>
+                <label class="form-label" for="delete_id">Student ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving College data. Are you sure?</p>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+            <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
           </div>
         </form>
       </div>
@@ -250,17 +246,17 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.deletebtn', function() {
-      var college_id = $(this).attr("id");
+      var STUDENT_ID = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-college.php",
+        url: "admin-fetch-user.php",
         method: "POST",
         data: {
-          college_id: college_id
+          STUDENT_ID: STUDENT_ID
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#delete_id').val(data.college_id);
+          $('#delete_id').val(data.STUDENT_ID);
           $('#deletemodal').modal('show');
         }
       });

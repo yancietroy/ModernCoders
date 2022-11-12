@@ -10,11 +10,12 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $data_picture = getProfilePicture(0, $data_userid);
-$nav_selected = "Site Management / Colleges";
+$nav_selected = "Site Management / Courses";
 $nav_breadcrumbs = [
   ["Home", "admin-index.php", "bi-house-fill"],
   ["Site Management", "", ""],
-  ["Colleges", "", ""],
+  ["Course", "admin-course.php", ""],
+  ["Archive", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -65,13 +66,9 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <div class="row ms-3 me-3 mt-2">
+      <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4 id="orgtitle">College Masterlist</h4>
-        </div>
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="admin-college-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New College </span></a>
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-archive-college.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> College Archive</span></a>
+          <h4>College Archive</h4>
         </div>
       </div>
 
@@ -80,22 +77,22 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_collegedept";
+              $query = "SELECT * FROM tb_course";
               $result = @mysqli_query($conn, $query);
               $i = 0;
-              $college = " ";
+              $course = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
-                                <th class='desktop'>College ID</th>
-                                <th class='desktop'>College</th>
+                                <th class='desktop'>Course ID</th>
+                                <th class='desktop'>Course</th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
                       ";
               /*
-                      <th>College</th>
+                      <th>course</th>
                       <th>Organization</th>
                       <th>Position</th>
                       <th>Account Created</th>
@@ -103,19 +100,18 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $ci = $row['college_id'];
-                  $c = $row['college'];
+                  $ci = $row['course_id'];
+                  $c = $row['course'];
                   echo "<tr>
                               <td> $ci  </td>
                               <td> $c  </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $ci . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $ci . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
                           ";
                   /*
-                          <td>College</td>
+                          <td>course</td>
                           <td>Organization</td>
                           <td>Position</td>
                           <th>Account Created</th>
@@ -163,62 +159,62 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Update College Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Restore Course </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-college.php" method="POST">
+        <form action="admin-restore-course.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="college_id">College ID:</label>
-                    <input type="text" name="college_id" id="college_id" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="course_id">course ID:</label>
+                    <input type="text" name="course_id" id="course_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="college">College Name:</label>
-                    <input type="text" name="college" id="college" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" maxlength="100" />
+                    <label class="form-label" for="course">course Name:</label>
+                    <input type="text" name="course" id="course" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" maxlength="100" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
+            </div>
           </div>
+        </form>
       </div>
-      </form>
     </div>
-  </div>
   </div>
 
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive College Data </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-delete-college.php" method="POST">
+        <form action="admin-delete-user.php" method="POST">
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">College ID:</label>
+                <label class="form-label" for="delete_id">Student ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving College data. Are you sure?</p>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+            <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
           </div>
         </form>
       </div>
@@ -229,18 +225,18 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var college_id = $(this).attr("id");
+      var course_id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-college.php",
+        url: "admin-fetch-course.php",
         method: "POST",
         data: {
-          college_id: college_id
+          course_id: course_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#college_id').val(data.college_id);
-          $('#college').val(data.college);
+          $('#course_id').val(data.course_id);
+          $('#course').val(data.course);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -250,17 +246,17 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.deletebtn', function() {
-      var college_id = $(this).attr("id");
+      var STUDENT_ID = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-college.php",
+        url: "admin-fetch-user.php",
         method: "POST",
         data: {
-          college_id: college_id
+          STUDENT_ID: STUDENT_ID
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#delete_id').val(data.college_id);
+          $('#delete_id').val(data.STUDENT_ID);
           $('#deletemodal').modal('show');
         }
       });
@@ -311,7 +307,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  College Masterlist',
+            title: 'JRU Organizations Portal -  Course Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]
@@ -330,7 +326,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - College Masterlist',
+            title: 'JRU Organizations Portal - Course Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]
@@ -340,7 +336,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  College Masterlist',
+            title: 'JRU Organizations Portal -  Course Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]

@@ -29,7 +29,7 @@ $nav_breadcrumbs = [
     ["Organizations", "admin-orgs.php", ""],
     [$orgName, "admin-orgs-rso.php?id=$orgid", ""],
     ["Survey", "admin-survey.php?id=$orgid", ""],
-    ["Survey", "", ""],
+    ["List", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
