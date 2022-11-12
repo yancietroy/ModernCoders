@@ -413,14 +413,13 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                 </div>
-                <!-- <div class="col-12 col-md-12 mb-4">
+             <div class="col-12 col-md-12 mb-4">
                             <div class="form-outline">
                               <label class="form-label" for="project_remarks">Remarks:</label>
                               <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                             </div>
                           </div>
-                        </div>!-->
-                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                  <!--  <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
                   <div class="form-outline">
                     <label class="form-label" for="estimated_budget">Project Done Checkbox:</label><br>
                     <div class="form-check form-check-inline">
@@ -436,7 +435,7 @@ if (isset($_SESSION['msg'])) {
                       <label class="form-check-label" for="inlineCheckbox3">Feedback</label>
                     </div>
                   </div>
-                </div>
+                </div>!-->
                 <div class="modal-footer px-0 py-0 pt-2">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <?php
