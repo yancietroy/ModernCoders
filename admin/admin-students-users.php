@@ -200,13 +200,13 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="STUDENT_ID">Student ID:</label>
                     <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
                     <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />

@@ -132,7 +132,8 @@ if (isset($_SESSION['msg'])) {
                     </div>
 
                     <div class="mb-4 border" style="min-height:100px;">
-                        <table id="qtable" class="table table-bordered" style="table-layout: fixed;">
+                      <div class="table-responsive-xl">
+                        <table id="qtable" class="table table-bordered" style="">
                             <thead class="thead-light">
                                 <th style="width: 80px;">#</th>
                                 <th style="width: 200px;">Type</th>

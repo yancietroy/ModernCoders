@@ -174,25 +174,23 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             <!-- Page content -->
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-
-                        <div class="ibox-content forum-container ">
-                            <div class="d-flex flex-row mb-4 align-items-center">
-                                <div class="forum-title flex-grow-1">
-                                    <h3>
-                                        <span>
-                                            <i class="mr-2 bi <?= $topicicon == "" ? "bi-chat-square-dots-fill" : $topicicon ?>"></i>
-                                        </span> <?= $topicsubject ?>
-                                    </h3>
+                    <div class="col-lg-11 col-12">
+                        <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                            <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                                <div class="d-flex flex-row mb-4 align-items-center">
+                                    <div class="forum-title flex-grow-1">
+                                        <h3 id="orgtitle">
+                                            <span>
+                                                <i class="mr-2 bi <?= $topicicon == "" ? "bi-chat-square-dots-fill" : $topicicon ?>"></i>
+                                            </span> <?= $topicsubject ?>
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary small createbtn"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Thread </span></button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button class="btn btn-primary small createbtn">Create Post</button>
-                                </div>
-                            </div>
-
-                            <table class="table">
-                                <thead>
+                                <div class="table-responsive-xxl">
+                                    <table class="table forum no-cellpadding">
                                     <th>Thread</th>
                                     <th>Created</th>
                                     <th>Statistics</th>
@@ -235,24 +233,23 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                     </div>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <div class="row">
-                                                        <div class="col-md-9">
+                                                    <div class="row justify-content-center mb-2">
+                                                        <div class="col-md-12 col-12 mt-2">
                                                             <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
                                                             <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
                                                         </div>
                                                     </div>
-                                                </td>
                                                 <td class="align-middle">
-                                                    <div class="row">
-                                                        <div class="col-md-9">
+                                                    <div class="row justify-content-center mb-2">
+                                                        <div class="col-md-9 col-12 mt-2">
                                                             <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
                                                             <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <div class="row">
-                                                        <div class="col-md-9">
+                                                    <div class="row justify-content-center mb-2">
+                                                        <div class="col-md-12 col-12 mt-2">
                                                             <?php
                                                             if ($thread['last_reply'] > 0) {
                                                             ?>
@@ -264,18 +261,18 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                         </div>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                        <?php
-                                        }
-                                    } else {
-                                        ?>
-                                        <tr>
-                                            <td colspan="4" class="text-center">No threads in this Topic</td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
+                                              </tr>
+                                              <?php
+                                              }
+                                              } else {
+                                              ?>
+                                              <tr>
+                                              <td colspan="4" class="text-center">No threads in this Topic</td>
+                                              </tr>
+                                              <?php
+                                              }
+                                              ?>
+                                              </tbody>
                             </table>
 
                             <?php
