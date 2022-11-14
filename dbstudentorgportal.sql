@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 10, 2022 at 10:56 AM
+-- Generation Time: Nov 14, 2022 at 03:59 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -309,12 +309,14 @@ CREATE TABLE `tb_disc_threads` (
 --
 
 INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`, `locked`) VALUES
-(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 152, 1, 1667467278, 'Trisha Pega', 1),
+(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 153, 1, 1667467278, 'Trisha Pega', 1),
 (1667472994, 2, 9, 2, 'Trisha Pega', 'Intro - Assistant Secretary', '<p>Hello my name is Trisha Pega, assistant secretary of JRU Computer Society</p>', 6, 0, 1667472994, 'Trisha Pega', 0),
 (1667473049, 3, 9, 2, 'Trisha Pega', 'Does anyone like the new hyflex learning of JRU?', '<p>Personally, I like it</p>', 8, 3, 1668058191, 'Trisha Pega', 0),
 (1667473091, 4, 9, 2, 'Trisha Pega', 'Activity Plans', '<p>Hello, I would like to ask the schedule of activity and plans on it</p>', 19, 0, 1667473091, 'Trisha Pega', 0),
 (1667473129, 5, 9, 2, 'Trisha Pega', 'Meeting Schedule', '<p>May I know the next meeting schedule?</p>', 1, 0, 1667473129, 'Trisha Pega', 0),
-(1667906308, 12, 13, 2, 'Candid Patrice Cataneda', 'Sample Title For the newly made New topic button', '<p>Sample Message below title</p>', 3, 1, 1667906358, 'Candid Patrice Cataneda', 0);
+(1667906308, 12, 13, 2, 'Candid Patrice Cataneda', 'Sample Title For the newly made New topic button', '<p>Sample Message below title</p>', 3, 1, 1667906358, 'Candid Patrice Cataneda', 0),
+(1668419772, 0, 1, 0, 'John Doe', 'Sample', '<p>Test</p>', 1, 0, 1668419772, 'John Doe', 0),
+(1668419871, 3, 1, 0, 'John Doe', 'Sample', '<p>Test</p>', 3, 0, 1668419871, 'John Doe', 0);
 
 -- --------------------------------------------------------
 
@@ -552,7 +554,8 @@ CREATE TABLE `tb_orgs_archive` (
   `ORG` varchar(100) NOT NULL,
   `logo` varchar(100) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
-  `org_type_id` int(2) DEFAULT NULL
+  `org_type_id` int(2) DEFAULT NULL,
+  `course_ids` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -663,7 +666,7 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `coll
 (68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ', '48040-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'revise this'),
 (69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, '1500 - online fees', '90444-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'Revise date'),
 (71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', 'Approved'),
-(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '62386-', 'Pending', 1, '2022-11-04', '2022-11-10', '');
+(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '62274-11250-eventproposalforms.rar', 'Pending', 1, '2022-11-04', '2022-11-14', '');
 
 -- --------------------------------------------------------
 
