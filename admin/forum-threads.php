@@ -439,7 +439,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="id=<?= $orgid ?>&?topic=<?= $topicid ?>" method="POST">
+                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
                     <div class="modal-body">
                         <div class="col-12 col-md-12 justify-content-center ">
                             <div class="form-outline">

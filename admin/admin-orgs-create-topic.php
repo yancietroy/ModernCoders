@@ -3,21 +3,34 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(2);
+route(0);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
+$orgName = "";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+    if ($orgRes->num_rows > 0) {
+        $row = $orgRes->fetch_assoc();
+        $orgName = $row['ORG'];
+    } else {
+        header('location:admin-orgs.php');
+    }
+}
+
+
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
-$data_picture = getProfilePicture(2, $data_userid);
-$nav_selected = "Projects";
+$data_picture = getProfilePicture(0, $data_userid);
+$nav_selected = "Site Management / Organizations";
 $nav_breadcrumbs = [
-  ["Home", "officer-index.php", "bi-house-fill"],
-  ["Organizations", "officer-orgs.php", "bi-people-fill"],
-  [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Discussion Board", "forum-user.php", ""],
-  ["Create New Topic", "", "bi-plus-circle-fill"],
+    ["Home", "admin-index.php", "bi-house-fill"],
+    ["Site Management", "admin-users.php", ""],
+    ["Organizations", "admin-orgs.php", ""],
+    [$orgName, "admin-orgs-rso.php?id=$orgid", ""],
+    ["Discussion Board", "forum-user.php?id=$orgid", ""],
+    ["New Topic", "", ""],
 ];
 
 ?>

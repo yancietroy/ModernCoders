@@ -84,7 +84,7 @@ if (isset($_SESSION['msg'])) {
                 <h3 id="orgtitle">Discussion Board</h3>
               </div>
               <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-                <a class="btn btn-default btn-circle button px-3" href="admin-orgs-create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
+                <a class="btn btn-default btn-circle button px-3" href="admin-orgs-create-topic.php?id=<?= $orgid ?>" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
               </div>
             </div>
             <div class="row justify-content-center">
