@@ -236,7 +236,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" enctype="multipart/form-data" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -245,7 +245,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST">
+        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data" >
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
