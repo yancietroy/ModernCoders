@@ -150,7 +150,7 @@ $nav_breadcrumbs = [
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="end_date" id="asterisk">End Date:</label>
-                <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" 	parsley-onorafterdate="#start_date" required />
+                <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" parsley-onorafterdate="#start_date" required />
                 <div class="valid-feedback"></div>
               </div>
             </div>

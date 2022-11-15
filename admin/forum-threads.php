@@ -57,7 +57,7 @@ if (isset($_POST['create-thread'])) {
     $sqlInsert = "INSERT INTO tb_disc_threads(thread_id,topic_id,user_id,user_type,name,title,message,views,replies,last_reply,last_reply_name) VALUES
   ('$timestamp','$topicid','$data_userid','0','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";
     if ($res = @mysqli_query($conn, $sqlInsert)) {
-          header('location:forum-view.php?id=' . $orgid . '&topic=' . $topicid . '&thread=' . $timestamp);
+        header('location:forum-view.php?id=' . $orgid . '&topic=' . $topicid . '&thread=' . $timestamp);
     } else {
         $error = 0;
         //echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
@@ -191,350 +191,350 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 </div>
                                 <div class="table-responsive-xxl">
                                     <table class="table forum no-cellpadding">
-                                    <th>Thread</th>
-                                    <th>Created</th>
-                                    <th>Statistics</th>
-                                    <th>Last Post</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sqlThreads = "SELECT thread_id,name,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
+                                        <th>Thread</th>
+                                        <th>Created</th>
+                                        <th>Statistics</th>
+                                        <th>Last Post</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sqlThreads = "SELECT thread_id,name,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
 
-                                    $res = $conn->query($sqlThreads);
-                                    if ($res->num_rows > 0) {
-                                        while ($thread = $res->fetch_assoc()) {
-                                    ?>
-                                            <tr>
-                                                <td style="min-width: 400px; max-width: 400px;">
-                                                    <div class="row">
-                                                        <div class="col-md-9" style="overflow: hidden; text-overflow: ellipsis;">
-                                                            <a href="forum-view.php?id=<?= $orgid ?>&topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                                <?= $thread['title'] ?>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-9">
-                                                            <div class="d-flex flex-row">
-                                                                <?php
-                                                                if ($thread['locked'] == 0) {
-                                                                ?>
-                                                                    <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;">Lock</a>
-                                                                <?php
-                                                                } else {
-                                                                ?>
-                                                                    <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;">Unlock</a>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                                <a href="#" onclick="deleteThread(<?= $thread['thread_id'] ?>)" class="text-danger" style="font-size: 10px;">Delete</a>
+                                            $res = $conn->query($sqlThreads);
+                                            if ($res->num_rows > 0) {
+                                                while ($thread = $res->fetch_assoc()) {
+                                            ?>
+                                                    <tr>
+                                                        <td style="min-width: 400px; max-width: 400px;">
+                                                            <div class="row">
+                                                                <div class="col-md-9" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                    <a href="forum-view.php?id=<?= $orgid ?>&topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                        <?= $thread['title'] ?>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <div class="d-flex flex-row">
+                                                                        <?php
+                                                                        if ($thread['locked'] == 0) {
+                                                                        ?>
+                                                                            <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;"><u>Lock</u></a>
+                                                                        <?php
+                                                                        } else {
+                                                                        ?>
+                                                                            <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;"><u>Unlock</u></a>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                        <a href="#" onclick="deleteThread(<?= $thread['thread_id'] ?>)" class="text-danger" style="font-size: 10px;"><u>Delete</u></a>
 
 
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <div class="row justify-content-center mb-2">
-                                                        <div class="col-md-12 col-12 mt-2">
-                                                            <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
-                                                            <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
-                                                        </div>
-                                                    </div>
-                                                <td class="align-middle">
-                                                    <div class="row justify-content-center mb-2">
-                                                        <div class="col-md-9 col-12 mt-2">
-                                                            <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
-                                                            <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <div class="row justify-content-center mb-2">
-                                                        <div class="col-md-12 col-12 mt-2">
-                                                            <?php
-                                                            if ($thread['last_reply'] > 0) {
-                                                            ?>
-                                                                <div class="forum-sub-title small">By <?= $thread['last_reply_name'] ?></div>
-                                                                <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                              </tr>
-                                              <?php
-                                              }
-                                              } else {
-                                              ?>
-                                              <tr>
-                                              <td colspan="4" class="text-center">No threads in this Topic</td>
-                                              </tr>
-                                              <?php
-                                              }
-                                              ?>
-                                              </tbody>
-                            </table>
-
-                            <?php
-                            if ($total_records > 0) {
-                            ?>
-                                <nav class="mt-4 d-flex flex-row justify-content-end">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a href="?page=1&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="?page=<?php if ($page_no == 1) echo "1";
-                                                            else echo $page_no - 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
-                                        </li>
-
-                                        <?php
-                                        if ($total_no_of_pages <= 5) {
-                                            for ($i = 1; $i <= $total_no_of_pages; $i++) {
-                                        ?>
-                                                <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                                                    <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
-                                                </li>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-12 col-12 mt-2">
+                                                                    <div class="forum-sub-title small">By <?= $thread['name'] ?></div>
+                                                                    <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y', $thread['thread_id']) ?></div>
+                                                                </div>
+                                                            </div>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-9 col-12 mt-2">
+                                                                    <div class="forum-sub-title small"><?= $thread['replies'] ?> Replies</div>
+                                                                    <div class="forum-sub-title small"><?= $thread['views'] ?> Views</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <div class="row justify-content-center mb-2">
+                                                                <div class="col-md-12 col-12 mt-2">
+                                                                    <?php
+                                                                    if ($thread['last_reply'] > 0) {
+                                                                    ?>
+                                                                        <div class="forum-sub-title small">By <?= $thread['last_reply_name'] ?></div>
+                                                                        <div class="forum-sub-title small text-secondary" style="font-size: 12px;">on <?= date('m/d/Y h:i A', $thread['last_reply']) ?></div>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 <?php
-                                            }
-                                        } else {
-                                            $mid;
-                                            $after = $total_no_of_pages - $page_no;
-                                            $before = $page_no - 1;
-
-                                            if ($before >= 2 && $after >= 2) {
-                                                $x = $page_no - 2;
-                                                $y = $page_no + 2;
-                                            } else if ($before < 2 && $after >= 2) {
-                                                $x = $page_no - $before;
-                                                $y = $page_no + 2 + (2 - $before);
-                                            } else if ($before >= 2 && $after < 2) {
-                                                $x = $page_no - 2 - (2 - $after);
-                                                $y = $total_no_of_pages;
-                                            }
-
-                                            for ($i = $x; $i <= $y; $i++) {
-                                                if ($page_no == $i) {
-                                                ?>
-                                                    <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
-                                                        <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
-                                                    </li>
-                                        <?php
                                                 }
+                                            } else {
+                                                ?>
+                                                <tr>
+                                                    <td colspan="4" class="text-center">No threads in this Topic</td>
+                                                </tr>
+                                            <?php
                                             }
-                                        }
-                                        ?>
+                                            ?>
+                                        </tbody>
+                                    </table>
 
-                                        <li class="page-item">
-                                            <a href="?page=<?php if ($page_no == $total_no_of_pages) echo $total_no_of_pages;
-                                                            else echo $page_no + 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="?page=<?= $total_no_of_pages ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                    <?php
+                                    if ($total_records > 0) {
+                                    ?>
+                                        <nav class="mt-4 d-flex flex-row justify-content-end">
+                                            <ul class="pagination">
+                                                <li class="page-item">
+                                                    <a href="?page=1&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">First</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="?page=<?php if ($page_no == 1) echo "1";
+                                                                    else echo $page_no - 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Previous</a>
+                                                </li>
 
-            <!-- Footer -->
-            <div id="layoutAuthentication_footer">
-                <footer class="py-2 bg-light mt-3">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-    </div>
+                                                <?php
+                                                if ($total_no_of_pages <= 5) {
+                                                    for ($i = 1; $i <= $total_no_of_pages; $i++) {
+                                                ?>
+                                                        <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
+                                                            <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                                                        </li>
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    $mid;
+                                                    $after = $total_no_of_pages - $page_no;
+                                                    $before = $page_no - 1;
 
-    <div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Lock Thread </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
-                    <div class="modal-body">
-                        <div class="col-12 col-md-12 justify-content-center ">
-                            <p>Are you sure do you want to lock this thread?</p>
-                            <input type="text" id="lock-id" name="lock-id" style="display: none;">
-                        </div>
-                    </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="lock-thread" class="btn btn-primary">Lock</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                                                    if ($before >= 2 && $after >= 2) {
+                                                        $x = $page_no - 2;
+                                                        $y = $page_no + 2;
+                                                    } else if ($before < 2 && $after >= 2) {
+                                                        $x = $page_no - $before;
+                                                        $y = $page_no + 2 + (2 - $before);
+                                                    } else if ($before >= 2 && $after < 2) {
+                                                        $x = $page_no - 2 - (2 - $after);
+                                                        $y = $total_no_of_pages;
+                                                    }
 
-    <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Unlock Thread </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
-                    <div class="modal-body">
-                        <div class="col-12 col-md-12 justify-content-center ">
-                            <p>Are you sure do you want to unlock this thread?</p>
-                            <input type="text" id="unlock-id" name="unlock-id" style="display: none;">
-                        </div>
-                    </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="unlock-thread" class="btn btn-primary">Unlock</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                                                    for ($i = $x; $i <= $y; $i++) {
+                                                        if ($page_no == $i) {
+                                                        ?>
+                                                            <li class="page-item <?= $page_no == $i ? "active" : "" ?>">
+                                                                <a href="?page=<?= $i ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link <?= $page_no == $i ? "" : "text-dark" ?>"><?= $i ?></a>
+                                                            </li>
+                                                <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
 
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Thread </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
-                    <div class="modal-body">
-                        <div class="col-12 col-md-12 justify-content-center ">
-                            <p>Are you sure do you want to delete this thread?</p>
-                            <input type="text" id="delete-id" name="delete-id" style="display: none;">
-                        </div>
-                    </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="delete-thread" class="btn btn-danger">Delete</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header py-3 px-3">
-                    <h5 class="modal-title" id="exampleModalLabel"> Create a new Thread </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
-                    <div class="modal-body">
-                        <div class="col-12 col-md-12 justify-content-center ">
-                            <div class="form-outline">
-                                <label class="form-label" for="delete_id">Title</label>
-                                <input type="text" name="add-title" id="add-title" class="form-control" />
-                                <label class="form-label mt-3" for="delete_id">Message</label>
-                                <textarea type="text" name="add-msg" id="add-msg" class="form-control"></textarea>
+                                                <li class="page-item">
+                                                    <a href="?page=<?php if ($page_no == $total_no_of_pages) echo $total_no_of_pages;
+                                                                    else echo $page_no + 1; ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Next</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="?page=<?= $total_no_of_pages ?>&id=<?= $orgid ?>&topic=<?= $topicid ?>" class="page-link text-dark">Last</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="create-thread" class="btn btn-info">Post</button>
+
+                    <!-- Footer -->
+                    <div id="layoutAuthentication_footer">
+                        <footer class="py-2 bg-light mt-3">
+                            <div class="container-fluid px-4">
+                                <div class="d-flex align-items-center justify-content-between small">
+                                    <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+                                </div>
+                            </div>
+                        </footer>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <?php
-    if ($error == 0) {
-        echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
-    } else if ($error == 1) {
-        echo "<script>alert('Thread has been deleted successfully.')</script>";
-    } else if ($error == 2) {
-        echo "<script>alert('Failed removing the thread. Please try again.')</script>";
-    } else if ($error == 3) {
-        echo "<script>alert('Thread has been locked successfully.')</script>";
-    } else if ($error == 4) {
-        echo "<script>alert('Failed locking the thread. Please try again.')</script>";
-    } else if ($error == 5) {
-        echo "<script>alert('Thread has been unlocked successfully.')</script>";
-    } else if ($error == 6) {
-        echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
-    }
-    ?>
+            <div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header py-3 px-3">
+                            <h5 class="modal-title" id="exampleModalLabel"> Lock Thread </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
+                            <div class="modal-body">
+                                <div class="col-12 col-md-12 justify-content-center ">
+                                    <p>Are you sure do you want to lock this thread?</p>
+                                    <input type="text" id="lock-id" name="lock-id" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="modal-footer py-2 px-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="lock-thread" class="btn btn-primary">Lock</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+            <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header py-3 px-3">
+                            <h5 class="modal-title" id="exampleModalLabel"> Unlock Thread </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
+                            <div class="modal-body">
+                                <div class="col-12 col-md-12 justify-content-center ">
+                                    <p>Are you sure do you want to unlock this thread?</p>
+                                    <input type="text" id="unlock-id" name="unlock-id" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="modal-footer py-2 px-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="unlock-thread" class="btn btn-primary">Unlock</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Sidebar collapse -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header py-3 px-3">
+                            <h5 class="modal-title" id="exampleModalLabel"> Delete Thread </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
+                            <div class="modal-body">
+                                <div class="col-12 col-md-12 justify-content-center ">
+                                    <p>Are you sure do you want to delete this thread?</p>
+                                    <input type="text" id="delete-id" name="delete-id" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="modal-footer py-2 px-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="delete-thread" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-    <!-- JavaScript validation -->
-    <script type="text/javascript">
-        Waves.attach('.button');
-        Waves.init();
-    </script>
-    <!-- JavaScript validation -->
-    <script src="../assets/js/bootstrap-validation.js"></script>
-    <script src="../assets/js/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: '#add-msg',
-            plugins: 'link image',
-            menubar: 'edit view insert format',
-            toolbar: 'undo redo | styles | bold italic underline forecolor backcolor | link | alignleft aligncenter alignright',
-        });
-        document.addEventListener('focusin', (e) => {
-            if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
-                e.stopImmediatePropagation();
+            <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header py-3 px-3">
+                            <h5 class="modal-title" id="exampleModalLabel"> Create a new Thread </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
+                            <div class="modal-body">
+                                <div class="col-12 col-md-12 justify-content-center ">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="delete_id">Title</label>
+                                        <input type="text" name="add-title" id="add-title" class="form-control" />
+                                        <label class="form-label mt-3" for="delete_id">Message</label>
+                                        <textarea type="text" name="add-msg" id="add-msg" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer py-2 px-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="create-thread" class="btn btn-info">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <?php
+            if ($error == 0) {
+                echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+            } else if ($error == 1) {
+                echo "<script>alert('Thread has been deleted successfully.')</script>";
+            } else if ($error == 2) {
+                echo "<script>alert('Failed removing the thread. Please try again.')</script>";
+            } else if ($error == 3) {
+                echo "<script>alert('Thread has been locked successfully.')</script>";
+            } else if ($error == 4) {
+                echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+            } else if ($error == 5) {
+                echo "<script>alert('Thread has been unlocked successfully.')</script>";
+            } else if ($error == 6) {
+                echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
             }
-        });
-        $(document).on('click', '.createbtn', function() {
-            $('#createModal').modal('show');
-        });
+            ?>
 
-        function deleteThread(id) {
-            $('#delete-id').val(id);
-            $('#deleteModal').modal('show');
-        }
+            <!-- jQuery CDN - Slim version (=without AJAX) -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <!-- Popper.JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
-        function lockThread(id) {
-            $('#lock-id').val(id);
-            $('#lockModal').modal('show');
-        }
+            <!-- Sidebar collapse -->
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#sidebarCollapse').on('click', function() {
+                        $('#sidebar').toggleClass('active');
+                    });
+                });
+            </script>
 
-        function unlockThread(id) {
-            $('#unlock-id').val(id);
-            $('#unlockModal').modal('show');
-        }
-    </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+            </script>
+            <!-- JavaScript validation -->
+            <script type="text/javascript">
+                Waves.attach('.button');
+                Waves.init();
+            </script>
+            <!-- JavaScript validation -->
+            <script src="../assets/js/bootstrap-validation.js"></script>
+            <script src="../assets/js/tinymce/tinymce.min.js"></script>
+            <script type="text/javascript">
+                tinymce.init({
+                    selector: '#add-msg',
+                    plugins: 'link image',
+                    menubar: 'edit view insert format',
+                    toolbar: 'undo redo | styles | bold italic underline forecolor backcolor | link | alignleft aligncenter alignright',
+                });
+                document.addEventListener('focusin', (e) => {
+                    if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
+                        e.stopImmediatePropagation();
+                    }
+                });
+                $(document).on('click', '.createbtn', function() {
+                    $('#createModal').modal('show');
+                });
+
+                function deleteThread(id) {
+                    $('#delete-id').val(id);
+                    $('#deleteModal').modal('show');
+                }
+
+                function lockThread(id) {
+                    $('#lock-id').val(id);
+                    $('#lockModal').modal('show');
+                }
+
+                function unlockThread(id) {
+                    $('#unlock-id').val(id);
+                    $('#unlockModal').modal('show');
+                }
+            </script>
 
 
 </body>

@@ -9,6 +9,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
+$data_username = $_SESSION['USER-NAME'];
 $orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
@@ -47,17 +48,20 @@ $nav_breadcrumbs = [
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
 <style>
-
-table, td, th {
-    border:1px solid  #00226C;
+  table,
+  td,
+  th {
+    border: 1px solid #00226C;
     text-align: center;
-}
-th {
-    background-color: #00226C;;
-    color:white;
+  }
+
+  th {
+    background-color: #00226C;
+    ;
+    color: white;
     padding-right: 20px;
     padding-left: 10px;
-}
+  }
 </style>
 
 <body>
@@ -223,27 +227,27 @@ th {
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                <input type="text" class="form-control" maxlength="2" id="numOfRows"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder="Item Quantity" required />
+                <input type="text" class="form-control" maxlength="2" id="numOfRows" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Item Quantity" required />
                 <div class="valid-feedback"></div>
               </div>
-            <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
+              <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
             </div>
-              <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
-        <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
-       </div>
-              <div class="col-12 col-md-12 col-sm-3 mb-4">
+            <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+              <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
+            </div>
+            <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">₱</span>
-        </div>
-                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget"  style="background-color: #fff;" readonly/>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">₱</span>
+                  </div>
+                  <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" style="background-color: #fff;" readonly />
                   <div class="valid-feedback"></div>
                 </div>
 
               </div>
-              </div>
+            </div>
           </div>
 
           <div class="row">
@@ -269,39 +273,67 @@ th {
           </div>
         </div>
         <?php
-        $mysqli = new mysqli("$servername","$username","$password","$database");
+        $mysqli = new mysqli("$servername", "$username", "$password", "$database");
 
-        if ($mysqli -> connect_errno) {
-          echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+        if ($mysqli->connect_errno) {
+          echo "Failed to connect to MySQL: " . $mysqli->connect_error;
           exit();
         }
 
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
-        // Escape special characters, if any
-          $pn = $mysqli -> real_escape_string ($_POST['project_name']);
-          $o = $mysqli -> real_escape_string ($_POST['organizer']);
-          $vn = $mysqli -> real_escape_string ($_POST['venue']);
-          $pt = $mysqli -> real_escape_string ($_POST['project_type']);
-          $sdate = $mysqli -> real_escape_string ($_POST['start_date']);
-          $edate = $mysqli -> real_escape_string ($_POST['end_date']);
-          $pc = $mysqli -> real_escape_string ($_POST['project_category']);
-          $p = $mysqli -> real_escape_string ($_POST['participants']);
-          $obj = $mysqli -> real_escape_string ($_POST['objectives']);
-          $br = $mysqli -> real_escape_string ($_POST['budget_req']);
-          $eb = $mysqli -> real_escape_string ($_POST['estimated_budget']);
+          // Escape special characters, if any
+          $pn = $mysqli->real_escape_string($_POST['project_name']);
+          $o = $mysqli->real_escape_string($_POST['organizer']);
+          $vn = $mysqli->real_escape_string($_POST['venue']);
+          $pt = $mysqli->real_escape_string($_POST['project_type']);
+          $sdate = $mysqli->real_escape_string($_POST['start_date']);
+          $edate = $mysqli->real_escape_string($_POST['end_date']);
+          $pc = $mysqli->real_escape_string($_POST['project_category']);
+          $p = $mysqli->real_escape_string($_POST['participants']);
+          $obj = $mysqli->real_escape_string($_POST['objectives']);
+          //$br = $mysqli->real_escape_string($_POST['budget_req']);
+          $eb = $mysqli->real_escape_string($_POST['estimated_budget']);
           $s = "Pending";
           $aid = '1';
           $userName = $_SESSION['USER-NAME'];
           $posID = $_SESSION['USER-POS'];
           $collegeDept = $_SESSION['USER-COLLEGE'];
 
+          $budgetitems = [];
+          foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "payment-")) {
+              $tag = explode("-", $key)[1];
+              array_push($budgetitems, $_POST["budgetdesc-$tag"] . "::" . $value);
+            }
+          }
+
+          $items = implode(";;", $budgetitems);
+          $items = $mysqli->real_escape_string($items);
+
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$br', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
           $result = @mysqli_query($conn, $query);
+
+          $sqlGetSignatories = "SELECT school_id FROM tb_signatories WHERE org_id='$orgid'";
+          if ($resSignatories = @mysqli_query($conn, $sqlGetSignatories)) {
+            if ($resSignatories->num_rows > 0) {
+              $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
+              $values = [];
+
+              $timestamp = time();
+              while ($signatory = $resSignatories->fetch_assoc()) {
+                $uid = $signatory['school_id'];
+                array_push($values, "('$timestamp','$uid','1','$pn','A new project has been created by $data_username.','')");
+              }
+              $SqlNotif .= implode(",", $values);
+
+              @mysqli_query($conn, $SqlNotif);
+            }
+          }
 
           echo "<script type='text/javascript'>
                           Swal.fire({
@@ -329,7 +361,7 @@ th {
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- form validation/sidebar toggle -->
@@ -375,46 +407,46 @@ th {
       });
     </script>
     <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
 
-    $('#estimated_budget').on("change keyup paste click", function(e) {
-  setTimeout(() => {
-    let parts = $(this).val().split(".");
-    let v = parts[0].replace(/\D/g, ""),
-      dec = parts[1]
-    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-    // use this for numeric calculations
-    // console.log('number for calculations: ', calc_num);
-    let n = new Intl.NumberFormat('en-EN').format(v);
-    n = dec !== undefined ? n + "." + dec : n;
-    $(this).val(n);
-  })
-})
+      $('#estimated_budget').on("change keyup paste click", function(e) {
+        setTimeout(() => {
+          let parts = $(this).val().split(".");
+          let v = parts[0].replace(/\D/g, ""),
+            dec = parts[1]
+          let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+          // use this for numeric calculations
+          // console.log('number for calculations: ', calc_num);
+          let n = new Intl.NumberFormat('en-EN').format(v);
+          n = dec !== undefined ? n + "." + dec : n;
+          $(this).val(n);
+        })
+      })
     </script>
     <script>
-    $(document).ready(function () {
-        $('#amortTable').click(function () {
-            var i = $('#numOfRows').val();
-            var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
-            for (var j = 0; j < i; j++) {
-                s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc'></td><td><input type='text' class='payment' id='payment" + (j + 1) + "' /></td></tr>";
-            }
-            s2 += "</table>";
-            $('#amortizationTable').html(s2);
+      $(document).ready(function() {
+        $('#amortTable').click(function() {
+          var i = $('#numOfRows').val();
+          var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
+          for (var j = 0; j < i; j++) {
+            s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'></td><td><input type='text' class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
+          }
+          s2 += "</table>";
+          $('#amortizationTable').html(s2);
         });
 
-        $("#amortizationTable").on("change", ".payment", function () {    // <-- Only changed this line
-            var sum = 0;
-            $(".payment").each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    sum += parseFloat(this.value);
-                }
-            });
-            $('#estimated_budget').val(sum);
+        $("#amortizationTable").on("change", ".payment", function() { // <-- Only changed this line
+          var sum = 0;
+          $(".payment").each(function() {
+            if (!isNaN(this.value) && this.value.length != 0) {
+              sum += parseFloat(this.value);
+            }
+          });
+          $('#estimated_budget').val(sum);
         });
-    });
+      });
     </script>
 </body>
 

@@ -47,7 +47,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -163,7 +163,7 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Update Course Details </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -402,6 +402,9 @@ if (isset($_SESSION['msg'])) {
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
 
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

@@ -18,7 +18,20 @@ $nav_breadcrumbs = [
     ["Notifications", "", "bi-bell-fill"],
 ];
 
+$error = -1;
 $page_no = $_GET['page'] ?? 1;
+
+if (isset($_POST['delete-notif'])) {
+    $notifid = $_POST['delete-id'] ?? -1;
+    $sqlDel = "DELETE FROM tb_notification WHERE id='$notifid'";
+    if (mysqli_query($conn, $sqlDel)) {
+        $error = 1;
+        //echo "<script>alert('Thread has been deleted successfully.')</script>";
+    } else {
+        $error = 2;
+        //echo "<script>alert('Failed removing the thread. Please try again.')</script>";
+    }
+}
 
 $result_count = mysqli_query(
     $conn,
@@ -103,7 +116,15 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                                 <h6 class="text-primary" style="font-size: 15px;"><?= $row['title'] ?> <?php if ($row['is_read'] == 0) echo ' <span class="badge badge-pill badge-danger align-top">new</span>' ?></h6>
                                                                 <h6 class="ml-auto text-secondary" style="font-size: 13px;"><?= date('F d, Y h:i A', $row['notif_id']) ?></h6>
                                                             </div>
-                                                            <h6 class="text-secondary m-0" style="font-size: 13px;"><?= $row['message'] ?></h6>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <h6 class="text-secondary m-0" style="font-size: 13px;"><?= $row['message'] ?></h6>
+                                                                </div>
+                                                                <div class="col-3 text-right align-top p-0 m-0">
+                                                                    <a href="#" onclick="deleteNotif('<?= $row['id'] ?>')" class="text-danger p-0 m-0" style="font-size: 16px;"><i class="bi bi-trash"></i></a>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -202,6 +223,39 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         </div>
     </div>
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Notification </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <div class="col-12 col-md-12 justify-content-center ">
+                            <p>Are you sure do you want to delete this notification?</p>
+                            <input type="text" id="delete-id" name="delete-id" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="modal-footer py-2 px-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="delete-notif" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    if ($error == 1) {
+        echo "<script>alert('Notification has been deleted successfully.')</script>";
+    } else if ($error == 2) {
+        echo "<script>alert('Failed removing the notification. Please try again.')</script>";
+    }
+    ?>
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
@@ -217,6 +271,12 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         Waves.attach('#sidebar ul li a');
         Waves.attach('.button');
         Waves.init();
+    </script>
+    <script>
+        function deleteNotif(id) {
+            $('#delete-id').val(id);
+            $('#deleteModal').modal('show');
+        }
     </script>
 </body>
 

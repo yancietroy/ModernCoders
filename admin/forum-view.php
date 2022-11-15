@@ -317,7 +317,7 @@ if (isset($_POST['post-reply'])) {
                                                         </div>
 
                                                     </div>
-                                                        <div class="col-12 col-lg-4 col-md-4 d-none d-sm-block">
+                                                    <div class="col-12 col-lg-4 col-md-4 d-none d-sm-block">
                                                         <div class="row">
                                                             <h6 class="text-secondary text-right m-0" style="font-size: 12px;">
                                                                 <?php
@@ -339,11 +339,11 @@ if (isset($_POST['post-reply'])) {
                                                                     $myreply = $replyUserId == $data_userid;
                                                                     if ($myreply) {
                                                                     ?>
-                                                                        <a href="#" onclick="editReply('<?= $reply['reply_id'] ?>')" class="text-primary text-right m-0 mr-3" style="font-size: 12px;">Edit</a>
+                                                                        <a href="#" onclick="editReply('<?= $reply['reply_id'] ?>')" class="text-primary text-right m-0 mr-3" style="font-size: 12px;"><u>Edit</u></a>
                                                                     <?php
                                                                     }
                                                                     ?>
-                                                                    <a href="#" onclick="deleteReply('<?= $reply['reply_id'] ?>','<?= $myreply ? '0' : '-1' ?>')" class="text-danger text-right m-0" style="font-size: 12px;">Delete</a>
+                                                                    <a href="#" onclick="deleteReply('<?= $reply['reply_id'] ?>','<?= $myreply ? '0' : '-1' ?>')" class="text-danger text-right m-0" style="font-size: 12px;"><u>Delete</u></a>
                                                                 </div>
                                                             </div>
                                                         <?php

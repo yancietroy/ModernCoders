@@ -178,7 +178,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG">Organization name:</label>
-                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" readonly/>
+                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -186,7 +186,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="restoredata" class="btn btn-success">Restore Org</button>
+            <button type="submit" name="updatedata" class="btn btn-success">Restore Org</button>
           </div>
       </div>
       </form>
@@ -241,8 +241,6 @@ if (isset($_SESSION['msg'])) {
 
 
     });
-  </script>
-
   </script>
   <?php @mysqli_close($conn); ?>
   <!-- jQuery CDN - Slim version (=without AJAX) -->

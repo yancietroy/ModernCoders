@@ -21,10 +21,10 @@ $nav_breadcrumbs = [
 ];
 
 if (isset($_POST['create-survey'])) {
-  $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
-  $description =  $mysqli -> real_escape_string ($_POST['DESC']);
-  $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
-  $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
+    $title =  $mysqli->real_escape_string($_POST['TITLE']);
+    $description =  $mysqli->real_escape_string($_POST['DESC']);
+    $startdate =  $mysqli->real_escape_string($_POST['STARTDATE']);
+    $enddate =  $mysqli->real_escape_string($_POST['ENDDATE']);
     $questions = [];
     foreach ($_POST as $key => $value) {
         if (str_starts_with($key, "entry-")) {
@@ -32,8 +32,8 @@ if (isset($_POST['create-survey'])) {
             $question = "";
             $choices = "";
 
-            if ($type >= 4 && $type <= 6) {
-                // 4,5,6
+            if ($type >= 4 && $type <= 7) {
+                // 4,5,6,7
                 $val = explode("::", $value);
                 $question = $val[0];
                 $choices = $val[1];
@@ -132,8 +132,8 @@ if (isset($_SESSION['msg'])) {
                         </div>
                     </div>
                     <div class="mb-4 row">
-                          <div class="col-12">
-                        <label class="form-label" for="ENDDATE">Type of Question:</label><br>
+                        <div class="col-12">
+                            <label class="form-label" for="ENDDATE">Type of Question:</label><br>
                             <button class="btn btn-primary small ms-2 btnText my-2" type="button">Text</button>
                             <button class="btn btn-primary small ms-2 btnMText my-2" type="button">Multiline Text</button>
                             <button class="btn btn-primary small ms-2 btnNum my-2" type="button">Numeric</button>
@@ -141,20 +141,20 @@ if (isset($_SESSION['msg'])) {
                             <button class="btn btn-primary small ms-2 btnRb my-2" type="button">Radio Button</button>
                             <button class="btn btn-primary small ms-2 btnDd my-2" type="button">Dropdown</button>
                             <button class="btn btn-primary small ms-2 btnRate my-2" type="button">Rating</button>
+                        </div>
                     </div>
-              </div>
                     <div class="mb-4 border" style="min-height:100px;">
-                      <div class="table-responsive-xl">
-                        <table id="qtable" class="table table-bordered" style="">
-                            <thead class="thead-light">
-                                <th style="width: 200px;">Type</th>
-                                <th>Question:</th>
-                                <th style="width: 200px;">Action</th>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                        <div class="table-responsive-xl">
+                            <table id="qtable" class="table table-bordered">
+                                <thead class="thead-light">
+                                    <th style="width: 200px;">Type</th>
+                                    <th>Question:</th>
+                                    <th style="width: 200px;">Action</th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
-                  </div>
 
                     <div class="d-flex flex-row justify-content-center w-100 mt-5 mb-2">
                         <button type="submit" name="create-survey" class="btn btn-primary col-6 col-md-5" id="create-survey">Create Survey</button>
@@ -264,6 +264,17 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                                 <label class="form-label" for="add-rating-question">Question:</label>
                                 <input type="text" id="add-rating-question" class="form-control" />
+                                <p class="mb-1 mt-4">Rating Description</p>
+                                <label class="form-label" for="add-rating-desc1">Rate 1:</label>
+                                <input type="text" id="add-rating-desc1" class="form-control" value="Very Unsatisfied" />
+                                <label class="form-label" for="add-rating-desc2">Rate 2:</label>
+                                <input type="text" id="add-rating-desc2" class="form-control" value="Unsatisfied" />
+                                <label class="form-label" for="add-rating-desc3">Rate 3:</label>
+                                <input type="text" id="add-rating-desc3" class="form-control" value="Neutral" />
+                                <label class="form-label" for="add-rating-desc4">Rate 4:</label>
+                                <input type="text" id="add-rating-desc4" class="form-control" value="Satisfied" />
+                                <label class="form-label" for="add-rating-desc5">Rate 5:</label>
+                                <input type="text" id="add-rating-desc5" class="form-control" value="Very Satisfied" />
                             </div>
                         </div>
                     </div>
@@ -376,12 +387,33 @@ if (isset($_SESSION['msg'])) {
             });
             $(document).on('click', '#add-rating', function() {
                 var question = $('#add-rating-question').val();
+                var choices = [
+                    $('#add-rating-desc1').val(),
+                    $('#add-rating-desc2').val(),
+                    $('#add-rating-desc3').val(),
+                    $('#add-rating-desc4').val(),
+                    $('#add-rating-desc5').val(),
+                ];
+                var value = `
+                    ${question}
+                    <br>
+                    <br>
+                    <i>
+                        Rating:
+                        <br> 1. ${choices[0]}
+                        <br> 2. ${choices[1]}
+                        <br> 3. ${choices[2]}
+                        <br> 4. ${choices[3]}
+                        <br> 5. ${choices[4]}
+                    </i>
+                `;
+
                 var output = `
                     <tr id="entry-${entryCount}">
                         <td>Rating</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-7" value="${question}" style="display: none;">
-                            ${question}
+                            <input type="text" name="entry-${entryCount}-7" value="${question}::${choices.join(";;")}" style="display: none;">
+                            ${value}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>

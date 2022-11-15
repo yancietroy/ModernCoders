@@ -75,61 +75,6 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
 
-      <div class="row ms-3 me-3 mt-2">
-        <!--  <div class="col-lg-3 col-sm-6">
-          <div class="card-counter primary">
-            <div class="inner">
-              <h2><i class="bi bi-diagram-3-fill"></i></h2>
-              <p>Masterlist</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-diagram-3-fill"></i>
-            </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter success">
-            <div class="inner">
-              <h2><i class="bi bi-pc-display"></i></h2>
-              <p>rso</p>
-            </div>
-            <div class="icon">
-                <i class="bi bi-pc-display"></i>
-            </div>
-            <a href="admin-orgs-rso.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-        <!--
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter danger">
-            <div class="inner">
-              <h2><i class="bi bi-person-x-fill"></i></h2>
-              <p>Inactive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-person-x"></i>
-            </div>
-            <a href="admin-students-users-inactive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-secondary">
-            <div class="inner">
-              <h2><i class="bi bi-archive-fill"></i></h2>
-              <p>Archive</p>
-            </div>
-            <div class="icon">
-              <i class="bi bi-archive"></i>
-            </div>
-            <a href="admin-orgs-archive.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>!-->
-
-      </div>
-
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-3 pt-4 ">
           <div class="row g-0 justify-content-center ">
@@ -246,7 +191,7 @@ if (isset($_SESSION['msg'])) {
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" name="updatedata" class="btn btn-success">Update Org</button>
           </div>
-      </form>
+        </form>
       </div>
     </div>
   </div>

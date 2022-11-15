@@ -44,6 +44,7 @@ include('../mysql_connect.php');
  		{
  			$sorg_id = NULL;
  			$query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+		    $result = @mysqli_query($conn, $query);
  			echo "<script type='text/javascript'>
 		            alert('Status updated!')
         			window.location.href='officer-org-requests.php'
@@ -51,4 +52,3 @@ include('../mysql_connect.php');
  		}
     }
 }
-?>

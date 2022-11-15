@@ -159,6 +159,34 @@ if (isset($_SESSION['msg'])) {
         </div>
     </div>
 
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-3 px-3">
+                    <h5 class="modal-title" id="exampleModalLabel"> Archive Survey Data </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="include/admin-archive-survey.php" method="POST">
+                    <div class="modal-body">
+                        <div class="col-12 col-md-12 justify-content-center ">
+                            <div class="form-outline">
+                                <label class="form-label" for="delete_id">Survey ID:</label>
+                                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving survey data. Are you sure?</p>
+                    </div>
+                    <div class="modal-footer py-2 px-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="delete-survey" class="btn btn-info">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -184,6 +212,11 @@ if (isset($_SESSION['msg'])) {
             var SURVEY_ID = $(this).attr("id");
             var ORG_ID = $('#org-id').val();
             location.href = "admin-survey-result.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
+        });
+        $(document).on('click', '.deletebtn', function() {
+            var SURVEY_ID = $(this).attr("id");
+            $('#delete_id').val(SURVEY_ID);
+            $('#deletemodal').modal('show');
         });
     </script>
     <!-- Datatable -->

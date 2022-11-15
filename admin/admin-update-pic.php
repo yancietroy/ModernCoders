@@ -17,8 +17,19 @@ include('../mysql_connect.php');
 		{
 			$query = "UPDATE `tb_admin` SET `PROFILE_PIC` = '$pname' WHERE `ADMIN_ID` = '$id'";
 			$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-			alert('Profile picture updated!')
-			window.location.href='admin-profile.php'</script>";
+			$_SESSION["sweetalert"] = [
+			"title" => "Update Picture",
+			"text" => "Successfully updated Profile Picture.",
+			"icon" => "success", //success,warning,error,info
+			"redirect" => null,
+		];
+		}else {
+		$_SESSION["sweetalert"] = [
+			"title" => "Update Picture",
+			"text" => "Unexpected error while updating Profile Picture.",
+			"icon" => "error", //success,warning,error,info
+			"redirect" => null,
+		];
 		}
-		
+		header("Location:admin-profile.php");
+?>

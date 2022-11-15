@@ -9,24 +9,33 @@ if(isset($_POST['restoredata']))
         $result = @mysqli_query($conn, $query);
         if($result)
         {
-
             $query = "DELETE FROM tb_orgs_archive WHERE ORG_ID='".$_POST["ORG_ID"]."'";
             $result = @mysqli_query($conn, $query);
-            if($result)
-            {
-              echo "<script type='text/javascript'>
-                    alert('Restored Organization!')
-                    window.location.href='admin-orgs-archive.php'</script>";
+                if($result){
+                    $_SESSION["sweetalert"] = [
+                        "title" => "Restored Organization",
+                        "text" => "Officer account has been restored successfully.",
+                        "icon" => "success", //success,warning,error,info
+                        "redirect" => null,
+                    ];
+                }
+              else {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Restore Organization",
+                    "text" => "Unexpected error has been encountered while restoring the officer account.",
+                    "icon" => "warning", //success,warning,error,info
+                    "redirect" => null,
+                ];
             }
-            else
-            {
-                echo '<script> alert("Org Not Deleted"); </script>';
-            }
+        } else {
+            $_SESSION["sweetalert"] = [
+                "title" => "Restore Organization",
+                "text" => "Unexpected error has been encountered while restoring the officer account.",
+                "icon" => "warning", //success,warning,error,info
+                "redirect" => null,
+            ];
         }
-        else
-        {
-            echo '<script> alert("Org Not Deleted"); </script>';
-        }
+        header("location:admin-orgs-archive.php");
     }
 }
 ?>

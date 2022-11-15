@@ -18,6 +18,19 @@ session_start();
 		{
 			$query = "UPDATE `tb_orgs` SET `logo` = '$pname' WHERE `ORG_ID` = " . $_SESSION['ORG_ID'];
 			$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-			alert('Logo updated!')</script>";
+			$_SESSION["sweetalert"] = [
+			"title" => "Update Org Picture",
+			"text" => "Successfully updated Org Picture.",
+			"icon" => "success", //success,warning,error,info
+			"redirect" => null,
+		];
+		}else {
+		$_SESSION["sweetalert"] = [
+			"title" => "Update Org Picture",
+			"text" => "Unexpected error while updating Org Picture.",
+			"icon" => "error", //success,warning,error,info
+			"redirect" => null,
+		];
 		}
+		header("Location:admin-orgs.php");
+?>

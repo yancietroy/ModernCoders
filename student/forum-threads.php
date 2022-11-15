@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+date_default_timezone_set('Asia/Singapore');
 
 include('../router.php');
 route(1);
@@ -54,6 +55,20 @@ if (isset($_POST['create-thread'])) {
   } else {
     $error = 0;
     //echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+  }
+}
+
+if (isset($_POST['delete-thread'])) {
+  $threadDel = $_POST['delete-id'] ?? -1;
+  $sqlDel = "DELETE FROM tb_disc_threads WHERE thread_id='$threadDel'";
+  $sqlDel2 = "DELETE FROM tb_disc_replies WHERE thread_id='$threadDel'";
+  if (mysqli_query($conn, $sqlDel)) {
+    mysqli_query($conn, $sqlDel2);
+    $error = 1;
+    //echo "<script>alert('Thread has been deleted successfully.')</script>";
+  } else {
+    $error = 2;
+    //echo "<script>alert('Failed removing the thread. Please try again.')</script>";
   }
 }
 
@@ -151,7 +166,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                   </thead>
                   <tbody>
                     <?php
-                    $sqlThreads = "SELECT thread_id,name,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
+                    $sqlThreads = "SELECT thread_id,name,user_id,title,views,replies,last_reply,last_reply_name,locked FROM tb_disc_threads WHERE topic_id='$topicid' ORDER BY last_reply DESC LIMIT $offset,$total_records_per_page";
 
                     $res = $conn->query($sqlThreads);
                     if ($res->num_rows > 0) {
@@ -165,6 +180,17 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                   <?= $thread['title'] ?>
                                 </a>
                               </div>
+                              <?php
+                              if ($thread['user_id'] == $data_userid) {
+                              ?>
+                                <div class="col-md-9">
+                                  <div class="d-flex flex-row">
+                                    <a href="#" onclick="deleteThread(<?= $thread['thread_id'] ?>)" class="text-danger" style="font-size: 10px;"><u>Delete</u></a>
+                                  </div>
+                                </div>
+                              <?php
+                              }
+                              ?>
                             </div>
                           </td>
                           <td class="align-middle">
@@ -321,11 +347,39 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
     </div>
 
   </div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header py-3 px-3">
+          <h5 class="modal-title" id="exampleModalLabel"> Delete Thread </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="?id=<?= $orgid ?>&topic=<?= $topicid ?>" method="POST">
+          <div class="modal-body">
+            <div class="col-12 col-md-12 justify-content-center ">
+              <p>Are you sure do you want to delete this thread?</p>
+              <input type="text" id="delete-id" name="delete-id" style="display: none;">
+            </div>
+          </div>
+          <div class="modal-footer py-2 px-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="delete-thread" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <?php
   if ($error == 0) {
     echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+  } else if ($error == 1) {
+    echo "<script>alert('Thread has been deleted successfully.')</script>";
+  } else if ($error == 2) {
+    echo "<script>alert('Failed removing the thread. Please try again.')</script>";
   }
   ?>
   <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -357,9 +411,15 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         e.stopImmediatePropagation();
       }
     });
+
     $(document).on('click', '.createbtn', function() {
       $('#createModal').modal('show');
     });
+
+    function deleteThread(id) {
+      $('#delete-id').val(id);
+      $('#deleteModal').modal('show');
+    }
   </script>
 </body>
 

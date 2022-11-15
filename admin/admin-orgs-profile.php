@@ -87,6 +87,9 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-7">
           <h3 id="rsotitle">Student Organization Profile</h3>
         </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
+        </div>
       </div>
 
       <div class="student-profile py-4 px-5">
@@ -99,13 +102,14 @@ if (isset($_SESSION['msg'])) {
                     <img class="profile_img" src="<?= $logoPic ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
-                      <input class="file-upload" type="file" name=logoPic id=logoPic accept="image/*" />
+                      <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= $orgName ?></h3>
+                  <h3 class="pt-3"><?= "$orgName"; ?></h3>
                 </div>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">ORG ID:</strong><?php echo $orgid; ?></p>
+                  <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
@@ -116,6 +120,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered" id="proftable">
+
                     <tr>
                       <th width="30%">ORG NAME</th>
                       <td width="2%">:</td>
@@ -138,7 +143,7 @@ if (isset($_SESSION['msg'])) {
                               }
                             
                           ?>
-                       </td>
+                      </td>
                     </tr>
                     <tr>
                       <th width="30%">College</th>
@@ -154,17 +159,18 @@ if (isset($_SESSION['msg'])) {
                             {
                               echo $row[0];
                             }
-                          ?></td>
+                          ?>
+                      </td>
                     </tr>
                     <!--<tr>
                       <th width="30%">Courses</th>
                       <td width="2%">:</td>
-                      <td> </td>
+                      <td><1?php echo $data['EMAIL']; ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Student Adviser</th>
                       <td width="2%">:</td>
-                      <td></td>
+                      <td><1?php echo $data['EMAIL']; ?></td>
                     </tr>-->
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
@@ -204,23 +210,24 @@ if (isset($_SESSION['msg'])) {
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $orgid . "' >Edit Organization</button>"; ?>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
 
-    <!-- Footer -->
-    <div id="layoutAuthentication_footer">
-      <footer class="py-2 bg-light mt-3">
-        <div class="container-fluid px-4">
-          <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+      <!-- Footer -->
+      <div id="layoutAuthentication_footer">
+        <footer class="py-2 bg-light mt-3">
+          <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
-  </div>
   </div>
   <!-- org Modal -->
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

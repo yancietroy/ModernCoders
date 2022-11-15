@@ -244,7 +244,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data" >
+        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -324,13 +324,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;" value="" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" style="background-color: #fff;" />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;" value="" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" style="background-color: #fff;" />
                   </div>
                 </div>
               </div>
@@ -419,21 +419,28 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;"></textarea>
+                    <table class="table" id="budget-request">
+                      <thead>
+                        <th>Item</th>
+                        <th>Budget</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
-                <div class="form-outline projectdesc">
-                  <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                  <div class="input-group">
-          <div class="input-group-prepend">
-              <span class="input-group-text">₱</span>
-          </div>
-                    <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required/>
-                    <div class="valid-feedback"></div>
-                  </div>
+                  <div class="form-outline projectdesc">
+                    <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">₱</span>
+                      </div>
+                      <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required />
+                      <div class="valid-feedback"></div>
+                    </div>
 
-                </div>
+                  </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
@@ -445,13 +452,13 @@ if (isset($_SESSION['msg'])) {
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <?php
-                  if ($_SESSION['USER-POS'] <= 5 ){
+                if ($_SESSION['USER-POS'] <= 5) {
                 ?>
-                <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
-                <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
-                <?php
-                  }
-                ?>
+                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+                    <button type="submit" name="updatedata" class="btn btn-revise">Revise Project</button> <!--  update and change status to pending-->
+                  <?php
+                }
+                  ?>
               </div>
         </form>
       </div>
@@ -491,7 +498,20 @@ if (isset($_SESSION['msg'])) {
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
+
+          var breq = data.budget_req.split(";;");
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var output = `
+              <tr>
+                <td>${data[0]}</td>
+                <td>PHP ${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
@@ -501,23 +521,23 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script>
-  if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-  }
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
 
-  $('#estimated_budget').keydown(function(e) {
-setTimeout(() => {
-  let parts = $(this).val().split(".");
-  let v = parts[0].replace(/\D/g, ""),
-    dec = parts[1]
-  let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-  // use this for numeric calculations
-  // console.log('number for calculations: ', calc_num);
-  let n = new Intl.NumberFormat('en-EN').format(v);
-  n = dec !== undefined ? n + "." + dec : n;
-  $(this).val(n);
-})
-})
+    $('#estimated_budget').keydown(function(e) {
+      setTimeout(() => {
+        let parts = $(this).val().split(".");
+        let v = parts[0].replace(/\D/g, ""),
+          dec = parts[1]
+        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+        // use this for numeric calculations
+        // console.log('number for calculations: ', calc_num);
+        let n = new Intl.NumberFormat('en-EN').format(v);
+        n = dec !== undefined ? n + "." + dec : n;
+        $(this).val(n);
+      })
+    })
   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->

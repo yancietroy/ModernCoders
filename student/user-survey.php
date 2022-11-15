@@ -27,7 +27,7 @@ $nav_breadcrumbs = [
 
 
 if (isset($_POST['submit-response'])) {
-  $survey_id =  $mysqli -> real_escape_string ($_POST['survey-id']);
+  $survey_id =  $mysqli->real_escape_string($_POST['survey-id']);
   $timestamp = time();
   $query = "INSERT INTO tb_survey_answers(survey_id,question_id,student_no,answer,submitted) VALUES ";
 
@@ -136,14 +136,14 @@ if (isset($_SESSION['msg'])) {
       <?php
       if ($hasSurvey) {
       ?>
-      <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+        <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
           <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
-        <h3 class="ms-3 mb-4"> <?= $title ?></h3>
-        <p class="ms-3"><?= $description ?></p>
-        <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted ">Availability:<br></strong><?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
-      </div>
-    </div>
+            <h3 class="ms-3 mb-4"> <?= $title ?></h3>
+            <p class="ms-3"><?= $description ?></p>
+            <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted ">Availability:<br></strong><?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+          </div>
+        </div>
         <form action="" method="POST" class="survey-form w-100 p-5">
           <input type="text" name="survey-id" style="display: none;" value="<?= $survey_id ?>">
           <?php
@@ -235,23 +235,28 @@ if (isset($_SESSION['msg'])) {
                 </div>
               <?php
               } else if ($qType == 7) { // Rating
+                $ratings = explode(";;", $row['choices']);
               ?>
                 <p><?= $count . ". " . $row['question'] ?></p>
                 <div class="rating">
                   <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio1" value="0">
-                  <label for="radio1">1</label>
+                  <label for="radio1" title="<?= $ratings[0] ?? "" ?>">1</label>
+
                   <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio2" value="1">
-                  <label for="radio2">2</label>
+                  <label for="radio2" title="<?= $ratings[1] ?? "" ?>">2</label>
+
                   <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio3" value="2">
-                  <label for="radio3">3</label>
+                  <label for="radio3" title="<?= $ratings[2] ?? "" ?>">3</label>
+
                   <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio4" value="3">
-                  <label for="radio4">4</label>
+                  <label for="radio4" title="<?= $ratings[3] ?? "" ?>">4</label>
+
                   <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio5" value="4" checked>
-                  <label for="radio5">5</label>
+                  <label for="radio5" title="<?= $ratings[4] ?? "" ?>">5</label>
                 </div>
                 <div class="rating-footer mb-3">
-                  <span>Very Unsatisfied</span>
-                  <span>Very Satisfied</span>
+                  <span><?= $ratings[0] ?? "Very Unsatisfied" ?></span>
+                  <span><?= $ratings[count($ratings) - 1] ?? "Very Satisfied" ?></span>
                 </div>
 
           <?php
