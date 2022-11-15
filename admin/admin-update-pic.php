@@ -21,3 +21,4 @@ include('../mysql_connect.php');
 			alert('Profile picture updated!')
 			window.location.href='admin-profile.php'</script>";
 		}
+		

@@ -213,7 +213,7 @@ if (isset($_SESSION['msg'])) {
     </div>
   </div>
   </div>
-  <!-- Student Modal -->
+  <!-- Org Modal -->
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
@@ -246,10 +246,9 @@ if (isset($_SESSION['msg'])) {
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" name="updatedata" class="btn btn-success">Update Org</button>
           </div>
-      </div>
       </form>
+      </div>
     </div>
-  </div>
   </div>
 
   <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
