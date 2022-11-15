@@ -16,14 +16,14 @@ if(isset($_POST['restoredata']))
             if($result){
                 $_SESSION["sweetalert"] = [
                     "title" => "Restored College",
-                    "text" => "Admin account has been restored successfully.",
+                    "text" => "College department has been restored successfully.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
             } else {
                 $_SESSION["sweetalert"] = [
                     "title" => "Restore College",
-                    "text" => "Unexpected error has been encountered while restoring the admin account.",
+                    "text" => "Unexpected error has been encountered while restoring the college department.",
                     "icon" => "warning", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -31,7 +31,7 @@ if(isset($_POST['restoredata']))
        } else {
             $_SESSION["sweetalert"] = [
                 "title" => "Restore College",
-                "text" => "Unexpected error has been encountered while restoring the admin account.",
+                "text" => "Unexpected error has been encountered while restoring the college department .",
                 "icon" => "warning", //success,warning,error,info
                 "redirect" => null,
             ];

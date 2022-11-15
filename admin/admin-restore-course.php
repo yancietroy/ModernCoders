@@ -1,5 +1,6 @@
 <?php
 include('../mysql_connect.php');
+session_start();
 
 if(isset($_POST['restoredata']))
 {
@@ -15,14 +16,14 @@ if(isset($_POST['restoredata']))
             if($result){
                 $_SESSION["sweetalert"] = [
                     "title" => "Restored Course",
-                    "text" => "Admin account has been restored successfully.",
+                    "text" => "Course has been restored successfully.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
             } else {
                 $_SESSION["sweetalert"] = [
                     "title" => "Restore Course",
-                    "text" => "Unexpected error has been encountered while restoring the admin account.",
+                    "text" => "Unexpected error has been encountered while restoring the course.",
                     "icon" => "warning", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -31,7 +32,7 @@ if(isset($_POST['restoredata']))
         else {
             $_SESSION["sweetalert"] = [
                 "title" => "Restore Course",
-                "text" => "Unexpected error has been encountered while restoring the admin account.",
+                "text" => "Unexpected error has been encountered while restoring the course.",
                 "icon" => "warning", //success,warning,error,info
                 "redirect" => null,
             ];

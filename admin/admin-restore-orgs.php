@@ -1,5 +1,6 @@
 <?php
 include('../mysql_connect.php');
+session_start();
 
 if(isset($_POST['restoredata']))
 {

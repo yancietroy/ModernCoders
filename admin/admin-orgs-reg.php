@@ -71,7 +71,7 @@ if (isset($_SESSION['msg'])) {
           <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
             <div class="card-body px-5 py-3 pt-4 ">
               <div class="row g-0 justify-content-center align-items-center ">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" enctype="multipart/form-data" novalidate>
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">New Student Organization</h3>
 
                   <!-- <form class="was-validated"> -->
@@ -165,7 +165,7 @@ if (isset($_SESSION['msg'])) {
                     $org =  $mysqli -> real_escape_string ($_POST['orgname']) . ' (' .  $mysqli -> real_escape_string ($_POST['abbrev']) . ')';
 
                     $pname = rand(1000, 100000) . "-" . $_FILES['orgpic']['name'];
-                    $destination = '../assets/img/logos' . $pname;
+                    $destination = '../assets/img/logos/' . $pname;
                     $tname = $_FILES['orgpic']['tmp_name'];
                     move_uploaded_file($tname, $destination);
 
@@ -190,7 +190,7 @@ if (isset($_SESSION['msg'])) {
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                       if ($ot == "Non-Academic") {
                         $otid = 2;
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', '$ci', '$otid')";
+                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', NULLIF('$ci', ''), '$otid')";
                         $conn->exec($sql);
                         echo "<script type='text/javascript'>
                                         Swal.fire({
