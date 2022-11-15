@@ -410,7 +410,14 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;" readonly></textarea>
+                    <table class="table" id="budget-request">
+                      <thead>
+                        <th>Item</th>
+                        <th>Budget</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -473,7 +480,20 @@ if (isset($_SESSION['msg'])) {
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
+
+          var breq = data.budget_req.split(";;");
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var output = `
+              <tr>
+                <td>${data[0]}</td>
+                <td>PHP ${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');

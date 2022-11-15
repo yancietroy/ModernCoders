@@ -48,7 +48,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -200,13 +200,13 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="STUDENT_ID">Student ID:</label>
                     <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
                     <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
@@ -395,6 +395,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -640,6 +641,9 @@ if (isset($_SESSION['msg'])) {
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
 
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

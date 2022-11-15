@@ -164,9 +164,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $oi  </td>
                               <td> $org  </td>
                               <td>
-                              <button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
+                              <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
+                              <button type='button' class='btn btn-secondary btn-sm deletebtn' title='archive org' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
                               </td>
                               </tr>
                           ";

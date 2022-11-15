@@ -215,7 +215,7 @@ $nav_breadcrumbs = [
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+              <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
@@ -228,7 +228,6 @@ $nav_breadcrumbs = [
                 </div>
 
               </div>
-            </div>
           </div>
 
           <div class="row">

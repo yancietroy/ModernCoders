@@ -17,19 +17,14 @@ $nav_breadcrumbs = [
     ["Create New Election", "", "bi-plus-circle"],
 ];
 
-if (isset($_SESSION['msg'])) {
-    print_r($_SESSION['msg']); #display message
-    unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
-}
-
 
 if (isset($_POST['create-election'])) {
     // Get General Information
     $orgid = explode("::", $_POST['ORG'])[0];
-    $title =  $mysqli -> real_escape_string ($_POST['TITLE']);
-    $description =  $mysqli -> real_escape_string ($_POST['DESC']);
-    $startdate =  $mysqli -> real_escape_string ($_POST['STARTDATE']);
-    $enddate =  $mysqli -> real_escape_string ($_POST['ENDDATE']);
+    $title =  $mysqli->real_escape_string($_POST['TITLE']);
+    $description =  $mysqli->real_escape_string($_POST['DESC']);
+    $startdate =  $mysqli->real_escape_string($_POST['STARTDATE']);
+    $enddate =  $mysqli->real_escape_string($_POST['ENDDATE']);
     $type = explode("::", $_POST['ORG'])[1];
 
     if ($orgid == -1) {
@@ -76,15 +71,35 @@ if (isset($_POST['create-election'])) {
 
                 if (@mysqli_query($conn, $sqlCandidates)) {
                     // Successfully created
-                    header('location:admin-election-list.php');
+                    $_SESSION["sweetalert"] = [
+                        "title" => "Create Election",
+                        "text" => "Successfully created \'$title\' election.",
+                        "icon" => "success", //success,warning,error,info
+                        "redirect" => "admin-election-list.php",
+                    ];
                 } else {
-                    echo "<script>alert('Error while saving the candidates information. Please try again.')</script>";
+                    $_SESSION["sweetalert"] = [
+                        "title" => "Create Election",
+                        "text" => "Error while saving the candidates information. Please try again.",
+                        "icon" => "error", //success,warning,error,info
+                        "redirect" => null,
+                    ];
                 }
             } else {
-                echo "<script>alert('Error while saving the election information. Please try again.')</script>";
+                $_SESSION["sweetalert"] = [
+                    "title" => "Create Election",
+                    "text" => "Error while saving the election information. Please try again.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
             }
         } else {
-            echo "<script>alert('No Candidates were selected. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Create Election",
+                "text" => "No Candidates were selected. Please try again.",
+                "icon" => "warning", //success,warning,error,info
+                "redirect" => null,
+            ];
         }
     }
 }
@@ -118,7 +133,7 @@ if (isset($_POST['create-election'])) {
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -321,6 +336,10 @@ if (isset($_POST['create-election'])) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+
+    <?php
+    include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

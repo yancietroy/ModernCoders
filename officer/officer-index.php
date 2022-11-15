@@ -95,7 +95,15 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
       </div>
-      <h4 class="ms-5 mb-0">My Organizations</h4>
+
+    <div class="row ms-3 me-3 mt-2">
+      <div class="col-lg-6 col-7">
+        <h4 id="orgtitle">My Organizations</h4>
+      </div>
+      <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+        <a class="btn btn-default btn-circle button px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
+      </div>
+    </div>
       <div class="row ms-4 mb-4 mt-4">
         <div class="col-12  col-md-5  " id="orgs">
           <div class="card shadow-md display: inline-block cards">

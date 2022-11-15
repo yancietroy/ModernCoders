@@ -157,7 +157,7 @@ $nav_breadcrumbs = [
           }else{
           $v = 0;
           $org_id = 0;
-          $query = "INSERT INTO tb_disc_topics(subject, group_id, icon, description, org_id, visibility) VALUES('$s', '$gi', '$i', '$d', '$org_id', '$v')";
+          $query = "INSERT INTO tb_disc_topics(subject, group_id, icon, description, org_id, visibility) VALUES('$s', '$gi', '$i', '$d', '$orgid', '$v')";
           $result = @mysqli_query($conn, $query);
           echo "<script type='text/javascript'>
                           Swal.fire({

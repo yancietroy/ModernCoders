@@ -215,9 +215,9 @@ include('mysql_connect.php');
                       <input type="radio" class="btn-check" name="gender" id="female" value="Female" autocomplete="off" required>
                       <label class="btn btn-sm me-2 btn-outline-secondary" for="female">Female</label>
 
-                      <input type="radio" class="btn-check" name="gender" id="genderNeutral" value="Gender Neutral" autocomplete="off" required>
+                      <!--  <input type="radio" class="btn-check" name="gender" id="genderNeutral" value="Gender Neutral" autocomplete="off" required>
                       <label class="btn btn-sm me-2 btn-outline-secondary" for="genderNeutral">Gender Neutral</label>
-                      <!--<div class="valid-feedback check"> &#x2713;</div>
+                    <div class="valid-feedback check"> &#x2713;</div>
                       <div class="invalid-feedback mv-up">Please select a gender!</div>-->
                     </div>
                   </div>

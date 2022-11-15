@@ -41,10 +41,11 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
@@ -56,7 +57,14 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/header.php") ?>
 
       <!-- Page content -->
-      <h3 class="ms-3">Admin Profile</h3>
+      <div class="row ms-3 me-3 mt-2 mb-2">
+        <div class="col-lg-6 col-7">
+          <h3 id="rsotitle">Admin Profile</h3>
+        </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
+        </div>
+      </div>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
@@ -282,6 +290,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -456,6 +465,10 @@ if (isset($_SESSION['msg'])) {
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

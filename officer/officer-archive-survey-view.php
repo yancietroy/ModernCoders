@@ -115,7 +115,6 @@ if (isset($_SESSION['msg'])) {
                     <div class="mb-4 border" style="min-height:100px;">
                         <table id="qtable" class="table table-bordered" style="table-layout: fixed;">
                             <thead class="thead-light">
-                                <th style="width: 80px;">#</th>
                                 <th style="width: 200px;">Type</th>
                                 <th>Question</th>
                             </thead>
@@ -128,7 +127,6 @@ if (isset($_SESSION['msg'])) {
                                         $count++;
                                 ?>
                                         <tr id="entry-<?= $count ?>">
-                                            <td><?= $count ?></td>
                                             <td>
                                                 <?php
                                                 if ($row['type'] == 2) {
@@ -149,10 +147,19 @@ if (isset($_SESSION['msg'])) {
                                                 ?>
                                             </td>
                                             <td>
-                                                <input type="text" name="entry-${entryCount}-${typeval}" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
+                                                <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
                                                 <?php
                                                 if ($row['type'] >= 4 && $row['type'] <= 6) {
                                                     echo $row['question'] . "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
+                                                } else if ($row['type'] == 7) {
+                                                    $descs = explode(";;", $row['choices']);
+                                                    $details = $row['question'] . "<br><br><i>Rating:";
+                                                    $rcount = 1;
+                                                    foreach ($descs as $d) {
+                                                        $details .= "<br> $rcount. $d";
+                                                        $rcount++;
+                                                    }
+                                                    echo $details . "</i>";
                                                 } else {
                                                     echo $row['question'];
                                                 }

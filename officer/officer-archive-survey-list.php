@@ -67,7 +67,7 @@ if (isset($_SESSION['msg'])) {
             <!-- Page content -->
             <div class="row ms-3 me-3 mt-2 mb-2">
                 <div class="col-lg-6 col-7">
-                    <h4>Survey Masterlist</h4>
+                    <h4>Survey Archive</h4>
                 </div>
             </div>
 

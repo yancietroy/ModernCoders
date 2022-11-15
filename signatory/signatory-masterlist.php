@@ -79,11 +79,11 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if(isset($orgid) == NULL && $data_signatorytype == 2){
+              if (isset($orgid) == NULL && $data_signatorytype == 2) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE college_id = '$data_collegeid'";
-              }elseif(isset($orgid) == NULL && $data_signatorytype == 1){
+              } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring";
-              }elseif($data_signatorytype == 3){
+              } elseif ($data_signatorytype == 3) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE org_id = '$orgid'";
               }
               $result = @mysqli_query($conn, $query);
@@ -406,7 +406,14 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;" readonly></textarea>
+                    <table class="table" id="budget-request">
+                      <thead>
+                        <th>Item</th>
+                        <th>Budget</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
@@ -457,7 +464,20 @@ if (isset($_SESSION['msg'])) {
           $('#position_id').val(data.position_id);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
+
+          var breq = data.budget_req.split(";;");
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var output = `
+              <tr>
+                <td>${data[0]}</td>
+                <td>PHP ${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
