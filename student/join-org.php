@@ -16,7 +16,7 @@ $nav_breadcrumbs = [
   ["Join Org", "", ""],
 ];
 
-
+$checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$data_userid'");
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +58,20 @@ $nav_breadcrumbs = [
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
+      <?php
+        if (mysqli_num_rows($checkq) > 0 ) {
+          echo "<script type='text/javascript'>
+                Swal.fire({
+                          icon: 'error',
+                          title: 'Side Organization Exists',
+                          text: 'You cannot join another student organization',
+                          confirmButtonColor: '#F2AC1B'
+                         }).then(function(){
+                            window.location = 'student-index.php';
+                          });
+                          </script>";
+          }else{
+      ?>
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
@@ -76,25 +90,22 @@ $nav_breadcrumbs = [
               <select class="form-select form-select-md" name="org_id" id="org_id" required>
                 <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                 <?php
-                $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 2";
-                $result = @mysqli_query($conn, $query);
-                while ($data = @mysqli_fetch_array($result)) {
-                  echo '<option value="' . $data[1] .  '" >' . $data[0] . '</option>';
+                  $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 2";
+                  $result = @mysqli_query($conn, $query);
+                  while ($data = @mysqli_fetch_array($result)) {
+                    echo '<option value="' . $data[1] .  '" >' . $data[0] . '</option>';
                 }
                 ?>
               </select>
             </div>
-
-
           <div class="row">
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="reason" id="asterisk">Reason to join org:</label>
-                <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="why do you want to join this organization?" required></textarea>
+                <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="Why do you want to join this organization?" required></textarea>
                 <div class="valid-feedback"></div>
               </div>
             </div>
-
             <div class="col-12 col-md-10 col-sm-3 mb-4">
               <small class="text-muted">*Note: Submitting this form will include your current student details and is subject for approval <br>
               </small>
@@ -106,27 +117,30 @@ $nav_breadcrumbs = [
           </div>
         </div>
         <?php
+          }
         $mysqli = new mysqli("$servername","$username","$password","$database");
-
         if ($mysqli -> connect_errno) {
           echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
           exit();
         }
-
         if (isset($sorg_id) || isset($r) ||  isset($_POST['submit'])) {
         // Escape special characters, if any
-          $sorg_id = ',[' . $_POST['org_id'] . ']';
+          $sorg_id = $_POST['org_id'];
+          //$sorg_id = ',[' . $_POST['org_id'] . ']';
           $r = $mysqli -> real_escape_string ($_POST['reason']);
           $rq = "Pending";
           $userName = $_SESSION['USER-NAME'];
 
-          $query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '$data_userid'";
+          //$query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '$data_userid'";
+          //$result = @mysqli_query($conn, $query);
+
+          $query = "INSERT INTO tb_requests(org_id, student_id, name, reason, req_status, date_submitted) VALUES('$sorg_id', '$data_userid', '$userName', '$r', '$rq', NOW())";
           $result = @mysqli_query($conn, $query);
 
           echo "<script type='text/javascript'>
                           Swal.fire({
                                icon: 'success',
-                               title: 'Project Created',
+                               title: 'Application Submited!',
                                 confirmButtonColor: '#F2AC1B'
                            })
                             </script>";

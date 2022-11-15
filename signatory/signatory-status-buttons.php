@@ -12,6 +12,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "For Revision";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
@@ -22,8 +23,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -48,6 +48,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Rejected";
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
@@ -58,8 +59,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -84,6 +84,8 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $cid =  $mysqli->real_escape_string($_POST['college_id']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Pending";
         $ati = 2;
 
@@ -95,8 +97,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -113,7 +114,7 @@ if ($data_signatorytype == 3) {
                 }
             }
 
-            $sqlGetNextSig = "SELECT school_id FROM tb_signatories WHERE signatorytype_id='2'";
+            $sqlGetNextSig = "SELECT school_id FROM tb_signatories WHERE signatorytype_id='2' AND college_dept = '$cid'";
             if ($resNextSig = @mysqli_query($conn, $sqlGetNextSig)) {
                 if ($resNextSig->num_rows > 0) {
                     $sqlNotifSig = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -140,6 +141,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "For Revision";
         $ati = 1;
 
@@ -151,8 +153,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -177,6 +178,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Rejected";
         $ati = 1;
 
@@ -188,8 +190,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -214,6 +215,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Pending";
         $ati = 3;
 
@@ -225,8 +227,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -270,6 +271,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "For Revision";
         $ati = 1;
 
@@ -281,8 +283,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -307,6 +308,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Rejected";
         $ati = 1;
 
@@ -318,8 +320,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";
@@ -344,6 +345,7 @@ if ($data_signatorytype == 3) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
         $pr =  $mysqli->real_escape_string($_POST['project_remarks']);
         $pn =  $mysqli->real_escape_string($_POST['project_name']);
+        $oid =  $mysqli->real_escape_string($_POST['org_id']);
         $s = "Approved";
         $ati = 4;
 
@@ -355,8 +357,7 @@ if ($data_signatorytype == 3) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
 
-            $oid = $_SESSION['USER-ORG'];
-            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4')";
+            $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
                     $SqlNotif = "INSERT INTO tb_notification(notif_id,receiver,direction,title,message,data) VALUES ";

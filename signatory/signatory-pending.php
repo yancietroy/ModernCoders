@@ -11,6 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -94,7 +95,7 @@ if (isset($_SESSION['msg'])) {
 
               */
               if ($data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND (college_id = '$data_collegeid' AND approval_id = 2)";
               } elseif ($data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
               } elseif ($data_signatorytype == 3) {
@@ -378,8 +379,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="org">Name of Organization:</label>
+                    <input type="text" name="org" id="org" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -415,7 +416,14 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;" readonly></textarea>
+                    <table class="table" id="budget-request">
+                      <thead>
+                        <th>Item</th>
+                        <th>Budget</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -433,6 +441,8 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
                 <!--
                           <div class="form-group">
                               <label class="form-label" for="status">Project Status </label>
@@ -491,14 +501,29 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#org').val(data.ORG);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
+
+          var breq = data.budget_req.split(";;");
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var output = `
+              <tr>
+                <td>${data[0]}</td>
+                <td>PHP ${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
+          $('#college_id').val(data.college_id);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

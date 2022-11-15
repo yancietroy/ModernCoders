@@ -216,12 +216,11 @@ if (isset($_POST['post-reply'])) {
             <!-- Page content -->
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                    <div class="wrapper wrapper-content animated fadeInRight shadow px-auto mb-4 ">
-
-                        <div class="ibox-content forum-container ">
+                    <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                        <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
                             <div class="row">
-                                <div class="col-2 text-center">
+                                <div class="col-12 col-md-2 mb-4 text-center">
                                     <h6 class="mt-3"><?= $makerName ?></h6>
                                     <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
                                     <div style="overflow: hidden; text-overflow: ellipsis;">
@@ -250,9 +249,9 @@ if (isset($_POST['post-reply'])) {
                                     ?>
                                     <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
                                 </div>
-                                <div class="col border p-3">
+                                <div class="col-12 col-md-10 border p-3">
                                     <div style="overflow: hidden; text-overflow: ellipsis;">
-                                        <h4 class="text-primary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px;"><?= $threadTitle ?></h4>
+                                        <h3 class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $threadTitle ?></h2>
                                     </div>
                                     <hr style="color: #dee2e6; margin-top: 5px;">
 
@@ -318,7 +317,7 @@ if (isset($_POST['post-reply'])) {
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-3">
+                                                    <div class="col-12 col-lg-4 col-md-4 d-none d-sm-block">
                                                         <div class="row">
                                                             <h6 class="text-secondary text-right m-0" style="font-size: 12px;">
                                                                 <?php
@@ -340,11 +339,11 @@ if (isset($_POST['post-reply'])) {
                                                                     $myreply = $replyUserId == $data_userid;
                                                                     if ($myreply) {
                                                                     ?>
-                                                                        <a href="#" onclick="editReply('<?= $reply['reply_id'] ?>')" class="text-primary text-right m-0 mr-3" style="font-size: 12px;">Edit</a>
+                                                                        <a href="#" onclick="editReply('<?= $reply['reply_id'] ?>')" class="text-primary text-right m-0 mr-3" style="font-size: 12px;"><u>Edit</u></a>
                                                                     <?php
                                                                     }
                                                                     ?>
-                                                                    <a href="#" onclick="deleteReply('<?= $reply['reply_id'] ?>','<?= $myreply ? '0' : '-1' ?>')" class="text-danger text-right m-0" style="font-size: 12px;">Delete</a>
+                                                                    <a href="#" onclick="deleteReply('<?= $reply['reply_id'] ?>','<?= $myreply ? '0' : '-1' ?>')" class="text-danger text-right m-0" style="font-size: 12px;"><u>Delete</u></a>
                                                                 </div>
                                                             </div>
                                                         <?php

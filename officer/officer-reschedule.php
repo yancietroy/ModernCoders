@@ -236,7 +236,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" enctype="multipart/form-data" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -245,7 +245,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST">
+        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -272,13 +272,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" required/>
+                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" required />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer">Organizer:</label>
-                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" required/>
+                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" required />
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
@@ -286,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
-                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" required/>
+                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" required />
                   </div>
                 </div>
               </div>
@@ -297,7 +297,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;"required>
+                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;" required>
                     <option class="greyclr" selected disabled value="">Select Type</option>
                     <option value="Curricular">Curricular</option>
                     <option value="Extra Curricular">Extra Curricular</option>
@@ -313,7 +313,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_category">Category:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category"required>
+                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
                     <option class="greyclr" selected disabled value="">Select Category</option>
                     <option value="Onsite">Onsite</option>
                     <option value="Online">Online</option>
@@ -325,13 +325,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
+                    <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" style="background-color: #fff;" required />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date"  onkeydown="return false;" value="" style="background-color: #fff;" required/>
+                    <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" style="background-color: #fff;" required />
                   </div>
                 </div>
               </div>
@@ -339,7 +339,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="participants">Participants:</label>
-                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" required/>
+                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" required />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
@@ -415,27 +415,34 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline  ">
                     <label class="form-label" for="objectives">Objectives:</label>
-                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;"required></textarea>
+                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" required></textarea>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
-                    <textarea class="form-control" name="budget_req" id="budget_req" rows="6" style="background-color: #fff;"required></textarea>
+                    <table class="table" id="budget-request">
+                      <thead>
+                        <th>Item</th>
+                        <th>Budget</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
-                <div class="form-outline projectdesc">
-                  <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
-                  <div class="input-group">
-          <div class="input-group-prepend">
-              <span class="input-group-text">₱</span>
-          </div>
-                    <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required/>
-                    <div class="valid-feedback"></div>
-                  </div>
+                  <div class="form-outline projectdesc">
+                    <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">₱</span>
+                      </div>
+                      <input type="text" pattern="[0-9.,]+" class="form-control" name="estimated_budget" id="estimated_budget" required data-type="number" required />
+                      <div class="valid-feedback"></div>
+                    </div>
 
-                </div>
+                  </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
@@ -447,12 +454,12 @@ if (isset($_SESSION['msg'])) {
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <?php
-                  if ($_SESSION['USER-POS'] <= 5 ){
+                if ($_SESSION['USER-POS'] <= 5) {
                 ?>
-                <button type="submit" name="updatedata" class="btn btn-primary">Restore Project</button> <!--  update and change status to pending-->
-                <!--  update and change status to pending-->
+                  <button type="submit" name="updatedata" class="btn btn-primary">Restore Project</button> <!--  update and change status to pending-->
+                  <!--  update and change status to pending-->
                 <?php
-                  }
+                }
                 ?>
               </div>
         </form>
@@ -493,7 +500,20 @@ if (isset($_SESSION['msg'])) {
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#objectives').val(data.objectives);
-          $('#budget_req').val(data.budget_req);
+
+          var breq = data.budget_req.split(";;");
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var output = `
+              <tr>
+                <td>${data[0]}</td>
+                <td>PHP ${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
           $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
@@ -503,23 +523,23 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script>
-  if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-  }
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
 
-  $('#estimated_budget').keydown(function(e) {
-setTimeout(() => {
-  let parts = $(this).val().split(".");
-  let v = parts[0].replace(/\D/g, ""),
-    dec = parts[1]
-  let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-  // use this for numeric calculations
-  // console.log('number for calculations: ', calc_num);
-  let n = new Intl.NumberFormat('en-EN').format(v);
-  n = dec !== undefined ? n + "." + dec : n;
-  $(this).val(n);
-})
-})
+    $('#estimated_budget').keydown(function(e) {
+      setTimeout(() => {
+        let parts = $(this).val().split(".");
+        let v = parts[0].replace(/\D/g, ""),
+          dec = parts[1]
+        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+        // use this for numeric calculations
+        // console.log('number for calculations: ', calc_num);
+        let n = new Intl.NumberFormat('en-EN').format(v);
+        n = dec !== undefined ? n + "." + dec : n;
+        $(this).val(n);
+      })
+    })
   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
