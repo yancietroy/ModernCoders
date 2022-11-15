@@ -5,11 +5,14 @@ session_start();
 include('../router.php');
 route(2);
 
-$officer_id = $_SESSION['USER-ID'];
-$orgid = $_SESSION['org'];
 include('../mysql_connect.php');
-include('profilepic.php');
-include('../assets/img/orglogopics.php');
+include('include/get-userdata.php');
+
+$data_userid = $_SESSION['USER-ID'];
+$orgid = $_SESSION['USER-ORG'];
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Home";
+
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -51,94 +54,12 @@ if (isset($_SESSION['msg'])) {
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+        <?php include("include/sidebar.php") ?>
 
-      <div class="sidebar-header text-center justify-content-center align-items-center">
-        <a class="navbar-brand" href="officer-index.php">
-          <img src="../assets/img/jru-logo.png" alt="..." width="90px" height="90px">
-        </a>
-      </div>
-      <div class="sidebar-heading mt-3 text-center">
+        <div id="content">
 
-        <h5 class="mt-2 mb-3 p-0 d-none d-sm-block ">JRU Student Organizations Portal Officer</h5>
-      </div>
-
-      <ul class="list-unstyled components p-2">
-
-        <li>
-          <a href="officer-index.php"> <i class="bi bi-house-fill"></i> <span>Home</span></a>
-
-        </li>
-        <li>
-          <a href="officer-orgs.php"> <i class="bi bi-people-fill"></i> <span>Organizations</span></a>
-        </li>
-        <li class="active">
-          <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
-        </li>
-        <li>
-          <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
-        </li>
-        <li>
-          <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
-        </li>
-        <li class="d-lg-none">
-          <!--    <a href="msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
-
-        </li>
-      </ul>
-      <!-- nav footer?
-        <ul class="list-unstyled CTAs">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>logout</a>
-          </li>
-        </ul> -->
-    </nav>
-
-    <!-- Navbar  -->
-    <div id="content">
-
-      <nav class="navbar navbar-expand navbar-light shadow" aria-label="navbar" id="topbar">
-        <div class="container-fluid">
-          <button type="btn btn-light d-inline-block d-lg-none ml-auto" id="sidebarCollapse" class="btn btn-info navbar-toggle" data-toggle="collapse" data-target="#sidebar">
-            <i class="fas fa-align-justify"></i>
-          </button>
-
-          <div class="collapse navbar-collapse" id="#navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!--<i class="fa fa-envelope me-lg-2 mt-2 d-none d-lg-block" style="width:  25px; height: 25px;"></i>-->
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                  <img class="rounded-circle me-lg-2" src="<?php echo $profilepic; ?>" alt="" style="width: 40px; height: 40px;border: 2px solid #F2AC1B;">
-                  <span class="d-none d-lg-inline-flex"><?php $query = "SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name FROM tb_Officers WHERE officer_ID = '$officer_id'";
-                                                        $result = @mysqli_query($conn, $query);
-                                                        $row = mysqli_fetch_array($result);
-                                                        if ($row) {
-                                                          echo "$row[0]";
-                                                        } ?></span></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="../officer-login.php">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+            <!-- Navbar/Header  -->
+            <?php include("include/header.php") ?>
 
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb">

@@ -3,20 +3,20 @@ include('../mysql_connect.php');
 
 if(isset($_POST['restoredata']))
 {
-    if(isset($_POST['ADMIN_ID'])){
+    if(isset($_POST['college_id'])){
 
-        $query = "INSERT tb_admin SELECT * FROM tb_admin_archive WHERE ADMIN_ID='".$_POST["ADMIN_ID"]."'";
+        $query = "INSERT tb_collegedept SELECT * FROM tb_collegedept_archive WHERE college_id='".$_POST["college_id"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
 
-            $query = "DELETE FROM tb_admin_archive WHERE ADMIN_ID='".$_POST["ADMIN_ID"]."'";
+            $query = "DELETE FROM tb_collegedept_archive WHERE college_id='".$_POST["college_id"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
               echo "<script type='text/javascript'>
-                    alert('User Restored!')
-                    window.location.href='admin-archive-administrators.php'</script>";
+                    alert('Restored Department')
+                    window.location.href='admin-archive-college.php'</script>";
             }
             else
             {

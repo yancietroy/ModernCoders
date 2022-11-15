@@ -20,12 +20,12 @@ if(isset($_POST['restoredata']))
             }
             else
             {
-                echo '<script> alert("Data Not Deleted"); </script>';
+                echo '<script> alert("Data Not Restored"); </script>';
             }
         }
         else
         {
-            echo '<script> alert("Data Not Deleted"); </script>';
+            echo '<script> alert("Data Not Restored"); </script>';
         }
     }
 }

@@ -15,8 +15,9 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_position` SET `position` = '$p' WHERE `POSITION_ID` = '$pi'";
 			$result = @mysqli_query($conn, $query);
-			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-position-list.php");
+			echo "<script type='text/javascript'>
+                    alert('Updated Successful')
+                    window.location.href='admin-position-list.php'</script>";
 		}
 }
 ?>

@@ -5,18 +5,18 @@ if(isset($_POST['deletedata']))
 {
     if(isset($_POST['delete_id'])){
 
-        $query = "INSERT tb_orgs_archive SELECT * FROM tb_orgs WHERE ORG_ID='".$_POST["delete_id"]."'";
+        $query = "INSERT tb_collegedept_archive SELECT * FROM tb_collegedept WHERE college_id='".$_POST["delete_id"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
 
-            $query = "DELETE FROM tb_orgs WHERE ORG_ID='".$_POST["delete_id"]."'";
+            $query = "DELETE FROM tb_collegedept WHERE college_id='".$_POST["delete_id"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
               echo "<script type='text/javascript'>
-                    alert('Archived User')
-                    window.location.href='admin-orgs.php'</script>";
+                    alert('Archived Department')
+                    window.location.href='admin-college.php'</script>";
             }
             else
             {

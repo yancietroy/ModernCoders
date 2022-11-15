@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 14, 2022 at 03:59 PM
+-- Generation Time: Nov 15, 2022 at 10:16 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -190,6 +190,17 @@ INSERT INTO `tb_collegedept` (`college_id`, `college`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_collegedept_archive`
+--
+
+CREATE TABLE `tb_collegedept_archive` (
+  `college_id` int(11) DEFAULT NULL,
+  `college` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_course`
 --
 
@@ -204,18 +215,6 @@ CREATE TABLE `tb_course` (
 --
 
 INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
-(1, 'Bachelor of Arts (AB) Major in Economics', 1),
-(2, 'Bachelor of Arts (AB) Major in English', 1),
-(3, 'Bachelor of Arts (AB) Major in History', 1),
-(4, 'Bachelor of Arts (AB) Major in Mathematics', 1),
-(5, 'Bachelor of Arts in Psychology (ABPsy)', 1),
-(6, 'Bachelor of Science in Psychology (BSPsy)', 1),
-(7, 'Bachelor of Science in Criminology (BSCrim)', 1),
-(8, 'Bachelor of Secondary Education (BSED) Major in English', 1),
-(9, 'Bachelor of Secondary Education (BSED) Major in Mathematics', 1),
-(10, 'Bachelor of Secondary Education (BSED) Major in Social Studies', 1),
-(11, 'Bachelor of Elementary Education (BEED)', 1),
-(12, 'Certificate in Teaching Education (CTE)', 1),
 (13, 'Bachelor of Science in Accountancy (BSA)', 2),
 (14, 'Bachelor of Science in Business Administration (BSBA) Major in Accounting', 2),
 (15, 'Bachelor of Science in Business Administration (BSBA) Major in Banking and Finance', 2),
@@ -233,8 +232,19 @@ INSERT INTO `tb_course` (`course_id`, `course`, `college_id`) VALUES
 (27, 'Bachelor of Science in Information Technology (BSIT-AGD) Major in Animation and Game Development', 3),
 (28, 'Bachelor of Science in Hospitality Management (BSHM)', 4),
 (29, 'Bachelor of Science in Hospitality Management (BSHM – CM) Major in Cruise Management ', 4),
-(30, 'Bachelor of Science in Tourism Management (BSTM)', 4),
-(31, 'Bachelor of Science in Nursing (BSN)', 5);
+(30, 'Bachelor of Science in Tourism Management (BSTM)', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_course_archive`
+--
+
+CREATE TABLE `tb_course_archive` (
+  `course_id` int(2) NOT NULL,
+  `course` varchar(150) NOT NULL,
+  `college_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -428,7 +438,12 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (21, 1668061396, 19255562, 1, 'Feeding Program', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (22, 1668061433, 19255532, 2, 'Feeding Program', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (23, 1668061433, 18202422, 1, 'Feeding Program', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(24, 1668061469, 19255532, 2, 'Feeding Program', 'Project has been approved by the SDO.', 'officer-approved.php', 1);
+(24, 1668061469, 19255532, 2, 'Feeding Program', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(25, 1668497781, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(26, 1668497781, 19255562, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
+(27, 1668497821, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
+(28, 1668497821, 18202422, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
+(29, 1668497886, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the SDO.', 'officer-approved.php', 0);
 
 -- --------------------------------------------------------
 
@@ -464,10 +479,8 @@ CREATE TABLE `tb_officers` (
 
 INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `birthdate`, `age`, `gender`, `year_level`, `college_dept`, `course`, `section`, `email`, `password`, `org_id`, `user_type`, `profile_pic`, `account_created`) VALUES
 (19255532, 9, 5, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, '83683-Screenshot (138).png', '2022-10-13'),
-(19255533, 10, 6, 'Distajo', 'Mikka', '', '2000-12-07', 21, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mikka.distajo@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 1, 2, 'img_avatar.png', '2022-10-13'),
 (19255515, 11, 14, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 2, 'img_avatar.png', '2022-10-13'),
 (19255570, 12, 13, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 2, 'img_avatar.png', '2022-10-13'),
-(19255540, 13, 5, 'Cataneda', 'Candid Patrice', 'C', '2000-03-25', 22, 'Female', '4', 5, 'Bachelor of Science in Nursing (BSN)', '401I', 'candidpatrice.cataneda@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 16, 2, 'img_avatar.png', '2022-10-13'),
 (17401211, 14, 1, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 17, 2, 'img_avatar.png', '2022-11-10');
 
 -- --------------------------------------------------------
@@ -657,7 +670,6 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `coll
 (54, 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done.'),
 (55, 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', 'Already been done'),
 (56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Reschedule', 4, '2022-10-13', '2022-11-10', ''),
-(57, 5, 16, 5, 'Sample Project 9', 'Candid Patrice Cataneda', 'NURSOC', 'Curricular', 'Onsite', 'Sample OBJ', NULL, '2022-10-20 22:06:00', '2022-10-21 22:00:00', 'JRU Quadrangle', 'JRU Students', NULL, NULL, NULL, NULL, 1500, '1500 - Food and bev', '66140-H_30908.pdf', 'Approved', 4, '2022-10-20', '2022-11-03', NULL),
 (60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
 (61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
 (62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', 'approved'),
@@ -666,7 +678,7 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `coll
 (68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ', '48040-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'revise this'),
 (69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, '1500 - online fees', '90444-1D-F-ITO-001-ComSoc-General Assembly-IT Request Form.pdf', 'For Revision', 1, '2022-11-03', '2022-11-03', 'Revise date'),
 (71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', 'Approved'),
-(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '62274-11250-eventproposalforms.rar', 'Pending', 1, '2022-11-04', '2022-11-14', '');
+(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5000, '5000 - finance', '62274-11250-eventproposalforms.rar', 'Approved', 4, '2022-11-04', '2022-11-15', '');
 
 -- --------------------------------------------------------
 
@@ -818,11 +830,11 @@ CREATE TABLE `tb_students` (
   `SECTION` varchar(10) DEFAULT NULL,
   `MORG_ID` int(2) DEFAULT NULL,
   `ORG_ID` int(2) DEFAULT NULL,
-  `ORG_IDS` varchar(200) NOT NULL,
+  `ORG_IDS` varchar(200) DEFAULT NULL,
   `USER_TYPE` int(2) DEFAULT NULL,
   `ACCOUNT_CREATED` date DEFAULT NULL,
   `PROFILE_PIC` varchar(8000) DEFAULT NULL,
-  `VCODE` varchar(20) NOT NULL
+  `VCODE` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1430,6 +1442,12 @@ ALTER TABLE `tb_candidate`
   MODIFY `CANDIDATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
+-- AUTO_INCREMENT for table `tb_collegedept`
+--
+ALTER TABLE `tb_collegedept`
+  MODIFY `college_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tb_course`
 --
 ALTER TABLE `tb_course`
@@ -1463,7 +1481,7 @@ ALTER TABLE `tb_elections_archive`
 -- AUTO_INCREMENT for table `tb_notification`
 --
 ALTER TABLE `tb_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`

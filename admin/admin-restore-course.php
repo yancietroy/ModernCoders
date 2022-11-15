@@ -1,22 +1,22 @@
 <?php
 include('../mysql_connect.php');
 
-if(isset($_POST['deletedata']))
+if(isset($_POST['restoredata']))
 {
-    if(isset($_POST['delete_id'])){
+    if(isset($_POST['course_id'])){
 
-        $query = "INSERT tb_course_archive SELECT * FROM tb_course WHERE course_id = '".$_POST["delete_id"]."'";
+        $query = "INSERT tb_course SELECT * FROM tb_course_archive WHERE course_id = '".$_POST["course_id"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
 
-            $query = "DELETE FROM tb_course WHERE course_id = '".$_POST["delete_id"]."'";
+            $query = "DELETE FROM tb_course_archive WHERE course_id = '".$_POST["course_id"]."'";
             $result = @mysqli_query($conn, $query);
             if($result)
             {
               echo "<script type='text/javascript'>
-                    alert('Archived Course')
-                    window.location.href='admin-course.php'</script>";
+                    alert('Restored Course')
+                    window.location.href='admin-archive-course.php'</script>";
             }
             else
             {

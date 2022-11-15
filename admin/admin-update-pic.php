@@ -19,5 +19,5 @@ include('../mysql_connect.php');
 			$result = @mysqli_query($conn, $query);
 			echo "<script type='text/javascript'>
 			alert('Profile picture updated!')
-			window.location.href='student-profile.php'</script>";
+			window.location.href='admin-profile.php'</script>";
 		}

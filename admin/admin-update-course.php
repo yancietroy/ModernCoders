@@ -15,8 +15,9 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_course` SET `course` = '$c' WHERE `course_id` = '$ci'";
 			$result = @mysqli_query($conn, $query);
-			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-course.php");
+			echo "<script type='text/javascript'>
+                    alert('Updated Successful')
+                    window.location.href='admin-course.php'</script>";
 		}
 }
 ?>

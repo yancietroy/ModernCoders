@@ -15,7 +15,7 @@ if(isset($_POST['deletedata']))
             if($result)
             {
               echo "<script type='text/javascript'>
-                    alert('Archived User')
+                    alert('Archived Organization!')
                     window.location.href='admin-orgs.php'</script>";
             }
             else
