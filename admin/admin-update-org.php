@@ -8,7 +8,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $orgid = $_POST["ORG_ID"];
-    $orgName = =  $mysqli -> real_escape_string ($_POST["ORG"]);
+    $orgName =  $mysqli -> real_escape_string ($_POST["ORG"]);
     $query = "SELECT * FROM tb_orgs";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);
@@ -25,7 +25,7 @@ if (isset ($_POST['updatedata']))
 {
 
     $orgid = $_POST["ORG_ID"];
-    $orgName = =  $mysqli -> real_escape_string ($_POST["ORG"]);
+    $orgName =  $mysqli -> real_escape_string ($_POST["ORG"]);
     $query = "SELECT * FROM tb_orgs";
     $result = @mysqli_query($conn, $query);
     $row = @mysqli_fetch_array($result);

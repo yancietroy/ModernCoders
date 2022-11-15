@@ -244,7 +244,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST">
+        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data" >
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
