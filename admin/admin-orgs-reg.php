@@ -112,7 +112,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="orgname" id="asterisk">Organization name</label>
-                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50" class="form-control form-control-lg" required="" />
+                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="100" class="form-control form-control-lg" required="" />
                         <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
@@ -120,7 +120,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="col-12 col-md-6  mb-4">
                       <div class="form-outline">
 
-                        <label class="form-label" for="lastName" id="asterisk">Abbreviation</label>
+                        <label class="form-label" for="lastName">Abbreviation</label>
                         <input type="text" name="abbrev" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="10" oninput="this.value = this.value.toUpperCase()" class="form-control form-control-lg" />
                         <div class="valid-feedback"> </div>
                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
@@ -130,7 +130,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="row mb-0">
                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
+                        <label class="form-label" for="orgname">Student Adviser</label>
                         <select class="form-select" style="width:100%;" name="Signatory" id="Signatory">
                           <option class="greyclr" selected disabled value="">Select Adviser</option>
                           <?php
@@ -286,7 +286,7 @@ if (isset($_SESSION['msg'])) {
     <!-- JavaScript validation -->
     <script src="../assets/js/bootstrap-validation.js"></script>
     <!-- <script src="js/form-validation.js"></script>
-    Prevent Cut Copy Paste -->
+    Prevent Cut Copy Paste
     <script>
       $(document).ready(function() {
         $('input:text').bind('cut copy paste', function(e) {
@@ -295,15 +295,7 @@ if (isset($_SESSION['msg'])) {
         });
 
       });
-    </script>
-    <!--email generator-->
-    <script>
-      $("#txtTest, #txtTest2").on('input', function() {
-        var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
-        var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@jru.edu");
-      });
-    </script>
+    </script> -->
     <!--input mask-->
     <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="../assets/js/inputmask-validation.js"></script>

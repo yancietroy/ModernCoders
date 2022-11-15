@@ -112,7 +112,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="col-12 col-md-12 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="coursename" id="asterisk">Course Name</label>
-                        <input type="text" name="coursename" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50" class="form-control form-control-lg" required />
+                        <input type="text" name="coursename" onkeypress="return /[a-z-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="100" class="form-control form-control-lg" required />
                         <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
