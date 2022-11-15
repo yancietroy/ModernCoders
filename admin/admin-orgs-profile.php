@@ -102,7 +102,7 @@ if (isset($_SESSION['msg'])) {
                     <img class="profile_img" src="<?= $logoPic ?>" id="profile-pic" alt="">
                     <div class="middle">
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
-                      <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
+                      <input class="file-upload" type="file" name=logoPic id=logoPic accept="image/*" />
                     </div>
                   </div>
                   <h3 class="pt-3"><?= "$orgName"; ?></h3>
