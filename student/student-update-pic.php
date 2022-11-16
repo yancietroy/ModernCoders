@@ -35,4 +35,4 @@ include('../mysql_connect.php');
 			"redirect" => null,
 		];
 		}
-		header("Location:student-profile.php");
+?>
