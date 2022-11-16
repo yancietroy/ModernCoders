@@ -141,7 +141,7 @@ if (isset($_SESSION['msg'])) {
                               {
                                 echo "Side Organization";
                               }
-                            
+
                           ?>
                       </td>
                     </tr>
@@ -166,16 +166,16 @@ if (isset($_SESSION['msg'])) {
                       <th width="30%">Courses</th>
                       <td width="2%">:</td>
                       <td><1?php echo $data['EMAIL']; ?></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                       <th width="30%">Student Adviser</th>
                       <td width="2%">:</td>
-                      <td><1?php echo $data['EMAIL']; ?></td>
-                    </tr>-->
+                      <td>REEE</td>
+                    </tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">ORG NAME:<br></strong> <?php echo $orgName; ?></p>
-                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">ORG TYPE:<br></strong> 
+                    <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">ORG TYPE:<br></strong>
                           <?php
                             $checkType = "SELECT org_type_id FROM tb_orgs WHERE ORG_ID = '$orgid'";
                             $result = @mysqli_query($conn, $checkType);
@@ -188,7 +188,7 @@ if (isset($_SESSION['msg'])) {
                               {
                                 echo "Side Organization";
                               }
-                            
+
                           ?>
                     </p>
                     <p class="mb-2 pe-2"><strong class="pr-1  text-muted">College:<br></strong>
@@ -253,6 +253,34 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline">
                     <label class="form-label" for="ORG">Organization name:</label>
                     <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  </div>
+                </div>
+                <div class="col-12 col-md-6  mb-4">
+                  <label class="form-label">College Department</label>
+                  <select class="form-select" style="width:100%;" name="college_id" id="college_id">
+                    <option class="greyclr" selected disabled value="">Select College</option>
+                    <?php
+                    $query = "SELECT * FROM tb_collegedept";
+                    $result = @mysqli_query($conn, $query);
+                    while ($data = @mysqli_fetch_array($result)) {
+                      echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="orgname">Student Adviser</label>
+                    <select class="form-select" style="width:100%;" name="Signatory" id="Signatory">
+                      <option class="greyclr" selected disabled value="">Select Adviser</option>
+                      <?php
+                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=3";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[0] . '</option>';
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
               </div>
