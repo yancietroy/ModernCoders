@@ -406,6 +406,9 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <?php
+                      if($result->num_rows > 0){
+                    ?>
                     <table class="table" id="budget-request">
                       <thead>
                         <th>Item</th>
@@ -414,6 +417,9 @@ if (isset($_SESSION['msg'])) {
                       <tbody>
                       </tbody>
                     </table>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
