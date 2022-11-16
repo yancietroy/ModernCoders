@@ -15,20 +15,24 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_position` SET `position` = '$p' WHERE `POSITION_ID` = '$pi'";
 			$result = @mysqli_query($conn, $query);
-			$_SESSION["sweetalert"] = [
-			"title" => "Update Position",
-			"text" => "Successfully updated Position.",
-			"icon" => "success", //success,warning,error,info
-			"redirect" => null,
-		];
-		}else {
-		$_SESSION["sweetalert"] = [
-			"title" => "Update Position",
-			"text" => "Unexpected error while updating Position.",
-			"icon" => "error", //success,warning,error,info
-			"redirect" => null,
-		];
+      if($result)
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Position",
+				"text" => "Successfully updated Position",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}else
+			{
+				$_SESSION["sweetalert"] = [
+          "title" => "Update Position",
+  				"text" => "Successfully updated Position",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			header("Location:admin-position-list.php");
 		}
-		header("Location:admin-position-list.php");
 }
 ?>

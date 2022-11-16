@@ -20,20 +20,48 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatorytype_id` = '$st', `college_dept` = '$cd', `org_id` = '$oid',  `email` = '$e', `usertype_id` = '$ul' WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-        		alert('Status updated!')
-        		</script>";
+			if($result)
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Signatory Details",
+				"text" => "Successfully updated signatory details.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}else
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Signatory Details",
+				"text" => "Error upon updating Signatory details.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
 			header("Location:admin-signatories-users.php");
 			if ($ul = 3)
 		{
 			$query =  "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
 			VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), '$cd','$oid',NOW(), '$pp', '$ul')";
 						$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-        		alert('User updated!')
-        		</script>";
+						if($result)
+						{
+							$_SESSION["sweetalert"] = [
+							"title" => "Update Signatory Details",
+							"text" => "Successfully updated signatory details.",
+							"icon" => "success", //success,warning,error,info
+							"redirect" => null,
+							];
+						}else
+						{
+							$_SESSION["sweetalert"] = [
+							"title" => "Update Signatory Details",
+							"text" => "Error upon updating Signatory details.",
+							"icon" => "error", //success,warning,error,info
+							"redirect" => null,
+							];
+						}
+					}
+				}
 			header("Location:admin-signatories-users.php");
-		}
-		}
-	}
+		}Z
 	?>

@@ -692,7 +692,11 @@ if (isset($_SESSION['msg'])) {
       myTable.columns.adjust().draw();
     });
   </script>
-  <script src="../assets/js/dataTables.altEditor.free.js"></script>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

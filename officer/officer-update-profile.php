@@ -32,9 +32,13 @@ if (isset ($_POST['updatedata']))
 			$query = "UPDATE `tb_officers` SET `position_id` = '$pos', `org_id` = '$org', `first_name` = '$fn', `last_name` = '$ln', `middle_initial` = '$mn', `birthdate`= '$bdate', `age`= '$age', `gender`= '$g', `year_level`= '$yl', `college_dept`= '$cd', `section`= '$section', `email` = '$e', `course` = '$c'  WHERE `officer_id` = '$oi'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
-			echo "<script type='text/javascript'>
-                    alert('Details Updated')
-                    window.location.href='officer-profile.php'</script>";
-		}
+			$_SESSION["sweetalert"] = [
+				"title" => "Edit Account",
+				"text" => "Successfully updated your account information.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+			];
 
-}
+			header("location:officer-profile.php");
+			}
+			}
