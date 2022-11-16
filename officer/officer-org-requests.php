@@ -81,7 +81,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid'";
+              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND req_status IN('Approved') OR req_status IN('Pending')";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $si = " ";
@@ -390,6 +390,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

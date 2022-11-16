@@ -11,7 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_picture = getProfilePicture(1, $data_userid);
+$data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
