@@ -160,7 +160,7 @@ if (isset($_POST['create-election'])) {
                         <select class="form-select" name="ORG" id="ORG" required>
                             <option value="0::0">JRU Central Student Council</option>
                             <?php
-                            $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE ORG_TYPE_ID = 1";
+                            $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE NOT ORG_ID = 26";
                             if ($resOrgs = @mysqli_query($conn, $queryOrgs)) {
                                 while ($rowOrgs = $resOrgs->fetch_assoc()) {
                                     $orgname = $rowOrgs['ORG'];

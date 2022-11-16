@@ -90,7 +90,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
               <select class="form-select form-select-md" name="org_id" id="org_id" required>
                 <option class="greyclr" selected disabled value="" text-muted>Select Organization</option>
                 <?php
-                  $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 2";
+                  $query = "SELECT ORG, ORG_ID FROM tb_orgs WHERE org_type_id = 2 AND NOT ORG_ID = 26";
                   $result = @mysqli_query($conn, $query);
                   while ($data = @mysqli_fetch_array($result)) {
                     echo '<option value="' . $data[1] .  '" >' . $data[0] . '</option>';
