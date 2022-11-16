@@ -180,7 +180,6 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="course">course Name:</label>
                     <label class="form-label" for="course">Course Name:</label>
                     <input type="text" name="course" id="course" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" maxlength="100" />
                   </div>
