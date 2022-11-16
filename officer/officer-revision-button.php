@@ -121,6 +121,22 @@
         $id = $_POST['project_id'];
         $s = "Reschedule";
 
+        $budgetitems = [];
+        foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "payment-")) {
+                $tag = explode("-", $key)[1];
+                array_push($budgetitems, $_POST["budgetdesc-$tag"] . "::" . $value);
+            }
+        }
+
+        $items = implode(";;", $budgetitems);
+        $items = $mysqli->real_escape_string($items);
+
+        $fileName = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
+        $fileDestination = 'attachments/' . $fileName;
+        $tfileName = $_FILES['attachments']['tmp_name'];
+        move_uploaded_file($tfileName, $fileDestination);
+
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
@@ -128,7 +144,10 @@
         if($row)
         {
         $query = "UPDATE `tb_projectmonitoring` SET
-                `status` ='$s', `status_date` = NOW()
+                `status` ='$s', 
+                `status_date` = NOW(),
+                `budget_req` ='$items',
+                `attachments` = '$fileName'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
             if($result){
