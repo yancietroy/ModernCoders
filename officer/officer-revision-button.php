@@ -1,5 +1,6 @@
 <?php
     include('../mysql_connect.php');
+    session_start();
     $mysqli = new mysqli("$servername","$username","$password","$database");
 
         if ($mysqli -> connect_errno) {
@@ -52,9 +53,23 @@
                 `attachments` = '$fileName'    
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-              alert('Status updated!')
-              window.location.href='officer-pending.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to pending.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
+            header("location:officer-pending.php");
         }
     } else if(isset($_POST['Done']) || isset($id))
     {
@@ -71,10 +86,24 @@
                 `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-done.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Successfully updated your project details.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-done.php");
     } else if(isset($_POST['Cancel']) || isset($id))
     {
         $id = $_POST['project_id'];
@@ -90,10 +119,24 @@
                 `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-reschedule.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "You have Rescheduled the project.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon rescheduling your project.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-reschedule.php");
     } else if(isset($_POST['Ongoing']) || isset($id))
     {
         $id = $_POST['project_id'];
@@ -109,10 +152,23 @@
                 `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-ongoing.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Successfully updated your project details.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-ongoing.php");
     }
-@mysqli_close($conn);
 ?>
