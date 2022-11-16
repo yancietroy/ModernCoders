@@ -397,7 +397,6 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
-
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping">PHP</span>
@@ -412,22 +411,23 @@ if (isset($_SESSION['msg'])) {
                             </div>
                           </div>!-->
               </div>
-            </div>
             <div class="modal-footer px-0 py-0 pt-2">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <?php
               if ($_SESSION['USER-POS'] <= 5) {
               ?>
                 <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+                <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</button>
                 <?php
               }
                 ?>
             </div>
-        </form>
-      </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

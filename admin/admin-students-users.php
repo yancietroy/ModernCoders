@@ -419,7 +419,6 @@ if (isset($_SESSION['msg'])) {
           $('#BIRTHDATE').val(data.BIRTHDATE);
           $('#AGE').val(data.AGE);
           $('#GENDER').val(data.GENDER);
-          $('input[type=radio][id="GENDER"][value=' + data.GENDER + ']').prop('checked', true);
           $('#YEAR_LEVEL').val(data.YEAR_LEVEL);
           $('#EMAIL').val(data.EMAIL);
           $('#COLLEGE_DEPT').val(data.COLLEGE_DEPT);
