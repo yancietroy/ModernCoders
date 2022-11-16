@@ -22,7 +22,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to For Revision.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -39,10 +46,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -58,7 +61,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Rejected.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -73,12 +83,9 @@ if ($data_signatorytype == 3) {
                     $SqlNotif .= implode(",", $values);
 
                     @mysqli_query($conn, $SqlNotif);
+                    
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -96,7 +103,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Pending.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -130,10 +144,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $sqlNotifSig);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     }
 } elseif ($data_signatorytype == 2) {
@@ -152,7 +162,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to For Revision.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -169,10 +186,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -189,7 +202,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Rejected.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -206,10 +226,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -226,7 +242,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Pending.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -260,10 +283,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $sqlNotifSig);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     }
 } elseif ($data_signatorytype == 1) {
@@ -282,7 +301,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to For Revision.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -299,10 +325,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -319,7 +341,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Rejected.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -336,10 +365,6 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -356,7 +381,14 @@ if ($data_signatorytype == 3) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-
+            if($result){
+                        $_SESSION["sweetalert"] = [
+                                "title" => "Status Updated",
+                                "text" => "Project is moved to Approved.",
+                                "icon" => "success", //success,warning,error,info
+                                "redirect" => null,
+                            ];
+                    }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -373,11 +405,8 @@ if ($data_signatorytype == 3) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
-
-            echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='signatory-pending.php'</script>";
         }
     }
 }
-@mysqli_close($conn);
+    header("location:signatory-pending.php");
+?>

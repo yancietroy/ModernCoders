@@ -517,6 +517,9 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/sweetalert.php") ?>
     <!-- age validation !-->
     <script src="../assets/js/age-validation.js"></script>
+    <?php
+    include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>
