@@ -17,6 +17,7 @@ $nav_breadcrumbs = [
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
   ["Org Applications", "", "bi bi-pencil-square"],
+  ["Masterlist", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -73,18 +74,16 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4> Student Application List</h4>
-        </div>
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="applications-masterlist.php" role="button"><i class="bi bi-person-lines-fill"></i> <span id="btntitle">All Applications </span></a>
+          <h4> Organization Applications Masterlist</h4>
         </div>
       </div>
+
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND req_status IN('Approved') OR req_status IN('Pending')";
+              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $si = " ";
@@ -283,7 +282,7 @@ if (isset($_SESSION['msg'])) {
     <script type="text/javascript"
       src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js">
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>  -->
   <script>
     $(document).ready(function() {
@@ -392,10 +391,6 @@ if (isset($_SESSION['msg'])) {
       myTable.columns.adjust().draw();
     });
   </script>
-  <script src="../assets/js/dataTables.altEditor.free.js"></script>
-  <?php
-  include('include/sweetalert.php');
-  ?>
-</body>
+  </body>
 
-</html>
+  </html>
