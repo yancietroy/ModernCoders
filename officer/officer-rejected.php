@@ -169,9 +169,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $ds </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i></a>
                               <button type='button' class='btn btn-secondary btn-sm'> <i class='bi bi-archive-fill'></i> </button>
-                              </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
@@ -401,6 +400,9 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <?php
+                      if($result->num_rows > 0){
+                    ?>
                     <table class="table" id="budget-request">
                       <thead>
                         <th>Item</th>
@@ -409,6 +411,9 @@ if (isset($_SESSION['msg'])) {
                       <tbody>
                       </tbody>
                     </table>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">

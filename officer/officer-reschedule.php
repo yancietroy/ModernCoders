@@ -345,7 +345,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
+                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required />
                   </div>
                 </div>
               </div>
@@ -397,7 +397,7 @@ if (isset($_SESSION['msg'])) {
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
-                             <!--<select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
+                             <select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
                               <1? php
                               /**
                                 $query = "SELECT position_id, position FROM tb_position";
@@ -420,7 +420,10 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
-                    <label class="form-label" for="budget_req">Budget Request:</label>
+                    <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <?php
+                      if($result->num_rows > 0){
+                    ?>
                     <table class="table" id="budget-request">
                       <thead>
                         <th>Item</th>
@@ -429,6 +432,9 @@ if (isset($_SESSION['msg'])) {
                       <tbody>
                       </tbody>
                     </table>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -462,6 +468,8 @@ if (isset($_SESSION['msg'])) {
                 }
                 ?>
               </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -522,25 +530,7 @@ if (isset($_SESSION['msg'])) {
       });
     });
   </script>
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
 
-    $('#estimated_budget').keydown(function(e) {
-      setTimeout(() => {
-        let parts = $(this).val().split(".");
-        let v = parts[0].replace(/\D/g, ""),
-          dec = parts[1]
-        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-        // use this for numeric calculations
-        // console.log('number for calculations: ', calc_num);
-        let n = new Intl.NumberFormat('en-EN').format(v);
-        n = dec !== undefined ? n + "." + dec : n;
-        $(this).val(n);
-      })
-    })
-  </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

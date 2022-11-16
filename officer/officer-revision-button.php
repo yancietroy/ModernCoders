@@ -19,7 +19,6 @@
         $pc = $mysqli -> real_escape_string  ($_POST['project_category']);
         $p = $mysqli -> real_escape_string  ($_POST['participants']);
         $std = $mysqli -> real_escape_string  ($_POST['status_date']);
-        $br = $mysqli -> real_escape_string  ($_POST['budget_req']);
         $eb =  $mysqli -> real_escape_string ($_POST['estimated_budget']);
         $obj = $mysqli -> real_escape_string  ($_POST['objectives']);
         $s = "Pending";
@@ -46,7 +45,6 @@
                 `project_category` ='$pc',
                 `participants` ='$p',
                 `organizer` ='$or',
-                `budget_req` ='$br',
                 `estimated_budget` ='$eb',
                 `status` ='$s',
                 `approval_id` = '$ati',
