@@ -26,8 +26,8 @@ if (isset ($_POST['updatedata']))
 			}else
 			{
 				$_SESSION["sweetalert"] = [
-          "title" => "Update Position",
-  				"text" => "Successfully updated Position",
+          		"title" => "Update Position",
+  				"text" => "Error upon updating Position",
 				"icon" => "error", //success,warning,error,info
 				"redirect" => null,
 				];
