@@ -252,6 +252,7 @@ if (isset($_SESSION['msg'])) {
                     <option value="2">Year 2</option>
                     <option value="3">Year 3</option>
                     <option value="4">Year 4</option>
+                    <option value="5">Year 5</option>
                   </select>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
