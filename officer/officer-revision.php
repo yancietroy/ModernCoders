@@ -244,7 +244,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="officer-revision-button.php" method="POST" enctype="multipart/form-data">
+        <form action="officer-revision-button.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -420,18 +420,22 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                          <th>Action</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="text-right">
+                        <button type="button" class="btn btn-primary mt-1 " id="add-budget">Add Budget</button>
+                      </div>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -507,12 +511,15 @@ if (isset($_SESSION['msg'])) {
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();
+          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            bcount++;
             var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+              <tr id="budget-${bcount}">
+                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -581,7 +588,34 @@ if (isset($_SESSION['msg'])) {
         dateFormat: "dd-M-yy",
         minDate: 0
       });
+
+      $("#budget-request").on("change", ".payment", function() { // <-- Only changed this line
+        var sum = 0;
+        $(".payment").each(function() {
+          if (!isNaN(this.value) && this.value.length != 0) {
+            sum += parseFloat(this.value);
+          }
+        });
+        $('#estimated_budget').val(sum);
+      });
+
+      $('#add-budget').on("click", function() {
+        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+        var output = `
+          <tr id="budget-${bcount}">
+            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
+            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+          </tr>
+        `;
+        $("#budget-request > tbody").append(output);
+      });
     });
+
+    function deleteBudget(id) {
+      $("#budget-" + id).remove();
+    }
   </script>
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>

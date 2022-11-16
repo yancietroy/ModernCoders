@@ -25,6 +25,17 @@
         $s = "Pending";
         $ati = 1;
 
+        $budgetitems = [];
+        foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "payment-")) {
+                $tag = explode("-", $key)[1];
+                array_push($budgetitems, $_POST["budgetdesc-$tag"] . "::" . $value);
+            }
+        }
+
+        $items = implode(";;", $budgetitems);
+        $items = $mysqli->real_escape_string($items);
+
         $fileName = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
         $fileDestination = 'attachments/' . $fileName;
         $tfileName = $_FILES['attachments']['tmp_name'];
@@ -46,6 +57,7 @@
                 `project_category` ='$pc',
                 `participants` ='$p',
                 `organizer` ='$or',
+                `budget_req` ='$items',
                 `estimated_budget` ='$eb',
                 `status` ='$s',
                 `approval_id` = '$ati',

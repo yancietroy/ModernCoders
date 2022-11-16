@@ -345,7 +345,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required/>
+                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
                   </div>
                 </div>
               </div>
@@ -397,7 +397,7 @@ if (isset($_SESSION['msg'])) {
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
-                             <select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
+                             <!--<select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
                               <1? php
                               /**
                                 $query = "SELECT position_id, position FROM tb_position";
@@ -420,20 +420,24 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
-                    <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <label class="form-label" for="budget_req">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                          <th>Action</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="text-right">
+                        <button type="button" class="btn btn-primary mt-1 " id="add-budget">Add Budget</button>
+                      </div>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -468,8 +472,6 @@ if (isset($_SESSION['msg'])) {
                 }
                 ?>
               </div>
-            </div>
-          </div>
         </form>
       </div>
     </div>
@@ -511,12 +513,15 @@ if (isset($_SESSION['msg'])) {
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();
+          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            bcount++;
             var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+              <tr id="budget-${bcount}">
+                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -530,7 +535,25 @@ if (isset($_SESSION['msg'])) {
       });
     });
   </script>
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
 
+    $('#estimated_budget').keydown(function(e) {
+      setTimeout(() => {
+        let parts = $(this).val().split(".");
+        let v = parts[0].replace(/\D/g, ""),
+          dec = parts[1]
+        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+        // use this for numeric calculations
+        // console.log('number for calculations: ', calc_num);
+        let n = new Intl.NumberFormat('en-EN').format(v);
+        n = dec !== undefined ? n + "." + dec : n;
+        $(this).val(n);
+      })
+    })
+  </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -567,7 +590,34 @@ if (isset($_SESSION['msg'])) {
         dateFormat: "dd-M-yy",
         minDate: 0
       });
+
+      $("#budget-request").on("change", ".payment", function() { // <-- Only changed this line
+        var sum = 0;
+        $(".payment").each(function() {
+          if (!isNaN(this.value) && this.value.length != 0) {
+            sum += parseFloat(this.value);
+          }
+        });
+        $('#estimated_budget').val(sum);
+      });
+
+      $('#add-budget').on("click", function() {
+        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+        var output = `
+          <tr id="budget-${bcount}">
+            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
+            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+          </tr>
+        `;
+        $("#budget-request > tbody").append(output);
+      });
     });
+
+    function deleteBudget(id) {
+      $("#budget-" + id).remove();
+    }
   </script>
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
