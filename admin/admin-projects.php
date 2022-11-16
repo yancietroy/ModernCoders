@@ -76,10 +76,10 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-7">
           <h4>Project Monitoring</h4>
         </div>
-
+    <!-- Page content
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-archive-projects.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Project Archive</span></a>
-        </div>
+        </div>-->
       </div>
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-3 col-sm-6">

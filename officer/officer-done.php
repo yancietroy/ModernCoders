@@ -170,7 +170,6 @@ if (isset($_SESSION['msg'])) {
                               <td>
                               <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i></a>
-                              <button type='button' class='btn btn-secondary btn-sm'> <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
