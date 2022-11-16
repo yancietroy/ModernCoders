@@ -21,9 +21,13 @@ if (isset ($_POST['updatedata']))
 			$query = "UPDATE `tb_signatories` SET  `first_name` = '$fn', `last_name` = '$ln' WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
-			echo "<script type='text/javascript'>
-                    alert('Details Updated')
-                    window.location.href='signatory-profile.php'</script>";
-		}
+			$_SESSION["sweetalert"] = [
+				"title" => "Edit Account",
+				"text" => "Successfully updated your account information.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+			];
 
-}
+			header("location:signatory-profile.php");
+			}
+			}
