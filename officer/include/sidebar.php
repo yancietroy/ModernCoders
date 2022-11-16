@@ -22,7 +22,7 @@
             <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <li <?= str_starts_with($nav_selected, "Election") ? 'class="active"' : "" ?>>
-            <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>JRUSOC Election</span></a>
+            <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>CSC Election</span></a>
         </li>
         <li <?= str_starts_with($nav_selected, "Survey") ? 'class="active"' : "" ?>>
             <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>

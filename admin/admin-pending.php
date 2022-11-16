@@ -419,15 +419,15 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-              <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  
+              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+              <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>!-->
             </div>
         </form>
       </div>
     </div>
   </div>
-
+  </div>
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>

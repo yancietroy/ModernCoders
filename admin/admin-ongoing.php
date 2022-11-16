@@ -438,9 +438,9 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Cancel Project</a>
-                  <button class="btn btn-md btn-done" name="Done"> Project Done</a>
+                  <button class="btn btn-md btn-done" name="Done"> Project Done</a>!-->
               </div>
         </form>
       </div>

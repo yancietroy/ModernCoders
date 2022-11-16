@@ -15,7 +15,7 @@ if(isset($_POST['restoredata']))
                 if($result){
                     $_SESSION["sweetalert"] = [
                         "title" => "Restored Organization",
-                        "text" => "Officer account has been restored successfully.",
+                        "text" => "Student Organization has been restored successfully.",
                         "icon" => "success", //success,warning,error,info
                         "redirect" => null,
                     ];
@@ -23,7 +23,7 @@ if(isset($_POST['restoredata']))
               else {
                 $_SESSION["sweetalert"] = [
                     "title" => "Restore Organization",
-                    "text" => "Unexpected error has been encountered while restoring the officer account.",
+                    "text" => "Unexpected error has been encountered while restoring Student Organization.",
                     "icon" => "warning", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -31,7 +31,7 @@ if(isset($_POST['restoredata']))
         } else {
             $_SESSION["sweetalert"] = [
                 "title" => "Restore Organization",
-                "text" => "Unexpected error has been encountered while restoring the officer account.",
+                "text" => "Unexpected error has been encountered while restoring Student Organization.",
                 "icon" => "warning", //success,warning,error,info
                 "redirect" => null,
             ];

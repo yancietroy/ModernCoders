@@ -158,7 +158,7 @@ if (isset($_POST['create-election'])) {
                     <div class="mb-4" id="orgcontainer">
                         <label class="form-label" for="ORG">Organization</label>
                         <select class="form-select" name="ORG" id="ORG" required>
-                            <option value="0::0">JRU Student Organization Council</option>
+                            <option value="0::0">JRU Central Student Council</option>
                             <?php
                             $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE ORG_TYPE_ID = 1";
                             if ($resOrgs = @mysqli_query($conn, $queryOrgs)) {

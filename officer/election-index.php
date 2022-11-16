@@ -14,7 +14,7 @@ $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Election";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
-    ["JRUSOC Election", "", ""],
+    ["CSC Election", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -60,7 +60,7 @@ if (isset($_SESSION['msg'])) {
             <!-- Page content -->
             <div class="row ms-3 me-3 mt-2">
                 <div class="col-lg-6 col-7">
-                    <h4 id="orgtitle">JRU Student Organizations Council Election</h4>
+                    <h4 id="orgtitle">JRU Central Student Council Election</h4>
                 </div>
             </div>
             <div class="row ms-3 me-3 mt-2">

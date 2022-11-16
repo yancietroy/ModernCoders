@@ -15,14 +15,14 @@ if(isset($_POST['deletedata']))
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Archived Organization",
-                    "text" => "Course details has been archived successfully.",
+                    "text" => "Student Organization has been archived successfully.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
             } else {
                 $_SESSION["sweetalert"] = [
                     "title" => "Archive Organization",
-                    "text" => "Unexpected error has been encountered while archiving the course details.",
+                    "text" => "Unexpected error has been encountered while archiving the Student Organization.",
                     "icon" => "warning", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -30,7 +30,7 @@ if(isset($_POST['deletedata']))
         } else {
             $_SESSION["sweetalert"] = [
                 "title" => "Archive Organization",
-                "text" => "Unexpected error has been encountered while archiving the course details.",
+                "text" => "Unexpected error has been encountered while archiving the Student Organization.",
                 "icon" => "warning", //success,warning,error,info
                 "redirect" => null,
             ];
