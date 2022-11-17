@@ -54,8 +54,7 @@ if (isset($_POST['submit-response'])) {
   }
 
   $query = $query . implode(",", $answers);
-  $result = @mysqli_query($conn, $query);
-  if ($result) {
+  if (@mysqli_query($conn, $query)) {
     $_SESSION["sweetalert"] = [
         "title" => "Submit Response",
         "text" => "Response has been submitted successfully.",
@@ -76,10 +75,11 @@ if (isset($_POST['submit-response'])) {
 $hasSurvey = false;
 
 $curdate = date('Y-m-d');
-$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date)";
+$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date) AND tb_surveys.survey_id NOT IN (SELECT DISTINCT tb_survey_answers.survey_id FROM tb_survey_answers WHERE tb_survey_answers.survey_id=tb_surveys.survey_id AND tb_survey_answers.student_no='$data_userid')";
 if ($res = @mysqli_query($conn, $sql)) {
   if ($res->num_rows > 0) {
     $hasSurvey = true;
+
     $row = $res->fetch_assoc();
     $survey_id = $row['survey_id'];
     $title = $row['title'];
@@ -91,7 +91,7 @@ if ($res = @mysqli_query($conn, $sql)) {
 
 // Check if already submitted a response
 if ($hasSurvey) {
-  $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid' LIMIT 0,1";
+  $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid'";
   if ($res = @mysqli_query($conn, $query)) {
     if ($res->num_rows > 0) $hasSurvey = false;
   }
@@ -123,7 +123,6 @@ if (isset($_SESSION['msg'])) {
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- calendar
 <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
 <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
@@ -321,9 +320,6 @@ if (isset($_SESSION['msg'])) {
       Waves.attach('#sidebar ul li a');
       Waves.init();
     </script>
-    <?php
-    include('include/sweetalert.php');
-    ?>
 </body>
 
 </html>
