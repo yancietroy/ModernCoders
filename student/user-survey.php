@@ -43,7 +43,7 @@ if (isset($_POST['submit-response'])) {
         } else {
           $answer = "[" . implode("],[", $value) . "]";
         }
-      } else if ($type == 5 || $type == 6) {
+      } else if ($type >= 5 && $type <= 7) {
         $answer = "[$value]";
       } else {
         $answer = $value;
@@ -65,11 +65,10 @@ if (isset($_POST['submit-response'])) {
 $hasSurvey = false;
 
 $curdate = date('Y-m-d');
-$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date) AND tb_surveys.survey_id NOT IN (SELECT DISTINCT tb_survey_answers.survey_id FROM tb_survey_answers WHERE tb_survey_answers.survey_id=tb_surveys.survey_id)";
+$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date)";
 if ($res = @mysqli_query($conn, $sql)) {
   if ($res->num_rows > 0) {
     $hasSurvey = true;
-
     $row = $res->fetch_assoc();
     $survey_id = $row['survey_id'];
     $title = $row['title'];
@@ -81,7 +80,7 @@ if ($res = @mysqli_query($conn, $sql)) {
 
 // Check if already submitted a response
 if ($hasSurvey) {
-  $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid'";
+  $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid' LIMIT 0,1";
   if ($res = @mysqli_query($conn, $query)) {
     if ($res->num_rows > 0) $hasSurvey = false;
   }
