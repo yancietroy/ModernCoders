@@ -147,18 +147,18 @@ if ($hasElection) {
             <?php
             if ($hasElection && !$hasVoted) {
             ?>
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-                <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                    <div class="ms-3 d-flex flex-row align-items-center">
-                        <h3 class="flex-grow-1 lead"><strong class="pr-1  text-muted ">Name:<br></strong> <?= $title ?></h3>
+                <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                    <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                        <div class="ms-3 d-flex flex-row align-items-center">
+                            <h3 class="flex-grow-1 lead"><strong class="pr-1  text-muted ">Name:<br></strong> <?= $title ?></h3>
+                        </div>
+                        <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
+                        <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                     </div>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                 </div>
-            </div>
                 <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                     <div class="card-body px-2 mx-3 py-3 pt-4">
-                        <form method="POST" action="?id=$orgid">
+                        <form method="POST" action="?id=<?= $orgid ?>">
                             <input type="text" name="election-id" value="<?= $election_id ?>" style="display:none;">
                             <?php
                             $sql = "SELECT POSITION_ID as id,position FROM tb_position";
