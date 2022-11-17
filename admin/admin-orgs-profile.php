@@ -168,9 +168,25 @@ if (isset($_SESSION['msg'])) {
                       <td><1?php echo $data['EMAIL']; ?></td>
                     </tr>-->
                     <tr>
-                      <th width="30%">Student Adviser</th>
+                      <th width="30%">Student Advisers</th>
                       <td width="2%">:</td>
-                      <td>REEE</td>
+                      <td><?php
+                            $query = "SELECT CONCAT(first_name, ' ', last_name) AS NAME FROM tb_signatories WHERE org_id = '$orgid'";
+                            $result = @mysqli_query($conn, $query);
+                            $a = " ";
+                            if ($result !== false && $result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+        
+                              $a = $row['NAME'];
+                              echo "$a</br>";
+
+                            }
+                            }
+                            elseif(isset($row['NAME']) == NULL)
+                            {
+                              echo "No Advisers";
+                            }
+                          ?></td>
                     </tr>
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
@@ -270,14 +286,14 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="orgname">Student Adviser</label>
-                    <select class="form-select" style="width:100%;" name="Signatory" id="Signatory">
+                    <label class="form-label" for="signatory_id">Student Adviser</label>
+                    <select class="form-select" style="width:100%;" name="signatory_id" id="signatory_id">
                       <option class="greyclr" selected disabled value="">Select Adviser</option>
                       <?php
-                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=3";
+                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name, school_id FROM tb_signatories WHERE signatorytype_id=3";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[0] . '</option>';
+                        echo '<option value="' . $data[1] . '">' . $data[0] . '</option>';
                       }
                       ?>
                     </select>
@@ -312,6 +328,7 @@ if (isset($_SESSION['msg'])) {
           console.log(data);
           $('#ORG_ID').val(data.ORG_ID);
           $('#ORG').val(data.ORG);
+          $('#college_id').val(data.college_id);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

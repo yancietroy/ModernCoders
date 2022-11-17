@@ -119,7 +119,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $rs  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i></button>
+                              <button type='button' title='project details' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i></button>
                               </td>
                               <td> $r  </td>
                               </tr>
@@ -138,7 +139,6 @@ if (isset($_SESSION['msg'])) {
                         </tfoot>
                         </table>";
               }
-              $conn->close();
               ?>
             </div>
           </div>
@@ -223,11 +223,56 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-3 px-3">
+          <h5 class="modal-title" id="exampleModalLabel"> Delete Student Requests? </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="officer-delete-requests.php" method="POST">
+          <div class="modal-body">
+            <div class="col-12 col-md-12 justify-content-center ">
+              <div class="form-outline">
+                <label class="form-label" for="delete_id">Student ID:</label>
+                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
+              </div>
+            </div>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Deleting user Requests. Are you sure?</p>
+          </div>
+          <div class="modal-footer py-2 px-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
+  <script>
+    $(document).on('click', '.deletebtn', function() {
+      var student_id = $(this).attr("id");
+      $.ajax({
+        url: "officer-fetch-requests.php",
+        method: "POST",
+        data: {
+          student_id: student_id
+        },
+        dataType: "json",
+        success: function(data) {
+          console.log(data);
+          $('#delete_id').val(data.student_id);
+          $('#deletemodal').modal('show');
+        }
+      });
+    });
+  </script>
   <script>
     $(document).on('click', '.editbtn', function() {
       var student_id = $(this).attr("id");
@@ -256,7 +301,7 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
 
-
+  <?php $conn->close(); ?>
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -391,6 +436,9 @@ if (isset($_SESSION['msg'])) {
       myTable.columns.adjust().draw();
     });
   </script>
+  <?php
+    include('include/sweetalert.php');
+  ?>
   </body>
 
   </html>
