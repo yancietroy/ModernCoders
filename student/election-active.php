@@ -46,9 +46,19 @@ if (isset($_POST['submit-votes'])) {
 
     $sqlSubmit = $pre . implode(',', $values);
     if (@mysqli_query($conn, $sqlSubmit)) {
-        echo "<script>alert('Votes successfully submitted.')</script>";
+        $_SESSION["sweetalert"] = [
+                "title" => "Vote Candidates",
+                "text" => "Votes successfully submitted.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
     } else {
-        echo "<script>alert('Error occured while submitting your votes. Please try again.')</script>";
+        $_SESSION["sweetalert"] = [
+                "title" => "Vote Candidates",
+                "text" => "Error occured while submitting your votes. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
     }
 }
 
@@ -116,6 +126,7 @@ if ($hasElection) {
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -280,6 +291,9 @@ if ($hasElection) {
 
             });
         </script>
+        <?php
+            include('include/sweetalert.php');
+        ?>
 </body>
 
 </html>

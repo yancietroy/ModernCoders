@@ -315,7 +315,7 @@ if (isset($_SESSION['msg'])) {
 
                         <table id="tableAnswers" class='py-3 display nowrap w-100 ms-0 stud'>
                             <thead>
-                                <th>Date Submitted</th>
+                                <th>Survey ID</th>
                                 <th>Answer</th>
                             </thead>
                             <tbody>
