@@ -17,9 +17,8 @@ if (isset ($_POST['updatedata'])){
 	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
 	$cd =  $mysqli -> real_escape_string ($_POST['COLLEGE_DEPT']);
 	$ut =  $mysqli -> real_escape_string ($_POST['USER_TYPE']);
-	$pass =  $mysqli -> real_escape_string ($_POST['PASSWORD']);
 	$pos_id = $_POST['position_id'];
-	$profilepic = $_POST['PROFILE_PIC'];
+	$orgids = ',[' .  $_POST['ORG_IDS'] . ']';
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);
@@ -27,7 +26,7 @@ if (isset ($_POST['updatedata'])){
 
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `GENDER` = '$g', `YEAR_LEVEL` = '$yl', `SECTION` = '$section', `EMAIL` = '$e', `COLLEGE_DEPT` = '$cd', `MORG_ID` = '$morg', `COURSE` = '$course', `USER_TYPE` = '$ut', `PASSWORD` = '$pass' , `PROFILE_PIC` = '$profilepic' WHERE `STUDENT_ID` = '$si'";
+			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `GENDER` = '$g', `YEAR_LEVEL` = '$yl', `SECTION` = '$section', `EMAIL` = '$e', `COLLEGE_DEPT` = '$cd', `MORG_ID` = '$morg', `COURSE` = '$course', `USER_TYPE` = '$ut' , `ORG_IDS` = '$orgids' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			if($result)
 			{
