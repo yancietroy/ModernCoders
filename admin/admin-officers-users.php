@@ -316,7 +316,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
-                    <select class="form-select" name="user_type" id="user_type">
+                    <select class="form-select" name="user_type" id="user_type" readonly>
                       <?php
                       $query = "SELECT * FROM tb_usertypes";
                       $result = @mysqli_query($conn, $query);

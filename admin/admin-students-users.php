@@ -307,22 +307,6 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Main Organization:</label>
-                    <select class="form-select" name="MORG_ID" id="MORG_ID">
-                      <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
-                      $result = @mysqli_query($conn, $query);
-                      while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
-                      }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
                     <label class="form-label" for="USER_TYPE">User Type:</label>
                     <select class="form-select" name="USER_TYPE" id="USER_TYPE">
                       <?php
@@ -335,10 +319,34 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="USER_TYPE">Password:</label>
-                    <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly />
+                    <label class="form-label" for="MORG_ID">Main Organization:</label>
+                    <select class="form-select" name="MORG_ID" id="MORG_ID">
+                      <?php
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Side Organization:</label>
+                    <select class="form-select" name="MORG_ID" id="MORG_ID">
+                      <?php
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
