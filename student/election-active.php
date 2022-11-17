@@ -46,9 +46,19 @@ if (isset($_POST['submit-votes'])) {
 
     $sqlSubmit = $pre . implode(',', $values);
     if (@mysqli_query($conn, $sqlSubmit)) {
-        echo "<script>alert('Votes successfully submitted.')</script>";
+        $_SESSION["sweetalert"] = [
+                "title" => "Vote Candidates",
+                "text" => "Votes successfully submitted.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
     } else {
-        echo "<script>alert('Error occured while submitting your votes. Please try again.')</script>";
+        $_SESSION["sweetalert"] = [
+                "title" => "Vote Candidates",
+                "text" => "Error occured while submitting your votes. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
     }
 }
 
@@ -116,6 +126,7 @@ if ($hasElection) {
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -136,18 +147,18 @@ if ($hasElection) {
             <?php
             if ($hasElection && !$hasVoted) {
             ?>
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-                <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                    <div class="ms-3 d-flex flex-row align-items-center">
-                        <h3 class="flex-grow-1 lead"><strong class="pr-1  text-muted ">Name:<br></strong> <?= $title ?></h3>
+                <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                    <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                        <div class="ms-3 d-flex flex-row align-items-center">
+                            <h3 class="flex-grow-1 lead"><strong class="pr-1  text-muted ">Name:<br></strong> <?= $title ?></h3>
+                        </div>
+                        <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
+                        <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                     </div>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
                 </div>
-            </div>
                 <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                     <div class="card-body px-2 mx-3 py-3 pt-4">
-                        <form method="POST" action="?id=$orgid">
+                        <form method="POST" action="?id=<?= $orgid ?>">
                             <input type="text" name="election-id" value="<?= $election_id ?>" style="display:none;">
                             <?php
                             $sql = "SELECT POSITION_ID as id,position FROM tb_position";
@@ -280,6 +291,9 @@ if ($hasElection) {
 
             });
         </script>
+        <?php
+            include('include/sweetalert.php');
+        ?>
 </body>
 
 </html>
