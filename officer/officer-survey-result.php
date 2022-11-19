@@ -249,7 +249,7 @@ if (isset($_SESSION['msg'])) {
                                     <tbody>
 
                                         <?php
-                                        $sql = "SELECT DISTINCT tb_survey_answers.submitted as date,tb_students.first_name as fn,tb_students.last_name as ln,tb_students.section as section FROM tb_survey_answers LEFT JOIN tb_students ON tb_survey_answers.student_no=tb_students.student_id WHERE survey_id='$id' ORDER BY tb_survey_answers.answer_id DESC";
+                                        $sql = "SELECT DISTINCT tb_survey_answers.submitted as date,tb_students.first_name as fn,tb_students.last_name as ln,tb_students.section as section FROM tb_survey_answers LEFT JOIN tb_students ON tb_survey_answers.student_no=tb_students.student_id WHERE tb_survey_answers.survey_id='$id' ORDER BY tb_survey_answers.answer_id DESC";
                                         $res = @mysqli_query($conn, $sql);
                                         if ($res->num_rows > 0) {
                                             while ($row = $res->fetch_assoc()) {

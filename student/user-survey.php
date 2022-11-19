@@ -56,18 +56,18 @@ if (isset($_POST['submit-response'])) {
   $query = $query . implode(",", $answers);
   if (@mysqli_query($conn, $query)) {
     $_SESSION["sweetalert"] = [
-        "title" => "Submit Response",
-        "text" => "Response has been submitted successfully.",
-        "icon" => "success", //success,warning,error,info
-        "redirect" => null,
-        ];
+      "title" => "Submit Response",
+      "text" => "Response has been submitted successfully.",
+      "icon" => "success", //success,warning,error,info
+      "redirect" => null,
+      ];
   } else {
     $_SESSION["sweetalert"] = [
-        "title" => "Submit Response",
-        "text" => "Unexpected error while submitting your response. Please try again.",
-        "icon" => "error", //success,warning,error,info
-        "redirect" => null,
-        ];
+          "title" => "Submit Response",
+          "text" => "Unexpected error while submitting your response. Please try again.",
+          "icon" => "error", //success,warning,error,info
+          "redirect" => null,
+          ];
   }
 }
 
@@ -75,27 +75,29 @@ if (isset($_POST['submit-response'])) {
 $hasSurvey = false;
 
 $curdate = date('Y-m-d');
-$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date) AND tb_surveys.survey_id NOT IN (SELECT DISTINCT tb_survey_answers.survey_id FROM tb_survey_answers WHERE tb_survey_answers.survey_id=tb_surveys.survey_id AND tb_survey_answers.student_no='$data_userid')";
+$sql = "SELECT * FROM tb_surveys WHERE tb_surveys.org_id='$orgid' AND ('$curdate'>=tb_surveys.start_date AND '$curdate'<=tb_surveys.end_date)";
 if ($res = @mysqli_query($conn, $sql)) {
-  if ($res->num_rows > 0) {
+  while ($row = $res->fetch_assoc()) {
     $hasSurvey = true;
 
-    $row = $res->fetch_assoc();
     $survey_id = $row['survey_id'];
     $title = $row['title'];
     $description = $row['description'];
     $start_date = $row['start_date'];
     $end_date = $row['end_date'];
+
+    // Check if already submitted a response
+    $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid' LIMIT 0,1";
+    if ($res1 = @mysqli_query($conn, $query)) {
+      if ($res1->num_rows > 0) {
+        $hasSurvey = false;
+      } else {
+        break;
+      }
+    }
   }
 }
 
-// Check if already submitted a response
-if ($hasSurvey) {
-  $query = "SELECT answer_id FROM tb_survey_answers WHERE survey_id='$survey_id' AND student_no='$data_userid'";
-  if ($res = @mysqli_query($conn, $query)) {
-    if ($res->num_rows > 0) $hasSurvey = false;
-  }
-}
 
 
 if (isset($_SESSION['msg'])) {
@@ -123,9 +125,7 @@ if (isset($_SESSION['msg'])) {
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <!-- calendar
-<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
-<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> !-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -249,20 +249,20 @@ if (isset($_SESSION['msg'])) {
               ?>
                 <p><?= $count . ". " . $row['question'] ?></p>
                 <div class="rating">
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio1" value="0">
-                  <label for="radio1" title="<?= $ratings[0] ?? "" ?>">1</label>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-1" value="0">
+                  <label for="q-7-<?= $row['question_id'] ?>-1" title="<?= $ratings[0] ?? "" ?>">1</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio2" value="1">
-                  <label for="radio2" title="<?= $ratings[1] ?? "" ?>">2</label>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-2" value="1">
+                  <label for="q-7-<?= $row['question_id'] ?>-2" title="<?= $ratings[1] ?? "" ?>">2</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio3" value="2">
-                  <label for="radio3" title="<?= $ratings[2] ?? "" ?>">3</label>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-3" value="2">
+                  <label for="q-7-<?= $row['question_id'] ?>-3" title="<?= $ratings[2] ?? "" ?>">3</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio4" value="3">
-                  <label for="radio4" title="<?= $ratings[3] ?? "" ?>">4</label>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-4" value="3">
+                  <label for="q-7-<?= $row['question_id'] ?>-4" title="<?= $ratings[3] ?? "" ?>">4</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="radio5" value="4" checked>
-                  <label for="radio5" title="<?= $ratings[4] ?? "" ?>">5</label>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-5" value="4" checked>
+                  <label for="q-7-<?= $row['question_id'] ?>-5" title="<?= $ratings[4] ?? "" ?>">5</label>
                 </div>
                 <div class="rating-footer mb-3">
                   <span><?= $ratings[0] ?? "Very Unsatisfied" ?></span>
@@ -320,6 +320,9 @@ if (isset($_SESSION['msg'])) {
       Waves.attach('#sidebar ul li a');
       Waves.init();
     </script>
+    <?php
+      include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

@@ -271,7 +271,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
                   </div>
                 </div>
-                <div class="col-12 col-md-12  mb-4">
+                <div class="col-12 col-md-6  mb-4">
                   <label class="form-label">College Department</label>
                   <select class="form-select" style="width:100%;" name="college_id" id="college_id">
                     <option class="greyclr" selected disabled value="">Select College</option>
@@ -284,7 +284,7 @@ if (isset($_SESSION['msg'])) {
                     ?>
                   </select>
                 </div>
-                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="signatory_id">Student Adviser</label>
                     <select class="form-select" style="width:100%;" name="signatory_id" id="signatory_id">
@@ -298,7 +298,7 @@ if (isset($_SESSION['msg'])) {
                       ?>
                     </select>
                   </div>
-                </div>-->
+                </div>
               </div>
             </div>
           </div>
