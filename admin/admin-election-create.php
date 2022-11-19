@@ -202,8 +202,9 @@ if (isset($_POST['create-election'])) {
                             <button type="button" class="btn btn-primary col-2" id="searchbtn"><i class="bi bi-search"></i> <span id="btntitle"> Search</span></button>
                         </div>
                         <div id="selections">
-                            <ul class="list-group m-0 w-100" id="listselections" size="6">
-                            </ul>
+                            <select  style="max-height: 30vh; min-height: 30vh; width: 100%; border: 0;"
+                        class="list-group list-group-available-items overflow-auto" id="listselections" size="6">
+                            </select>
                         </div>
                     </div>
 
@@ -287,7 +288,7 @@ if (isset($_POST['create-election'])) {
                         var options = "";
                         $.each(data, function(i, item) {
                             name = item.fname + " " + item.mname + " " + item.lname;
-                            options = options + '<li class="list-group-item list-group-item-action" value="' + item.id + '">' + name + ' (' + item.section + ')</li>\n';
+                            options = options + '<option class="list-group-item list-group-item-action" value="' + item.id + '">' + name + ' (' + item.section + ')</option>\n';
                         });
 
                         $('#listselections').html(options);
