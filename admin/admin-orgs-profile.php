@@ -136,10 +136,10 @@ if (isset($_SESSION['msg'])) {
                             $typeID = $row[0];
                               if($typeID == 1)
                               {
-                                echo "Main Organization";
+                                echo "Academic Organization";
                               }else
                               {
-                                echo "Side Organization";
+                                echo "Non-Academic Organization";
                               }
 
                           ?>
@@ -199,10 +199,10 @@ if (isset($_SESSION['msg'])) {
                             $typeID = $row[0];
                               if($typeID == 1)
                               {
-                                echo "Main Organization";
+                                echo "Academic Organization";
                               }else
                               {
-                                echo "Side Organization";
+                                echo "Non-Academic Organization";
                               }
 
                           ?>

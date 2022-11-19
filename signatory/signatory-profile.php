@@ -152,7 +152,7 @@ if (isset($_SESSION['msg'])) {
                           } ?></td>
                     </tr>
                     <!--  <tr>
-                      <th width="30%">Side Organization </th>
+                      <th width="30%">Non-Academic Organization </th>
                       <td width="2%">:</td>
                       <td></td>
                     </tr>

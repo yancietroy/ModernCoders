@@ -172,7 +172,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
+                                <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
                               <button type='button' class='btn btn-secondary btn-sm deletebtn'>  <i class='bi bi-archive-fill'></i> </button>
                               </td>
                               <td> $std  </td>

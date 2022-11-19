@@ -63,7 +63,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
           echo "<script type='text/javascript'>
                 Swal.fire({
                           icon: 'error',
-                          title: 'Side Organization Exists',
+                          title: 'Non-Academic Organization Exists',
                           text: 'You cannot join another student organization',
                           confirmButtonColor: '#F2AC1B'
                          }).then(function(){

@@ -323,7 +323,7 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Main Organization:</label>
+                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
                       $query = "SELECT ORG_ID, ORG FROM tb_orgs";
@@ -337,7 +337,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="ORG_IDS">Side Organization:</label>
+                    <label class="form-label" for="ORG_IDS">Non-Academic Organization:</label>
                     <select class="form-select" name="ORG_IDS" id="ORG_IDS">
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <option class="greyclr" value="" text-muted>Clear</option>

@@ -125,7 +125,7 @@ if (isset($_SESSION['msg'])) {
                       <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Main Organization </th>
+                      <th width="30%">Academic Organization </th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
@@ -135,7 +135,7 @@ if (isset($_SESSION['msg'])) {
                           } ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Side Organizations </th>
+                      <th width="30%">Non-Academic Organizations </th>
                       <td width="2%">:</td>
                       <td>
                         <?php

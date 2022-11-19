@@ -187,7 +187,7 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
                     <div class="mb-4">
                         <label class="form-label" for="ORGNAME"><?php
                                                                 if ($data_type == 2) {
-                                                                    echo "Side Organization";
+                                                                    echo "Non-Academic Organization";
                                                                 } else if ($data_type == 1) {
                                                                     echo "Mother Organization";
                                                                 } else {

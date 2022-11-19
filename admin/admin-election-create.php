@@ -165,9 +165,9 @@ if (isset($_POST['create-election'])) {
                                 while ($rowOrgs = $resOrgs->fetch_assoc()) {
                                     $orgname = $rowOrgs['ORG'];
                                     if ($rowOrgs['ORG_TYPE_ID'] == 1) {
-                                        $orgname = "Main - " . $orgname;
+                                        $orgname = "Academic - " . $orgname;
                                     } else {
-                                        $orgname = "Side - " . $orgname;
+                                        $orgname = "Non-Academic - " . $orgname;
                                     }
                             ?>
                                     <option value="<?= $rowOrgs['ORG_ID'] . "::" . $rowOrgs['ORG_TYPE_ID'] ?>"><?= $orgname ?></option>
