@@ -15,7 +15,7 @@ $nav_breadcrumbs = [
   ["Home", "admin-index.php", "bi-house-fill"],
   ["Site Management", "", ""],
   ["Organizations", "admin-orgs.php", ""],
-  ["Academic Orgs", "", ""],
+  ["Non-Academic Orgs", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
