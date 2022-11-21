@@ -116,6 +116,18 @@ if (isset($_SESSION['msg'])) {
               <a href="signatory-orgs-rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
+        <div class="col-lg-3 col-8 mb-4">
+          <div class="card-counter done">
+            <div class="inner">
+              <h3><i class="bi bi-inbox"></i></h3>
+              <p>Forum</p>
+            </div>
+            <div class="icon">
+              <i class="bi bi-inbox-fill"></i>
+            </div>
+            <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
         </div>
 
 
