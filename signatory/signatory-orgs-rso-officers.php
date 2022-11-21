@@ -13,7 +13,7 @@ $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Home";
+$nav_selected = "Organizations / Officers";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Officers", "", "bi bi-person-badge"],

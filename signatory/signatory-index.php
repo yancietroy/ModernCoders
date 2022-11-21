@@ -91,9 +91,22 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
       <h4 class="ms-4">Dashboard</h4>
-      <div class="row ms-2 mb-4 mt-4">
+      <div class="row ms-2 me-2 mb-4 mt-4">
+
+            <div class="col-lg-3 col-8 mb-4">
+            <div class="card-counter bg-primary">
+              <div class="inner">
+                <h2><i class="bi bi-diagram-3"></i></h2>
+                <p>Organization</p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <a href="signatory-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
         <div class="col-lg-3 col-8 mb-4">
-          <div class="card-counter bg-primary">
+          <div class="card-counter bg-info">
             <div class="inner">
               <h2> <i class="bi bi-folder"></i></h2>
               <p>Projects</p>
@@ -104,30 +117,30 @@ if (isset($_SESSION['msg'])) {
             <a href="signatory-projects.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-            <div class="col-lg-3 col-8 mb-4">
-            <div class="card-counter bg-info">
-              <div class="inner">
-                <h2><i class="bi bi-person-badge"></i></h2>
-                <p>Officers</p>
-              </div>
-              <div class="icon">
-                <i class="bi bi-person-badge"></i>
-              </div>
-              <a href="signatory-orgs-rso-officers.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-        <div class="col-lg-3 col-8 mb-4">
-          <div class="card-counter done">
+          <div class="col-lg-3 col-8 mb-4">
+          <div class="card-counter events">
             <div class="inner">
-              <h3><i class="bi bi-inbox"></i></h3>
-              <p>Forum</p>
+              <h2><i class="bi bi-calendar2"></i></h2>
+              <p>Event Calendar</p>
             </div>
             <div class="icon">
-              <i class="bi bi-inbox-fill"></i>
+              <i class="bi bi-calendar2-fill"></i>
             </div>
-            <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="event-calendar.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        <div class="col-lg-3 col-8 mb-4">
+        <div class="card-counter done">
+          <div class="inner">
+            <h2><i class="bi bi-inbox"></i></h2>
+            <p>Forums</p>
+          </div>
+          <div class="icon">
+          <i class="bi bi-inbox-fill"></i>
+          </div>
+          <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
         </div>
 
 

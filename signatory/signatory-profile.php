@@ -58,7 +58,7 @@ if (isset($_SESSION['msg'])) {
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
           <div class="row">
-            <div class="col-12 col-lg-4 mb-4">
+            <div class="col-lg-12 mb-4 col-12">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -69,6 +69,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
+                  <small class="pt-3">COMSOC 2 years Adviser</small>
                 </div>
                 <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
@@ -85,7 +86,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-lg-12 mb-4 col-12">
               <div class="card card-profile shadow" id="card-large">
                 <div class="card-header bg-transparent border-0">
                   <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
@@ -151,13 +152,13 @@ if (isset($_SESSION['msg'])) {
                             echo "$row[user_type]";
                           } ?></td>
                     </tr>
-                    <!--  <tr>
-                      <th width="30%">Non-Academic Organization </th>
+                     <tr>
+                      <th width="30%">School Year </th>
                       <td width="2%">:</td>
-                      <td></td>
+                      <td>2021-2022</td>
                     </tr>
                     <tr>
-                      <th width="30%">Position  </th>
+                    <!--  <th width="30%">Position  </th>
                       <td width="2%">:</td>
                     <td></td>
                   </tr>-->
@@ -184,7 +185,7 @@ if (isset($_SESSION['msg'])) {
                                                                                                     if ($row) {
                                                                                                       echo "$row[ORG]";
                                                                                                     } ?></p>
-
+                      <p class="mb-0"><strong class="pr-1">School Year:</strong>2021-2022</p>
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $data_userid . "' >Edit Profile</button>"; ?>

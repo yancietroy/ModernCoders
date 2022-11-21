@@ -12,7 +12,7 @@ $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $stid = $_SESSION['SIGNATORY-TYPE'];
 $data_picture = getProfilePicture(1, $data_userid);
-$nav_selected = "Calendar";
+$nav_selected = "Organizations / Calendar";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Event Calendar", "", "bi-calendar2-fill"],

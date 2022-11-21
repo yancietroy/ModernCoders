@@ -92,11 +92,13 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
             </div>
-            <div class="col-lg-12 col-12 ">
-              <div class="card shadow-sm" id="card-large">
-                <div class="card-header bg-transparent border-0">
-                  <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
+            <div class="col-lg-12 mb-4 col-12">
+            <div class="card card-profile shadow" id="card-large">
+              <div class="card-header bg-transparent border-0">
+                <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
+                  <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i> Student Information</h3>
                 </div>
+              </div>
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered" id="proftable">
 
