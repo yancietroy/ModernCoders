@@ -84,6 +84,7 @@ if (isset($_SESSION['msg'])) {
                                                                             echo "$row[signatory]";
                                                                           } ?></p>
                 </div>
+              <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
               </div>
             </div>
             <div class="col-lg-12 mb-4 col-12">

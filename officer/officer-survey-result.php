@@ -305,7 +305,7 @@ if (isset($_SESSION['msg'])) {
                             </table>
                         </div>
                         <div class="modal-footer py-2 px-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button>
                         </div>
                     </div>
                 </div>

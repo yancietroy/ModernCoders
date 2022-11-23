@@ -438,7 +438,7 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button><!--
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Cancel Project</a>
                   <button class="btn btn-md btn-done" name="Done"> Project Done</a>!-->
               </div>
@@ -488,7 +488,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

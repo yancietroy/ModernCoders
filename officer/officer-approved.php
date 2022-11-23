@@ -402,7 +402,8 @@ if (isset($_SESSION['msg'])) {
                     <?php
                       if($result->num_rows > 0){
                     ?>
-                    <table class="table" id="budget-request">
+                    <div class="table-responsive">
+                    <table id="budget-request" class="table table-striped table-hover responsive" cellspacing="0" width="100%">
                       <thead>
                         <th>Item</th>
                         <th>Budget</th>
@@ -414,6 +415,7 @@ if (isset($_SESSION['msg'])) {
                       }
                     ?>
                   </div>
+                    </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
                   <div class="form-outline projectdesc">
@@ -432,11 +434,12 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button>
                 <?php
                 if ($_SESSION['USER-POS'] <= 5) {
                 ?>
-                  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button>
+
                   <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
                     <button class="btn btn-md  btn-info" name="Ongoing">Ongoing</a>
                     <?php
@@ -451,7 +454,7 @@ if (isset($_SESSION['msg'])) {
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-
+</script>
   <script>
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
@@ -489,7 +492,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

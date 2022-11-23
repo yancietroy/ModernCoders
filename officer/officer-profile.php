@@ -87,7 +87,7 @@ if (isset($_SESSION['msg'])) {
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
-                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2021-2022</p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
@@ -403,7 +403,7 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button>
               <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
             </div>
           </div>

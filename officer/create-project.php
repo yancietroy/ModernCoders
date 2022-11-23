@@ -433,7 +433,7 @@ $nav_breadcrumbs = [
           for (var j = 0; j < i; j++) {
             s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
           }
-          s2 += "</table>";
+          s2 += "<tr><td></td><td><input type='text' id='estimated_budget' readonly='readonly' style='background-color:#C0C0C0' /></td></tr></table>";
           $('#amortizationTable').html(s2);
         });
 

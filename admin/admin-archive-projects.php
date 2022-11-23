@@ -413,7 +413,7 @@ if (isset($_SESSION['msg'])) {
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+          <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button><!--!-->
               <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
             </div>
         </form>

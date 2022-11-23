@@ -57,7 +57,7 @@ if (isset($_SESSION['msg'])) {
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
           <div class="row">
-            <div class="col-12 col-lg-4 mb-4">
+            <div class="col-12 col-lg-12 mb-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -68,20 +68,22 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
+                  <small class="pt-3">My name is Trisha, I am a COMSOC Member</small>
                 </div>
                 <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
                 $data = @mysqli_fetch_array($result);
                 $si = $data['STUDENT_ID']; ?>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo "$si"; ?></p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo "$data[YEAR_LEVEL]"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo "$data[SECTION]"; ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-12">
               <div class="card card-profile shadow" id="card-large">
                 <div class="card-header bg-transparent border-0">
                   <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
