@@ -24,12 +24,32 @@ if ($threadid <= 0) {
 
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Home";
+$nav_selected = "Organizations / Discussion Forum";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Board", "forum-user.php", ""],
+  ["Discussion Forum", "forum-user.php", ""],
   ["Threads", "", ""],
   ["Post", "", ""],
   ];

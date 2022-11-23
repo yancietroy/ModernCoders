@@ -9,9 +9,12 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
+
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
 $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
@@ -21,11 +24,21 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $orgName = $row['ORG'];
   }
 }
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Discussion Forum";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Board", "", ""],
+  ["Discussion Forum", "", ""],
   ];
 
 if (isset($_SESSION['msg'])) {
@@ -91,7 +104,7 @@ if (isset($_SESSION['msg'])) {
                                         <h3><?= $groups['name'] ?></h3>
                                     </div>
                                     <?php
-                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$data_orgid') AND (visibility='0' OR visibility='2' OR visibility='5' OR visibility='3')";
+                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$data_orgid' OR org_id='$orgid') AND (visibility='0' OR visibility='2' OR visibility='5' OR visibility='3')";
                                     if ($res2 = @mysqli_query($conn, $sqlTopics)) {
                                         if ($res2->num_rows > 0) {
                                             while ($topics = $res2->fetch_assoc()) {

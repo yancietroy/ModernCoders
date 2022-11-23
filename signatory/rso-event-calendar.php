@@ -8,20 +8,22 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
-$data_userid = $_SESSION['USER-ID'];
-$data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$orgid = $_GET['id'] ?? -1;
 $orgName = "";
-$_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
+  } else {
+    header('location:admin-orgs.php');
   }
 }
 
+$data_userid = $_SESSION['USER-ID'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
@@ -32,10 +34,12 @@ if ($collRes = @mysqli_query($conn, $query)) {
   } 
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Calendar";
+$nav_selected = "Organizations/ Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Event Calendar", "", "bi-calendar2-fill"],
+  ["Organizations", "", "bi bi-diagram-3-fill"],
+  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
+  ["Event Calendar", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -43,7 +47,6 @@ if (isset($_SESSION['msg'])) {
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,17 +54,23 @@ if (isset($_SESSION['msg'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
-  <title>JRU Student Organizations Portal Signatory</title>
+  <title>JRU Student Organizations Portal</title>
+
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Waves CSS CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Datatable Default-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
+
   <!-- Icons -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
   <!-- calendar!-->
   <script src="../assets/js/main.min.js"></script>
@@ -72,6 +81,7 @@ if (isset($_SESSION['msg'])) {
 
 <body>
   <div class="d-flex" id="wrapper">
+
     <!-- Sidebar  -->
     <?php include("include/sidebar.php") ?>
 
@@ -155,8 +165,8 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer rounded-0">
                 <div class="text-end">
-                  <!--  <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>
-                          <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>-->
+                  <!--  <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>-->
+                  <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>
                   <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -166,14 +176,7 @@ if (isset($_SESSION['msg'])) {
         <!-- Event Details Modal -->
 
         <?php
-        if($data_orgid == NULL)
-        {
-          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Done'");
-        }
-        else
-        {
-          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$data_orgid' AND status='Approved' OR status='Done'");
-        }
+        $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date FROM `tb_projectmonitoring` WHERE org_id='$orgid'");
         $sched_res = [];
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
           $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));

@@ -9,9 +9,28 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -80,12 +99,12 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if (isset($orgid) == NULL && $data_signatorytype == 2) {
+              if (isset($data_orgid) == NULL && $data_signatorytype == 2) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Ongoing') AND college_id = '$data_collegeid'";
-              } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
+              } elseif (isset($data_orgid) == NULL && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Ongoing')";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Ongoing') AND org_id = '$orgid'";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Ongoing') AND org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;

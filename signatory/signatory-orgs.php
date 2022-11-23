@@ -18,7 +18,15 @@ $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Organizations", "", "bi bi-diagram-3-fill"],
 ];
-
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
@@ -79,7 +87,11 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_orgs";
+              if ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
+              } elseif ($data_signatorytype == 1){
+                $query = "SELECT * FROM tb_orgs";
+              }
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";
@@ -129,21 +141,7 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
       </div>
-
-
     </div>
-    <!--   <div class="col">
-        Card with right text alignment
-          <div class="card text-end">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary">Know more</a>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
     <!-- Footer -->
     <div id="layoutAuthentication_footer">
       <footer class="py-2 bg-light mt-3">
@@ -156,137 +154,13 @@ if (isset($_SESSION['msg'])) {
     </div>
   </div>
   </div>
-  <!-- Org Modal -->
-  <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> View Organization Details </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="admin-update-orgs.php" method="POST">
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row justify-content-between">
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="ORG_ID">Organization ID:</label>
-                    <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="ORG">Organization name:</label>
-                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="updatedata" class="btn btn-success">Update Org</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive Oganization Data </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="admin-delete-org.php" method="POST">
-          <div class="modal-body">
-            <div class="col-12 col-md-12 justify-content-center ">
-              <div class="form-outline">
-                <label class="form-label" for="delete_id">Organization ID:</label>
-                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
-              </div>
-            </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Organization. Are you sure?</p>
-          </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
     $(document).on('click', '.viewbtn', function() {
       var ORG_ID = $(this).attr("id");
-      location.href = "admin-orgs-rso.php?id=" + ORG_ID;
-    });
-
-    $(document).on('click', '.editbtn', function() {
-      var ORG_ID = $(this).attr("id");
-      $.ajax({
-        url: "admin-fetch-org.php",
-        method: "POST",
-        data: {
-          ORG_ID: ORG_ID
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log(data);
-          $('#ORG_ID').val(data.ORG_ID);
-          $('#ORG').val(data.ORG);
-          $('#viewmodal').modal('show');
-          $('#modal-lg').css('max-width', '70%');
-        }
-      });
-
-      // UPPERCASE FIRST LETTER
-      document.getElementById("ORG").addEventListener("input", forceLower);
-      // event that triggered them as the first argument (evt)
-      function forceLower(evt) {
-        // Get an array of desktop the words (in desktop lower case)
-        var words = evt.target.value.toLowerCase().split(/\s+/g);
-
-        // Loop through the array and replace the first letter with a cap
-        var newWords = words.map(function(element) {
-          // As long as we're not dealing with an empty array element, return the first letter
-          // of the word, converted to upper case and add the rest of the letters from this word.
-          // Return the final word to a new array
-          return element !== "" ? element[0].toUpperCase() + element.substr(1, element.length) : "";
-        });
-
-        // Replace the original value with the updated array of capitalized words.
-        evt.target.value = newWords.join(" ");
-      }
-
-
-    });
-  </script>
-
-  <script>
-    $(document).on('click', '.deletebtn', function() {
-      var ORG_ID = $(this).attr("id");
-      $.ajax({
-        url: "admin-fetch-org.php",
-        method: "POST",
-        data: {
-          ORG_ID: ORG_ID
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log(data);
-          $('#delete_id').val(data.ORG_ID);
-          $('#deletemodal').modal('show');
-        }
-      });
+      location.href = "signatory-orgs-rso.php?id=" + ORG_ID;
     });
   </script>
   <?php @mysqli_close($conn); ?>

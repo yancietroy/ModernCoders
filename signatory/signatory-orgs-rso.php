@@ -27,11 +27,23 @@ $logoPic = getOrgLogo($orgid);
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
+
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["$orgName", "", ""],
+  ["Organizations", "", "bi bi-diagram-3-fill"],
+  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -114,7 +126,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-file-person"></i>
             </div>
-            <a href="admin-orgs-rso-members.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-orgs-rso-members.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -126,7 +138,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-person-badge"></i>
             </div>
-            <a href="admin-orgs-rso-officers.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-rso-officers.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -138,7 +150,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-person-rolodex"></i>
             </div>
-            <a href="admin-orgs-rso-signatories.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-orgs-rso-signatories.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6" id="eventhide">
@@ -150,7 +162,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-calendar3-fill"></i>
             </div>
-            <a href="event-calendar.php?id=<?= $data_orgid ?>" class=" card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="rso-event-calendar.php?id=<?= $orgid ?>" class=" card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -162,7 +174,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-file-bar-graph-fill" aria-hidden="true"></i>
             </div>
-            <a href="admin-survey.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-rso-survey.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -176,7 +188,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-inbox-fill"></i>
             </div>
-            <a href="forum-user.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="forum-user.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6 mb-4">
@@ -188,7 +200,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
               <i class="bi bi-folder-fill"></i>
             </div>
-            <a href="admin-projects.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-rso-projects.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
@@ -200,7 +212,7 @@ if (isset($_SESSION['msg'])) {
             <div class="icon">
             <i class="bi bi-card-heading"></i>
             </div>
-            <a href="admin-orgs-profile.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="signatory-rso-profile.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

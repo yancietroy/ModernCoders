@@ -9,21 +9,21 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $orgid = $_GET['id'] ?? -1;
-
-$data_userid = $_SESSION['USER-ID'];
-$data_orgid = $_SESSION['USER-ORG'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
-$_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
-  } 
+  } else {
+    header('location:admin-orgs.php');
+  }
 }
 
+$data_userid = $_SESSION['USER-ID'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
@@ -33,13 +33,15 @@ if ($collRes = @mysqli_query($conn, $query)) {
     $collName = $row['college'];
   } 
 }
-
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Officers";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Officers", "", "bi bi-person-badge"],
-  ];
+  ["Organizations", "signatory-orgs.php", "bi bi-diagram-3-fill"],
+  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
+  ["Officers", "", ""],
+];
+
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -71,7 +73,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -91,9 +93,11 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>Officer List</h4>
+          <h4 id="rsotitle"><?php echo $orgName; ?> Officers</h4>
         </div>
-
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
+        </div>
       </div>
 
       <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
@@ -101,13 +105,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              if ($data_signatorytype == 2) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
-              } elseif ($data_signatorytype == 1) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
-              } elseif ($data_signatorytype == 3) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$data_orgid'";
-              }
+              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id  WHERE tb_officers.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $oi = " ";
@@ -120,22 +118,22 @@ if (isset($_SESSION['msg'])) {
               $c = " ";
               $si = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
-                          <thead>
-                            <tr>
-                                <th class='desktop'>Officer ID</th>
-                                <th class='desktop'>Student ID</th>
-                                <th class='desktop'>Position</th>
-                                <th class='none'>Organization</th>
-                                <th class='desktop'>First Name</th>
-                                <th class='none'>Middle Name</th>
-                                <th class='desktop'>Last name</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Course</th>
-                                <th class='desktop'>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
+                        <thead>
+                          <tr>
+                              <th class='desktop'>Officer ID</th>
+                              <th class='desktop'>Student ID</th>
+                              <th class='desktop'>Position</th>
+                              <th class='none'>Organization</th>
+                              <th class='desktop'>First Name</th>
+                              <th class='none'>Middle Name</th>
+                              <th class='desktop'>Last name</th>
+                              <th class='none'>Email</th>
+                              <th class='none'>Course</th>
+                              <th class='desktop'>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    ";
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
@@ -150,23 +148,23 @@ if (isset($_SESSION['msg'])) {
                   $c = $row['course'];
 
                   echo "<tr>
-                              <td> $oi  </td>
-                              <td> $si  </td>
-                              <td> $p  </td>
-                              <td> $org  </td>
-                              <td> $fn  </td>
-                              <td> $mn </td>
-                              <td> $ln </td>
-                              <td> $e </td>
-                              <td> $c </td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              </td>
-                              </tr>
-                          ";
+                            <td> $oi  </td>
+                            <td> $si  </td>
+                            <td> $p  </td>
+                            <td> $org  </td>
+                            <td> $fn  </td>
+                            <td> $mn </td>
+                            <td> $ln </td>
+                            <td> $e </td>
+                            <td> $c </td>
+                            <td>
+                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
+                            </td>
+                            </tr>
+                        ";
                 }
                 echo "</tbody>
-                        </table>";
+                      </table>";
               }
               //$conn->close();
               ?>
@@ -179,7 +177,7 @@ if (isset($_SESSION['msg'])) {
 
     </div>
     <!--   <div class="col">
-        Card with right text alignment
+      Card with right text alignment
           <div class="card text-end">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -212,7 +210,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="" method="POST">
+        <form action="admin-update-officer.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -288,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="birthdate">Birthdate:</label>
-                    <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" style="background-color: #fff;" title="You should be over 18 years old" readonly />
+                    <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
@@ -299,7 +297,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="gender">Gender</label>
-                  <select class="form-select" name="gender" id="gender">
+                  <select class="form-select" name="gender" id="gender"readonly>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                   </select>
@@ -344,7 +342,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
-                    <select class="form-select" name="user_type" id="user_type" readonly>
+                    <select class="form-select" name="user_type" id="user_type"readonly>
                       <?php
                       $query = "SELECT * FROM tb_usertypes";
                       $result = @mysqli_query($conn, $query);
@@ -364,7 +362,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="year_level">Year Level:</label>
-                    <select class="form-select" name="year_level" id="year_level">
+                    <select class="form-select" name="year_level" id="year_level"readonly>
                       <option value="1">Year 1</option>
                       <option value="2">Year 2</option>
                       <option value="3">Year 3</option>
@@ -374,46 +372,16 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly />
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!--<button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
           </div>
       </div>
       </form>
     </div>
   </div>
   </div>
-  <!--<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive Student User </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="admin-delete-officer.php" method="POST">
-          <div class="modal-body">
-            <div class="col-12 col-md-12 justify-content-center ">
-              <div class="form-outline">
-                <label class="form-label" for="delete_id">Officer Student ID:</label>
-                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
-              </div>
-            </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
-          </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="deletedata" class="btn btn-info">Archive</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>-->
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -604,10 +572,6 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/age-validation.js"></script>
-
-  <?php
-  include('include/sweetalert.php');
-  ?>
 </body>
 
 </html>

@@ -8,19 +8,22 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
-$data_userid = $_SESSION['USER-ID'];
-$data_orgid = $_SESSION['USER-ORG'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
+$orgid = $_GET['id'] ?? -1;
 $orgName = "";
-$_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
+  } else {
+    header('location:admin-orgs.php');
   }
 }
+
+$data_userid = $_SESSION['USER-ID'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
@@ -31,10 +34,12 @@ if ($collRes = @mysqli_query($conn, $query)) {
   } 
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Projects";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Projects", "signatory-projects.php", "bi-folder-fill"],
+  ["Organizations", "", "bi bi-diagram-3-fill"],
+  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
+  ["Projects", "signatory-rso-projects.php?id=$orgid", ""],
   ["Approved", "", ""],
 ];
 
@@ -43,6 +48,7 @@ if (isset($_SESSION['msg'])) {
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,31 +56,24 @@ if (isset($_SESSION['msg'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" type="image/jpg" href="../assets/img/jrusop-fav.ico" />
-  <title>JRU Student Organizations Portal Signatory</title>
+  <title>JRU Student Organizations Portal</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Waves CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Datatable Default-->
+  <!-- waves CSS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
-  <!-- Datatable BS5
-  <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
-  -->
-  <!-- Icons -->
+
+  <!-- Icons-->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
 </head>
 
 <body>
   <div class="d-flex" id="wrapper">
-
     <!-- Sidebar  -->
     <?php include("include/sidebar.php") ?>
 
@@ -89,7 +88,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Signatory Projects Approved List</h4>
+          <h4>Officer Projects Approved List</h4>
         </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
@@ -97,13 +96,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if (isset($data_orgid) == NULL && $data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND approval_id = 4 AND college_id = '$data_collegeid'";
-              } elseif (isset($data_orgid) == NULL && $data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND approval_id = 4";
-              } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND org_id = '$data_orgid' AND approval_id = 4";
-              }
+              $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Approved') AND ORG_ID = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -190,7 +183,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $ds </td>
                               <td>
                                 <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
+                            <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
+                              </a>
                               </td>
                               <td> $std  </td>
                               <td> $obj  </td>
@@ -256,7 +250,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -453,13 +447,12 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-2 py-2 pt-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+            <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
           </div>
         </form>
       </div>
     </div>
   </div>
-
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -501,12 +494,13 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>${data[1]}</td>
+                <td>PHP ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
           });
 
+          $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
@@ -518,7 +512,7 @@ if (isset($_SESSION['msg'])) {
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <!-- Popper.JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <!-- Bootstrap JS -->
@@ -710,9 +704,6 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
-  <?php
-  include('include/sweetalert.php');
-  ?>
 </body>
 
 </html>

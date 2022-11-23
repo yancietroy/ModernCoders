@@ -9,9 +9,27 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
@@ -75,7 +93,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 3";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND org_id = '$data_orgid' AND approval_id = 1";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -100,7 +118,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND approval_id = 4";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND org_id = '$orgid' AND approval_id = 4";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND org_id = '$data_orgid' AND approval_id = 4";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -125,7 +143,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected')";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND org_id = '$orgid'";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND org_id = '$data_orgid'";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -150,7 +168,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule')";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$orgid'";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$data_orgid'";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -177,7 +195,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing')";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$data_orgid'";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -201,7 +219,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done')";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND org_id = '$orgid'";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND org_id = '$data_orgid'";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
@@ -227,7 +245,7 @@ if (isset($_SESSION['msg'])) {
                   } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                     $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision')";
                   } elseif ($data_signatorytype == 3) {
-                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$data_orgid'";
                   }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);

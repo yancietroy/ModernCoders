@@ -11,6 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Home";
 $orgName = "";
@@ -20,6 +21,16 @@ if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
+  } 
+}
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
   } 
 }
 
@@ -123,7 +134,7 @@ if (isset($_SESSION['msg'])) {
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
-                <p>Organization</p>
+                <p><?php echo"$collName"; ?></p>
               </div>
               <div class="icon">
                 <i class="bi bi-diagram-3-fill"></i>

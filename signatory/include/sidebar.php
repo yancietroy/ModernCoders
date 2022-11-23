@@ -27,7 +27,7 @@
                     }
                     elseif($data_signatorytype == 2){
                     ?>
-                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span>Organization</span></a>
+                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$collName"; ?></span></a>
                     <?php
                     }
                     elseif($data_signatorytype == 3){
