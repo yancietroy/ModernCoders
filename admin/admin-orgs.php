@@ -79,7 +79,12 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-success">
             <div class="inner">
-              <h2><i class="bi bi-book"></i></h2>
+              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 1";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
               <p>Academic</p>
             </div>
             <div class="icon">
@@ -91,7 +96,12 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h2><i class="bi bi-dice-5"></i></h2>
+              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
               <p>Non-Academic</p>
             </div>
             <div class="icon">
@@ -103,7 +113,12 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
-              <h2>  <i class="bi bi-briefcase"></i></h2>
+              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
               <p>Org Masterlist</p>
             </div>
             <div class="icon">
