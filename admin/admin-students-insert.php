@@ -85,6 +85,7 @@ if(!empty($_GET['status'])){
 
       <!-- breadcrumb -->
       <?php include("include/breadcrumb.php") ?>
+
       <!-- Display status message -->
       <?php if(!empty($statusMsg)){ ?>
     <div class='col-xs-12' id='box'>
@@ -94,11 +95,13 @@ if(!empty($_GET['status'])){
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Students Masterlist</h4>
+          <h4>Students Bulk Register</h4>
         </div>
     <!-- Page content-->
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-circle button px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
+        <div class="float-right">
+            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
+        </div>
         </div>
       </div>
 
@@ -110,7 +113,7 @@ if(!empty($_GET['status'])){
                   <label class="form-label mb-2" for="attachments" id="asterisk">Import CSV:</label>
                   <div class="d-flex">
                   <input class="form-control mr-1" type="file" name="file" required>
-                  <input type="submit" class="btn btn-primary" name="importSubmit" value="Import">
+                  <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
 
@@ -119,89 +122,37 @@ if(!empty($_GET['status'])){
               </div>
             </form>
 </div>
-          <div class="row g-0 justify-content-center ">
-            <div class="table-responsive ms-2">
-              <?php
-              $query = "SELECT * FROM tb_students";
-              $result = @mysqli_query($conn, $query);
-              $i = 0;
-              $ds = " ";
-              $pi = " ";
-              $pn = " ";
-              $v = " ";
-              $s = " ";
-              echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
-                          <thead>
-                            <tr>
-                                <th class='desktop'>Student ID</th>
-                                <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
-                                <th class='desktop'>Last name</th>
-                                <th class='desktop'>Age</th>
-                                <th class='desktop'>Gender</th>
-                                <th class='desktop'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Birthdate</th>
-                                <th class='none'>Year Level</th>
-                                <th class='none'>Section</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                      ";
-              /*
-                      <th>College</th>
-                      <th>Organization</th>
-                      <th>Position</th>
-                      <th>Account Created</th>
-                      */
-              if ($result !== false && $result->num_rows > 0) {
-                // output data of each row
-                while ($row = $result->fetch_assoc()) {
-                  $si = $row['STUDENT_ID'];
-                  $fn = $row['FIRST_NAME'];
-                  $mn = $row['MIDDLE_NAME'];
-                  $ln = $row['LAST_NAME'];
-                  $a = $row['AGE'];
-                  $g = $row['GENDER'];
-                  $e = $row['EMAIL'];
-                  $bd = $row['BIRTHDATE'];
-                  $yl = $row['YEAR_LEVEL'];
-                  $se = $row['SECTION'];
-                  $c = $row['COURSE'];
-                  echo "<tr>
-                              <td> $si  </td>
-                              <td> $fn  </td>
-                              <td> $mn  </td>
-                              <td> $ln  </td>
-                              <td> $a </td>
-                              <td> $g</td>
-                              <td>
-                              <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                              <button type='button' class='btn btn-secondary btn-sm deletebtn' id='" . $si . "'>  <i class='bi bi-archive-fill'></i>  </button>
-                              </td>
-                              <td> $c</td>
-                              <td> $e </td>
-                              <td> $bd  </td>
-                              <td> $yl </td>
-                              <td> $se</td>
-                              </tr>
-                          ";
-                  /*
-                          <td>College</td>
-                          <td>Organization</td>
-                          <td>Position</td>
-                          <th>Account Created</th>
-                        */
-                }
-                echo "</tbody>
-                        </table>";
-              }
-              //$conn->close();
-              ?>
-
-            </div>
+    <!-- Data list table -->
+            <table class="table table-striped table-bordered">
+       <thead>
+           <tr>
+               <th>#ID</th>
+               <th>First Name</th>
+               <th>Last Name</th>
+               <th>Email</th>
+           </tr>
+       </thead>
+       <tbody>
+       <?php
+       // Get member rows
+       $result = $conn->query("SELECT * FROM tb_students2 ORDER BY USER_ID ASC");
+       if($result->num_rows > 0){
+           while($row = $result->fetch_assoc()){
+       ?>
+           <tr>
+                <td><?php echo $row['USER_ID']; ?></td>
+               <td><?php echo $row['FIRST_NAME']; ?></td>
+               <td><?php echo $row['LAST_NAME']; ?></td>
+               <td><?php echo $row['EMAIL']; ?></td>
+           </tr>
+       <?php } }else{ ?>
+           <tr><td colspan="5">No member(s) found...</td></tr>
+       <?php } ?>
+       </tbody>
+   </table>
           </div>
+
+
         </div>
       </div>
 
@@ -218,7 +169,17 @@ if(!empty($_GET['status'])){
           </div>
         </div>
       </div> -->
-
+      <!-- Show/hide CSV upload form -->
+      <script>
+      function formToggle(ID){
+          var element = document.getElementById(ID);
+          if(element.style.display === "none"){
+              element.style.display = "block";
+          }else{
+              element.style.display = "none";
+          }
+      }
+      </script>
     <!-- Footer -->
     <div id="layoutAuthentication_footer">
       <footer class="py-2 bg-light mt-3">
@@ -453,25 +414,7 @@ if(!empty($_GET['status'])){
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-  <script>
-  function formToggle(ID){
-      var element = document.getElementById(ID);
-      if(element.style.display === "none"){
-          element.style.display = "block";
-      }else{
-          element.style.display = "none";
-      }
-  }
-  </script>
-  <script type="text/javascript">
-    document.addEventListener('click', function handleClickOutsideBox(event) {
-      const box = document.getElementById('box');
 
-      if (!box.contains(event.target)) {
-        box.style.display = 'none';
-      }
-    });
-  </script>
   <script>
     $(document).on('click', '.viewbtn', function() {
       var STUDENT_ID = $(this).attr("id");
@@ -703,7 +646,15 @@ if(!empty($_GET['status'])){
 
     });
   </script>
+  <script type="text/javascript">
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+      const box = document.getElementById('box');
 
+      if (!box.contains(event.target)) {
+        box.style.display = 'none';
+      }
+    });
+  </script>
   <!--input mask-->
   <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
   <script src="../assets/js/inputmask-validation.js"></script>
