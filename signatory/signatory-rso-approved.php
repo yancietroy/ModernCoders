@@ -306,7 +306,7 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
+                  <label class="form-label" for="status">Project already approved by:</label>
                   <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">

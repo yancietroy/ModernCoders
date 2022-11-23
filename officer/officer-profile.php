@@ -76,18 +76,23 @@ if (isset($_SESSION['msg'])) {
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
+                  <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array($result);
+                  $si = $data['student_id']; 
+                  $bio = $data['bio']; ?>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
-                  <small class="pt-3">COMSOC 2 years Assistant Secretary</small>
+                  <small class="pt-3"><?php echo $bio; ?></small>
                 </div>
-                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
-                $result = @mysqli_query($conn, $query);
-                $data = @mysqli_fetch_array($result);
-                $si = $data['student_id']; ?>
                 <div class="card-body px-4">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
-                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
+                                                                              if($currentMonth >="08") 
+                                                                                echo date("Y") .'-'. (date("Y")+1);
+                                                                              if($currentMonth < "08")
+                                                                                echo (date("Y")-1) .'-'. date("Y");  ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
@@ -482,6 +487,7 @@ if (isset($_SESSION['msg'])) {
           $('#course').val(data.course);
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
+          $('#bio').val(data.bio);
           $('#profile_pic').val(data.profile_pic);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');

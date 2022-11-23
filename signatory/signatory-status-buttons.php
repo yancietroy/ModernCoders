@@ -3,6 +3,7 @@ ob_start();
 session_start();
 
 $orgid = $_SESSION['USER-ORG'];
+$data_username = $_SESSION['SIGNATORY'] . ' ' . $_SESSION['USER-NAME'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 //$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php');
@@ -20,7 +21,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -59,7 +60,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW() WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -101,7 +102,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -160,7 +161,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -200,7 +201,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -240,7 +241,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -299,7 +300,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -339,7 +340,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [
@@ -379,7 +380,7 @@ if ($data_signatorytype == 3) {
         $row = mysqli_fetch_array($result);
 
         if ($row) {
-            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati' WHERE `project_id` = '$id';";
+            $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
             if($result){
                         $_SESSION["sweetalert"] = [

@@ -67,16 +67,21 @@ if (isset($_SESSION['msg'])) {
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
+                  <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array($result);
+                  $si = $data['STUDENT_ID'];
+                  $bio = $data['BIO']; ?>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
-                  <small class="pt-3">My name is Trisha, I am a COMSOC Member</small>
+                  <small class="pt-3"><?php echo $bio; ?></small>
                 </div>
-                <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
-                $result = @mysqli_query($conn, $query);
-                $data = @mysqli_fetch_array($result);
-                $si = $data['STUDENT_ID']; ?>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo "$si"; ?></p>
-                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
+                                                                              if($currentMonth >="08") 
+                                                                                echo date("Y") .'-'. (date("Y")+1);
+                                                                              if($currentMonth < "08")
+                                                                                echo (date("Y")-1) .'-'. date("Y");  ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo "$data[YEAR_LEVEL]"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo "$data[SECTION]"; ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
@@ -354,6 +359,12 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="BIO">Bio:</label>
+                    <textarea class="form-control" name="BIO" id="BIO" rows="3" placeholder="Enter Bio/Officer history."></textarea>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
@@ -511,6 +522,7 @@ if (isset($_SESSION['msg'])) {
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);
           $('#PASSWORD').val(data.PASSWORD);
+          $('#BIO').val(data.BIO);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

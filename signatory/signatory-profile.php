@@ -67,14 +67,15 @@ if (isset($_SESSION['msg'])) {
                       <div class="upload-button"><i class="bi bi-pencil-square"></i></div>
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
+                    <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$data_userid'";
+                      $result = @mysqli_query($conn, $query);
+                      $data = @mysqli_fetch_array($result);
+                      $si = $data['school_id'];
+                      $bio = $data['bio']; ?>
                   </div>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
-                  <small class="pt-3">COMSOC 2 years Adviser</small>
+                  <small class="pt-3"><?php echo $bio; ?></small>
                 </div>
-                <?php $query = "SELECT * FROM `tb_signatories` WHERE school_id = '$data_userid'";
-                $result = @mysqli_query($conn, $query);
-                $data = @mysqli_fetch_array($result);
-                $si = $data['school_id']; ?>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">JRU ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Position:</strong><?php $query = "SELECT tb_signatories.signatorytype_id, tb_signatory_type.signatory FROM tb_signatories INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE tb_signatories.school_id = '$data_userid'";
@@ -83,8 +84,13 @@ if (isset($_SESSION['msg'])) {
                                                                           if ($row) {
                                                                             echo "$row[signatory]";
                                                                           } ?></p>
-                </div>
-              <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
+                
+              <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
+                                                                          if($currentMonth >="08") 
+                                                                               echo date("Y") .'-'. (date("Y")+1);
+                                                                          if($currentMonth < "08")
+                                                                               echo (date("Y")-1) .'-'. date("Y");  ?></p>
+              </div>
               </div>
             </div>
             <div class="col-lg-12 mb-4 col-12">
@@ -156,7 +162,11 @@ if (isset($_SESSION['msg'])) {
                      <tr>
                       <th width="30%">School Year </th>
                       <td width="2%">:</td>
-                      <td>2021-2022</td>
+                      <td><?php $currentMonth=date("m"); 
+                            if($currentMonth >="08") 
+                              echo date("Y") .'-'. (date("Y")+1);
+                            if($currentMonth < "08")
+                              echo (date("Y")-1) .'-'. date("Y");  ?></td>
                     </tr>
                     <tr>
                     <!--  <th width="30%">Position  </th>
@@ -186,7 +196,11 @@ if (isset($_SESSION['msg'])) {
                                                                                                     if ($row) {
                                                                                                       echo "$row[ORG]";
                                                                                                     } ?></p>
-                      <p class="mb-0"><strong class="pr-1">School Year:</strong>2021-2022</p>
+                      <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
+                                                                                  if($currentMonth >="08") 
+                                                                                       echo date("Y") .'-'. (date("Y")+1);
+                                                                                  if($currentMonth < "08")
+                                                                                       echo (date("Y")-1) .'-'. date("Y");  ?></p>
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
                     <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $data_userid . "' >Edit Profile</button>"; ?>
@@ -289,6 +303,12 @@ if (isset($_SESSION['msg'])) {
                         ?>
                       </select>
                     </div>
+                    <div class="col-12 col-md-12 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="bio">Bio:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3" placeholder="Enter Bio/Officer history."></textarea>
+                  </div>
+                </div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -398,6 +418,7 @@ if (isset($_SESSION['msg'])) {
             $('#user_type').val(data.usertype_id);
             $('#account_created').val(data.account_created);
             $('#profile_pic').val(data.profile_pic);
+            $('#bio').val(data.bio);
             $('#viewmodal').modal('show');
             $('#modal-lg').css('max-width', '70%');
           }

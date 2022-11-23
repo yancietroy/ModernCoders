@@ -10,6 +10,7 @@ if (isset ($_POST['updatedata']))
 	$si =  $mysqli -> real_escape_string ($_POST['school_id']);
 	$fn =  $mysqli -> real_escape_string ($_POST['first_name']);
 	$ln =  $mysqli -> real_escape_string ($_POST['last_name']);
+	$bio =  $mysqli -> real_escape_string ($_POST['bio']);
 
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);
@@ -17,7 +18,7 @@ if (isset ($_POST['updatedata']))
 
 	if($row)
 	{
-		$query = "UPDATE `tb_signatories` SET  `first_name` = '$fn', `last_name` = '$ln' WHERE `school_id` = '$si'";
+		$query = "UPDATE `tb_signatories` SET  `first_name` = '$fn', `last_name` = '$ln', `bio` = '$bio' WHERE `school_id` = '$si'";
 		$result = @mysqli_query($conn, $query);
 		$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
 		if($result){

@@ -15,6 +15,7 @@ if (isset ($_POST['updatedata']))
 	$bdate =  $mysqli -> real_escape_string ($_POST['BIRTHDATE']);
 	$age =  $mysqli -> real_escape_string ($_POST['AGE']);
 	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
+	$bio =  $mysqli -> real_escape_string ($_POST['BIO']);
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);
@@ -22,7 +23,7 @@ if (isset ($_POST['updatedata']))
 
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `EMAIL` = '$e' WHERE `STUDENT_ID` = '$si'";
+			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `EMAIL` = '$e', `BIO` = '$bio' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
 			$_SESSION["sweetalert"] = [
@@ -33,5 +34,6 @@ if (isset ($_POST['updatedata']))
 			];
 
 			header("location:student-profile.php");
-			}
-			}
+		}
+}
+?>

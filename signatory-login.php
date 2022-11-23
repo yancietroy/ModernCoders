@@ -65,7 +65,13 @@ if (isset($_SESSION['message'])) {
                     $_SESSION['USER-COLLEGE'] = $row[5];
                     $_SESSION['SIGNATORY-TYPE'] = $row[4];
                     if (isset($_SESSION['USER-TYPE'])) {
-                      header("Location:signatory/signatory-index.php");
+                      $query = "SELECT signatory FROM tb_signatory_type WHERE signatory_id = '".$_SESSION['SIGNATORY-TYPE']."'";
+                      $result = @mysqli_query($conn, $query);
+                      $row = mysqli_fetch_array($result);
+                      if($row){
+                        $_SESSION['SIGNATORY'] = $row[0];
+                        header("Location:signatory/signatory-index.php");
+                      }
                       @mysqli_close($conn);
                       exit();
                     }

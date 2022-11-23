@@ -312,8 +312,8 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status_by">Project already approved by:</label>
+                  <input type="text" name="status_by" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -481,6 +481,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);

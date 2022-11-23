@@ -37,6 +37,6 @@ if (isset ($_POST['changePassword']))
 				];
 			}
 			header("Location:student-profile.php");
-			}
-			}
-			?>
+		}
+}
+?>
