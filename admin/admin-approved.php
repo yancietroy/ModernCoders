@@ -437,7 +437,7 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button><!--
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button><!--
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Cancel Project</a>
                   <button class="btn btn-md  btn-info" name="Ongoing">Ongoing</a>!-->
               </div>

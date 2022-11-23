@@ -421,7 +421,7 @@ if (isset($_SESSION['msg'])) {
               <?php
               if ($_SESSION['USER-POS'] <= 5) {
               ?>
-                <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')">Export</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</button>
                 <?php
               }

@@ -70,7 +70,7 @@ if (isset($_SESSION['msg'])) {
           <h4 id="orgtitle">Student Organizations</h4>
         </div>
        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-        <!--   <a class="btn btn-default btn-circle button px-3" href="admin-orgs-reg.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Org </span></a>-->
+          <a class="btn btn-default btn-circle button px-3" href="admin-orgs-review.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Applications </span></a>
           <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Org Archive</span></a>
         </div>
       </div>
@@ -113,7 +113,7 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-warning">
+          <div class="card-counter bg-info">
             <div class="inner">
               <h2><i class="bi bi-plus-circle"></i></h2>
               <p>Org Registration</p>

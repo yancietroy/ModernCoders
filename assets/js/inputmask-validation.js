@@ -13,6 +13,9 @@ $(document).ready(function() {
     }
   });
 });
+
+
+
 $(document).ready(function() {
   $("#schoolId").inputmask("99-999999", {
     autoUnmask: true,
@@ -28,37 +31,35 @@ $(document).ready(function() {
     }
   });
 });
-/*
+
 $(document).ready(function() {
-  $("#section").inputmask("999A", {
+  $("#schoolyear").inputmask("9999-9999", {
     autoUnmask: true,
     onincomplete: function() {
-      $("#errorsection").show();
+      $("#errorstudid").show();
     },
-
     clearIncomplete: true,
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,
     oncomplete: function() {
-      $("#errorsection").hide();
+      $("#errorstudid").hide();
     }
   });
 });
+
 $(document).ready(function() {
-  $("#SECTION").inputmask("999A", {
+  $("#schoolYear").inputmask("9999-9999", {
     autoUnmask: true,
     onincomplete: function() {
-      $("#errorsection").show();
+      $("#errorstudid").show();
     },
-
     clearIncomplete: true,
     removeMaskOnSubmit: true,
     showMaskOnFocus: false,
     showMaskOnHover: false,
     oncomplete: function() {
-      $("#errorsection").hide();
+      $("#errorstudid").hide();
     }
   });
 });
-*/
