@@ -9,9 +9,19 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  } 
+}
+
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Officers";
 $nav_breadcrumbs = [
@@ -84,7 +94,7 @@ if (isset($_SESSION['msg'])) {
               } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
                 $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$orgid'";
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;

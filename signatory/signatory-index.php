@@ -13,6 +13,15 @@ $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Home";
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  } 
+}
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -94,6 +103,9 @@ if (isset($_SESSION['msg'])) {
       <div class="row ms-2 me-2 mb-4 mt-4">
 
             <div class="col-lg-3 col-8 mb-4">
+              <?php
+                if($data_signatorytype == 1){
+              ?>
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
@@ -104,6 +116,37 @@ if (isset($_SESSION['msg'])) {
               </div>
               <a href="signatory-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
             </div>
+            <?php
+              }
+              elseif($data_signatorytype == 2){
+            ?>
+            <div class="card-counter bg-primary">
+              <div class="inner">
+                <h2><i class="bi bi-diagram-3"></i></h2>
+                <p>Organization</p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <a href="signatory-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            <?php
+              }
+              elseif($data_signatorytype == 3){
+            ?>
+            <div class="card-counter bg-primary">
+              <div class="inner">
+                <h2><i class="bi bi-diagram-3"></i></h2>
+                <p><?php echo"$orgName"; ?></p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <a href="signatory-orgs-rso.php?id=<?= $data_orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            <?php
+              }
+            ?>
           </div>
         <div class="col-lg-3 col-8 mb-4">
           <div class="card-counter bg-info">

@@ -17,6 +17,8 @@ if (isset ($_POST['updatedata'])){
 	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
 	$cd =  $mysqli -> real_escape_string ($_POST['COLLEGE_DEPT']);
 	$ut =  $mysqli -> real_escape_string ($_POST['USER_TYPE']);
+	$pass = $mysqli -> real_escape_string ($_POST['PASSWORD']);
+	$profilepic = $mysqli -> real_escape_string ($_POST['PROFILE_PIC']);
 	$pos_id = $_POST['position_id'];
 	$orgids = ',[' .  $_POST['ORG_IDS'] . ']';
 
@@ -58,7 +60,7 @@ if (isset ($_POST['updatedata'])){
 						];
 	         	}else
 	        	{
-					$query = "INSERT INTO tb_officers(student_id, position_id, last_name, first_name, middle_initial, birthdate, age, gender, year_level, college_dept, course, section, email, password, org_id, user_type, profile_pic,  account_created)
+					$query = "INSERT INTO tb_officers(student_id, position_id, last_name, first_name, middle_initial, birthdate, age, gender, year_level, college_dept, course, section, email, password, org_id, user_type, profile_pic, account_created)
 	                  VALUES('$si', '$pos_id', '$ln', '$fn', '$mn', '$bdate', '$age', '$g', '$yl', '$cd', '$course', '$section', '$e', '$pass', '$morg', '$ut', '$profilepic', NOW())";
 		            $result = @mysqli_query($conn, $query);
 					if($result)

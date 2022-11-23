@@ -9,10 +9,19 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
-$stid = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
 $data_picture = getProfilePicture(1, $data_userid);
-$nav_selected = "Organizations / Calendar";
+$nav_selected = "Organizations / Event Calendar";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Event Calendar", "", "bi-calendar2-fill"],
@@ -146,7 +155,7 @@ if (isset($_SESSION['msg'])) {
         <!-- Event Details Modal -->
 
         <?php
-        if($orgid == NULL)
+        if($data_orgid == NULL)
         {
           $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Done'");
         }

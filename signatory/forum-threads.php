@@ -13,10 +13,10 @@ $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Home";
+$nav_selected = "Organizations / Discussion Forum";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Board", "forum-user.php", ""],
+  ["Discussion Forum", "forum-user.php", ""],
   ["Threads", "", ""],
 ];
 

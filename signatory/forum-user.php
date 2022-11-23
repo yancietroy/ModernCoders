@@ -11,9 +11,18 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Home";
+$nav_selected = "Organizations / Discussion Forum";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Discussion Board", "", ""],
@@ -82,7 +91,7 @@ if (isset($_SESSION['msg'])) {
                                         <h3><?= $groups['name'] ?></h3>
                                     </div>
                                     <?php
-                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$orgid') AND (visibility='0' OR visibility='2' OR visibility='5' OR visibility='3')";
+                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$data_orgid') AND (visibility='0' OR visibility='2' OR visibility='5' OR visibility='3')";
                                     if ($res2 = @mysqli_query($conn, $sqlTopics)) {
                                         if ($res2->num_rows > 0) {
                                             while ($topics = $res2->fetch_assoc()) {

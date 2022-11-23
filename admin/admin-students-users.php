@@ -412,6 +412,8 @@ if(!empty($_GET['status'])){
                   </div>
                 </div>
               </div>
+              <input type="hidden" name="PASSWORD" id="PASSWORD">
+              <input type="hidden" name="PROFILE_PIC" id="PROFILE_PIC">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

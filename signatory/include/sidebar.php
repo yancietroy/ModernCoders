@@ -19,7 +19,23 @@
             <a href="#pageSubmenu" data-bs-toggle="collapse" href="#pageSubmenu" aria-expanded="false" class="dropdown-toggle"> <i class="bi bi-people-fill"></i> <span>Org Management</span></a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li <?= str_ends_with($nav_selected, "Organization") ? 'class="active"' : "" ?>>
+                    <?php
+                    if($data_signatorytype == 1){
+                    ?>
                     <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span>Organization</span></a>
+                    <?php
+                    }
+                    elseif($data_signatorytype == 2){
+                    ?>
+                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span>Organization</span></a>
+                    <?php
+                    }
+                    elseif($data_signatorytype == 3){
+                    ?>
+                    <a href="signatory-orgs-rso.php?id=<?= $data_orgid ?>"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$orgName"; ?></span></a>
+                    <?php
+                    }
+                    ?>
                 </li>
                 <li <?= str_ends_with($nav_selected, "Officers") ? 'class="active"' : "" ?>>
                     <a href="signatory-orgs-rso-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
