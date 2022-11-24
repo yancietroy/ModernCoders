@@ -82,58 +82,65 @@ if (isset($_SESSION['msg'])) {
         </div>-->
       </div>
 
-      <div class="row ms-3 me-3 mt-2 justify-content-start">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter bg-success">
-            <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 1";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  if ($row) {
-                    echo "$row[0]";
-                  } ?></h2>
-              <p>Academic</p>
+      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
+        <div class="card-body px-2 mx-3 py-3 pt-4 ">
+          <div class="row g-0 justify-content-center ">
+            <div class="table-responsive ms-2">
+              <?php
+              if ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
+              } elseif ($data_signatorytype == 1){
+                $query = "SELECT * FROM tb_orgs WHERE org_type_id=2";
+              }
+              $result = @mysqli_query($conn, $query);
+              $oi = 0;
+              $org = " ";
+              echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
+                          <thead>
+                            <tr>
+                                <th class='desktop'>Org ID</th>
+                                <th class='desktop'>Organization</th>
+                                <th class='desktop'>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      ";
+              /*
+                      <th>College</th>
+                      <th>Organization</th>
+                      <th>Position</th>
+                      <th>Account Created</th>
+                      */
+              if ($result !== false && $result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                  $oi = $row['ORG_ID'];
+                  $org = $row['ORG'];
+                  echo "<tr>
+                              <td> $oi  </td>
+                              <td> $org  </td>
+                              <td>
+                              <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
+                              </td>
+                              </tr>
+                          ";
+                  /*
+                          <td>College</td>
+                          <td>Organization</td>
+                          <td>Position</td>
+                          <th>Account Created</th>
+                        */
+                }
+                echo "</tbody>
+                        </table>";
+              }
+              //$conn->close();
+              ?>
+
             </div>
-            <div class="icon">
-              <i class="bi bi-book-fill"></i>
-            </div>
-            <a href="signatory-orgs-acad.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter done">
-            <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  if ($row) {
-                    echo "$row[0]";
-                  } ?></h2>
-              <p>Non-Academic</p>
-            </div>
-            <div class="icon">
-            <i class="bi bi-dice-5-fill"></i>
-            </div>
-            <a href="signatory-orgs-non.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card-counter masterlist">
-            <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs";
-                  $result = @mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  if ($row) {
-                    echo "$row[0]";
-                  } ?></h2>
-              <p>Org Masterlist</p>
-            </div>
-            <div class="icon">
-                <i class="bi bi-briefcase-fill"></i>
-            </div>
-            <a href="signatory-orgs-master.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+      </div>
     </div>
     <!-- Footer -->
     <div id="layoutAuthentication_footer">

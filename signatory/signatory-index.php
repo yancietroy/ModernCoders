@@ -21,7 +21,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
-  } 
+  }
 }
 
 $collName = "";
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 
 if (isset($_SESSION['msg'])) {
@@ -111,7 +111,7 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
       <h4 class="ms-4">Dashboard</h4>
-      <div class="row ms-2 me-2 mb-4 mt-4">
+      <div class="row ms-4 me-2 mb-4 mt-2">
 
             <div class="col-lg-3 col-8 mb-4">
               <?php
@@ -159,7 +159,7 @@ if (isset($_SESSION['msg'])) {
               }
             ?>
           </div>
-        <div class="col-lg-3 col-8 mb-4">
+      <!--  <div class="col-lg-3 col-8 mb-4">
           <div class="card-counter bg-info">
             <div class="inner">
               <h2> <i class="bi bi-folder"></i></h2>
@@ -194,7 +194,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
-      </div>
+      </div>-->
         </div>
 
 
