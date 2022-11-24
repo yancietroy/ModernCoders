@@ -9,6 +9,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $orgid = $_GET['id'] ?? -1;
+$_SESSION['temp_org'] = $orgid;
 $orgName = "";
 $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
@@ -97,7 +98,13 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
+              if ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND (college_id = '$data_collegeid' AND approval_id = 2)";
+              } elseif ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
+              } elseif ($data_signatorytype == 3) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
+              }
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -377,8 +384,8 @@ if (isset($_SESSION['msg'])) {
                 <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ORG">Name of Organization:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -506,7 +513,8 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#ORG').val(data.ORG);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);

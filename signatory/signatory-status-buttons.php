@@ -1,13 +1,12 @@
 <?php
 ob_start();
 session_start();
-
+$org_id = $_SESSION['temp_org'];
 $orgid = $_SESSION['USER-ORG'];
 $data_username = $_SESSION['SIGNATORY'] . ' ' . $_SESSION['USER-NAME'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 //$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php');
-
 if ($data_signatorytype == 3) {
     if (isset($_POST['Revise'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -138,7 +137,7 @@ if ($data_signatorytype == 3) {
                     $timestamp = time();
                     while ($nextSig = $resNextSig->fetch_assoc()) {
                         $nextId = $nextSig['school_id'];
-                        array_push($values, "('$timestamp','$nextId','1','$pn','Project is now requiring your approval.','signatory-pending.php')");
+                        array_push($values, "('$timestamp','$nextId','1','$pn','Project is now requiring your approval.','signatory-rso-pending.php?id=$oid')");
                     }
 
                     $sqlNotifSig .= implode(",", $values);
@@ -277,7 +276,7 @@ if ($data_signatorytype == 3) {
                     $timestamp = time();
                     while ($nextSig = $resNextSig->fetch_assoc()) {
                         $nextId = $nextSig['school_id'];
-                        array_push($values, "('$timestamp','$nextId','1','$pn','Project is now requiring your approval.','signatory-pending.php')");
+                        array_push($values, "('$timestamp','$nextId','1','$pn','Project is now requiring your approval.','signatory-rso-pending.php?id=$oid')");
                     }
 
                     $sqlNotifSig .= implode(",", $values);
@@ -409,5 +408,5 @@ if ($data_signatorytype == 3) {
         }
     }
 }
-    header("location:signatory-pending.php");
+header("location:signatory-rso-pending.php?id=$org_id");
 ?>

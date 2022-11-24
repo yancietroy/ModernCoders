@@ -327,7 +327,7 @@ $nav_breadcrumbs = [
               $timestamp = time();
               while ($signatory = $resSignatories->fetch_assoc()) {
                 $uid = $signatory['school_id'];
-                array_push($values, "('$timestamp','$uid','1','$pn','A new project has been created by $data_username.','')");
+                array_push($values, "('$timestamp','$uid','1','$pn','A new project has been created by $data_username.','signatory-rso-pending.php?id=$orgid')");
               }
               $SqlNotif .= implode(",", $values);
 
