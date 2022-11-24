@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 24, 2022 at 04:30 AM
+-- Generation Time: Nov 24, 2022 at 03:33 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -416,7 +416,7 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (27, 1668497821, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (28, 1668497821, 18202422, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (29, 1668497886, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
-(30, 1668587725, 19123412, 1, 'Sample Proj 9', 'A new project has been created by Trisha Pega.', '', 0),
+(30, 1668587725, 19123412, 1, 'Sample Proj 9', 'A new project has been created by Trisha Pega.', '', 1),
 (31, 1668587725, 19255561, 1, 'Sample Proj 9', 'A new project has been created by Trisha Pega.', '', 0),
 (32, 1668601710, 19255562, 1, 'Sample Proj 9', 'Project is now requiring your approval.', 'signatory-pending.php', 0),
 (33, 1668601888, 19255532, 2, 'Sample Proj 9', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
@@ -437,12 +437,26 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (48, 1669216501, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
 (49, 1669216501, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (50, 1669216982, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
-(51, 1669216982, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 0),
+(51, 1669216982, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (52, 1669217623, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
-(53, 1669217623, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 0),
+(53, 1669217623, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (54, 1669217861, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
-(55, 1669217861, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 0),
-(56, 1669217920, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 0);
+(55, 1669217861, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
+(56, 1669217920, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 0),
+(57, 1669281996, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been rejected by the SDO.', 'officer-rejected.php', 0),
+(58, 1669284233, 18202422, 1, 'ComSoc Technology and Innovation Seminar Series', 'Project is now requiring your approval.', 'signatory-rso-pending.php?=', 1),
+(59, 1669284872, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(60, 1669284872, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(61, 1669285435, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=', 0),
+(62, 1669285671, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(63, 1669285671, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(64, 1669285766, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(65, 1669285766, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(66, 1669285870, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(67, 1669286227, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(68, 1669286265, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(69, 1669286266, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(70, 1669286298, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 0);
 
 -- --------------------------------------------------------
 
@@ -531,6 +545,7 @@ CREATE TABLE `tb_orgs` (
   `logo` varchar(100) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
   `org_type_id` int(2) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   `course_ids` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -538,32 +553,34 @@ CREATE TABLE `tb_orgs` (
 -- Dumping data for table `tb_orgs`
 --
 
-INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`, `course_ids`) VALUES
-(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, 1, '[1],[2],[3],[4]'),
-(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, 1, '[1],[2],[3]'),
-(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, 1, '[1],[2],[3]'),
-(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, 1, '[1],[2]'),
-(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1, 1, '[3],[4]'),
-(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, 1, ''),
-(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, 1, ''),
-(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, 1, ''),
-(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, 1, ''),
-(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, 1, ''),
-(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, 1, ''),
-(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, 1, ''),
-(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, 1, ''),
-(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, 1, ''),
-(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, 1, ''),
-(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, 1, ''),
-(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL, 2, ''),
-(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL, 2, ''),
-(19, 'Golden Z Club', 'jrusop-logo2.png', NULL, 2, ''),
-(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL, 2, ''),
-(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL, 2, ''),
-(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL, 2, ''),
-(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL, 2, ''),
-(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL, 2, ''),
-(26, 'JRU Central Student Council (JRUCSC)', '78317-37120506_635634206821211_4687114667871436800_n.png', NULL, 2, '');
+INSERT INTO `tb_orgs` (`ORG_ID`, `ORG`, `logo`, `college_id`, `org_type_id`, `status`, `course_ids`) VALUES
+(1, 'Association of Students of History (ASH)', 'jrusop-logo2.png', 1, 1, 'Active', '[1],[2],[3],[4]'),
+(2, 'Criminal Justice Students Society (CJSS)', 'ACE(Crim).jpg', 1, 1, 'Active', '[1],[2],[3]'),
+(3, 'Liberal Arts Students Organization (LASO)', 'jrusop-logo2.png', 1, 1, 'Active', '[1],[2],[3]'),
+(4, 'Mathematics Society (MATHSOC)', 'ACE(Math).jpg', 1, 1, 'Active', '[1],[2]'),
+(5, 'Young, Educators Society (YES)', 'ACE(Educ).jpg', 1, 1, 'Active', '[3],[4]'),
+(6, 'Junior Finance and Economics Society (JFINECS)', 'jrusop-logo2.png', 2, 1, 'Active', ''),
+(7, 'Junior Philippine Institute of Accountants (JPIA)', 'jrusop-logo2.png', 2, 1, 'Active', ''),
+(8, 'Management Society (MANSOC)', 'BA(managemenrSoc).jpg', 2, 1, 'Active', ''),
+(9, 'Supply Management Society (SMS)', 'BA(supplyMan).jpg', 2, 1, 'Active', ''),
+(10, 'Young Marketers Association (YMA)', 'BA(YoungMarketers).jpg', 2, 1, 'Active', ''),
+(11, 'Auxiliary of Computer Engineering Students (ACES)', 'jrusop-logo2.png', 3, 1, 'Active', ''),
+(12, 'Computer Society (COMSOC)', 'COMSOC.png', 3, 1, 'Active', ''),
+(13, 'Electronics Engineering League (ECEL)', 'CSE(electronicEngLeague).jpg', 3, 1, 'Active', ''),
+(14, 'Association of Tourism Management Students (ATOMS)', 'jrusop-logo2.png', 4, 1, 'Active', ''),
+(15, 'Hospitality, Hotelier and Restaurateur Society (HHRS)', 'CHTM(hospitalityIndusaFutureProf).jpg', 4, 1, 'Active', ''),
+(16, 'Nursing Society (NURSOC)', 'NursingSociety.jpg', 5, 1, 'Active', ''),
+(17, 'José Rizal University Book Buddies', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(18, 'Young Rizalian Servant Leaders (YRSL)', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(19, 'Golden Z Club', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(20, 'International Students Association (ISA)', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(21, 'José Rizal University Chorale', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(22, 'José Rizal University Dance Troupe', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(23, 'Teatro Rizal', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(24, 'Junior Photographic Editors and Graphic Artists (JPEG)', 'jrusop-logo2.png', NULL, 2, 'Active', ''),
+(26, 'JRU Central Student Council (JRUCSC)', '78317-37120506_635634206821211_4687114667871436800_n.png', NULL, 2, 'Active', ''),
+(29, 'Sample Acad', 'jrusop-logo2.png', NULL, 1, 'Active', ''),
+(30, 'Sample Non Acad', 'jrusop-logo2.png', NULL, 2, 'Active', '');
 
 -- --------------------------------------------------------
 
@@ -577,8 +594,34 @@ CREATE TABLE `tb_orgs_archive` (
   `logo` varchar(100) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
   `org_type_id` int(2) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   `course_ids` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_org_application`
+--
+
+CREATE TABLE `tb_org_application` (
+  `org_req_id` int(11) NOT NULL,
+  `org_name` varchar(200) DEFAULT NULL,
+  `org_type` int(50) DEFAULT NULL,
+  `school_year` varchar(20) DEFAULT NULL,
+  `requirements` varchar(300) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `requested_by` varchar(100) DEFAULT NULL,
+  `date_requested` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_org_application`
+--
+
+INSERT INTO `tb_org_application` (`org_req_id`, `org_name`, `org_type`, `school_year`, `requirements`, `status`, `requested_by`, `date_requested`) VALUES
+(7, 'Sample Acad', 1, '20222023', '60996-11250-eventproposalforms.rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
+(8, 'Sample Non Acad', 2, '20222023', '69539-favicon_io (1).rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24');
 
 -- --------------------------------------------------------
 
@@ -694,12 +737,12 @@ INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `coll
 (60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
 (61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
 (62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Pending', 2, '2022-11-03', '2022-11-23', 'Emerson Flores', 'approved'),
+(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Pending', 3, '2022-11-03', '2022-11-24', 'Dean Liza Reyes', 'approved'),
 (64, 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Reschedule', 4, '2022-11-03', '2022-11-03', NULL, ''),
 (68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ::100', '60343-11250-eventproposalforms.rar', 'Reschedule', 1, '2022-11-03', '2022-11-17', NULL, 'revise this'),
-(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 4, '2022-11-03', '2022-11-23', 'SDO John Doe', 'Revise date'),
+(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 4, '2022-11-03', '2022-11-24', 'SDO John Doe', 'Revise date'),
 (71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', NULL, 'Approved'),
-(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5500, 'finance::5000;;Sample::500', '23659-11250-eventproposalforms.rar', 'Pending', 3, '2022-11-04', '2022-11-22', NULL, ''),
+(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5500, 'finance::5000;;Sample::500', '23659-11250-eventproposalforms.rar', 'Rejected', 1, '2022-11-04', '2022-11-24', 'SDO John Doe', ''),
 (73, 5, 12, 3, 'Sample Proj 9', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Sample obj proj 9', NULL, '2022-11-16 17:00:00', '2022-11-16 18:00:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 2500, 'Snacks::500;;Umbrellas::2000', '32140-', 'Approved', 4, '2022-11-16', '2022-11-16', NULL, '');
 
 -- --------------------------------------------------------
@@ -723,7 +766,8 @@ CREATE TABLE `tb_requests` (
 --
 
 INSERT INTO `tb_requests` (`req_id`, `org_id`, `student_id`, `name`, `reason`, `req_status`, `date_submitted`) VALUES
-(1, 21, 19255532, 'Trisha Pega', 'Test123123 asdasdasd', 'Deny', NULL);
+(1, 21, 19255532, 'Trisha Pega', 'Test123123 asdasdasd', 'Deny', NULL),
+(2, 12, 17401211, 'Bienvenido Legaspi', 'Something something org', 'Pending', '2022-11-24');
 
 -- --------------------------------------------------------
 
@@ -843,7 +887,7 @@ CREATE TABLE `tb_students` (
 --
 
 INSERT INTO `tb_students` (`ID`, `STUDENT_ID`, `LAST_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `BIRTHDATE`, `AGE`, `GENDER`, `YEAR_LEVEL`, `EMAIL`, `PASSWORD`, `COLLEGE_DEPT`, `COURSE`, `SECTION`, `MORG_ID`, `ORG_ID`, `ORG_IDS`, `USER_TYPE`, `ACCOUNT_CREATED`, `PROFILE_PIC`, `BIO`, `VCODE`) VALUES
-(1, 17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, ',[12]', 1, '2022-10-19', 'img_avatar.png', 'My name is Bien, I am a COMSOC Member', ''),
+(1, 17401211, 'Legaspi', 'Bienvenido', 'Argote', '2000-06-13', 22, 'Male', '4', 'bienvenido.legaspiii@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '402I', 8, NULL, ',[24]', 1, '2022-10-19', 'img_avatar.png', 'My name is Bien, I am a COMSOC Member', ''),
 (2, 18255530, 'Morales', 'Karlo Redeemer', 'R', '1995-03-20', 27, 'Male', '4', 'karloredeemer.morales@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 'Bachelor of Arts (AB) Major in Economics', '401I', 6, NULL, '', 1, '2022-10-13', 'img_avatar.png', NULL, ''),
 (3, 19255515, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '', 1, '2022-10-13', 'img_avatar.png', NULL, ''),
 (4, 19255531, 'Saludo', 'Troy', '', '1999-08-09', 23, 'Male', '4', 'troy.saludo@my.jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 12, NULL, '[23],[24]', 1, '2022-10-13', '45391-JRU Virtual Background 22_23 (3).jpg', NULL, ''),
@@ -1245,6 +1289,13 @@ ALTER TABLE `tb_orgs_archive`
   ADD KEY `orgs_org_type_id_fk` (`org_type_id`);
 
 --
+-- Indexes for table `tb_org_application`
+--
+ALTER TABLE `tb_org_application`
+  ADD PRIMARY KEY (`org_req_id`),
+  ADD KEY `orgapp_type_id` (`org_type`);
+
+--
 -- Indexes for table `tb_org_type`
 --
 ALTER TABLE `tb_org_type`
@@ -1409,7 +1460,7 @@ ALTER TABLE `tb_elections_archive`
 -- AUTO_INCREMENT for table `tb_notification`
 --
 ALTER TABLE `tb_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`
@@ -1427,13 +1478,19 @@ ALTER TABLE `tb_officers_archive`
 -- AUTO_INCREMENT for table `tb_orgs`
 --
 ALTER TABLE `tb_orgs`
-  MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tb_orgs_archive`
 --
 ALTER TABLE `tb_orgs_archive`
   MODIFY `ORG_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `tb_org_application`
+--
+ALTER TABLE `tb_org_application`
+  MODIFY `org_req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_position`
@@ -1451,7 +1508,7 @@ ALTER TABLE `tb_projectmonitoring`
 -- AUTO_INCREMENT for table `tb_requests`
 --
 ALTER TABLE `tb_requests`
-  MODIFY `req_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `req_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_students`
@@ -1525,6 +1582,12 @@ ALTER TABLE `tb_officers`
   ADD CONSTRAINT `officers_org_id_fk` FOREIGN KEY (`org_id`) REFERENCES `tb_orgs` (`ORG_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_position_id_fk` FOREIGN KEY (`position_id`) REFERENCES `tb_position` (`POSITION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `officers_usertype_id_fk` FOREIGN KEY (`user_type`) REFERENCES `tb_usertypes` (`usertype_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_org_application`
+--
+ALTER TABLE `tb_org_application`
+  ADD CONSTRAINT `orgapp_type_id` FOREIGN KEY (`org_type`) REFERENCES `tb_org_type` (`org_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_projectmonitoring`

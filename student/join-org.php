@@ -58,7 +58,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <?php
+      <!--<1?php
         if (mysqli_num_rows($checkq) > 0 ) {
           echo "<script type='text/javascript'>
                 Swal.fire({
@@ -71,7 +71,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
                           });
                           </script>";
           }else{
-      ?>
+      ?>-->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
@@ -94,7 +94,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
                   $result = @mysqli_query($conn, $query);
                   while ($data = @mysqli_fetch_array($result)) {
                     echo '<option value="' . $data[1] .  '" >' . $data[0] . '</option>';
-                }
+                  }
                 ?>
               </select>
             </div>
@@ -117,12 +117,6 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
           </div>
         </div>
         <?php
-          }
-        $mysqli = new mysqli("$servername","$username","$password","$database");
-        if ($mysqli -> connect_errno) {
-          echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-          exit();
-        }
         if (isset($sorg_id) || isset($r) ||  isset($_POST['submit'])) {
         // Escape special characters, if any
           $sorg_id = $_POST['org_id'];

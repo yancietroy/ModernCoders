@@ -78,16 +78,22 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_orgs_archive";
+              $query = "SELECT tb_org_application.org_req_id, tb_org_application.org_name, tb_org_type.org_type, tb_org_application.status, tb_org_application.requested_by FROM tb_org_application JOIN tb_org_type ON tb_org_type.org_type_id = tb_org_application.org_type";
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";
+              $ot = " ";
+              $st = " ";
+              $rq = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
                                 <th class='desktop'>Org ID</th>
-                                <th class='desktop'>Organization</th>
+                                <th class='desktop'>Organization Name</th>
+                                <th class='desktop'>Organization Type</th>
+                                <th class='desktop'>Status</th>
                                 <th class='desktop'>Actions</th>
+                                <th class='none'>Requested by: </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -101,14 +107,21 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $oi = $row['ORG_ID'];
-                  $org = $row['ORG'];
+                  $oi = $row['org_req_id'];
+                  $org = $row['org_name'];
+                  $ot = $row['org_type'];
+                  $st = $row['status'];
+                  $rq = $row['requested_by'];
                   echo "<tr>
                               <td> $oi  </td>
                               <td> $org  </td>
+                              <td> $ot  </td>
+                              <td> $st  </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm restore' id='" . $oi . "'>  <i class='bi bi-list-ul'></i>
+                              <button type='button' class='btn btn-success btn-sm restore' title='View Information' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='Download Attachment/s' href='downloadRequest.php?org_req_id=" . $oi . "'>  <i class='bi bi-download'></i> </a>
                               </td>
+                              <td> $rq  </td>
                               </tr>
                           ";
                   /*
@@ -121,9 +134,7 @@ if (isset($_SESSION['msg'])) {
                 echo "</tbody>
                         </table>";
               }
-              //$conn->close();
               ?>
-
             </div>
           </div>
         </div>
@@ -165,20 +176,61 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-restore-orgs.php" method="POST">
+        <form action="admin-add-orgs.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="ORG_ID">Organization ID:</label>
-                    <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="org_req_id">Organization ID:</label>
+                    <input type="text" name="org_req_id" id="org_req_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="ORG">Organization name:</label>
-                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="org_name">Organization name:</label>
+                    <input type="text" name="org_name" id="org_name" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="org_type">Organization Type:</label>
+                    <select class="form-select" name="org_type" id="org_type" style="background-color: #fff;" readonly>
+                      <?php
+                      $query = "SELECT * FROM tb_org_type";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="requested_by">Requested by:</label>
+                    <input type="text" name="requested_by" id="requested_by" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="status">Change Status:</label>
+                      <select class="form-select" name="status" id="status" style="background-color: #fff;">
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Deny">Deny</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="date_requested">Date Requested:</label>
+                    <input type="text" name="date_requested" id="date_requested" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                      </select>
                   </div>
                 </div>
               </div>
@@ -186,42 +238,40 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="restoredata" class="btn btn-success">Restore Org</button>
+            <button type="submit" name="updatedata" class="btn btn-success">Restore Org</button>
           </div>
-      </div>
       </form>
+      </div>
     </div>
-  </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
-    $(document).on('click', '.viewbtn', function() {
-      var ORG_ID = $(this).attr("id");
-      location.href = "admin-orgs-rso.php?id=" + ORG_ID;
-    });
-
     $(document).on('click', '.restore', function() {
-      var ORG_ID = $(this).attr("id");
+      var org_req_id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-org-archive.php",
+        url: "admin-fetch-org-request.php",
         method: "POST",
         data: {
-          ORG_ID: ORG_ID
+          org_req_id: org_req_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#ORG_ID').val(data.ORG_ID);
-          $('#ORG').val(data.ORG);
+          $('#org_req_id').val(data.org_req_id);
+          $('#org_name').val(data.org_name);
+          $('#org_type').val(data.org_type);
+          $('#requested_by').val(data.requested_by);
+          $('#date_requested').val(data.date_requested);
+          $('#status').val(data.status);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
       });
 
       // UPPERCASE FIRST LETTER
-      document.getElementById("ORG").addEventListener("input", forceLower);
+      document.getElementById("org").addEventListener("input", forceLower);
       // event that triggered them as the first argument (evt)
       function forceLower(evt) {
         // Get an array of desktop the words (in desktop lower case)
@@ -276,10 +326,19 @@ if (isset($_SESSION['msg'])) {
             "width": "40px"
           },
           {
+            "width": "130px"
+          },
+          {
             "width": "40px"
           },
           {
-            "width": "130px"
+            "width": "40px"
+          },
+          {
+            "width": "40px"
+          },
+          {
+            "width": "40px"
           }
         ],
         select: 'single',
@@ -290,7 +349,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Course Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1, 2, 3, 4, 5]
             },
           },
           //{
@@ -309,7 +368,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Course Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1, 2, 3, 4, 5]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -319,7 +378,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Course Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1, 2, 3, 4, 5]
             },
             customize: function(win) {
 
