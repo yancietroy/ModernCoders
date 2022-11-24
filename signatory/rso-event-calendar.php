@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations/ Organization";
@@ -176,7 +176,14 @@ if (isset($_SESSION['msg'])) {
         <!-- Event Details Modal -->
 
         <?php
-        $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date FROM `tb_projectmonitoring` WHERE org_id='$orgid'");
+        if($data_orgid == NULL)
+        {
+          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved'");
+        }
+        else
+        {
+          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved'");
+        }
         $sched_res = [];
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
           $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));
