@@ -270,12 +270,6 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="status_date">Date Approved:</label>
-                    <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
                 </div>
                 <div class="row">
                 <div class="col-12 col-md-12 col-sm-3 mb-4">

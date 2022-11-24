@@ -263,7 +263,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="status_date">Date Approved:</label>
+                    status='Approved'<label class="form-label" for="status_date">Date Reschedule:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" readonly />
                   </div>
                 </div>
