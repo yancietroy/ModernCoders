@@ -251,18 +251,18 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-4 col-md-2 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
-                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md" readonly />
+                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md"  readonly />
                   </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" readonly />
+                    <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md"  readonly />
                   </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="status_date">Date For Revision:</label>
+                    <label class="form-label" for="status_date">Date Approved:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" readonly />
                   </div>
                 </div>
@@ -271,32 +271,37 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" />
+                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  required />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer">Organizer:</label>
-                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" />
+                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" required />
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
-                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" />
+                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" required />
                   </div>
                 </div>
+
+                  <div class="col-12 col-md-4 col-sm-3 mb-4">
+                    <label class="form-label" for="status">Project Status:</label>
+                    <input type="text" name="status" id="status" class="form-control" readonly />
+                  </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" readonly />
+                  <label class="form-label" for="status">Project status updated by:</label>
+                  <input type="text" name="status" id="status_by" class="form-control" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;">
+                  <select class="mt-0 ms-0 form-select" name="project_type" id="project_type" style="background-color: #fff;" required>
                     <option class="greyclr" selected disabled value="">Select Type</option>
                     <option value="Curricular">Curricular</option>
                     <option value="Extra Curricular">Extra Curricular</option>
@@ -312,7 +317,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_category">Category:</label>
-                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category">
+                  <select class="mt-0 ms-0 form-select" name="project_category" id="project_category" required>
                     <option class="greyclr" selected disabled value="">Select Category</option>
                     <option value="Onsite">Onsite</option>
                     <option value="Online">Online</option>
@@ -324,13 +329,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="start_date" id="start_date" onkeydown="return false;" value="" style="background-color: #fff;" required />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" style="background-color: #fff;" />
+                    <input type="text" class="form-control" name="end_date" id="end_date" onkeydown="return false;" value="" style="background-color: #fff;" required />
                   </div>
                 </div>
               </div>
@@ -338,13 +343,13 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="participants">Participants:</label>
-                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" />
+                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" required />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label">Upload Attachment/s:</label>
-                    <input class="form-control" name="attachments" id="attachments" type="file" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
+                    <input type="file" class="form-control" name="attachments" accept=".zip,.rar,.7zip" id="formFileMultiple" required>
                   </div>
                 </div>
               </div>
@@ -397,7 +402,8 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
                              <!--<select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
-                              <1?php/**
+                              <1? php
+                              /**
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
@@ -413,7 +419,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline  ">
                     <label class="form-label" for="objectives">Objectives:</label>
-                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;"></textarea>
+                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" required></textarea>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
@@ -460,7 +466,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <?php
                 if ($_SESSION['USER-POS'] <= 5) {
                 ?>
@@ -538,19 +544,7 @@ if (isset($_SESSION['msg'])) {
       window.history.replaceState(null, null, window.location.href);
     }
 
-    $('#estimated_budget').keydown(function(e) {
-      setTimeout(() => {
-        let parts = $(this).val().split(".");
-        let v = parts[0].replace(/\D/g, ""),
-          dec = parts[1]
-        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-        // use this for numeric calculations
-        // console.log('number for calculations: ', calc_num);
-        let n = new Intl.NumberFormat('en-EN').format(v);
-        n = dec !== undefined ? n + "." + dec : n;
-        $(this).val(n);
-      })
-    })
+
   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->

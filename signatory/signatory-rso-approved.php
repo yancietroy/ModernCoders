@@ -289,7 +289,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
                     <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
@@ -297,17 +297,23 @@ if (isset($_SESSION['msg'])) {
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
                     <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="venue">Project Status:</label>
+                    <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project already approved by:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status">Project status updated by:</label>
+                  <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -417,8 +423,8 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline projectdesc">
+                <div class="col-12 col-md-12 col-sm-3 ">
+                  <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
                       if($result->num_rows > 0){
@@ -434,6 +440,15 @@ if (isset($_SESSION['msg'])) {
                     <?php
                       }
                     ?>
+                  </div>
+                </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                  <div class="form-outline projectdesc">
+                    <label class="form-label" for="estimated_budget">Estimated Budget:</label>
+                    <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping">PHP</span>
+                      <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
@@ -474,6 +489,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);
@@ -494,7 +510,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td> ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

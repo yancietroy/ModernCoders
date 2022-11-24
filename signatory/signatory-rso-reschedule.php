@@ -252,278 +252,279 @@ if (isset($_SESSION['msg'])) {
     </div>
   </div>
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="signatory-update-button.php" method="POST">
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="project_id">Project ID:</label>
-                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-4 col-md-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="date_submitted">Date Submitted:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-4 col-md-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="status_date">Date Approved:</label>
-                    <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
-                    <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
-                    <div class="valid-feedback"></div>
-                    <div class="invalid-feedback">Project name field cannot be blank!</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="venue">Venue:</label>
-                    <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="project_type">Project Type:</label>
-                  <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="project_category">Category:</label>
-                  <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="start_date">Start Date:</label>
-                    <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="end_date">End Date:</label>
-                    <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-12 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="participants">Participants:</label>
-                    <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
-                               <div class="form-outline d-grid">
-                                 <label class="form-label">Download Attachment/s:</label>
-                               <button type="button" class="btn btn-secondary btn-md">Download</button>
-                               </div>
-                             </div>
-
-                             <div class="col-12 col-md-4 col-sm-3 mb-2">
-                               <label class="form-label" for="budget_source" >Budget Source:</label>
-                               <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                             </div>
-                             <div class="col-12 col-md-6 col-sm-3 mb-4">
-                               <div class="form-outline">
-                                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                                 <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                               </div>
+     <div class="modal-dialog" id="modal-lg" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Project Details: </h5>
+           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <form action="signatory-update-button.php" method="POST">
+           <div class="modal-body">
+             <div class="container-fluid">
+               <div class="row justify-content-between">
+                 <div class="col-4 col-md-2 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="project_id">Project ID:</label>
+                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-4 col-md-3 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="date_submitted">Date Submitted:</label>
+                     <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-4 col-md-3 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="status_date">Date Approved:</label>
+                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-12 col-sm-3 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="project_name">Project name:</label>
+                     <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-4 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                     <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
+                     <div class="valid-feedback"></div>
+                     <div class="invalid-feedback">Project name field cannot be blank!</div>
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-4 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="venue">Venue:</label>
+                     <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-4 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="venue">Project Status:</label>
+                     <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-4 col-sm-3 mb-4">
+                   <label class="form-label" for="status">Project status updated by:</label>
+                   <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
+                 </div>
+                 <div class="col-12 col-md-4 col-sm-3 mb-2">
+                   <label class="form-label" for="project_type">Project Type:</label>
+                   <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
+                 </div>
+                 <div class="col-12 col-md-4 col-sm-3 mb-2">
+                   <label class="form-label" for="project_category">Category:</label>
+                   <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-6 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="start_date">Start Date:</label>
+                     <input type="text" class="form-control" name="start_date" id="start_date" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-6 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="end_date">End Date:</label>
+                     <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-12 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="participants">Participants:</label>
+                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
+                             <div class="form-outline d-grid">
+                               <label class="form-label">Download Attachment/s:</label>
+                             <button type="button" class="btn btn-secondary btn-md">Download</button>
                              </div>
                            </div>
-                           <div class="row">
+
+                           <div class="col-12 col-md-4 col-sm-3 mb-2">
+                             <label class="form-label" for="budget_source" >Budget Source:</label>
+                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
+                           </div>
+                           <div class="col-12 col-md-6 col-sm-3 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="beneficiary">Beneficiary:</label>
+                               <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-12 col-md-3 col-sm-3 mb-4">
+                             <div class="form-outline">
+                               <label class="form-label" for="no_of_participants" >No. of Participants:</label>
+                               <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
+                             </div>
+                             </div>
                              <div class="col-12 col-md-3 col-sm-3 mb-4">
                                <div class="form-outline">
-                                 <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                                 <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
+                                 <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
+                                 <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
                                </div>
+                             </div>
+
+                             <div class="col-12 col-md-3 col-sm-3 mb-4">
+                               <div class="form-outline">
+                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
+                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
                                </div>
-                               <div class="col-12 col-md-3 col-sm-3 mb-4">
-                                 <div class="form-outline">
-                                   <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                   <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                                 </div>
-                               </div>
+                             </div>-->
 
-                               <div class="col-12 col-md-3 col-sm-3 mb-4">
-                                 <div class="form-outline">
-                                   <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                                 <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                                 </div>
-                               </div>-->
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-4 col-sm-3 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="org_id">Name of Organization:</label>
+                     <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-4 col-sm-3 mb-4">
+                   <div class="form-outline d-grid">
+                     <label class="form-label" for="requested_by">Requested By:</label>
+                     <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-4 col-sm-3 mb-4">
+                   <div class="form-outline d-grid">
+                     <label class="form-label" for="position_id">Position:</label>
+                     <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                               <1? php
+                               /**
+                                 $query = "SELECT position_id, position FROM tb_position";
+                                 $result = @mysqli_query($conn, $query);
+                                         while($data = @mysqli_fetch_array($result)) {
+                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
+                                         }
+                                **/
+                               ?>-->
+                     </select>
+                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-12 col-md-12 col-sm-3 mb-4">
+                   <div class="form-outline  ">
+                     <label class="form-label" for="objectives">Objectives:</label>
+                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-12 col-sm-3 ">
+                   <div class="form-outline ">
+                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                     <?php
+                       if($result->num_rows > 0){
+                     ?>
+                     <table class="table" id="budget-request">
+                       <thead>
+                         <th>Item</th>
+                         <th>Budget</th>
+                       </thead>
+                       <tbody>
+                       </tbody>
+                     </table>
+                     <?php
+                       }
+                     ?>
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                   <div class="form-outline projectdesc">
+                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
+                     <div class="input-group flex-nowrap">
+                       <span class="input-group-text" id="addon-wrapping">PHP</span>
+                       <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                     </div>
+                   </div>
+                 </div>
+                 <div class="col-12 col-md-12 mb-4">
+                   <div class="form-outline">
+                     <label class="form-label" for="project_remarks">Remarks:</label>
+                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="modal-footer px-2 py-2 pt-2">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+   <!--For modal-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline d-grid">
-                    <label class="form-label" for="requested_by">Requested By:</label>
-                    <input type="text" name="requested_by" id="requested_by" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline d-grid">
-                    <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                                 <1? php
-                                  /**
-                                   $query = "SELECT position_id, position FROM tb_position";
-                                   $result = @mysqli_query($conn, $query);
-                                           while($data = @mysqli_fetch_array($result)) {
-                                               echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                           }
-                                   **/
-                                  ?>-->
-                    </select>
-                    <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline  ">
-                    <label class="form-label" for="objectives">Objectives:</label>
-                    <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
-                  </div>
-                </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline projectdesc">
-                    <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <?php
-                      if($result->num_rows > 0){
-                    ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <?php
-                      }
-                    ?>
-                  </div>
-                </div>
-                <div class="col-12 col-md-12 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="project_remarks">Remarks:</label>
-                    <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
-                  </div>
-                </div>
-                <div class="modal-footer px-0 py-0 pt-2">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                </div>
-        </form>
-      </div>
-    </div>
-  </div>
+   <script>
+     $(document).on('click', '.editbtn', function() {
+       var project_id = $(this).attr("id");
+       $.ajax({
+         url: "signatory-fetch-project.php",
+         method: "POST",
+         data: {
+           project_id: project_id
+         },
+         dataType: "json",
+         success: function(data) {
+           console.log(data);
+           $('#project_id').val(data.project_id);
+           $('#project_name').val(data.project_name);
+           $('#organizer').val(data.organizer);
+           $('#venue').val(data.venue);
+           $('#status').val(data.status);
+           $('#status_by').val(data.status_by);
+           $('#date_submitted').val(data.date_submitted);
+           $('#status_date').val(data.status_date);
+           $('#start_date').val(data.start_date);
+           $('#end_date').val(data.end_date);
+           $('#project_type').val(data.project_type);
+           $('#project_category').val(data.project_category);
+           $('#participants').val(data.participants);
+           $('#org_id').val(data.ORG);
+           $('#requested_by').val(data.requested_by);
+           $('#position_id').val(data.position);
+           $('#attachments').val(data.attachments);
+           $('#objectives').val(data.objectives);
 
-  <!--For modal-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+           var breq = data.budget_req.split(";;");
+           $("#budget-request > tbody").empty();
+           breq.forEach(e => {
+             var data = e.split("::");
+             var output = `
+               <tr>
+                 <td>${data[0]}</td>
+                 <td> ${data[1]}</td>
+               </tr>
+             `;
+             $("#budget-request > tbody").append(output);
+           });
 
-  <script>
-    $(document).on('click', '.editbtn', function() {
-      var project_id = $(this).attr("id");
-      $.ajax({
-        url: "signatory-fetch-project.php",
-        method: "POST",
-        data: {
-          project_id: project_id
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log(data);
-          $('#project_id').val(data.project_id);
-          $('#project_name').val(data.project_name);
-          $('#organizer').val(data.organizer);
-          $('#venue').val(data.venue);
-          $('#status').val(data.status);
-          $('#date_submitted').val(data.date_submitted);
-          $('#status_date').val(data.status_date);
-          $('#start_date').val(data.start_date);
-          $('#end_date').val(data.end_date);
-          $('#project_type').val(data.project_type);
-          $('#project_category').val(data.project_category);
-          $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
-          $('#requested_by').val(data.requested_by);
-          $('#position_id').val(data.position);
-          $('#attachments').val(data.attachments);
-          $('#objectives').val(data.objectives);
-
-          var breq = data.budget_req.split(";;");
-          $("#budget-request > tbody").empty();
-          breq.forEach(e => {
-            var data = e.split("::");
-            var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>${data[1]}</td>
-              </tr>
-            `;
-            $("#budget-request > tbody").append(output);
-          });
-
-          $('#project_remarks').val(data.remarks);
-          $('#editmodal').modal('show');
-          $('#modal-lg').css('max-width', '70%');
-        }
-      });
-    });
-  </script>
-  <script>
-    $(document).on('click', '.deletebtn', function() {
-      var project_id = $(this).attr("id");
-      $.ajax({
-        url: "officer-fetch-project.php",
-        method: "POST",
-        data: {
-          project_id: project_id
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log(data);
-          $('#delete_id').val(data.project_id);
-          $('#deletemodal').modal('show');
-        }
-      });
-    });
-  </script>
+           $('#estimated_budget').val(data.estimated_budget);
+           $('#project_remarks').val(data.remarks);
+           $('#editmodal').modal('show');
+           $('#modal-lg').css('max-width', '70%');
+         }
+       });
+     });
+   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -544,7 +545,7 @@ if (isset($_SESSION['msg'])) {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
   <!-- Datepicker cdn  -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
   <script>
     $(document).ready(function() {
       $('#start_date').datetimepicker({
