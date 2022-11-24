@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 

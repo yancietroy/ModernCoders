@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -443,7 +443,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="modal-footer px-0 py-0 pt-2">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+                    <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
                 </div>
         </form>
       </div>

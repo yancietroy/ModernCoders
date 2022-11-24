@@ -9,10 +9,19 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Home";
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
     ["Notifications", "", "bi-bell-fill"],

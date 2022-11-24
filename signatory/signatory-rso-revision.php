@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -443,7 +443,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="modal-footer px-0 py-0 pt-2">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+        <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
                 </div>
         </form>
       </div>
@@ -486,21 +486,17 @@ if (isset($_SESSION['msg'])) {
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();
-          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
-            bcount++;
             var output = `
-              <tr id="budget-${bcount}">
-                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
-                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              <tr>
+                <td>${data[0]}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
           });
 
-          $('#estimated_budget').val(data.estimated_budget);
           $('#project_remarks').val(data.remarks);
           $('#editmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');

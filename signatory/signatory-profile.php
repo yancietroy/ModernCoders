@@ -13,7 +13,15 @@ $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Home";
-
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
 unset($_SESSION['pid']);
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -84,9 +92,9 @@ if (isset($_SESSION['msg'])) {
                                                                           if ($row) {
                                                                             echo "$row[signatory]";
                                                                           } ?></p>
-                
-              <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
-                                                                          if($currentMonth >="08") 
+
+              <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m");
+                                                                          if($currentMonth >="08")
                                                                                echo date("Y") .'-'. (date("Y")+1);
                                                                           if($currentMonth < "08")
                                                                                echo (date("Y")-1) .'-'. date("Y");  ?></p>
@@ -162,8 +170,8 @@ if (isset($_SESSION['msg'])) {
                      <tr>
                       <th width="30%">School Year </th>
                       <td width="2%">:</td>
-                      <td><?php $currentMonth=date("m"); 
-                            if($currentMonth >="08") 
+                      <td><?php $currentMonth=date("m");
+                            if($currentMonth >="08")
                               echo date("Y") .'-'. (date("Y")+1);
                             if($currentMonth < "08")
                               echo (date("Y")-1) .'-'. date("Y");  ?></td>
@@ -196,8 +204,8 @@ if (isset($_SESSION['msg'])) {
                                                                                                     if ($row) {
                                                                                                       echo "$row[ORG]";
                                                                                                     } ?></p>
-                      <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
-                                                                                  if($currentMonth >="08") 
+                      <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m");
+                                                                                  if($currentMonth >="08")
                                                                                        echo date("Y") .'-'. (date("Y")+1);
                                                                                   if($currentMonth < "08")
                                                                                        echo (date("Y")-1) .'-'. date("Y");  ?></p>

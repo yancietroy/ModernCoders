@@ -120,7 +120,7 @@ if (isset($_SESSION['msg'])) {
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
-                <p>Organization</p>
+                <p>Organizations</p>
               </div>
               <div class="icon">
                 <i class="bi bi-diagram-3-fill"></i>

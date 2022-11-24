@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -35,7 +35,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -187,7 +187,7 @@ if (isset($_SESSION['msg'])) {
                             $a = " ";
                             if ($result !== false && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-        
+
                               $a = $row['NAME'];
                               echo "$a</br>";
 
