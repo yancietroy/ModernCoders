@@ -100,6 +100,8 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
+                                <th class='desktop'>Status</th>
+                                <th class='desktop'>Standing</th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -114,11 +116,15 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $oi = $row['ORG_ID'];
+                 $oi = $row['ORG_ID'];
                   $org = $row['ORG'];
+                  $st = $row['status'];
+                  // $rk = $row['status']; FOR ORG RANKING
                   echo "<tr>
                               <td> $oi  </td>
                               <td> $org  </td>
+                              <td> $st  </td>
+                              <td>   </td>
                               <td>
                               <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                               </td>
@@ -187,6 +193,17 @@ if (isset($_SESSION['msg'])) {
   <script>
     $(document).ready(function() {
       $('#admin-user-table').DataTable({
+        "createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Inactive") {
+            $('td', row).eq(2).css('color', 'red');
+          }
+          if (data[2] == "Active") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+          if (data[2] == "For Renewal") {
+            $('td', row).eq(2).css('color', 'yellow');
+          }
+        },
         responsive: true,
         keys: true,
         fixedheader: true,
@@ -194,6 +211,12 @@ if (isset($_SESSION['msg'])) {
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
+            "width": "40px"
+          },
+          {
+            "width": "40px"
+          },
+          {
             "width": "40px"
           },
           {
@@ -208,7 +231,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal -  Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]
@@ -227,7 +250,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - Course Masterlist',
+            title: 'JRU Organizations Portal - Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]
@@ -237,7 +260,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal -  Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1]

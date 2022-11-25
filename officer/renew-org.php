@@ -180,7 +180,7 @@ if (isset($_SESSION['msg'])) {
                                         Swal.fire({
                                              icon: 'success',
                                              title: 'Organization Created',
-                                             confirmButtonColor: '#F2AC1B'
+                                   a          confirmButtonColor: '#F2AC1B'
 
                                          }).then(function() {
                                               window.location = 'admin-orgs-reg.php';

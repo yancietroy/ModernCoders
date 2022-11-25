@@ -238,7 +238,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="updatedata" class="btn btn-success">Restore Org</button>
+            <button type="submit" name="updatedata" class="btn btn-success">Save</button>
           </div>
       </form>
       </div>
@@ -316,6 +316,17 @@ if (isset($_SESSION['msg'])) {
   <script>
     $(document).ready(function() {
       $('#admin-user-table').DataTable({
+        "createdRow": function(row, data, dataIndex) {
+          if (data[3] == "Deny") {
+            $('td', row).eq(3).css('color', 'red');
+          }
+          if (data[3] == "Approved") {
+            $('td', row).eq(3).css('color', 'green');
+          }
+          if (data[3] == "Pending") {
+            $('td', row).eq(3).css('color', '#0d6efd');
+          }
+        },
         responsive: true,
         keys: true,
         fixedheader: true,

@@ -142,7 +142,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                   <div class="col-12 col-md-12 mt-0 mb-4">
-                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Renew</button>
+                    <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" name="submit" value="register">Apply Organization</button>
 
                   </div>
 
