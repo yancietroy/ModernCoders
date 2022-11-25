@@ -98,7 +98,7 @@ if(!empty($_GET['status'])){
         </div>
     <!-- Page content-->
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-circle button px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
+          <a class="btn btn-success px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ if(!empty($_GET['status'])){
               <div class="col-12 col-md-6 col-sm-3 mb-4" id="importFrm" style="display: none;">
                   <label class="form-label mb-2" for="attachments" id="asterisk">Import CSV:</label>
                   <div class="d-flex">
-                  <input class="form-control mr-1" type="file" name="file" required>
+                  <input class="form-control mr-1" type="file" name="file" accept=".csv" required>
                   <input type="submit" class="btn btn-primary" name="importSubmit" value="Import">
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
