@@ -305,7 +305,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <label class="form-label" for="status_by">Project status updated by:</label>
                   <input type="text" name="status_by" id="status_by" class="form-control" style="background-color: #fff;" readonly />
-                </div>
+              </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
                   <input type="text" name="project_type" id="project_type" class="form-control" style="background-color: #fff;" readonly />
@@ -342,7 +342,6 @@ if (isset($_SESSION['msg'])) {
                             <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
-
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -392,7 +391,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                    <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
                               <1? php
                               /**
                                 $query = "SELECT position_id, position FROM tb_position";
@@ -401,8 +400,8 @@ if (isset($_SESSION['msg'])) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
                                         }
                                **/
-                              ?>-->
-                    </select>
+                              ?>
+                            </select> -->
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -414,23 +413,25 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 ">
-                  <div class="form-outline ">
+                <div class="col-12 col-md-12 col-sm-3 mb-2">
+                  <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <?php
-                      }
-                    ?>
+                      <div class="table-responsive">
+                        <table id="budget-request" class="table table-striped table-hover responsive" cellspacing="0" width="100%">
+                          <thead>
+                            <th>Item</th>
+                            <th>Budget</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      <?php
+                    }
+                      ?>
+                      </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -458,13 +459,14 @@ if (isset($_SESSION['msg'])) {
                 <?php
                 if ($_SESSION['USER-POS'] <= 5) {
                 ?>
-                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
-                  <button class="btn btn-md  btn-info" name="Ongoing">Ongoing</a>
+                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a></button>
+                  <button class="btn btn-md  btn-info" name="Ongoing">Ongoing</a></button>
                 <?php
                 }
                 ?>
               </div>
         </form>
+      </div>
       </div>
     </div>
   </div>
@@ -472,7 +474,6 @@ if (isset($_SESSION['msg'])) {
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-</script>
   <script>
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
@@ -506,12 +507,15 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
+                <td>${title}</td>
                 <td>${data[1]}</td>
               </tr>
             `;
@@ -727,5 +731,4 @@ if (isset($_SESSION['msg'])) {
   include('include/sweetalert.php');
   ?>
 </body>
-
 </html>

@@ -91,7 +91,6 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
                                 <th class='desktop'>Status</th>
-
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -202,7 +201,6 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
-
                 <div class="col-12 col-md-6  mb-4">
                   <label class="form-label">School Year</label>
                   <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />

@@ -10,6 +10,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
+$data_name = $_SESSION['USER-NAME'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
@@ -30,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Discussion Forum";
@@ -61,7 +62,7 @@ if (isset($_POST['create-thread'])) {
     $addtitle =  str_replace("'", "''", $addtitle);
     $timestamp = time();
     $sqlInsert = "INSERT INTO tb_disc_threads(thread_id,topic_id,user_id,user_type,name,title,message,views,replies,last_reply,last_reply_name) VALUES
-  ('$timestamp','$topicid','$data_userid','2','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";
+  ('$timestamp','$topicid','$data_userid','3','$data_name','$addtitle','$addmsg','0','0','$timestamp','$data_name')";
     if ($res = @mysqli_query($conn, $sqlInsert)) {
         header('location:forum-view.php?topic=' . $topicid . '&thread=' . $timestamp);
     } else {
@@ -217,11 +218,12 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                                         <?php
                                                                         if ($thread['locked'] == 0) {
                                                                         ?>
-                                                                            <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;">Lock</a>
+
+                                                                            <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;"><u>Lock</u></a>
                                                                         <?php
                                                                         } else {
                                                                         ?>
-                                                                            <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;">Unlock</a>
+                                                                            <a href="#" onclick="unlockThread(<?= $thread['thread_id'] ?>)" class="text-warning mr-2" style="font-size: 10px;"><u>Unlock</u></a>
                                                                         <?php
                                                                         }
 
@@ -470,49 +472,49 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                 "text" => "Failed Creating a thread. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 1) {
             $_SESSION["sweetalert"] = [
                 "title" => "Delete Thread",
                 "text" => "Thread has been deleted successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 2) {
             $_SESSION["sweetalert"] = [
                 "title" => "Delete Thread",
                 "text" => "Failed removing the thread. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 3) {
             $_SESSION["sweetalert"] = [
                 "title" => "Lock Thread",
                 "text" => "Thread has been locked successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 4) {
             $_SESSION["sweetalert"] = [
                 "title" => "Lock Thread",
                 "text" => "Failed locking the thread. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 5) {
             $_SESSION["sweetalert"] = [
                 "title" => "Unlock Thread",
                 "text" => "Thread has been unlocked successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 6) {
             $_SESSION["sweetalert"] = [
                 "title" => "Unlock Thread",
                 "text" => "Failed unlocking the thread. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         }
         ?>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -562,7 +564,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             }
         </script>
         <?php
-            include('include/sweetalert.php');
+        include('include/sweetalert.php');
         ?>
 </body>
 

@@ -468,12 +468,15 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
+                <td>${title}</td>
                 <td>${data[1]}</td>
               </tr>
             `;

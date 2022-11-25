@@ -521,14 +521,26 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
             bcount++;
+
+            var options = "";
+            for (var key in codes) {
+              if (data[0] == key) {
+                options = options + `<option value="${key}" selected>${codes[key]}</option>`;
+              } else {
+                options = options + `<option value="${key}">${codes[key]}</option>`;
+              }
+            }
+
             var output = `
               <tr id="budget-${bcount}">
-                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
                 <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
                 <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
@@ -610,16 +622,29 @@ if (isset($_SESSION['msg'])) {
       });
 
       $('#add-budget').on("click", function() {
-        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
-        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
-        var output = `
-          <tr id="budget-${bcount}">
-            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
-            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
-            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
-          </tr>
-        `;
-        $("#budget-request > tbody").append(output);
+        $.ajax({
+          url: "include/admin-fetch-budget-codes.php",
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+            var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+            var options = "";
+            data.forEach(e => {
+              options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+            });
+            var output = `
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          }
+        });
+
       });
     });
 

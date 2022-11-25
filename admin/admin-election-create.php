@@ -201,9 +201,8 @@ if (isset($_POST['create-election'])) {
                             <input class="form-control col mr-2" type="text" name="searchtext" id="searchtext" placeholder="Search Names...">
                             <button type="button" class="btn btn-primary col-2" id="searchbtn"><i class="bi bi-search"></i> <span id="btntitle"> Search</span></button>
                         </div>
-                        <div id="selections">
-                            <select  style="max-height: 30vh; min-height: 30vh; width: 100%; border: 0;"
-                        class="list-group list-group-available-items overflow-auto" id="listselections" size="6">
+                        <div id="selections" style="display:none;">
+                            <select style="max-height: 30vh; min-height: 30vh; width: 100%; border: 0;" class="list-group list-group-available-items overflow-auto" id="listselections" size="6">
                             </select>
                         </div>
                     </div>
@@ -295,6 +294,8 @@ if (isset($_POST['create-election'])) {
                     }
                 }
             });
+
+            $("#selections").show();
         });
 
         $(document).on('dblclick', '#listselections', function() {

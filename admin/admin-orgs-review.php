@@ -85,6 +85,10 @@ if (isset($_SESSION['msg'])) {
               $ot = " ";
               $st = " ";
               $rq = " ";
+              $query = "SELECT * FROM tb_orgs_archive";
+              $result = @mysqli_query($conn, $query);
+              $oi = 0;
+              $org = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -134,6 +138,7 @@ if (isset($_SESSION['msg'])) {
                 echo "</tbody>
                         </table>";
               }
+              //$conn->close();
               ?>
             </div>
           </div>
@@ -357,7 +362,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5]
@@ -376,7 +381,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - Course Masterlist',
+            title: 'JRU Organizations Portal - Organization Request Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5]
@@ -386,10 +391,11 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5]
+              columns: [0, 1]
             },
             customize: function(win) {
 

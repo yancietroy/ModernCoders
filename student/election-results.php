@@ -118,137 +118,137 @@ function getVotes($election_id, $position_id, $candidate_id)
             <?php
             if ($hasResults) {
             ?>
-            <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-                <div class="card-body px-2 mx-3 py-3 pt-4 ">
-                <div class="ms-3 d-flex flex-row align-items-center">
-                    <h3 class="flex-grow-1 lead"><strong class="pr-1 text-muted ">Name:<br></strong> <?= $title ?></h3>
+                <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
+                    <div class="card-body px-2 mx-3 py-3 pt-4 ">
+                        <div class="ms-3 d-flex flex-row align-items-center">
+                            <h3 class="flex-grow-1 lead"><strong class="pr-1 text-muted ">Name:<br></strong> <?= $title ?></h3>
+                        </div>
+                        <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
+                        <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+
+                    </div>
                 </div>
-                <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
-                <h6 class="ms-3 mb-4"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
+                <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+                    <div class="card-body px-2 mx-3 py-3 pt-4">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <th>Position</th>
+                                <th>Candidate</th>
+                                <th>Total Votes</th>
+                                <th>Total Abstain</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = "SELECT POSITION_ID as id,position FROM tb_position";
+                                if ($respos = @mysqli_query($conn, $sql)) {
+                                    while ($row = $respos->fetch_assoc()) {
+                                        $pos_id = $row['id'];
+                                        $posname = $row['position'];
 
-                </div>
-</div>
-<div class="card shadow card-registration mb-4" style="border-radius: 15px;">
-    <div class="card-body px-2 mx-3 py-3 pt-4">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <th>Position</th>
-                            <th>Candidate</th>
-                            <th>Total Votes</th>
-                            <th>Total Abstain</th>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $sql = "SELECT POSITION_ID as id,position FROM tb_position";
-                            if ($respos = @mysqli_query($conn, $sql)) {
-                                while ($row = $respos->fetch_assoc()) {
-                                    $pos_id = $row['id'];
-                                    $posname = $row['position'];
+                                        $found = count(array_filter($candidates, function ($item) {
+                                            global $pos_id;
+                                            return isset($item['POSITION_ID']) && $pos_id == $item['POSITION_ID'];
+                                        }));
 
-                                    $found = count(array_filter($candidates, function ($item) {
-                                        global $pos_id;
-                                        return isset($item['POSITION_ID']) && $pos_id == $item['POSITION_ID'];
-                                    }));
+                                        if ($found > 0) {
+                                            $sqlWinner = "SELECT tb_votes.CANDIDATE_ID,count(*) as votes,tb_candidate.STUDENT_NO as studentno FROM `tb_votes` LEFT JOIN `tb_candidate` ON tb_votes.CANDIDATE_ID=tb_candidate.CANDIDATE_ID WHERE tb_votes.ELECTION_ID='$election_id' AND tb_votes.POSITION_ID='$pos_id' AND tb_votes.CANDIDATE_ID<>'-1' GROUP BY tb_votes.CANDIDATE_ID ORDER BY votes DESC";
+                                            $votes = 0;
+                                            $invalidWinner = false;
+                                            if ($res = @mysqli_query($conn, $sqlWinner)) {
+                                                if ($res->num_rows > 0) {
+                                                    $candidate = $res->fetch_assoc();
+                                                    $votes = $candidate['votes'];
+                                                    $winnerid = $candidate['studentno'];
+                                                    $winnername = "";
 
-                                    if ($found > 0) {
-                                        $sqlWinner = "SELECT tb_votes.CANDIDATE_ID,count(*) as votes,tb_candidate.STUDENT_NO as studentno FROM `tb_votes` LEFT JOIN `tb_candidate` ON tb_votes.CANDIDATE_ID=tb_candidate.CANDIDATE_ID WHERE tb_votes.ELECTION_ID='$election_id' AND tb_votes.POSITION_ID='$pos_id' AND tb_votes.CANDIDATE_ID<>'-1' GROUP BY tb_votes.CANDIDATE_ID ORDER BY votes DESC";
-                                        $votes = 0;
-                                        $invalidWinner = false;
-                                        if ($res = @mysqli_query($conn, $sqlWinner)) {
-                                            if ($res->num_rows > 0) {
-                                                $candidate = $res->fetch_assoc();
-                                                $votes = $candidate['votes'];
-                                                $winnerid = $candidate['studentno'];
-                                                $winnername = "";
+                                                    $votes2 = -1;
+                                                    if ($res->num_rows > 1) {
+                                                        $candidate2 = $res->fetch_assoc();
+                                                        $votes2 = $candidate2['votes'];
+                                                    }
 
-                                                $votes2 = -1;
-                                                if ($res->num_rows > 1) {
-                                                    $candidate2 = $res->fetch_assoc();
-                                                    $votes2 = $candidate2['votes'];
-                                                }
-
-                                                if ($votes == $votes2) {
-                                                    $winnername = "Still Calculating Winner";
-                                                    $invalidWinner = true;
-                                                } else {
-                                                    $sqlGetName = "SELECT last_name as ln,first_name as fn,middle_name as mn FROM tb_students WHERE student_id='$winnerid'";
-                                                    if ($res1 = @mysqli_query($conn, $sqlGetName)) {
-                                                        if ($res1->num_rows > 0) {
-                                                            $row1 = $res1->fetch_assoc();
-                                                            $winnername = $row1['fn'] . " " . $row1['mn'] . " " . $row1['ln'];
+                                                    if ($votes == $votes2) {
+                                                        $winnername = "Still Calculating Winner";
+                                                        $invalidWinner = true;
+                                                    } else {
+                                                        $sqlGetName = "SELECT last_name as ln,first_name as fn,middle_name as mn FROM tb_students WHERE student_id='$winnerid'";
+                                                        if ($res1 = @mysqli_query($conn, $sqlGetName)) {
+                                                            if ($res1->num_rows > 0) {
+                                                                $row1 = $res1->fetch_assoc();
+                                                                $winnername = $row1['fn'] . " " . $row1['mn'] . " " . $row1['ln'];
+                                                            }
                                                         }
                                                     }
+                                                } else {
+                                                    $winnername = "No Winner";
+                                                    $invalidWinner = true;
                                                 }
-                                            } else {
-                                                $winnername = "No Winner";
-                                                $invalidWinner = true;
                                             }
+                                ?>
+                                            <tr>
+                                                <td><?= $posname ?></td>
+                                                <td <?= $invalidWinner ? "class='text-danger'" : "" ?>><?= $winnername ?? "" ?></td>
+                                                <td><?= $votes ?></td>
+                                                <td><?= getVotes($election_id, $pos_id, "-1") ?></td>
+                                            </tr>
+                                <?php
                                         }
-                            ?>
-                                        <tr>
-                                            <td><?= $posname ?></td>
-                                            <td <?= $invalidWinner ? "class='text-danger'" : "" ?>><?= $winnername ?? "" ?></td>
-                                            <td><?= $votes ?></td>
-                                            <td><?= getVotes($election_id, $pos_id, "-1") ?></td>
-                                        </tr>
-                            <?php
                                     }
                                 }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    <?php
+            } else {
+    ?>
+        <div class="text-center">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-5">No Recent Election</h1>
+                    <p class="lead">There is no recent election conducted.</p>
                 </div>
             </div>
         </div>
-            <?php
-            } else {
-            ?>
-                <div class="text-center">
-                    <div class="jumbotron jumbotron-fluid">
-                        <div class="container">
-                            <h1 class="display-5">No Recent Election</h1>
-                            <p class="lead">There is no recent election conducted.</p>
-                        </div>
-                    </div>
-                </div>
-            <?php
+    <?php
             }
 
-            ?>
+    ?>
 
-            <!-- Footer -->
-            <div id="layoutAuthentication_footer">
-                <footer class="py-2 bg-light">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
-                        </div>
-                    </div>
-                </footer>
+    <!-- Footer -->
+    <div id="layoutAuthentication_footer">
+        <footer class="py-2 bg-light">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Modern Coders 2022</div>
+                </div>
             </div>
-        </div>
+        </footer>
+    </div>
+    </div>
 
-        <!-- jQuery CDN - Slim version (=without AJAX) -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-        <!-- form validation/sidebar toggle -->
-        <script src="../assets/js/form-validation.js"></script>
-        <!--WAVES CSS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script> <!-- JavaScript validation -->
-        <script type="text/javascript">
-            Waves.attach('#sidebar ul li a');
-            Waves.init();
-        </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <!-- form validation/sidebar toggle -->
+    <script src="../assets/js/form-validation.js"></script>
+    <!--WAVES CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script> <!-- JavaScript validation -->
+    <script type="text/javascript">
+        Waves.attach('#sidebar ul li a');
+        Waves.init();
+    </script>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-            });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

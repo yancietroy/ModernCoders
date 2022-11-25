@@ -523,29 +523,30 @@ if (isset($_SESSION['msg'])) {
            $('#attachments').val(data.attachments);
            $('#objectives').val(data.objectives);
 
-           var breq = data.budget_req.split(";;");
-           $("#budget-request > tbody").empty();
-           breq.forEach(e => {
-             var data = e.split("::");
-             var output = `
-               <tr>
-                 <td>${data[0]}</td>
-                 <td> ${data[1]}</td>
-               </tr>
-             `;
-             $("#budget-request > tbody").append(output);
-           });
+          var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
+          $("#budget-request > tbody").empty();
+          breq.forEach(e => {
+            var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
 
-           $('#estimated_budget').val(data.estimated_budget);
-           $('#project_remarks').val(data.remarks);
-           $('#editmodal').modal('show');
-           $('#modal-lg').css('max-width', '70%');
+            var output = `
+              <tr>
+                <td>${title}</td>
+                <td>${data[1]}</td>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
+          $('#estimated_budget').val(data.estimated_budget);
+          $('#project_remarks').val(data.remarks);
+          $('#editmodal').modal('show');
+          $('#modal-lg').css('max-width', '70%');
          }
        });
      });
    </script>
-
-
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -738,5 +739,4 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
 </body>
-
 </html>

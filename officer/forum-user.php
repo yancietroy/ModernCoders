@@ -10,6 +10,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
+$data_position = $_SESSION['USER-POS'];
 $orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
@@ -62,25 +63,25 @@ if (isset($_SESSION['msg'])) {
 
             <!-- Page content -->
             <div class="row ms-3 me-3 mt-2">
-              <div class="col-lg-6 col-7">
-                <h4 id="orgtitle">Discussion Board</h4>
-              </div>
-              <?php
-              if ($_SESSION['USER-POS'] <= 5 ){
-              ?>
-              <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-                <a class="btn btn-default btn-circle button px-3" href="create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
-              </div>
-              <?php
-              }
-              ?>
+                <div class="col-lg-6 col-7">
+                    <h4 id="orgtitle">Discussion Board</h4>
+                </div>
+                <?php
+                if ($_SESSION['USER-POS'] <= 5) {
+                ?>
+                    <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+                        <a class="btn btn-default btn-circle button px-3" href="create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-11">
-                  <div class="card shadow-sm card-registration mb-4 mt-4" style="border-radius: 15px;">
-                      <div class="card-body px-2 mx-4 ">
+                    <div class="card shadow-sm card-registration mb-4 mt-4" style="border-radius: 15px;">
+                        <div class="card-body px-2 mx-4 ">
                             <?php
-                            $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility='0' OR visibility='2' OR visibility='5'";
+                            $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility in ('0','2','5')";
                             if ($res = @mysqli_query($conn, $sqlGroups)) {
                                 while ($groups = $res->fetch_assoc()) {
                                     $groupid = $groups['group_id'];
@@ -89,7 +90,7 @@ if (isset($_SESSION['msg'])) {
                                         <h3><?= $groups['name'] ?></h3>
                                     </div>
                                     <?php
-                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$orgid') AND (visibility='0' OR visibility='2' OR visibility='5')";
+                                    $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$orgid')  AND (visibility in ('0','2','5') OR (visibility='6' AND officers LIKE '%;;$data_position%'))";
                                     if ($res2 = @mysqli_query($conn, $sqlTopics)) {
                                         if ($res2->num_rows > 0) {
                                             while ($topics = $res2->fetch_assoc()) {
@@ -169,5 +170,4 @@ if (isset($_SESSION['msg'])) {
             Waves.init();
         </script>
 </body>
-
 </html>

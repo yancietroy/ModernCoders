@@ -23,6 +23,7 @@ if ($threadid <= 0) {
 }
 
 $data_userid = $_SESSION['USER-ID'];
+$data_name = $_SESSION['USER-NAME'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
@@ -30,29 +31,29 @@ $orgName = "";
 $_SESSION['ORG'] = $orgName;
 $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
-  if ($orgRes->num_rows > 0) {
-    $row = $orgRes->fetch_assoc();
-    $orgName = $row['ORG'];
-  }
+    if ($orgRes->num_rows > 0) {
+        $row = $orgRes->fetch_assoc();
+        $orgName = $row['ORG'];
+    }
 }
 
 $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
 if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  } 
+    if ($collRes->num_rows > 0) {
+        $row = $collRes->fetch_assoc();
+        $collName = $row['college'];
+    }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Discussion Forum";
 $nav_breadcrumbs = [
-  ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Forum", "forum-user.php", ""],
-  ["Threads", "", ""],
-  ["Post", "", ""],
-  ];
+    ["Home", "signatory-index.php", "bi-house-fill"],
+    ["Discussion Forum", "forum-user.php", ""],
+    ["Threads", "forum-threads.php?topic=$topicid", ""],
+    ["Post", "", ""],
+];
 
 if (isset($_SESSION['msg'])) {
     print_r($_SESSION['msg']); #display message
@@ -65,7 +66,7 @@ if (isset($_POST['post-reply'])) {
     if ($replymsg != "") {
         $timestamp = time();
         $sqlPost = "INSERT INTO tb_disc_replies(reply_id,thread_id,user_type,user_id,user_name,message) VALUES
-    ('$timestamp','$threadid','2','$data_userid','$data_name','$replymsg')";
+    ('$timestamp','$threadid','3','$data_userid','$data_name','$replymsg')";
         if (@mysqli_query($conn, $sqlPost)) {
             // Increment replies
             $sqlReplyCount = "UPDATE tb_disc_threads SET replies = replies + 1,last_reply='$timestamp',last_reply_name='$data_name' WHERE thread_id='$threadid'";
@@ -532,42 +533,42 @@ if (isset($_POST['post-reply'])) {
                 "text" => "Error while posting your reply. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 1) {
             $_SESSION["sweetalert"] = [
                 "title" => "Post Reply",
                 "text" => "Unable to reply an empty message. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 2) {
             $_SESSION["sweetalert"] = [
                 "title" => "Delete Reply",
                 "text" => "Reply has been deleted successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 3) {
             $_SESSION["sweetalert"] = [
                 "title" => "Delete Reply",
                 "text" => "Error while delete the reply. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 4) {
             $_SESSION["sweetalert"] = [
                 "title" => "Edit Reply",
                 "text" => "Reply has been edited successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else if ($error == 5) {
             $_SESSION["sweetalert"] = [
                 "title" => "Edit Reply",
                 "text" => "Error while editing your reply. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         }
         ?>
 
@@ -624,8 +625,7 @@ if (isset($_POST['post-reply'])) {
             }
         </script>
         <?php
-            include('include/sweetalert.php');
+        include('include/sweetalert.php');
         ?>
 </body>
-
 </html>
