@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2022 at 10:24 AM
+-- Generation Time: Nov 25, 2022 at 07:58 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -93,6 +93,29 @@ INSERT INTO `tb_approval_type` (`approval_id`, `approval_pos`) VALUES
 (3, 'Dean'),
 (4, 'SDO'),
 (5, 'Approved');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_budget_codes`
+--
+
+CREATE TABLE `tb_budget_codes` (
+  `id` int(11) NOT NULL,
+  `code` varchar(3) NOT NULL,
+  `description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_budget_codes`
+--
+
+INSERT INTO `tb_budget_codes` (`id`, `code`, `description`) VALUES
+(1, '01', 'Transporation'),
+(2, '02', 'Utilities'),
+(3, '03', 'Food and Beverage'),
+(4, '04', 'Talent Fees'),
+(5, '05', 'Miscellaneous');
 
 -- --------------------------------------------------------
 
@@ -291,7 +314,7 @@ CREATE TABLE `tb_disc_threads` (
 --
 
 INSERT INTO `tb_disc_threads` (`thread_id`, `topic_id`, `user_id`, `user_type`, `name`, `title`, `message`, `views`, `replies`, `last_reply`, `last_reply_name`, `locked`) VALUES
-(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 174, 2, 1668668615, 'John Doe', 0),
+(1667467187, 1, 9, 2, 'Trisha Pega', 'Welcome to JRUSOP', '<p>Welcome to JRU Student Organizations Portal!</p>', 175, 2, 1668668615, 'John Doe', 0),
 (1667472994, 2, 9, 2, 'Trisha Pega', 'Intro - Assistant Secretary', '<p>Hello my name is Trisha Pega, assistant secretary of JRU Computer Society</p>', 9, 0, 1667472994, 'Trisha Pega', 0),
 (1667473049, 3, 9, 2, 'Trisha Pega', 'Does anyone like the new hyflex learning of JRU?', '<p>Personally, I like it</p>', 10, 3, 1668058191, 'Trisha Pega', 0),
 (1667473091, 4, 9, 2, 'Trisha Pega', 'Activity Plans', '<p>Hello, I would like to ask the schedule of activity and plans on it</p>', 20, 0, 1667473091, 'Trisha Pega', 0),
@@ -313,21 +336,25 @@ CREATE TABLE `tb_disc_topics` (
   `description` varchar(200) NOT NULL,
   `org_id` int(11) NOT NULL,
   `visibility` int(11) NOT NULL,
-  `icon` varchar(60) NOT NULL
+  `icon` varchar(60) NOT NULL,
+  `officers` text DEFAULT NULL,
+  `members` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_disc_topics`
 --
 
-INSERT INTO `tb_disc_topics` (`topic_id`, `group_id`, `subject`, `description`, `org_id`, `visibility`, `icon`) VALUES
-(1, 1, 'Announcements', 'Latest announcements from JRU', 0, 0, 'bi bi-clipboard-fill'),
-(2, 1, 'Introductions', 'New to the platform? Please stop by, say hi and tell us a bit about yourself.', 0, 0, 'bi bi-lightning-charge-fill'),
-(3, 2, 'General Discussions', 'Talk about anything.', 0, 0, ''),
-(4, 2, 'COMSOC Discussions only', 'COMSOC related discussions ', 12, 5, ''),
-(5, 3, 'COMSOC Officers', 'For COMSOC Officers Only', 12, 2, ''),
-(11, 4, 'Sample ComSoc Only', 'This thread is only available to ComSoc only!', 12, 5, 'bi bi-chat-square-dots-fill'),
-(12, 1, 'Sample General Discussion ', 'New Topic Button testing!', 0, 0, 'bi bi-chat-square-dots-fill');
+INSERT INTO `tb_disc_topics` (`topic_id`, `group_id`, `subject`, `description`, `org_id`, `visibility`, `icon`, `officers`, `members`) VALUES
+(1, 1, 'Announcements', 'Latest announcements from JRU', 0, 0, 'bi bi-clipboard-fill', NULL, ''),
+(2, 1, 'Introductions', 'New to the platform? Please stop by, say hi and tell us a bit about yourself.', 0, 0, 'bi bi-lightning-charge-fill', NULL, ''),
+(3, 2, 'General Discussions', 'Talk about anything.', 0, 0, '', NULL, ''),
+(4, 2, 'COMSOC Discussions only', 'COMSOC related discussions ', 12, 5, '', NULL, ''),
+(5, 3, 'COMSOC Officers', 'For COMSOC Officers Only', 12, 2, '', NULL, ''),
+(11, 4, 'Sample ComSoc Only', 'This thread is only available to ComSoc only!', 12, 5, 'bi bi-chat-square-dots-fill', NULL, ''),
+(12, 1, 'Sample General Discussion ', 'New Topic Button testing!', 0, 0, 'bi bi-chat-square-dots-fill', NULL, ''),
+(13, 2, 'Another Topic', 'asda sdasdsadsadsa', 12, 0, 'bi bi-megaphone-fill', '', ''),
+(15, 1, 'Customized Topic Sample', 'safadssadsa', 12, 6, 'bi bi-chat-square-dots-fill', ';;5;;8;;9;;10;;11', ';;19255533;;19255570');
 
 -- --------------------------------------------------------
 
@@ -1434,7 +1461,7 @@ ALTER TABLE `tb_votes`
 -- AUTO_INCREMENT for table `tb_approval_type`
 --
 ALTER TABLE `tb_approval_type`
-  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_candidate`
@@ -1464,7 +1491,7 @@ ALTER TABLE `tb_disc_groups`
 -- AUTO_INCREMENT for table `tb_disc_topics`
 --
 ALTER TABLE `tb_disc_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_elections`
