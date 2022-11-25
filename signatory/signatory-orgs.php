@@ -86,7 +86,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-success">
             <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 1";
+              <h2><?php
+                  if ($data_signatorytype == 1){
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 1";
+                  } elseif ($data_signatorytype == 2) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE college_id = '$data_collegeid'";
+                  } elseif ($data_signatorytype == 3) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE college_id = '$data_collegeid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -103,7 +110,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2";
+              <h2><?php
+                  if ($data_signatorytype == 1){
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2";
+                  } elseif ($data_signatorytype == 2) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2 AND college_id = '$data_collegeid'";
+                  } elseif ($data_signatorytype == 3) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2 AND college_id = '$data_collegeid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -120,7 +134,14 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter masterlist">
             <div class="inner">
-              <h2><?php $query = "SELECT COUNT(ORG) FROM tb_orgs";
+              <h2><?php
+                  if ($data_signatorytype == 1){
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs";
+                  } elseif ($data_signatorytype == 2) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE college_id = '$data_collegeid'";
+                  } elseif ($data_signatorytype == 3) {
+                    $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE college_id = '$data_collegeid'";
+                  }
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {

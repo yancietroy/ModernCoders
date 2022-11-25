@@ -294,15 +294,15 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="venue">Project Status:</label>
+                    <label class="form-label" for="status">Project Status:</label>
                     <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project status updated by:</label>
-                  <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status_by">Project status updated by:</label>
+                  <input type="text" name="status_by" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -377,8 +377,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ORG">Name of Organization:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -461,10 +461,14 @@ if (isset($_SESSION['msg'])) {
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" required>
                       <label class="form-check-label" for="inlineCheckbox3">Feedback</label>
                     </div>
-                  </div>
-                </div>!-->
+                  </div>!-->
+                </div>
+              <input type="hidden" name="college_id" id="college_id">
+              <input type="hidden" name="org_id" id="org_id">
                 <div class="modal-footer px-0 py-0 pt-2">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i><span id="btntitle">Export Budget Request</span>
+                                </button>
                   <?php
                   if ($_SESSION['USER-POS'] <= 5) {
                   ?>
@@ -501,6 +505,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);
@@ -508,20 +513,23 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#ORG').val(data.ORG);
+          $('#college_id').val(data.college_id);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
-          $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();
+          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            bcount++;
             var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>${data[1]}</td>
+              <tr id="budget-${bcount}">
+                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" style="background-color: #fff;" value="${data[0]}"readonly></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" style="background-color: #fff;" value="${data[1]}"readonly></td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

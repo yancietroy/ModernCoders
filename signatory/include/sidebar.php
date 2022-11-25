@@ -29,6 +29,10 @@
                     }
                     elseif($data_signatorytype == 3){
                     ?>
+                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$collName"; ?></span></a>
+                    <?php
+                    }elseif($data_signatorytype == 4){
+                    ?>
                     <a href="signatory-orgs-rso.php?id=<?= $data_orgid ?>"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$orgName"; ?></span></a>
                     <?php
                     }

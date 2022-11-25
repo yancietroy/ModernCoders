@@ -101,11 +101,13 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              if ($data_signatorytype == 2) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
-              } elseif ($data_signatorytype == 1) {
+              if ($data_signatorytype == 1) {
                 $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
               } elseif ($data_signatorytype == 3) {
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
+              } elseif ($data_signatorytype == 4) {
                 $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);

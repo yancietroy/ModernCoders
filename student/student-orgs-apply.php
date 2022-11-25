@@ -165,7 +165,7 @@ if (isset($_SESSION['msg'])) {
                     $sy = $_POST['schoolyear'];
 
                     $pname = rand(1000, 100000) . "-" . $_FILES['reqfiles']['name'];
-                    $destination = 'attachments/' . $pname;
+                    $destination = '../admin/attachments/' . $pname;
                     $tname = $_FILES['reqfiles']['tmp_name'];
                     $rq = $_SESSION['USER-NAME'];
                     move_uploaded_file($tname, $destination);

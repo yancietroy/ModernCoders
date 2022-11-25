@@ -88,10 +88,12 @@ if (isset($_SESSION['msg'])) {
             <div class="table-responsive ms-2">
               <?php
               if ($data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
+                $query = "SELECT * FROM tb_orgs WHERE org_type_id=2 AND college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 1){
                 $query = "SELECT * FROM tb_orgs WHERE org_type_id=2";
-              }
+              }elseif ($data_signatorytype == 3) {
+                $query = "SELECT * FROM tb_orgs WHERE org_type_id=2 AND college_id = '$data_collegeid'";
+              } 
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";

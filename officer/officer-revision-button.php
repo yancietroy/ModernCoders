@@ -132,11 +132,6 @@
         $items = implode(";;", $budgetitems);
         $items = $mysqli->real_escape_string($items);
 
-        $fileName = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
-        $fileDestination = 'attachments/' . $fileName;
-        $tfileName = $_FILES['attachments']['tmp_name'];
-        move_uploaded_file($tfileName, $fileDestination);
-
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result);
@@ -146,8 +141,7 @@
         $query = "UPDATE `tb_projectmonitoring` SET
                 `status` ='$s', 
                 `status_date` = NOW(),
-                `budget_req` ='$items',
-                `attachments` = '$fileName'
+                `budget_req` ='$items'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
             if($result){

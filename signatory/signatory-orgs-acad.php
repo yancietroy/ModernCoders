@@ -91,7 +91,9 @@ if (isset($_SESSION['msg'])) {
                 $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 1){
                 $query = "SELECT * FROM tb_orgs WHERE org_type_id=1";
-              }
+              }elseif ($data_signatorytype == 3) {
+                $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
+              } 
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";

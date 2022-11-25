@@ -9,7 +9,7 @@ if (isset($_GET['org_req_id'])) {
     $result = mysqli_query($conn, $sql);
 
     $file = mysqli_fetch_assoc($result);
-    $filepath = '../student/attachments/' . $file['requirements'];
+    $filepath = 'attachments/' . $file['requirements'];
 
     if (file_exists($filepath)) {
         header('Content-Description: File Transfer');

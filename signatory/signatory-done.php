@@ -99,12 +99,14 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if (isset($data_orgid) == NULL && $data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND college_id = '$data_collegeid'";
-              } elseif (isset($data_orgid) == NULL && $data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done')";
+              if ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Done')";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Done') AND college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Done') AND org_id = '$data_orgid'";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Done') AND college_id = '$data_collegeid'";
+              } elseif ($data_signatorytype == 4) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Done') AND org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -390,8 +392,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ORG">Name of Organization:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -444,6 +446,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_remarks">Remarks:</label>
@@ -487,7 +491,9 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#ORG').val(data.ORG);
+          $('#college_id').val(data.college_id);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);

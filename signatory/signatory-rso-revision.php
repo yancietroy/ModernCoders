@@ -97,12 +97,14 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if ($data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND college_id = '$data_collegeid'";
-              } elseif ($data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision')";
+              if ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND college_id = '$data_collegeid' AND org_id = '$orgid'";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND org_id = '$orgid'";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND college_id = '$data_collegeid' AND org_id = '$orgid'";
+              } elseif ($data_signatorytype == 4) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -505,6 +507,7 @@ if (isset($_SESSION['msg'])) {
            $('#project_category').val(data.project_category);
            $('#participants').val(data.participants);
            $('#ORG').val(data.ORG);
+           $('#college_id').val(data.college_id);
            $('#org_id').val(data.org_id);
            $('#requested_by').val(data.requested_by);
            $('#position_id').val(data.position);

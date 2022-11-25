@@ -148,6 +148,20 @@ if (isset($_SESSION['msg'])) {
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
+                <p><?php echo"$collName"; ?></p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <a href="signatory-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            <?php
+              }
+              elseif($data_signatorytype == 4){
+            ?>
+            <div class="card-counter bg-primary">
+              <div class="inner">
+                <h2><i class="bi bi-diagram-3"></i></h2>
                 <p><?php echo"$orgName"; ?></p>
               </div>
               <div class="icon">
