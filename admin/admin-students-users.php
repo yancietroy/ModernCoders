@@ -383,9 +383,8 @@ if(!empty($_GET['status'])){
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG_IDS">Non-Academic Organization:</label>
-                    <select class="form-select" name="ORG_IDS" id="ORG_IDS">
+                    <select class="form-select" name="ORG_IDS" id="ORG_IDS" readonly>
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
-                      <option class="greyclr" value="" text-muted>Clear</option>
                       <?php
                       $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE org_type_id = 2 AND NOT ORG_ID = 26";
                       $result = @mysqli_query($conn, $query);

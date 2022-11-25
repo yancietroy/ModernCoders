@@ -93,7 +93,7 @@ if (isset($_SESSION['msg'])) {
                 $query = "SELECT * FROM tb_orgs WHERE org_type_id=1";
               }elseif ($data_signatorytype == 3) {
                 $query = "SELECT * FROM tb_orgs WHERE college_id = '$data_collegeid'";
-              } 
+              }
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";
@@ -103,7 +103,7 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
                                 <th class='desktop'>Status</th>
-                                <th class='desktop'>Standing</th>
+
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -126,7 +126,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $oi  </td>
                               <td> $org  </td>
                               <td> $st  </td>
-                              <td>   </td>
+
                               <td>
                               <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                               </td>
@@ -213,9 +213,6 @@ if (isset($_SESSION['msg'])) {
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
-            "width": "40px"
-          },
-          {
             "width": "40px"
           },
           {

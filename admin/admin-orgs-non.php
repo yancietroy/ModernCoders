@@ -91,7 +91,7 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
                                 <th class='desktop'>Status</th>
-                                <th class='desktop'>Standing</th>
+
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -114,7 +114,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $oi  </td>
                               <td> $org  </td>
                               <td> $st  </td>
-                              <td>   </td>
+
                               <td>
                               <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                               <button type='button' class='btn btn-secondary btn-sm deletebtn' title='archive org' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
@@ -202,12 +202,7 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="ORG">Standing:</label>
-                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
-                  </div>
-                </div>
+
                 <div class="col-12 col-md-6  mb-4">
                   <label class="form-label">School Year</label>
                   <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
@@ -370,9 +365,6 @@ if (isset($_SESSION['msg'])) {
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
-            "width": "40px"
-          },
-          {
             "width": "40px"
           },
           {

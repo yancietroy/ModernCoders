@@ -196,8 +196,8 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="date_submitted">Account Created:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="account_created">Account Created:</label>
+                    <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -377,6 +377,7 @@ if (isset($_SESSION['msg'])) {
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);
           $('#PASSWORD').val(data.PASSWORD);
+          $('#account_created').val(data.ACCOUNT_CREATED);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

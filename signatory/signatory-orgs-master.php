@@ -25,7 +25,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -103,7 +103,7 @@ if (isset($_SESSION['msg'])) {
                     <th class='desktop'>Org ID</th>
                     <th class='desktop'>Organization</th>
                     <th class='desktop'>Status</th>
-                    <th class='desktop'>Standing</th>
+
                     <th class='desktop'>Actions</th>
               </tr>
             </thead>
@@ -126,7 +126,7 @@ if (isset($_SESSION['msg'])) {
                   <td> $oi  </td>
                   <td> $org  </td>
                   <td> $st  </td>
-                  <td>   </td>
+
                   <td>
                   <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                   </td>
@@ -213,9 +213,6 @@ bautoWidth: false,
 dom: 'Bfrtip',
 "bFilter": true,
 "columns": [{
-"width": "40px"
-},
-{
 "width": "40px"
 },
 {
