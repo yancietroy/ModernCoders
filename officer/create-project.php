@@ -96,6 +96,12 @@ $nav_breadcrumbs = [
             </div>
           </div>
           <div class="row">
+          <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>

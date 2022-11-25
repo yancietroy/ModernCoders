@@ -162,11 +162,21 @@ if (isset($_SESSION['msg'])) {
                           ?>
                       </td>
                     </tr>
-                    <!--<tr>
-                      <th width="30%">Courses</th>
+                    <tr>
+                      <th width="30%">Status</th>
                       <td width="2%">:</td>
-                      <td><1?php echo $data['EMAIL']; ?></td>
-                    </tr>-->
+                      <td>Active</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">Standing</th>
+                      <td width="2%">:</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <th width="30%">School Year</th>
+                      <td width="2%">:</td>
+                      <td>2022-2023</td>
+                    </tr>
                     <tr>
                       <th width="30%">Student Advisers</th>
                       <td width="2%">:</td>
@@ -286,11 +296,27 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
+                    <label class="form-label" for="ORG_ID">Status</label>
+                    <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;"  />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="ORG">Standing:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4  mb-4">
+                  <label class="form-label">School Year</label>
+                  <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                </div>
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
+                  <div class="form-outline">
                     <label class="form-label" for="signatory_id">Student Adviser</label>
                     <select class="form-select" style="width:100%;" name="signatory_id" id="signatory_id">
                       <option class="greyclr" selected disabled value="">Select Adviser</option>
                       <?php
-                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name, school_id FROM tb_signatories WHERE signatorytype_id=3";
+                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name, school_id FROM tb_signatories WHERE signatorytype_id=3 AND org_id IS NULL";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[1] . '">' . $data[0] . '</option>';

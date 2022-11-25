@@ -202,6 +202,25 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="ORG">Standing:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  </div>
+                </div>
+                <div class="col-12 col-md-6  mb-4">
+                  <label class="form-label">School Year</label>
+                  <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                </div>
+                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="signatory_id">Student Adviser</label>
+                    <select class="form-select" style="width:100%;" name="signatory_id" id="signatory_id">
+                      <option class="greyclr" selected disabled value="">Placeholder / None Assigned if wala</option>
+                      <!-- current adviser -->
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

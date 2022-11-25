@@ -51,7 +51,7 @@ if(isset($_POST['importSubmit'])){
                 $pp = "avatar-default.png";
                 $ul = "1";
                 // Check whether member already exists in the database with the same email
-                $prevQuery = "SELECT USER_ID FROM tb_students WHERE EMAIL = '".$line[4]."'";
+                $prevQuery = "SELECT ID FROM tb_students WHERE EMAIL = '".$line[4]."'";
                 $prevResult = $conn->query($prevQuery);
 
                 if($prevResult->num_rows > 0){

@@ -255,6 +255,12 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md"  readonly />
                   </div>
                 </div>
+                <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -263,7 +269,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    status='Approved'<label class="form-label" for="status_date">Date Reschedule:</label>
+                    <label class="form-label" for="status_date">Date Reschedule:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" readonly />
                   </div>
                 </div>

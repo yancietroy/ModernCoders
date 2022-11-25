@@ -255,6 +255,11 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
+                </div><div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
