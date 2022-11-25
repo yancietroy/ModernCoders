@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 24, 2022 at 03:33 PM
+-- Generation Time: Nov 25, 2022 at 10:24 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -89,9 +89,10 @@ CREATE TABLE `tb_approval_type` (
 
 INSERT INTO `tb_approval_type` (`approval_id`, `approval_pos`) VALUES
 (1, 'Adviser'),
-(2, 'Dean'),
-(3, 'SDO'),
-(4, 'Approved');
+(2, 'Chair'),
+(3, 'Dean'),
+(4, 'SDO'),
+(5, 'Approved');
 
 -- --------------------------------------------------------
 
@@ -416,7 +417,6 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (27, 1668497821, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (28, 1668497821, 18202422, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (29, 1668497886, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
-(30, 1668587725, 19123412, 1, 'Sample Proj 9', 'A new project has been created by Trisha Pega.', '', 1),
 (31, 1668587725, 19255561, 1, 'Sample Proj 9', 'A new project has been created by Trisha Pega.', '', 0),
 (32, 1668601710, 19255562, 1, 'Sample Proj 9', 'Project is now requiring your approval.', 'signatory-pending.php', 0),
 (33, 1668601888, 19255532, 2, 'Sample Proj 9', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
@@ -426,37 +426,55 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (37, 1668602254, 19255532, 2, 'Sample Proj 9', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
 (38, 1669107524, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (39, 1669107524, 19255562, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(40, 1669107854, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(40, 1669107854, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (41, 1669107854, 18202422, 1, 'COMSOC Esports Tryouts', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(42, 1669188154, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(42, 1669188154, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (43, 1669188154, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(44, 1669215807, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(44, 1669215807, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (45, 1669215807, 19255562, 1, 'ComSoc Technology and Innovation Seminar Series', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(46, 1669216214, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(46, 1669216214, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (47, 1669216214, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(48, 1669216501, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(48, 1669216501, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (49, 1669216501, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (50, 1669216982, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (51, 1669216982, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(52, 1669217623, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(52, 1669217623, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (53, 1669217623, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
 (54, 1669217861, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (55, 1669217861, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-pending.php', 1),
-(56, 1669217920, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 0),
-(57, 1669281996, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been rejected by the SDO.', 'officer-rejected.php', 0),
+(56, 1669217920, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(57, 1669281996, 19255532, 2, 'COMSOC Esports Tryouts', 'Project has been rejected by the SDO.', 'officer-rejected.php', 1),
 (58, 1669284233, 18202422, 1, 'ComSoc Technology and Innovation Seminar Series', 'Project is now requiring your approval.', 'signatory-rso-pending.php?=', 1),
-(59, 1669284872, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(59, 1669284872, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (60, 1669284872, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
 (61, 1669285435, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=', 0),
-(62, 1669285671, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
+(62, 1669285671, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
 (63, 1669285671, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
-(64, 1669285766, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(64, 1669285766, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (65, 1669285766, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
 (66, 1669285870, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
-(67, 1669286227, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 0),
-(68, 1669286265, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 0),
+(67, 1669286227, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(68, 1669286265, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (69, 1669286266, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
-(70, 1669286298, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 0);
+(70, 1669286298, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(71, 1669359982, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(72, 1669360351, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by the Chair.', 'officer-approved.php', 1),
+(73, 1669360367, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
+(74, 1669360367, 18202422, 1, 'ComSoc Technology and Innovation Seminar Series', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(75, 1669360395, 19255532, 2, 'ComSoc Technology and Innovation Seminar Series', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(76, 1669360715, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(77, 1669360715, 19202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(78, 1669360757, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Chair.', 'officer-approved.php', 1),
+(79, 1669360757, 19255562, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(80, 1669360785, 19255532, 2, 'COMSOC Acquaintance Event', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
+(81, 1669360785, 18202422, 1, 'COMSOC Acquaintance Event', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(84, 1669362665, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by your Adviser.', 'officer-pending.php', 1),
+(85, 1669362665, 19202422, 1, 'Courtesy Call with VKF', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(86, 1669362685, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the Chair.', 'officer-approved.php', 1),
+(87, 1669362685, 19255562, 1, 'Courtesy Call with VKF', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(88, 1669362704, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
+(89, 1669362704, 18202422, 1, 'Courtesy Call with VKF', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
+(90, 1669362765, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the SDO.', 'officer-approved.php', 1);
 
 -- --------------------------------------------------------
 
@@ -621,7 +639,9 @@ CREATE TABLE `tb_org_application` (
 
 INSERT INTO `tb_org_application` (`org_req_id`, `org_name`, `org_type`, `school_year`, `requirements`, `status`, `requested_by`, `date_requested`) VALUES
 (7, 'Sample Acad', 1, '20222023', '60996-11250-eventproposalforms.rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
-(8, 'Sample Non Acad', 2, '20222023', '69539-favicon_io (1).rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24');
+(8, 'Sample Non Acad', 2, '20222023', '69539-favicon_io (1).rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
+(9, 'Officer Sample Acad', 1, '20222023', '40591-11250-eventproposalforms.rar', 'Pending', 'Trisha Pega', '2022-11-25'),
+(10, 'Officer Sample Non Acad', 2, '20222023', '45744-favicon_io (1).rar', 'Pending', 'Trisha Pega', '2022-11-25');
 
 -- --------------------------------------------------------
 
@@ -733,17 +753,17 @@ CREATE TABLE `tb_projectmonitoring` (
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `college_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `approval_id`, `date_submitted`, `status_date`, `status_by`, `remarks`) VALUES
 (54, 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done.'),
 (55, 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done'),
-(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3000, '3000- food', '13914-H_30908.pdf', 'Reschedule', 4, '2022-10-13', '2022-11-10', NULL, ''),
-(60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 4, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Pending', 3, '2022-11-03', '2022-11-24', 'Dean Liza Reyes', 'approved'),
-(64, 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Reschedule', 4, '2022-11-03', '2022-11-03', NULL, ''),
-(68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ::100', '60343-11250-eventproposalforms.rar', 'Reschedule', 1, '2022-11-03', '2022-11-17', NULL, 'revise this'),
-(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 4, '2022-11-03', '2022-11-24', 'SDO John Doe', 'Revise date'),
+(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3300, 'food::3000;;fee::300', '10800-favicon_io (1).rar', 'Pending', 1, '2022-10-13', '2022-11-25', NULL, ''),
+(60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+(61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+(62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'approved'),
+(64, 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'For Revision', 5, '2022-11-03', '2022-11-03', NULL, ''),
+(68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ::0', '60343-11250-eventproposalforms.rar', 'Ongoing', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'revise this'),
+(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'Revise date'),
 (71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', NULL, 'Approved'),
 (72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5500, 'finance::5000;;Sample::500', '23659-11250-eventproposalforms.rar', 'Rejected', 1, '2022-11-04', '2022-11-24', 'SDO John Doe', ''),
-(73, 5, 12, 3, 'Sample Proj 9', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Sample obj proj 9', NULL, '2022-11-16 17:00:00', '2022-11-16 18:00:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 2500, 'Snacks::500;;Umbrellas::2000', '32140-', 'Approved', 4, '2022-11-16', '2022-11-16', NULL, '');
+(73, 5, 12, 3, 'Sample Proj 9', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Sample obj proj 9', NULL, '2022-11-16 17:00:00', '2022-11-16 18:00:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 2500, 'Snacks::500;;Umbrellas::2000', '32140-', 'Approved', 5, '2022-11-16', '2022-11-16', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -797,8 +817,9 @@ CREATE TABLE `tb_signatories` (
 
 INSERT INTO `tb_signatories` (`school_id`, `first_name`, `last_name`, `email`, `password`, `signatory_type`, `usertype_id`, `signatorytype_id`, `college_dept`, `org_id`, `account_created`, `bio`, `profile_pic`) VALUES
 (18202422, 'John', 'Doe', 'john.doe@jru.edu', '7c222fb2927d828af22f592134e8932480637c0d', NULL, 3, 1, NULL, NULL, '2022-10-26', NULL, 'img_avatar.png'),
-(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, '2022-10-26', 'Somewhat skill diff', 'img_avatar.png'),
-(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 3, 3, 12, '2022-10-26', NULL, 'img_avatar.png'),
+(19123412, 'Emerson', 'Flores', 'emerson.flores@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 4, 3, 12, '2022-10-26', 'Somewhat skill diff', 'img_avatar.png'),
+(19202422, 'Jane', 'Doe', 'jane.doe@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', NULL, 3, 3, 3, NULL, '2022-11-25', NULL, 'img_avatar.png'),
+(19255561, 'Jyr Marie', 'Reyes', 'jyrmarie.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Student Adviser', 3, 4, 3, 12, '2022-10-26', NULL, 'img_avatar.png'),
 (19255562, 'Liza', 'Reyes', 'liza.reyes@jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 'Dean', 3, 2, 3, NULL, '2022-10-26', NULL, 'img_avatar.png');
 
 -- --------------------------------------------------------
@@ -849,7 +870,8 @@ CREATE TABLE `tb_signatory_type` (
 INSERT INTO `tb_signatory_type` (`signatory_id`, `signatory`) VALUES
 (1, 'SDO'),
 (2, 'Dean'),
-(3, 'Adviser');
+(3, 'Chairperson'),
+(4, 'Adviser');
 
 -- --------------------------------------------------------
 
@@ -1412,7 +1434,7 @@ ALTER TABLE `tb_votes`
 -- AUTO_INCREMENT for table `tb_approval_type`
 --
 ALTER TABLE `tb_approval_type`
-  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `approval_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_candidate`
@@ -1460,7 +1482,7 @@ ALTER TABLE `tb_elections_archive`
 -- AUTO_INCREMENT for table `tb_notification`
 --
 ALTER TABLE `tb_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`
@@ -1490,7 +1512,7 @@ ALTER TABLE `tb_orgs_archive`
 -- AUTO_INCREMENT for table `tb_org_application`
 --
 ALTER TABLE `tb_org_application`
-  MODIFY `org_req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `org_req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tb_position`
