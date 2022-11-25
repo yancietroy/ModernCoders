@@ -5,13 +5,14 @@ session_start();
 if (isset($_POST['updatedata'])) {
 
 	$ci = $_POST["course_id"];
+	$cli = $_POST["college_id"];
 	$c =  $mysqli->real_escape_string($_POST["course"]);
 	$query = "SELECT * FROM tb_course";
 	$result = @mysqli_query($conn, $query);
 	$row = @mysqli_fetch_array($result);
 
 	if ($row) {
-		$query = "UPDATE `tb_course` SET `course` = '$c' WHERE `course_id` = '$ci'";
+		$query = "UPDATE `tb_course` SET `course` = '$c', `college_id` = '$cli'  WHERE `course_id` = '$ci'";
 		$result = @mysqli_query($conn, $query);
 		$_SESSION["sweetalert"] = [
 			"title" => "Update Course Details",

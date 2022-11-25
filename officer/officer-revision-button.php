@@ -1,5 +1,6 @@
 <?php
     include('../mysql_connect.php');
+    session_start();
     $mysqli = new mysqli("$servername","$username","$password","$database");
 
         if ($mysqli -> connect_errno) {
@@ -19,11 +20,21 @@
         $pc = $mysqli -> real_escape_string  ($_POST['project_category']);
         $p = $mysqli -> real_escape_string  ($_POST['participants']);
         $std = $mysqli -> real_escape_string  ($_POST['status_date']);
-        $br = $mysqli -> real_escape_string  ($_POST['budget_req']);
         $eb =  $mysqli -> real_escape_string ($_POST['estimated_budget']);
         $obj = $mysqli -> real_escape_string  ($_POST['objectives']);
         $s = "Pending";
         $ati = 1;
+
+        $budgetitems = [];
+        foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "payment-")) {
+                $tag = explode("-", $key)[1];
+                array_push($budgetitems, $_POST["budgetdesc-$tag"] . "::" . $value);
+            }
+        }
+
+        $items = implode(";;", $budgetitems);
+        $items = $mysqli->real_escape_string($items);
 
         $fileName = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
         $fileDestination = 'attachments/' . $fileName;
@@ -46,7 +57,7 @@
                 `project_category` ='$pc',
                 `participants` ='$p',
                 `organizer` ='$or',
-                `budget_req` ='$br',
+                `budget_req` ='$items',
                 `estimated_budget` ='$eb',
                 `status` ='$s',
                 `approval_id` = '$ati',
@@ -54,9 +65,23 @@
                 `attachments` = '$fileName'    
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-              alert('Status updated!')
-              window.location.href='officer-pending.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to pending.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
+            header("location:officer-pending.php");
         }
     } else if(isset($_POST['Done']) || isset($id))
     {
@@ -73,14 +98,44 @@
                 `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-done.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Successfully updated your project details.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-done.php");
     } else if(isset($_POST['Cancel']) || isset($id))
     {
         $id = $_POST['project_id'];
         $s = "Reschedule";
+
+        $budgetitems = [];
+        foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "payment-")) {
+                $tag = explode("-", $key)[1];
+                array_push($budgetitems, $_POST["budgetdesc-$tag"] . "::" . $value);
+            }
+        }
+
+        $items = implode(";;", $budgetitems);
+        $items = $mysqli->real_escape_string($items);
+
+        $fileName = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
+        $fileDestination = 'attachments/' . $fileName;
+        $tfileName = $_FILES['attachments']['tmp_name'];
+        move_uploaded_file($tfileName, $fileDestination);
 
         $query = "SELECT * FROM `tb_projectmonitoring`;";
         $result = @mysqli_query($conn, $query);
@@ -89,13 +144,30 @@
         if($row)
         {
         $query = "UPDATE `tb_projectmonitoring` SET
-                `status` ='$s', `status_date` = NOW()
+                `status` ='$s', 
+                `status_date` = NOW(),
+                `budget_req` ='$items',
+                `attachments` = '$fileName'
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-reschedule.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "You have Rescheduled the project.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon rescheduling your project.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-reschedule.php");
     } else if(isset($_POST['Ongoing']) || isset($id))
     {
         $id = $_POST['project_id'];
@@ -111,10 +183,23 @@
                 `status` ='$s', `status_date` = NOW()
                 WHERE `project_id` = '$id';";
         $result = @mysqli_query($conn, $query);
-        echo "<script type='text/javascript'>
-        alert('Status updated!')
-        window.location.href='officer-ongoing.php'</script>";
+            if($result){
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Successfully updated your project details.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }else{
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Update",
+                    "text" => "There was an error upon updating your project details.",
+                    "icon" => "error", //success,warning,error,info
+                    "redirect" => null,
+                ];
+
+            }
         }
+            header("location:officer-ongoing.php");
     }
-@mysqli_close($conn);
 ?>

@@ -150,7 +150,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_students WHERE ORG_ID='$orgid' OR MORG_ID = '$orgid'";
+              $query = "SELECT * FROM tb_students WHERE MORG_ID = '$orgid' OR ORG_IDS LIKE '%,[$orgid]%'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -362,7 +362,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Main Organization:</label>
+                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                       <?php
                       $query = "SELECT MORG_ID, MOTHER_ORG FROM tb_morg";
@@ -378,7 +378,7 @@ if (isset($_SESSION['msg'])) {
               <input type="hidden" name="PASSWORD" id="PASSWORD">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
               <!--<button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
             </div>
           </div>

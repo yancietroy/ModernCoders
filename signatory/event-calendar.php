@@ -9,10 +9,30 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
-$stid = $_SESSION['SIGNATORY-TYPE'];
-$data_picture = getProfilePicture(1, $data_userid);
-$nav_selected = "Calendar";
+$data_orgid = $_SESSION['USER-ORG'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
+$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
+$data_picture = getProfilePicture(3, $data_userid);
+$nav_selected = "Organizations / Calendar";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Event Calendar", "", "bi-calendar2-fill"],
@@ -146,13 +166,13 @@ if (isset($_SESSION['msg'])) {
         <!-- Event Details Modal -->
 
         <?php
-        if($orgid == NULL)
+        if($data_orgid == NULL)
         {
           $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Done'");
         }
         else
         {
-          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved' OR status='Done'");
+          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$data_orgid' AND status='Approved' OR status='Done'");
         }
         $sched_res = [];
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {

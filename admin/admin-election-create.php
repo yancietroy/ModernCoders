@@ -158,16 +158,16 @@ if (isset($_POST['create-election'])) {
                     <div class="mb-4" id="orgcontainer">
                         <label class="form-label" for="ORG">Organization</label>
                         <select class="form-select" name="ORG" id="ORG" required>
-                            <option value="0::0">JRU Student Organization Council</option>
+                            <option value="0::0">JRU Central Student Council</option>
                             <?php
-                            $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE ORG_TYPE_ID = 1";
+                            $queryOrgs = "SELECT ORG_ID,ORG,ORG_TYPE_ID FROM tb_orgs WHERE NOT ORG_ID = 26";
                             if ($resOrgs = @mysqli_query($conn, $queryOrgs)) {
                                 while ($rowOrgs = $resOrgs->fetch_assoc()) {
                                     $orgname = $rowOrgs['ORG'];
                                     if ($rowOrgs['ORG_TYPE_ID'] == 1) {
-                                        $orgname = "Main - " . $orgname;
+                                        $orgname = "Academic - " . $orgname;
                                     } else {
-                                        $orgname = "Side - " . $orgname;
+                                        $orgname = "Non-Academic - " . $orgname;
                                     }
                             ?>
                                     <option value="<?= $rowOrgs['ORG_ID'] . "::" . $rowOrgs['ORG_TYPE_ID'] ?>"><?= $orgname ?></option>
@@ -201,8 +201,8 @@ if (isset($_POST['create-election'])) {
                             <input class="form-control col mr-2" type="text" name="searchtext" id="searchtext" placeholder="Search Names...">
                             <button type="button" class="btn btn-primary col-2" id="searchbtn"><i class="bi bi-search"></i> <span id="btntitle"> Search</span></button>
                         </div>
-                        <div id="selections">
-                            <select class="list-group m-0 w-100" id="listselections" size="6">
+                        <div id="selections" style="display:none;">
+                            <select style="max-height: 30vh; min-height: 30vh; width: 100%; border: 0;" class="list-group list-group-available-items overflow-auto" id="listselections" size="6">
                             </select>
                         </div>
                     </div>
@@ -294,6 +294,8 @@ if (isset($_POST['create-election'])) {
                     }
                 }
             });
+
+            $("#selections").show();
         });
 
         $(document).on('dblclick', '#listselections', function() {

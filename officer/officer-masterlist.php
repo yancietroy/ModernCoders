@@ -54,7 +54,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -169,8 +169,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -399,14 +399,20 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                    <?php
+                    if ($result->num_rows > 0) {
+                    ?>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -426,7 +432,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
                 <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
               </div>
         </form>
@@ -469,13 +475,16 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${title}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -685,6 +694,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

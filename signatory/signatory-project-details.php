@@ -261,7 +261,7 @@ if (isset($_SESSION['msg'])) {
                   <select class="mt-0 ms-0 form-select" name="budget_source" id="project_deets" style="background-color: #fff;" readonly>
                     <option class="greyclr" selected disabled value=""><?php echo $bs; ?></option>
                     <option value="Student Council">Student Council</option>
-                    <option value="(Main org)">(Main org)</option>
+                    <option value="(Academic org)">(Academic org)</option>
                   </select>
                   <div class="valid-feedback"> </div>
                   <div class="invalid-feedback">Category field cannot be blank!</div>

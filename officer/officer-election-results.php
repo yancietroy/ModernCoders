@@ -143,16 +143,12 @@ function getVotes($election_id, $position_id, $candidate_id)
                         </div>
                         <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Description:<br></strong> <?= $description ?></h6>
                         <h6 class="ms-3 mb-3"><strong class="pr-1 text-muted mb-3">Election Date:<br></strong> <?= date("F d, Y", strtotime($start_date)) . " to " . date("F d, Y", strtotime($end_date)) ?></h6>
-                        <div class="ms-3 mb-3 row">
-                            <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Total Number of Students:<br></strong> <?= $total_voters ?></h6>
-                            </div>
-                            <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Total Number of Votes:<br></strong> <?= $total_votes ?></h6>
-                            </div>
-                            <div class="col-sm m-0 p-0">
-                                <h6><strong class="pr-1 text-muted mb-3">Students who didn't vote:<br></strong> <?= $total_pending ?></h6>
-                            </div>
+                        <div class="ms-3 mb-3 row justify-content-center">
+                            <input type="text" style="display: none;" id="num-voters" value="<?= $total_voters ?>">
+                            <input type="text" style="display: none;" id="num-votes" value="<?= $total_votes ?>">
+                            <input type="text" style="display: none;" id="num-pending" value="<?= $total_pending ?>">
+                            <div style="width: 400px;"><canvas id="piechart"></canvas></div>
+                            <div style="width: 700px;"><canvas id="barchart"></canvas></div>
                         </div>
                         <button class="btn btn-primary btn-sm px-4 ml-3 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             Show Results
@@ -164,7 +160,7 @@ function getVotes($election_id, $position_id, $candidate_id)
                                     <thead class="thead-light">
                                         <th>Position</th>
                                         <th>Candidate</th>
-                                        <th>Total Votes</th>
+                                        <th>Winner/Total Votes</th>
                                         <th>Total Abstain</th>
                                     </thead>
                                     <tbody>
@@ -215,12 +211,23 @@ function getVotes($election_id, $position_id, $candidate_id)
                                                             $invalidWinner = true;
                                                         }
                                                     }
+
+                                                    $pos_abstain_votes = getVotes($election_id, $pos_id, "-1");
+                                                    $pos_total_votes = 0;
+                                                    $sqlTotal = "SELECT COUNT(*) as total FROM tb_votes WHERE ELECTION_ID='$election_id' AND POSITION_ID='$pos_id' AND tb_votes.CANDIDATE_ID<>'-1'";
+                                                    if ($restotal = @mysqli_query($conn, $sqlTotal)) {
+                                                        $rowtotal = @mysqli_fetch_assoc($restotal);
+                                                        $pos_total_votes = $rowtotal['total'];
+                                                    }
                                         ?>
                                                     <tr>
                                                         <td><?= $posname ?></td>
                                                         <td <?= $invalidWinner ? "class='text-danger'" : "" ?>><?= $winnername ?? "" ?></td>
-                                                        <td><?= $votes ?></td>
-                                                        <td><?= getVotes($election_id, $pos_id, "-1") ?></td>
+                                                        <td><?= $votes . "/" . $pos_total_votes ?></td>
+                                                        <td><?= $pos_abstain_votes ?></td>
+                                                        <td style="display: none;">
+                                                            <input type="text" id="dataset-<?= $pos_id ?>" value="<?= $posname . ";;" . $pos_total_votes . ";;" . $votes . ";;" . $pos_abstain_votes ?>">
+                                                        </td>
                                                     </tr>
                                         <?php
                                                 }
@@ -334,6 +341,10 @@ function getVotes($election_id, $position_id, $candidate_id)
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <!-- Chart JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- form validation/sidebar toggle -->
     <script src="../assets/js/form-validation.js"></script>
     <!-- waves js -->
@@ -343,6 +354,107 @@ function getVotes($election_id, $position_id, $candidate_id)
         Waves.attach('#sidebar ul li a');
         Waves.attach('.button');
         Waves.init();
+    </script>
+    <script>
+        const CHART_COLORS = {
+            blue: 'rgb(54, 162, 235)',
+            orange: 'rgb(255, 159, 64)',
+            red: 'rgb(255, 99, 132)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+
+        var total_votes = $('#num-votes').val();
+        var total_voters = $('#num-voters').val();
+        var total_pending = $('#num-pending').val();
+
+        new Chart(
+            document.getElementById('piechart'), {
+                type: 'pie',
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Total Votes'
+                        }
+                    }
+                },
+                data: {
+                    labels: ['Total Voters', 'Total Votes', 'Total Pending'],
+                    datasets: [{
+                        label: 'Value',
+                        data: [total_voters, total_votes, total_pending],
+                        backgroundColor: Object.values(CHART_COLORS),
+                    }]
+                },
+            }
+        );
+
+        var data_positions = [];
+        var data_totalvotes = [];
+        var data_totalwinner = [];
+        var data_totalabstain = [];
+
+        $("input[id^='dataset-']").each(function(index, element) {
+            const val = element.value;
+            const explodeval = val.split(";;");
+            data_positions.push(explodeval[0]);
+            data_totalvotes.push(explodeval[1]);
+            data_totalwinner.push(explodeval[2]);
+            data_totalabstain.push(explodeval[3]);
+        });
+
+        new Chart(
+            document.getElementById('barchart'), {
+                type: 'bar',
+                options: {
+                    indexAxis: 'y',
+                    elements: {
+                        bar: {
+                            borderWidth: 2,
+                        }
+                    },
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Vote Tally'
+                        }
+                    }
+                },
+                data: {
+                    labels: data_positions,
+                    datasets: [{
+                            label: 'Total Votes',
+                            data: data_totalvotes,
+                            borderColor: CHART_COLORS.blue,
+                            backgroundColor: CHART_COLORS.blue,
+                        },
+                        {
+                            label: 'Winner\'s Votes',
+                            data: data_totalwinner,
+                            borderColor: CHART_COLORS.green,
+                            backgroundColor: CHART_COLORS.green
+                        },
+                        {
+                            label: 'Total Abstain',
+                            data: data_totalabstain,
+                            borderColor: CHART_COLORS.red,
+                            backgroundColor: CHART_COLORS.red
+                        },
+                    ]
+                },
+            }
+        );
     </script>
 </body>
 

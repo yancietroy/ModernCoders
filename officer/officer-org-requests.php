@@ -75,13 +75,16 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-7">
           <h4> Student Application List</h4>
         </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="applications-masterlist.php" role="button"><i class="bi bi-person-lines-fill"></i> <span id="btntitle">All Applications </span></a>
+        </div>
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid'";
+              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND req_status IN('Approved') OR req_status IN('Pending')";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $si = " ";
@@ -208,7 +211,7 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  
               <?php
                 if ($_SESSION['USER-POS'] <= 5 ){
               ?>
@@ -390,6 +393,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

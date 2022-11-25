@@ -71,7 +71,7 @@ if (isset($_SESSION['msg'])) {
           <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
             <div class="card-body px-5 py-3 pt-4 ">
               <div class="row g-0 justify-content-center align-items-center ">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" novalidate>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form" name="form" data-parsley-validate data-parsley-trigger="keyup" data-parsley-validate class="requires-validation" enctype="multipart/form-data" novalidate>
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">New Student Organization</h3>
 
                   <!-- <form class="was-validated"> -->
@@ -112,7 +112,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="orgname" id="asterisk">Organization name</label>
-                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="50" class="form-control form-control-lg" required="" />
+                        <input type="text" name="orgname" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="100" class="form-control form-control-lg" required="" />
                         <div class="valid-feedback"></div>
                         <!--<div class="invalid-feedback">First name field invalid!</div>-->
                       </div>
@@ -120,7 +120,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="col-12 col-md-6  mb-4">
                       <div class="form-outline">
 
-                        <label class="form-label" for="lastName" id="asterisk">Abbreviation</label>
+                        <label class="form-label" for="lastName">Abbreviation</label>
                         <input type="text" name="abbrev" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="10" oninput="this.value = this.value.toUpperCase()" class="form-control form-control-lg" />
                         <div class="valid-feedback"> </div>
                         <!--<div class="invalid-feedback">Last name field invalid!</div>-->
@@ -130,7 +130,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="row mb-0">
                     <div class="col-12 col-md-6 col-sm-3 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="orgname" id="asterisk">Assign Student Adviser</label>
+                        <label class="form-label" for="orgname">Student Adviser</label>
                         <select class="form-select" style="width:100%;" name="Signatory" id="Signatory">
                           <option class="greyclr" selected disabled value="">Select Adviser</option>
                           <?php
@@ -165,7 +165,7 @@ if (isset($_SESSION['msg'])) {
                     $org =  $mysqli -> real_escape_string ($_POST['orgname']) . ' (' .  $mysqli -> real_escape_string ($_POST['abbrev']) . ')';
 
                     $pname = rand(1000, 100000) . "-" . $_FILES['orgpic']['name'];
-                    $destination = '../assets/img/logos' . $pname;
+                    $destination = '../assets/img/logos/' . $pname;
                     $tname = $_FILES['orgpic']['tmp_name'];
                     move_uploaded_file($tname, $destination);
 
@@ -189,7 +189,8 @@ if (isset($_SESSION['msg'])) {
                       $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                       if ($ot == "Non-Academic") {
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
+                        $otid = 2;
+                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', NULLIF('$ci', ''), '$otid')";
                         $conn->exec($sql);
                         echo "<script type='text/javascript'>
                                         Swal.fire({
@@ -202,7 +203,8 @@ if (isset($_SESSION['msg'])) {
                                           });
                                           </script>";
                       } else {
-                        $sql = "INSERT INTO tb_morg(MOTHER_ORG, logo, college_id) VALUES('$org', '$pname', '$ci')";
+                        $otid = 1;
+                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', '$ci', '$otid')";
                         $conn->exec($sql);
                         echo "<script type='text/javascript'>
                                         Swal.fire({
@@ -286,7 +288,7 @@ if (isset($_SESSION['msg'])) {
     <!-- JavaScript validation -->
     <script src="../assets/js/bootstrap-validation.js"></script>
     <!-- <script src="js/form-validation.js"></script>
-    Prevent Cut Copy Paste -->
+    Prevent Cut Copy Paste
     <script>
       $(document).ready(function() {
         $('input:text').bind('cut copy paste', function(e) {
@@ -295,15 +297,7 @@ if (isset($_SESSION['msg'])) {
         });
 
       });
-    </script>
-    <!--email generator-->
-    <script>
-      $("#txtTest, #txtTest2").on('input', function() {
-        var fname = $("#txtTest").val().toLowerCase().replace(/\s/g, '');
-        var lname = $("#txtTest2").val().toLowerCase().replace(/\s/g, '');
-        $("#email").attr("value", fname + "." + lname + "@jru.edu");
-      });
-    </script>
+    </script>-->
     <!--input mask-->
     <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="../assets/js/inputmask-validation.js"></script>

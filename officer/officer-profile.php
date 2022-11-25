@@ -47,7 +47,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -66,7 +66,7 @@ if (isset($_SESSION['msg'])) {
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
-            <div class="col-lg-4 mb-4 col-12">
+            <div class="col-lg-12 mb-4 col-12">
               <div class="card shadow-sm">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -77,24 +77,28 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
+                  <small class="pt-3">COMSOC 2 years Assistant Secretary</small>
                 </div>
                 <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
                 $data = @mysqli_fetch_array($result);
                 $si = $data['student_id']; ?>
-                <div class="card-body">
+                <div class="card-body px-4">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
-            <div class="col-lg-8 col-12 ">
-              <div class="card shadow-sm" id="card-large">
-                <div class="card-header bg-transparent border-0">
-                  <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
+            <div class="col-lg-12 mb-4 col-12">
+            <div class="card card-profile shadow" id="card-large">
+              <div class="card-header bg-transparent border-0">
+                <div class="d-grid gap-2 py-2 d-md-flex justify-content-between">
+                  <h3 class="mb-0 py-0"><i class="far fa-clone pr-1"></i> Student Information</h3>
                 </div>
+              </div>
                 <div class="card-body mt-2 pt-0">
                   <table class="table table-bordered" id="proftable">
 
@@ -335,6 +339,12 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="course">Bio:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3" placeholder="Enter officer history."></textarea>
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 mb-4">
@@ -393,7 +403,7 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
               <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
             </div>
           </div>
@@ -646,6 +656,9 @@ if (isset($_SESSION['msg'])) {
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

@@ -73,9 +73,9 @@ if (isset($_SESSION['msg'])) {
       <div class="row justify-content-center">
         <div class="col-lg-11">
           <div class="card shadow-sm card-registration mb-4" style="border-radius: 15px;">
-              <div class="card-body px-2 mx-3 py-3 pt-4 ">
+            <div class="card-body px-2 mx-3 py-3 pt-4 ">
               <?php
-              $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility='0' OR visibility='1' OR visibility='5'";
+              $sqlGroups = "SELECT * FROM tb_disc_groups WHERE visibility in ('0','1','5')";
               if ($res = @mysqli_query($conn, $sqlGroups)) {
                 while ($groups = $res->fetch_assoc()) {
                   $groupid = $groups['group_id'];
@@ -84,7 +84,7 @@ if (isset($_SESSION['msg'])) {
                     <h3><?= $groups['name'] ?></h3>
                   </div>
                   <?php
-                  $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$orgid') AND (visibility='0' OR visibility='1' OR visibility='5')";
+                  $sqlTopics = "SELECT * FROM tb_disc_topics WHERE group_id='$groupid' AND (org_id='0' OR org_id='$orgid') AND (visibility in ('0','1','5') OR (visibility='6' AND members LIKE '%;;$data_userid%'))";
                   if ($res2 = @mysqli_query($conn, $sqlTopics)) {
                     if ($res2->num_rows > 0) {
                       while ($topics = $res2->fetch_assoc()) {

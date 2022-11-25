@@ -93,7 +93,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_students WHERE MORG_ID = '$orgid' OR ORG_ID = '$orgid'";
+              $query = "SELECT * FROM tb_students WHERE MORG_ID = '$orgid' OR ORG_IDS LIKE '%,[$orgid]%'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -309,7 +309,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Main Organization:</label>
+                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
                       $query = "SELECT ORG_ID,ORG FROM tb_orgs";

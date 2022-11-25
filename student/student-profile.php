@@ -37,6 +37,8 @@ if (isset($_SESSION['msg'])) {
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -55,7 +57,7 @@ if (isset($_SESSION['msg'])) {
       <div class="student-profile py-4 px-5">
         <div class="container-lg ">
           <div class="row">
-            <div class="col-12 col-lg-4 mb-4">
+            <div class="col-12 col-lg-12 mb-4">
               <div class="card shadow">
                 <div class="card-header bg-transparent text-center">
                   <div class="container">
@@ -66,20 +68,22 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
+                  <small class="pt-3">My name is Trisha, I am a COMSOC Member</small>
                 </div>
                 <?php $query = "SELECT * FROM tb_students WHERE STUDENT_ID = '$data_userid'";
                 $result = @mysqli_query($conn, $query);
                 $data = @mysqli_fetch_array($result);
                 $si = $data['STUDENT_ID']; ?>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo "$si"; ?></p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo "$data[YEAR_LEVEL]"; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo "$data[SECTION]"; ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-12">
               <div class="card card-profile shadow" id="card-large">
                 <div class="card-header bg-transparent border-0">
                   <h3 class="mb-0 pt-2"><i class="far fa-clone pr-1"></i>Student Information</h3>
@@ -123,7 +127,7 @@ if (isset($_SESSION['msg'])) {
                       <td><?php echo "$data[COURSE]"; ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Main Organization </th>
+                      <th width="30%">Academic Organization </th>
                       <td width="2%">:</td>
                       <td><?php $query = "SELECT tb_students.MORG_ID, tb_orgs.ORG FROM tb_students INNER JOIN tb_orgs ON tb_students.MORG_ID=tb_orgs.ORG_ID WHERE tb_students.STUDENT_ID = '$data_userid'";
                           $result = @mysqli_query($conn, $query);
@@ -133,7 +137,7 @@ if (isset($_SESSION['msg'])) {
                           } ?></td>
                     </tr>
                     <tr>
-                      <th width="30%">Side Organizations </th>
+                      <th width="30%">Non-Academic Organizations </th>
                       <td width="2%">:</td>
                       <td>
                         <?php
@@ -646,6 +650,7 @@ if (isset($_SESSION['msg'])) {
 
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
+      <?php include("include/sweetalert.php") ?>
 </body>
 
 </html>

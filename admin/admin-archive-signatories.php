@@ -199,7 +199,7 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="email">Email:</label>
-                  <input type="text" name="email" id="email" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required />
+                  <input type="text" name="email" id="email" class="form-control" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" required />
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">

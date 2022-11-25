@@ -72,15 +72,15 @@ if (isset($_SESSION['msg'])) {
                       <label class='text-muted mt-3'>Section:</label>
                       <h5>$row[5]</h5>
                   </div>
-                  <div class='col-12 col-md-4 mt-2'>
+                  <div class='col-12 col-md-3 mt-2'>
                     <label class='text-muted'>JRU ID:</label>
                     <h5>19-255322</h5>
                     <label class='text-muted mt-3'>Email:</label>
                     <h6>$row[4]</h6>
                   </div>
-                  <div class='col-12 col-md-3 mt-2'>
+                  <div class='col-12 col-md-4 mt-2'>
                       <label class='text-muted'>Position:</label>
-                      <h5>$row[1]</h5>
+                      <h6  class='fs-5'>$row[1]</h6>
                       <label class='text-muted mt-3'>Course:</label>
                       <h6 class='fs-6'>$row[3]</h6>
                   ";
@@ -100,9 +100,15 @@ if (isset($_SESSION['msg'])) {
       <div class="col-lg-6 col-7">
         <h4 id="orgtitle">My Organizations</h4>
       </div>
+      <?php
+      if ($_SESSION['USER-ORG-TYPE'] == 2) {
+      ?>
       <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
         <a class="btn btn-default btn-circle button px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
       </div>
+      <?php
+      }
+      ?>
     </div>
       <div class="row ms-4 mb-4 mt-4">
         <div class="col-12  col-md-5  " id="orgs">

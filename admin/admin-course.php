@@ -163,7 +163,7 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Update Student Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Update Course Details </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -174,15 +174,27 @@ if (isset($_SESSION['msg'])) {
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="course_id">course ID:</label>
+                    <label class="form-label" for="course_id">Course ID:</label>
                     <input type="text" name="course_id" id="course_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="course">course Name:</label>
+                    <label class="form-label" for="course">Course Name:</label>
                     <input type="text" name="course" id="course" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" maxlength="100" />
                   </div>
+                </div>
+                <div class="col-12 col-md-12  mb-4">
+                  <label class="form-label"> College</label>
+                  <select class="form-select" style="width:100%;" name="college_id" id="college_id">
+                    <?php
+                    $query = "SELECT * FROM tb_collegedept";
+                    $result = @mysqli_query($conn, $query);
+                    while ($data = @mysqli_fetch_array($result)) {
+                      echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
             </div>
@@ -201,16 +213,16 @@ if (isset($_SESSION['msg'])) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive College Data </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Archive Course </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-delete-user.php" method="POST">
+        <form action="admin-delete-course.php" method="POST">
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">College ID:</label>
+                <label class="form-label" for="delete_id">Course ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
@@ -241,6 +253,7 @@ if (isset($_SESSION['msg'])) {
           console.log(data);
           $('#course_id').val(data.course_id);
           $('#course').val(data.course);
+          $('#college_id').val(data.college_id);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

@@ -9,10 +9,29 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
-$data_picture = getProfilePicture(1, $data_userid);
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  }
+}
+
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
+$data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
@@ -52,6 +71,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -79,12 +99,12 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive ms-0">
               <?php
-              if (isset($orgid) == NULL && $data_signatorytype == 2) {
+              if (isset($data_orgid) == NULL && $data_signatorytype == 2) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND college_id = '$data_collegeid'";
-              } elseif (isset($orgid) == NULL && $data_signatorytype == 1) {
+              } elseif (isset($data_orgid) == NULL && $data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision')";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND org_id = '$orgid'";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -171,7 +191,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                                  <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                                    <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </td>
                               <td> $std  </td>
@@ -408,6 +428,9 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <?php
+                      if($result->num_rows > 0){
+                    ?>
                     <table class="table" id="budget-request">
                       <thead>
                         <th>Item</th>
@@ -416,6 +439,9 @@ if (isset($_SESSION['msg'])) {
                       <tbody>
                       </tbody>
                     </table>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 mb-4">
@@ -426,7 +452,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="modal-footer px-0 py-0 pt-2">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+        <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
                 </div>
         </form>
       </div>
@@ -474,7 +500,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -683,6 +709,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

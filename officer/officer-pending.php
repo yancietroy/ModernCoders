@@ -385,19 +385,24 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                    <?php
+                    if ($result->num_rows > 0) {
+                    ?>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
-
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping">PHP</span>
@@ -412,18 +417,18 @@ if (isset($_SESSION['msg'])) {
                             </div>
                           </div>!-->
               </div>
-            </div>
-            <div class="modal-footer px-0 py-0 pt-2">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <?php
-              if ($_SESSION['USER-POS'] <= 5) {
-              ?>
-                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
+              <div class="modal-footer px-0 py-0 pt-2">
                 <?php
-              }
+                if ($_SESSION['USER-POS'] <= 5) {
                 ?>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
+                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</button>
+                <?php
+                }
+                ?>
+              </div>
             </div>
+          </div>
         </form>
       </div>
     </div>
@@ -463,13 +468,16 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${title}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -678,6 +686,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

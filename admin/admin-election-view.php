@@ -105,7 +105,7 @@ if ($res = @mysqli_query($conn, $sql)) {
 
 $org_name = "";
 if ($data_type == 0) {
-    $org_name = "JRU Student Organization Council";
+    $org_name = "JRU Central Student Council";
 } else {
     $sql = "SELECT ORG FROM `tb_orgs` WHERE ORG_ID='$data_orgid' AND org_type_id='$data_type'";
     if ($res = @mysqli_query($conn, $sql)) {
@@ -187,7 +187,7 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
                     <div class="mb-4">
                         <label class="form-label" for="ORGNAME"><?php
                                                                 if ($data_type == 2) {
-                                                                    echo "Side Organization";
+                                                                    echo "Non-Academic Organization";
                                                                 } else if ($data_type == 1) {
                                                                     echo "Mother Organization";
                                                                 } else {
@@ -236,7 +236,7 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
                             </thead>
                             <tbody>
                                 <?php
-                                if ($data_type == 1) {
+                                if ($data_type == 0) {
                                     $sql = "SELECT tb_candidate.*,tb_officers.LAST_NAME,tb_officers.FIRST_NAME,tb_officers.MIDDLE_INITIAL as MIDDLE_NAME FROM `tb_candidate` LEFT JOIN `tb_officers` ON tb_candidate.STUDENT_NO=tb_officers.STUDENT_ID WHERE ELECTION_ID='$data_electionid'";
                                 } else {
                                     $sql = "SELECT tb_candidate.*,tb_students.LAST_NAME,tb_students.FIRST_NAME,tb_students.MIDDLE_NAME FROM `tb_candidate` LEFT JOIN `tb_students` ON tb_candidate.STUDENT_NO=tb_students.STUDENT_ID WHERE ELECTION_ID='$data_electionid'";

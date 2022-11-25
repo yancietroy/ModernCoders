@@ -1,5 +1,5 @@
 <?php
-    include('../mysql_connect.php'); include('profilepic.php');
+    include('../mysql_connect.php');
 
     if (isset($_POST['updatedata']) || isset($pr) || isset($s))
     {

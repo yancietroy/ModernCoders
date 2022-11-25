@@ -1,6 +1,5 @@
 <?php
 include('../mysql_connect.php');
-ob_start();
 session_start();
 
 include('../router.php');
@@ -16,14 +15,27 @@ if (isset ($_POST['updatedata']))
 	$result = @mysqli_query($conn, $query);
 	$row = mysqli_fetch_array($result);
 
-		if($row)
-		{
-			$query = "UPDATE `tb_signatories` SET  `first_name` = '$fn', `last_name` = '$ln' WHERE `school_id` = '$si'";
-			$result = @mysqli_query($conn, $query);
-			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
-			echo "<script type='text/javascript'>
-                    alert('Details Updated')
-                    window.location.href='signatory-profile.php'</script>";
+	if($row)
+	{
+		$query = "UPDATE `tb_signatories` SET  `first_name` = '$fn', `last_name` = '$ln' WHERE `school_id` = '$si'";
+		$result = @mysqli_query($conn, $query);
+		$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
+		if($result){
+			$_SESSION["sweetalert"] = [
+				"title" => "Edit Account",
+				"text" => "Successfully updated your account information.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+		}else{
+			$_SESSION["sweetalert"] = [
+				"title" => "Edit Account",
+				"text" => "There was an error upon updating your account information.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+				];
 		}
-
+		header("location:signatory-profile.php");
+	}
 }
+?>

@@ -46,8 +46,8 @@ if (isset($_SESSION['message'])) {
               <?php
               if (isset($_POST['submit'])) {
                 include('mysql_connect.php');
-                $e =  $mysqli -> real_escape_string ($_POST['email']);
-                $p =  $mysqli -> real_escape_string ($_POST['password']);
+                $e =  $mysqli->real_escape_string($_POST['email']);
+                $p =  $mysqli->real_escape_string($_POST['password']);
 
                 if (!empty($_POST['email']) || !empty($_POST['password'])) {
                   ob_start();
@@ -64,6 +64,15 @@ if (isset($_SESSION['message'])) {
                     $_SESSION['USER-NAME'] = $row[1] . " " . $row[2];
                     $_SESSION['USER-COLLEGE'] = $row[5];
                     $_SESSION['SIGNATORY-TYPE'] = $row[4];
+                    $orgid = $row[1];
+                    $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                    if ($resOrgName = @mysqli_query($conn, $query)) {
+                      if ($resOrgName->num_rows > 0) {
+                        $org = $resOrgName->fetch_assoc();
+                        $_SESSION['USER-ORG-NAME'] = $org['ORG'];
+                        $_SESSION['USER-ORG-TYPE'] = $org['org_type_id'];
+                      }
+                    }
                     if (isset($_SESSION['USER-TYPE'])) {
                       header("Location:signatory/signatory-index.php");
                       @mysqli_close($conn);
@@ -98,11 +107,11 @@ if (isset($_SESSION['message'])) {
               </div>
               <div class="d-flex justify-content-between mt-3 mb-2">
                 <div class="form-check">
-                                     <input class="form-check-input" type="checkbox" onclick="showPass()" id="inlineFormCheck">
-                                     <label class="form-check-label" for="inlineFormCheck">Show Password</label>
-                                 </div>
-                                     <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
-                             </div>
+                  <input class="form-check-input" type="checkbox" onclick="showPass()" id="inlineFormCheck">
+                  <label class="form-check-label" for="inlineFormCheck">Show Password</label>
+                </div>
+                <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
+              </div>
               <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
                 <select class="selectpicker form-select mt-2 py-3" id="select-opt">
@@ -128,14 +137,14 @@ if (isset($_SESSION['message'])) {
     </div>
   </div>
   <script>
-  function showPass() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
+    function showPass() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-  }
   </script>
 
   <!-- waves js -->

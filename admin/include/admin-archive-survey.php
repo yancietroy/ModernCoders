@@ -11,7 +11,7 @@ if (isset($_POST['delete-survey'])) {
         if ($result) {
             echo "<script type='text/javascript'>
                     alert('Archived Survey')
-                    window.location.href='../officer-survey-list.php'</script>";
+                    window.location.href='../admin-survey-list.php'</script>";
         } else {
             echo '<script> alert("Data Not Deleted"); </script>';
         }

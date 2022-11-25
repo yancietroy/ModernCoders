@@ -11,7 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$data_picture = getProfilePicture(1, $data_userid);
+$data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
@@ -175,7 +175,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                                  <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                                    <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
                               <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </td>
                               <td> $std  </td>
@@ -443,7 +443,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-3 py-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
             <button class="btn btn-md btn-revise" name="Revise" onclick="document.getElementById('hidden').style.display = 'block' ;">Revise</a>
               <button class="btn btn-md btn-danger" name="Reject">Reject</a>
                 <button class="btn btn-md  btn-success" name="Approve">Approve</a>

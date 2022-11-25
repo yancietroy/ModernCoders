@@ -34,3 +34,6 @@
         </div>
     </div>
 </nav>
+
+<script src="../assets/js/download-table.js"></script>
+<script src="../assets/js/export2csv.js"></script>

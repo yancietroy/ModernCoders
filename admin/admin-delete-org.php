@@ -1,32 +1,41 @@
 <?php
 include('../mysql_connect.php');
+session_start();
 
 if(isset($_POST['deletedata']))
 {
-    if(isset($_POST['delete_id'])){
-
+    if(isset($_POST['delete_id']))
+    {
         $query = "INSERT tb_orgs_archive SELECT * FROM tb_orgs WHERE ORG_ID='".$_POST["delete_id"]."'";
         $result = @mysqli_query($conn, $query);
         if($result)
         {
-
             $query = "DELETE FROM tb_orgs WHERE ORG_ID='".$_POST["delete_id"]."'";
             $result = @mysqli_query($conn, $query);
-            if($result)
-            {
-              echo "<script type='text/javascript'>
-                    alert('Archived User')
-                    window.location.href='admin-orgs.php'</script>";
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Archived Organization",
+                    "text" => "Student Organization has been archived successfully.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            } else {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Archive Organization",
+                    "text" => "Unexpected error has been encountered while archiving the Student Organization.",
+                    "icon" => "warning", //success,warning,error,info
+                    "redirect" => null,
+                ];
             }
-            else
-            {
-                echo '<script> alert("Data Not Deleted"); </script>';
-            }
+        } else {
+            $_SESSION["sweetalert"] = [
+                "title" => "Archive Organization",
+                "text" => "Unexpected error has been encountered while archiving the Student Organization.",
+                "icon" => "warning", //success,warning,error,info
+                "redirect" => null,
+            ];
         }
-        else
-        {
-            echo '<script> alert("Data Not Deleted"); </script>';
-        }
+        header("location:admin-orgs.php");
     }
 }
 ?>

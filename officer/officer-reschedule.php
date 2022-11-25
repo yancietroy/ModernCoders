@@ -54,7 +54,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -168,8 +168,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -421,14 +421,24 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                    <?php
+                    if ($result->num_rows > 0) {
+                    ?>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                          <th>Action</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="text-right">
+                        <button type="button" class="btn btn-primary mt-1 " id="add-budget">Add Budget</button>
+                      </div>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -502,13 +512,28 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
+          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+            bcount++;
+
+            var options = "";
+            for (var key in codes) {
+              if (data[0] == key) {
+                options = options + `<option value="${key}" selected>${codes[key]}</option>`;
+              } else {
+                options = options + `<option value="${key}">${codes[key]}</option>`;
+              }
+            }
+
             var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -577,7 +602,47 @@ if (isset($_SESSION['msg'])) {
         dateFormat: "dd-M-yy",
         minDate: 0
       });
+
+      $("#budget-request").on("change", ".payment", function() { // <-- Only changed this line
+        var sum = 0;
+        $(".payment").each(function() {
+          if (!isNaN(this.value) && this.value.length != 0) {
+            sum += parseFloat(this.value);
+          }
+        });
+        $('#estimated_budget').val(sum);
+      });
+
+      $('#add-budget').on("click", function() {
+        $.ajax({
+          url: "include/officer-fetch-budget-codes.php",
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+            var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+            var options = "";
+            data.forEach(e => {
+              options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+            });
+            var output = `
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          }
+        });
+
+      });
     });
+
+    function deleteBudget(id) {
+      $("#budget-" + id).remove();
+    }
   </script>
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -754,6 +819,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+  include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

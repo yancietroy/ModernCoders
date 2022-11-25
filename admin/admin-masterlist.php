@@ -172,8 +172,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                                <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                            <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -436,7 +436,7 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
+                <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button><!--  !-->
               </div>
         </form>
       </div>
@@ -478,13 +478,16 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${title}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

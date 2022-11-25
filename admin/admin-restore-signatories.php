@@ -13,7 +13,7 @@ if (isset($_POST['restoredata'])) {
             $result = @mysqli_query($conn, $query);
             if ($result) {
                 $_SESSION["sweetalert"] = [
-                    "title" => "Restore Account",
+                    "title" => "Restored Account",
                     "text" => "Signatory account has been restored successfully.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,

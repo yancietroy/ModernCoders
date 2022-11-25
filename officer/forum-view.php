@@ -71,7 +71,7 @@ if (isset($_POST['post-reply'])) {
     }
 } else if (isset($_POST['edit-reply'])) {
     $replyid = $_POST['edit-id'];
-    $msg = $_POST['edit-msg'];
+    $msg = $mysqli->real_escape_string($_POST['edit-msg']) ?? "";
     $timestamp = time();
     $sqlUpd = "UPDATE tb_disc_replies SET message='$msg', edited='$timestamp' WHERE reply_id='$replyid'";
     if (@mysqli_query($conn, $sqlUpd)) {
@@ -172,7 +172,7 @@ if (isset($_POST['post-reply'])) {
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .msg-body p {
             font-weight: normal;
@@ -508,17 +508,47 @@ if (isset($_POST['post-reply'])) {
         }
 
         if ($error == 0) {
-            echo "<script>alert('Error while posting your reply. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Post Reply",
+                "text" => "Error while posting your reply. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 1) {
-            echo "<script>alert('Unable to reply an empty message. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Post Reply",
+                "text" => "Unable to reply an empty message. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 2) {
-            echo "<script>alert('Reply has been deleted successfully.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Reply",
+                "text" => "Reply has been deleted successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 3) {
-            echo "<script>alert('Error while delete the reply. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Reply",
+                "text" => "Error while delete the reply. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 4) {
-            echo "<script>alert('Reply has been edited successfully.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Edit Reply",
+                "text" => "Reply has been edited successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 5) {
-            echo "<script>alert('Error while editing your reply. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Edit Reply",
+                "text" => "Error while editing your reply. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         }
         ?>
 
@@ -574,6 +604,9 @@ if (isset($_POST['post-reply'])) {
                 $('#editModal').modal('show');
             }
         </script>
+        <?php
+            include('include/sweetalert.php');
+        ?>
 </body>
 
 </html>

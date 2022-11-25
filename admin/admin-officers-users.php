@@ -316,7 +316,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
-                    <select class="form-select" name="user_type" id="user_type">
+                    <select class="form-select" name="user_type" id="user_type" readonly>
                       <?php
                       $query = "SELECT * FROM tb_usertypes";
                       $result = @mysqli_query($conn, $query);
@@ -341,6 +341,7 @@ if (isset($_SESSION['msg'])) {
                       <option value="2">Year 2</option>
                       <option value="3">Year 3</option>
                       <option value="4">Year 4</option>
+                        <option value="5">Year 5</option>
                     </select>
                   </div>
                 </div>
