@@ -196,8 +196,8 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="date_submitted">Account Created:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="account_created">Account Created:</label>
+                    <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -252,6 +252,7 @@ if (isset($_SESSION['msg'])) {
                     <option value="2">Year 2</option>
                     <option value="3">Year 3</option>
                     <option value="4">Year 4</option>
+                    <option value="5">Year 5</option>
                   </select>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -296,7 +297,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Organization:</label>
+                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>
                       <?php
                       $query = "SELECT ORG_ID,ORG FROM tb_orgs";
@@ -312,7 +313,7 @@ if (isset($_SESSION['msg'])) {
               <input type="hidden" name="PASSWORD" id="PASSWORD">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
               <!--<button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
             </div>
           </div>
@@ -376,6 +377,7 @@ if (isset($_SESSION['msg'])) {
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);
           $('#PASSWORD').val(data.PASSWORD);
+          $('#account_created').val(data.ACCOUNT_CREATED);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

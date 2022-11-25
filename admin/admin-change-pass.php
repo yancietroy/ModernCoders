@@ -17,11 +17,24 @@ if (isset($_POST['changePassword'])) {
 	if ($row) {
 		$query = "UPDATE `tb_admin` SET `PASSWORD` = SHA('$pass') WHERE `ADMIN_ID` = '$si'";
 		$result = @mysqli_query($conn, $query);
-		$_SESSION["sweetalert"] = [
-			"title" => "Saved!",
-			"text" => "Successfully changed your account password.",
-			"icon" => "success", //success,warning,error,info
+		if($result)
+		{
+			$_SESSION["sweetalert"] = [
+				"title" => "Saved!",
+				"text" => "Successfully changed your account password.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+			];
+		}else
+		{
+			$_SESSION["sweetalert"] = [
+			"title" => "Error",
+			"text" => "Change password error.",
+			"icon" => "error", //success,warning,error,info
 			"redirect" => null,
-		];
+			];
+		}
+		header("Location:admin-profile.php");
 	}
-}
+	}
+	?>

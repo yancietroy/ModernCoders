@@ -251,6 +251,11 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
+                </div><div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
@@ -413,7 +418,7 @@ if (isset($_SESSION['msg'])) {
             </div>
             <div class="modal-footer px-0 py-0 pt-2">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+          <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button><!--!-->
               <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</a>
             </div>
         </form>

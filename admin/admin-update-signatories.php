@@ -10,8 +10,8 @@ if (isset ($_POST['updatedata']))
 	$si =  $mysqli -> real_escape_string ($_POST['school_id']);
 	$e =  $mysqli -> real_escape_string ($_POST['email']);
 	$cd =  $mysqli -> real_escape_string ($_POST['college_id']);
-  $oid =  $mysqli -> real_escape_string ($_POST['org_id']);
-	$ul =  $mysqli -> real_escape_string ($_POST['user_type']);
+  	$oid =  $mysqli -> real_escape_string ($_POST['org_id']);
+  	$ul =  $mysqli -> real_escape_string ($_POST['user_type']);
 	$query = "SELECT * FROM tb_signatories";
 	$result = @mysqli_query($conn, $query);
 	$row = @mysqli_fetch_array($result);
@@ -20,20 +20,46 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatorytype_id` = '$st', `college_dept` = '$cd', `org_id` = '$oid',  `email` = '$e', `usertype_id` = '$ul' WHERE `school_id` = '$si'";
 			$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-        		alert('Status updated!')
-        		</script>";
-			header("Location:admin-signatories-users.php");
-			if ($ul = 3)
-		{
-			$query =  "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
-			VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), '$cd','$oid',NOW(), '$pp', '$ul')";
-						$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-        		alert('User updated!')
-        		</script>";
-			header("Location:admin-signatories-users.php");
+			if($result)
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Signatory Details",
+				"text" => "Successfully updated signatory details.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}else
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Signatory Details",
+				"text" => "Error upon updating Signatory details.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			if ($st == 1)
+			{
+				$query = "UPDATE `tb_signatories` SET `first_name` = '$fn', `last_name` = '$ln', `signatorytype_id` = '$st', `college_dept` = NULL, `org_id` = NULL,  `email` = '$e', `usertype_id` = '$ul' WHERE `school_id` = '$si'";
+				$result = @mysqli_query($conn, $query);
+				if($result)
+				{
+					$_SESSION["sweetalert"] = [
+							"title" => "Update Signatory Details",
+							"text" => "Successfully updated signatory details.",
+							"icon" => "success", //success,warning,error,info
+							"redirect" => null,
+							];
+				}else
+				{
+					$_SESSION["sweetalert"] = [
+							"title" => "Update Signatory Details",
+							"text" => "Error upon updating Signatory details.",
+							"icon" => "error", //success,warning,error,info
+							"redirect" => null,
+							];
+				}
+			}
 		}
-		}
-	}
-	?>
+	header("Location:admin-signatories-users.php");
+}
+?>

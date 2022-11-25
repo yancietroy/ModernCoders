@@ -21,7 +21,20 @@ include('../mysql_connect.php');
 		{
 			$query = "UPDATE `tb_signatories` SET `profile_pic` = '$pname' WHERE `school_id` = '$data_userid'";
 			$result = @mysqli_query($conn, $query);
-			echo "<script type='text/javascript'>
-			alert('Profile picture updated!')
-			window.location.href='signatory-profile.php'</script>";
+			if($result){
+			$_SESSION["sweetalert"] = [
+				"title" => "Update Picture",
+				"text" => "Successfully updated Profile Picture.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			else {
+			$_SESSION["sweetalert"] = [
+				"title" => "Update Picture",
+				"text" => "Unexpected error while updating Profile Picture.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+			];
+			}
 		}

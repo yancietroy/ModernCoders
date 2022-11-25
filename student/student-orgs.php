@@ -64,7 +64,8 @@ if (isset($_SESSION['msg'])) {
           <h4 id="orgtitle">My Organizations</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="join-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Join Organization </span></a>
+          <a class="btn btn-default btn-circle button px-3 mx-3" href="join-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Join Organization </span></a>
+          <a class="btn bg-success btn-circle button px-3" href="student-orgs-apply.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Apply Organization</a>
         </div>
       </div>
       <!--  <div class="col-lg-6 col-7 mb-2 d-flex align-items-end justify-content-end">

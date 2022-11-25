@@ -17,7 +17,23 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_admin` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `EMAIL` = '$e' WHERE `ADMIN_ID` = '$sid'";
 			$result = @mysqli_query($conn, $query);
-			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
+			if($result)
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Administrator Details",
+				"text" => "Successfully updated Administrator details.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}else
+			{
+				$_SESSION["sweetalert"] = [
+				"title" => "Update Administrator Details",
+				"text" => "Error upon updating Administrator details.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
 			header("Location:admin-administrators-users.php");
 		}
 }

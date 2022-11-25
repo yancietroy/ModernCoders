@@ -14,7 +14,7 @@ $nav_selected = "Site Management / Courses";
 $nav_breadcrumbs = [
   ["Home", "admin-index.php", "bi-house-fill"],
   ["Site Management", "", ""],
-  ["Course", "admin-course.php", ""],
+  ["Courses", "admin-course.php", ""],
   ["Archive", "", ""],
 ];
 
@@ -48,7 +48,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -77,7 +77,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_course";
+              $query = "SELECT * FROM tb_course_archive";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $course = " ";
@@ -177,7 +177,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="course">course Name:</label>
-                    <input type="text" name="course" id="course" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" maxlength="100" />
+                    <input type="text" name="course" id="course" class="form-control" onkeypress="return /[a-z, ,-]/i.test(event.key)" style="background-color: #fff;" maxlength="100" readonly/>
                   </div>
                 </div>
               </div>
@@ -192,34 +192,6 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="admin-delete-user.php" method="POST">
-          <div class="modal-body">
-            <div class="col-12 col-md-12 justify-content-center ">
-              <div class="form-outline">
-                <label class="form-label" for="delete_id">Student ID:</label>
-                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
-              </div>
-            </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Permanently delete user data? This cannot be undone.</p>
-          </div>
-          <div class="modal-footer py-2 px-3">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="deletedata" class="btn btn-danger">Delete</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -227,7 +199,7 @@ if (isset($_SESSION['msg'])) {
     $(document).on('click', '.viewbtn', function() {
       var course_id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-course.php",
+        url: "admin-fetch-course-archive.php",
         method: "POST",
         data: {
           course_id: course_id
@@ -239,25 +211,6 @@ if (isset($_SESSION['msg'])) {
           $('#course').val(data.course);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
-        }
-      });
-    });
-  </script>
-
-  <script>
-    $(document).on('click', '.deletebtn', function() {
-      var STUDENT_ID = $(this).attr("id");
-      $.ajax({
-        url: "admin-fetch-user.php",
-        method: "POST",
-        data: {
-          STUDENT_ID: STUDENT_ID
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log(data);
-          $('#delete_id').val(data.STUDENT_ID);
-          $('#deletemodal').modal('show');
         }
       });
     });
@@ -397,7 +350,9 @@ if (isset($_SESSION['msg'])) {
 
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
-
+<?php
+  include('include/sweetalert.php');
+?>
 </body>
 
 </html>

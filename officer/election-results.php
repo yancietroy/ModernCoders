@@ -14,7 +14,7 @@ $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Election";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
-    ["JRUSOC Election", "election-index.php", ""],
+    ["CSC Election", "election-index.php", ""],
     ["Election Results", "", ""],
 ];
 
@@ -104,7 +104,7 @@ function getVotes($election_id, $position_id, $candidate_id)
 
             <!-- Page content -->
             <div class="col-lg-6 col-7 mb-4">
-                <h4>JRU Student Organization Council Election Results</h4>
+                <h4>JRU Central Student Council Election Results</h4>
             </div>
             <?php
             if ($hasResults) {

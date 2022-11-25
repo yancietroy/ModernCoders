@@ -47,7 +47,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -77,7 +77,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT * FROM tb_position";
+              $query = "SELECT * FROM tb_position_archive";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $p = " ";
@@ -100,7 +100,7 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $pi = $row['POSITION_ID'];
+                  $pi = $row['position_id'];
                   $p = $row['position'];
                   echo "<tr>
                               <td> $pi  </td>
@@ -164,14 +164,14 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-position.php" method="POST">
+        <form action="admin-restore-position.php" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="POSITION_ID">Position ID:</label>
-                    <input type="text" name="POSITION_ID" id="POSITION_ID" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="position_id">Position ID:</label>
+                    <input type="text" name="position_id" id="position_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
@@ -185,7 +185,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="updatedata" class="btn btn-primary">Restore</button>
+            <button type="submit" name="restoredata" class="btn btn-primary">Restore</button>
           </div>
       </div>
       </form>
@@ -225,17 +225,17 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var POSITION_ID = $(this).attr("id");
+      var position_id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-position.php",
+        url: "admin-fetch-position-archive.php",
         method: "POST",
         data: {
-          POSITION_ID: POSITION_ID
+          position_id: position_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#POSITION_ID').val(data.POSITION_ID);
+          $('#position_id').val(data.position_id);
           $('#position').val(data.position);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
@@ -246,17 +246,17 @@ if (isset($_SESSION['msg'])) {
 
   <script>
     $(document).on('click', '.deletebtn', function() {
-      var POSITION_ID = $(this).attr("id");
+      var position_id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-position.php",
+        url: "admin-fetch-position-archive.php",
         method: "POST",
         data: {
-          POSITION_ID: POSITION_ID
+          position_id: position_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#delete_id').val(data.POSITION_ID);
+          $('#delete_id').val(data.position_id);
           $('#deletemodal').modal('show');
         }
       });
@@ -396,7 +396,9 @@ if (isset($_SESSION['msg'])) {
 
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
-
+<?php
+  include('include/sweetalert.php');
+?>
 </body>
 
 </html>

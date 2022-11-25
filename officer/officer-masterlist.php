@@ -54,7 +54,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -169,8 +169,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -255,6 +255,11 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
+                </div><div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
@@ -276,7 +281,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
                     <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
@@ -284,17 +289,23 @@ if (isset($_SESSION['msg'])) {
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
                     <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="venue">Project Status:</label>
+                    <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status">Project status updated by:</label>
+                  <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -320,13 +331,19 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
+                <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="participants">Participants:</label>
                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <!--
+                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
+                            <div class="form-outline d-grid">
+                              <label class="form-label">Download Attachment/s:</label>
+                            <button type="button" class="btn btn-secondary btn-md">Download</button>
+                            </div>
+                          </div>
+
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -376,15 +393,17 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <1?php/**
+                    <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
+                              <1? php
+                              /**
                                 $query = "SELECT position_id, position FROM tb_position";
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }**/
-                              ?>
-                              </select> -->
+                                        }
+                               **/
+                              ?>-->
+                    </select>
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -396,9 +415,12 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-2">
-                  <div class="form-outline  ">
+                <div class="col-12 col-md-12 col-sm-3 ">
+                  <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
+                    <?php
+                      if($result->num_rows > 0){
+                    ?>
                     <table class="table" id="budget-request">
                       <thead>
                         <th>Item</th>
@@ -407,6 +429,9 @@ if (isset($_SESSION['msg'])) {
                       <tbody>
                       </tbody>
                     </table>
+                    <?php
+                      }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
@@ -426,7 +451,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
                 <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>  !-->
               </div>
         </form>
@@ -475,7 +500,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -685,6 +710,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+    include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>

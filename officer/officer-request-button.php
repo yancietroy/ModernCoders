@@ -13,12 +13,24 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
-		    $query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+		    $query = "UPDATE tb_students SET `ORG_IDS` = CONCAT(ORG_IDS,'$sorg_id') WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
 		    $result = @mysqli_query($conn, $query);
-		    echo "<script type='text/javascript'>
-		            alert('Status updated!')
-        			window.location.href='officer-org-requests.php'
-		          </script>";
+		    if($result){
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Updated",
+				"text" => "Successfully updated request status.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			else {
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Update",
+				"text" => "Unexpected error while updating request status.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+			];
+			}
 		}
     }
     elseif ($req_s == "Deny") 
@@ -27,10 +39,24 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
- 			echo "<script type='text/javascript'>
-		            alert('Status updated!')
-        			window.location.href='officer-org-requests.php'
-		          </script>";
+ 			$query = "UPDATE tb_students SET `ORG_IDS` = REPLACE(ORG_IDS, '$sorg_id', '') WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+		    $result = @mysqli_query($conn, $query);
+ 			if($result){
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Updated",
+				"text" => "Successfully updated request status.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			else {
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Update",
+				"text" => "Unexpected error while updating request status.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+			];
+			}
  		}
     }
     elseif ($req_s == "Pending") 
@@ -39,10 +65,26 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
- 			echo "<script type='text/javascript'>
-		            alert('Status updated!')
-        			window.location.href='officer-org-requests.php'
-		          </script>";
+ 			$query = "UPDATE tb_students SET `ORG_IDS` = REPLACE(ORG_IDS, '$sorg_id', '') WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+		    $result = @mysqli_query($conn, $query);
+ 			if($result){
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Updated",
+				"text" => "Successfully updated request status.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+				];
+			}
+			else {
+			$_SESSION["sweetalert"] = [
+				"title" => "Status Update",
+				"text" => "Unexpected error while updating request status.",
+				"icon" => "error", //success,warning,error,info
+				"redirect" => null,
+			];
+			}
  		}
     }
+    header("location:officer-org-requests.php");
 }
+?>

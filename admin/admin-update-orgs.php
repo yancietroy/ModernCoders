@@ -15,8 +15,20 @@ if (isset ($_POST['updatedata']))
 		{
 			$query = "UPDATE `tb_orgs` SET `ORG` = '$c' WHERE `ORG_ID` = '$ci'";
 			$result = @mysqli_query($conn, $query);
-			$_SESSION['message'] = '<script>alert("Update Successful")</script>';
-			header("Location:admin-orgs.php");
-		}
+			$_SESSION["sweetalert"] = [
+			"title" => "Update Org Details",
+			"text" => "Successfully updated $c\'s details.",
+			"icon" => "success", //success,warning,error,info
+			"redirect" => null,
+		];
+	} else {
+		$_SESSION["sweetalert"] = [
+			"title" => "Update Org Details",
+			"text" => "Unexpected error while updating $c\'s details.",
+			"icon" => "error", //success,warning,error,info
+			"redirect" => null,
+		];
+	}
+	header("Location:admin-orgs.php");
 }
 ?>

@@ -242,6 +242,7 @@ include('mysql_connect.php');
                       <option value="2">Year 2</option>
                       <option value="3">Year 3</option>
                       <option value="4">Year 4</option>
+                      <option value="5">Year 5</option>
                     </select>
                     <div class="valid-feedback"> </div>
                     <!-- <div class="invalid-feedback">year field cannot be blank!</div>-->
@@ -309,7 +310,7 @@ include('mysql_connect.php');
                     <div class="form-outline">
 
                       <label class="form-label" for="email" id="asterisk">Student Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"  readonly >
+                      <input type="email" class="form-control" id="email" name="email" placeholder="fname.lname@my.jru.edu" pattern=".+@my.jru\.edu" data-parsley-trigger="change" title="Please provide a Jose Rizal University e-mail address" style="background-color: #fff;"   >
                       <div class="valid-feedback"></div>
                       <!--<div class="invalid-feedback">Student ID field invalid</div>-->
                     </div>

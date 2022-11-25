@@ -16,7 +16,7 @@ if (isset($_POST['deletedata'])) {
                     "title" => "Archive Account",
                     "text" => "Student account has been archived successfully.",
                     "icon" => "success", //success,warning,error,info
-                    "redirect" => "admin-index.php",
+                    "redirect" => null,
                 ];
             } else {
                 $_SESSION["sweetalert"] = [

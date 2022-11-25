@@ -9,7 +9,7 @@ if (isset($_POST["query"])) {
         // Mother Org
         $sql = "SELECT STUDENT_ID as id,LAST_NAME as lname,FIRST_NAME as fname,MIDDLE_NAME as mname,SECTION as section FROM tb_students WHERE MORG_ID='$orgid' AND (LAST_NAME LIKE '%$query%' OR MIDDLE_NAME LIKE '%$query%' OR FIRST_NAME LIKE '%$query%')";
     } else if ($type == 2) {
-        // Side Org
+        // Non-Academic Org
         $sql = "SELECT STUDENT_ID as id,LAST_NAME as lname,FIRST_NAME as fname,MIDDLE_NAME as mname,SECTION as section FROM tb_students WHERE ORG_IDS LIKE '%[$orgid]%' AND (LAST_NAME LIKE '%$query%' OR MIDDLE_NAME LIKE '%$query%' OR FIRST_NAME LIKE '%$query%')";
     } else {
         // Student Council

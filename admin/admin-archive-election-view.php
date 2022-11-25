@@ -43,7 +43,7 @@ if ($res = @mysqli_query($conn, $sql)) {
 
 $org_name = "";
 if ($data_type == 0) {
-    $org_name = "JRU Student Organization Council";
+    $org_name = "JRU Central Student Council";
 } else {
     $sql = "SELECT ORG FROM `tb_orgs` WHERE ORG_ID='$data_orgid' AND org_type_id='$data_type'";
     if ($res = @mysqli_query($conn, $sql)) {
@@ -115,7 +115,7 @@ if ($res = @mysqli_query($conn, $sql)) {
                     <div class="mb-4">
                         <label class="form-label" for="ORGNAME"><?php
                                                                 if ($data_type == 2) {
-                                                                    echo "Side Organization";
+                                                                    echo "Non-Academic Organization";
                                                                 } else if ($data_type == 1) {
                                                                     echo "Mother Organization";
                                                                 } else {

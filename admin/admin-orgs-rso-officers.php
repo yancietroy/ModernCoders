@@ -215,6 +215,12 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>
@@ -356,6 +362,7 @@ if (isset($_SESSION['msg'])) {
                       <option value="2">Year 2</option>
                       <option value="3">Year 3</option>
                       <option value="4">Year 4</option>
+                        <option value="5">Year 5</option>
                     </select>
                   </div>
                 </div>

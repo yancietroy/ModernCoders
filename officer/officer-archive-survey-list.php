@@ -88,7 +88,7 @@ if (isset($_SESSION['msg'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM tb_surveys_archive ORDER BY survey_id DESC";
+                                    $sql = "SELECT * FROM tb_surveys_archive WHERE org_id = '$orgid' ORDER BY survey_id DESC";
                                     $res = @mysqli_query($conn, $sql);
                                     if ($res->num_rows > 0) {
                                         while ($row = $res->fetch_assoc()) {

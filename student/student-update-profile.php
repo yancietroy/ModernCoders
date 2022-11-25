@@ -15,6 +15,7 @@ if (isset ($_POST['updatedata']))
 	$bdate =  $mysqli -> real_escape_string ($_POST['BIRTHDATE']);
 	$age =  $mysqli -> real_escape_string ($_POST['AGE']);
 	$e =  $mysqli -> real_escape_string ($_POST['EMAIL']);
+	$bio =  $mysqli -> real_escape_string ($_POST['BIO']);
 
 	$query = "SELECT * FROM tb_students";
 	$result = @mysqli_query($conn, $query);
@@ -22,10 +23,17 @@ if (isset ($_POST['updatedata']))
 
 		if($row)
 		{
-			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `EMAIL` = '$e' WHERE `STUDENT_ID` = '$si'";
+			$query = "UPDATE `tb_students` SET `FIRST_NAME` = '$fn', `LAST_NAME` = '$ln', `MIDDLE_NAME` = '$mn', `BIRTHDATE` = '$bdate', `AGE` = '$age', `EMAIL` = '$e', `BIO` = '$bio' WHERE `STUDENT_ID` = '$si'";
 			$result = @mysqli_query($conn, $query);
 			$_SESSION['USER-NAME'] = $fn . ' ' . $ln;
-			echo "<script type='text/javascript'>
-			alert('Successfuly updated!')
-			window.location.href='student-profile.php'</script>";		}
+			$_SESSION["sweetalert"] = [
+				"title" => "Edit Account",
+				"text" => "Successfully updated your account information.",
+				"icon" => "success", //success,warning,error,info
+				"redirect" => null,
+			];
+
+			header("location:student-profile.php");
+		}
 }
+?>

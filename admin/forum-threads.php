@@ -154,7 +154,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -460,22 +460,57 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
             </div>
 
             <?php
-            if ($error == 0) {
-                echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
-            } else if ($error == 1) {
-                echo "<script>alert('Thread has been deleted successfully.')</script>";
-            } else if ($error == 2) {
-                echo "<script>alert('Failed removing the thread. Please try again.')</script>";
-            } else if ($error == 3) {
-                echo "<script>alert('Thread has been locked successfully.')</script>";
-            } else if ($error == 4) {
-                echo "<script>alert('Failed locking the thread. Please try again.')</script>";
-            } else if ($error == 5) {
-                echo "<script>alert('Thread has been unlocked successfully.')</script>";
-            } else if ($error == 6) {
-                echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
-            }
-            ?>
+        if ($error == 0) {
+            $_SESSION["sweetalert"] = [
+                "title" => "New Thread",
+                "text" => "Failed Creating a thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 1) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Thread",
+                "text" => "Thread has been deleted successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 2) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Thread",
+                "text" => "Failed removing the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 3) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Lock Thread",
+                "text" => "Thread has been locked successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 4) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Lock Thread",
+                "text" => "Failed locking the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 5) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Unlock Thread",
+                "text" => "Thread has been unlocked successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
+        } else if ($error == 6) {
+            $_SESSION["sweetalert"] = [
+                "title" => "Unlock Thread",
+                "text" => "Failed unlocking the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
+        }
+        ?>
 
             <!-- jQuery CDN - Slim version (=without AJAX) -->
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -535,8 +570,9 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                     $('#unlockModal').modal('show');
                 }
             </script>
-
-
+            <?php
+                include('include/sweetalert.php');
+            ?>
 </body>
 
 </html>

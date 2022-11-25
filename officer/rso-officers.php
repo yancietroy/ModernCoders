@@ -361,6 +361,7 @@ if (isset($_SESSION['msg'])) {
                       <option value="2">Year 2</option>
                       <option value="3">Year 3</option>
                       <option value="4">Year 4</option>
+                        <option value="5">Year 5</option>
                     </select>
                   </div>
                 </div>
@@ -369,7 +370,7 @@ if (isset($_SESSION['msg'])) {
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
             <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
           </div>
       </div>

@@ -89,10 +89,11 @@ if (isset($_SESSION['msg'])) {
                 </div>
             </div>
 
+            <input type="text" style="display: none;" id="org-id" value="<?= $orgid ?>">
             <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
                 <div class="card-body px-2 mx-3 py-3 pt-4 ">
                     <div class="row g-0 justify-content-center ">
-                        <div class="table-responsive-xxl ms-2">
+                        <div class="table-responsive ms-2">
                             <table id='survey-table' class='py-3 display nowrap w-100 ms-0 stud'>
                                 <thead>
                                     <tr>
@@ -106,14 +107,24 @@ if (isset($_SESSION['msg'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM tb_surveys_archive ORDER BY survey_id DESC";
+                                    $sql = "SELECT * FROM tb_surveys_archive WHERE org_id='$orgid' ORDER BY survey_id DESC";
                                     $res = @mysqli_query($conn, $sql);
                                     if ($res->num_rows > 0) {
                                         while ($row = $res->fetch_assoc()) {
                                     ?>
                                             <tr>
                                                 <td><?= $row['title'] ?></td>
-                                                <td>Archived</td>
+                                                <td>
+                                                    <?php
+                                                    if ($row['start_date'] < date('Y-m-d') && $row['end_date'] < date('Y-m-d')) {
+                                                        echo "Completed";
+                                                    } else if ($row['start_date'] > date('Y-m-d') && $row['end_date'] > date('Y-m-d')) {
+                                                        echo "Upcoming";
+                                                    } else {
+                                                        echo "Ongoing";
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?= $row['start_date'] ?></td>
                                                 <td><?= $row['end_date'] ?></td>
                                                 <td>
@@ -162,11 +173,14 @@ if (isset($_SESSION['msg'])) {
         <script>
             $(document).on('click', '.viewbtn', function() {
                 var SURVEY_ID = $(this).attr("id");
-                location.href = "admin-archive-survey-view.php?id=" + SURVEY_ID;
+                var ORG_ID = $('#org-id').val();
+                location.href = "admin-archive-survey-view.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
             });
             $(document).on('click', '.resultbtn', function() {
                 var SURVEY_ID = $(this).attr("id");
-                location.href = "admin-archive-survey-result.php?id=" + SURVEY_ID;
+                var ORG_ID = $('#org-id').val();
+                console.log("admin-archive-survey-result.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID);
+                location.href = "admin-archive-survey-result.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
             });
         </script>
         <!-- Datatable -->
@@ -266,6 +280,6 @@ if (isset($_SESSION['msg'])) {
                 });
             });
         </script>
-    </body>
+</body>
 
-    </html>
+</html>

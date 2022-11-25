@@ -136,6 +136,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -446,19 +447,54 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
 
         <?php
         if ($error == 0) {
-            echo "<script>alert('Failed Creating a thread. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "New Thread",
+                "text" => "Failed Creating a thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 1) {
-            echo "<script>alert('Thread has been deleted successfully.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Thread",
+                "text" => "Thread has been deleted successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 2) {
-            echo "<script>alert('Failed removing the thread. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Delete Thread",
+                "text" => "Failed removing the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 3) {
-            echo "<script>alert('Thread has been locked successfully.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Lock Thread",
+                "text" => "Thread has been locked successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 4) {
-            echo "<script>alert('Failed locking the thread. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Lock Thread",
+                "text" => "Failed locking the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 5) {
-            echo "<script>alert('Thread has been unlocked successfully.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Unlock Thread",
+                "text" => "Thread has been unlocked successfully.",
+                "icon" => "success", //success,warning,error,info
+                "redirect" => null,
+                ];
         } else if ($error == 6) {
-            echo "<script>alert('Failed unlocking the thread. Please try again.')</script>";
+            $_SESSION["sweetalert"] = [
+                "title" => "Unlock Thread",
+                "text" => "Failed unlocking the thread. Please try again.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => null,
+                ];
         }
         ?>
         <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -507,6 +543,9 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                 $('#unlockModal').modal('show');
             }
         </script>
+        <?php
+            include('include/sweetalert.php');
+        ?>
 </body>
 
 </html>

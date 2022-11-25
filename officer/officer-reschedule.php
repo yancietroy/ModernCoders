@@ -54,7 +54,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -168,8 +168,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                              <button type='button' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                              <a type='button' class='btn btn-primary btn-sm' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -252,13 +252,19 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-4 col-md-2 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
-                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md" readonly />
+                    <input type="text" name="project_id" id="project_id" class="form-control form-control-md"  readonly />
+                  </div>
+                </div>
+                <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
-                    <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" readonly />
+                    <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md"  readonly />
                   </div>
                 </div>
                 <div class="col-4 col-md-3 mb-4">
@@ -272,10 +278,10 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name">Project name:</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" required />
+                    <input type="text" name="project_name" id="project_name" class="form-control form-control-lg"  required />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer">Organizer:</label>
                     <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" required />
@@ -283,17 +289,22 @@ if (isset($_SESSION['msg'])) {
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
                     <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" required />
                   </div>
                 </div>
+
+                  <div class="col-12 col-md-4 col-sm-3 mb-4">
+                    <label class="form-label" for="status">Project Status:</label>
+                    <input type="text" name="status" id="status" class="form-control" readonly />
+                  </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" readonly />
+                  <label class="form-label" for="status_by">Project status updated by:</label>
+                  <input type="text" name="status_by" id="status_by" class="form-control" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -384,8 +395,8 @@ if (isset($_SESSION['msg'])) {
                         <div class="row">
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline">
-                              <label class="form-label" for="org_id" >Name of Organization:</label>
-                              <input type="text" name="org_id" id="org_id" class="form-control form-control-md"   readonly />
+                              <label class="form-label" for="ORG" >Name of Organization:</label>
+                              <input type="text" name="ORG" id="ORG" class="form-control form-control-md"   readonly />
                             </div>
                           </div>
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -421,14 +432,24 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 col-sm-3 mb-2">
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req">Budget Request:</label>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                    <?php
+                    if ($result->num_rows > 0) {
+                    ?>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                          <th>Action</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="text-right">
+                        <button type="button" class="btn btn-primary mt-1 " id="add-budget">Add Budget</button>
+                      </div>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -451,8 +472,10 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <input type="hidden" name="college_id" id="college_id">
+              <input type="hidden" name="org_id" id="org_id">
               <div class="modal-footer px-0 py-0 pt-2">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <?php
                 if ($_SESSION['USER-POS'] <= 5) {
                 ?>
@@ -488,6 +511,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);
@@ -495,20 +519,24 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#attachments').val(data.attachments);
-          $('#org_id').val(data.ORG);
+          $('#ORG').val(data.ORG);
+          $('#college_id').val(data.college_id);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();
+          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            bcount++;
             var output = `
-              <tr>
-                <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+              <tr id="budget-${bcount}">
+                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -527,19 +555,7 @@ if (isset($_SESSION['msg'])) {
       window.history.replaceState(null, null, window.location.href);
     }
 
-    $('#estimated_budget').keydown(function(e) {
-      setTimeout(() => {
-        let parts = $(this).val().split(".");
-        let v = parts[0].replace(/\D/g, ""),
-          dec = parts[1]
-        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-        // use this for numeric calculations
-        // console.log('number for calculations: ', calc_num);
-        let n = new Intl.NumberFormat('en-EN').format(v);
-        n = dec !== undefined ? n + "." + dec : n;
-        $(this).val(n);
-      })
-    })
+
   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -577,7 +593,34 @@ if (isset($_SESSION['msg'])) {
         dateFormat: "dd-M-yy",
         minDate: 0
       });
+
+      $("#budget-request").on("change", ".payment", function() { // <-- Only changed this line
+        var sum = 0;
+        $(".payment").each(function() {
+          if (!isNaN(this.value) && this.value.length != 0) {
+            sum += parseFloat(this.value);
+          }
+        });
+        $('#estimated_budget').val(sum);
+      });
+
+      $('#add-budget').on("click", function() {
+        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+        var output = `
+          <tr id="budget-${bcount}">
+            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
+            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+          </tr>
+        `;
+        $("#budget-request > tbody").append(output);
+      });
     });
+
+    function deleteBudget(id) {
+      $("#budget-" + id).remove();
+    }
   </script>
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -754,6 +797,9 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
+  <?php
+    include('include/sweetalert.php');
+  ?>
 </body>
 
 </html>
