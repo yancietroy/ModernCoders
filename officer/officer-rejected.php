@@ -342,7 +342,6 @@ if (isset($_SESSION['msg'])) {
                             <button type="button" class="btn btn-secondary btn-md">Download</button>
                             </div>
                           </div>
-
                           <div class="col-12 col-md-4 col-sm-3 mb-2">
                             <label class="form-label" for="budget_source" >Budget Source:</label>
                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
@@ -399,10 +398,9 @@ if (isset($_SESSION['msg'])) {
                                 $result = @mysqli_query($conn, $query);
                                         while($data = @mysqli_fetch_array($result)) {
                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }
-                               **/
-                              ?>-->
-                    </select>
+                                        }**/
+                              ?>
+                              </select> -->
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -529,12 +527,15 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
+                <td>${title}</td>
                 <td>${data[1]}</td>
               </tr>
             `;
@@ -749,5 +750,4 @@ if (isset($_SESSION['msg'])) {
     include('include/sweetalert.php');
   ?>
 </body>
-
 </html>

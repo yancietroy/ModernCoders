@@ -22,6 +22,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $orgName = $row['ORG'];
   }
 }
+$nav_selected = "Home";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
     ["Notifications", "", "bi-bell-fill"],
@@ -298,8 +299,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
         }
     </script>
     <?php
-        include('include/sweetalert.php');
+    include('include/sweetalert.php');
     ?>
 </body>
-
 </html>

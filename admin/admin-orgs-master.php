@@ -91,7 +91,6 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
                                 <th class='desktop'>Status</th>
-
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>

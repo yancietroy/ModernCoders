@@ -519,28 +519,42 @@ if (isset($_SESSION['msg'])) {
            $('#attachments').val(data.attachments);
            $('#objectives').val(data.objectives);
 
-           var breq = data.budget_req.split(";;");
-           $("#budget-request > tbody").empty();
-           breq.forEach(e => {
-             var data = e.split("::");
-             var output = `
-               <tr>
-                 <td>${data[0]}</td>
-                 <td> ${data[1]}</td>
-               </tr>
-             `;
-             $("#budget-request > tbody").append(output);
-           });
+          var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
+          $("#budget-request > tbody").empty();
+          var bcount = 0;
+          breq.forEach(e => {
+            var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+            bcount++;
 
-           $('#estimated_budget').val(data.estimated_budget);
-           $('#project_remarks').val(data.remarks);
-           $('#editmodal').modal('show');
-           $('#modal-lg').css('max-width', '70%');
+            var options = "";
+            for (var key in codes) {
+              if (data[0] == key) {
+                options = options + `<option value="${key}" selected>${codes[key]}</option>`;
+              } else {
+                options = options + `<option value="${key}">${codes[key]}</option>`;
+              }
+            }
+
+            var output = `
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          });
+
+          $('#estimated_budget').val(data.estimated_budget);
+          $('#project_remarks').val(data.remarks);
+          $('#editmodal').modal('show');
+          $('#modal-lg').css('max-width', '70%');
          }
        });
      });
    </script>
-
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -559,6 +573,8 @@ if (isset($_SESSION['msg'])) {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
+  <!-- Datepicker cdn  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     $(document).ready(function() {
       $('#start_date').datetimepicker({
@@ -586,16 +602,29 @@ if (isset($_SESSION['msg'])) {
       });
 
       $('#add-budget').on("click", function() {
-        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
-        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
-        var output = `
-          <tr id="budget-${bcount}">
-            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
-            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
-            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
-          </tr>
-        `;
-        $("#budget-request > tbody").append(output);
+        $.ajax({
+          url: "include/signatory-fetch-budget-codes.php",
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+            var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+            var options = "";
+            data.forEach(e => {
+              options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+            });
+            var output = `
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          }
+        });
+
       });
     });
 
@@ -779,7 +808,7 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
   <?php
-    include('include/sweetalert.php');
+  include('include/sweetalert.php');
   ?>
 </body>
 

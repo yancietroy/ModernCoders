@@ -354,7 +354,6 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG">Name of Organization:</label>
-
                     <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -391,18 +390,18 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -480,15 +479,16 @@ if (isset($_SESSION['msg'])) {
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
-          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
-            bcount++;
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
-              <tr id="budget-${bcount}">
-                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" style="background-color: #fff;" value="${data[0]}"readonly></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" style="background-color: #fff;" value="${data[1]}"readonly></td>
+              <tr>
+                <td>${title}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -701,5 +701,4 @@ if (isset($_SESSION['msg'])) {
     include('include/sweetalert.php');
   ?>
 </body>
-
 </html>

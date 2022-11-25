@@ -145,7 +145,6 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
         <!-- Event Details Modal -->
-
         <?php
         $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved'");
         $sched_res = [];

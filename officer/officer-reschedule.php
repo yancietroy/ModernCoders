@@ -408,7 +408,7 @@ if (isset($_SESSION['msg'])) {
                           <div class="col-12 col-md-4 col-sm-3 mb-4">
                             <div class="form-outline d-grid">
                               <label class="form-label" for="position_id">Position:</label>
-                             <!--<select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
+                             <select class="form-control form-control-md" name="position_id" id="position_id"   readonly>
                               <1? php
                               /**
                                 $query = "SELECT position_id, position FROM tb_position";
@@ -522,19 +522,32 @@ if (isset($_SESSION['msg'])) {
           $('#ORG').val(data.ORG);
           $('#college_id').val(data.college_id);
           $('#org_id').val(data.org_id);
+          $('#attachments').val(data.attachments);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#objectives').val(data.objectives);
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
             bcount++;
+
+            var options = "";
+            for (var key in codes) {
+              if (data[0] == key) {
+                options = options + `<option value="${key}" selected>${codes[key]}</option>`;
+              } else {
+                options = options + `<option value="${key}">${codes[key]}</option>`;
+              }
+            }
+
             var output = `
               <tr id="budget-${bcount}">
-                <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="${data[0]}"></td>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
                 <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
                 <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
               </tr>
@@ -554,8 +567,19 @@ if (isset($_SESSION['msg'])) {
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
-
-
+    $('#estimated_budget').keydown(function(e) {
+      setTimeout(() => {
+        let parts = $(this).val().split(".");
+        let v = parts[0].replace(/\D/g, ""),
+          dec = parts[1]
+        let calc_num = Number((dec !== undefined ? v + "." + dec : v));
+        // use this for numeric calculations
+        // console.log('number for calculations: ', calc_num);
+        let n = new Intl.NumberFormat('en-EN').format(v);
+        n = dec !== undefined ? n + "." + dec : n;
+        $(this).val(n);
+      })
+    })
   </script>
 
   <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -605,16 +629,29 @@ if (isset($_SESSION['msg'])) {
       });
 
       $('#add-budget').on("click", function() {
-        var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
-        var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
-        var output = `
-          <tr id="budget-${bcount}">
-            <td><input type="text" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" class="form-control" value="Untitled"></td>
-            <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
-            <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
-          </tr>
-        `;
-        $("#budget-request > tbody").append(output);
+        $.ajax({
+          url: "include/officer-fetch-budget-codes.php",
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
+            var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
+            var options = "";
+            data.forEach(e => {
+              options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+            });
+            var output = `
+              <tr id="budget-${bcount}">
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
+                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+              </tr>
+            `;
+            $("#budget-request > tbody").append(output);
+          }
+        });
+
       });
     });
 

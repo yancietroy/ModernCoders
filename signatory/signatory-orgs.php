@@ -81,7 +81,7 @@ if (isset($_SESSION['msg'])) {
           <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Org Archive</span></a>
         </div>-->
       </div>
-
+      
       <div class="row ms-3 me-3 mt-2 justify-content-start">
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-success">

@@ -182,7 +182,6 @@ if (isset($_SESSION['msg'])) {
                             $a = " ";
                             if ($result !== false && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-
                               $a = $row['NAME'];
                               echo "$a</br>";
 
@@ -296,7 +295,6 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;"  />
                   </div>
                 </div>
-
                 <div class="col-12 col-md-4  mb-4">
                   <label class="form-label">School Year</label>
                   <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
@@ -441,6 +439,9 @@ if (isset($_SESSION['msg'])) {
           },
           {
             "width": "130px"
+          },
+          {
+            "width": "80px"
           },
           {
             "width": "150px"

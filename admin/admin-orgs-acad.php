@@ -91,7 +91,6 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
                                 <th class='desktop'>Status</th>
-
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -114,7 +113,6 @@ if (isset($_SESSION['msg'])) {
                               <td> $oi  </td>
                               <td> $org  </td>
                               <td> $st  </td>
-
                               <td>
                               <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                               <button type='button' class='btn btn-secondary btn-sm deletebtn' title='archive org' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
@@ -385,7 +383,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1,2,3]
+              columns: [0,1,2,3]
             },
           },
           //{

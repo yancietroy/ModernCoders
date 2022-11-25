@@ -1,12 +1,6 @@
 <?php
     include('../mysql_connect.php');
     session_start();
-    $mysqli = new mysqli("$servername","$username","$password","$database");
-
-        if ($mysqli -> connect_errno) {
-          echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-          exit();
-        }
 
     if (isset($_POST['updatedata']) || isset($id) || isset($pn) || isset($v) || isset($sd) || isset($ed) || isset($pt) || isset($or) || isset($pc) || isset($p) || isset($std) || isset($br) || isset($eb) || isset($obj) || isset($pname) || isset($tname))
     {

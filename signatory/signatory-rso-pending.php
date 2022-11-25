@@ -106,7 +106,7 @@ if (isset($_SESSION['msg'])) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 2 AND college_id = '$data_collegeid' AND org_id = '$orgid'";
               } elseif ($data_signatorytype == 4) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 1 AND org_id = '$orgid'";
-              } 
+              }
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -745,8 +745,7 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
   <?php
-    include('include/sweetalert.php');
+  include('include/sweetalert.php');
   ?>
 </body>
-
 </html>

@@ -724,5 +724,4 @@ if (isset($_SESSION['msg'])) {
   include('include/sweetalert.php');
   ?>
 </body>
-
 </html>
