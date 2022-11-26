@@ -16,7 +16,7 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Members", "", ""],
+  ["Signatories", "", ""],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -78,7 +78,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id= '$orgid' AND signatorytype_id='3'";
+              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id= '$orgid' AND signatorytype_id='4'";
               /*  $query = "tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory, tb_orgs.ORG FROM tb_signatories JOIN tb_signatory_type ON tb_signatories.signatorytype_id = tb_signatory_type.signatory_id JOIN tb_orgs ON tb_orgs.ORG_ID = tb_signatories.org_id";*/
               $result = @mysqli_query($conn, $query);
               $i = 0;

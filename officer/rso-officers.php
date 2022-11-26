@@ -366,6 +366,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Officer Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;"  readonly></textarea>
+                  </div>
+                </div>
+                    </div>
               <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly />
             </div>
           </div>
@@ -440,6 +448,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

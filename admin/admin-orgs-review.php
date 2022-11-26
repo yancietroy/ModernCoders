@@ -179,10 +179,16 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="org_req_id" id="org_req_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="date_requested">Date Requested:</label>
+                    <input type="text" name="date_requested" id="date_requested" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+                <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_name">Organization name:</label>
-                    <input type="text" name="org_name" id="org_name" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                    <input type="text" name="org_name" id="org_name" class="form-control form-control-lg" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -201,14 +207,18 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="state">State:</label>
+                    <input type="text" name="state" id="state" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="requested_by">Requested by:</label>
                     <input type="text" name="requested_by" id="requested_by" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-              </div>
-              <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="status">Change Status:</label>
@@ -219,20 +229,13 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="date_requested">Date Requested:</label>
-                    <input type="text" name="date_requested" id="date_requested" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
               </div>
               <div class="row justify-content-between">
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="state">State:</label>
-                    <input type="text" name="state" id="state" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
+          
+               
+              </div>
+              <div class="row justify-content-between">
+           
               </div>
             </div>
           </div>
@@ -326,6 +329,12 @@ if (isset($_SESSION['msg'])) {
           }
           if (data[3] == "Pending") {
             $('td', row).eq(3).css('color', '#0d6efd');
+          }
+          if (data[4] == "New") {
+            $('td', row).eq(4).css('color', 'green');
+          }
+          if (data[4] == "Renewal") {
+            $('td', row).eq(4).css('color', 'orange');
           }
         },
         responsive: true,

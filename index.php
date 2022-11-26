@@ -41,7 +41,7 @@ if (isset($_SESSION['message'])) {
   <div class="container  align-items-center justify-content-center">
     <div class="row d-flex align-items-center justify-content-center">
       <div class="col-10 col-lg-5 col-xl-5">
-        <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-4 mb-4">
           <div class="card-body px-4 ">
             <div class="row g-0 justify-content-center align-items-center mt-2">
               <div class="col-xs-12 col-md-12 col-md-offset-3 mb-2 d-none d-sm-block">

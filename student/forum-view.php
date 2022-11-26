@@ -209,10 +209,10 @@ if (isset($_POST['post-reply'])) {
             <div class="card-body px-2 mx-3 py-3 pt-4 ">
               <div class="row">
                 <div class="col-12 col-md-2 mb-4 text-center">
-                  <h6 class="mt-3"><?= $makerName ?></h6>
                   <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
+                  <h6 class="mt-3"><?= $makerName ?></h6>
                   <div style="overflow: hidden; text-overflow: ellipsis;">
-                    <h6 class="mt-3" style="color:#F2AC1B; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
+                    <h6 class="mt-1" style="color:#F2AC1B; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
                   </div>
                   <?php
                   if ($threadUserType == 0) {
@@ -235,7 +235,7 @@ if (isset($_POST['post-reply'])) {
                   <?php
                   }
                   ?>
-                  <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
+                  <h6 class="mt-3 text-secondary" style="font-size: 10px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
                 </div>
                 <div class="col-12 col-md-10 border p-3">
                   <div style="overflow: hidden; text-overflow: ellipsis;">

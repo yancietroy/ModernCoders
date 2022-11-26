@@ -176,7 +176,8 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="school_id">JRU ID:</label>
                     <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
-               </div>
+                </div>
+                  
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>

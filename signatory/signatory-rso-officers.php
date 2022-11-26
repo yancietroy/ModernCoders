@@ -214,19 +214,19 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="officer_id">Officer ID:</label>
                     <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="student_id">Student ID:</label>
                     <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>
                     <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
@@ -234,7 +234,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row justify-content-between">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Position:</label>
                     <select class="form-select" name="position_id" id="position_id"readonly>
@@ -248,7 +248,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Organization:</label>
                     <select class="form-select" name="org_id" id="org_id"readonly>
@@ -372,6 +372,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Officer Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -416,6 +424,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
