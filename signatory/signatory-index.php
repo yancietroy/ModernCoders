@@ -113,7 +113,7 @@ if (isset($_SESSION['msg'])) {
       <h4 class="ms-4">Dashboard</h4>
       <div class="row ms-4 me-2 mb-4 mt-2">
 
-            <div class="col-lg-3 col-8 mb-4">
+            <div class="col-lg-4 col-12 mb-4">
               <?php
                 if($data_signatorytype == 1){
               ?>

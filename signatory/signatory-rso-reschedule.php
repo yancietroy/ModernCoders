@@ -95,7 +95,7 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
               if ($data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$orgid'";
@@ -137,7 +137,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                            <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -218,7 +218,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                            <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -277,12 +277,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div><div class="col-4 col-md-3 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="school_year">School Year:</label>
-                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
+                </div>  
                  <div class="col-4 col-md-3 mb-4">
                    <div class="form-outline">
                      <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -577,7 +572,7 @@ if (isset($_SESSION['msg'])) {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
   <!-- Datepicker cdn  -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script>
     $(document).ready(function() {
       $('#start_date').datetimepicker({

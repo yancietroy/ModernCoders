@@ -310,6 +310,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Member Information:</label>
+                    <textarea class="form-control" name="BIO" id="BIO" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
               <input type="hidden" name="PASSWORD" id="PASSWORD">
             </div>
             <div class="modal-footer">
@@ -349,6 +357,7 @@ if (isset($_SESSION['msg'])) {
           $('#SECTION').val(data.SECTION);
           $('#MORG_ID').val(data.MORG_ID);
           $('#PASSWORD').val(data.PASSWORD);
+          $('#BIO').val(data.BIO);
           $('#account_created').val(data.ACCOUNT_CREATED);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');

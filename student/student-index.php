@@ -97,7 +97,8 @@ $nav_selected = "Home";
           <h4 id="orgtitle">My Organizations</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3 me-3" href="student-orgs.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle"> Visit </span></a>
+          <a class="btn btn-default btn-circle button px-3 mx-3" href="join-org.php" role="button"><i class="bi bi-box-arrow-right"></i> <span id="btntitle">Join Organization </span></a>
+          <a class="btn bg-success btn-circle button px-3" href="student-orgs-apply.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Apply Organization</a>
         </div>
       </div>
       <div class="d-flex flex-row flex-wrap">

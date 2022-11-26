@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
               $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND (req_status IN('Approved') OR req_status IN('Pending'))";
               $result = @mysqli_query($conn, $query);

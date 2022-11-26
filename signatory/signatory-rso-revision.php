@@ -95,7 +95,7 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
               if ($data_signatorytype == 1) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
@@ -137,7 +137,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                            <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -216,7 +216,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                            <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -275,12 +275,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div><div class="col-4 col-md-3 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="school_year">School Year:</label>
-                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
+                </div>  
                  <div class="col-4 col-md-3 mb-4">
                    <div class="form-outline">
                      <label class="form-label" for="date_submitted">Date Submitted:</label>
