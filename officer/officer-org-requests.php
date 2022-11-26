@@ -84,7 +84,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive-md ms-0">
               <?php
-              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND req_status IN('Approved') OR req_status IN('Pending')";
+              $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid' AND (req_status IN('Approved') OR req_status IN('Pending'))";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $si = " ";

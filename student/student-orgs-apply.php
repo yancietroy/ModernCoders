@@ -149,6 +149,7 @@ if (isset($_SESSION['msg'])) {
                   <?php
                   if (isset($ot) || isset($sy) || isset($org) || isset($destination) || isset($_POST['submit'])) {
                     $st = "Pending";
+                    $state = "New";
                     $org =  $mysqli -> real_escape_string ($_POST['orgname']);
                     $duplicate=mysqli_query($conn,"SELECT * FROM tb_org_application WHERE org_name='$org' AND status = '$st'");
                                     if (mysqli_num_rows($duplicate)>0)
@@ -175,7 +176,7 @@ if (isset($_SESSION['msg'])) {
                       if ($ot == "Non-Academic") {
                         $otid = 2;
                         $st = "Pending";
-                        $sql = "INSERT INTO tb_org_application(org_name, org_type, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$sy', '$pname', '$st', '$rq', NOW())";
+                        $sql = "INSERT INTO tb_org_application(org_name, org_type, state, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$state', '$sy', '$pname', '$st', '$rq', NOW())";
                         $conn->exec($sql);
                         $_SESSION["sweetalert"] = [
                           "title" => "Organization Requested",
@@ -186,7 +187,7 @@ if (isset($_SESSION['msg'])) {
                       } else {
                         $otid = 1;
                         $st = "Pending";
-                        $sql = "INSERT INTO tb_org_application(org_name, org_type, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$sy', '$pname', '$st', '$rq', NOW())";
+                        $sql = "INSERT INTO tb_org_application(org_name, org_type, state, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$state', '$sy', '$pname', '$st', '$rq', NOW())";
                         $conn->exec($sql);
                         $_SESSION["sweetalert"] = [
                           "title" => "Organization Requested",
