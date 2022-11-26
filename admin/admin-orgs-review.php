@@ -78,13 +78,14 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT tb_org_application.org_req_id, tb_org_application.org_name, tb_org_type.org_type, tb_org_application.status, tb_org_application.requested_by FROM tb_org_application JOIN tb_org_type ON tb_org_type.org_type_id = tb_org_application.org_type";
+              $query = "SELECT tb_org_application.org_req_id, tb_org_application.org_name, tb_org_type.org_type, tb_org_application.status, tb_org_application.requested_by, tb_org_application.state FROM tb_org_application JOIN tb_org_type ON tb_org_type.org_type_id = tb_org_application.org_type";
               $result = @mysqli_query($conn, $query);
               $oi = 0;
               $org = " ";
               $ot = " ";
               $st = " ";
               $rq = " ";
+              $state = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -92,6 +93,7 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Organization Name</th>
                                 <th class='desktop'>Organization Type</th>
                                 <th class='desktop'>Status</th>
+                                <th class='desktop'>State</th>
                                 <th class='desktop'>Actions</th>
                                 <th class='none'>Requested by: </th>
                           </tr>
@@ -106,11 +108,13 @@ if (isset($_SESSION['msg'])) {
                   $ot = $row['org_type'];
                   $st = $row['status'];
                   $rq = $row['requested_by'];
+                  $state = $row['state'];
                   echo "<tr>
                               <td> $oi  </td>
                               <td> $org  </td>
                               <td> $ot  </td>
                               <td> $st  </td>
+                              <td> $state  </td>
                               <td>
                               <button type='button' class='btn btn-success btn-sm restore' title='View Information' id='" . $oi . "'> <i class='bi bi-list-ul'></i> </button>
                               <a type='button' class='btn btn-primary btn-sm' id='btndl' title='Download Attachment/s' href='downloadRequest.php?org_req_id=" . $oi . "'>  <i class='bi bi-download'></i> </a>
@@ -171,7 +175,7 @@ if (isset($_SESSION['msg'])) {
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_req_id">Organization ID:</label>
+                    <label class="form-label" for="org_req_id">Request ID:</label>
                     <input type="text" name="org_req_id" id="org_req_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -219,7 +223,14 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline">
                     <label class="form-label" for="date_requested">Date Requested:</label>
                     <input type="text" name="date_requested" id="date_requested" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
-                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="state">State:</label>
+                    <input type="text" name="state" id="state" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
                 </div>
               </div>
@@ -254,6 +265,7 @@ if (isset($_SESSION['msg'])) {
           $('#requested_by').val(data.requested_by);
           $('#date_requested').val(data.date_requested);
           $('#status').val(data.status);
+          $('#state').val(data.state);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -339,6 +351,9 @@ if (isset($_SESSION['msg'])) {
           },
           {
             "width": "40px"
+          },
+          {
+            "width": "40px"
           }
         ],
         select: 'single',
@@ -349,7 +364,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5]
+              columns: [0, 1, 2, 3, 4, 5, 6]
             },
           },
           //{
@@ -368,7 +383,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5]
+              columns: [0, 1, 2, 3, 4, 5, 6]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -378,7 +393,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5]
+              columns: [0, 1, 2, 3, 4, 5, 6]
             },
             customize: function(win) {
 

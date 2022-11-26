@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 26, 2022 at 09:21 AM
+-- Generation Time: Nov 26, 2022 at 11:12 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -539,7 +539,7 @@ CREATE TABLE `tb_officers` (
 --
 
 INSERT INTO `tb_officers` (`student_id`, `officer_id`, `position_id`, `last_name`, `first_name`, `middle_initial`, `birthdate`, `age`, `gender`, `year_level`, `college_dept`, `course`, `section`, `email`, `password`, `org_id`, `user_type`, `profile_pic`, `bio`, `account_created`) VALUES
-(19255532, 9, 1, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 12, 2, 'img_avatar.png', 'COMSOC 2 years Assistant Secretary', '2022-10-13'),
+(19255532, 9, 1, 'Pega', 'Trisha', '', '1999-07-09', 23, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'trisha.pega@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 30, 2, 'img_avatar.png', 'COMSOC 2 years Assistant Secretary', '2022-10-13'),
 (19255515, 11, 14, 'Ayala', 'Jose Ricardo', 'J', '1999-06-17', 23, 'Male', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'josericardo.ayala@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 2, 2, 'img_avatar.png', NULL, '2022-10-13'),
 (19255570, 12, 13, 'Gabas', 'May Ann', 'G', '2000-06-05', 22, 'Female', '4', 3, 'Bachelor of Science in Information Technology (BSIT)', '401I', 'mayann.gabas@my.jru.edu', '451ec4a5690dac1660e20bc40126cd50506fec5e', 4, 2, 'img_avatar.png', NULL, '2022-10-13');
 
@@ -655,6 +655,7 @@ CREATE TABLE `tb_org_application` (
   `org_req_id` int(11) NOT NULL,
   `org_name` varchar(200) DEFAULT NULL,
   `org_type` int(50) DEFAULT NULL,
+  `state` varchar(20) DEFAULT NULL,
   `school_year` varchar(20) DEFAULT NULL,
   `requirements` varchar(300) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
@@ -666,11 +667,11 @@ CREATE TABLE `tb_org_application` (
 -- Dumping data for table `tb_org_application`
 --
 
-INSERT INTO `tb_org_application` (`org_req_id`, `org_name`, `org_type`, `school_year`, `requirements`, `status`, `requested_by`, `date_requested`) VALUES
-(7, 'Sample Acad', 1, '20222023', '60996-11250-eventproposalforms.rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
-(8, 'Sample Non Acad', 2, '20222023', '69539-favicon_io (1).rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
-(9, 'Officer Sample Acad', 1, '20222023', '40591-11250-eventproposalforms.rar', 'Pending', 'Trisha Pega', '2022-11-25'),
-(10, 'Officer Sample Non Acad', 2, '20222023', '45744-favicon_io (1).rar', 'Pending', 'Trisha Pega', '2022-11-25');
+INSERT INTO `tb_org_application` (`org_req_id`, `org_name`, `org_type`, `state`, `school_year`, `requirements`, `status`, `requested_by`, `date_requested`) VALUES
+(7, 'Sample Acad', 1, 'Renewal', '20222023', '60996-11250-eventproposalforms.rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
+(8, 'Sample Non Acad', 2, 'New', '20222023', '69539-favicon_io (1).rar', 'Approved', 'Bienvenido Legaspi', '2022-11-24'),
+(9, 'Officer Sample Acad', 1, 'New', '20222023', '40591-11250-eventproposalforms.rar', 'Pending', 'Trisha Pega', '2022-11-25'),
+(10, 'Officer Sample Non Acad', 2, 'Renewal', '20222023', '45744-favicon_io (1).rar', 'Pending', 'Trisha Pega', '2022-11-25');
 
 -- --------------------------------------------------------
 
