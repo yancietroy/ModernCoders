@@ -403,7 +403,14 @@ if (isset($_SESSION['msg'])) {
                         'pageLength',
                     ]
                 });
-                $('#survey-table').DataTable({
+                        $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Ongoing") {
+            $('td', row).eq(2).css('color', 'orange');
+          }
+          if (data[2] == "Completed") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+        },
                     responsive: true,
                     keys: true,
                     fixedheader: true,

@@ -184,6 +184,10 @@ if ($data_startdate > date('Y-m-d') && $data_enddate > date('Y-m-d')) {
 
             <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
                 <form method="POST" action="" class="card-body px-2 mx-3 py-3 pt-4 ">
+                <div class="mb-4">
+                        <label class="form-label" for="ELEC-ID">Election ID</label>
+                        <input class="form-control" type="text" name="ELEC-ID" id="ELEC-ID" value="<?= $data_electionid ?>" <?= $enable_edit ? "" : "readonly" ?>>
+                    </div>
                     <div class="mb-4">
                         <label class="form-label" for="ORGNAME"><?php
                                                                 if ($data_type == 2) {
