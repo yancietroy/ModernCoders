@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2022 at 07:58 PM
+-- Generation Time: Nov 26, 2022 at 09:21 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -501,7 +501,9 @@ INSERT INTO `tb_notification` (`id`, `notif_id`, `receiver`, `direction`, `title
 (87, 1669362685, 19255562, 1, 'Courtesy Call with VKF', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
 (88, 1669362704, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the Dean.', 'officer-pending.php', 1),
 (89, 1669362704, 18202422, 1, 'Courtesy Call with VKF', 'Project is now requiring your approval.', 'signatory-rso-pending.php?id=12', 1),
-(90, 1669362765, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the SDO.', 'officer-approved.php', 1);
+(90, 1669362765, 19255532, 2, 'Courtesy Call with VKF', 'Project has been approved by the SDO.', 'officer-approved.php', 1),
+(91, 1669447960, 19123412, 1, 'Sample proj 11', 'A new project has been created by Trisha Pega.', 'signatory-rso-pending.php?id=12', 1),
+(92, 1669447960, 19255561, 1, 'Sample proj 11', 'A new project has been created by Trisha Pega.', 'signatory-rso-pending.php?id=12', 0);
 
 -- --------------------------------------------------------
 
@@ -743,7 +745,7 @@ CREATE TABLE `tb_position_archive` (
 --
 
 CREATE TABLE `tb_projectmonitoring` (
-  `project_id` int(11) NOT NULL,
+  `project_id` varchar(500) NOT NULL,
   `position_id` int(3) DEFAULT NULL,
   `org_id` int(11) DEFAULT NULL,
   `college_id` int(11) DEFAULT NULL,
@@ -778,19 +780,20 @@ CREATE TABLE `tb_projectmonitoring` (
 --
 
 INSERT INTO `tb_projectmonitoring` (`project_id`, `position_id`, `org_id`, `college_id`, `project_name`, `requested_by`, `organizer`, `project_type`, `project_category`, `objectives`, `project_desc`, `start_date`, `end_date`, `venue`, `participants`, `no_of_participants`, `beneficiary`, `no_of_beneficiary`, `budget_source`, `estimated_budget`, `budget_req`, `attachments`, `status`, `approval_id`, `date_submitted`, `status_date`, `status_by`, `remarks`) VALUES
-(54, 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done.'),
-(55, 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done'),
-(56, 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3300, 'food::3000;;fee::300', '10800-favicon_io (1).rar', 'Pending', 1, '2022-10-13', '2022-11-25', NULL, ''),
-(60, 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(61, 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(62, 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
-(63, 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'approved'),
-(64, 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'For Revision', 5, '2022-11-03', '2022-11-03', NULL, ''),
-(68, 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ::0', '60343-11250-eventproposalforms.rar', 'Ongoing', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'revise this'),
-(69, 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'Revise date'),
-(71, 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', NULL, 'Approved'),
-(72, 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5500, 'finance::5000;;Sample::500', '23659-11250-eventproposalforms.rar', 'Rejected', 1, '2022-11-04', '2022-11-24', 'SDO John Doe', ''),
-(73, 5, 12, 3, 'Sample Proj 9', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Sample obj proj 9', NULL, '2022-11-16 17:00:00', '2022-11-16 18:00:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 2500, 'Snacks::500;;Umbrellas::2000', '32140-', 'Approved', 5, '2022-11-16', '2022-11-16', NULL, '');
+('1669447960-SY2022-2023', 1, 12, 3, 'Sample proj 11', 'Trisha Pega', 'ComSoc', 'Curricular', 'Onsite', 'Sample ', NULL, '2022-11-26 16:00:00', '2022-11-27 15:32:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 100, 'Sample::100;;::', '28291-favicon_io (1).rar', 'Pending', 1, '2022-11-26', '2022-11-26', NULL, NULL),
+('54', 1, 12, 3, 'ESports', 'Trisha Pega', ' ', 'Extra Curricular', 'Onsite', 'For students to have fun', NULL, '2022-10-17 17:01:00', '2022-10-24 17:01:00', 'JRU Guadrangle ', 'Students', NULL, NULL, NULL, NULL, 2000, '1000 - cash prize\r\n1500 - Trophy\r\n500 - Banners', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done.'),
+('55', 1, 12, 3, 'CSE Week 2022', 'Trisha Pega', 'COMSOC', 'Curricular', 'Onsite', 'a fun week for students of Computer Science Engineering ', NULL, '2022-10-16 17:06:00', '2022-10-23 17:06:00', 'JRU Gymnasium ', 'All Students', NULL, NULL, NULL, NULL, 1500, '1000 - Decorations\r\n500 - Refreshments ', '13914-H_30908.pdf', 'Rejected', 1, '2022-10-13', '2022-11-03', NULL, 'Already been done'),
+('56', 1, 12, 3, 'Feeding Program', 'Trisha Pega', 'COMSOC', 'Outreach', 'Onsite', 'To help malnourished kids', NULL, '2022-10-31 17:08:00', '2022-10-31 21:00:00', 'Kalentong St. ', 'Officers/Volunteer', NULL, NULL, NULL, NULL, 3300, 'food::3000;;fee::300', '10800-favicon_io (1).rar', 'Pending', 1, '2022-10-13', '2022-11-25', NULL, ''),
+('60', 1, 12, 3, 'RSO Renewal', 'Trisha Pega', 'Comsoc officers', 'Other', 'Onsite', 'Application for RSO Renewal in coordination with SDO and CSC.', NULL, '2022-11-03 17:42:00', '2022-11-03 23:00:00', 'SDO Office', 'Comsoc officers', NULL, NULL, NULL, NULL, 1000, 'refreshments - 1000', '99172-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+('61', 1, 12, 3, 'Mass Induction', 'Trisha Pega', 'JRU', 'Assembly', 'Onsite', 'Oath taking of all RSO officers', NULL, '2022-11-03 18:00:00', '2022-11-03 17:44:00', 'JRU Auditorium', 'RSO officers', NULL, NULL, NULL, NULL, 1000, '1000 - refreshments', '63785-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+('62', 1, 12, 3, 'Freshmen Orientation and Pinning Ceremony', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Face-to-Face and Back-to-Back Event', NULL, '2022-11-03 17:45:00', '2022-11-03 18:00:00', 'JRU Auditorium', 'freshmen and comsoc officers', NULL, NULL, NULL, NULL, 3000, '1000 - refreshments\r\n2000 - speaker', '28881-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Done', 5, '2022-11-03', '2022-11-03', NULL, 'approved'),
+('63', 1, 12, 3, 'ComSoc Technology and Innovation Seminar Series', 'Trisha Pega', 'COMSOC', 'Seminar', 'Onsite', 'Cyber Security Seminar', NULL, '2022-11-03 17:47:00', '2022-11-03 17:47:00', 'JRU Auditorium', 'COMSOC Members', NULL, NULL, NULL, NULL, 2500, '1000 - refreshments\r\n1500 - fees', '52619-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'approved'),
+('64', 1, 12, 3, 'ComSoc Rebranding: Logo Design Competition', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'To promote ComSoc by rebranding the look and feel of the logo with a new visual identity', NULL, '2022-11-11 10:00:00', '2022-11-14 20:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 0, 'None', '29465-1A-ComSoc_Proposal-Assembly_GeneralAssembly.pdf', 'For Revision', 5, '2022-11-03', '2022-11-03', NULL, ''),
+('68', 1, 12, 3, 'Courtesy Call with VKF', '', 'RSO Presidents with VKF', 'Assembly', 'Onsite', 'Courtesy Call of RSO Presidents with VKF to present the flagship activities.\r\n', NULL, '2022-11-10 18:02:00', '2022-11-20 18:02:00', 'JRU Quadrangle', ' RSO Presidents with VKF', NULL, NULL, NULL, NULL, 0, 'free ::0', '60343-11250-eventproposalforms.rar', 'Ongoing', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'revise this'),
+('69', 1, 12, 3, 'COMSOC Acquaintance Event', 'Trisha Pega', 'COMSOC', 'Socialization/Teambuilding', 'Online', 'Get to know comsoc officers and members', NULL, '2022-11-05 10:00:00', '2022-11-03 10:00:00', 'Zoom', 'Comsoc Members', NULL, NULL, NULL, NULL, 1500, 'online fees::1500', '26253-', 'Approved', 5, '2022-11-03', '2022-11-25', 'SDO John Doe', 'Revise date'),
+('71', 1, 12, 3, 'COMSOC Coding Seminar', '', 'COMSOC and JPCS', 'Curricular', 'Online', 'Learn Coding with the help of the Junior Philippine Computer Society', NULL, '2022-11-08 10:00:00', '2022-11-09 18:00:00', 'Zoom', 'COMSOC members', NULL, NULL, NULL, NULL, 5000, '5000 - talent fee', '58412-', 'Reschedule', 1, '2022-11-03', '2022-11-08', NULL, 'Approved'),
+('72', 5, 12, 3, 'COMSOC Esports Tryouts', 'Trisha Pega', 'COMSOC', 'Competition', 'Online', 'Tryout for esports comsoc edition', NULL, '2022-11-07 12:12:00', '2022-11-08 12:12:00', 'ZOOM', 'COMSOC Members', NULL, NULL, NULL, NULL, 5500, 'finance::5000;;Sample::500', '23659-11250-eventproposalforms.rar', 'Rejected', 1, '2022-11-04', '2022-11-24', 'SDO John Doe', ''),
+('73', 5, 12, 3, 'Sample Proj 9', 'Trisha Pega', 'COMSOC', 'Assembly', 'Onsite', 'Sample obj proj 9', NULL, '2022-11-16 17:00:00', '2022-11-16 18:00:00', 'Quadrangle', 'Students', NULL, NULL, NULL, NULL, 2500, 'Snacks::500;;Umbrellas::2000', '32140-', 'Approved', 5, '2022-11-16', '2022-11-16', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1509,7 +1512,7 @@ ALTER TABLE `tb_elections_archive`
 -- AUTO_INCREMENT for table `tb_notification`
 --
 ALTER TABLE `tb_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `tb_officers`
@@ -1546,12 +1549,6 @@ ALTER TABLE `tb_org_application`
 --
 ALTER TABLE `tb_position`
   MODIFY `POSITION_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `tb_projectmonitoring`
---
-ALTER TABLE `tb_projectmonitoring`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tb_requests`

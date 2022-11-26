@@ -387,7 +387,7 @@ if(!empty($_GET['status'])){
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <option class="greyclr" value="" text-muted>Clear</option>
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE org_type_id = 2 AND NOT ORG_ID = 26";
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE (org_type_id = 2 AND NOT ORG_ID = 26)";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';

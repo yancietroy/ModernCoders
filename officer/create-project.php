@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+date_default_timezone_set("Asia/Singapore");
 
 include('../router.php');
 route(2);
@@ -21,6 +22,12 @@ $nav_breadcrumbs = [
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
 
+$currentMonth=date("m"); 
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+}
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +106,7 @@ $nav_breadcrumbs = [
           <div class="col-4 col-md-3 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="school_year">School Year:</label>
-                    <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
+                    <input type="text" name="school_year" id="school_year" selected disabled value="<?= $currentSy ?>" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -321,7 +328,10 @@ $nav_breadcrumbs = [
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $did = date("h:i:sa"); 
+          $ddid = strtotime($did) . '-SY' . $currentSy;
+
+          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid','$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
           $result = @mysqli_query($conn, $query);
 
           $sqlGetSignatories = "SELECT school_id FROM tb_signatories WHERE org_id='$orgid'";

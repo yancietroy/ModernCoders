@@ -105,7 +105,7 @@ if (isset($_SESSION['msg'])) {
                       <input class="file-upload" type="file" name=logoPic id=logoPic accept="image/*" />
                     </div>
                   </div>
-                  <h3 class="pt-3"><?= "$orgName"; ?></h3>
+                  <h3 class="pt-3"><?= $orgName ?></h3>
                 </div>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">ORG ID:</strong><?php echo $orgid; ?></p>
@@ -165,13 +165,25 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">Status</th>
                       <td width="2%">:</td>
-                      <td>Active</td>
+                      <td><?php
+                            $query = "SELECT status FROM tb_orgs  WHERE ORG_ID = '$orgid'";
+                            $result = @mysqli_query($conn, $query);
+                            $row = @mysqli_fetch_array($result);
+                            echo $row[0];
+                          ?></td>
                     </tr>
 
                     <tr>
                       <th width="30%">School Year</th>
                       <td width="2%">:</td>
-                      <td>2022-2023</td>
+                      <td>
+                          <?php $currentMonth=date("m"); 
+                          if($currentMonth >="08") 
+                            echo date("Y") .'-'. (date("Y")+1);
+                          if($currentMonth < "08")
+                            echo (date("Y")-1) .'-'. date("Y");
+                          ?>
+                      </td>
                     </tr>
                     <tr>
                       <th width="30%">Student Advisers</th>
@@ -291,13 +303,20 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="ORG_ID">Status</label>
-                    <input type="text" name="ORG_ID" id="ORG_ID" class="form-control" style="background-color: #fff;"  />
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-select" style="width:100%;" name="status" id="status">
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-12 col-md-4  mb-4">
                   <label class="form-label">School Year</label>
-                  <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  <input type="text" name="sy" id="sy" selected disabled value="<?php $currentMonth=date("m"); 
+                          if($currentMonth >="08") 
+                            echo date("Y") .'-'. (date("Y")+1);
+                          if($currentMonth < "08")
+                            echo (date("Y")-1) .'-'. date("Y"); ?>" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
@@ -344,6 +363,7 @@ if (isset($_SESSION['msg'])) {
           $('#ORG_ID').val(data.ORG_ID);
           $('#ORG').val(data.ORG);
           $('#college_id').val(data.college_id);
+          $('#status').val(data.status);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

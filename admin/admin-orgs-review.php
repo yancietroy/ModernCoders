@@ -85,10 +85,6 @@ if (isset($_SESSION['msg'])) {
               $ot = " ";
               $st = " ";
               $rq = " ";
-              $query = "SELECT * FROM tb_orgs_archive";
-              $result = @mysqli_query($conn, $query);
-              $oi = 0;
-              $org = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                           <thead>
                             <tr>
@@ -102,12 +98,6 @@ if (isset($_SESSION['msg'])) {
                         </thead>
                         <tbody>
                       ";
-              /*
-                      <th>College</th>
-                      <th>Organization</th>
-                      <th>Position</th>
-                      <th>Account Created</th>
-                      */
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
@@ -128,12 +118,6 @@ if (isset($_SESSION['msg'])) {
                               <td> $rq  </td>
                               </tr>
                           ";
-                  /*
-                          <td>College</td>
-                          <td>Organization</td>
-                          <td>Position</td>
-                          <th>Account Created</th>
-                        */
                 }
                 echo "</tbody>
                         </table>";
@@ -395,7 +379,6 @@ if (isset($_SESSION['msg'])) {
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5]
-              columns: [0, 1]
             },
             customize: function(win) {
 
@@ -453,9 +436,9 @@ if (isset($_SESSION['msg'])) {
 
   <!-- age validation !-->
   <script src="../assets/js/age-validation.js"></script>
-<?php
+  <?php
   include('include/sweetalert.php');
-?>
+  ?>
   </body>
 
   </html>
