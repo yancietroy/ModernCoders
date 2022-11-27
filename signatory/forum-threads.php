@@ -8,6 +8,7 @@ route(3);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
+$orgid = $_GET['id'] ?? -1;
 
 $data_userid = $_SESSION['USER-ID'];
 $data_name = $_SESSION['USER-NAME'];
@@ -34,10 +35,10 @@ if ($collRes = @mysqli_query($conn, $query)) {
   }
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Discussion Forum";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Forum", "forum-user.php", ""],
+  ["Discussion Forum", "", ""],
   ["Threads", "", ""],
 ];
 

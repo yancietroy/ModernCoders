@@ -35,7 +35,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   } 
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Discussion Forum";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
   ["Discussion Forum", "", ""],
@@ -87,7 +87,7 @@ if (isset($_SESSION['msg'])) {
                 <h4 id="orgtitle">Discussion Board</h4>
               </div>
               <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-                <a class="btn btn-default btn-circle button px-3" href="create-topic.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
+                <a class="btn btn-default btn-circle button px-3" href="create-topic.php?id=<?= $orgid ?>" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Topic </span></a>
               </div>
             </div>
             <div class="row justify-content-center">
