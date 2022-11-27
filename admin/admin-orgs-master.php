@@ -188,7 +188,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG">Organization name:</label>
-                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                    <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
@@ -201,20 +201,26 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
-
-                <div class="col-12 col-md-6  mb-4">
+            <!--<div class="col-12 col-md-6  mb-4">
                   <label class="form-label">School Year</label>
-                  <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  <input type="text" name="" id="" class="form-control" maxlength="100" style="background-color: #fff;" />
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="signatory_id">Student Adviser</label>
-                    <select class="form-select" style="width:100%;" name="signatory_id" id="signatory_id">
-                      <option class="greyclr" selected disabled value="">Placeholder / None Assigned if wala</option>
-                      <!-- current adviser -->
+                  <!<div class="form-outline">
+                    <label class="form-label" for="org_id">Student Adviser</label>
+                    <select class="form-select" style="width:100%;" name="org_id" id="org_id">
+                      <option class="greyclr" selected disabled value="">None Assigned</option>
+                      <1?php
+                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name, school_id FROM tb_signatories WHERE signatorytype_id=4";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                         echo '<option value="' . $data[1] . '">' . $data[0] . '</option>';
+                      }
+                      ?>
+                       current adviser 
                     </select>
                   </div>
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -277,6 +283,7 @@ if (isset($_SESSION['msg'])) {
           $('#ORG_ID').val(data.ORG_ID);
           $('#ORG').val(data.ORG);
           $('#status').val(data.status);
+          $('#org_id').val(data.org_id);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
