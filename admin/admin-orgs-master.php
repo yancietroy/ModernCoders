@@ -193,7 +193,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_Status">Status:</label>
+                    <label class="form-label" for="status">Status:</label>
                     <select class="form-select" name="status" id="status" style="background-color: #fff;">
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
@@ -276,6 +276,7 @@ if (isset($_SESSION['msg'])) {
           console.log(data);
           $('#ORG_ID').val(data.ORG_ID);
           $('#ORG').val(data.ORG);
+          $('#status').val(data.status);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
