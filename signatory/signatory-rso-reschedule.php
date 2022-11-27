@@ -675,9 +675,8 @@ if (isset($_SESSION['msg'])) {
 
             var output = `
               <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
-                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}" style="background-color: #fff;" readonly></td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -753,9 +752,8 @@ if (isset($_SESSION['msg'])) {
             });
             var output = `
               <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
-                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0" style="background-color: #fff;" readonly></td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
