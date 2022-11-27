@@ -177,10 +177,6 @@ if (isset($_SESSION['msg'])) {
                               echo (date("Y")-1) .'-'. date("Y");  ?></td>
                     </tr>
                     <tr>
-                    <!--  <th width="30%">Position  </th>
-                      <td width="2%">:</td>
-                    <td></td>
-                  </tr>-->
                   </table>
                   <div class="card-body mt-2 p-0 w-100 pt-0" id="card-show">
                     <p class="mb-2 pe-2"><strong class="pr-1 text-muted ">First Name:<br></strong> <?php echo "$data[first_name]"; ?></p>
