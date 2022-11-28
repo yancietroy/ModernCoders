@@ -18,7 +18,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
         $row = $orgRes->fetch_assoc();
         $orgName = $row['ORG'];
         $orgType = $row['org_type_id'];
-    } 
+    }
 }
 
 if ($id <= 0) {
@@ -33,10 +33,10 @@ $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
 if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  } 
+    if ($collRes->num_rows > 0) {
+        $row = $collRes->fetch_assoc();
+        $collName = $row['college'];
+    }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -91,8 +91,9 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
                 $choices_arr[$choice] = $total;
                 $count++;
             }
+            $choices_arr["Data Visualization"] = "<obj>";
 
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr, $rowQ['optional']];
             /*} else if ($rowQ['type'] == 7) {
             // rating
             $qid = $rowQ['question_id'];
@@ -112,7 +113,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
             $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];*/
         } else {
             // objective questions
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0)];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0), $rowQ['optional']];
         }
     }
 }
@@ -221,7 +222,7 @@ if (isset($_SESSION['msg'])) {
                                 <thead class="thead-light">
                                     <th style="width: max-content;">Questions</th>
                                     <th style="width: max-content;">Choices</th>
-                                    <th style="width: 200px;">Responses</th>
+                                    <th style="width: max-content;">Responses</th>
                                 </thead>
                                 <tbody>
                                     <?php
@@ -233,18 +234,31 @@ if (isset($_SESSION['msg'])) {
                                     ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td>Unable to tally objective type questions.</td>
-                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle">View Answers</span></a></td>
+                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
+
                                                 </tr>
                                             <?php
                                             } else {
                                             ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $i == 0  && $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td><?= $choices[$i] ?></td>
-                                                    <td><?= $value[2][$choices[$i]] ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($value[2][$choices[$i]] == "<obj>") {
+                                                        ?>
+                                                            <a href="#" onclick="showTally('Data Visualization for Question #<?= $count ?>', '<?= implode(';;', array_keys($value[2])) ?>', '<?= implode(';;', array_values($value[2])) ?>')" class="btn btn-primary"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a>
+                                                        <?php
+                                                        } else {
+                                                            echo $value[2][$choices[$i]];
+                                                        }
+
+                                                        ?>
+
+                                                    </td>
                                                 </tr>
                                     <?php
                                             }
@@ -339,6 +353,25 @@ if (isset($_SESSION['msg'])) {
             </div>
         </div>
 
+        <div class="modal fade" id="modalTally" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header py-3 px-3">
+                        <h5 class="modal-title" id="modalTallyTitle"> Answers </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-row justify-content-center p-5">
+                        <div style="width: 400px;"><canvas id="tallychart"></canvas></div>
+                    </div>
+                    <div class="modal-footer py-2 px-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -346,6 +379,8 @@ if (isset($_SESSION['msg'])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
         <!-- Sidebar collapse -->
         <script src="../assets/js/form-validation.js"></script>
+        <!-- Chart JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- Waves CSS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
         </script> <!-- JavaScript validation -->
@@ -384,6 +419,52 @@ if (isset($_SESSION['msg'])) {
                     }
                 });
             });
+
+            function showTally(title, keys, values) {
+                Chart.helpers.each(Chart.instances, function(instance) {
+                    if (instance.canvas.id == "tallychart") {
+                        instance.destroy();
+                    }
+                })
+
+                const CHART_COLORS = {
+                    blue: 'rgb(54, 162, 235)',
+                    orange: 'rgb(255, 159, 64)',
+                    red: 'rgb(255, 99, 132)',
+                    yellow: 'rgb(255, 205, 86)',
+                    green: 'rgb(75, 192, 192)',
+                    purple: 'rgb(153, 102, 255)',
+                    grey: 'rgb(201, 203, 207)'
+                };
+
+                new Chart(
+                    document.getElementById('tallychart'), {
+                        type: 'doughnut',
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                },
+                                title: {
+                                    display: false,
+                                }
+                            }
+                        },
+                        data: {
+                            labels: keys.split(";;").slice(0, -1),
+                            datasets: [{
+                                label: 'Value',
+                                data: values.split(";;").slice(0, -1),
+                                backgroundColor: Object.values(CHART_COLORS),
+                            }],
+                        },
+                    },
+                );
+
+                $('#modalTallyTitle').text(title);
+                $('#modalTally').modal('show');
+            }
         </script>
         <!-- Datatable -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
