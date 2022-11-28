@@ -11,7 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $data_username = $_SESSION['USER-NAME'];
 $orgid = $_SESSION['USER-ORG'];
-$data_bicture = getProfilePicture(2, $data_userid);
+$data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Projects";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],

@@ -1,22 +1,46 @@
 <?php
 ob_start();
 session_start();
+date_default_timezone_set('Asia/Singapore');
 
 include('../router.php');
 route(3);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
+$orgid = $_GET['id'] ?? -1;
 
 $data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
-$orgid = $_SESSION['USER-ORG'];
+$data_orgid = $_SESSION['USER-ORG'];
+$orgtype = $_SESSION['USER-ORG-TYPE'];
+$data_collegeid = $_SESSION['USER-COLLEGE'];
+
+$orgName = "";
+$_SESSION['ORG'] = $orgName;
+$query = "SELECT * FROM tb_orgs WHERE ORG_ID='$orgid'";
+if ($orgRes = @mysqli_query($conn, $query)) {
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+    $_SESSION['USER-ORG-TYPE'] = $row['org_type_id'];
+  } 
+}
+$collName = "";
+$_SESSION['college'] = $collName;
+$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
+if ($collRes = @mysqli_query($conn, $query)) {
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  } 
+}
 $orgtype = $_SESSION['USER-ORG-TYPE'];
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Home";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Board", "forum-user.php", ""],
+  ["Discussion Forum", "forum-user.php?id=$orgid", ""],
   ["New topic", "", ""],
 ];
 

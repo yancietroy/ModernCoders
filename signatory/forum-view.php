@@ -9,6 +9,7 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
 
 $page_no = $_GET['page'] ?? 1;
 
@@ -29,7 +30,7 @@ $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
     if ($orgRes->num_rows > 0) {
         $row = $orgRes->fetch_assoc();
@@ -47,11 +48,11 @@ if ($collRes = @mysqli_query($conn, $query)) {
     }
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Discussion Forum";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Discussion Forum", "forum-user.php", ""],
-    ["Threads", "forum-threads.php?topic=$topicid", ""],
+    ["Discussion Forum", "forum-user.php?id=$orgid", ""],
+    ["Threads", "forum-threads.php?topic=$topicid&id=$orgid", ""],
     ["Post", "", ""],
 ];
 
