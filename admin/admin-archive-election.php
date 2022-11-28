@@ -85,7 +85,7 @@ if (isset($_SESSION['msg'])) {
                             <table id='elections-table' class='py-3 display nowrap w-100 ms-0 stud'>
                                 <thead>
                                     <tr>
-                                        <th class="desktop">Election Name</th>
+                                        	<th class="desktop">Election ID</th><th class="desktop">Election Name</th>
                                         <th class="desktop">Status</th>
                                         <th class="desktop">Start Date</th>
                                         <th class="desktop">End Date</th>
@@ -101,7 +101,8 @@ if (isset($_SESSION['msg'])) {
                                         while ($row = $res->fetch_assoc()) {
                                     ?>
                                             <tr>
-                                                <td><?= $row['TITLE'] ?></td>
+                                                <td><?= $row['ELECTION_ID'] ?></td>
+												<td><?= $row['TITLE'] ?></td>
                                                 <td>
                                                     <?php
                                                     if ($row['START_DATE'] < date('Y-m-d') && $row['END_DATE'] < date('Y-m-d')) {
@@ -205,6 +206,14 @@ if (isset($_SESSION['msg'])) {
     <script>
         $(document).ready(function() {
             $('#elections-table').DataTable({
+				"createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Ongoing") {
+            $('td', row).eq(2).css('color', 'orange');
+          }
+          if (data[2] == "Completed") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+        },
                 responsive: true,
                 keys: true,
                 fixedheader: true,
@@ -213,6 +222,9 @@ if (isset($_SESSION['msg'])) {
                 "bFilter": true,
                 "columns": [{
                         "width": "200px"
+                    },
+                    {
+                        "width": "60px"
                     },
                     {
                         "width": "60px"
