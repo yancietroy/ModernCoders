@@ -4,6 +4,7 @@ session_start();
 $org_id = $_SESSION['temp_org'];
 $orgid = $_SESSION['USER-ORG'];
 $data_username = $_SESSION['SIGNATORY'] . ' ' . $_SESSION['USER-NAME'];
+$data_userid = $_SESSION['USER-ID'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 //$stid = $_SESSION['signatory_type_id'];
 include('../mysql_connect.php');
@@ -22,14 +23,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to For Revision.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to For Revision.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -46,6 +47,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been moved for revision by the adviser.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -61,14 +68,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Rejected.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Rejected.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -83,9 +90,14 @@ if ($data_signatorytype == 4) {
                     $SqlNotif .= implode(",", $values);
 
                     @mysqli_query($conn, $SqlNotif);
-                    
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been rejected by the adviser.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -103,14 +115,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Pending.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Pending.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -144,6 +156,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $sqlNotifSig);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been approved by the adviser.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     }
 } elseif ($data_signatorytype == 3) {
@@ -161,14 +179,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to For Revision.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to For Revision.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -185,6 +203,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been moved for revision by the Chair.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -200,14 +224,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Rejected.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Rejected.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -222,9 +246,14 @@ if ($data_signatorytype == 4) {
                     $SqlNotif .= implode(",", $values);
 
                     @mysqli_query($conn, $SqlNotif);
-                    
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been rejected by the Chair.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -242,14 +271,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Pending.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Pending.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -283,6 +312,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $sqlNotifSig);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been aprroved by the Chair.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     }
 } elseif ($data_signatorytype == 2) {
@@ -301,14 +336,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to For Revision.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to For Revision.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -325,6 +360,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been moved for revision by the Dean.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -341,14 +382,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Rejected.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Rejected.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -365,6 +406,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been rejected by the Dean.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -381,14 +428,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Pending.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Pending.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -422,6 +469,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $sqlNotifSig);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been approved by the Dean.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     }
 } elseif ($data_signatorytype == 1) {
@@ -440,14 +493,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to For Revision.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to For Revision.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -464,6 +517,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been moved for revision by the SDO.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Reject'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -480,14 +539,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Rejected.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Rejected.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -504,6 +563,12 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been rejected by the SDO.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     } else if (isset($_POST['Approve'])) {
         $id =  $mysqli->real_escape_string($_POST['project_id']);
@@ -520,14 +585,14 @@ if ($data_signatorytype == 4) {
         if ($row) {
             $query = "UPDATE `tb_projectmonitoring` SET `status` = '$s', `remarks` ='$pr', `status_date` = NOW(), `approval_id` = '$ati', `status_by` = '$data_username' WHERE `project_id` = '$id';";
             $result = @mysqli_query($conn, $query);
-            if($result){
-                        $_SESSION["sweetalert"] = [
-                                "title" => "Status Updated",
-                                "text" => "Project is moved to Approved.",
-                                "icon" => "success", //success,warning,error,info
-                                "redirect" => null,
-                            ];
-                    }
+            if ($result) {
+                $_SESSION["sweetalert"] = [
+                    "title" => "Status Updated",
+                    "text" => "Project is moved to Approved.",
+                    "icon" => "success", //success,warning,error,info
+                    "redirect" => null,
+                ];
+            }
             $sqlGetOfficers = "SELECT student_id FROM tb_officers WHERE org_id='$oid' AND position_id IN ('1','2','3','4','5')";
             if ($resOfficers = @mysqli_query($conn, $sqlGetOfficers)) {
                 if ($resOfficers->num_rows > 0) {
@@ -544,8 +609,13 @@ if ($data_signatorytype == 4) {
                     @mysqli_query($conn, $SqlNotif);
                 }
             }
+
+            $timestamp = time();
+            $msg = "'$pn' has been approved by the SDO.";
+            $msg = $mysqli->real_escape_string($msg);
+            $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
+            @mysqli_query($conn, $queryLog);
         }
     }
 }
 header("location:signatory-rso-pending.php?id=$org_id");
-?>

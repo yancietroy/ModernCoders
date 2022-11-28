@@ -366,25 +366,45 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
-              <div class="row">
-              <div class="col-12 col-md-12 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Officer Information:</label>
-                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;"  readonly></textarea>
-                  </div>
-                </div>
-                    </div>
               <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly />
             </div>
           </div>
           <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
-            <!--<button type="submit" name="updatedata" class="btn btn-primary">Update</button>-->
+            <button type="submit" name="updatedata" class="btn btn-primary">Update</button>
           </div>
       </div>
       </form>
     </div>
   </div>
+  </div>
+
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-3 px-3">
+          <h5 class="modal-title" id="exampleModalLabel"> Archive Student Data </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="admin-delete-user.php" method="POST">
+          <div class="modal-body">
+            <div class="col-12 col-md-12 justify-content-center ">
+              <div class="form-outline">
+                <label class="form-label" for="delete_id">Student ID:</label>
+                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
+              </div>
+            </div>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
+          </div>
+          <div class="modal-footer py-2 px-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -420,7 +440,6 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
-          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

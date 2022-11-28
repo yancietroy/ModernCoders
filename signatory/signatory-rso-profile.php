@@ -112,12 +112,15 @@ if (isset($_SESSION['msg'])) {
                   <div class="container">
                     <img class="profile_img" src="<?= $logoPic ?>" id="profile-pic" alt="">
                     <div class="middle">
+                      <!--<div class="upload-button"><i class="bi bi-pencil-square"></i></div>>
+                      <input class="file-upload" type="file" name=logoPic id=logoPic accept="image/*" />-->
                     </div>
                   </div>
                   <h3 class="pt-3"><?= "$orgName"; ?></h3>
                 </div>
                 <div class="card-body text-center">
                   <p class="mb-0"><strong class="pr-1">ORG ID:</strong><?php echo $orgid; ?></p>
+                  <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
             </div>
@@ -170,29 +173,11 @@ if (isset($_SESSION['msg'])) {
                           ?>
                       </td>
                     </tr>
-                    <tr>
-                      <th width="30%">Status</th>
+                    <!--<tr>
+                      <th width="30%">Courses</th>
                       <td width="2%">:</td>
-                      <td><?php
-                            $query = "SELECT status FROM tb_orgs  WHERE ORG_ID = '$orgid'";
-                            $result = @mysqli_query($conn, $query);
-                            $row = @mysqli_fetch_array($result);
-                            echo $row[0];
-                          ?></td>
-                    </tr>
-
-                    <tr>
-                      <th width="30%">School Year</th>
-                      <td width="2%">:</td>
-                      <td>
-                          <?php $currentMonth=date("m"); 
-                          if($currentMonth >="08") 
-                            echo date("Y") .'-'. (date("Y")+1);
-                          if($currentMonth < "08")
-                            echo (date("Y")-1) .'-'. date("Y");
-                          ?>
-                      </td>
-                    </tr>
+                      <td><1?php echo $data['EMAIL']; ?></td>
+                    </tr>-->
                     <tr>
                       <th width="30%">Student Advisers</th>
                       <td width="2%">:</td>
@@ -249,7 +234,7 @@ if (isset($_SESSION['msg'])) {
                     </p>
                   </div>
                   <div class="d-grid gap-2 pb-0 mb-0 d-md-flex justify-content-end">
-                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $orgid . "' >View Details</button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary btn-sm viewbtn' id='" . $orgid . "' >Edit Organization</button>"; ?>
                   </div>
                 </div>
 

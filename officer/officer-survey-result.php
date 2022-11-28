@@ -72,7 +72,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
 
             $choices_arr["Data Visualization"] = "<obj>";
 
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr, $rowQ['optional']];
             /*} else if ($rowQ['type'] == 7) {
             // rating
             $qid = $rowQ['question_id'];
@@ -92,7 +92,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
             $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];*/
         } else {
             // objective questions
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0)];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0), $rowQ['optional']];
         }
     }
 }
@@ -207,7 +207,7 @@ if (isset($_SESSION['msg'])) {
                                     ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td>Unable to tally objective type questions.</td>
                                                     <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
 
@@ -217,7 +217,7 @@ if (isset($_SESSION['msg'])) {
                                             ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $i == 0  && $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td><?= $choices[$i] ?></td>
                                                     <td>
                                                         <?php
@@ -461,14 +461,7 @@ if (isset($_SESSION['msg'])) {
                             'pageLength',
                         ]
                     });
-                            $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
-          if (data[2] == "Ongoing") {
-            $('td', row).eq(2).css('color', 'orange');
-          }
-          if (data[2] == "Completed") {
-            $('td', row).eq(2).css('color', 'green');
-          }
-        },
+                    $('#survey-table').DataTable({
                         responsive: true,
                         keys: true,
                         fixedheader: true,

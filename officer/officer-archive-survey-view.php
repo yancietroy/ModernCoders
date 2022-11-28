@@ -22,7 +22,7 @@ $nav_breadcrumbs = [
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
     ["Survey", "officer-survey.php", ""],
-    ["Survey List", "officer-survey-list.php", ""],
+    ["Survey Archive", "officer-archive-survey-list.php", ""],
     ["View Survey", "", ""],
 ];
 
@@ -150,7 +150,9 @@ if (isset($_SESSION['msg'])) {
                                                 <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
                                                 <?php
                                                 if ($row['type'] >= 4 && $row['type'] <= 6) {
-                                                    echo $row['question'] . "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
+                                                    echo $row['question'];
+                                                    if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
+                                                    echo "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
                                                 } else if ($row['type'] == 7) {
                                                     $descs = explode(";;", $row['choices']);
                                                     $details = $row['question'] . "<br><br><i>Rating:";
@@ -162,6 +164,7 @@ if (isset($_SESSION['msg'])) {
                                                     echo $details . "</i>";
                                                 } else {
                                                     echo $row['question'];
+                                                    if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
                                                 }
                                                 ?>
                                             </td>

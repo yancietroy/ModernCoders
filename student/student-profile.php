@@ -235,7 +235,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4 d-none">
+                <div class="col-4 col-md-3 mb-4 d-none d-sm-block">
                   <div class="form-outline">
                     <label class="form-label" for="USER_TYPE">User Type:</label>
                     <select class="form-select" name="USER_TYPE" id="USER_TYPE" readonly>
@@ -275,19 +275,19 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4  d-none">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="BIRTHDATE">Birthdate:</label>
                     <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old"  style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4 d-none">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="AGE">Age:</label>
                     <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" readonly />
                   </div>
                 </div>
-                <div class="col-6 col-md-4 mb-4  d-none">
+                <div class="col-6 col-md-4 mb-4 ">
                   <label class="form-label" for="GENDER">Gender </label>
                   <select class="form-select" name="GENDER" id="GENDER" readonly>
                     <option value="Female">Female</option>
@@ -296,7 +296,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-2 d-none">
+                <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="YEAR_LEVEL">Year Level:</label>
                   <select class="form-select" name="YEAR_LEVEL" id="YEAR_LEVEL" readonly>
                     <option value="1">Year 1</option>
@@ -305,19 +305,19 @@ if (isset($_SESSION['msg'])) {
                     <option value="4">Year 4</option>
                   </select>
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4 d-none">
+                <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="SECTION">Section:</label>
                     <input type="text" name="SECTION" id="SECTION" class="form-control" maxlength="4" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2 d-none">
+                <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="EMAIL">Email:</label>
                   <input type="text" name="EMAIL" id="EMAIL" class="form-control" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="50" style="background-color: #fff;" readonly/>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4 d-none">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="college">College:</label>
                     <select class="form-select" name="college" id="college" readonly>
@@ -331,7 +331,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4 d-none">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label select-label" for="COURSE">Course:</label>
                     <select class="form-select" style="width:100%;" name="COURSE" id="COURSE" readonly>
@@ -345,7 +345,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4 d-none">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="MORG_ID">Student Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID" readonly>

@@ -60,14 +60,14 @@ if (isset($_POST['submit-response'])) {
       "text" => "Response has been submitted successfully.",
       "icon" => "success", //success,warning,error,info
       "redirect" => null,
-      ];
+    ];
   } else {
     $_SESSION["sweetalert"] = [
-          "title" => "Submit Response",
-          "text" => "Unexpected error while submitting your response. Please try again.",
-          "icon" => "error", //success,warning,error,info
-          "redirect" => null,
-          ];
+      "title" => "Submit Response",
+      "text" => "Unexpected error while submitting your response. Please try again.",
+      "icon" => "error", //success,warning,error,info
+      "redirect" => null,
+    ];
   }
 }
 
@@ -166,36 +166,36 @@ if (isset($_SESSION['msg'])) {
 
               if ($qType == 1) { // TextBox
           ?>
-                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?></label>
+                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></label>
                 <div class="field">
-                  <input type="text" class="form-control" id="q-<?= $row['question_id'] ?>" name="q-1-<?= $row['question_id'] ?>" required>
+                  <input type="text" class="form-control" id="q-<?= $row['question_id'] ?>" name="q-1-<?= $row['question_id'] ?>" <?= $row['optional'] == 1 ? "" : "required" ?>>
                 </div>
               <?php
               } else if ($qType == 2) { // Multiline TextBox
               ?>
-                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?></label>
+                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></label>
                 <div class="field">
-                  <textarea class="form-control" id="q-<?= $row['question_id'] ?>" name="q-2-<?= $row['question_id'] ?>" required></textarea>
+                  <textarea class="form-control" id="q-<?= $row['question_id'] ?>" name="q-2-<?= $row['question_id'] ?>" <?= $row['optional'] == 1 ? "" : "required" ?>></textarea>
                 </div>
               <?php
               } else if ($qType == 3) { // Numeric
               ?>
-                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?></label>
+                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></label>
                 <div class="field">
-                  <input type="number" class="form-control" id="q-<?= $row['question_id'] ?>" name="q-3-<?= $row['question_id'] ?>" required>
+                  <input type="number" class="form-control" id="q-<?= $row['question_id'] ?>" name="q-3-<?= $row['question_id'] ?>" <?= $row['optional'] == 1 ? "" : "required" ?>>
                 </div>
               <?php
               } else if ($qType == 4) { // Checkboxes
               ?>
                 <div class="group pt-2">
-                  <p><?= $count . ". " . $row['question'] ?></p>
+                  <p><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></p>
                   <?php
                   $rawChoices = explode(";;", $row['choices']);
                   $answerCount = 0;
                   foreach ($rawChoices as $choice) {
                   ?>
                     <label for="c-<?= $row['question_id'] . "-" . $answerCount ?>">
-                      <input type="checkbox" name="q-4-<?= $row['question_id'] ?>[]" id="c-<?= $row['question_id'] . "-" . $answerCount ?>" value="<?= $answerCount ?>">
+                      <input type="checkbox" name="q-4-<?= $row['question_id'] ?>[]" id="c-<?= $row['question_id'] . "-" . $answerCount ?>" value="<?= $answerCount ?>" <?= $row['optional'] == 1 ? "" : "required" ?>>
                       <?= $choice ?>
                     </label>
                   <?php
@@ -208,14 +208,14 @@ if (isset($_SESSION['msg'])) {
               } else if ($qType == 5) { // Radiobuttons
               ?>
                 <div class="group pt-2">
-                  <p><?= $count . ". " . $row['question'] ?></p>
+                  <p><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></p>
                   <?php
                   $rawChoices = explode(";;", $row['choices']);
                   $answerCount = 0;
                   foreach ($rawChoices as $choice) {
                   ?>
                     <label for="c-<?= $row['question_id'] . "-" . $answerCount ?>">
-                      <input type="radio" name="q-5-<?= $row['question_id'] ?>" id="c-<?= $row['question_id'] . "-" . $answerCount ?>" value="<?= $answerCount ?>" <?= $answerCount == 0 ? "checked" : "" ?>>
+                      <input type="radio" name="q-5-<?= $row['question_id'] ?>" id="c-<?= $row['question_id'] . "-" . $answerCount ?>" value="<?= $answerCount ?>" <?= $row['optional'] == 1 ? "" : "required" ?>>
                       <?= $choice ?>
                     </label>
                   <?php
@@ -227,9 +227,9 @@ if (isset($_SESSION['msg'])) {
               <?php
               } else if ($qType == 6) { // Dropdown
               ?>
-                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?></label>
+                <label for="q-<?= $row['question_id'] ?>"><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></label>
                 <div class="field" style="font-weight: normal;font-size: 13px;">
-                  <select class="px-3 py-2" name="q-6-<?= $row['question_id'] ?>" id="q-<?= $row['question_id'] ?>">
+                  <select class="px-3 py-2" name="q-6-<?= $row['question_id'] ?>" id="q-<?= $row['question_id'] ?>" <?= $row['optional'] == 1 ? "" : "required" ?>>
                     <?php
                     $rawChoices = explode(";;", $row['choices']);
                     $answerCount = 0;
@@ -247,21 +247,21 @@ if (isset($_SESSION['msg'])) {
               } else if ($qType == 7) { // Rating
                 $ratings = explode(";;", $row['choices']);
               ?>
-                <p><?= $count . ". " . $row['question'] ?></p>
+                <p><?= $count . ". " . $row['question'] ?><?= $row['optional'] == 1 ? "" : "<span class='ml-1 text-danger'>*</span>" ?></p>
                 <div class="rating">
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-1" value="0">
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-1" value="0" <?= $row['optional'] == 1 ? "" : "required" ?>>
                   <label for="q-7-<?= $row['question_id'] ?>-1" title="<?= $ratings[0] ?? "" ?>">1</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-2" value="1">
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-2" value="1" <?= $row['optional'] == 1 ? "" : "required" ?>>
                   <label for="q-7-<?= $row['question_id'] ?>-2" title="<?= $ratings[1] ?? "" ?>">2</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-3" value="2">
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-3" value="2" <?= $row['optional'] == 1 ? "" : "required" ?>>
                   <label for="q-7-<?= $row['question_id'] ?>-3" title="<?= $ratings[2] ?? "" ?>">3</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-4" value="3">
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-4" value="3" <?= $row['optional'] == 1 ? "" : "required" ?>>
                   <label for="q-7-<?= $row['question_id'] ?>-4" title="<?= $ratings[3] ?? "" ?>">4</label>
 
-                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-5" value="4" checked>
+                  <input type="radio" name="q-7-<?= $row['question_id'] ?>" id="q-7-<?= $row['question_id'] ?>-5" value="4" <?= $row['optional'] == 1 ? "" : "required" ?>>
                   <label for="q-7-<?= $row['question_id'] ?>-5" title="<?= $ratings[4] ?? "" ?>">5</label>
                 </div>
                 <div class="rating-footer mb-3">
@@ -321,7 +321,7 @@ if (isset($_SESSION['msg'])) {
       Waves.init();
     </script>
     <?php
-      include('include/sweetalert.php');
+    include('include/sweetalert.php');
     ?>
 </body>
 

@@ -58,12 +58,12 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
       <?php include("include/breadcrumb.php") ?>
 
       <!-- Page content -->
-      <?php
+      <!--<1?php
         if (mysqli_num_rows($checkq) > 0 ) {
           echo "<script type='text/javascript'>
                 Swal.fire({
                           icon: 'error',
-                          title: 'You already joined an Organization',
+                          title: 'Non-Academic Organization Exists',
                           text: 'You cannot join another student organization',
                           confirmButtonColor: '#F2AC1B'
                          }).then(function(){
@@ -71,7 +71,7 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
                           });
                           </script>";
           }else{
-        ?>
+      ?>-->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
@@ -141,7 +141,6 @@ $checkq = mysqli_query($conn, "SELECT * FROM tb_requests WHERE student_id = '$da
 
           @mysqli_close($conn);
         }
-      }
         ?>
       </form>
       <!-- Footer -->
