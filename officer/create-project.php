@@ -79,11 +79,20 @@ $nav_breadcrumbs = [
 
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
-        <div class="row ms-3 me-3 mt-2">
-          <div class="col-lg-6 col-6  mb-4">
-            <h4>Create New Project</h4>
-          </div>
+      <div class="row ms-3 me-3 mt-2 mb-4">
+        <div class="col-lg-6 col-7">
+          <h4 id="orgtitle">Create New Project</h4>
         </div>
+        <?php
+        if ($_SESSION['USER-POS'] <= 5) {
+        ?>
+          <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+            <a class="btn btn-default btn-circle button px-3" href="budget-codes.php" role="button"><i class="bi bi-file-spreadsheet-fill"></i><span id="btntitle"> Budget Codes </span></a>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
             <div class="col-lg-12 col-12">

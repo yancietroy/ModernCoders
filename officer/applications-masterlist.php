@@ -81,7 +81,7 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
               $query = "SELECT * FROM tb_requests WHERE org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
@@ -169,7 +169,7 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="student_id">Student ID:</label>
                     <input type="text" name="student_id" id="student_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
