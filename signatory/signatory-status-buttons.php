@@ -314,7 +314,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been aprroved by the Chair.";
+            $msg = "'$pn' has been approved by the Chair.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);

@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+date_default_timezone_set("Asia/Singapore");
 
 include('../router.php');
 route(2);
@@ -20,7 +21,12 @@ $nav_breadcrumbs = [
   ["Projects", "officer-projects.php", ""],
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
-
+$currentMonth=date("m"); 
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+} 
 ?>
 
 <!DOCTYPE html>
@@ -105,12 +111,12 @@ $nav_breadcrumbs = [
             </div>
           </div>
           <div class="row">
-            <div class="col-4 col-md-3 col-sm-3 mb-4">
-              <div class="form-outline">
-                <label class="form-label" for="school_year">School Year:</label>
-                <input type="text" name="school_year" id="school_year" class="form-control" style="background-color: #fff;" readonly />
-              </div>
-            </div>
+          <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" selected disabled value="<?= $currentSy ?>" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
@@ -239,7 +245,7 @@ $nav_breadcrumbs = [
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+            <div class="col-12 col-md-9 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                 <input type="text" class="form-control" maxlength="2" id="numOfRows" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Item Quantity" required />
@@ -247,7 +253,7 @@ $nav_breadcrumbs = [
               </div>
               <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+            <div class="col-12 col-md-3 col-sm-3 mb-4 pt-4">
               <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
             </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -461,9 +467,9 @@ $nav_breadcrumbs = [
               });
 
               var i = $('#numOfRows').val();
-              var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
+              var s2 = "<table class='table-stripe'><th>Item No.</th><th>Description</th><th>Price</th>"
               for (var j = 0; j < i; j++) {
-                s2 += "<tr><td>" + (j + 1) + "</td><td><select id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
+                s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control'width='100%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
               }
               s2 += "</table>";
               $('#amortizationTable').html(s2);
