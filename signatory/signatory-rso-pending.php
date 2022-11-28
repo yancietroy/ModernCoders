@@ -454,7 +454,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_remarks">Remarks:</label>
-                    <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
+                    <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
                 <input type="hidden" name="college_id" id="college_id">
