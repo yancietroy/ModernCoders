@@ -18,7 +18,7 @@ $nav_breadcrumbs = [
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
   ["Projects", "officer-projects.php", ""],
-  ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
+  ["Budget Codes", "", ""],
 ];
 
 ?>
@@ -67,11 +67,11 @@ $nav_breadcrumbs = [
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4 id="orgtitle">Position List</h4>
+          <h4 id="orgtitle">Budget Code List</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-default btn-circle button px-3" href="officer-budget-new.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Budget Code </span></a>
-          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="officer-archive-budget.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Budget Code Archive</span></a>
+          <a class="btn btn-default btn-circle button px-3" href="budget-codes-new.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">New Budget Code </span></a>
+          <a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="budget-codes-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Budget Code Archive</span></a>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ $nav_breadcrumbs = [
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> View Position Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> View Budget Details </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -177,18 +177,25 @@ $nav_breadcrumbs = [
               <div class="row justify-content-between">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="id">Position ID:</label>
+                    <label class="form-label" for="id">Budget ID:</label>
                     <input type="text" name="id" id="id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+              </div>
+                <div class="row justify-content-between">
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="code">Position Name:</label>
+                    <label class="form-label" for="code">Budget Code:</label>
                     <input type="text" name="code" id="code" class="form-control" maxlength="50" />
                   </div>
                 </div>
+            <div class="col-12 col-md-6 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="desc">Budget Description:</label>
+                <input type="text" name="desc" id="desc" class="form-control" maxlength="50" />
               </div>
             </div>
+          </div>
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -204,20 +211,20 @@ $nav_breadcrumbs = [
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header py-3 px-3">
-          <h5 class="modal-title" id="exampleModalLabel"> Archive Position </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Archive Budget Code </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-delete-position.php" method="POST">
+        <form action="officer-delete-budget.php" method="POST">
           <div class="modal-body">
             <div class="col-12 col-md-12 justify-content-center ">
               <div class="form-outline">
-                <label class="form-label" for="delete_id">Position ID:</label>
+                <label class="form-label" for="delete_id">Budget ID:</label>
                 <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
               </div>
             </div>
-            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Position. Are you sure?</p>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving Budget Code. Are you sure?</p>
           </div>
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -234,7 +241,7 @@ $nav_breadcrumbs = [
     $(document).on('click', '.viewbtn', function() {
       var id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-position.php",
+        url: "officer-fetch-budget.php",
         method: "POST",
         data: {
           id: id
@@ -244,6 +251,7 @@ $nav_breadcrumbs = [
           console.log(data);
           $('#id').val(data.id);
           $('#code').val(data.code);
+          $('#desc').val(data.description);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -255,7 +263,7 @@ $nav_breadcrumbs = [
     $(document).on('click', '.deletebtn', function() {
       var id = $(this).attr("id");
       $.ajax({
-        url: "admin-fetch-position.php",
+        url: "officer-fetch-budget.php",
         method: "POST",
         data: {
           id: id
