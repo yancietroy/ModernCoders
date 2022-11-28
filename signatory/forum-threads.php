@@ -17,7 +17,7 @@ $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
