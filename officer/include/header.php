@@ -21,12 +21,12 @@
                             if($count[0] != 0){
                             ?>
                             <h6>
-                            <span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: -10px">
+                            <span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: 1px">
                                <?= $count[0] ?>
                             </span>
                             </h6>
-                            <?php 
-                            } 
+                            <?php
+                            }
                             ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
