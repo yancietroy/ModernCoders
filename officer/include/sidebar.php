@@ -24,6 +24,9 @@
         <li <?= str_starts_with($nav_selected, "Election") ? 'class="active"' : "" ?>>
             <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>CSC Election</span></a>
         </li>
+        <li <?= str_starts_with($nav_selected, "Event Calendar") ? 'class="active"' : "" ?>>
+            <a href="event-calendar.php"><i class="bi bi-calendar2-fill"></i> <span>Event Calendar</span></a>
+        </li>
         <li <?= str_starts_with($nav_selected, "Survey") ? 'class="active"' : "" ?>>
             <a href="officer-survey.php"><i class="bi bi-file-bar-graph-fill"></i> <span>Survey</span></a>
 
