@@ -139,7 +139,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -219,7 +219,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -273,12 +273,12 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                  <div class="col-4 col-md-4 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>  
+                </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>

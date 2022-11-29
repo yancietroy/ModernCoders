@@ -117,7 +117,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -172,7 +172,8 @@ if (isset($_SESSION['msg'])) {
                               <td> $ds </td>
                               <td>
                                 <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
-                            <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
+                                <button type='button' title='audit trail' class='btn btn-warning btn-sm text-white logbtn' id='" . $pi . "'> <i class='bi bi-clock-history'></i> </button>
+                                <a type='button' class='btn btn-primary btn-sm' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
                               <td> $std  </td>
@@ -198,7 +199,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -239,6 +240,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
@@ -252,12 +254,13 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                  <div class="col-4 col-md-4 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>  
+                </div>
+                
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -437,12 +440,35 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="modal-footer px-0 py-0 pt-2">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button><!--
+                <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
+                <!--
                 <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>
                 <button class="btn btn-md btn-outline-secondary" name="Cancel">Cancel Project</a>
                   <button class="btn btn-md  btn-info" name="Ongoing">Ongoing</a>!-->
               </div>
+            </div>
+          </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="logmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Audit Trail: </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-0 mt-4 justify-content-center">
+            <div id="log-content" class="table-responsive ms-0">
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -452,6 +478,122 @@ if (isset($_SESSION['msg'])) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
+    var observer = window.ResizeObserver ? new ResizeObserver(function(entries) {
+      entries.forEach(function(entry) {
+        $(entry.target).DataTable().columns.adjust();
+      });
+    }) : null;
+
+    // Function to add a datatable to the ResizeObserver entries array
+    resizeHandler = function($table) {
+      if (observer)
+        observer.observe($table[0]);
+    };
+
+    $(document).on('click', '.logbtn', function() {
+      var project_id = $(this).attr("id");
+      var myTable;
+
+      $.ajax({
+        url: "include/admin-fetch-project-logs.php",
+        method: "POST",
+        data: {
+          project_id: project_id
+        },
+        dataType: "json",
+        success: function(data) {
+
+          var content = "";
+          data.forEach(e => {
+            var a = new Date(e['id'] * 1000).toLocaleString('default', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            });;
+            content = `
+              ${content}
+              <tr>
+                <td>${a}</td>
+                <td>${e['message']}</td>
+                <td>${e['user_name']}</td>
+              </tr>
+            `;
+          });
+
+          var output = `
+              <table id="logTable" class="display nowrap" style="width:100%">
+                <thead>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </thead>
+                <tbody>
+                  ${content}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </tfoot>
+              </table>
+          `;
+
+          $('#log-content').html(output);
+
+          myTable = $('#logTable').DataTable({
+            paging: true,
+            searching: false,
+            responsive: true,
+            ordering: false,
+            scrollX: true,
+            keys: true,
+            fixedheader: true,
+            "bFilter": true,
+            dom: 'Bfrtip',
+            select: 'single',
+            buttons: [
+              'pageLength',
+              {
+                extend: 'excelHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+              },
+              {
+                extend: 'pdfHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+                orientation: 'landscape',
+                pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+              },
+            ],
+            /*initComplete: function(settings, json) {
+              table = settings.oInstance.api();
+              setTimeout(function() {
+                table.columns.adjust();
+              }, 500);
+            }*/
+          });
+
+          // Initiate additional resize handling on datatable
+          resizeHandler($('#logTable'));
+
+          $('#logmodal').modal('show');
+          myTable.columns.adjust().draw();
+        }
+      });
+
+    });
+
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
@@ -702,4 +844,5 @@ if (isset($_SESSION['msg'])) {
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
 </body>
+
 </html>

@@ -62,7 +62,7 @@ if (isset($_SESSION['msg'])) {
       <?php include("include/header.php") ?>
 
       <!-- Page content -->
-      <h3 class="ms-3">Officer Profile</h3> 
+      <h3 class="ms-3">Officer Profile</h3>
       <div class="student-profile py-4 px-5">
         <div class="container-lg">
           <div class="row">
@@ -92,8 +92,7 @@ if (isset($_SESSION['msg'])) {
                                                                               if($currentMonth >="08") 
                                                                                 echo date("Y") .'-'. (date("Y")+1);
                                                                               if($currentMonth < "08")
-                                                                                echo (date("Y")-1) .'-'. date("Y");
-                                                                                  ?></p>
+                                                                                echo (date("Y")-1) .'-'. date("Y");  ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>

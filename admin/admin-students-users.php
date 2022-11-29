@@ -366,9 +366,9 @@ if(!empty($_GET['status'])){
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
+                      <label class="form-label" for="MORG_ID"> Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
                       $query = "SELECT ORG_ID, ORG FROM tb_orgs";
@@ -380,13 +380,13 @@ if(!empty($_GET['status'])){
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+              <!--  <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG_IDS">Non-Academic Organization:</label>
                     <select class="form-select" name="ORG_IDS" id="ORG_IDS" readonly>
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE (org_type_id = 2 AND NOT ORG_ID = 26)";
+                      $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE org_type_id = 2 AND NOT ORG_ID = 26";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -394,7 +394,7 @@ if(!empty($_GET['status'])){
                       ?>
                     </select>
                   </div>
-                </div>
+                </div>-->
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>

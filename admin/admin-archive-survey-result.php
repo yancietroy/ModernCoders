@@ -84,7 +84,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
                 $count++;
             }
 
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr, $rowQ['optional']];
             /*} else if ($rowQ['type'] == 7) {
             // rating
             $qid = $rowQ['question_id'];
@@ -104,7 +104,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
             $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];*/
         } else {
             // objective questions
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0)];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0), $rowQ['optional']];
         }
     }
 }
@@ -225,18 +225,31 @@ if (isset($_SESSION['msg'])) {
                                     ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td>Unable to tally objective type questions.</td>
-                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle">View Answers</span></a></td>
+                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
+
                                                 </tr>
                                             <?php
                                             } else {
                                             ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $i == 0  && $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td><?= $choices[$i] ?></td>
-                                                    <td><?= $value[2][$choices[$i]] ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($value[2][$choices[$i]] == "<obj>") {
+                                                        ?>
+                                                            <a href="#" onclick="showTally('Data Visualization for Question #<?= $count ?>', '<?= implode(';;', array_keys($value[2])) ?>', '<?= implode(';;', array_values($value[2])) ?>')" class="btn btn-primary"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a>
+                                                        <?php
+                                                        } else {
+                                                            echo $value[2][$choices[$i]];
+                                                        }
+
+                                                        ?>
+
+                                                    </td>
                                                 </tr>
                                     <?php
                                             }
@@ -392,10 +405,17 @@ if (isset($_SESSION['msg'])) {
                     "bFilter": true,
                     select: 'single',
                     buttons: [
-                        'pageLength',
+                        'pageLength',{
+                                extend: 'csvHtml5',
+            title: 'JRU Organizations Portal -   Table Answers List',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1]
+            },
+          },
                     ]
                 });
-                        $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
+                $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
           if (data[2] == "Ongoing") {
             $('td', row).eq(2).css('color', 'orange');
           }

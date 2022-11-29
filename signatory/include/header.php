@@ -12,8 +12,8 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height: 25px;"></i>
+                    <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" class="position-relative"aria-expanded="false">
+                        <i class="fa fa-bell mt-2 " style="width:  25px; height: 25px;"></i><h6><span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: -10px">10</span></h6>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
 

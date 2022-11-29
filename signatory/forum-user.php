@@ -38,7 +38,7 @@ $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
   ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Discussion Forum", "", ""],
+  ["Discussion Forum", "forum-user.php?id=$orgid", ""],
   ];
 
 if (isset($_SESSION['msg'])) {
@@ -115,7 +115,7 @@ if (isset($_SESSION['msg'])) {
                                                             <div class="forum-icon">
                                                                 <i class="bi text-primary <?= $topics['icon'] == "" ? "bi-chat-square-dots-fill" : $topics['icon'] ?>"></i>
                                                             </div>
-                                                            <a href="forum-threads.php?topic=<?= $topics['topic_id'] ?>" class="forum-item-title"><?= $topics['subject'] ?></a>
+                                                            <a href="forum-threads.php?topic=<?= $topics['topic_id'] ?>&id=<?= $orgid ?>" class="forum-item-title"><?= $topics['subject'] ?></a>
                                                             <div class="forum-sub-title small"><?= $topics['description'] ?></div>
                                                         </div>
                                                         <div class="col-md-3 forum-info">

@@ -329,6 +329,34 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-3 px-3">
+          <h5 class="modal-title" id="exampleModalLabel"> Archive Student Data </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="admin-delete-user.php" method="POST">
+          <div class="modal-body">
+            <div class="col-12 col-md-12 justify-content-center ">
+              <div class="form-outline">
+                <label class="form-label" for="delete_id">Student ID:</label>
+                <input type="text" name="delete_id" id="delete_id" class="form-control" style="background-color: #fff;" readonly />
+              </div>
+            </div>
+            <p class="mt-3 mb-0 mx-0 text-center justify-content-center align-items center"> Archiving user data. Are you sure?</p>
+          </div>
+          <div class="modal-footer py-2 px-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="deletedata" class="btn btn-info">Yes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
@@ -480,7 +508,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
@@ -499,7 +527,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
@@ -509,7 +537,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]

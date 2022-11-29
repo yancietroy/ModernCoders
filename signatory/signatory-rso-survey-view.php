@@ -32,10 +32,10 @@ $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
 if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  } 
+    if ($collRes->num_rows > 0) {
+        $row = $collRes->fetch_assoc();
+        $collName = $row['college'];
+    }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -182,7 +182,9 @@ if ($res = @mysqli_query($conn, $query)) {
                                                     <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
                                                     <?php
                                                     if ($row['type'] >= 4 && $row['type'] <= 6) {
-                                                        echo $row['question'] . "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
+                                                        echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
+                                                        echo "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
                                                     } else if ($row['type'] == 7) {
                                                         $descs = explode(";;", $row['choices']);
                                                         $details = $row['question'] . "<br><br><i>Rating:";
@@ -194,6 +196,7 @@ if ($res = @mysqli_query($conn, $query)) {
                                                         echo $details . "</i>";
                                                     } else {
                                                         echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
                                                     }
                                                     ?>
                                                 </td>

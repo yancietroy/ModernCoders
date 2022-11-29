@@ -51,8 +51,8 @@ $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Discussion Forum", "", ""],
-    ["Threads", "forum-threads.php?topic=$topicid", ""],
+    ["Discussion Forum", "forum-user.php?id=$orgid", ""],
+    ["Threads", "forum-threads.php?topic=$topicid&id=$orgid", ""],
     ["Post", "", ""],
 ];
 

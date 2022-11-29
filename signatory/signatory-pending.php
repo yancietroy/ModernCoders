@@ -29,7 +29,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
@@ -112,7 +112,7 @@ if (isset($_SESSION['msg'])) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 2 AND college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 4) {
                 $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 1 AND org_id = '$data_orgid'";
-              } 
+              }
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -144,7 +144,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -224,7 +224,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -278,12 +278,12 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                  <div class="col-4 col-md-4 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>  
+               </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -429,18 +429,18 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -481,7 +481,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-3 py-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button> <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
             <button class="btn btn-md btn-revise" name="Revise" onclick="document.getElementById('hidden').style.display = 'block' ;">Revise</a>
               <button class="btn btn-md btn-danger" name="Reject">Reject</a>
                 <button class="btn btn-md  btn-success" name="Approve">Approve</a>

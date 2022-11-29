@@ -268,11 +268,11 @@ $nav_breadcrumbs = [
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       function deleteMember(id) {
-        $('#mem-' + id).remove();
+        $('#label-mem-' + id).remove();
       }
 
       function selectMember(id, name, section) {
-        if ($('#mem-' + id).length > 0) return;
+        if ($('#label-mem-' + id).length > 0) return;
 
         delBtn = '<a class="align-middle text-white btn btn-danger" onclick="deleteMember(\'' + id + '\')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Member </span></a>';
         output = '<tr id="label-mem-' + id + '"><td style="display:none;"><input type="text" name="mem-' + id + '"></td><td class="align-middle">' + name + '</td>\n<td>' + section + '</td>\n<td>' + delBtn + '</td>\n</tr>';
@@ -328,4 +328,5 @@ $nav_breadcrumbs = [
       });
     </script>
 </body>
+
 </html>

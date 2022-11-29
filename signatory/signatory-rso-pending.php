@@ -138,7 +138,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -191,6 +191,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $ds </td>
                               <td>
                               <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' title='audit trail' class='btn btn-warning btn-sm text-white logbtn' id='" . $pi . "'> <i class='bi bi-clock-history'></i> </button>
                               <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
                               </a>
                               </td>
@@ -215,7 +216,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='none'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -254,6 +255,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
@@ -267,20 +269,20 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                  <div class="col-4 col-md-4 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>  
+               </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
                     <input type="text" name="date_submitted" id="date_submitted" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_name">Project name:</label>
@@ -307,8 +309,8 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <label class="form-label" for="status">Project status updated by:</label>
                   <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
@@ -321,8 +323,8 @@ if (isset($_SESSION['msg'])) {
                   <label class="form-label" for="project_category">Category:</label>
                   <input type="text" name="project_category" id="project_category" class="form-control " style="background-color: #fff;" readonly />
                 </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="start_date">Start Date:</label>
@@ -335,8 +337,8 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" class="form-control" name="end_date" id="end_date" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="participants">Participants:</label>
@@ -382,8 +384,8 @@ if (isset($_SESSION['msg'])) {
                               </div>
                             </div>-->
 
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG">Name of Organization:</label>
@@ -413,8 +415,8 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                 <div class="col-12 col-md-12 col-sm-3 mb-4">
                   <div class="form-outline  ">
                     <label class="form-label" for="objectives">Objectives:</label>
@@ -425,18 +427,18 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Item</th>
+                          <th>Budget</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -452,7 +454,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_remarks">Remarks:</label>
-                    <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" ></textarea>
+                    <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;"></textarea>
                   </div>
                 </div>
                 <input type="hidden" name="college_id" id="college_id">
@@ -477,7 +479,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-3 py-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>    <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button> <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
             <button class="btn btn-md btn-revise" name="Revise" onclick="document.getElementById('hidden').style.display = 'block' ;">Revise</a>
               <button class="btn btn-md btn-danger" name="Reject">Reject</a>
                 <button class="btn btn-md  btn-success" name="Approve">Approve</a>
@@ -486,11 +488,149 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
+
+  <div class="modal fade" id="logmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Audit Trail: </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-0 mt-4 justify-content-center">
+            <div id="log-content" class="table-responsive ms-0">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
+    var observer = window.ResizeObserver ? new ResizeObserver(function(entries) {
+      entries.forEach(function(entry) {
+        $(entry.target).DataTable().columns.adjust();
+      });
+    }) : null;
+
+    // Function to add a datatable to the ResizeObserver entries array
+    resizeHandler = function($table) {
+      if (observer)
+        observer.observe($table[0]);
+    };
+
+    $(document).on('click', '.logbtn', function() {
+      var project_id = $(this).attr("id");
+      var myTable;
+
+      $.ajax({
+        url: "include/signatory-fetch-project-logs.php",
+        method: "POST",
+        data: {
+          project_id: project_id
+        },
+        dataType: "json",
+        success: function(data) {
+
+          var content = "";
+          data.forEach(e => {
+            var a = new Date(e['id'] * 1000).toLocaleString('default', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            });;
+            content = `
+              ${content}
+              <tr>
+                <td>${a}</td>
+                <td>${e['message']}</td>
+                <td>${e['user_name']}</td>
+              </tr>
+            `;
+          });
+
+          var output = `
+              <table id="logTable" class="display nowrap" style="width:100%">
+                <thead>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </thead>
+                <tbody>
+                  ${content}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </tfoot>
+              </table>
+          `;
+
+          $('#log-content').html(output);
+
+          myTable = $('#logTable').DataTable({
+            paging: true,
+            searching: false,
+            responsive: true,
+            ordering: false,
+            scrollX: true,
+            keys: true,
+            fixedheader: true,
+            "bFilter": true,
+            dom: 'Bfrtip',
+            select: 'single',
+            buttons: [
+              'pageLength',
+              {
+                extend: 'excelHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+              },
+              {
+                extend: 'pdfHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+                orientation: 'landscape',
+                pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+              },
+            ],
+            /*initComplete: function(settings, json) {
+              table = settings.oInstance.api();
+              setTimeout(function() {
+                table.columns.adjust();
+              }, 500);
+            }*/
+          });
+
+          // Initiate additional resize handling on datatable
+          resizeHandler($('#logTable'));
+
+          $('#logmodal').modal('show');
+          myTable.columns.adjust().draw();
+        }
+      });
+
+    });
+
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
@@ -680,7 +820,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17]
             },
           },
           //{
@@ -699,7 +839,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -709,7 +849,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -   Pending List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17]
             },
             customize: function(win) {
 
@@ -743,4 +883,5 @@ if (isset($_SESSION['msg'])) {
   include('include/sweetalert.php');
   ?>
 </body>
+
 </html>

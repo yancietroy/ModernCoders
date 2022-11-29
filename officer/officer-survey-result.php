@@ -72,7 +72,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
 
             $choices_arr["Data Visualization"] = "<obj>";
 
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr, $rowQ['optional']];
             /*} else if ($rowQ['type'] == 7) {
             // rating
             $qid = $rowQ['question_id'];
@@ -92,7 +92,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
             $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];*/
         } else {
             // objective questions
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0)];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0), $rowQ['optional']];
         }
     }
 }
@@ -207,7 +207,7 @@ if (isset($_SESSION['msg'])) {
                                     ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td>Unable to tally objective type questions.</td>
                                                     <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
 
@@ -217,7 +217,7 @@ if (isset($_SESSION['msg'])) {
                                             ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $i == 0  && $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td><?= $choices[$i] ?></td>
                                                     <td>
                                                         <?php
@@ -251,8 +251,8 @@ if (isset($_SESSION['msg'])) {
                     <div class="card-body px-2 mx-3 mb-4 py-3 pt-4 ">
                         <h5 class="mb-4">Response Logs</h5>
                         <div class="row g-0 justify-content-center ">
-                            <div class="table-responsive-xl">
-                                <table id="qtable" class="table table-bordered">
+                            <div class="table-responsive ms-2">
+                                <table id='survey-table' class='py-3 display nowrap w-100 ms-0 stud'>
                                     <thead>
                                         <tr>
                                             <th>Respondent</th>
@@ -263,7 +263,7 @@ if (isset($_SESSION['msg'])) {
                                     <tbody>
 
                                         <?php
-                                        $sql = "SELECT DISTINCT tb_survey_answers.submitted as date,tb_students.first_name as fn,tb_students.last_name as ln,tb_students.section as section FROM tb_survey_answers LEFT JOIN tb_students ON tb_survey_answers.student_no=tb_students.student_id WHERE tb_survey_answers.survey_id='$id' ORDER BY tb_survey_answers.answer_id DESC";
+                                        $sql = "SELECT DISTINCT tb_survey_answers.submitted as date,tb_students.first_name as fn,tb_students.last_name as ln,tb_students.section as section FROM tb_survey_answers LEFT JOIN tb_students ON tb_survey_answers.student_no=tb_students.student_id WHERE survey_id='$id' ORDER BY tb_survey_answers.answer_id DESC";
                                         $res = @mysqli_query($conn, $sql);
                                         if ($res->num_rows > 0) {
                                             while ($row = $res->fetch_assoc()) {
@@ -459,9 +459,17 @@ if (isset($_SESSION['msg'])) {
                         select: 'single',
                         buttons: [
                             'pageLength',
+                            {
+                                extend: 'csvHtml5',
+            title: 'JRU Organizations Portal -   Table Answers List',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1]
+            },
+          },
                         ]
                     });
-                            $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
+                    $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
           if (data[2] == "Ongoing") {
             $('td', row).eq(2).css('color', 'orange');
           }

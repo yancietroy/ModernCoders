@@ -21,13 +21,12 @@ $nav_breadcrumbs = [
   ["Projects", "officer-projects.php", ""],
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
-
 $currentMonth=date("m"); 
 if($currentMonth >="08"){
   $currentSy = date("Y") .'-'. (date("Y")+1);
 } elseif($currentMonth < "08"){
   $currentSy = (date("Y")-1) .'-'. date("Y");
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +85,20 @@ if($currentMonth >="08"){
 
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
-        <div class="row ms-3 me-3 mt-2">
-          <div class="col-lg-6 col-6  mb-4">
-            <h4>Create New Project</h4>
-          </div>
+      <div class="row ms-3 me-3 mt-2 mb-4">
+        <div class="col-lg-6 col-7">
+          <h4 id="orgtitle">Create New Project</h4>
         </div>
+        <?php
+        if ($_SESSION['USER-POS'] <= 5) {
+        ?>
+          <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+            <a class="btn btn-default btn-circle button px-3" href="budget-codes.php" role="button"><i class="bi bi-file-spreadsheet-fill"></i><span id="btntitle"> Budget Codes </span></a>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
             <div class="col-lg-12 col-12">
@@ -237,7 +245,7 @@ if($currentMonth >="08"){
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+            <div class="col-12 col-md-9 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                 <input type="text" class="form-control" maxlength="2" id="numOfRows" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Item Quantity" required />
@@ -245,7 +253,7 @@ if($currentMonth >="08"){
               </div>
               <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+            <div class="col-12 col-md-3 col-sm-3 mb-4 pt-4">
               <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
             </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -331,8 +339,9 @@ if($currentMonth >="08"){
           $did = date("h:i:sa"); 
           $ddid = strtotime($did) . '-SY' . $currentSy;
 
-          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid','$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
           $result = @mysqli_query($conn, $query);
+          $pid = $conn->insert_id;
 
           $sqlGetSignatories = "SELECT school_id FROM tb_signatories WHERE org_id='$orgid'";
           if ($resSignatories = @mysqli_query($conn, $sqlGetSignatories)) {
@@ -350,6 +359,12 @@ if($currentMonth >="08"){
               @mysqli_query($conn, $SqlNotif);
             }
           }
+
+          $timestamp = time();
+          $msg = "'$pn' has been created and submitted.";
+          $msg = $mysqli->real_escape_string($msg);
+          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$pid','$msg','$data_username','$data_userid')";
+          @mysqli_query($conn, $queryLog);
 
           echo "<script type='text/javascript'>
                           Swal.fire({
@@ -376,7 +391,6 @@ if($currentMonth >="08"){
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -427,30 +441,43 @@ if($currentMonth >="08"){
         window.history.replaceState(null, null, window.location.href);
       }
 
-  //    $('#estimated_budget').on("change keyup paste click", function(e) {
-    //    setTimeout(() => {
-    //      let parts = $(this).val().split(".");
-    //      let v = parts[0].replace(/\D/g, ""),
+      //    $('#estimated_budget').on("change keyup paste click", function(e) {
+      //    setTimeout(() => {
+      //      let parts = $(this).val().split(".");
+      //      let v = parts[0].replace(/\D/g, ""),
       //      dec = parts[1]
       //    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-          // use this for numeric calculations
-          // console.log('number for calculations: ', calc_num);
-    //      let n = new Intl.NumberFormat('en-EN').format(v);
-    //      n = dec !== undefined ? n + "." + dec : n;
-    //      $(this).val(n);
-    //    })
-    //  })
+      // use this for numeric calculations
+      // console.log('number for calculations: ', calc_num);
+      //      let n = new Intl.NumberFormat('en-EN').format(v);
+      //      n = dec !== undefined ? n + "." + dec : n;
+      //      $(this).val(n);
+      //    })
+      //  })
     </script>
     <script>
       $(document).ready(function() {
         $('#amortTable').click(function() {
-          var i = $('#numOfRows').val();
-          var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
-          for (var j = 0; j < i; j++) {
-            s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
-          }
-          s2 += "</table>";
-          $('#amortizationTable').html(s2);
+
+          $.ajax({
+            url: "include/officer-fetch-budget-codes.php",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+              var options = "";
+              data.forEach(e => {
+                options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+              });
+
+              var i = $('#numOfRows').val();
+              var s2 = "<table class='table-stripe'><th>Item No.</th><th>Description</th><th>Price</th>"
+              for (var j = 0; j < i; j++) {
+                s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control-sm'width='20%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
+              }
+              s2 += "</table>";
+              $('#amortizationTable').html(s2);
+            }
+          });
         });
 
         $("#amortizationTable").on("change", ".payment", function() { // <-- Only changed this line
@@ -465,10 +492,10 @@ if($currentMonth >="08"){
       });
     </script>
     <script>
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-}
-</script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
 </body>
 
 </html>

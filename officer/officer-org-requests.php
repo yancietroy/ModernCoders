@@ -170,7 +170,7 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="student_id">Student ID:</label>
                     <input type="text" name="student_id" id="student_id" class="form-control form-control-md" style="background-color: #fff;" readonly />

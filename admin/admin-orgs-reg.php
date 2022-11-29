@@ -1,7 +1,6 @@
 <?php
 ob_start();
 session_start();
-date_default_timezone_set("Asia/Singapore");
 
 include('../router.php');
 route(0);
@@ -171,6 +170,7 @@ if (isset($_SESSION['msg'])) {
                     move_uploaded_file($tname, $destination);
 
                     /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
+                                    $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
                                       echo "<script type='text/javascript'>
