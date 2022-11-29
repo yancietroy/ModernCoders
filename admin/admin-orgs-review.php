@@ -373,7 +373,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6]
+              columns: [0, 1, 2, 3, 4,  6]
             },
           },
           //{
@@ -392,7 +392,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6]
+              columns: [0, 1, 2, 3, 4,  6]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -402,7 +402,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Organization Request Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6]
+              columns: [0, 1, 2, 3, 4,  6]
             },
             customize: function(win) {
 

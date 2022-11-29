@@ -388,10 +388,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  Academic RSO Masterlist',
+          title: 'JRU Organizations Portal -  Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0,1,2,3]
+              columns: [0,1,2]
             },
           },
           //{
@@ -410,7 +410,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal - Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1,2,3]
+              columns: [0, 1,2]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -420,7 +420,7 @@ if (isset($_SESSION['msg'])) {
             title: 'JRU Organizations Portal -  Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1,2,3]
+              columns: [0, 1,2]
             },
             customize: function(win) {
 

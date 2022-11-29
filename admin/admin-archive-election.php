@@ -246,40 +246,40 @@ if (isset($_SESSION['msg'])) {
                 buttons: [
                     'pageLength',
                     {
-                        extend: 'excelHtml5',
-                        title: 'JRU Organizations Portal -  Student Masterlist',
-                        footer: true,
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
-                        },
-                    },
-                    //{
-                    //  extend: 'csvHtml5',
-                    //    title: 'JRU Organizations Portal - Officer Pending List',
-                    //    footer: true,
-                    //    customize: function (csv) {
-                    //     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
-                    //    },
-                    //    exportOptions: {
-                    //      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
-                    //  },
-                    //    } ,
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'JRU Organizations Portal - Elections Masterlist',
-                        footer: true,
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
-                    },
-                    {
-                        extend: 'print',
-                        title: 'JRU Organizations Portal -  Elections Masterlist',
-                        footer: true,
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+						extend: 'csvHtml5',
+						title: 'JRU Organizations Portal -  Elections Masterlist',
+						footer: true,
+						exportOptions: {
+							columns: [0, 1, 2, 3, 4]
+						},
+					},
+					//{
+					//  extend: 'csvHtml5',
+					//    title: 'JRU Organizations Portal - Officer Pending List',
+					//    footer: true,
+					//    customize: function (csv) {
+					//     return "JRU Organizations Portal - Officer Pending List\n\n"+  csv;
+					//    },
+					//    exportOptions: {
+					//      columns: [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+					//  },
+					//    } ,
+					{
+						extend: 'pdfHtml5',
+						title: 'JRU Organizations Portal - Elections Masterlist',
+						footer: true,
+						exportOptions: {
+							columns: [0, 1, 2, 3, 4]
+						},
+						orientation: 'landscape',
+						pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+					},
+					{
+						extend: 'print',
+						title: 'JRU Organizations Portal -  Elections Masterlist',
+						footer: true,
+						exportOptions: {
+							columns: [0, 1, 2, 3, 4]
                         },
                         customize: function(win) {
 

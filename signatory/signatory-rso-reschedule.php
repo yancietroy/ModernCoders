@@ -475,7 +475,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-2 py-2 pt-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button> <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+          
           </div>
         </form>
       </div>
@@ -591,7 +591,7 @@ if (isset($_SESSION['msg'])) {
                 title: 'JRU Organizations Portal -   Audit Trail',
                 footer: true,
                 exportOptions: {
-                  columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                columns: [0, 1, 2]
                 },
               },
               {
@@ -599,7 +599,7 @@ if (isset($_SESSION['msg'])) {
                 title: 'JRU Organizations Portal -   Audit Trail',
                 footer: true,
                 exportOptions: {
-                  columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                columns: [0, 1, 2]
                 },
                 orientation: 'landscape',
                 pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.

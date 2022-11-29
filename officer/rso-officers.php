@@ -582,7 +582,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
@@ -601,7 +601,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
@@ -611,7 +611,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]

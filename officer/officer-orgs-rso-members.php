@@ -141,7 +141,7 @@ if (isset($_SESSION['msg'])) {
 
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4>JRU Computer Society Members Masterlist</h4>
+          <h4>JRU Student Organizations - Members Masterlist</h4>
         </div>
       </div>
 
@@ -563,7 +563,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
@@ -582,7 +582,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
@@ -592,7 +592,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]

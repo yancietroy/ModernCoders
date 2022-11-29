@@ -459,6 +459,14 @@ if (isset($_SESSION['msg'])) {
                         select: 'single',
                         buttons: [
                             'pageLength',
+                            {
+                                extend: 'csvHtml5',
+            title: 'JRU Organizations Portal -   Table Answers List',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1]
+            },
+          },
                         ]
                     });
                     $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
