@@ -60,7 +60,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h3 id="rsotitle">Officer Documentation</h3>
+          <h3 id="rsotitle">Officer User Documentation</h3>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
@@ -69,7 +69,7 @@ if (isset($_SESSION['msg'])) {
       <div class="m-4">
     <ul class="nav nav-tabs mb-4" id="myTab">
         <li class="nav-item">
-            <a href="#home" class="nav-link" data-bs-toggle="tab">Organization Management</a>
+            <a href="#home" class="nav-link" data-bs-toggle="tab">Officer</a>
         </li>
         <li class="nav-item">
             <a href="#profile" class="nav-link" data-bs-toggle="tab">Project Monitoring</a>
@@ -86,7 +86,9 @@ if (isset($_SESSION['msg'])) {
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="home">
-            <h4 class="mt-2">Organization Management</h4>
+            <h4 class="mt-2 mb-2">Officer</h4>
+Officers have the privilege to view their profiles, set their officer history in their bio and change/update  their user information.
+ <img src="../assets/img/docu/officers/Officer-HomePage.png" class="img-fluid mt-3 mb-3" alt="...">
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
@@ -95,7 +97,8 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Organization-Management.png" class="img-fluid mt-3 mb-3" alt="...">When the officer clicks the organization button, student officers have access to the following buttons- Members, Officers, Signatories, Event Calendar, Survey, Forum, Election and Projects.
+</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -105,7 +108,7 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Org-members.png" class="img-fluid mt-3 mb-3" alt="...">Accessing the members, officers, signatories shall generate a list of members of the organization displaying their information. They can export it to various report generation formats.</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -115,7 +118,7 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">They can access their organization profile to view their organization details</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -125,7 +128,7 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Org-EventCalendar.png" class="img-fluid mt-3 mb-3" alt="...">The event calendar features upcoming events, when the project is approved it will automatically be put in the event calendar</div>
       </div>
     </div>
   </div>
@@ -141,7 +144,9 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/PM-Pending.png" class="img-fluid mt-3 mb-3" alt="...">Where student officers can create a project proposal to be approved by the signatories, the project approval process is through the adviser, chairperson, dean and signatory. If the proposal is approved it will go to the “Approved” and if the proposal is rejected it will go to the “Rejected” and so on.
+And for the masterlist where all the list of the projects are in the masterlist.
+</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -151,7 +156,7 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Officer-Notification.png" class="img-fluid mt-3 mb-3" alt="...">The Notification feature is to indicate the state of the project, who approved it and so on..</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -161,7 +166,7 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Project-Monitoring.png" class="img-fluid mt-3 mb-3" alt="...">The modules of project Monitoring includes project creation, creation of budget codes, for revision, for rescheduled, audit trail and report generation features.</div>
       </div>
     </div>
   </div>
@@ -176,7 +181,8 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">Student Officers can open and create  a discussion forum, it can be general where all of the students can see the posted forum, Discussion, for reminders etc and officers lounge exclusively for the officers and Organization forum only where the members and officers can interact with each other.
+</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -186,7 +192,7 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">The thread contains related discussions regarding a topic. user can create a thread inside a topic.</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -196,12 +202,13 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">Once the user created a topic, others can access the post to view it and/or reply to it..</div>
         </div>
       </div>
     </div>  </div>
         <div class="tab-pane fade" id="survey">
             <h4 class="mt-2">Survey content</h4>
+            <img src="../assets/img/docu/officers/Survey-Dashboard.png" class="img-fluid mt-3 mb-3" alt="...">
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
@@ -210,7 +217,8 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Survey-Masterlist.png" class="img-fluid mt-3 mb-3" alt="...">Officers can view the list of the surveys conducted. Officers can archive the survey once finished or want to cancel an ongoing survey
+</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -220,22 +228,24 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">Officers can view survey tallies, data visualizations, and results. They can export it to various report generation formats. Officers cannot tamper the results.
+</div>
       </div>
     </div>
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingThree">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-          Archive
+          Survey Creation
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/officers/Survey-Custom-Questions.png" class="img-fluid mt-3 mb-3" alt="...">Officers can create a survey, whether its a standard template or custom survey.</div>
       </div>
     </div>
   </div>    </div>
   <div class="tab-pane fade" id="election">
       <h4 class="mt-2">Election content</h4>
+                  <img src="../assets/img/docu/officers/Election-Dashboarf.png" class="img-fluid mt-3 mb-3" alt="...">
       <div class="accordion accordion-flush" id="accordionFlushExample">
 <div class="accordion-item">
 <h2 class="accordion-header" id="flush-headingOne">
@@ -244,7 +254,7 @@ Program Elections
   </button>
 </h2>
 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-  <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">Officers can only view the progress of the election and the results of the election after the election has taken place.</div>
 </div>
 </div>
 <div class="accordion-item">
@@ -254,7 +264,7 @@ Program Elections
   </button>
 </h2>
 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-  <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    <div class="accordion-body"> <img src="../assets/img/docu/officers/Election-Results.png" class="img-fluid mt-3 mb-3" alt="...">Officers can participate in a created election for the central student council elections.</div>
 </div>
 </div>
 </div>    </div>

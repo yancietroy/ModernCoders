@@ -60,7 +60,7 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h3 id="rsotitle">Officer Documentation</h3>
+          <h3 id="rsotitle">Student User Documentation</h3>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
@@ -69,7 +69,7 @@ if (isset($_SESSION['msg'])) {
       <div class="m-4">
     <ul class="nav nav-tabs mb-4" id="myTab">
         <li class="nav-item">
-            <a href="#home" class="nav-link" data-bs-toggle="tab">Student Organizations</a>
+            <a href="#home" class="nav-link" data-bs-toggle="tab">Home</a>
         </li>
         <li class="nav-item">
             <a href="#profile" class="nav-link" data-bs-toggle="tab">Profile</a>
@@ -86,47 +86,51 @@ if (isset($_SESSION['msg'])) {
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="home">
-            <h4 class="mt-2">Student Organization</h4>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingOne">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-        Student Organizations
-        </button>
-      </h2>
-      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-        Join Organization
-        </button>
-      </h2>
-      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-        New Organization
-        </button>
-      </h2>
-      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingFour">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
-          Event Calendar
-        </button>
-      </h2>
-      <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-      </div>
+          <p class="ms-3 mt-2">Student Users can view his/her profile. Clicking on the top right profile icon can also edit their user profile such as updating their student information.
+The yellow button indicates joining a non-academic organization and the green button indicates non- academic applying organization
+The user can select their organizations among the buttons with their corresponding icon. Additionally they can select it in the drop down menu.
+
+</p><img src="../assets/img/docu/student/HomePage.png" class="img-fluid mt-3 mb-3" alt="...">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+      Student Organizations
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body"> <img src="../assets/img/docu/student/Organization-page.png" class="img-fluid mt-3 mb-3" alt="...">At the organization tab, user students can access modules related to their organization such as answering survey questions, participating in elections, viewing of events via event calendar and participate in discussion forums</div>
+</div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+      Join Organization
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body"> <img src="../assets/img/docu/student/Student-OrgApplication-form.png" class="img-fluid mt-3 mb-3" alt="...">Students can join a non-academic organization through application to desired organization</div>
+  </div>
+</div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+      New Organization
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body"> <img src="../assets/img/docu/student/Student-ApplicationForStudentOrganization.png" class="img-fluid mt-3 mb-3" alt="...">Students can create and register a student organization subject for approval by the administrator.  </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
+        Event Calendar
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body"> <img src="../assets/img/docu/officers/Org-EventCalendar.png" class="img-fluid mt-3 mb-3" alt="...">Event Calendar:
+Can view all the upcoming events of the student  organizations </div>
+    </div></div>
     </div>
   </div>
 
@@ -141,7 +145,9 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/student/Student-profile.png" class="img-fluid mt-3 mb-3" alt="...">	Student User Profile:
+Student Users can view and edit their profile; for example: updating their user information or changing passwords.
+</div>
       </div>
     </div>
   </div>
@@ -156,7 +162,7 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/officers/DiscussionForum.png" class="img-fluid mt-3 mb-3" alt="...">Students can access the discussion forum, there are various topics on the topic page, it can be general where all of the students can see the posted forum, Discussion, for reminders etc and officers lounge exclusively for the officers and Organization forum only where the members and officers can interact with each other.</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -166,7 +172,7 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/student/HomePage.png" class="img-fluid mt-3 mb-3" alt="...">The thread contains related discussions regarding a topic. Students can create a thread inside a topic.</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -176,7 +182,7 @@ if (isset($_SESSION['msg'])) {
           </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+            <div class="accordion-body"> <img src="../assets/img/docu/student/HomePage.png" class="img-fluid mt-3 mb-3" alt="...">Once the student created a topic, others can access the post to view it and/or reply to it..</div>
         </div>
       </div>
     </div>  </div>
@@ -190,27 +196,8 @@ if (isset($_SESSION['msg'])) {
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-          Custom Survey
-        </button>
-      </h2>
-      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-        Standard Template
-        </button>
-      </h2>
-      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+          <div class="accordion-body"> <img src="../assets/img/docu/student/Organization-Survey.png" class="img-fluid mt-3 mb-3" alt="...">Students can participate in surveys provided by their organization officers
+</div>
       </div>
     </div>
   </div>    </div>
@@ -224,7 +211,9 @@ Active Elections
   </button>
 </h2>
 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-  <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    <div class="accordion-body"> <img src="../assets/img/docu/student/Organization-Election.png" class="img-fluid mt-3 mb-3" alt="...">Election:
+Students can participate in election by clicking the active events
+.</div>
 </div>
 </div>
 <div class="accordion-item">
@@ -234,7 +223,7 @@ Election Results
   </button>
 </h2>
 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-  <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    <div class="accordion-body"> <img src="../assets/img/docu/student/HomePage.png" class="img-fluid mt-3 mb-3" alt="...">After the election, student users can view the election results.</div>
 </div>
 </div>
 </div>    </div>
