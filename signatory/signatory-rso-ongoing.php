@@ -100,15 +100,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive-md ms-0">
               <?php
-              if ($data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
-              } elseif ($data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND college_id = '$data_collegeid' AND org_id = '$orgid'";
-              } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND college_id = '$data_collegeid' AND org_id = '$orgid'";
-              } elseif ($data_signatorytype == 4) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
-              }
+              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -358,45 +350,6 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
-                             <div class="form-outline d-grid">
-                               <label class="form-label">Download Attachment/s:</label>
-                             <button type="button" class="btn btn-secondary btn-md">Download</button>
-                             </div>
-                           </div>
-
-                           <div class="col-12 col-md-4 col-sm-3 mb-2">
-                             <label class="form-label" for="budget_source" >Budget Source:</label>
-                             <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                           </div>
-                           <div class="col-12 col-md-6 col-sm-3 mb-4">
-                             <div class="form-outline">
-                               <label class="form-label" for="beneficiary">Beneficiary:</label>
-                               <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                             </div>
-                           </div>
-                         </div>
-                         <div class="row">
-                           <div class="col-12 col-md-3 col-sm-3 mb-4">
-                             <div class="form-outline">
-                               <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                               <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                             </div>
-                             </div>
-                             <div class="col-12 col-md-3 col-sm-3 mb-4">
-                               <div class="form-outline">
-                                 <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                 <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                               </div>
-                             </div>
-
-                             <div class="col-12 col-md-3 col-sm-3 mb-4">
-                               <div class="form-outline">
-                                 <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                               <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                               </div>
-                             </div>-->
-
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -414,17 +367,6 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                               <1? php
-                               /**
-                                 $query = "SELECT position_id, position FROM tb_position";
-                                 $result = @mysqli_query($conn, $query);
-                                         while($data = @mysqli_fetch_array($result)) {
-                                             echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                         }
-                                **/
-                               ?>-->
-                    </select>
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -477,7 +419,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-2 py-2 pt-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button> <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i><span id="btntitle">Export Budget Request</span></button>
           </div>
         </form>
       </div>
