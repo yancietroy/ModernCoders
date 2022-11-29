@@ -472,7 +472,7 @@ if($currentMonth >="08"){
               var i = $('#numOfRows').val();
               var s2 = "<table class='table-stripe'><th>Item No.</th><th>Description</th><th>Price</th>"
               for (var j = 0; j < i; j++) {
-                s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control'width='100%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
+                s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control-sm'width='20%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
               }
               s2 += "</table>";
               $('#amortizationTable').html(s2);
