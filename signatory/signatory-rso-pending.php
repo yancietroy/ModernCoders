@@ -557,6 +557,9 @@ if (isset($_SESSION['msg'])) {
 
     });
 
+    var user_type = <?= $data_signatorytype ?>;
+    user_type = (user_type - 5) * -1;
+
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
@@ -588,6 +591,16 @@ if (isset($_SESSION['msg'])) {
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
+
+          if(data.approval_id != user_type){
+            $('button[name="Approve"]').hide();
+            $('button[name="Reject"]').hide();
+            $('button[name="Revise"]').hide();
+          } else {
+            $('button[name="Approve"]').show();
+            $('button[name="Reject"]').show();
+            $('button[name="Revise"]').show();
+          }
 
           var breq = data.budget_req.split(";;");
           $("#budget-request > tbody").empty();

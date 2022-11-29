@@ -67,7 +67,7 @@ if ($res = @mysqli_query($conn, $query)) {
             $survey_status = 1;
         }
     } else {
-        header('location:admin-survey-list.php');
+        header('location:signatory-rso-survey-list.php?id=$orgid');
     }
 }
 
@@ -392,7 +392,7 @@ if (isset($_SESSION['msg'])) {
             $(document).on('click', '.showAnswers', function() {
                 var question_id = $(this).attr("id");
                 $.ajax({
-                    url: "../admin/include/survey-fetch-answers.php",
+                    url: "include/survey-fetch-answers.php",
                     method: "POST",
                     data: {
                         question_id: question_id

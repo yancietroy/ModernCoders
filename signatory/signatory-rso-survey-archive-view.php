@@ -44,11 +44,12 @@ $nav_breadcrumbs = [
     ["Organizations", "", "bi bi-diagram-3-fill"],
     ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
     ["Survey", "signatory-rso-survey.php?id=$orgid", ""],
-    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", ""],
+    ["Archive", "signatory-rso-survey-archive-list.php?id=$orgid", ""],
     ["View Survey", "", ""],
 ];
 
-$query = "SELECT * FROM tb_surveys WHERE survey_id='$id'";
+
+$query = "SELECT * FROM tb_surveys_archive WHERE survey_id='$id'";
 if ($res = @mysqli_query($conn, $query)) {
     if ($res->num_rows > 0) {
         $row = $res->fetch_assoc();
@@ -66,7 +67,7 @@ if ($res = @mysqli_query($conn, $query)) {
             $survey_status = 1;
         }
     } else {
-        header('location:admin-archive-survey-list.php');
+        header('location:signatory-rso-archive-survey-list.php?id=$orgid');
     }
 }
 ?>
@@ -85,6 +86,10 @@ if ($res = @mysqli_query($conn, $query)) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- Datatable Default-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.css" />
+
     <!-- Waves CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.css" integrity="sha512-sZpz+opN4EQSKs1/8HcRC26qYLImX6oCOKZmIFEW9bsL5OJwYbeemphkSPeRpHaaS0WLci2fUNWvZJloNKlZng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -223,22 +228,24 @@ if ($res = @mysqli_query($conn, $query)) {
                 </div>
 
             </div>
+
         </div>
+    </div>
 
-
-        <!-- jQuery CDN - Slim version (=without AJAX) -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-        <!-- Sidebar collapse -->
-        <script src="../assets/js/form-validation.js"></script>
-        <!-- Waves CSS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script> <!-- JavaScript validation -->
-        <script type="text/javascript">
-            Waves.attach('#sidebar ul li a');
-            Waves.init();
-        </script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <!-- form validation/sidebar toggle -->
+    <script src="../assets/js/form-validation.js"></script>
+    <!-- waves js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script> <!-- JavaScript validation -->
+    <script type="text/javascript">
+        Waves.attach('#sidebar ul li a');
+        Waves.attach('.button');
+        Waves.init();
+    </script>
 </body>
 
 </html>

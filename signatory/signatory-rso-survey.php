@@ -117,7 +117,7 @@ if (isset($_SESSION['msg'])) {
                         <div class="icon">
                             <i class="bi bi-archive-fill"></i>
                         </div>
-                        <a href="admin-archive-survey-list.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="signatory-rso-survey-archive-list.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

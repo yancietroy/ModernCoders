@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(0);
+route(3);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
@@ -20,7 +20,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
         $orgName = $row['ORG'];
         $orgType = $row['org_type_id'];
     } else {
-        header('location:admin-orgs.php');
+        header('location:singnatory-orgs-rso.php?id=$orgid');
     }
 }
 
@@ -29,15 +29,14 @@ if ($id <= 0) {
 }
 
 $data_userid = $_SESSION['USER-ID'];
-$data_picture = getProfilePicture(0, $data_userid);
-$nav_selected = "Site Management / Organizations";
+$data_picture = getProfilePicture(3, $data_userid);
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
-    ["Home", "admin-index.php", "bi-house-fill"],
-    ["Site Management", "admin-users.php", ""],
-    ["Organizations", "admin-orgs.php", ""],
-    [$orgName, "admin-orgs-rso.php?id=$orgid", ""],
-    ["Survey", "admin-survey.php?id=$orgid", ""],
-    ["Archive", "admin-archive-survey-list.php?id=$orgid", ""],
+    ["Home", "signatory-index.php", "bi-house-fill"],
+    ["Organizations", "", "bi bi-diagram-3-fill"],
+    ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
+    ["Survey", "signatory-rso-survey.php?id=$orgid", ""],
+    ["Archive", "signatory-rso-survey-archive-list.php?id=$orgid", ""],
     ["Survey Results", "", ""],
 ];
 
@@ -59,7 +58,7 @@ if ($res = @mysqli_query($conn, $query)) {
             $survey_status = 1;
         }
     } else {
-        header('location:admin-archive-survey-list.php');
+        header('location:signatory-rso-archive-survey-list.php?id=$orgid');
     }
 }
 
@@ -329,32 +328,13 @@ if (isset($_SESSION['msg'])) {
 
                         <table id="tableAnswers" class='py-3 display nowrap w-100 ms-0 stud'>
                             <thead>
-                                <th>Survey ID</th>
+                                <th>Date Submitted</th>
                                 <th>Answer</th>
                             </thead>
                             <tbody>
 
                             </tbody>
                         </table>
-                    </div>
-                    <div class="modal-footer py-2 px-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modalTally" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header py-3 px-3">
-                        <h5 class="modal-title" id="modalTallyTitle"> Answers </h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body d-flex flex-row justify-content-center p-5">
-                        <div style="width: 400px;"><canvas id="tallychart"></canvas></div>
                     </div>
                     <div class="modal-footer py-2 px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -408,52 +388,6 @@ if (isset($_SESSION['msg'])) {
                     }
                 });
             });
-
-            function showTally(title, keys, values) {
-                Chart.helpers.each(Chart.instances, function(instance) {
-                    if (instance.canvas.id == "tallychart") {
-                        instance.destroy();
-                    }
-                })
-
-                const CHART_COLORS = {
-                    blue: 'rgb(54, 162, 235)',
-                    orange: 'rgb(255, 159, 64)',
-                    red: 'rgb(255, 99, 132)',
-                    yellow: 'rgb(255, 205, 86)',
-                    green: 'rgb(75, 192, 192)',
-                    purple: 'rgb(153, 102, 255)',
-                    grey: 'rgb(201, 203, 207)'
-                };
-
-                new Chart(
-                    document.getElementById('tallychart'), {
-                        type: 'doughnut',
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                },
-                                title: {
-                                    display: false,
-                                }
-                            }
-                        },
-                        data: {
-                            labels: keys.split(";;").slice(0, -1),
-                            datasets: [{
-                                label: 'Value',
-                                data: values.split(";;").slice(0, -1),
-                                backgroundColor: Object.values(CHART_COLORS),
-                            }],
-                        },
-                    },
-                );
-
-                $('#modalTallyTitle').text(title);
-                $('#modalTally').modal('show');
-            }
         </script>
         <!-- Datatable -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
