@@ -15,7 +15,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     if ($orgRes->num_rows > 0) {
         $row = $orgRes->fetch_assoc();
         $orgName = $row['ORG'];
-    } 
+    }
 }
 
 $data_userid = $_SESSION['USER-ID'];
@@ -29,7 +29,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -108,7 +108,7 @@ if (isset($_SESSION['msg'])) {
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 d-none">
                     <div class="card-counter bg-secondary">
                         <div class="inner">
                             <h2> <i class="bi bi-archive"></i></h2>

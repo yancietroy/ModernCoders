@@ -99,7 +99,21 @@ if (isset($_SESSION['msg'])) {
         <div class="tab-pane fade" id="home">
             <h4 class="mt-2 mb-3">Signatory User</h4>
             There are 4 types of signatories: Student Organization Adviser, Program Chairman, Dean and SDO Director. Each with varying access to the system.
-            <img src="../assets/img/docu/Signatories/Sig-Home.png" class="img-fluid mt-3 mb-3" alt="...">
+            <div class="row ms-3 me-3 mt-2 mb-2">
+              <div class="col-lg-4 col-12">
+
+      <img src="../assets/img/docu/Signatories/Sig-Home.png" class="img-fluid mt-3 mb-3" alt="...">
+              </div>
+              <div class="col-lg-4 col-12 d-flex align-items-end justify-content-end">
+                  <img src="../assets/img/docu/Signatories/dean.png" class="img-fluid mt-3 mb-3" alt="...">
+                </div>
+                <div class="col-lg-4 col-12 d-flex align-items-end justify-content-end">
+                    <img src="../assets/img/docu/Signatories/sdo.png" class="img-fluid mt-3 mb-3" alt="...">
+                  </div>
+            </div>
+            <figcaption class="blockquote-footer text-center">
+     <cite title="Source Title">Different dashboards of signatory types</cite>
+  </figcaption>
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">

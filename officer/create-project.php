@@ -21,12 +21,12 @@ $nav_breadcrumbs = [
   ["Projects", "officer-projects.php", ""],
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
-$currentMonth=date("m"); 
+$currentMonth=date("m");
 if($currentMonth >="08"){
   $currentSy = date("Y") .'-'. (date("Y")+1);
 } elseif($currentMonth < "08"){
   $currentSy = (date("Y")-1) .'-'. date("Y");
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -285,6 +285,7 @@ if($currentMonth >="08"){
 
                 *Note: Please attach other request form/ file
                 (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
+                <em>Maximum upload size of 3mb</em><br>
                 *Note: Please be mindful about submitting project proposals during exam week</small>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -336,7 +337,7 @@ if($currentMonth >="08"){
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $did = date("h:i:sa"); 
+          $did = date("h:i:sa");
           $ddid = strtotime($did) . '-SY' . $currentSy;
 
           $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";

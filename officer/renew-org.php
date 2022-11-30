@@ -135,6 +135,7 @@ if (isset($_SESSION['msg'])) {
                         5. Recommendation of Advisers (maximum of three);<br>
                           a. Academic Organizations cleared by the Department Chair and approved by the Dean of the College<br>
                           b. Non-Academic Organization and approved by Director of Student Development Office.<br>
+                          <em>Maximum upload size of 3mb</em>
                       </small>
                     </div>
                   </div>
