@@ -123,6 +123,16 @@ if (isset($_SESSION['msg'])) {
             </div>
           </div>
         </div>
+        <div class="col-12  col-md-5  " id="orgs">
+          <div class="card shadow-md pb-1 display: inline-block cards">
+            <img src="../assets/img/jrusop-logo2.png" class="card-img-top pb-3 rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-4">JRU Student Organizations</h5>
+
+              <a href="rso.php" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
 
         <!-- Footer -->
       </div>

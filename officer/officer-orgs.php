@@ -72,12 +72,12 @@ if (isset($_SESSION['msg'])) {
         <?php
         }
         ?>
-        
+
       </div>
 
 
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-12  col-md-5 mt-2" id="orgs">
+        <div class="col-12  col-md-4 mt-2" id="orgs">
           <div class="card display: inline-block cards">
             <img src="<?= getOrgLogo($orgid) ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
@@ -93,7 +93,44 @@ if (isset($_SESSION['msg'])) {
             </div>
           </div>
         </div>
-
+        <div class="row me-3 mt-2 justify-content-start">
+        <div class="col-12  col-md-4 mt-2" id="orgs">
+            <div class="card-counter bg-success">
+              <div class="inner">
+                <h2>22</h2>
+                <p>Academic</p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-book-fill"></i>
+              </div>
+              <a href="officer-orgs-acad.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-12  col-md-4 mt-2" id="orgs">
+            <div class="card-counter done">
+              <div class="inner">
+                <h2>22</h2>
+                <p>Non-Academic</p>
+              </div>
+              <div class="icon">
+              <i class="bi bi-dice-5-fill"></i>
+              </div>
+              <a href="officer-orgs-non.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        <div class="col-12  col-md-4 mt-2" id="orgs">
+            <div class="card-counter masterlist">
+              <div class="inner">
+                <h2>22</h2>
+                <p>Org Masterlist</p>
+              </div>
+              <div class="icon">
+                  <i class="bi bi-briefcase-fill"></i>
+              </div>
+              <a href="officer-orgs-master.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+      </div>
 
         <!-- Footer -->
       </div>
