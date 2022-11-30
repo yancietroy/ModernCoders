@@ -30,20 +30,20 @@ if (isset($_POST['create-survey'])) {
 
     if ($type == 1) {
         // Standard Questions:
-        array_push($questions, ["7", "Expand professional knowledge", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Build networks/linkages in the profession", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Opportunities to apply/enhance classroom learning", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
+        array_push($questions, ["7", "Physical setting and arrangements", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Adequate space and ventilation", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Relevance of the topics discussed", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
 
-        array_push($questions, ["7", "Communication skills", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Human Relations skills", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Organization skills", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Problem-solving skills", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Critical Thinking skills", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
+        array_push($questions, ["7", "Scope of the topics covered", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Usefulness of activities", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Effectiveness of the speaker", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Mastery of the topic", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Sound System", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
 
-        array_push($questions, ["7", "Understanding values for professional advancement", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
-        array_push($questions, ["7", "Strengthening values for soceital/civic responsibility", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
+        array_push($questions, ["7", "Use of computer and technology", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Adequate seats", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
 
-        array_push($questions, ["2", "Comments/Suggestions", "None;;Minimal;;Moderate;;High;;Excellent", "0"]);
+        array_push($questions, ["2", "Remarks/Suggestions", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
     } else {
         foreach ($_POST as $key => $value) {
             if (str_starts_with($key, "entry-")) {
