@@ -21,9 +21,15 @@
         <li <?= str_starts_with($nav_selected, "Projects") ? 'class="active"' : "" ?>>
             <a href="officer-projects.php"> <i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
+        <?php
+        if($_SESSION['USER-ORG'] != 26){
+        ?>
         <li <?= str_starts_with($nav_selected, "Election") ? 'class="active"' : "" ?>>
             <a href="election-index.php"><i class="bi bi-check2-square"></i> <span>CSC Election</span></a>
         </li>
+        <?php
+        }
+        ?>
         <li <?= str_starts_with($nav_selected, "Event Calendar") ? 'class="active"' : "" ?>>
             <a href="event-calendar.php"><i class="bi bi-calendar2-fill"></i> <span>Event Calendar</span></a>
         </li>

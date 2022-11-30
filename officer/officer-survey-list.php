@@ -16,8 +16,8 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Survey", "officer-survey.php", ""],
-    ["Survey List", "", ""],
+    ["Survey", "officer-survey.php", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "", "bi bi-clipboard-data-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {

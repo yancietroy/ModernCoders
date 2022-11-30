@@ -15,7 +15,7 @@ $nav_selected = "Organizations";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
-  ["Non-Academic", "", "bi-people-fill"],
+  ["List", "", "bi bi-card-list"],
 ];
 
 if (isset($_SESSION['msg'])) {

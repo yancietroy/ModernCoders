@@ -34,7 +34,7 @@ $nav_selected = "Organizations";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
-  ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+  ["List", "", "bi bi-card-list"],
   ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
   ["Signatories", "", "bi bi-person-rolodex"],
 ];

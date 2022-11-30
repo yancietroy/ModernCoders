@@ -52,6 +52,7 @@ if($currentMonth >="08"){
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
   table,
@@ -332,6 +333,23 @@ if($currentMonth >="08"){
           $items = implode(";;", $budgetitems);
           $items = $mysqli->real_escape_string($items);
 
+          $size = $_FILES['attachments']['size'];
+          $maxSize = 3145728;
+          if($size > $maxSize){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too big!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }elseif($size == 0){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too small!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }else{
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;
           $tname = $_FILES['attachments']['tmp_name'];
@@ -340,7 +358,7 @@ if($currentMonth >="08"){
           $did = date("h:i:sa");
           $ddid = strtotime($did) . '-SY' . $currentSy;
 
-          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', NULLIF('$collegeDept', ''))";
           $result = @mysqli_query($conn, $query);
           $pid = $conn->insert_id;
 
@@ -376,6 +394,7 @@ if($currentMonth >="08"){
                             </script>";
 
           @mysqli_close($conn);
+        }
         }
         ?>
       </form>
@@ -497,6 +516,9 @@ if($currentMonth >="08"){
         window.history.replaceState(null, null, window.location.href);
       }
     </script>
+    <?php
+    include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

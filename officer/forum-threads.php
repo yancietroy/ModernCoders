@@ -18,7 +18,7 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Discussion Board", "forum-user.php", ""],
+    ["Discussion Board", "forum-user.php", "bi bi-inbox-fill"],
     ["Threads", "", ""],
 ];
 

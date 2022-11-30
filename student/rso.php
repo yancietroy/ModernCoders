@@ -21,7 +21,7 @@ $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";
 $nav_breadcrumbs = [
   ["Home", "student-index.php", "bi-house-fill"],
-  ["Organizations", "student-orgs.php", ""],
+  ["Organizations", "student-orgs.php", "bi bi-people-fill"],
   ["$orgName", "", ""],
 ];
 

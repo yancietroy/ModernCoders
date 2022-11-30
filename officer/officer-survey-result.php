@@ -22,9 +22,9 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Survey", "officer-survey.php", ""],
-    ["Survey List", "officer-survey-list.php", ""],
-    ["Survey Results", "", ""],
+    ["Survey", "officer-survey.php", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "officer-survey-list.php", "bi bi-clipboard-data-fill"],
+    ["Survey Results", "", "bi bi-bar-chart-steps"],
 ];
 
 $query = "SELECT * FROM tb_surveys WHERE survey_id='$id'";
