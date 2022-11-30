@@ -115,25 +115,25 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h2><i class="bi bi-node-plus"></i></h2>
-              <p>College Management</p>
+              <h2><i class="bi bi-check2-square"></i></h2>
+              <p>Election</p>
             </div>
             <div class="icon">
-              <i class="bi bi-node-plus-fill"></i>
+              <i class="bi bi-check2-square"></i>
             </div>
-            <a href="admin-college.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-election.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-success">
             <div class="inner">
-              <h2><i class="bi bi-diagram-2"></i></h2>
-              <p>Course Management</p>
+              <h2><i class="bi bi-activity"></i></h2>
+              <p>Data Analytics</p>
             </div>
             <div class="icon">
-              <i class="bi bi-diagram-2-fill"></i>
+              <i class="bi bi-activity"></i>
             </div>
-            <a href="admin-course.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="admin-data.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">

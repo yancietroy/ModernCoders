@@ -49,6 +49,9 @@
         <li <?= str_starts_with($nav_selected, "Election") ? 'class="active"' : "" ?>>
             <a href="admin-election.php"><i class="bi bi-check2-square"></i> <span>Election</span></a>
         </li>
+        <li <?= str_starts_with($nav_selected, "Data Analytics") ? 'class="active"' : "" ?>>
+            <a href="admin-data.php"><i class="bi bi-activity"></i> <span>Data Analytics</span></a>
+        </li>
         <li class="d-lg-none">
             <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->
         </li>
