@@ -62,6 +62,16 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-7">
           <h4 id="orgtitle">Student Organizations</h4>
         </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <?php
+          if ($_SESSION['USER-ORG-TYPE'] == 1) {
+          ?>
+          <a class="btn btn-default btn-circle button d-none px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
+          <a class="btn bg-success btn-circle button px-3" href="renew-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Renew Organization </span></a>
+        </div>
+        <?php
+        }
+        ?>
         <?php
         if ($_SESSION['USER-ORG-TYPE'] == 2) {
         ?>

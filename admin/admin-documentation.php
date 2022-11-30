@@ -87,7 +87,7 @@ if (isset($_SESSION['msg'])) {
         <div class="tab-pane fade" id="home">
             <h4 class="mt-2 mb-3">Administrator</h4>
             The administrator have the privilege to view their profiles, and change/update  their user information. They have special access to all features of the system. At the Admin page, admins have the access for the Users Management, Organization management, Course Management and College Management.
-            <img src="../assets/img/docu/admin/Home.png" class="img-fluid mt-3 mb-3" alt="...">
+            <img src="../assets/img/docu/Admin/Home.png" class="img-fluid mt-3 mb-3" alt="...">
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
@@ -97,10 +97,10 @@ if (isset($_SESSION['msg'])) {
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">Where the admin can see all the academic and non-academic organizations.
-    <img src="../assets/img/docu/admin/Site-Management.png" class="img-fluid mt-3 mb-3" alt="...">
+    <img src="../assets/img/docu/Admin/Site-Management.png" class="img-fluid mt-3 mb-3" alt="...">
     The applications button is to see the applications for a student organization and the org archive button is for the archived organizations.<br>
     There are four modules, one for academic, non-academic, masterlist and the org registration page.
-    <img src="../assets/img/docu/admin/Site-Management-MasterlistAllOrgs.png" class="img-fluid mt-3 mb-3" alt="...">
+    <img src="../assets/img/docu/Admin/Site-Management-MasterlistAllOrgs.png" class="img-fluid mt-3 mb-3" alt="...">
 There are 3 buttons in the actions to tab, the visit org page to visit the organization modules, the archive button, and edit org button to change the organization active status. <br>
 The administrator can export it into various report generation formats.
         </div>
@@ -114,7 +114,7 @@ The administrator can export it into various report generation formats.
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">There is also a list of applications of every organization, whether for renewal or new organizations</div>
-            <img src="../assets/img/docu/admin/Site-Management-OrgApplication.png" class="img-fluid mt-3 mb-3" alt="...">
+            <img src="../assets/img/docu/Admin/Site-Management-OrgApplication.png" class="img-fluid mt-3 mb-3" alt="...">
             The administrator can download the registration/renewal prerequisites and change the organization status
       </div>
     </div>
@@ -126,7 +126,7 @@ The administrator can export it into various report generation formats.
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">The administrator can register a new student organization once they deem the application to be approved.</div>
-                <img src="../assets/img/docu/admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">
+                <img src="../assets/img/docu/Admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">
       </div>
     </div>
   </div>
@@ -142,7 +142,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/User-Management-Students.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the students page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. The students page also features bulk registration for mass student registration.</div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/User-Management-Students.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the students page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. The students page also features bulk registration for mass student registration.</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -152,7 +152,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/User-Management-Officer.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the officers page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. </div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/User-Management-Officer.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the officers page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. </div>
       </div>
     </div>
     <div class="accordion-item">
@@ -162,7 +162,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/User-Management-Signatories.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the Signatories page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. They can also register new users in this category.</div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/User-Management-Signatories.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the Signatories page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. They can also register new users in this category.</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -172,7 +172,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/User-Management-Admin.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the Admin page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. They can also register new users in this category.</div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/User-Management-Admin.png" class="img-fluid mt-3 mb-3" alt="..."> Accessing the Admin page. The admin can view/modify user details or archive user data. They can export it to various report generation formats. They can also register new users in this category.</div>
       </div>
     </div>
   </div>
@@ -187,7 +187,7 @@ The administrator can export it into various report generation formats.
           </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body"><img src="../assets/img/docu/admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="..."> The college masterlist lets the administrator view/modify colleges or add a new college to the website. </div>
+            <div class="accordion-body"><img src="../assets/img/docu/Admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="..."> The college masterlist lets the administrator view/modify colleges or add a new college to the website. </div>
         </div>
       </div>
       <div class="accordion-item">
@@ -197,7 +197,7 @@ The administrator can export it into various report generation formats.
           </button>
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body"><img src="../assets/img/docu/admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">  The course masterlist lets the administrator view/modify course or add a new course to the website</div>
+            <div class="accordion-body"><img src="../assets/img/docu/Admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">  The course masterlist lets the administrator view/modify course or add a new course to the website</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -207,13 +207,13 @@ The administrator can export it into various report generation formats.
           </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body"><img src="../assets/img/docu/admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">The archives module of the website applies to all features. The administrator can archive inactive data or restore data dynamically. </div>
+            <div class="accordion-body"><img src="../assets/img/docu/Admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">The archives module of the website applies to all features. The administrator can archive inactive data or restore data dynamically. </div>
         </div>
       </div>
     </div>  </div>
         <div class="tab-pane fade" id="election">
             <h4 class="mt-2">Election content</h4>
-                  <div class="accordion-body"><img src="../assets/img/docu/admin/election.png" class="img-fluid mt-3 mb-3" alt="...">
+                  <div class="accordion-body"><img src="../assets/img/docu/Admin/election.png" class="img-fluid mt-3 mb-3" alt="...">
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
@@ -222,7 +222,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/Election-Creation.png" class="img-fluid mt-3 mb-3" alt="..."> The administrator can create elections for every student organization and can organize an election for the Central student council</div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/Election-Creation.png" class="img-fluid mt-3 mb-3" alt="..."> The administrator can create elections for every student organization and can organize an election for the Central student council</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -232,7 +232,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/Election-Masterlist.png" class="img-fluid mt-3 mb-3" alt="..."> The election list contains a masterlist of the ongoing and completed elections as well as the data visualizations for the election tallies and exportable report generations.</div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/Election-Masterlist.png" class="img-fluid mt-3 mb-3" alt="..."> The election list contains a masterlist of the ongoing and completed elections as well as the data visualizations for the election tallies and exportable report generations.</div>
       </div>
     </div>
     <div class="accordion-item">
@@ -242,7 +242,7 @@ The administrator can export it into various report generation formats.
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body"><img src="../assets/img/docu/admin/Election-PositionList.png" class="img-fluid mt-3 mb-3" alt="...">The positions masterlist contains the list of active positions, it can be modified or archived. The archived positions can be dynamically restored as needs be. </div>
+          <div class="accordion-body"><img src="../assets/img/docu/Admin/Election-PositionList.png" class="img-fluid mt-3 mb-3" alt="...">The positions masterlist contains the list of active positions, it can be modified or archived. The archived positions can be dynamically restored as needs be. </div>
       </div>
     </div>
   </div>    </div>

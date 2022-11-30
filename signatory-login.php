@@ -114,7 +114,7 @@ if (isset($_SESSION['message'])) {
                   <input class="form-check-input" type="checkbox" onclick="showPass()" id="inlineFormCheck">
                   <label class="form-check-label" for="inlineFormCheck">Show Password</label>
                 </div>
-                <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
+              <div class="ml-auto d-none"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
               </div>
               <small class="text-muted">Logging in as:</small>
               <div class="form-outline mb-2">
