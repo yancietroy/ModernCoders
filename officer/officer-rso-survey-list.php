@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(3);
+route(2);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
@@ -12,32 +12,28 @@ $orgid = $_GET['id'] ?? -1;
 $orgName = "";
 $query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
-    if ($orgRes->num_rows > 0) {
-        $row = $orgRes->fetch_assoc();
-        $orgName = $row['ORG'];
-    } 
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+  } else {
+    header('location:officer-orgs.php');
+  }
 }
 
+$_SESSION['ORG'] = $orgName;
+$_SESSION['ORG_ID'] = $orgid;
+
+$logoPic = getOrgLogo($orgid);
 $data_userid = $_SESSION['USER-ID'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$collName = "";
-$_SESSION['college'] = $collName;
-$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
-if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  } 
-}
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Organization";
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Organizations";
 $nav_breadcrumbs = [
-    ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Organizations", "", "bi bi-diagram-3-fill"],
-    ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-    ["Survey", "signatory-rso-survey.php?id=$orgid", "bi bi-file-bar-graph-fill"],
+    ["Home", "officer-index.php", "bi-house-fill"],
+    ["Organizations", "officer-orgs.php", "bi-people-fill"],
+    ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+    ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
+    ["Survey", "officer-rso-survey.php?id=$orgid", "bi bi-file-bar-graph-fill"],
     ["Survey List", "", "bi bi-clipboard-data-fill"],
 ];
 
@@ -215,12 +211,12 @@ if (isset($_SESSION['msg'])) {
         $(document).on('click', '.viewbtn', function() {
             var SURVEY_ID = $(this).attr("id");
             var ORG_ID = $('#org-id').val();
-            location.href = "signatory-rso-survey-view.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
+            location.href = "officer-rso-survey-view.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
         });
         $(document).on('click', '.resultbtn', function() {
             var SURVEY_ID = $(this).attr("id");
             var ORG_ID = $('#org-id').val();
-            location.href = "signatory-rso-survey-result.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
+            location.href = "officer-rso-survey-result.php?id=" + ORG_ID + "&survey_id=" + SURVEY_ID;
         });
         $(document).on('click', '.deletebtn', function() {
             var SURVEY_ID = $(this).attr("id");

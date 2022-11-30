@@ -41,7 +41,7 @@ $nav_breadcrumbs = [
   ["Organizations", "", "bi bi-diagram-3-fill"],
   ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
   ["Projects", "signatory-rso-projects.php?id=$orgid", ""],
-  ["Pending", "", ""],
+  ["Pending", "", "bi bi-hourglass-top"],
 ];
 
 if (isset($_SESSION['msg'])) {

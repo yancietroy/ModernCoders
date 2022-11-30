@@ -155,7 +155,7 @@ if (isset($_SESSION['msg'])) {
   <script>
     $(document).on('click', '.viewbtn', function() {
       var ORG_ID = $(this).attr("id");
-      location.href = "signatory-orgs-rso.php?id=" + ORG_ID;
+      location.href = "officer-orgs-rso.php?id=" + ORG_ID;
     });
   </script>
   <?php @mysqli_close($conn); ?>

@@ -206,7 +206,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-users.php" method="POST">
+        <form action="" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -369,7 +369,7 @@ if (isset($_SESSION['msg'])) {
             <div class="row">
               <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Member Information:</label>
+                    <label class="form-label" for="BIO">Member Information:</label>
                     <textarea class="form-control" name="BIO" id="BIO" rows="3"  style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>

@@ -64,50 +64,32 @@ if (isset($_SESSION['msg'])) {
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <?php
-          if ($_SESSION['USER-ORG-TYPE'] == 1) {
+          if ($_SESSION['USER-ORG-TYPE'] == 2) {
           ?>
-          <a class="btn btn-default btn-circle button d-none px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
-          <a class="btn bg-success btn-circle button px-3" href="renew-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Renew Organization </span></a>
-        </div>
-        <?php
-        }
-        ?>
-        <?php
-        if ($_SESSION['USER-ORG-TYPE'] == 2) {
-        ?>
-        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <a class="btn btn-default btn-circle button px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
+          <?php
+          }
+          ?>
           <a class="btn bg-success btn-circle button px-3" href="renew-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Renew Organization </span></a>
         </div>
-        <?php
-        }
-        ?>
 
       </div>
-
-
+      <div class="row ms-3 me-3 mt-2 justify-content-start">
+      <?php
+      if($orgid == 26){
+      ?>
       <div class="row ms-3 me-3 mt-2">
-        <div class="col-12  col-md-4 mt-2" id="orgs">
-          <div class="card display: inline-block cards">
-            <img src="<?= getOrgLogo($orgid) ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
-                                                      $result = @mysqli_query($conn, $query);
-                                                      $row = mysqli_fetch_array($result);
-                                                      if ($row) {
-                                                        echo "$row[1]";
-                                                      }
-                                                      @mysqli_close($conn); ?></h5>
-
-              <a href="rso.php" class="stretched-link"></a>
-            </div>
-          </div>
-        </div>
         <div class="row me-3 mt-2 justify-content-start">
         <div class="col-12  col-md-4 mt-2" id="orgs">
             <div class="card-counter bg-success">
               <div class="inner">
-                <h2>22</h2>
+                <h2><?php
+                  $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 1";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
                 <p>Academic</p>
               </div>
               <div class="icon">
@@ -119,7 +101,13 @@ if (isset($_SESSION['msg'])) {
           <div class="col-12  col-md-4 mt-2" id="orgs">
             <div class="card-counter done">
               <div class="inner">
-                <h2>22</h2>
+                <h2><?php
+                  $query = "SELECT COUNT(ORG) FROM tb_orgs WHERE org_type_id = 2";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
                 <p>Non-Academic</p>
               </div>
               <div class="icon">
@@ -131,7 +119,13 @@ if (isset($_SESSION['msg'])) {
         <div class="col-12  col-md-4 mt-2" id="orgs">
             <div class="card-counter masterlist">
               <div class="inner">
-                <h2>22</h2>
+                <h2><?php
+                  $query = "SELECT COUNT(ORG) FROM tb_orgs";
+                  $result = @mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  if ($row) {
+                    echo "$row[0]";
+                  } ?></h2>
                 <p>Org Masterlist</p>
               </div>
               <div class="icon">
@@ -144,6 +138,25 @@ if (isset($_SESSION['msg'])) {
 
         <!-- Footer -->
       </div>
+      <?php
+      }
+      ?>
+      
+        <div class="col-12  col-md-4 mt-2" id="orgs">
+          <div class="card display: inline-block cards">
+            <img src="<?= getOrgLogo($orgid) ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-2"><?php $query = "SELECT * FROM tb_orgs WHERE ORG_ID = '$orgid'";
+                                                      $result = @mysqli_query($conn, $query);
+                                                      $row = mysqli_fetch_array($result);
+                                                      if ($row) {
+                                                        echo "$row[1]";
+                                                      }?></h5>
+
+              <a href="rso.php" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">

@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(3);
+route(2);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
@@ -16,30 +16,20 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:signatory-orgs.php');
+    header('location:officer-orgs.php');
   }
 }
 
 $data_userid = $_SESSION['USER-ID'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$collName = "";
-$_SESSION['college'] = $collName;
-$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
-if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  }
-}
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Organization";
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Organizations";
 $nav_breadcrumbs = [
-  ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Organizations", "", "bi bi-diagram-3-fill"],
-  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-  ["Projects", "signatory-rso-projects.php?id=$orgid", ""],
+  ["Home", "officer-index.php", "bi-house-fill"],
+  ["Organizations", "officer-orgs.php", "bi-people-fill"],
+  ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+  ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
+  ["Projects", "officer-rso-projects.php?id=$orgid", "bi bi-folder-fill"],
   ["For Revision", "", "bi bi-pencil-square"],
 ];
 
@@ -464,7 +454,7 @@ if (isset($_SESSION['msg'])) {
       var myTable;
 
       $.ajax({
-        url: "include/signatory-fetch-project-logs.php",
+        url: "include/officer-fetch-project-logs.php",
         method: "POST",
         data: {
           project_id: project_id
@@ -566,7 +556,7 @@ if (isset($_SESSION['msg'])) {
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
-        url: "signatory-fetch-project.php",
+        url: "officer-fetch-project.php",
         method: "POST",
         data: {
           project_id: project_id

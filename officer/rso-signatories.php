@@ -10,6 +10,7 @@ include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
+$collegeid = $_SESSION['USER-COLLEGE'];
 $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Organizations";
 $nav_breadcrumbs = [
@@ -78,7 +79,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id= '$orgid' AND signatorytype_id='4'";
+              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE signatorytype_id='1' OR (signatorytype_id='2' AND college_dept = '$collegeid') OR (signatorytype_id='3' AND college_dept = '$collegeid') OR (org_id = '$orgid' AND college_dept = '$collegeid' AND signatorytype_id='4')";
               /*  $query = "tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory, tb_orgs.ORG FROM tb_signatories JOIN tb_signatory_type ON tb_signatories.signatorytype_id = tb_signatory_type.signatory_id JOIN tb_orgs ON tb_orgs.ORG_ID = tb_signatories.org_id";*/
               $result = @mysqli_query($conn, $query);
               $i = 0;

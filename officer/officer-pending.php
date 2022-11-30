@@ -16,8 +16,8 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Projects", "officer-projects.php", ""],
-  ["Pending", "", ""],
+  ["Projects", "officer-projects.php", "bi bi-folder-fill"],
+  ["Pending", "", "bi bi-hourglass-top"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -312,39 +312,6 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-
-                <!--<div class="col-12 col-md-4 col-sm-3 mb-2">
-                            <label class="form-label" for="budget_source" >Budget Source:</label>
-                            <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                          </div>
-                          <div class="col-12 col-md-6 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="beneficiary">Beneficiary:</label>
-                              <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3 col-sm-3 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                              <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                            </div>
-                            </div>
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                              </div>
-                            </div>
-
-                            <div class="col-12 col-md-3 col-sm-3 mb-4">
-                              <div class="form-outline">
-                                <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                              <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                              </div>
-                            </div>-->
-
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -362,15 +329,6 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-control form-control-md" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                              <1? php
-                              /**
-                                $query = "SELECT position_id, position FROM tb_position";
-                                $result = @mysqli_query($conn, $query);
-                                        while($data = @mysqli_fetch_array($result)) {
-                                            echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                        }**/
-                              ?>-->
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -410,28 +368,22 @@ if (isset($_SESSION['msg'])) {
                     </div>
                   </div>
                 </div>
-                <!--  <div class="col-12 col-md-12 mb-4">
-                            <div class="form-outline">
-                              <label class="form-label" for="project_remarks">Remarks:</label>
-                              <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
-                            </div>
-                          </div>!-->
               </div>
               <input type="hidden" name="college_id" id="college_id">
               <input type="hidden" name="org_id" id="org_id">
-              <div class="modal-footer px-0 py-0 pt-2">
-                <?php
-                if ($_SESSION['USER-POS'] <= 5) {
-                ?>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span>
-                  </button>
-                  <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</button>
-                <?php
-                }
-                ?>
-              </div>
             </div>
+          </div>
+          <div class="modal-footer px-0 py-0 pt-2">
+            <?php
+            if ($_SESSION['USER-POS'] <= 5) {
+            ?>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span>
+              </button>
+              <button class="btn btn-md btn-outline-secondary" name="Cancel">Reschedule</button>
+            <?php
+            }
+            ?>
           </div>
         </form>
       </div>

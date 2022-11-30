@@ -3,45 +3,41 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(3);
+route(2);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $orgid = $_GET['id'] ?? -1;
 $orgName = "";
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
+$data_collegeid = "";
+$query = "SELECT ORG, college_id FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
+    $data_collegeid = $row['college_id'];
   } else {
-    header('location:signatory-orgs.php');
+    header('location:officer-orgs.php');
   }
 }
 
+$_SESSION['ORG'] = $orgName;
+$_SESSION['ORG_ID'] = $orgid;
+$_SESSION['college_id'] = $data_collegeid;
+
+$logoPic = getOrgLogo($orgid);
 $data_userid = $_SESSION['USER-ID'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$collName = "";
-$_SESSION['college'] = $collName;
-$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
-if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  }
-}
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Organization";
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Organizations";
 $nav_breadcrumbs = [
-  ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Organizations", "signatory-orgs.php", "bi bi-diagram-3-fill"],
-  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-  ["Officers", "", ""],
+  ["Home", "officer-index.php", "bi-house-fill"],
+  ["Organizations", "officer-orgs.php", "bi-people-fill"],
+  ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+  ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
+  ["Signatories", "", "bi bi-person-rolodex"],
 ];
-
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -93,43 +89,33 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
-          <h4 id="rsotitle"><?php echo $orgName; ?> Officers</h4>
+          <h4 id="rsotitle"><?php echo $orgName; ?> Signatories</h4>
         </div>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
           <!--<a class="btn btn-secondary bg-secondary btn-circle button px-3 ms-2" href="admin-orgs-rso-archive.php" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle">Member Archive</span></a>-->
         </div>
       </div>
 
-      <div class="card shadow card-registration mb-4" style="border-radius: 15px;">
+      <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-3 pt-4 ">
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id  WHERE tb_officers.org_id = '$orgid'";
+              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE signatorytype_id='1' OR (signatorytype_id='2' AND college_dept = '$data_collegeid') OR (signatorytype_id='3' AND college_dept = '$data_collegeid') OR (org_id = '$orgid' AND college_dept = '$data_collegeid' AND signatorytype_id='4')";
               $result = @mysqli_query($conn, $query);
               $i = 0;
-              $oi = " ";
-              $p = " ";
-              $org = " ";
-              $fn = " ";
-              $mn = " ";
-              $ln = " ";
-              $e = " ";
-              $c = " ";
               $si = " ";
+              $fn = " ";
+              $e = " ";
+              $st = " ";
               echo "<table id='admin-user-table' class='py-3 display nowrap w-100 ms-0 stud'>
                         <thead>
                           <tr>
-                              <th class='desktop'>Officer ID</th>
-                              <th class='desktop'>Student ID</th>
-                              <th class='desktop'>Position</th>
-                              <th class='none'>Organization</th>
-                              <th class='desktop'>First Name</th>
-                              <th class='none'>Middle Name</th>
-                              <th class='desktop'>Last name</th>
-                              <th class='none'>Email</th>
-                              <th class='none'>Course</th>
-                              <th class='desktop'>Actions</th>
+                              <th>JRU ID</th>
+                              <th>First Name</th>
+                              <th>Last name</th>
+                              <th>Email</th>
+                              <th>Signatory Type</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -137,29 +123,18 @@ if (isset($_SESSION['msg'])) {
               if ($result !== false && $result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                  $oi = $row['officer_id'];
-                  $si = $row['student_id'];
-                  $p = $row['position'];
-                  $org = $row['ORG'];
+                  $si = $row['school_id'];
                   $fn = $row['first_name'];
-                  $mn = $row['middle_initial'];
                   $ln = $row['last_name'];
                   $e = $row['email'];
-                  $c = $row['course'];
+                  $st = $row['signatory'];
 
                   echo "<tr>
-                            <td> $oi  </td>
                             <td> $si  </td>
-                            <td> $p  </td>
-                            <td> $org  </td>
                             <td> $fn  </td>
-                            <td> $mn </td>
-                            <td> $ln </td>
+                            <td> $ln  </td>
                             <td> $e </td>
-                            <td> $c </td>
-                            <td>
-                            <button type='button' class='btn btn-success btn-sm viewbtn' id='" . $si . "'> <i class='bi bi-list-ul'></i> </button>
-                            </td>
+                            <td> $st </td>
                             </tr>
                         ";
                 }
@@ -178,15 +153,15 @@ if (isset($_SESSION['msg'])) {
     </div>
     <!--   <div class="col">
       Card with right text alignment
-          <div class="card text-end">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary">Know more</a>
-            </div>
+        <div class="card text-end">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
+            <a href="#" class="btn btn-primary">Know more</a>
           </div>
         </div>
-      </div> -->
+      </div>
+    </div> -->
 
     <!-- Footer -->
     <div id="layoutAuthentication_footer">
@@ -200,33 +175,27 @@ if (isset($_SESSION['msg'])) {
     </div>
   </div>
   </div>
-  <!-- Officer Modal -->
+  <!-- Student Modal -->
   <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Update Officer Details </h5>
+          <h5 class="modal-title" id="exampleModalLabel"> Update Signatory Details </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form action="" method="POST">
           <div class="modal-body">
-            <div class="container-fluid">
+            <div class="container-md">
               <div class="row justify-content-between">
-                <div class="col-12 col-md-2 col-sm-3 mb-4">
+                <div class="col-4 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="officer_id">Officer ID:</label>
-                    <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="school_id">JRU ID:</label>
+                    <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-2 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="student_id">Student ID:</label>
-                    <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>
                     <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
@@ -234,26 +203,24 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row justify-content-between">
-                <div class="col-12 col-md-5 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="position_id">Position:</label>
-                    <select class="form-select" name="position_id" id="position_id"readonly>
-                      <?php
-                      $query = "SELECT position_id, position FROM tb_position";
-                      $result = @mysqli_query($conn, $query);
-                      while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
-                      }
-                      ?>
-                    </select>
+                    <label class="form-label" for="first_name">First name:</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control form-control-lg" style="background-color: #fff;"readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
+                  <label class="form-label" for="last_name">Last Name:</label>
+                  <input type="text" name="last_name" id="last_name" class="form-control form-control-lg" style="background-color: #fff;"readonly />
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Organization:</label>
-                    <select class="form-select" name="org_id" id="org_id"readonly>
+                    <label class="form-label" for="signatory_type">Signatory Type:</label>
+                    <select class="form-select" name="signatory_type" id="signatory_type"readonly>
                       <?php
-                      $query = "SELECT ORG_ID, ORG FROM tb_orgs";
+                      $query = "SELECT signatory_id, signatory FROM tb_signatory_type";
                       $result = @mysqli_query($conn, $query);
                       while ($data = @mysqli_fetch_array($result)) {
                         echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
@@ -262,83 +229,6 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="first_name">First Name:</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="middle_initial">Middle Name:</label>
-                    <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly/>
-                  </div>
-                </div>
-                <div class="col-6 col-md-4 mb-4 ">
-                  <label class="form-label" for="last_name">Last name </label>
-                  <input type="text" class="form-control" name="last_name" id="last_name" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly />
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="birthdate">Birthdate:</label>
-                    <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" style="background-color: #fff;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="age">Age:</label>
-                    <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" readonly />
-                  </div>
-                </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="gender">Gender</label>
-                  <select class="form-select" name="gender" id="gender"readonly>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <label class="form-label" for="email">Email:</label>
-                  <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="college_dept">College:</label>
-                    <select class="form-select" name="college_dept" id="college_dept"readonly>
-                      <?php
-                      $query = "SELECT college_id, college FROM tb_collegedept";
-                      $result = @mysqli_query($conn, $query);
-                      while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
-                      }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
-                  <div class="form-outline">
-                    <label class="form-label" for="course">Course:</label>
-                    <select class="form-select" style="width:100%;" name="course" id="course"readonly>
-                      <?php
-                      $query = "SELECT course_id, course FROM tb_course";
-                      $result = @mysqli_query($conn, $query);
-                      while ($data = @mysqli_fetch_array($result)) {
-                        echo '<option value="' . $data[1] . '">' . $data[1] . '</option>';
-                      }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
@@ -353,86 +243,87 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="section">Section:</label>
-                    <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;" readonly />
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-sm-3 mb-2">
+                  <label class="form-label" for="email">Email:</label>
+                  <input type="text" name="email" id="email" class="form-control" pattern=".+@jru\.edu" style="background-color: #fff;" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-6 col-sm-3 mb-2">
+                  <label class="form-label" id="asterisk">College Department</label>
+                  <select class="form-select" style="width:100%;" name="college_id" id="college_id"readonly>
+                    <?php
+                    $query = "SELECT * FROM tb_collegedept";
+                    $result = @mysqli_query($conn, $query);
+                    while ($data = @mysqli_fetch_array($result)) {
+                      echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
-                    <label class="form-label" for="year_level">Year Level:</label>
-                    <select class="form-select" name="year_level" id="year_level"readonly>
-                      <option value="1">Year 1</option>
-                      <option value="2">Year 2</option>
-                      <option value="3">Year 3</option>
-                      <option value="4">Year 4</option>
-                        <option value="5">Year 5</option>
+                    <label class="form-label" for="org_id">Organization:</label>
+                    <select class="form-select" name="org_id" id="org_id"readonly>
+                      <?php
+                      $query = "SELECT org_id, org FROM tb_orgs";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                        echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="row">
               <div class="col-12 col-md-12 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Officer Information:</label>
-                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
-                  </div>
+                <div class="form-outline">
+                  <label class="form-label" for="MORG_ID">Signatory Information:</label>
+                  <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
                 </div>
-                    </div>
+              </div>
+            </div>
+            </div>
+            <div class="modal-footer pt-2 pb-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+        </form>
       </div>
-      </form>
     </div>
-  </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
     $(document).on('click', '.viewbtn', function() {
-      var student_id = $(this).attr("id");
+      var school_id = $(this).attr("id");
       $.ajax({
-        url: "signatory-fetch-officer.php",
+        url: "signatory-fetch-signatories.php",
         method: "POST",
         data: {
-          student_id: student_id
+          school_id: school_id
         },
         dataType: "json",
         success: function(data) {
           console.log(data);
-          $('#officer_id').val(data.officer_id);
-          $('#student_id').val(data.student_id);
-          $('#position_id').val(data.position_id);
-          $('#org_id').val(data.org_id);
-          $('#first_name').val(data.first_name);
-          $('#middle_initial').val(data.middle_initial);
-          $('#last_name').val(data.last_name);
-          $('#birthdate').val(data.birthdate);
-          $('#age').val(data.age);
-          $('#gender').val(data.gender);
-          $('#year_level').val(data.year_level);
-          $('#section').val(data.section);
-          $('#email').val(data.email);
-          $('#password').val(data.password);
-          $('#college_dept').val(data.college_dept);
-          $('#course').val(data.course);
-          $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
-          $('#profile_pic').val(data.profile_pic);
+          $('#school_id').val(data.school_id);
+          $('#first_name').val(data.first_name);
+          $('#last_name').val(data.last_name);
+          $('#email').val(data.email);
+          $('#org_id').val(data.org_id);
+          $('#user_type').val(data.usertype_id);
+          $('#college_id').val(data.college_dept);
+          $('#signatory_type').val(data.signatorytype_id);
           $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
       });
 
-      // UPPERCASE FIRST LETTER
       document.getElementById("first_name").addEventListener("input", forceLower);
-      document.getElementById("middle_initial").addEventListener("input", forceLower);
       document.getElementById("last_name").addEventListener("input", forceLower);
       // Event handling functions are automatically passed a reference to the
       // event that triggered them as the first argument (evt)
@@ -484,10 +375,7 @@ if (isset($_SESSION['msg'])) {
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
-            "width": "40px"
-          },
-          {
-            "width": "40px"
+            "width": "90px"
           },
           {
             "width": "130px"
@@ -497,21 +385,9 @@ if (isset($_SESSION['msg'])) {
           },
           {
             "width": "130px"
-          },
-          {
-            "width": "80px"
           },
           {
             "width": "150px"
-          },
-          {
-            "width": "60px"
-          },
-          {
-            "width": "60px"
-          },
-          {
-            "width": "70px"
           }
         ],
         select: 'single',
@@ -519,10 +395,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  Officer Masterlist',
+            title: 'JRU Organizations Portal -  Signatory Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+              columns: [0, 1, 2, 3, 4]
             },
           },
           //{
@@ -538,20 +414,20 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - Officer Masterlist',
+            title: 'JRU Organizations Portal - Signatory Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+              columns: [0, 1, 2, 3, 4]
             },
-            orientation: 'landscape',
+            orientation: 'portrait',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  Officer Masterlist',
+            title: 'JRU Organizations Portal -  Signatory Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+              columns: [0, 1, 2, 3, 4]
             },
             customize: function(win) {
 
@@ -559,7 +435,7 @@ if (isset($_SESSION['msg'])) {
               var current = null;
               var bod = [];
 
-              var css = '@page { size: landscape; font-size: 1em;}',
+              var css = '@page { size: portrait; font-size: 1em;}',
                 head = win.document.head || win.document.getElementsByTagName('head')[0],
                 style = win.document.createElement('style');
 

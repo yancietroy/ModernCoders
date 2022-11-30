@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(3);
+route(2);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
@@ -16,30 +16,24 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:signatory-orgs.php');
+    header('location:officer-orgs.php');
   }
 }
 
+$_SESSION['ORG'] = $orgName;
+$_SESSION['ORG_ID'] = $orgid;
+
+$logoPic = getOrgLogo($orgid);
 $data_userid = $_SESSION['USER-ID'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$collName = "";
-$_SESSION['college'] = $collName;
-$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
-if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  }
-}
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Organization";
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Organizations";
 $nav_breadcrumbs = [
-  ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Organizations", "signatory-orgs.php", "bi bi-diagram-3-fill"],
-  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-  ["Officers", "", ""],
+  ["Home", "officer-index.php", "bi-house-fill"],
+  ["Organizations", "officer-orgs.php", "bi-people-fill"],
+  ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+  ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
+  ["Officers", "", "bi bi-person-badge"],
 ];
 
 
@@ -379,13 +373,12 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                    </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
-      </div>
       </form>
     </div>
   </div>
@@ -397,7 +390,7 @@ if (isset($_SESSION['msg'])) {
     $(document).on('click', '.viewbtn', function() {
       var student_id = $(this).attr("id");
       $.ajax({
-        url: "signatory-fetch-officer.php",
+        url: "rso-fetch-officer.php",
         method: "POST",
         data: {
           student_id: student_id

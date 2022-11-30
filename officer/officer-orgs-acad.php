@@ -15,7 +15,7 @@ $nav_selected = "Organizations";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
-  ["Academic", "", "bi-people-fill"],
+  ["Academic", "", "bi bi-book-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -154,7 +154,7 @@ if (isset($_SESSION['msg'])) {
   <script>
     $(document).on('click', '.viewbtn', function() {
       var ORG_ID = $(this).attr("id");
-      location.href = "signatory-orgs-rso.php?id=" + ORG_ID;
+      location.href = "officer-orgs-rso.php?id=" + ORG_ID;
     });
   </script>
   <?php @mysqli_close($conn); ?>

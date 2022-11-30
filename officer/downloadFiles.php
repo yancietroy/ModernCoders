@@ -2,10 +2,11 @@
 include('../mysql_connect.php');
 // Downloads files
 if (isset($_GET['project_id'])) {
-    $pi = $_GET['project_id'];
+    $pi = $mysqli->real_escape_string($_GET['project_id']);
+
 
     // fetch file to download from database
-    $sql = "SELECT * FROM tb_projectmonitoring WHERE project_id = $pi";
+    $sql = "SELECT * FROM tb_projectmonitoring WHERE project_id = '$pi'";
     $result = mysqli_query($conn, $sql);
 
     $file = mysqli_fetch_assoc($result);

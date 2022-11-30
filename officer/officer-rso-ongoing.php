@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 include('../router.php');
-route(3);
+route(2);
 
 include('../mysql_connect.php');
 include('include/get-userdata.php');
@@ -16,32 +16,23 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:signatory-orgs.php');
+    header('location:officer-orgs.php');
   }
 }
 
 $data_userid = $_SESSION['USER-ID'];
-$data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
 $data_orgid = $_SESSION['USER-ORG'];
-$data_collegeid = $_SESSION['USER-COLLEGE'];
-$collName = "";
-$_SESSION['college'] = $collName;
-$query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
-if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  }
-}
-$data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Organization";
+$data_picture = getProfilePicture(2, $data_userid);
+$nav_selected = "Organizations";
 $nav_breadcrumbs = [
-  ["Home", "signatory-index.php", "bi-house-fill"],
-  ["Organizations", "", "bi bi-diagram-3-fill"],
-  ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-  ["Projects", "signatory-rso-projects.php?id=$orgid", ""],
-  ["For Revision", "", "bi bi-pencil-square"],
+  ["Home", "officer-index.php", "bi-house-fill"],
+  ["Organizations", "officer-orgs.php", "bi-people-fill"],
+  ["Academic", "officer-orgs-acad.php", "bi bi-book-fill"],
+  ["$orgName", "officer-orgs-rso.php?id=$orgid", ""],
+  ["Projects", "officer-rso-projects.php?id=$orgid", "bi bi-folder-fill"],
+  ["Ongoing", "", "bi bi-play-circle-fill"],
 ];
+
 
 if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
@@ -70,7 +61,6 @@ if (isset($_SESSION['msg'])) {
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -89,15 +79,18 @@ if (isset($_SESSION['msg'])) {
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2">
         <div class="col-lg-6 col-7">
-          <h4>Officer Projects For Revision List</h4>
+          <h4 id="orgtitle">Project Ongoing</h4>
         </div>
+        <!--<div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <a class="btn btn-default btn-circle button px-3" href="create-project.php" role="button"><i class="bi bi-check-circle-fill"></i> <span id="btntitle">Ongoing Checklist </span></a>
+        </div>-->
       </div>
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
             <div class="table-responsive-md ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
+              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -133,7 +126,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date for revision</th>
+                            <th class='none'>Date Ongoing</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -183,10 +176,10 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                                <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  
-                                <button type='button' title='audit trail' class='btn btn-warning btn-sm text-white logbtn' id='" . $pi . "'> <i class='bi bi-clock-history'></i> </button>
-                                <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
-                                </td>
+                              <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>
+                              <button type='button' title='audit trail' class='btn btn-warning btn-sm text-white logbtn' id='" . $pi . "'> <i class='bi bi-clock-history'></i> </button>
+                              <a type='button' class='btn btn-primary btn-sm' id='btndl' title='download attachment/s' href='downloadFiles.php?project_id=" . $pi . "'>  <i class='bi bi-download'></i> </a>
+                              </td>
                               <td> $std  </td>
                               <td> $obj  </td>
                               <td> $pc  </td>
@@ -214,7 +207,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
-                            <th class='none'>Date for revision</th>
+                            <th class='none'>Date Ongoing</th>
                             <th class='none'>Objectives</th>
                             <th class='none'>Project Category</th>
                             <th class='none'>Project Type</th>
@@ -279,7 +272,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="status_date">Date For Revision:</label>
+                    <label class="form-label" for="status_date">Date Ongoing:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -409,13 +402,14 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
               </div>
-              <input type="hidden" name="college_id" id="college_id">
-              <input type="hidden" name="org_id" id="org_id">
             </div>
           </div>
           <div class="modal-footer px-2 py-2 pt-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i><span id="btntitle">Export Budget Request</span></button>
           </div>
         </form>
       </div>
@@ -464,7 +458,7 @@ if (isset($_SESSION['msg'])) {
       var myTable;
 
       $.ajax({
-        url: "include/signatory-fetch-project-logs.php",
+        url: "include/officer-fetch-project-logs.php",
         method: "POST",
         data: {
           project_id: project_id
@@ -566,7 +560,7 @@ if (isset($_SESSION['msg'])) {
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
-        url: "signatory-fetch-project.php",
+        url: "officer-fetch-project.php",
         method: "POST",
         data: {
           project_id: project_id
@@ -598,25 +592,14 @@ if (isset($_SESSION['msg'])) {
           var breq = data.budget_req.split(";;");
           var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
-          var bcount = 0;
           breq.forEach(e => {
             var data = e.split("::");
             var title = codes[data[0]] ?? "Undefined Budget Code";
-            bcount++;
-
-            var options = "";
-            for (var key in codes) {
-              if (data[0] == key) {
-                options = options + `<option value="${key}" selected>${codes[key]}</option>`;
-              } else {
-                options = options + `<option value="${key}">${codes[key]}</option>`;
-              }
-            }
 
             var output = `
-              <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}" style="background-color: #fff;" readonly></td>
+              <tr>
+                <td>${title}</td>
+                <td>${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -648,64 +631,7 @@ if (isset($_SESSION['msg'])) {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
-  <!-- Datepicker cdn  -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- <!-- <script>
-    $(document).ready(function() {
-      $('#start_date').datetimepicker({
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-        formatTime: 'H:i',
-        formatDate: 'm.d.Y',
-        minDate: new Date()
-      });
 
-      $('#end_date').datetimepicker({
-        dateFormat: "dd-M-yy",
-        minDate: 0
-      });
-
-      $("#budget-request").on("change", ".payment", function() { // <-- Only changed this line
-        var sum = 0;
-        $(".payment").each(function() {
-          if (!isNaN(this.value) && this.value.length != 0) {
-            sum += parseFloat(this.value);
-          }
-        });
-        $('#estimated_budget').val(sum);
-      });
-
-      $('#add-budget').on("click", function() {
-        $.ajax({
-          url: "include/signatory-fetch-budget-codes.php",
-          method: "GET",
-          dataType: "json",
-          success: function(data) {
-            console.log(data);
-            var lastid = $('#budget-request > tbody > tr:last-child').prop("id");
-            var bcount = parseInt(lastid.replaceAll("budget-", "")) + 1;
-            var options = "";
-            data.forEach(e => {
-              options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
-            });
-            var output = `
-              <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0" style="background-color: #fff;" readonly></td>
-              </tr>
-            `;
-            $("#budget-request > tbody").append(output);
-          }
-        });
-
-      });
-    });
-
-    function deleteBudget(id) {
-      $("#budget-" + id).remove();
-    }
-  </script>-->
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -733,9 +659,6 @@ if (isset($_SESSION['msg'])) {
           }
           if (data[3] == "Done") {
             $('td', row).eq(3).css('color', '#00C9A7');
-          }
-          if (data[3] == "Approved") {
-            $('td', row).eq(3).css('color', 'green');
           }
           if (data[3] == "For Revision") {
             $('td', row).eq(3).css('color', '#FF9671');
@@ -819,10 +742,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -   For Revision List',
+            title: 'JRU Organizations Portal -   Ongoing List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
             },
           },
           //{
@@ -838,17 +761,17 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal -   For Revision List',
+            title: 'JRU Organizations Portal -   Ongoing List',
             footer: true,
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -   For Revision List',
+            title: 'JRU Organizations Portal -   Ongoing List',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
@@ -881,9 +804,6 @@ if (isset($_SESSION['msg'])) {
     });
   </script>
   <script src="../assets/js/dataTables.altEditor.free.js"></script>
-  <?php
-  include('include/sweetalert.php');
-  ?>
 </body>
 
 </html>
