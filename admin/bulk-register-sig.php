@@ -45,37 +45,38 @@ if(isset($_POST['importSubmit'])){
                 $collegeData[$rowCollege["college"]] = $rowCollege["college_id"]; 
             }
 
+            $sigData = [];
+            $querySig= "SELECT signatory_id, signatory FROM tb_signatory_type";
+            $resSig = @mysqli_query($conn, $querySig);
+            while ($rowSig = $resSig->fetch_assoc()) {
+                $sigData[$rowSig["signatory"]] = $rowSig["signatory_id"]; 
+            }
+
 
             // Parse data from CSV file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
                 // Get row data
-                $fn = $line[2]  ?? NULL;
-                $ln = $line[1]  ?? NULL;
-                $mn = $line[3]  ?? NULL;
-                $date =  $line[6]  ?? NULL;
-                $age = $line[7]  ?? NULL;
-                $g =  $line[8]  ?? NULL;
                 $si =  $line[0]  ?? NULL;
-                $yl =  $line[9]  ?? NULL;
-                $cd =  $collegeData[$line[11]]  ?? NULL;
-                $course =  $line[12]  ?? NULL;
-                $morgid =  $orgData[$line[13]]  ?? NULL;
-                $section =  $line[10]  ?? NULL;
-                $e = $line[4]  ?? NULL;
-                $pass =  $line[5]  ?? NULL;
+                $fn = $line[1]  ?? NULL;
+                $ln = $line[2]  ?? NULL;
+                $e = $line[3]  ?? NULL;
+                $pass = $line[4]  ?? NULL;
+                $sigT =  $sigData[$line[5]]  ?? NULL;
+                $cd =  $collegeData[$line[6]]  ?? NULL;
+                $morgid =  $orgData[$line[7]]  ?? NULL;
                 $pp = "avatar-default.png";
-                $ul = "1";
+                $ul = "3";
                 // Check whether member already exists in the database with the same email
-                $prevQuery = "SELECT ID FROM tb_students WHERE EMAIL = '".$line[4]."'";
+                $prevQuery = "SELECT id FROM tb_signatories WHERE email = '".$line[3]."'";
                 $prevResult = $conn->query($prevQuery);
 
                 if($prevResult->num_rows > 0){
                     // Update member data in the database
-                    $conn->query("UPDATE tb_students SET FIRST_NAME = '".$fn."', MIDDLE_NAME = '".$mn."', LAST_NAME = '".$ln."', EMAIL = '".$e."', BIRTHDATE = '".$date."', AGE = '".$age."', GENDER = '".$g."', YEAR_LEVEL = '".$yl."', COLLEGE_DEPT = '".$cd."', COURSE = '".$course."', MORG_ID = '".$morgid."', SECTION = '".$section."' WHERE EMAIL = '".$e."'");
+                    $conn->query("UPDATE tb_signatories SET first_name = '".$fn."', last_name = '".$ln."', email = '".$e."', college_dept = '".$cd."', org_id = '".$morgid."', WHERE email = '".$e."'");
                 }else{
                     // Insert member data in the database
-                    $conn->query("INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE)
-                    VALUES('$si', '$fn', '$ln', '$mn', '$date', '$age', '$g', '$yl', '$cd', '$course', '$morgid', '$section', '$e', SHA('$pass'), NOW(), '$pp', '$ul')");
+                    $conn->query("INSERT INTO tb_signatories(school_id, first_name, last_name, college_dept, org_id, email, password, signatorytype_id, account_created, profile_pic, usertype_id)
+                    VALUES('$si', '$fn', '$ln', '$cd', '$morgid', '$e', SHA('$pass'), '$sigT', NOW(), '$pp', '$ul')");
                 }
             }
 
@@ -92,4 +93,4 @@ if(isset($_POST['importSubmit'])){
 }
 
 // Redirect to the listing page
-header("Location: admin-students-users.php".$qstring);
+header("Location: admin-signatories-users.php".$qstring);
