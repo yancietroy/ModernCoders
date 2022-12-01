@@ -94,6 +94,15 @@ if (isset($_SESSION['message'])) {
                 ob_end_flush();
               }
               ?>
+              
+              <small class="text-muted">Logging in as:</small>
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-2 py-3" id="select-opt">
+                  <option class="greyclr" selected disabled value="" text-muted>Officer</option>
+                  <option value="index.php">Student</option>
+                  <option value="signatory-login.php">Signatory</option>
+                </select>
+              </div>
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@my.jru.edu" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
@@ -112,15 +121,7 @@ if (isset($_SESSION['message'])) {
                   <input class="form-check-input" type="checkbox" onclick="showPass()" id="inlineFormCheck">
                   <label class="form-check-label" for="inlineFormCheck">Show Password</label>
                 </div>
-                <div class="ml-auto d-none"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
-              </div>
-              <small class="text-muted">Logging in as:</small>
-              <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-2 py-3" id="select-opt">
-                  <option class="greyclr" selected disabled value="" text-muted>Officer</option>
-                  <option value="index.php">Student</option>
-                  <option value="signatory-login.php">Signatory</option>
-                </select>
+                <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
               </div>
               <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">

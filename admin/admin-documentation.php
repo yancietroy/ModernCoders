@@ -86,7 +86,7 @@ if (isset($_SESSION['msg'])) {
     <div class="tab-content">
         <div class="tab-pane fade" id="home">
             <h4 class="mt-2 mb-3">Administrator</h4>
-            The administrator have the privilege to view their profiles, and change/update  their user information. They have special access to all features of the system. At the Admin page, admins have the access for the Users Management, Organization management, Course Management and College Management.
+            The administrator have the privilege to view their profiles, and change/update  their  <a href="admin-profile.php" id="forgot">User Information</a>. They have special access to all features of the system. At the Admin page, admins have the access for the Users Management, Organization management, Course Management and College Management.
             <img src="../assets/img/docu/Admin/Home.png" class="img-fluid mt-3 mb-3" alt="...">
             <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
@@ -121,12 +121,12 @@ The administrator can export it into various report generation formats.
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingThree">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-          Registration
+          Bulk-Registration
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">The administrator can register a new student organization once they deem the application to be approved.</div>
-                <img src="../assets/img/docu/Admin/Site-Management-RegisterNewOrg.png" class="img-fluid mt-3 mb-3" alt="...">
+          <div class="accordion-body">The administrator can register students in mass numbers by uploading a CSV file, the template to properly upload in the right columns can be accessed <a href="../assets/img/Bulk-registration-template.csv" style=" color:blue;">here</a>. </div>
+                <img src="../assets/img/docu/Admin/bulk.png" class="img-fluid mt-3 mb-3" alt="...">
       </div>
     </div>
   </div>
