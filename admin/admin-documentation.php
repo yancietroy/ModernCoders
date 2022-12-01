@@ -127,7 +127,7 @@ The administrator can export it into various report generation formats.
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">The administrator can register students and signatories in mass numbers by uploading a CSV file, the template to properly upload in the right columns can be accessed <a href="../assets/img/bulk.zip" style=" color:blue;">here</a>. </div>
                 <img src="../assets/img/docu/Admin/bulk.png" class="img-fluid mt-3 mb-3" alt="...">
-                If the csv file upload detects the same email
+                If the csv file upload detects the same email, the current details of the user will be updated accordingly.
       </div>
     </div>
   </div>
