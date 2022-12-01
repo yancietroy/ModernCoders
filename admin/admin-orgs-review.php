@@ -239,6 +239,7 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
           </div>
+          <input type="hidden" name="school_year" id="school_year">
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" name="updatedata" class="btn btn-success">Save</button>
@@ -269,6 +270,7 @@ if (isset($_SESSION['msg'])) {
           $('#date_requested').val(data.date_requested);
           $('#status').val(data.status);
           $('#state').val(data.state);
+          $('#school_year').val(data.school_year);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

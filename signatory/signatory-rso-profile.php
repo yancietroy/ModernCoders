@@ -185,11 +185,17 @@ if (isset($_SESSION['msg'])) {
                       <th width="30%">School Year</th>
                       <td width="2%">:</td>
                       <td>
-                          <?php $currentMonth=date("m"); 
-                          if($currentMonth >="08") 
-                            echo date("Y") .'-'. (date("Y")+1);
-                          if($currentMonth < "08")
-                            echo (date("Y")-1) .'-'. date("Y");
+                          <?php
+                            $query = "SELECT school_year FROM tb_orgs WHERE org_id = '$orgid'";
+                            $result = @mysqli_query($conn, $query);
+                            $row = @mysqli_fetch_array($result);
+                            if ($row) {
+                              echo $row[0];
+                            }
+                            else
+                            {
+                              echo "No School Year.";
+                            }
                           ?>
                       </td>
                     </tr>

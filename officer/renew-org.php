@@ -22,6 +22,12 @@ if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
+$currentMonth=date("m");
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +95,7 @@ if (isset($_SESSION['msg'])) {
 
                     <div class="col-12 col-md-6  mb-4">
                       <label class="form-label" id="asterisk">School Year</label>
-                    <input type="text" name="schoolyear" id="schoolyear" placeholder="####-####" class="form-control"  required="" />
+                    <input type="text" name="school_year" id="school_year" placeholder="####-####" class="form-control"  required="" />
                   </div>
                   <div class="row justify-content-between">
                     <div class="col-12 col-md-12 col-sm-3 mb-4">
