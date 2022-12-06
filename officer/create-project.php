@@ -382,7 +382,7 @@ if($currentMonth >="08"){
           $timestamp = time();
           $msg = "'$pn' has been created and submitted.";
           $msg = $mysqli->real_escape_string($msg);
-          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$pid','$msg','$data_username','$data_userid')";
+          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$ddid','$msg','$data_username','$data_userid')";
           @mysqli_query($conn, $queryLog);
 
           echo "<script type='text/javascript'>
