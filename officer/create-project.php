@@ -128,8 +128,8 @@ if($currentMonth >="08"){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
+                <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                <input type="text" name="organizer" id="organizer" selected disabled value="<?= $_SESSION['USER-ORG-NAME'] ?>" style="background-color: #fff;" class="form-control" maxlength="200" required />
                 <div class="valid-feedback"></div>
 
               </div>
@@ -306,7 +306,6 @@ if($currentMonth >="08"){
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
           // Escape special characters, if any
           $pn = $mysqli->real_escape_string($_POST['project_name']);
-          $o = $mysqli->real_escape_string($_POST['organizer']);
           $vn = $mysqli->real_escape_string($_POST['venue']);
           $pt = $mysqli->real_escape_string($_POST['project_type']);
           $sdate = $mysqli->real_escape_string($_POST['start_date']);
@@ -321,6 +320,7 @@ if($currentMonth >="08"){
           $userName = $_SESSION['USER-NAME'];
           $posID = $_SESSION['USER-POS'];
           $collegeDept = $_SESSION['USER-COLLEGE'];
+          $o = $_SESSION['USER-ORG-NAME'];
 
           $budgetitems = [];
           foreach ($_POST as $key => $value) {
