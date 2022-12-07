@@ -159,7 +159,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $oi = " ";
@@ -177,12 +177,12 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Officer ID</th>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>Position</th>
-                                <th class='none'>Organization</th>
+                                <th class='none'>Organization: </th>
                                 <th class='desktop'>First Name</th>
-                                <th class='none'>Middle Name</th>
+                                <th class='none'>Officer History:</th><br>
                                 <th class='desktop'>Last name</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Course</th>
+                                <th class='none'>Email: </th>
+                                <th class='none'>Course: </th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -196,7 +196,7 @@ if (isset($_SESSION['msg'])) {
                   $p = $row['position'];
                   $org = $row['ORG'];
                   $fn = $row['first_name'];
-                  $mn = $row['middle_initial'];
+                  $mn = $row['bio'];
                   $ln = $row['last_name'];
                   $e = $row['email'];
                   $c = $row['course'];

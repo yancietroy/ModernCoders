@@ -153,7 +153,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -233,7 +233,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -433,8 +433,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                     <table class="table" id="budget-request">
                       <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
+                        <th>Budget Description</th>
+                        <th class="text-end">Cost</th>
                       </thead>
                       <tbody>
                       </tbody>
@@ -504,7 +504,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>${data[1]}</td>
+                <td align="right">₱ ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -707,7 +707,12 @@ if (isset($_SESSION['msg'])) {
               head.appendChild(style);
             }
           },
-        ]
+        ],
+        searchPanes: {
+            viewTotal: true,
+            columns: [3]
+        },
+        dom: 'Plfrtip'
       });
       myTable.columns.adjust().draw();
     });

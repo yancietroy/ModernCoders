@@ -209,6 +209,12 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
+                    <label class="form-label" for="org_name">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
                     <label class="form-label" for="state">State:</label>
                     <input type="text" name="state" id="state" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
@@ -428,7 +434,12 @@ if (isset($_SESSION['msg'])) {
               head.appendChild(style);
             }
           },
-        ]
+        ],
+        searchPanes: {
+            viewTotal: true,
+            columns: [3,4]
+        },
+        dom: 'Plfrtip'
       });
       myTable.columns.adjust().draw();
     });

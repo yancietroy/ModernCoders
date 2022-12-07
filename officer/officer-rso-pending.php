@@ -133,7 +133,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -211,7 +211,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -362,8 +362,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                       <table class="table" id="budget-request">
                         <thead>
-                          <th>Item</th>
-                          <th>Budget</th>
+                          <th>Budget Description</th>
+                          <th class="text-end">Cost</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -377,7 +377,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
+                      <span class="input-group-text" id="addon-wrapping">₱</span>
                       <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
                     </div>
                   </div>
@@ -583,7 +583,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>PHP ${data[1]}</td>
+                <td>₱ ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

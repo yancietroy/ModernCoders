@@ -213,7 +213,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -421,8 +421,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                       <table class="table" id="budget-request">
                         <thead>
-                          <th>Item</th>
-                          <th>Budget</th>
+                          <th>Budget Description</th>
+                          <th class="text-end">Cost</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -436,7 +436,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
+                      <span class="input-group-text" id="addon-wrapping">₱</span>
                       <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
                     </div>
                   </div>
@@ -447,7 +447,7 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <!--  <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                 <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
                   <div class="form-outline">
                     <label class="form-label" for="estimated_budget">Project Done Checkbox:</label><br>
                     <div class="form-check form-check-inline">
@@ -461,7 +461,7 @@ if (isset($_SESSION['msg'])) {
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" required>
                       <label class="form-check-label" for="inlineCheckbox3">Feedback</label>
-                    </div>-->
+                    </div>
               </div>
             </div>
             <input type="hidden" name="college_id" id="college_id">
@@ -672,7 +672,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${title}</td>
-                <td>${data[1]}</td>
+                <td align="right">₱ ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

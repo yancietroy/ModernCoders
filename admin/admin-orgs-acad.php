@@ -202,7 +202,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-6  mb-4">
                   <label class="form-label">School Year</label>
-                  <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                 </div>
                 <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
                   <!<div class="form-outline">

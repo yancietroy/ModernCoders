@@ -95,7 +95,7 @@ if($currentMonth >="08"){
 
                     <div class="col-12 col-md-6  mb-4">
                       <label class="form-label" id="asterisk">School Year</label>
-                    <input type="text" name="school_year" id="school_year" placeholder="####-####" class="form-control"  required="" />
+                    <input type="text" name="school_year" id="schoolYear" placeholder="####-####" class="form-control"  required="" />
                   </div>
                   <div class="row justify-content-between">
                     <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -291,6 +291,9 @@ if($currentMonth >="08"){
 
     <!--password validation!-->
     <script src="../assets/js/pass-validation.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="../assets/js/inputmask-validation.js"></script>
 
     <!-- age validation !-->
     <script src="../assets/js/age-validation.js"></script>

@@ -117,12 +117,12 @@ if (isset($_SESSION['msg'])) {
                               <th class='desktop'>Officer ID</th>
                               <th class='desktop'>Student ID</th>
                               <th class='desktop'>Position</th>
-                              <th class='none'>Organization</th>
+                              <th class='none'>Organization: </th>
                               <th class='desktop'>First Name</th>
-                              <th class='none'>Middle Name</th>
-                              <th class='desktop'>Last name</th>
-                              <th class='none'>Email</th>
-                              <th class='none'>Course</th>
+                              <th class='none'>Officer History:</th><br>
+                         <th class='desktop'>Position: </th>
+                              <th class='none'>Email: </th>
+                              <th class='none'>Course: </th>
                               <th class='desktop'>Actions</th>
                         </tr>
                       </thead>
