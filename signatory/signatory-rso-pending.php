@@ -609,7 +609,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td align="right">₱ ${data[1]}</td>
+                <td align="right"> ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
