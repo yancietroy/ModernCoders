@@ -26,7 +26,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to For Revision.",
+                    "text" => "Project is subject For Revision.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -49,7 +49,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been moved for revision by the adviser.";
+            $msg = "'$pn' has been subject for revision by the adviser.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);
@@ -71,7 +71,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Rejected.",
+                    "text" => "Project is Rejected.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -118,7 +118,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Pending.",
+                    "text" => "Project is approved by an Adviser.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -158,7 +158,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been approved by the adviser.";
+            $msg = "'$pn' has been approved by an adviser.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);
@@ -182,7 +182,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to For Revision.",
+                    "text" => "Project is subject For Revision.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -205,7 +205,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been moved for revision by the Chair.";
+            $msg = "'$pn' has been subject for revision by the Chair.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);
@@ -227,7 +227,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Rejected.",
+                    "text" => "Project is Rejected.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -274,7 +274,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Pending.",
+                    "text" => "Project is approved by the Chair",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -339,7 +339,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to For Revision.",
+                    "text" => "Project is subject For Revision.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -362,7 +362,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been moved for revision by the Dean.";
+            $msg = "'$pn' has been subject for revision by the Dean.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);
@@ -385,7 +385,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Rejected.",
+                    "text" => "Project is Rejected.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -431,7 +431,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Pending.",
+                    "text" => "Project is approved by the Dean.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -496,7 +496,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to For Revision.",
+                    "text" => "Project is subject For Revision.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];
@@ -519,7 +519,7 @@ if ($data_signatorytype == 4) {
             }
 
             $timestamp = time();
-            $msg = "'$pn' has been moved for revision by the SDO.";
+            $msg = "'$pn' has been subject for revision by the SDO.";
             $msg = $mysqli->real_escape_string($msg);
             $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$id','$msg','$data_username','$data_userid')";
             @mysqli_query($conn, $queryLog);
@@ -542,7 +542,7 @@ if ($data_signatorytype == 4) {
             if ($result) {
                 $_SESSION["sweetalert"] = [
                     "title" => "Status Updated",
-                    "text" => "Project is moved to Rejected.",
+                    "text" => "Project is Rejected.",
                     "icon" => "success", //success,warning,error,info
                     "redirect" => null,
                 ];

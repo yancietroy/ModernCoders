@@ -41,11 +41,11 @@ $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Organizations", "signatory-orgs.php", "bi bi-diagram-3-fill"],
+    ["Organizations", "", "bi bi-diagram-3-fill"],
     ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-    ["Survey", "signatory-rso-survey.php?id=$orgid", ""],
-    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", ""],
-    ["View Survey", "", ""],
+    ["Survey", "signatory-rso-survey.php?id=$orgid", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", "bi bi-clipboard-data-fill"],
+    ["View Survey", "", "bi bi-list-ul"],
 ];
 
 $query = "SELECT * FROM tb_surveys WHERE survey_id='$id'";

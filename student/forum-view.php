@@ -33,9 +33,9 @@ $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";
 $nav_breadcrumbs = [
   ["Home", "student-index.php", "bi-house-fill"],
-  ["Organizations", "student-orgs.php", ""],
+  ["Organizations", "student-orgs.php", "bi bi-people-fill"],
   ["$orgName", "rso.php?id=$orgid", ""],
-  ["Discussion Board", "forum-user.php?id=$orgid", ""],
+  ["Discussion Board", "forum-user.php?id=$orgid", "bi bi-inbox-fill"],
   ["Threads", "forum-threads.php?id=$orgid&topic=$topicid", ""],
   ["Post", "", ""],
 ];

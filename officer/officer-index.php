@@ -9,6 +9,7 @@ include('../mysql_connect.php');
 include('include/get-userdata.php');
 
 $data_userid = $_SESSION['USER-ID'];
+$data_schoolid = $_SESSION['USER-SID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Home";
@@ -74,7 +75,7 @@ if (isset($_SESSION['msg'])) {
                   </div>
                   <div class='col-12 col-md-3 mt-2'>
                     <label class='text-muted'>JRU ID:</label>
-                    <h5>19-255322</h5>
+                    <h5>$data_schoolid</h5>
                     <label class='text-muted mt-3'>Email:</label>
                     <h6>$row[4]</h6>
                   </div>
@@ -100,20 +101,20 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-6 col-7">
           <h4 id="orgtitle">Student Organizations</h4>
         </div>
-        <?php
-        if ($_SESSION['USER-ORG-TYPE'] == 2) {
-        ?>
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+          <?php
+          if ($_SESSION['USER-ORG-TYPE'] == 2) {
+          ?>
           <a class="btn btn-default btn-circle button px-3 me-4" href="officer-org-requests.php" role="button"><i class="bi bi-pencil-square"></i> <span id="btntitle">Applications </span></a>
+          <?php
+          }
+          ?>
           <a class="btn bg-success btn-circle button px-3" href="renew-org.php" role="button"><i class="bi bi-plus-circle-fill"></i> <span id="btntitle">Renew Organization </span></a>
         </div>
-        <?php
-        }
-        ?>
-        
+      </div>
       </div>
       <div class="row ms-4 mb-4 mt-4">
-        <div class="col-12  col-md-5  " id="orgs">
+        <div class="col-12  col-md-5" id="orgs">
           <div class="card shadow-md display: inline-block cards">
             <img src="<?= getOrgLogo($orgid) ?>" class="card-img-top rounded mx-auto d-block mt-4" alt="...">
             <div class="card-body">
@@ -123,9 +124,25 @@ if (isset($_SESSION['msg'])) {
             </div>
           </div>
         </div>
+        <?php
+        if ($orgid == 26) {
+        ?>
+        <div class="col-12  col-md-5" id="orgs">
+          <div class="card shadow-md pb-1 display: inline-block cards">
+            <img src="../assets/img/jrusop-logo2.png" class="card-img-top pb-3 rounded mx-auto d-block mt-4" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center mt-4">JRU Student Organizations</h5>
+
+              <a href="officer-orgs.php" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
 
         <!-- Footer -->
       </div>
+        <?php
+        }
+        ?>
       <div id="layoutAuthentication_footer">
         <footer class="py-2 bg-light">
           <div class="container-fluid px-4">

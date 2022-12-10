@@ -14,8 +14,8 @@ $data_picture = getProfilePicture(2, $data_userid);
 $nav_selected = "Election";
 $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
-    ["CSC Election", "election-index.php", ""],
-    ["Election Results", "", ""],
+    ["CSC Election", "election-index.php", "bi bi-check2-square"],
+    ["Election Results", "", "bi bi-play-circle-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {

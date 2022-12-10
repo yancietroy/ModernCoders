@@ -13,7 +13,21 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height: 25px;"></i>
+                        <i class="fa fa-bell me-lg-2 mt-2" style="width:  25px; height: 25px;"></i><?php
+                            $uid = $_SESSION['USER-SID'];
+                            $query = "SELECT COUNT(is_read) FROM tb_notification WHERE is_read IN('0') AND receiver = '$uid'";
+                            $result = @mysqli_query($conn, $query);
+                            $count = @mysqli_fetch_array($result);
+                            if($count[0] != 0){
+                            ?>
+                            <h6>
+                            <span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: 1px">
+                               <?= $count[0] ?>
+                            </span>
+                            </h6>
+                            <?php
+                            }
+                            ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
 
@@ -25,7 +39,6 @@
                         <?php
                         $count = 0;
                         $showAllBadge = false;
-                        $uid = $_SESSION['USER-SID'];
                         $sql = "SELECT * FROM tb_notification WHERE receiver='$uid' ORDER BY notif_id DESC LIMIT 0,6";
                         if ($resNotif = @mysqli_query($conn, $sql)) {
                             if ($resNotif->num_rows > 0) {
@@ -76,6 +89,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="officer-profile.php">Profile</a></li>
+                        <li><a class="dropdown-item" href="officer-documentation.php">Guide</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>

@@ -171,7 +171,18 @@ if (isset($_SESSION['msg'])) {
                     <tr>
                       <th width="30%">School Year</th>
                       <td width="2%">:</td>
-                      <td>2022-2023</td>
+                      <td><?php
+                            $query = "SELECT school_year FROM tb_orgs WHERE org_id = '$orgid'";
+                            $result = @mysqli_query($conn, $query);
+                            $row = @mysqli_fetch_array($result);
+                            if ($row) {
+                              echo $row[0];
+                            }
+                            else
+                            {
+                              echo "No School Year.";
+                            }
+                          ?></td>
                     </tr>
                     <tr>
                       <th width="30%">Student Advisers</th>

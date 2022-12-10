@@ -16,8 +16,8 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Projects", "officer-projects.php", ""],
-  ["For Revision", "", ""],
+  ["Projects", "officer-projects.php", "bi bi-folder-fill"],
+  ["For Revision", "", "bi bi-pencil-square"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -209,7 +209,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -432,8 +432,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                       <table class="table" id="budget-request">
                         <thead>
-                          <th>Item</th>
-                          <th>Budget</th>
+                          <th>Budget Description</th>
+                          <th class="text-end">Cost</th>
                           <th>Action</th>
                         </thead>
                         <tbody>

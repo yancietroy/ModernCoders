@@ -114,13 +114,13 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
+                               <th class='desktop'>Middle Name</th>
                                 <th class='desktop'>Last name</th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
+                                <th class='none'>Course: </th>
+                                <th class='none'>Email: </th>
                                 <th class='none'>Birthdate</th>
                                 <th class='none'>Year Level</th>
                                 <th class='none'>Section</th>
@@ -206,7 +206,7 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-users.php" method="POST">
+        <form action="" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
@@ -369,7 +369,7 @@ if (isset($_SESSION['msg'])) {
             <div class="row">
               <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Member Information:</label>
+                    <label class="form-label" for="BIO">Member Information:</label>
                     <textarea class="form-control" name="BIO" id="BIO" rows="3"  style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>

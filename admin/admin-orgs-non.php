@@ -201,11 +201,11 @@ if (isset($_SESSION['msg'])) {
                       </select>
                   </div>
                 </div>
-                <!--<div class="col-12 col-md-6  mb-4">
+                <div class="col-12 col-md-6  mb-4">
                   <label class="form-label">School Year</label>
-                  <input type="text" name="" id="" class="form-control" maxlength="100" style="background-color: #fff;" />
+                  <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" />
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
                   <!<div class="form-outline">
                     <label class="form-label" for="org_id">Student Adviser</label>
                     <select class="form-select" style="width:100%;" name="org_id" id="org_id">
@@ -284,6 +284,7 @@ if (isset($_SESSION['msg'])) {
           $('#ORG').val(data.ORG);
           $('#status').val(data.status);
           $('#org_id').val(data.org_id);
+          $('#school_year').val(data.school_year);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

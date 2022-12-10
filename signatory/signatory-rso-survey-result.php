@@ -44,9 +44,9 @@ $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
     ["Organizations", "", "bi bi-diagram-3-fill"],
     ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-    ["Survey", "signatory-rso-survey.php?id=$orgid", ""],
-    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", ""],
-    ["Survey Results", "", ""],
+    ["Survey", "signatory-rso-survey.php?id=$orgid", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", "bi bi-clipboard-data-fill"],
+    ["Survey Results", "", "bi bi-bar-chart-steps"],
 ];
 
 $query = "SELECT * FROM tb_surveys WHERE survey_id='$id'";
@@ -67,7 +67,7 @@ if ($res = @mysqli_query($conn, $query)) {
             $survey_status = 1;
         }
     } else {
-        header('location:admin-survey-list.php');
+        header('location:signatory-rso-survey-list.php?id=$orgid');
     }
 }
 
@@ -392,7 +392,7 @@ if (isset($_SESSION['msg'])) {
             $(document).on('click', '.showAnswers', function() {
                 var question_id = $(this).attr("id");
                 $.ajax({
-                    url: "../admin/include/survey-fetch-answers.php",
+                    url: "include/survey-fetch-answers.php",
                     method: "POST",
                     data: {
                         question_id: question_id

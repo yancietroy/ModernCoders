@@ -16,7 +16,7 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Officers", "", ""],
+  ["Officers", "", "bi bi-person-badge"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -99,8 +99,8 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
-                                <th class='desktop'>Last name</th>
+                              <th class='desktop'>Last Name</th>
+                           <th class='desktop'>Position: </th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
@@ -144,8 +144,8 @@ if (isset($_SESSION['msg'])) {
                   echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
-                              <td> $mn  </td>
-                              <td> $ln  </td>
+                              <td> $ln</td>
+                              <td> $pi </td>
                               <td> $a </td>
                               <td> $g</td>
                               <td>
@@ -155,7 +155,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $cd</td>
                               <td> $c</td>
                               <td> $oi</td>
-                              <td> $pi</td>
+                              <td> $mn</td>
                               <td> $e </td>
                               <td> $bd  </td>
                               <td> $yl </td>

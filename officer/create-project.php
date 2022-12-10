@@ -21,12 +21,12 @@ $nav_breadcrumbs = [
   ["Projects", "officer-projects.php", ""],
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
-$currentMonth=date("m"); 
+$currentMonth=date("m");
 if($currentMonth >="08"){
   $currentSy = date("Y") .'-'. (date("Y")+1);
 } elseif($currentMonth < "08"){
   $currentSy = (date("Y")-1) .'-'. date("Y");
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +52,7 @@ if($currentMonth >="08"){
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
   table,
@@ -127,8 +128,8 @@ if($currentMonth >="08"){
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
+                <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                <input type="text" name="organizer" id="organizer" selected disabled value="<?= $_SESSION['USER-ORG-NAME'] ?>" style="background-color: #fff;" class="form-control" maxlength="200" required />
                 <div class="valid-feedback"></div>
 
               </div>
@@ -256,7 +257,7 @@ if($currentMonth >="08"){
             <div class="col-12 col-md-3 col-sm-3 mb-4 pt-4">
               <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
             </div>
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+            <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
@@ -285,6 +286,7 @@ if($currentMonth >="08"){
 
                 *Note: Please attach other request form/ file
                 (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
+                <em>Maximum upload size of 3mb</em><br>
                 *Note: Please be mindful about submitting project proposals during exam week</small>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -304,7 +306,6 @@ if($currentMonth >="08"){
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
           // Escape special characters, if any
           $pn = $mysqli->real_escape_string($_POST['project_name']);
-          $o = $mysqli->real_escape_string($_POST['organizer']);
           $vn = $mysqli->real_escape_string($_POST['venue']);
           $pt = $mysqli->real_escape_string($_POST['project_type']);
           $sdate = $mysqli->real_escape_string($_POST['start_date']);
@@ -319,6 +320,7 @@ if($currentMonth >="08"){
           $userName = $_SESSION['USER-NAME'];
           $posID = $_SESSION['USER-POS'];
           $collegeDept = $_SESSION['USER-COLLEGE'];
+          $o = $_SESSION['USER-ORG-NAME'];
 
           $budgetitems = [];
           foreach ($_POST as $key => $value) {
@@ -331,15 +333,32 @@ if($currentMonth >="08"){
           $items = implode(";;", $budgetitems);
           $items = $mysqli->real_escape_string($items);
 
+          $size = $_FILES['attachments']['size'];
+          $maxSize = 3145728;
+          if($size > $maxSize){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too big!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }elseif($size == 0){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too small!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }else{
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $did = date("h:i:sa"); 
+          $did = date("h:i:sa");
           $ddid = strtotime($did) . '-SY' . $currentSy;
 
-          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', NULLIF('$collegeDept', ''))";
           $result = @mysqli_query($conn, $query);
           $pid = $conn->insert_id;
 
@@ -363,7 +382,7 @@ if($currentMonth >="08"){
           $timestamp = time();
           $msg = "'$pn' has been created and submitted.";
           $msg = $mysqli->real_escape_string($msg);
-          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$pid','$msg','$data_username','$data_userid')";
+          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$ddid','$msg','$data_username','$data_userid')";
           @mysqli_query($conn, $queryLog);
 
           echo "<script type='text/javascript'>
@@ -375,6 +394,7 @@ if($currentMonth >="08"){
                             </script>";
 
           @mysqli_close($conn);
+        }
         }
         ?>
       </form>
@@ -390,7 +410,7 @@ if($currentMonth >="08"){
       </div>
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -405,6 +425,9 @@ if($currentMonth >="08"){
       Waves.init();
     </script>
     <script src="../assets/js/date.js"></script>
+      <!--input mask-->
+  <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+  <script src="../assets/js/inputmask-validation.js"></script>
     <!-- Datepicker cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
@@ -470,7 +493,7 @@ if($currentMonth >="08"){
               });
 
               var i = $('#numOfRows').val();
-              var s2 = "<table class='table-stripe'><th>Item No.</th><th>Description</th><th>Price</th>"
+              var s2 = "<table class='table-stripe'><th>Item No.</th><th>Budget Description</th><th>Cost</th>"
               for (var j = 0; j < i; j++) {
                 s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control-sm'width='20%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
               }
@@ -496,6 +519,9 @@ if($currentMonth >="08"){
         window.history.replaceState(null, null, window.location.href);
       }
     </script>
+    <?php
+    include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

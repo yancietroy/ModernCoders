@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
                   <img class="profile_img rounded-circle" src="<?= $data_picture ?>" id="indexpic" alt="">
                 </div>
                 <?php
-                $query = "SELECT school_id, tb_signatories.signatorytype_id, tb_signatory_type.signatory, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories  INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE school_id = '$data_userid'";
+                $query = "SELECT school_id, tb_signatories.signatorytype_id, tb_signatory_type.signatory, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL FROM tb_signatories  INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE school_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                 $row = mysqli_fetch_array($result);
                 if ($row) {

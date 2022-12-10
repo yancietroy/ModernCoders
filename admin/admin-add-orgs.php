@@ -6,6 +6,7 @@ include('../mysql_connect.php');
  	$status = $_POST["status"];
  	$ot = $_POST["org_type"];
  	$on = $_POST["org_name"];
+ 	$sy = $_POST["school_year"]
  	$logo = "jrusop-logo2.png";
  	$st = "Active";
 
@@ -16,7 +17,7 @@ include('../mysql_connect.php');
 	 		$result = @mysqli_query($conn, $query);
 	 		if($result)
 	 		{
-			    $query = "INSERT INTO tb_orgs(ORG, logo, status, org_type_id) VALUES('$on', '$logo', '$st', '$ot')"; 
+			    $query = "INSERT INTO tb_orgs(ORG, logo, status, org_type_id, school_year) VALUES('$on', '$logo', '$st', '$ot', '$sy')"; 
 			    $result = @mysqli_query($conn, $query);
 			    if($result){
 				$_SESSION["sweetalert"] = [
@@ -40,7 +41,7 @@ include('../mysql_connect.php');
 	 		$result = @mysqli_query($conn, $query);
 	 		if($result)
 	 		{
-			    $query = "INSERT INTO tb_orgs(ORG, logo, status, org_type_id) VALUES('$on', '$logo', '$st', '$ot')"; 
+			    $query = "INSERT INTO tb_orgs(ORG, logo, status, org_type_id, school_year) VALUES('$on', '$logo', '$st', '$ot', '$sy')"; 
 			    $result = @mysqli_query($conn, $query);
 			    if($result){
 				$_SESSION["sweetalert"] = [

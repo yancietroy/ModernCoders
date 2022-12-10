@@ -209,6 +209,12 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
+                    <label class="form-label" for="org_name">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
                     <label class="form-label" for="state">State:</label>
                     <input type="text" name="state" id="state" class="form-control" maxlength="100" style="background-color: #fff;" readonly />
                   </div>
@@ -239,6 +245,7 @@ if (isset($_SESSION['msg'])) {
               </div>
             </div>
           </div>
+          <input type="hidden" name="school_year" id="school_year">
           <div class="modal-footer py-2 px-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" name="updatedata" class="btn btn-success">Save</button>
@@ -269,6 +276,7 @@ if (isset($_SESSION['msg'])) {
           $('#date_requested').val(data.date_requested);
           $('#status').val(data.status);
           $('#state').val(data.state);
+          $('#school_year').val(data.school_year);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -426,7 +434,12 @@ if (isset($_SESSION['msg'])) {
               head.appendChild(style);
             }
           },
-        ]
+        ],
+        searchPanes: {
+            viewTotal: true,
+            columns: [3,4]
+        },
+        dom: 'Plfrtip'
       });
       myTable.columns.adjust().draw();
     });

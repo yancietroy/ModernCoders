@@ -22,6 +22,12 @@ if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
+$currentMonth=date("m");
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +95,7 @@ if (isset($_SESSION['msg'])) {
 
                     <div class="col-12 col-md-6  mb-4">
                       <label class="form-label" id="asterisk">School Year</label>
-                    <input type="text" name="schoolyear" id="schoolyear" placeholder="####-####" class="form-control"  required="" />
+                    <input type="text" name="school_year" id="schoolYear" placeholder="####-####" class="form-control"  required="" />
                   </div>
                   <div class="row justify-content-between">
                     <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -135,6 +141,7 @@ if (isset($_SESSION['msg'])) {
                         5. Recommendation of Advisers (maximum of three);<br>
                           a. Academic Organizations cleared by the Department Chair and approved by the Dean of the College<br>
                           b. Non-Academic Organization and approved by Director of Student Development Office.<br>
+                          <em>Maximum upload size of 3mb</em>
                       </small>
                     </div>
                   </div>
@@ -284,6 +291,9 @@ if (isset($_SESSION['msg'])) {
 
     <!--password validation!-->
     <script src="../assets/js/pass-validation.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="../assets/js/inputmask-validation.js"></script>
 
     <!-- age validation !-->
     <script src="../assets/js/age-validation.js"></script>

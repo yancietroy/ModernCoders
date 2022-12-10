@@ -32,7 +32,7 @@ if(isset($_POST['importSubmit'])){
             fgetcsv($csvFile);
 
             $orgData = [];
-            $queryOrg = "SELECT ORG_ID,ORG FROM tb_orgs WHERE ORG_TYPE_ID = 1";
+            $queryOrg = "SELECT ORG_ID,ORG FROM tb_orgs";
             $resOrg = @mysqli_query($conn, $queryOrg);
             while ($rowOrg = $resOrg->fetch_assoc()) {
                 $orgData[$rowOrg["ORG"]] = $rowOrg["ORG_ID"]; 
