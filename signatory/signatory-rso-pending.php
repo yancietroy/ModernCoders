@@ -265,7 +265,7 @@ if (isset($_SESSION['msg'])) {
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-               </div>
+                </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -435,7 +435,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
-  
+
   <!--For modal-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -525,7 +525,7 @@ if (isset($_SESSION['msg'])) {
                 title: 'JRU Organizations Portal -   Audit Trail',
                 footer: true,
                 exportOptions: {
-                columns: [0, 1, 2]
+                  columns: [0, 1, 2]
                 },
               },
               {
@@ -533,7 +533,7 @@ if (isset($_SESSION['msg'])) {
                 title: 'JRU Organizations Portal -   Audit Trail',
                 footer: true,
                 exportOptions: {
-                columns: [0, 1, 2]
+                  columns: [0, 1, 2]
                 },
                 orientation: 'landscape',
                 pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -592,7 +592,7 @@ if (isset($_SESSION['msg'])) {
           $('#attachments').val(data.attachments);
           $('#objectives').val(data.objectives);
 
-          if(data.approval_id != user_type){
+          if (data.approval_id != user_type) {
             $('button[name="Approve"]').hide();
             $('button[name="Reject"]').hide();
             $('button[name="Revise"]').hide();
@@ -603,12 +603,15 @@ if (isset($_SESSION['msg'])) {
           }
 
           var breq = data.budget_req.split(";;");
+          var codes = data.budget_codes;
           $("#budget-request > tbody").empty();
           breq.forEach(e => {
             var data = e.split("::");
+            var title = codes[data[0]] ?? "Undefined Budget Code";
+
             var output = `
               <tr>
-                <td>${data[0]}</td>
+                <td>${title}</td>
                 <td align="right"> ${data[1]}</td>
               </tr>
             `;
@@ -627,7 +630,7 @@ if (isset($_SESSION['msg'])) {
       $('#btndl').trigger('click');
     });
   </script>
-  <?php $conn->close();?>
+  <?php $conn->close(); ?>
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
