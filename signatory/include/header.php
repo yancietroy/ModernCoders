@@ -12,23 +12,23 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" class="position-relative"aria-expanded="false">
+                    <a class="nav-link" href="#" id="navbarDarkDropdownMenuNotif" role="button" data-bs-toggle="dropdown" class="position-relative" aria-expanded="false">
                         <i class="fa fa-bell mt-2 " style="width:  25px; height: 25px;"></i>
-                            <?php
-                            $uid = $_SESSION['USER-ID'];
-                            $query = "SELECT COUNT(is_read) FROM tb_notification WHERE is_read IN('0') AND receiver = '$uid'";
-                            $result = @mysqli_query($conn, $query);
-                            $count = @mysqli_fetch_array($result);
-                            if($count[0] != 0){
-                            ?>
+                        <?php
+                        $uid = $_SESSION['USER-ID'];
+                        $query = "SELECT COUNT(is_read) FROM tb_notification WHERE is_read IN('0') AND receiver = '$uid'";
+                        $result = @mysqli_query($conn, $query);
+                        $count = @mysqli_fetch_array($result);
+                        if ($count[0] != 0) {
+                        ?>
                             <h6>
-                            <span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: -10px">
-                               <?= $count[0] ?>
-                            </span>
+                                <span class="badge rounded-pill py-1 px-2 badge-danger position-absolute d-block" style="top: 2px; right: -10px">
+                                    <?= $count[0] ?>
+                                </span>
                             </h6>
-                            <?php 
-                            } 
-                            ?>
+                        <?php
+                        }
+                        ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuNotif">
 
@@ -44,7 +44,7 @@
                         if ($resNotif = @mysqli_query($conn, $sql)) {
                             if ($resNotif->num_rows > 0) {
                                 while ($row = $resNotif->fetch_assoc()) {
-                                    $id = $row['id'];
+                                    $nid = $row['id'];
                                     $data = $row['data'];
                                     $isread = $row['is_read'];
 
@@ -53,7 +53,7 @@
                                     if ($count == 6) continue;
                         ?>
                                     <li>
-                                        <a class="dropdown-item" href="#" onclick="<?= $data != "" ? "notifClick('$id','$data','$isread')" : "notifClick('$id','#','$isread')" ?>">
+                                        <a class="dropdown-item" href="#" onclick="<?= $data != "" ? "notifClick('$nid','$data','$isread')" : "notifClick('$nid','#','$isread')" ?>">
                                             <strong class="me-2"><?= $row['title'] ?><?php if ($isread == 0) echo ' <span class="badge badge-pill badge-danger align-top">new</span>' ?></strong><br />
                                             <small class="text-muted  me-2"><em><?= $row['message'] ?></em></small>
                                         </a>

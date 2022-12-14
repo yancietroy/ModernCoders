@@ -185,7 +185,7 @@ if ($res = @mysqli_query($conn, $query)) {
                                                         echo $row['question'];
                                                         if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
                                                         echo "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
-                                                    } else if ($row['type'] == 7) {
+                                                    } else if ($row['type'] == 7 && $row['choices'] != "") {
                                                         $descs = explode(";;", $row['choices']);
                                                         $details = $row['question'] . "<br><br><i>Rating:";
                                                         $rcount = 1;
