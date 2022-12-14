@@ -74,10 +74,13 @@ if (isset($_SESSION['message'])) {
                       }
                     }
                     if (isset($_SESSION['USER-TYPE'])) {
-                      header("Location:signatory/signatory-index.php");
-                      @mysqli_close($conn);
-                      exit();
-                    }
+                      $query = "SELECT signatory FROM tb_signatory_type WHERE signatory_id = '".$_SESSION['SIGNATORY-TYPE']."'";
+                      $result = @mysqli_query($conn, $query);
+                      $row = mysqli_fetch_array($result);
+                      if($row){
+                        $_SESSION['SIGNATORY'] = $row[0];
+                        header("Location:signatory/signatory-index.php");
+                      }
                   } else {
                     echo "<div class='callout bs-callout-warning pb-0' id='box'>
                         <h4>Error!</h4>
@@ -91,7 +94,17 @@ if (isset($_SESSION['message'])) {
 
                 ob_end_flush();
               }
+            }
               ?>
+              
+              <small class="text-muted">Logging in as:</small>
+              <div class="form-outline mb-2">
+                <select class="selectpicker form-select mt-2 py-3" id="select-opt">
+                  <option class="greyclr" selected disabled value="" text-muted>Signatory</option>
+                  <option value="officer-login.php">Officer</option>
+                  <option value="index.php">Student</option>
+                </select>
+              </div>
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@jru.edu" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" required>
                 <label class="text-muted" for="email">Email address</label>
@@ -112,14 +125,6 @@ if (isset($_SESSION['message'])) {
                 </div>
                 <div class="ml-auto"> <a href="forgot-password.php" id="forgot">Forgot Password?</a> </div>
               </div>
-              <small class="text-muted">Logging in as:</small>
-              <div class="form-outline mb-2">
-                <select class="selectpicker form-select mt-2 py-3" id="select-opt">
-                  <option class="greyclr" selected disabled value="" text-muted>Signatory</option>
-                  <option value="officer-login.php">Officer</option>
-                  <option value="index.php">Student</option>
-                </select>
-              </div>
               <!--  <div class="d-flex justify-content-end mt-2">
                 <div class="form-check d-none">
                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck">
@@ -137,14 +142,14 @@ if (isset($_SESSION['message'])) {
     </div>
   </div>
   <script>
-    function showPass() {
-      var x = document.getElementById("password");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
+  function showPass() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
     }
+  }
   </script>
 
   <!-- waves js -->
@@ -181,5 +186,4 @@ if (isset($_SESSION['message'])) {
   </script>
 
 </body>
-
 </html>

@@ -11,12 +11,12 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $orgid = $_SESSION['USER-ORG'];
 $data_picture = getProfilePicture(2, $data_userid);
-$nav_selected = "Organizations";
+$nav_selected = "Event Calendar";
 $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Event Calendar", "", ""],
+  ["Event Calendar", "", "bi bi-calendar3-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -145,9 +145,8 @@ if (isset($_SESSION['msg'])) {
           </div>
         </div>
         <!-- Event Details Modal -->
-
         <?php
-        $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved' OR status='Done'");
+        $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$orgid' AND status='Approved'");
         $sched_res = [];
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {
           $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_date']));

@@ -85,7 +85,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
 
             $choices_arr["Data Visualization"] = "<obj>";
 
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr, $rowQ['optional']];
             /*} else if ($rowQ['type'] == 7) {
             // rating
             $qid = $rowQ['question_id'];
@@ -105,7 +105,7 @@ if ($resQ = @mysqli_query($conn, $queryQ)) {
             $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], $choices_arr];*/
         } else {
             // objective questions
-            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0)];
+            $responses[$rowQ['question_id']] = [$rowQ['type'], $rowQ['question'], array("<obj>" => 0), $rowQ['optional']];
         }
     }
 }
@@ -226,16 +226,17 @@ if (isset($_SESSION['msg'])) {
                                     ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td>Unable to tally objective type questions.</td>
-                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle">View Answers</span></a></td>
+                                                    <td><a href="#" id="<?= $key ?>" class="btn btn-primary showAnswers"><i class="bi bi-eye-fill"></i> <span id="btntitle"> View Answers </span></a></td>
+
                                                 </tr>
                                             <?php
                                             } else {
                                             ?>
 
                                                 <tr>
-                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?></td>
+                                                    <td><?= $i == 0 ? $count . ". " . $value[1] : "" ?><?= $i == 0  && $value[3] == "0" ? "<span class='ml-1 text-danger'>*</span>" : "" ?></td>
                                                     <td><?= $choices[$i] ?></td>
                                                     <td>
                                                         <?php
@@ -343,7 +344,6 @@ if (isset($_SESSION['msg'])) {
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="modalTally" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -362,7 +362,6 @@ if (isset($_SESSION['msg'])) {
                 </div>
             </div>
         </div>
-
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -370,10 +369,8 @@ if (isset($_SESSION['msg'])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
         <!-- Sidebar collapse -->
         <script src="../assets/js/form-validation.js"></script>
-
         <!-- Chart JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
         <!-- Waves CSS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js" integrity="sha512-MzXgHd+o6pUd/tm8ZgPkxya3QUCiHVMQolnY3IZqhsrOWQaBfax600esAw3XbBucYB15hZLOF0sKMHsTPdjLFg==" crossorigin="anonymous" referrerpolicy="no-referrer">
         </script> <!-- JavaScript validation -->
@@ -474,10 +471,24 @@ if (isset($_SESSION['msg'])) {
                     "bFilter": true,
                     select: 'single',
                     buttons: [
-                        'pageLength',
+                        'pageLength',{
+                                extend: 'csvHtml5',
+            title: 'JRU Organizations Portal -   Table Answers List',
+            footer: true,
+            exportOptions: {
+              columns: [0, 1]
+            },
+          },
                     ]
                 });
-                $('#survey-table').DataTable({
+                $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Ongoing") {
+            $('td', row).eq(2).css('color', 'orange');
+          }
+          if (data[2] == "Completed") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+        },
                     responsive: true,
                     keys: true,
                     fixedheader: true,

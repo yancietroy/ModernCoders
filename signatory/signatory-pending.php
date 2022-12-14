@@ -11,6 +11,7 @@ include('include/get-userdata.php');
 $data_userid = $_SESSION['USER-ID'];
 $data_orgid = $_SESSION['USER-ORG'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
+$data_username = $_SESSION["USER-NAME"];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
@@ -28,7 +29,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
@@ -101,24 +102,16 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
-              /*
-              if (isset($orgid) == false && $data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 2";
-              } elseif (isset($orgid) == false && $data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
+              if ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 4";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 3 AND college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$orgid' AND approval_id = 1";
-              }
-
-              */
-              if ($data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND (college_id = '$data_collegeid' AND approval_id = 2)";
-              } elseif ($data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND approval_id = 3";
-              } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Pending') AND org_id = '$data_orgid' AND approval_id = 1";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 2 AND college_id = '$data_collegeid'";
+              } elseif ($data_signatorytype == 4) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Pending') AND approval_id = 1 AND org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -151,7 +144,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -165,7 +158,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -231,7 +224,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -245,7 +238,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -285,12 +278,12 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>
+               </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -322,8 +315,8 @@ if (isset($_SESSION['msg'])) {
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status_by">Project already approved by:</label>
+                  <input type="text" name="status_by" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -436,18 +429,18 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline  ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
-                      if($result->num_rows > 0){
+                    if ($result->num_rows > 0) {
                     ?>
-                    <table class="table" id="budget-request">
-                      <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
+                      <table class="table" id="budget-request">
+                        <thead>
+                          <th>Budget Description</th>
+                          <th class="text-end">Cost</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
                     <?php
-                      }
+                    }
                     ?>
                   </div>
                 </div>
@@ -455,7 +448,7 @@ if (isset($_SESSION['msg'])) {
                   <div class="form-outline projectdesc">
                     <label class="form-label" for="estimated_budget">Estimated Budget:</label>
                     <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping">PHP</span>
+                      <span class="input-group-text" id="addon-wrapping">₱</span>
                       <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
                     </div>
                   </div>
@@ -488,7 +481,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <div class="modal-footer px-3 py-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button>          <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
+            <button type="button" class="btn btn-md btn-outline-success" onclick="exportTableToCSV('budget-breakdown.csv')"><i class="bi bi-file-earmark-spreadsheet-fill"></i> <span id="btntitle">Export Budget Request</span></button> <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
             <button class="btn btn-md btn-revise" name="Revise" onclick="document.getElementById('hidden').style.display = 'block' ;">Revise</a>
               <button class="btn btn-md btn-danger" name="Reject">Reject</a>
                 <button class="btn btn-md  btn-success" name="Approve">Approve</a>
@@ -519,6 +512,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);
@@ -527,6 +521,7 @@ if (isset($_SESSION['msg'])) {
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
           $('#org').val(data.ORG);
+          $('#college_id').val(data.college_id);
           $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
@@ -540,7 +535,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>${data[1]}</td>
+                <td align="right"> ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);

@@ -25,35 +25,58 @@ if (isset($_POST['create-survey'])) {
     $description =  $mysqli->real_escape_string($_POST['DESC']);
     $startdate =  $mysqli->real_escape_string($_POST['STARTDATE']);
     $enddate =  $mysqli->real_escape_string($_POST['ENDDATE']);
+    $type =  $mysqli->real_escape_string($_POST['qType']);
     $questions = [];
-    foreach ($_POST as $key => $value) {
-        if (str_starts_with($key, "entry-")) {
-            $type = explode("-", $key)[2];
-            $question = "";
-            $choices = "";
 
-            if ($type >= 4 && $type <= 7) {
-                // 4,5,6,7
-                $val = explode("::", $value);
-                $question = $val[0];
-                $choices = $val[1];
-            } else {
-                // 1,2,3,7
-                $question = $value;
+    if ($type == 1) {
+        // Standard Questions:
+        array_push($questions, ["7", "Physical setting and arrangements", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Adequate space and ventilation", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Relevance of the topics discussed", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+
+        array_push($questions, ["7", "Scope of the topics covered", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Usefulness of activities", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Effectiveness of the speaker", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Mastery of the topic", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Sound System", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+
+        array_push($questions, ["7", "Use of computer and technology", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+        array_push($questions, ["7", "Adequate seats", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+
+        array_push($questions, ["2", "Remarks/Suggestions", "POOR;;NEEDS IMPROVEMENT;;SATISFACTORY;;VERY SATISFACTORY;;EXCELLENT", "0"]);
+    } else {
+        foreach ($_POST as $key => $value) {
+            if (str_starts_with($key, "entry-")) {
+                $optional = explode("-", $key)[3];
+                $type = explode("-", $key)[2];
+                $question = "";
+                $choices = "";
+
+                if ($type >= 4 && $type <= 7) {
+                    // 4,5,6,7
+                    $val = explode("::", $value);
+                    $question = $val[0];
+                    $choices = $val[1];
+                } else {
+                    // 1,2,3,7
+                    $question = $value;
+                }
+                array_push($questions, ["$type", "$question", "$choices", "$optional"]);
             }
-            array_push($questions, ["$type", "$question", "$choices"]);
         }
     }
+
     $timestamp = time();
     $query = "INSERT INTO tb_surveys (survey_id,title,description,start_date,end_date,org_id) VALUES ('$timestamp','$title','$description','$startdate','$enddate','$orgid')";
     if ($resGen = @mysqli_query($conn, $query)) {
-        $query = "INSERT INTO tb_survey_questions (survey_id,question,type,choices) VALUES ";
+        $query = "INSERT INTO tb_survey_questions (survey_id,question,type,choices,optional) VALUES ";
         $values = [];
         foreach ($questions as $data) {
             $q = $data[1];
             $t = $data[0];
             $c = $data[2];
-            $val = "('$timestamp','$q','$t','$c')";
+            $o = $data[3];
+            $val = "('$timestamp','$q','$t','$c','$o')";
             array_push($values, $val);
         }
         $query = $query . implode(",", $values);
@@ -132,6 +155,15 @@ if (isset($_SESSION['msg'])) {
                         </div>
                     </div>
                     <div class="mb-4 row">
+                        <label class="form-label">Survey Questions</label>
+                        <div class="col">
+                            <input type="radio" id="rdStandard" name="qType" onchange="typeChanged()" value="1" checked>
+                            <label class="form-label" for="rdStandard">Standard Template</label>
+                            <input type="radio" class="ml-3" id="rdCustom" onchange="typeChanged()" value="2" name="qType">
+                            <label class="form-label" for="rdCustom">Custom Questions</label>
+                        </div>
+                    </div>
+                    <div class="mb-4 row" id="customMakerButtons" style="display: none;">
                         <div class="col-12">
                             <label class="form-label" for="ENDDATE">Type of Question:</label><br>
                             <button class="btn btn-primary small ms-2 btnText my-2" type="button">Text</button>
@@ -143,7 +175,7 @@ if (isset($_SESSION['msg'])) {
                             <button class="btn btn-primary small ms-2 btnRate my-2" type="button">Rating</button>
                         </div>
                     </div>
-                    <div class="mb-4 border" style="min-height:100px;">
+                    <div class="mb-4 border" id="customMakerTable" style="min-height:100px; display: none;">
                         <div class="table-responsive-xl">
                             <table id="qtable" class="table table-bordered">
                                 <thead class="thead-light">
@@ -189,6 +221,10 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                                 <label class="form-label" for="add-text-question">Question:</label>
                                 <input type="text" id="add-text-question" class="form-control" />
+                                <div class="d-flex flex-row align-items-center mt-2">
+                                    <input type="checkbox" id="add-text-optional" />
+                                    <label class="form-label m-0 ml-1" for="add-text-optional">Optional</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -214,6 +250,10 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                                 <label class="form-label" for="add-mtext-question">Question:</label>
                                 <input type="text" id="add-mtext-question" class="form-control" />
+                                <div class="d-flex flex-row align-items-center mt-2">
+                                    <input type="checkbox" id="add-mtext-optional" />
+                                    <label class="form-label m-0 ml-1" for="add-mtext-optional">Optional</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -239,6 +279,10 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                                 <label class="form-label" for="add-num-question">Question:</label>
                                 <input type="text" id="add-num-question" class="form-control" />
+                                <div class="d-flex flex-row align-items-center mt-2">
+                                    <input type="checkbox" id="add-num-optional" />
+                                    <label class="form-label m-0 ml-1" for="add-num-optional">Optional</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,6 +308,10 @@ if (isset($_SESSION['msg'])) {
                             <div class="form-outline">
                                 <label class="form-label" for="add-rating-question">Question:</label>
                                 <input type="text" id="add-rating-question" class="form-control" />
+                                <div class="d-flex flex-row align-items-center mt-2">
+                                    <input type="checkbox" id="add-rating-optional" />
+                                    <label class="form-label m-0 ml-1" for="add-rating-optional">Optional</label>
+                                </div>
                                 <p class="mb-1 mt-4">Rating Description</p>
                                 <label class="form-label" for="add-rating-desc1">Rate 1:</label>
                                 <input type="text" id="add-rating-desc1" class="form-control" value="Very Unsatisfied" />
@@ -301,6 +349,10 @@ if (isset($_SESSION['msg'])) {
                                 <input type="text" id="add-choices-type" style="display: none;">
                                 <label class="form-label" for="add-choices-question">Question:</label>
                                 <input type="text" id="add-choices-question" class="form-control" />
+                                <div class="d-flex flex-row align-items-center mt-2">
+                                    <input type="checkbox" id="add-choices-optional" />
+                                    <label class="form-label m-0 ml-1" for="add-choices-optional">Optional</label>
+                                </div>
                                 <label class="form-label mt-4" for="add-choices-list">Choices</label>
                                 <div class="form-outline mb-3" id="add-choices-list">
 
@@ -332,16 +384,29 @@ if (isset($_SESSION['msg'])) {
             Waves.init();
         </script>
         <script>
+            function typeChanged() {
+                if ($('#rdStandard').prop("checked")) {
+                    $('#customMakerButtons').hide();
+                    $('#customMakerTable').hide();
+                } else if ($('#rdCustom').prop("checked")) {
+                    $('#customMakerButtons').show();
+                    $('#customMakerTable').show();
+                }
+            }
+        </script>
+        <script>
             let entryCount = 1;
 
             $(document).on('click', '#add-text', function() {
                 var question = $('#add-text-question').val();
+                var optional = $('#add-text-optional').prop('checked') ? "1" : "0";
+
                 var output = `
                     <tr id="entry-${entryCount}">
                         <td>TextBox</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-1" value="${question}" style="display: none;">
-                            ${question}
+                            <input type="text" name="entry-${entryCount}-1-${optional}" value="${question}" style="display: none;">
+                            ${question}${optional == "0" ? "<span class='ml-1 text-danger'>*</span>" : ""}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
@@ -353,12 +418,14 @@ if (isset($_SESSION['msg'])) {
             });
             $(document).on('click', '#add-mtext', function() {
                 var question = $('#add-mtext-question').val();
+                var optional = $('#add-mtext-optional').prop('checked') ? "1" : "0";
+
                 var output = `
                     <tr id="entry-${entryCount}">
                         <td>Multiline</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-2" value="${question}" style="display: none;">
-                            ${question}
+                            <input type="text" name="entry-${entryCount}-2-${optional}" value="${question}" style="display: none;">
+                            ${question}${optional == "0" ? "<span class='ml-1 text-danger'>*</span>" : ""}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
@@ -370,12 +437,14 @@ if (isset($_SESSION['msg'])) {
             });
             $(document).on('click', '#add-num', function() {
                 var question = $('#add-num-question').val();
+                var optional = $('#add-num-optional').prop('checked') ? "1" : "0";
+
                 var output = `
                     <tr id="entry-${entryCount}">
                         <td>Numeric</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-3" value="${question}" style="display: none;">
-                            ${question}
+                            <input type="text" name="entry-${entryCount}-3-${optional}" value="${question}" style="display: none;">
+                            ${question}${optional == "0" ? "<span class='ml-1 text-danger'>*</span>" : ""}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
@@ -387,6 +456,8 @@ if (isset($_SESSION['msg'])) {
             });
             $(document).on('click', '#add-rating', function() {
                 var question = $('#add-rating-question').val();
+                var optional = $('#add-rating-optional').prop('checked') ? "1" : "0";
+
                 var choices = [
                     $('#add-rating-desc1').val(),
                     $('#add-rating-desc2').val(),
@@ -412,8 +483,8 @@ if (isset($_SESSION['msg'])) {
                     <tr id="entry-${entryCount}">
                         <td>Rating</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-7" value="${question}::${choices.join(";;")}" style="display: none;">
-                            ${value}
+                            <input type="text" name="entry-${entryCount}-7-${optional}" value="${question}::${choices.join(";;")}" style="display: none;">
+                            ${value}${optional == "0" ? "<span class='ml-1 text-danger'>*</span>" : ""}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>
@@ -426,6 +497,8 @@ if (isset($_SESSION['msg'])) {
 
             $(document).on('click', '#add-choices', function() {
                 var question = $('#add-choices-question').val();
+                var optional = $('#add-choices-optional').prop('checked') ? "1" : "0";
+
                 var choices = [];
                 $('#add-choices-list').children('input').each(function(i) {
                     if ($(this).val() != "") {
@@ -460,8 +533,8 @@ if (isset($_SESSION['msg'])) {
                     <tr id="entry-${entryCount}">
                         <td>${type}</td>
                         <td>
-                            <input type="text" name="entry-${entryCount}-${typeval}" value="${question}::${choices.join(";;")}" style="display: none;">
-                            ${value}
+                            <input type="text" name="entry-${entryCount}-${typeval}-${optional}" value="${question}::${choices.join(";;")}" style="display: none;">
+                            ${value}${optional == "0" ? "<span class='ml-1 text-danger'>*</span>" : ""}
                         </td>
                         <td>
                             <a class="align-middle text-white btn btn-danger" onclick="deleteEntry('entry-${entryCount}')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Question</span></a>

@@ -47,7 +47,7 @@ if (isset($_SESSION['msg'])) {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -193,15 +193,12 @@ if (isset($_SESSION['msg'])) {
                     $ul = "3";
                     $duplicate = mysqli_query($conn, "SELECT * FROM tb_signatories WHERE school_id='$si' OR EMAIL='$e'");
                     if (mysqli_num_rows($duplicate) > 0) {
-                      echo "<script type='text/javascript'>
-                                          Swal.fire({
-                                               icon: 'error',
-                                               title: 'Error!',
-                                               text: 'User Already Exists!',
-                                               confirmButtonColor: '#F2AC1B'
-
-                                           })
-                                            </script>";
+                      $_SESSION["sweetalert"] = [
+                        "title" => "Error",
+                        "text" => "Error in making an account.",
+                        "icon" => "error", //success,warning,error,info
+                        "redirect" => "admin-signatory-reg.php",
+                      ];
                     } else {
                       try {
                         $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
@@ -209,15 +206,12 @@ if (isset($_SESSION['msg'])) {
                         $sql = "INSERT INTO tb_signatories(school_id, first_name, last_name, signatorytype_id, email, password, college_dept, org_id, account_created, profile_pic, usertype_id)
                                     VALUES('$si', '$fn', '$ln', '$st', '$e', SHA('$p'), NULLIF('$cd',''), NULLIF('$oid',''), NOW(), '$pp', '$ul')";
                         $conn->exec($sql);
-                        echo "<script type='text/javascript'>
-                                        Swal.fire({
-                                             icon: 'success',
-                                             title: 'Signatory Created',
-                                             confirmButtonColor: '#F2AC1B'
-                                         }).then(function() {
-                                              window.location = 'admin-signatory-reg.php';
-                                            });
-                                          </script>";
+                                          $_SESSION["sweetalert"] = [
+                                              "title" => "Signatory Created",
+                                              "text" => "Successfully made an account.",
+                                              "icon" => "success", //success,warning,error,info
+                                              "redirect" => "admin-signatory-reg.php",
+                                          ];
                       } catch (PDOException $e) {
                         echo $sql . "
                                               " . $e->getMessage();
@@ -330,7 +324,9 @@ if (isset($_SESSION['msg'])) {
 
     <!-- age validation !-->
     <script src="../assets/js/age-validation.js"></script>
-
+    <?php
+      include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

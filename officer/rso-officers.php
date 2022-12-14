@@ -16,7 +16,7 @@ $nav_breadcrumbs = [
   ["Home", "officer-index.php", "bi-house-fill"],
   ["Organizations", "officer-orgs.php", "bi-people-fill"],
   [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-  ["Officers", "", ""],
+  ["Officers", "", "bi bi-person-badge"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -99,8 +99,8 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
-                                <th class='desktop'>Last name</th>
+                              <th class='desktop'>Last Name</th>
+                           <th class='desktop'>Position: </th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
@@ -144,8 +144,8 @@ if (isset($_SESSION['msg'])) {
                   echo "<tr>
                               <td> $si  </td>
                               <td> $fn  </td>
-                              <td> $mn  </td>
-                              <td> $ln  </td>
+                              <td> $ln</td>
+                              <td> $pi </td>
                               <td> $a </td>
                               <td> $g</td>
                               <td>
@@ -155,7 +155,7 @@ if (isset($_SESSION['msg'])) {
                               <td> $cd</td>
                               <td> $c</td>
                               <td> $oi</td>
-                              <td> $pi</td>
+                              <td> $mn</td>
                               <td> $e </td>
                               <td> $bd  </td>
                               <td> $yl </td>
@@ -366,6 +366,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Officer Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;"  readonly></textarea>
+                  </div>
+                </div>
+                    </div>
               <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly />
             </div>
           </div>
@@ -440,6 +448,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -573,7 +582,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
@@ -592,7 +601,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
@@ -602,7 +611,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Officers Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]

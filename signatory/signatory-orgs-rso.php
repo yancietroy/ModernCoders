@@ -177,8 +177,6 @@ if (isset($_SESSION['msg'])) {
             <a href="signatory-rso-survey.php?id=<?= $orgid ?>" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-
         <div class="col-lg-3 col-sm-6 mb-4">
           <div class="card-counter done">
             <div class="inner">

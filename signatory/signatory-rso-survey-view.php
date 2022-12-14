@@ -32,20 +32,20 @@ $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
 if ($collRes = @mysqli_query($conn, $query)) {
-  if ($collRes->num_rows > 0) {
-    $row = $collRes->fetch_assoc();
-    $collName = $row['college'];
-  } 
+    if ($collRes->num_rows > 0) {
+        $row = $collRes->fetch_assoc();
+        $collName = $row['college'];
+    }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Organizations", "signatory-orgs.php", "bi bi-diagram-3-fill"],
+    ["Organizations", "", "bi bi-diagram-3-fill"],
     ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
-    ["Survey", "signatory-rso-survey.php?id=$orgid", ""],
-    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", ""],
-    ["View Survey", "", ""],
+    ["Survey", "signatory-rso-survey.php?id=$orgid", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "signatory-rso-survey-list.php?id=$orgid", "bi bi-clipboard-data-fill"],
+    ["View Survey", "", "bi bi-list-ul"],
 ];
 
 $query = "SELECT * FROM tb_surveys WHERE survey_id='$id'";
@@ -182,8 +182,10 @@ if ($res = @mysqli_query($conn, $query)) {
                                                     <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
                                                     <?php
                                                     if ($row['type'] >= 4 && $row['type'] <= 6) {
-                                                        echo $row['question'] . "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
-                                                    } else if ($row['type'] == 7) {
+                                                        echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
+                                                        echo "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
+                                                    } else if ($row['type'] == 7 && $row['choices'] != "") {
                                                         $descs = explode(";;", $row['choices']);
                                                         $details = $row['question'] . "<br><br><i>Rating:";
                                                         $rcount = 1;
@@ -194,6 +196,7 @@ if ($res = @mysqli_query($conn, $query)) {
                                                         echo $details . "</i>";
                                                     } else {
                                                         echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
                                                     }
                                                     ?>
                                                 </td>

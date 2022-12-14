@@ -90,6 +90,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Org ID</th>
                                 <th class='desktop'>Organization</th>
+                                <th class='desktop'>Status</th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -106,12 +107,17 @@ if (isset($_SESSION['msg'])) {
                 while ($row = $result->fetch_assoc()) {
                   $oi = $row['ORG_ID'];
                   $org = $row['ORG'];
+                  $st = $row['status'];
+                  // $rk = $row['status']; FOR ORG RANKING
                   echo "<tr>
                               <td> $oi  </td>
                               <td> $org  </td>
+                              <td> $st  </td>
+
                               <td>
                               <button type='button' class='btn btn-primary btn-sm viewbtn' title='visit org' id='" . $oi . "'>  <i class='bi bi-eye'></i>  </button>
                               <button type='button' class='btn btn-secondary btn-sm deletebtn' title='archive org' id='" . $oi . "'>  <i class='bi bi-archive-fill'></i>  </button>
+                              <button type='button' class='btn btn-success btn-sm editbtn' title='edit org' id='" . $oi . "'>  <i class='bi bi-pen-fill'></i>  </button>
                               </td>
                               </tr>
                           ";
@@ -185,6 +191,36 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="ORG" id="ORG" class="form-control" maxlength="100" style="background-color: #fff;" />
                   </div>
                 </div>
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="status">Organization Status:</label>
+                    <select class="form-select" name="status" id="status" style="background-color: #fff;">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="For Renewal">For Renewal</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6  mb-4">
+                  <label class="form-label">School Year</label>
+                  <input type="text" name="school_year" id="school_year" class="form-control" maxlength="100" style="background-color: #fff;" />
+                </div>
+                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
+                  <!<div class="form-outline">
+                    <label class="form-label" for="org_id">Student Adviser</label>
+                    <select class="form-select" style="width:100%;" name="org_id" id="org_id">
+                      <option class="greyclr" selected disabled value="">None Assigned</option>
+                      <1?php
+                      $query = "SELECT CONCAT(first_name, ' ', last_name) AS name, school_id FROM tb_signatories WHERE signatorytype_id=4";
+                      $result = @mysqli_query($conn, $query);
+                      while ($data = @mysqli_fetch_array($result)) {
+                         echo '<option value="' . $data[1] . '">' . $data[0] . '</option>';
+                      }
+                      ?>
+                       current adviser 
+                    </select>
+                  </div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -246,6 +282,9 @@ if (isset($_SESSION['msg'])) {
           console.log(data);
           $('#ORG_ID').val(data.ORG_ID);
           $('#ORG').val(data.ORG);
+          $('#status').val(data.status);
+          $('#org_id').val(data.org_id);
+          $('#school_year').val(data.school_year);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -316,6 +355,17 @@ if (isset($_SESSION['msg'])) {
   <script>
     $(document).ready(function() {
       $('#admin-user-table').DataTable({
+        "createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Inactive") {
+            $('td', row).eq(2).css('color', 'red');
+          }
+          if (data[2] == "Active") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+          if (data[2] == "For Renewal") {
+            $('td', row).eq(2).css('color', 'yellow');
+          }
+        },
         responsive: true,
         keys: true,
         fixedheader: true,
@@ -323,6 +373,9 @@ if (isset($_SESSION['msg'])) {
         dom: 'Bfrtip',
         "bFilter": true,
         "columns": [{
+            "width": "40px"
+          },
+          {
             "width": "40px"
           },
           {
@@ -337,10 +390,10 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal - Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1,2]
             },
           },
           //{
@@ -356,20 +409,20 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Organizations Portal - Course Masterlist',
+            title: 'JRU Organizations Portal -Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1,2]
             },
             orientation: 'landscape',
             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
           },
           {
             extend: 'print',
-            title: 'JRU Organizations Portal -  Course Masterlist',
+            title: 'JRU Organizations Portal - Non-Academic RSO Masterlist',
             footer: true,
             exportOptions: {
-              columns: [0, 1]
+              columns: [0, 1,2]
             },
             customize: function(win) {
 

@@ -21,7 +21,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
   if ($orgRes->num_rows > 0) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
-  } 
+  }
 }
 
 $collName = "";
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 
 if (isset($_SESSION['msg'])) {
@@ -82,7 +82,7 @@ if (isset($_SESSION['msg'])) {
                   <img class="profile_img rounded-circle" src="<?= $data_picture ?>" id="indexpic" alt="">
                 </div>
                 <?php
-                $query = "SELECT school_id, tb_signatories.signatorytype_id, tb_signatory_type.signatory, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL,signatory_type FROM tb_signatories  INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE school_id = '$data_userid'";
+                $query = "SELECT school_id, tb_signatories.signatorytype_id, tb_signatory_type.signatory, CONCAT(FIRST_NAME, ' ', LAST_NAME) AS name, EMAIL FROM tb_signatories  INNER JOIN tb_signatory_type ON tb_signatories.signatorytype_id=tb_signatory_type.signatory_id WHERE school_id = '$data_userid'";
                 $result = @mysqli_query($conn, $query) or die(mysqli_error($conn));
                 $row = mysqli_fetch_array($result);
                 if ($row) {
@@ -111,16 +111,16 @@ if (isset($_SESSION['msg'])) {
         </div>
       </div>
       <h4 class="ms-4">Dashboard</h4>
-      <div class="row ms-2 me-2 mb-4 mt-4">
+      <div class="row ms-4 me-2 mb-4 mt-2">
 
-            <div class="col-lg-3 col-8 mb-4">
+            <div class="col-lg-4 col-12 mb-4">
               <?php
                 if($data_signatorytype == 1){
               ?>
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
-                <p>Organization</p>
+                <p>Organizations</p>
               </div>
               <div class="icon">
                 <i class="bi bi-diagram-3-fill"></i>
@@ -148,6 +148,20 @@ if (isset($_SESSION['msg'])) {
             <div class="card-counter bg-primary">
               <div class="inner">
                 <h2><i class="bi bi-diagram-3"></i></h2>
+                <p><?php echo"$collName"; ?></p>
+              </div>
+              <div class="icon">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <a href="signatory-orgs.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            <?php
+              }
+              elseif($data_signatorytype == 4){
+            ?>
+            <div class="card-counter bg-primary">
+              <div class="inner">
+                <h2><i class="bi bi-diagram-3"></i></h2>
                 <p><?php echo"$orgName"; ?></p>
               </div>
               <div class="icon">
@@ -159,7 +173,7 @@ if (isset($_SESSION['msg'])) {
               }
             ?>
           </div>
-        <div class="col-lg-3 col-8 mb-4">
+      <!--  <div class="col-lg-3 col-8 mb-4">
           <div class="card-counter bg-info">
             <div class="inner">
               <h2> <i class="bi bi-folder"></i></h2>
@@ -194,7 +208,7 @@ if (isset($_SESSION['msg'])) {
           </div>
           <a href="forum-user.php" class="card-counter-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
-      </div>
+      </div>-->
         </div>
 
 

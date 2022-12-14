@@ -16,8 +16,8 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Survey", "officer-survey.php", ""],
-    ["Archive", "", ""],
+    ["Survey", "officer-survey.php", "bi bi-file-bar-graph-fill"],
+    ["Archive", "", "bi bi-archive-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -78,7 +78,7 @@ if (isset($_SESSION['msg'])) {
                             <table id='survey-table' class='py-3 display nowrap w-100 ms-0 stud'>
                                 <thead>
                                     <tr>
-                                        <th class="desktop">Survey Title</th>
+                                        <th class="desktop">Survey ID</th>  <th class="desktop">Survey Title</th>
                                         <th class="desktop">Status</th>
                                         <th class="desktop">Start Date</th>
                                         <th class="desktop">End Date</th>
@@ -94,7 +94,7 @@ if (isset($_SESSION['msg'])) {
                                         while ($row = $res->fetch_assoc()) {
                                     ?>
                                             <tr>
-                                                <td><?= $row['title'] ?></td>
+                                                <td><?= $row['survey_id'] ?></td>    <td><?= $row['title'] ?></td>
                                                 <td>Archived</td>
                                                 <td><?= $row['start_date'] ?></td>
                                                 <td><?= $row['end_date'] ?></td>
@@ -157,7 +157,14 @@ if (isset($_SESSION['msg'])) {
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#survey-table').DataTable({
+                $('#survey-table').DataTable({    "createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Ongoing") {
+            $('td', row).eq(2).css('color', 'orange');
+          }
+          if (data[2] == "Completed") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+        },
                     responsive: true,
                     keys: true,
                     fixedheader: true,
@@ -168,6 +175,8 @@ if (isset($_SESSION['msg'])) {
                             "width": "200px"
                         },
                         {
+                            "width": "60px"
+                        },   {
                             "width": "60px"
                         },
                         {
@@ -187,11 +196,11 @@ if (isset($_SESSION['msg'])) {
                     buttons: [
                         'pageLength',
                         {
-                            extend: 'excelHtml5',
-                            title: 'JRU Organizations Portal -  Student Masterlist',
+                            extend: 'csvHtml5',
+                            title: 'JRU Organizations Portal -  Survey Masterlist',
                             footer: true,
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 5]
+                                columns: [0, 1, 2, 3, 4]
                             },
                         },
                         //{
@@ -207,20 +216,20 @@ if (isset($_SESSION['msg'])) {
                         //    } ,
                         {
                             extend: 'pdfHtml5',
-                            title: 'JRU Organizations Portal - Elections Masterlist',
+                            title: 'JRU Organizations Portal - Survey Masterlist',
                             footer: true,
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 5]
+                                columns: [0, 1, 2, 3, 4]
                             },
                             orientation: 'landscape',
                             pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
                         },
                         {
                             extend: 'print',
-                            title: 'JRU Organizations Portal -  Elections Masterlist',
+                            title: 'JRU Organizations Portal -  Survey Masterlist',
                             footer: true,
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 5]
+                                columns: [0, 1, 2, 3, 4]
                             },
                             customize: function(win) {
 

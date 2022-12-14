@@ -28,7 +28,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Projects";
@@ -96,14 +96,16 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
-              if (isset($data_orgid) == NULL && $data_signatorytype == 2) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Reschedule') AND college_id = '$data_collegeid'";
-              } elseif (isset($data_orgid) == NULL && $data_signatorytype == 1) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Reschedule')";
+              if ($data_signatorytype == 1) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Reschedule')";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Reschedule') AND college_id = '$data_collegeid'";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('Reschedule') AND org_id = '$data_orgid'";
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Reschedule') AND college_id = '$data_collegeid'";
+              } elseif ($data_signatorytype == 4) {
+                $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -136,7 +138,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -150,7 +152,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -216,7 +218,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -230,7 +232,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -270,7 +272,7 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
@@ -284,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="status_date">Date Approved:</label>
+                    <label class="form-label" for="status_date">Date Reschedule:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -389,8 +391,8 @@ if (isset($_SESSION['msg'])) {
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ORG">Name of Organization:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -432,8 +434,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                     <table class="table" id="budget-request">
                       <thead>
-                        <th>Item</th>
-                        <th>Budget</th>
+                        <th>Budget Description</th>
+                        <th class="text-end">Cost</th>
                       </thead>
                       <tbody>
                       </tbody>
@@ -443,6 +445,8 @@ if (isset($_SESSION['msg'])) {
                     ?>
                   </div>
                 </div>
+                <input type="hidden" name="college_id" id="college_id">
+                <input type="hidden" name="org_id" id="org_id">
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_remarks">Remarks:</label>
@@ -486,7 +490,9 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+           $('#ORG').val(data.ORG);
+           $('#college_id').val(data.college_id);
+           $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
@@ -499,7 +505,7 @@ if (isset($_SESSION['msg'])) {
             var output = `
               <tr>
                 <td>${data[0]}</td>
-                <td>${data[1]}</td>
+                <td align="right"> ${data[1]}</td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -712,5 +718,4 @@ if (isset($_SESSION['msg'])) {
   include('include/sweetalert.php');
   ?>
 </body>
-
 </html>

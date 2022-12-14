@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+date_default_timezone_set("Asia/Singapore");
 
 include('../router.php');
 route(2);
@@ -20,7 +21,12 @@ $nav_breadcrumbs = [
   ["Projects", "officer-projects.php", ""],
   ["Create New Project", "create-project.php", "bi-plus-circle-fill"],
 ];
-
+$currentMonth=date("m");
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +52,7 @@ $nav_breadcrumbs = [
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
   table,
@@ -79,11 +86,20 @@ $nav_breadcrumbs = [
 
       <!-- Page content -->
       <form action="" method="post" class="requires-validation" enctype="multipart/form-data" autocomplete="off" data-parsley-validate data-parsley-trigger="keyup" data-parsley-errors-messages-disabled parsley-use-html5-constraints>
-        <div class="row ms-3 me-3 mt-2">
-          <div class="col-lg-6 col-6  mb-4">
-            <h4>Create New Project</h4>
-          </div>
+      <div class="row ms-3 me-3 mt-2 mb-4">
+        <div class="col-lg-6 col-7">
+          <h4 id="orgtitle">Create New Project</h4>
         </div>
+        <?php
+        if ($_SESSION['USER-POS'] <= 5) {
+        ?>
+          <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+            <a class="btn btn-default btn-circle button px-3" href="budget-codes.php" role="button"><i class="bi bi-file-spreadsheet-fill"></i><span id="btntitle"> Budget Codes </span></a>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
         <div class="wrap shadow px-5 py-4 mx-auto mb-4">
           <div class="row ms-3 me-3 text-center ">
             <div class="col-lg-12 col-12">
@@ -96,6 +112,12 @@ $nav_breadcrumbs = [
             </div>
           </div>
           <div class="row">
+          <div class="col-4 col-md-3 col-sm-3 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="school_year">School Year:</label>
+                    <input type="text" name="school_year" id="school_year" selected disabled value="<?= $currentSy ?>" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
             <div class="col-12 col-md-12 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="project_name" id="asterisk">Project name:</label>
@@ -106,8 +128,8 @@ $nav_breadcrumbs = [
             </div>
             <div class="col-12 col-md-6 col-sm-3 mb-4">
               <div class="form-outline">
-                <label class="form-label" for="organizer" id="asterisk">Organizer/s:</label>
-                <input type="text" name="organizer" id="organizer" class="form-control" maxlength="200" required />
+                <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
+                <input type="text" name="organizer" id="organizer" selected disabled value="<?= $_SESSION['USER-ORG-NAME'] ?>" style="background-color: #fff;" class="form-control" maxlength="200" required />
                 <div class="valid-feedback"></div>
 
               </div>
@@ -224,7 +246,7 @@ $nav_breadcrumbs = [
                 <div class="valid-feedback"></div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4">
+            <div class="col-12 col-md-9 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                 <input type="text" class="form-control" maxlength="2" id="numOfRows" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Item Quantity" required />
@@ -232,10 +254,10 @@ $nav_breadcrumbs = [
               </div>
               <div id="amortizationTable" class="table-responsive-xl mt-4"></div>
             </div>
-            <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+            <div class="col-12 col-md-3 col-sm-3 mb-4 pt-4">
               <button type="button" class="btn btn-primary mt-1 " id="amortTable">Get Budget Request Table</button>
             </div>
-            <div class="col-12 col-md-12 col-sm-3 mb-4">
+            <div class="col-12 col-md-4 col-sm-3 mb-4">
               <div class="form-outline">
                 <label class="form-label" for="estimated_budget" id="asterisk">Estimated Budget:</label>
                 <div class="input-group">
@@ -264,6 +286,7 @@ $nav_breadcrumbs = [
 
                 *Note: Please attach other request form/ file
                 (Facility Request, Announcement Request, Service/ Guest Pass, etc.) <br>
+                <em>Maximum upload size of 3mb</em><br>
                 *Note: Please be mindful about submitting project proposals during exam week</small>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -283,7 +306,6 @@ $nav_breadcrumbs = [
         if (isset($pn) || isset($vn) || isset($pt) || isset($sdate) || isset($edate) || isset($o) || isset($pc)   || isset($p) || isset($obj) ||  isset($br) || isset($eb) || isset($_POST['submit'])) {
           // Escape special characters, if any
           $pn = $mysqli->real_escape_string($_POST['project_name']);
-          $o = $mysqli->real_escape_string($_POST['organizer']);
           $vn = $mysqli->real_escape_string($_POST['venue']);
           $pt = $mysqli->real_escape_string($_POST['project_type']);
           $sdate = $mysqli->real_escape_string($_POST['start_date']);
@@ -298,6 +320,7 @@ $nav_breadcrumbs = [
           $userName = $_SESSION['USER-NAME'];
           $posID = $_SESSION['USER-POS'];
           $collegeDept = $_SESSION['USER-COLLEGE'];
+          $o = $_SESSION['USER-ORG-NAME'];
 
           $budgetitems = [];
           foreach ($_POST as $key => $value) {
@@ -310,13 +333,34 @@ $nav_breadcrumbs = [
           $items = implode(";;", $budgetitems);
           $items = $mysqli->real_escape_string($items);
 
+          $size = $_FILES['attachments']['size'];
+          $maxSize = 3145728;
+          if($size > $maxSize){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too big!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }elseif($size == 0){
+            $_SESSION["sweetalert"] = [
+                "title" => "Maximum size exceeded in attachments!",
+                "text" => "File size too small!.",
+                "icon" => "error", //success,warning,error,info
+                "redirect" => "create-project.php",
+            ];
+          }else{
           $pname = rand(1000, 100000) . "-" . $_FILES['attachments']['name'];
           $destination = 'attachments/' . $pname;
           $tname = $_FILES['attachments']['tmp_name'];
           move_uploaded_file($tname, $destination);
 
-          $query = "INSERT INTO tb_projectmonitoring(project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', '$collegeDept')";
+          $did = date("h:i:sa");
+          $ddid = strtotime($did) . '-SY' . $currentSy;
+
+          $query = "INSERT INTO tb_projectmonitoring(project_id, project_name, organizer, venue, project_type, start_date, end_date, project_category, participants, objectives, budget_req, estimated_budget, date_submitted, status, attachments, status_date, requested_by, org_id, position_id, approval_id, college_id) VALUES('$ddid', '$pn', '$o', '$vn', '$pt', '$sdate', '$edate', '$pc', '$p', '$obj', '$items', '$eb', NOW(), '$s', '$pname', NOW(), '$userName', '$orgid', '$posID', '$aid', NULLIF('$collegeDept', ''))";
           $result = @mysqli_query($conn, $query);
+          $pid = $conn->insert_id;
 
           $sqlGetSignatories = "SELECT school_id FROM tb_signatories WHERE org_id='$orgid'";
           if ($resSignatories = @mysqli_query($conn, $sqlGetSignatories)) {
@@ -327,13 +371,19 @@ $nav_breadcrumbs = [
               $timestamp = time();
               while ($signatory = $resSignatories->fetch_assoc()) {
                 $uid = $signatory['school_id'];
-                array_push($values, "('$timestamp','$uid','1','$pn','A new project has been created by $data_username.','')");
+                array_push($values, "('$timestamp','$uid','1','$pn','A new project has been created by $data_username.','signatory-rso-pending.php?id=$orgid')");
               }
               $SqlNotif .= implode(",", $values);
 
               @mysqli_query($conn, $SqlNotif);
             }
           }
+
+          $timestamp = time();
+          $msg = "'$pn' has been created and submitted.";
+          $msg = $mysqli->real_escape_string($msg);
+          $queryLog = "INSERT INTO tb_project_logs(id, project_id, message, user_name, user_id) VALUES ('$timestamp','$ddid','$msg','$data_username','$data_userid')";
+          @mysqli_query($conn, $queryLog);
 
           echo "<script type='text/javascript'>
                           Swal.fire({
@@ -344,6 +394,7 @@ $nav_breadcrumbs = [
                             </script>";
 
           @mysqli_close($conn);
+        }
         }
         ?>
       </form>
@@ -359,8 +410,7 @@ $nav_breadcrumbs = [
       </div>
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -375,6 +425,9 @@ $nav_breadcrumbs = [
       Waves.init();
     </script>
     <script src="../assets/js/date.js"></script>
+      <!--input mask-->
+  <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+  <script src="../assets/js/inputmask-validation.js"></script>
     <!-- Datepicker cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
@@ -411,30 +464,43 @@ $nav_breadcrumbs = [
         window.history.replaceState(null, null, window.location.href);
       }
 
-  //    $('#estimated_budget').on("change keyup paste click", function(e) {
-    //    setTimeout(() => {
-    //      let parts = $(this).val().split(".");
-    //      let v = parts[0].replace(/\D/g, ""),
+      //    $('#estimated_budget').on("change keyup paste click", function(e) {
+      //    setTimeout(() => {
+      //      let parts = $(this).val().split(".");
+      //      let v = parts[0].replace(/\D/g, ""),
       //      dec = parts[1]
       //    let calc_num = Number((dec !== undefined ? v + "." + dec : v));
-          // use this for numeric calculations
-          // console.log('number for calculations: ', calc_num);
-    //      let n = new Intl.NumberFormat('en-EN').format(v);
-    //      n = dec !== undefined ? n + "." + dec : n;
-    //      $(this).val(n);
-    //    })
-    //  })
+      // use this for numeric calculations
+      // console.log('number for calculations: ', calc_num);
+      //      let n = new Intl.NumberFormat('en-EN').format(v);
+      //      n = dec !== undefined ? n + "." + dec : n;
+      //      $(this).val(n);
+      //    })
+      //  })
     </script>
     <script>
       $(document).ready(function() {
         $('#amortTable').click(function() {
-          var i = $('#numOfRows').val();
-          var s2 = "<table><th>Item No.</th><th>Description</th><th>Price</th>"
-          for (var j = 0; j < i; j++) {
-            s2 += "<tr><td>" + (j + 1) + "</td><td><input type='text' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
-          }
-          s2 += "<tr><td></td><td><input type='text' id='estimated_budget' readonly='readonly' style='background-color:#C0C0C0' /></td></tr></table>";
-          $('#amortizationTable').html(s2);
+
+          $.ajax({
+            url: "include/officer-fetch-budget-codes.php",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+              var options = "";
+              data.forEach(e => {
+                options = options + `<option value="${e["code"]}">${e["description"]}</option>`;
+              });
+
+              var i = $('#numOfRows').val();
+              var s2 = "<table class='table-stripe'><th>Item No.</th><th>Budget Description</th><th>Cost</th>"
+              for (var j = 0; j < i; j++) {
+                s2 += "<tr><td>" + (j + 1) + "</td><td><select class='form-control-sm'width='20%' id='budgetdesc-" + (j + 1) + "' name='budgetdesc-" + (j + 1) + "'>" + options + "</select></td><td><input type='text'  maxlength='5' onkeypress=\"return /[0-9]/i.test(event.key)\" class='payment' id='payment-" + (j + 1) + "' name='payment-" + (j + 1) + "'/></td></tr>";
+              }
+              s2 += "</table>";
+              $('#amortizationTable').html(s2);
+            }
+          });
         });
 
         $("#amortizationTable").on("change", ".payment", function() { // <-- Only changed this line
@@ -449,10 +515,13 @@ $nav_breadcrumbs = [
       });
     </script>
     <script>
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-}
-</script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+    <?php
+    include('include/sweetalert.php');
+    ?>
 </body>
 
 </html>

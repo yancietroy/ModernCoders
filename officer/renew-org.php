@@ -22,6 +22,12 @@ if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
+$currentMonth=date("m");
+if($currentMonth >="08"){
+  $currentSy = date("Y") .'-'. (date("Y")+1);
+} elseif($currentMonth < "08"){
+  $currentSy = (date("Y")-1) .'-'. date("Y");
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +49,7 @@ if (isset($_SESSION['msg'])) {
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -88,7 +95,7 @@ if (isset($_SESSION['msg'])) {
 
                     <div class="col-12 col-md-6  mb-4">
                       <label class="form-label" id="asterisk">School Year</label>
-                    <input type="text" name="schoolyear" id="schoolyear" placeholder="####-####" class="form-control"  required="" />
+                    <input type="text" name="school_year" id="schoolYear" placeholder="####-####" class="form-control"  required="" />
                   </div>
                   <div class="row justify-content-between">
                     <div class="col-12 col-md-12 col-sm-3 mb-4">
@@ -134,6 +141,7 @@ if (isset($_SESSION['msg'])) {
                         5. Recommendation of Advisers (maximum of three);<br>
                           a. Academic Organizations cleared by the Department Chair and approved by the Dean of the College<br>
                           b. Non-Academic Organization and approved by Director of Student Development Office.<br>
+                          <em>Maximum upload size of 3mb</em>
                       </small>
                     </div>
                   </div>
@@ -143,63 +151,54 @@ if (isset($_SESSION['msg'])) {
                   </div>
 
                   <?php
-                  if (isset($ot) || isset($ci) || isset($org) || isset($pname) || isset($tname) || isset($destination) || isset($duplicate) || isset($mDuplicate) || isset($_POST['submit'])) {
-                    $ot =  $mysqli -> real_escape_string ($_POST['org_type']);
-                    $ci = $_POST['college_id'];
-                    $org =  $mysqli -> real_escape_string ($_POST['orgname']) . ' (' .  $mysqli -> real_escape_string ($_POST['abbrev']) . ')';
-
-                    $pname = rand(1000, 100000) . "-" . $_FILES['orgpic']['name'];
-                    $destination = '../assets/img/logos/' . $pname;
-                    $tname = $_FILES['orgpic']['tmp_name'];
-                    move_uploaded_file($tname, $destination);
-
-                    /*$duplicate=mysqli_query($conn,"SELECT * FROM tb_orgs WHERE ORG='$org'");
-                                    $mDuplicate=mysqli_query($conn,"SELECT * FROM tb_morg WHERE MOTHER_ORG='$org'");
+                  if (isset($ot) || isset($sy) || isset($org) || isset($destination) || isset($_POST['submit'])) {
+                    $st = "Pending";
+                    $state = "Renewal";
+                    $org =  $mysqli -> real_escape_string ($_POST['orgname']);
+                    $duplicate=mysqli_query($conn,"SELECT * FROM tb_org_application WHERE org_name='$org' AND status = '$st'");
                                     if (mysqli_num_rows($duplicate)>0)
                                     {
-                                      echo "<script type='text/javascript'>
-                                            alert('Organization already exists!')
-                                            window.location.href='admin-orgs-reg.php'
-                                            </script>";
-                                    }else if (mysqli_num_rows($mduplicate)>0)
-                                    {
-                                      echo "<script type='text/javascript'>
-                                            alert('Organization already exists!')
-                                            window.location.href='admin-orgs-reg.php'
-                                            </script>";
+                                      $_SESSION["sweetalert"] = [
+                                          "title" => "Fail Request",
+                                          "text" => "Organization already Requested!",
+                                          "icon" => "error", //success,warning,error,info
+                                          "redirect" => null,
+                                      ];
                                     }
-                                    else{*/
+                                    else{
+                    $ot =  $mysqli -> real_escape_string ($_POST['org_type']);
+                    $sy = $_POST['schoolyear'];
+
+                    $pname = rand(1000, 100000) . "-" . $_FILES['reqfiles']['name'];
+                    $destination = '../admin/attachments/' . $pname;
+                    $tname = $_FILES['reqfiles']['tmp_name'];
+                    $rq = $_SESSION['USER-NAME'];
+                    move_uploaded_file($tname, $destination);
                     try {
                       $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                       if ($ot == "Non-Academic") {
                         $otid = 2;
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', NULLIF('$ci', ''), '$otid')";
+                        $st = "Pending";
+                        $sql = "INSERT INTO tb_org_application(org_name, org_type, state, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$state', '$sy', '$pname', '$st', '$rq', NOW())";
                         $conn->exec($sql);
-                        echo "<script type='text/javascript'>
-                                        Swal.fire({
-                                             icon: 'success',
-                                             title: 'Organization Created',
-                                             confirmButtonColor: '#F2AC1B'
-
-                                         }).then(function() {
-                                              window.location = 'admin-orgs-reg.php';
-                                          });
-                                          </script>";
+                        $_SESSION["sweetalert"] = [
+                          "title" => "Organization Requested",
+                          "text" => "Successfully requested Renewal of Organization",
+                          "icon" => "success", //success,warning,error,info
+                          "redirect" => null,
+                        ];
                       } else {
                         $otid = 1;
-                        $sql = "INSERT INTO tb_orgs(ORG, logo, college_id, org_type_id) VALUES('$org', '$pname', '$ci', '$otid')";
+                        $st = "Pending";
+                        $sql = "INSERT INTO tb_org_application(org_name, org_type, state, school_year, requirements, status, requested_by, date_requested) VALUES('$org', '$otid', '$state', '$sy', '$pname', '$st', '$rq', NOW())";
                         $conn->exec($sql);
-                        echo "<script type='text/javascript'>
-                                        Swal.fire({
-                                             icon: 'success',
-                                             title: 'Organization Created',
-                                             confirmButtonColor: '#F2AC1B'
-
-                                         }).then(function() {
-                                              window.location = 'admin-orgs-reg.php';
-                                          });
-                                          </script>";
+                        $_SESSION["sweetalert"] = [
+                          "title" => "Organization Requested",
+                          "text" => "Successfully requested Renewal of Organization",
+                          "icon" => "success", //success,warning,error,info
+                          "redirect" => null,
+                        ];
                       }
                     } catch (PDOException $e) {
                       echo $sql . "
@@ -208,6 +207,7 @@ if (isset($_SESSION['msg'])) {
                     $conn = null;
                     //}
                   }
+                }
                   ?>
                 </form>
               </div>
@@ -292,8 +292,12 @@ if (isset($_SESSION['msg'])) {
     <!--password validation!-->
     <script src="../assets/js/pass-validation.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.6/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+    <script src="../assets/js/inputmask-validation.js"></script>
+
     <!-- age validation !-->
     <script src="../assets/js/age-validation.js"></script>
+    <?php include("include/sweetalert.php") ?>
 
     </body>
 

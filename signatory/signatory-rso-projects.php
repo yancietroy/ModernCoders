@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -96,7 +96,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter primary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Pending') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -114,7 +115,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter success">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND ORG_ID = '$orgid'";
+              <h3><?php
+                    $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Approved') AND approval_id = 5 AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -132,7 +134,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter danger">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Rejected') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -150,7 +153,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-secondary">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Reschedule') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -170,7 +174,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter bg-info">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Ongoing') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -187,7 +192,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6">
           <div class="card-counter done">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('Done') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {
@@ -206,7 +212,8 @@ if (isset($_SESSION['msg'])) {
         <div class="col-lg-3 col-sm-6 ">
           <div class="card-counter events">
             <div class="inner">
-              <h3><?php $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND ORG_ID = '$orgid'";
+              <h3><?php
+                  $query = "SELECT COUNT(status) FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
                   $result = @mysqli_query($conn, $query);
                   $row = mysqli_fetch_array($result);
                   if ($row) {

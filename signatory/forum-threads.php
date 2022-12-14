@@ -9,6 +9,8 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
+
 $data_userid = $_SESSION['USER-ID'];
 $data_name = $_SESSION['USER-NAME'];
 $data_signatorytype = $_SESSION['SIGNATORY-TYPE'];
@@ -16,29 +18,30 @@ $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
-    if ($orgRes->num_rows > 0) {
-        $row = $orgRes->fetch_assoc();
-        $orgName = $row['ORG'];
-    }
+  if ($orgRes->num_rows > 0) {
+    $row = $orgRes->fetch_assoc();
+    $orgName = $row['ORG'];
+
+  }
 }
 
 $collName = "";
 $_SESSION['college'] = $collName;
 $query = "SELECT college FROM tb_collegedept WHERE college_id='$data_collegeid'";
 if ($collRes = @mysqli_query($conn, $query)) {
-    if ($collRes->num_rows > 0) {
-        $row = $collRes->fetch_assoc();
-        $collName = $row['college'];
-    }
+  if ($collRes->num_rows > 0) {
+    $row = $collRes->fetch_assoc();
+    $collName = $row['college'];
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Discussion Forum";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
-    ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Discussion Forum", "forum-user.php", ""],
-    ["Threads", "", ""],
+  ["Home", "signatory-index.php", "bi-house-fill"],
+  ["Discussion Forum", "forum-user.php?id=$orgid", ""],
+  ["Threads", "", ""],
 ];
 
 $topicid = $_GET['topic'] ?? 0;
@@ -209,7 +212,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                         <td style="min-width: 400px; max-width: 400px;">
                                                             <div class="row">
                                                                 <div class="col-md-9  col-12 mt-2" style="overflow: hidden; text-overflow: ellipsis;">
-                                                                    <a href="forum-view.php?topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                    <a href="forum-view.php?topic=<?= $topicid ?>&thread=<?= $thread['thread_id'] ?>&id=<?= $orgid ?>" class="forum-item-title" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                                         <?= $thread['title'] ?>
                                                                     </a>
                                                                 </div>
@@ -218,6 +221,7 @@ $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                                                         <?php
                                                                         if ($thread['locked'] == 0) {
                                                                         ?>
+
                                                                             <a href="#" onclick="lockThread(<?= $thread['thread_id'] ?>)" class="text-primary mr-2" style="font-size: 10px;"><u>Lock</u></a>
                                                                         <?php
                                                                         } else {

@@ -86,7 +86,7 @@ if (isset($_SESSION['msg'])) {
 							<table id='elections-table' class='py-3 display nowrap w-100 ms-0 stud'>
 								<thead>
 									<tr>
-										<th class="desktop">Election Name</th>
+											<th class="desktop">Election ID</th><th class="desktop">Election Name</th>
 										<th class="desktop">Status</th>
 										<th class="desktop">Start Date</th>
 										<th class="desktop">End Date</th>
@@ -102,6 +102,7 @@ if (isset($_SESSION['msg'])) {
 										while ($row = $res->fetch_assoc()) {
 									?>
 											<tr>
+												<td><?= $row['ELECTION_ID'] ?></td>
 												<td><?= $row['TITLE'] ?></td>
 												<td>
 													<?php
@@ -212,6 +213,14 @@ if (isset($_SESSION['msg'])) {
 	<script>
 		$(document).ready(function() {
 			$('#elections-table').DataTable({
+				"createdRow": function(row, data, dataIndex) {
+          if (data[2] == "Ongoing") {
+            $('td', row).eq(2).css('color', 'orange');
+          }
+          if (data[2] == "Completed") {
+            $('td', row).eq(2).css('color', 'green');
+          }
+        },
 				responsive: true,
 				keys: true,
 				fixedheader: true,
@@ -234,6 +243,9 @@ if (isset($_SESSION['msg'])) {
 						"width": "60px"
 					},
 					{
+						"width": "60px"
+					},
+					{
 						"width": "300px"
 					}
 				],
@@ -241,11 +253,11 @@ if (isset($_SESSION['msg'])) {
 				buttons: [
 					'pageLength',
 					{
-						extend: 'excelHtml5',
-						title: 'JRU Organizations Portal -  Student Masterlist',
+						extend: 'csvHtml5',
+						title: 'JRU Organizations Portal -  Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 5]
+							columns: [0, 1, 2, 3, 4]
 						},
 					},
 					//{
@@ -264,7 +276,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal - Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 5]
+							columns: [0, 1, 2, 3, 4]
 						},
 						orientation: 'landscape',
 						pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
@@ -274,7 +286,7 @@ if (isset($_SESSION['msg'])) {
 						title: 'JRU Organizations Portal -  Elections Masterlist',
 						footer: true,
 						exportOptions: {
-							columns: [0, 1, 2, 3, 5]
+							columns: [0, 1, 2, 3, 4]
 						},
 						customize: function(win) {
 

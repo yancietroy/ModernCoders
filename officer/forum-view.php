@@ -30,7 +30,7 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Discussion Board", "forum-user.php", ""],
+    ["Discussion Board", "forum-user.php", "bi bi-inbox-fill"],
     ["Threads", "forum-threads.php?topic=$topicid", ""],
     ["Post", "", ""],
 ];
@@ -202,35 +202,35 @@ if (isset($_POST['post-reply'])) {
                         <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
                             <div class="row">
-                                <div class="col-12 col-md-2 mb-4 text-center">
-                                    <h6 class="mt-3"><?= $makerName ?></h6>
-                                    <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
-                                    <div style="overflow: hidden; text-overflow: ellipsis;">
-                                        <h6 class="mt-3" style="color:#F2AC1B; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
-                                    </div>
-                                    <?php
-                                    if ($threadUserType == 0) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
-                                    <?php
-                                    } else if ($threadUserType == 3) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">SIGNATORY</h6>
-                                    <?php
-                                    } else if ($threadUserType == 2) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">OFFICER</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    } else if ($threadUserType == 1) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">STUDENT</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    }
-                                    ?>
-                                    <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
-                                </div>
+                            <div class="col-12 col-md-2 mb-4 text-center">
+                  <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
+                  <h6 class="mt-3"><?= $makerName ?></h6>
+                  <div style="overflow: hidden; text-overflow: ellipsis;">
+                    <h6 class="mt-1" style="color:#F2AC1B; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
+                  </div>
+                  <?php
+                  if ($threadUserType == 0) {
+                  ?>
+                    <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
+                  <?php
+                  } else if ($threadUserType == 3) {
+                  ?>
+                    <h6 style="font-size: 13px;">SIGNATORY</h6>
+                  <?php
+                  } else if ($threadUserType == 2) {
+                  ?>
+                    <h6 style="font-size: 13px;">OFFICER</h6>
+                    <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                  <?php
+                  } else if ($threadUserType == 1) {
+                  ?>
+                    <h6 style="font-size: 13px;">STUDENT</h6>
+                    <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                  <?php
+                  }
+                  ?>
+                  <h6 class="mt-3 text-secondary" style="font-size: 10px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
+                </div>
                                 <div class="col-12 col-md-10 border p-3">
                                     <div style="overflow: hidden; text-overflow: ellipsis;">
                                         <h3 class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $threadTitle ?></h2>

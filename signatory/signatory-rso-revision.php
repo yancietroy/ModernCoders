@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -40,7 +40,7 @@ $nav_breadcrumbs = [
   ["Organizations", "", "bi bi-diagram-3-fill"],
   ["$orgName", "signatory-orgs-rso.php?id=$orgid", ""],
   ["Projects", "signatory-rso-projects.php?id=$orgid", ""],
-  ["For Revision", "", ""],
+  ["For Revision", "", "bi bi-pencil-square"],
 ];
 
 if (isset($_SESSION['msg'])) {
@@ -95,9 +95,9 @@ if (isset($_SESSION['msg'])) {
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-2 pb-4">
           <div class="row g-0 mt-4 justify-content-center">
-            <div class="table-responsive ms-0">
+            <div class="table-responsive-md ms-0">
               <?php
-              $query = "SELECT * FROM tb_projectmonitoring WHERE status  IN('For Revision') AND ORG_ID = '$orgid'";
+              $query = "SELECT * FROM tb_projectmonitoring WHERE status IN('For Revision') AND org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $ds = " ";
@@ -129,7 +129,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -143,7 +143,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -183,8 +183,10 @@ if (isset($_SESSION['msg'])) {
                               <td> $s  </td>
                               <td> $ds </td>
                               <td>
-                                <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
-                              </td>
+                                <button type='button' title='project details' class='btn btn-success btn-sm editbtn' id='" . $pi . "'> <i class='bi bi-list-ul'></i> </button>  
+                                <button type='button' title='audit trail' class='btn btn-warning btn-sm text-white logbtn' id='" . $pi . "'> <i class='bi bi-clock-history'></i> </button>
+                                <button type='button' class='btn btn-primary btn-sm deletebtn'>  <i class='bi bi-download'></i> </button>
+                                </td>
                               <td> $std  </td>
                               <td> $obj  </td>
                               <td> $pc  </td>
@@ -208,7 +210,7 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                             <th class='desktop'>Project ID</th>
                             <th class='desktop'>Project Name</th>
-                            <th class='desktop'>Venue</th>
+                             <th class='none'>Venue</th>
                             <th class='desktop'>Status</th>
                             <th class='desktop'>Date Submitted</th>
                             <th class='desktop'>Actions</th>
@@ -222,7 +224,7 @@ if (isset($_SESSION['msg'])) {
                             <th class='none'>Organizer</th>
                             <th class='none'>Requested By</th>
                             <th class='none'>Budget Request</th>
-                            <th class='none'>Organization</th>
+                            <th class='none'>Organization: </th>
                             <th class='none'>Position</th>
                             <th class='none'>Estimated Budget</th>
                             <th class='none'>Attachment</th>
@@ -249,6 +251,7 @@ if (isset($_SESSION['msg'])) {
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modal-lg" role="document">
       <div class="modal-content">
@@ -262,12 +265,12 @@ if (isset($_SESSION['msg'])) {
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 mb-4">
+                <div class="col-4 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_id">Project ID:</label>
                     <input type="text" name="project_id" id="project_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
-                </div>
+               </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="date_submitted">Date Submitted:</label>
@@ -276,7 +279,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="status_date">Date for revision:</label>
+                    <label class="form-label" for="status_date">Date For Revision:</label>
                     <input type="text" name="status_date" id="status_date" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -288,7 +291,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="project_name" id="project_name" class="form-control form-control-lg" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="organizer" id="asterisk">Organizer:</label>
                     <input type="text" name="organizer" id="organizer" class="form-control" style="background-color: #fff;" readonly />
@@ -296,17 +299,23 @@ if (isset($_SESSION['msg'])) {
                     <div class="invalid-feedback">Project name field cannot be blank!</div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="venue">Venue:</label>
                     <input type="text" name="venue" id="venue" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="venue">Project Status:</label>
+                    <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
-                  <label class="form-label" for="status">Project Status:</label>
-                  <input type="text" name="status" id="status" class="form-control" style="background-color: #fff;" readonly />
+                  <label class="form-label" for="status">Project status updated by:</label>
+                  <input type="text" name="status" id="status_by" class="form-control" style="background-color: #fff;" readonly />
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-2">
                   <label class="form-label" for="project_type">Project Type:</label>
@@ -338,51 +347,12 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="participants" id="participants" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <!--<div class="col-12 col-md-6 col-sm-3 mb-4">
-                               <div class="form-outline d-grid">
-                                 <label class="form-label">Download Attachment/s:</label>
-                               <button type="button" class="btn btn-secondary btn-md">Download</button>
-                               </div>
-                             </div>
-
-                             <div class="col-12 col-md-4 col-sm-3 mb-2">
-                               <label class="form-label" for="budget_source" >Budget Source:</label>
-                               <input type="text" name="budget_source" id="budget_source" class="form-control form-control-lg" style="background-color: #fff;" readonly />
-                             </div>
-                             <div class="col-12 col-md-6 col-sm-3 mb-4">
-                               <div class="form-outline">
-                                 <label class="form-label" for="beneficiary">Beneficiary:</label>
-                                 <input type="text" name="beneficiary" id="beneficiary" class="form-control form-control-md" style="background-color: #fff;" readonly/>
-                               </div>
-                             </div>
-                           </div>
-                           <div class="row">
-                             <div class="col-12 col-md-3 col-sm-3 mb-4">
-                               <div class="form-outline">
-                                 <label class="form-label" for="no_of_participants" >No. of Participants:</label>
-                                 <input type="text" name="no_of_participants" maxlength="4" id="no_of_participants" class="form-control" style="background-color: #fff;" readonly />
-                               </div>
-                               </div>
-                               <div class="col-12 col-md-3 col-sm-3 mb-4">
-                                 <div class="form-outline">
-                                   <label class="form-label" for="no_of_beneficiary">No. of Beneficiary:</label>
-                                   <input type="text" name="no_of_beneficiary" maxlength="4" id="no_of_beneficiary" class="form-control" style="background-color: #fff;" readonly/>
-                                 </div>
-                               </div>
-
-                               <div class="col-12 col-md-3 col-sm-3 mb-4">
-                                 <div class="form-outline">
-                                   <label class="form-label" for="estimated_budget" >Estimated Budget:</label>
-                                 <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control currency" style="background-color: #fff;" readonly />
-                                 </div>
-                               </div>-->
-
               </div>
               <div class="row">
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="org_id">Name of Organization:</label>
-                    <input type="text" name="org_id" id="org_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
+                    <label class="form-label" for="ORG">Name of Organization:</label>
+                    <input type="text" name="ORG" id="ORG" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
@@ -394,17 +364,6 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 col-sm-3 mb-4">
                   <div class="form-outline d-grid">
                     <label class="form-label" for="position_id">Position:</label>
-                    <!--<select class="form-select" name="position_id" id="position_id" style="background-color: #fff;" readonly>
-                                 <1? php
-                                  /**
-                                   $query = "SELECT position_id, position FROM tb_position";
-                                   $result = @mysqli_query($conn, $query);
-                                           while($data = @mysqli_fetch_array($result)) {
-                                               echo '<option value="'.$data[0].'">'.$data[1].'</option>';
-                                           }
-                                   **/
-                                  ?>-->
-                    </select>
                     <input type="text" name="position_id" id="position_id" class="form-control form-control-md" style="background-color: #fff;" readonly />
                   </div>
                 </div>
@@ -416,16 +375,16 @@ if (isset($_SESSION['msg'])) {
                     <textarea class="form-control" name="objectives" id="objectives" rows="3" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="col-12 col-md-12 col-sm-3 mb-4">
-                  <div class="form-outline projectdesc">
+                <div class="col-12 col-md-12 col-sm-3 ">
+                  <div class="form-outline ">
                     <label class="form-label" for="budget_req" id="asterisk">Budget Request:</label>
                     <?php
                     if ($result->num_rows > 0) {
                     ?>
                       <table class="table" id="budget-request">
                         <thead>
-                          <th>Item</th>
-                          <th>Budget</th>
+                          <th>Budget Description</th>
+                          <th class="text-end">Cost</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -435,17 +394,50 @@ if (isset($_SESSION['msg'])) {
                     ?>
                   </div>
                 </div>
+                <div class="col-12 col-md-12 col-sm-3 mb-4 mt-0">
+                  <div class="form-outline projectdesc">
+                    <label class="form-label" for="estimated_budget">Estimated Budget:</label>
+                    <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping">₱</span>
+                      <input type="text" maxlength="6" name="estimated_budget" id="estimated_budget" class="form-control" style="background-color: #fff;" readonly />
+                    </div>
+                  </div>
+                </div>
                 <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="project_remarks">Remarks:</label>
                     <textarea class="form-control" name="project_remarks" id="project_remarks" rows="6" style="background-color: #fff;" readonly></textarea>
                   </div>
                 </div>
-                <div class="modal-footer px-0 py-0 pt-2">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <!--  <button type="submit" name="updatedata" class="btn btn-primary">Update Project</button>!-->
-                </div>
+              </div>
+              <input type="hidden" name="college_id" id="college_id">
+              <input type="hidden" name="org_id" id="org_id">
+            </div>
+          </div>
+          <div class="modal-footer px-2 py-2 pt-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="logmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Audit Trail: </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-0 mt-4 justify-content-center">
+            <div id="log-content" class="table-responsive ms-0">
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -455,6 +447,122 @@ if (isset($_SESSION['msg'])) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 
   <script>
+    var observer = window.ResizeObserver ? new ResizeObserver(function(entries) {
+      entries.forEach(function(entry) {
+        $(entry.target).DataTable().columns.adjust();
+      });
+    }) : null;
+
+    // Function to add a datatable to the ResizeObserver entries array
+    resizeHandler = function($table) {
+      if (observer)
+        observer.observe($table[0]);
+    };
+
+    $(document).on('click', '.logbtn', function() {
+      var project_id = $(this).attr("id");
+      var myTable;
+
+      $.ajax({
+        url: "include/signatory-fetch-project-logs.php",
+        method: "POST",
+        data: {
+          project_id: project_id
+        },
+        dataType: "json",
+        success: function(data) {
+
+          var content = "";
+          data.forEach(e => {
+            var a = new Date(e['id'] * 1000).toLocaleString('default', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            });;
+            content = `
+              ${content}
+              <tr>
+                <td>${a}</td>
+                <td>${e['message']}</td>
+                <td>${e['user_name']}</td>
+              </tr>
+            `;
+          });
+
+          var output = `
+              <table id="logTable" class="display nowrap" style="width:100%">
+                <thead>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </thead>
+                <tbody>
+                  ${content}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th class='desktop'>Date</th>
+                  <th class='desktop'>Message</th>
+                  <th class='desktop'>By</th>
+                </tr>
+                </tfoot>
+              </table>
+          `;
+
+          $('#log-content').html(output);
+
+          myTable = $('#logTable').DataTable({
+            paging: true,
+            searching: false,
+            responsive: true,
+            ordering: false,
+            scrollX: true,
+            keys: true,
+            fixedheader: true,
+            "bFilter": true,
+            dom: 'Bfrtip',
+            select: 'single',
+            buttons: [
+              'pageLength',
+              {
+                extend: 'excelHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+              },
+              {
+                extend: 'pdfHtml5',
+                title: 'JRU Organizations Portal -   Audit Trail',
+                footer: true,
+                exportOptions: {
+                columns: [0, 1, 2]
+                },
+                orientation: 'landscape',
+                pageSize: 'LEGAL', // You can also use "A1","A2" or "A3", most of the time "A3" works the best.
+              },
+            ],
+            /*initComplete: function(settings, json) {
+              table = settings.oInstance.api();
+              setTimeout(function() {
+                table.columns.adjust();
+              }, 500);
+            }*/
+          });
+
+          // Initiate additional resize handling on datatable
+          resizeHandler($('#logTable'));
+
+          $('#logmodal').modal('show');
+          myTable.columns.adjust().draw();
+        }
+      });
+
+    });
+
     $(document).on('click', '.editbtn', function() {
       var project_id = $(this).attr("id");
       $.ajax({
@@ -471,6 +579,7 @@ if (isset($_SESSION['msg'])) {
           $('#organizer').val(data.organizer);
           $('#venue').val(data.venue);
           $('#status').val(data.status);
+          $('#status_by').val(data.status_by);
           $('#date_submitted').val(data.date_submitted);
           $('#status_date').val(data.status_date);
           $('#start_date').val(data.start_date);
@@ -478,7 +587,9 @@ if (isset($_SESSION['msg'])) {
           $('#project_type').val(data.project_type);
           $('#project_category').val(data.project_category);
           $('#participants').val(data.participants);
-          $('#org_id').val(data.ORG);
+          $('#ORG').val(data.ORG);
+          $('#college_id').val(data.college_id);
+          $('#org_id').val(data.org_id);
           $('#requested_by').val(data.requested_by);
           $('#position_id').val(data.position);
           $('#attachments').val(data.attachments);
@@ -504,9 +615,8 @@ if (isset($_SESSION['msg'])) {
 
             var output = `
               <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}"></td>
-                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="${data[1]}" style="background-color: #fff;" readonly></td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -520,8 +630,6 @@ if (isset($_SESSION['msg'])) {
       });
     });
   </script>
-
-
   <!-- jQuery CDN - Slim version (=without AJAX) -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -542,7 +650,7 @@ if (isset($_SESSION['msg'])) {
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.4/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.7/sb-1.3.4/sp-2.0.2/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
   <!-- Datepicker cdn  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
+ <!-- <script>
     $(document).ready(function() {
       $('#start_date').datetimepicker({
         changeMonth: true,
@@ -583,9 +691,8 @@ if (isset($_SESSION['msg'])) {
             });
             var output = `
               <tr id="budget-${bcount}">
-                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}">${options}</select></td>
-                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0"></td>
-                <td class="align-middle"><a class="text-danger" href="#" onclick="deleteBudget('${bcount}')"><u>Delete</u></a>
+                <td><select class="form-select" name="budgetdesc-${bcount}" id="budgetdesc-${bcount}" style="background-color: #fff;" readonly>${options}</select></td>
+                <td><input type="text" name="payment-${bcount}" id="payment-${bcount}" class="form-control payment" value="0" style="background-color: #fff;" readonly></td>
               </tr>
             `;
             $("#budget-request > tbody").append(output);
@@ -598,7 +705,7 @@ if (isset($_SESSION['msg'])) {
     function deleteBudget(id) {
       $("#budget-" + id).remove();
     }
-  </script>
+  </script>-->
   <!-- Datatable bs5
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>

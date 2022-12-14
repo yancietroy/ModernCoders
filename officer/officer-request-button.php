@@ -13,7 +13,7 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
-		    $query = "UPDATE tb_students SET `ORG_IDS` = '$sorg_id' WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+		    $query = "UPDATE tb_students SET `ORG_IDS` = CONCAT(ORG_IDS,'$sorg_id') WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
 		    $result = @mysqli_query($conn, $query);
 		    if($result){
 			$_SESSION["sweetalert"] = [
@@ -39,7 +39,7 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
- 			$query = "UPDATE tb_students SET `ORG_IDS` = NULL WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+ 			$query = "UPDATE tb_students SET `ORG_IDS` = REPLACE(ORG_IDS, '$sorg_id', '') WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
 		    $result = @mysqli_query($conn, $query);
  			if($result){
 			$_SESSION["sweetalert"] = [
@@ -65,7 +65,7 @@ include('../mysql_connect.php');
  		$result = @mysqli_query($conn, $query);
  		if($result)
  		{
- 			$query = "UPDATE tb_students SET `ORG_IDS` = NULL WHERE STUDENT_ID = '".$_POST["student_id"]."'"; 
+ 			$query = "UPDATE tb_students SET `ORG_IDS` = REPLACE(ORG_IDS, '$sorg_id', '') WHERE STUDENT_ID = '".$_POST["student_id"]."'";
 		    $result = @mysqli_query($conn, $query);
  			if($result){
 			$_SESSION["sweetalert"] = [

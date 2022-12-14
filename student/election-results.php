@@ -20,10 +20,10 @@ $data_picture = getProfilePicture(1, $data_userid);
 $nav_selected = "Organizations / $orgName";
 $nav_breadcrumbs = [
     ["Home", "student-index.php", "bi-house-fill"],
-    ["Organizations", "student-orgs.php", ""],
+    ["Organizations", "student-orgs.php", "bi bi-people-fill"],
     ["$orgName", "rso.php?id=$orgid", ""],
-    ["Election", "election-student-index.php?id=$orgid", ""],
-    ["Election Results", "", ""],
+    ["Election", "election-student-index.php?id=$orgid", "bi bi-check2-square"],
+    ["Election Results", "", "bi bi-play-circle-fill"],
 ];
 
 if (isset($_SESSION['msg'])) {

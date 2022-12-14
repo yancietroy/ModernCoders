@@ -168,13 +168,13 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
+                               <th class='desktop'>Middle Name</th>
                                 <th class='desktop'>Last name</th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
+                                <th class='none'>Course: </th>
+                                <th class='none'>Email: </th>
                                 <th class='none'>Birthdate</th>
                                 <th class='none'>Year Level</th>
                                 <th class='none'>Section</th>
@@ -574,7 +574,7 @@ if (isset($_SESSION['msg'])) {
           'pageLength',
           {
             extend: 'excelHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
@@ -593,7 +593,7 @@ if (isset($_SESSION['msg'])) {
           //    } ,
           {
             extend: 'pdfHtml5',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
@@ -603,7 +603,7 @@ if (isset($_SESSION['msg'])) {
           },
           {
             extend: 'print',
-            title: 'JRU Computer Society Members Masterlist',
+            title: 'JRU Student Organizations - Members Masterlist',
             footer: true,
             exportOptions: {
               columns: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]

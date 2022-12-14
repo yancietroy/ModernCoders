@@ -117,8 +117,6 @@ $nav_breadcrumbs = [
               </select>
               <div class="valid-feedback"> </div>
             </div>
-
-
             <div class="row">
               <div class="col-12 col-md-12 col-sm-3 mb-4">
                 <div class="form-outline">
@@ -198,7 +196,6 @@ $nav_breadcrumbs = [
                 </div>
               </div>
             </div>
-
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <input class="btn btn-lg btn-outline-info" type="reset" value="Reset">
               <input class="btn btn-primary btn-lg" name="submit" type="submit" value="Submit">
@@ -250,7 +247,6 @@ $nav_breadcrumbs = [
                                 confirmButtonColor: '#F2AC1B'
                            })
                             </script>";
-
           @mysqli_close($conn);
         }
         ?>
@@ -286,11 +282,11 @@ $nav_breadcrumbs = [
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       function deleteMember(id) {
-        $('#mem-' + id).remove();
+        $('#label-mem-' + id).remove();
       }
 
       function selectMember(id, name, section) {
-        if ($('#mem-' + id).length > 0) return;
+        if ($('#label-mem-' + id).length > 0) return;
 
         delBtn = '<a class="align-middle text-white btn btn-danger" onclick="deleteMember(\'' + id + '\')"><i class="bi bi-trash-fill"></i> <span id="btntitle">Delete Member </span></a>';
         output = '<tr id="label-mem-' + id + '"><td style="display:none;"><input type="text" name="mem-' + id + '"></td><td class="align-middle">' + name + '</td>\n<td>' + section + '</td>\n<td>' + delBtn + '</td>\n</tr>';

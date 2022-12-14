@@ -114,13 +114,13 @@ if (isset($_SESSION['msg'])) {
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
+                               <th class='desktop'>Middle Name</th>
                                 <th class='desktop'>Last name</th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
+                                <th class='none'>Course: </th>
+                                <th class='none'>Email: </th>
                                 <th class='none'>Birthdate</th>
                                 <th class='none'>Year Level</th>
                                 <th class='none'>Section</th>
@@ -206,17 +206,17 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-users.php" method="POST">
+        <form action="" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="STUDENT_ID">Student ID:</label>
                     <input type="text" name="STUDENT_ID" id="STUDENT_ID" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ACCOUNT_CREATED">Account Created:</label>
                     <input type="text" name="ACCOUNT_CREATED" id="ACCOUNT_CREATED" class="form-control" style="background-color: #fff;" readonly />
@@ -242,19 +242,19 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none d-none">
                   <div class="form-outline">
                     <label class="form-label" for="BIRTHDATE">Birthdate:</label>
                     <input id="BIRTHDATE" class="form-control form-control-lg birthdate" data-relmax="-18" min="1922-01-01" type="date" name="BIRTHDATE" onblur="getAge();" title="You should be over 18 years old" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-2 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="AGE">Age:</label>
                     <input type="number" class="form-control age" name="AGE" id="AGE" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="display:none;" readonly />
                   </div>
                 </div>
-                <div class="col-6 col-md-4 mb-4 ">
+                <div class="col-6 col-md-4 mb-4 d-none ">
                   <label class="form-label" for="GENDER">Gender </label>
                   <select class="form-select" name="GENDER" id="GENDER"readonly>
                     <option value="Female">Female</option>
@@ -286,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="COLLEGE_DEPT">College:</label>
                     <select class="form-select" name="COLLEGE_DEPT" id="COLLEGE_DEPT"readonly>
@@ -300,7 +300,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-12 mb-4">
                   <div class="form-outline">
                     <label class="form-label select-label" for="COURSE">Course:</label>
                     <select class="form-select" style="width:100%;" name="COURSE" id="COURSE"readonly>
@@ -314,7 +314,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="MORG_ID">Academic Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID"readonly>
@@ -330,7 +330,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none d-none">
                   <div class="form-outline">
                     <label class="form-label" for="USER_TYPE">User Type:</label>
                     <select class="form-select" name="USER_TYPE" id="USER_TYPE"readonly>
@@ -344,13 +344,13 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none d-none">
                   <div class="form-outline">
                     <label class="form-label" for="USER_TYPE">Password:</label>
                     <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" readonly />
                   </div>
                 </div>
-                 <div class="col-12 col-md-4 mb-4">
+                 <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>
                     <select class="form-select" name="position_id" id="position_id"readonly>
@@ -366,6 +366,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
             </div>
+            <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="BIO">Member Information:</label>
+                    <textarea class="form-control" name="BIO" id="BIO" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
@@ -406,6 +414,7 @@ if (isset($_SESSION['msg'])) {
           $('#USER_TYPE').val(data.USER_TYPE);
           $('#PASSWORD').val(data.PASSWORD);
           $('#PROFILE_PIC').val(data.PROFILE_PIC);
+          $('#BIO').val(data.BIO);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

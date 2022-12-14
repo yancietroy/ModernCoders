@@ -9,6 +9,7 @@ route(3);
 include('../mysql_connect.php');
 include('include/get-userdata.php');
 
+$orgid = $_GET['id'] ?? -1;
 
 $page_no = $_GET['page'] ?? 1;
 
@@ -29,7 +30,7 @@ $data_orgid = $_SESSION['USER-ORG'];
 $data_collegeid = $_SESSION['USER-COLLEGE'];
 $orgName = "";
 $_SESSION['ORG'] = $orgName;
-$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$data_orgid'";
+$query = "SELECT ORG FROM tb_orgs WHERE ORG_ID='$orgid'";
 if ($orgRes = @mysqli_query($conn, $query)) {
     if ($orgRes->num_rows > 0) {
         $row = $orgRes->fetch_assoc();
@@ -47,11 +48,11 @@ if ($collRes = @mysqli_query($conn, $query)) {
     }
 }
 $data_picture = getProfilePicture(3, $data_userid);
-$nav_selected = "Organizations / Discussion Forum";
+$nav_selected = "Organizations / Organization";
 $nav_breadcrumbs = [
     ["Home", "signatory-index.php", "bi-house-fill"],
-    ["Discussion Forum", "forum-user.php", ""],
-    ["Threads", "forum-threads.php?topic=$topicid", ""],
+    ["Discussion Forum", "forum-user.php?id=$orgid", ""],
+    ["Threads", "forum-threads.php?topic=$topicid&id=$orgid", ""],
     ["Post", "", ""],
 ];
 
@@ -222,35 +223,35 @@ if (isset($_POST['post-reply'])) {
                         <div class="card-body px-2 mx-3 py-3 pt-4 ">
 
                             <div class="row">
-                                <div class="col-12 col-md-2 mb-4 text-center">
-                                    <h6 class="mt-3"><?= $makerName ?></h6>
-                                    <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
-                                    <div style="overflow: hidden; text-overflow: ellipsis;">
-                                        <h6 class="mt-3" style="color:#F2AC1B; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
-                                    </div>
-                                    <?php
-                                    if ($threadUserType == 0) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
-                                    <?php
-                                    } else if ($threadUserType == 3) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">SIGNATORY</h6>
-                                    <?php
-                                    } else if ($threadUserType == 2) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">OFFICER</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    } else if ($threadUserType == 1) {
-                                    ?>
-                                        <h6 style="font-size: 13px;">STUDENT</h6>
-                                        <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
-                                    <?php
-                                    }
-                                    ?>
-                                    <h6 class="mt-3 text-secondary" style="font-size: 12px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
-                                </div>
+                            <div class="col-12 col-md-2 mb-4 text-center">
+                  <img class="rounded-circle me-lg-2" src="<?= $makerPic ?>" alt="" style="width: 120px; height: 120px;border: 2px solid #F2AC1B;">
+                  <h6 class="mt-3"><?= $makerName ?></h6>
+                  <div style="overflow: hidden; text-overflow: ellipsis;">
+                    <h6 class="mt-1" style="color:#F2AC1B; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $makerEmail ?></h6>
+                  </div>
+                  <?php
+                  if ($threadUserType == 0) {
+                  ?>
+                    <h6 style="font-size: 13px;">ADMINISTRATOR</h6>
+                  <?php
+                  } else if ($threadUserType == 3) {
+                  ?>
+                    <h6 style="font-size: 13px;">SIGNATORY</h6>
+                  <?php
+                  } else if ($threadUserType == 2) {
+                  ?>
+                    <h6 style="font-size: 13px;">OFFICER</h6>
+                    <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                  <?php
+                  } else if ($threadUserType == 1) {
+                  ?>
+                    <h6 style="font-size: 13px;">STUDENT</h6>
+                    <h6 style="font-size: 13px;">Year <?= $makerYear ?> Section <?= $makerSection ?></h6>
+                  <?php
+                  }
+                  ?>
+                  <h6 class="mt-3 text-secondary" style="font-size: 10px;">Date Posted: <?= date('M. d Y', $threadid) ?></h6>
+                </div>
                                 <div class="col-12 col-md-10 border p-3">
                                     <div style="overflow: hidden; text-overflow: ellipsis;">
                                         <h3 class="" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $threadTitle ?></h2>
@@ -628,5 +629,4 @@ if (isset($_POST['post-reply'])) {
         include('include/sweetalert.php');
         ?>
 </body>
-
 </html>

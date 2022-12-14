@@ -101,12 +101,14 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              if ($data_signatorytype == 2) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
-              } elseif ($data_signatorytype == 1) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+              if ($data_signatorytype == 1) {
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id";
+              } elseif ($data_signatorytype == 2) {
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
               } elseif ($data_signatorytype == 3) {
-                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$data_orgid'";
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.college_dept = '$data_collegeid'";
+              } elseif ($data_signatorytype == 4) {
+                $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id WHERE tb_officers.org_id = '$data_orgid'";
               }
               $result = @mysqli_query($conn, $query);
               $i = 0;
@@ -125,12 +127,12 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Officer ID</th>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>Position</th>
-                                <th class='none'>Organization</th>
+                                <th class='none'>Organization: </th>
                                 <th class='desktop'>First Name</th>
-                                <th class='none'>Middle Name</th>
+                                <th class='none'>Officer History:</th><br>
                                 <th class='desktop'>Last name</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Course</th>
+                                <th class='none'>Email: </th>
+                                <th class='none'>Course: </th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -144,7 +146,7 @@ if (isset($_SESSION['msg'])) {
                   $p = $row['position'];
                   $org = $row['ORG'];
                   $fn = $row['first_name'];
-                  $mn = $row['middle_initial'];
+                  $mn = $row['bio'];
                   $ln = $row['last_name'];
                   $e = $row['email'];
                   $c = $row['course'];
@@ -274,8 +276,8 @@ if (isset($_SESSION['msg'])) {
                 </div>
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="middle_initial">Middle Name:</label>
-                    <input type="text" class="form-control" name="middle_initial" id="middle_initial" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly/>
+                    <label class="form-label" for="bio">Middle Name:</label>
+                    <input type="text" class="form-control" name="bio" id="bio" style="background-color: #fff;" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly/>
                   </div>
                 </div>
                 <div class="col-6 col-md-4 mb-4 ">
@@ -374,6 +376,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Officer Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
               <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" readonly />
             </div>
           </div>
@@ -434,7 +444,7 @@ if (isset($_SESSION['msg'])) {
           $('#position_id').val(data.position_id);
           $('#org_id').val(data.org_id);
           $('#first_name').val(data.first_name);
-          $('#middle_initial').val(data.middle_initial);
+          $('#bio').val(data.bio);
           $('#last_name').val(data.last_name);
           $('#birthdate').val(data.birthdate);
           $('#age').val(data.age);
@@ -448,6 +458,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -455,7 +466,7 @@ if (isset($_SESSION['msg'])) {
 
       // UPPERCASE FIRST LETTER
       document.getElementById("first_name").addEventListener("input", forceLower);
-      document.getElementById("middle_initial").addEventListener("input", forceLower);
+      document.getElementById("bio").addEventListener("input", forceLower);
       document.getElementById("last_name").addEventListener("input", forceLower);
       // Event handling functions are automatically passed a reference to the
       // event that triggered them as the first argument (evt)

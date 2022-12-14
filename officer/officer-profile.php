@@ -76,18 +76,23 @@ if (isset($_SESSION['msg'])) {
                       <input class="file-upload" type="file" name=profilePic id=profilePic accept="image/*" />
                     </div>
                   </div>
+                  <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
+                  $result = @mysqli_query($conn, $query);
+                  $data = @mysqli_fetch_array($result);
+                  $si = $data['student_id']; 
+                  $bio = $data['bio']; ?>
                   <h3 class="pt-3"><?= $_SESSION['USER-NAME'] ?></h3>
-                  <small class="pt-3">COMSOC 2 years Assistant Secretary</small>
+                  <small class="pt-3"><?php echo $bio; ?></small>
                 </div>
-                <?php $query = "SELECT * FROM `tb_officers` WHERE officer_id = '$data_userid'";
-                $result = @mysqli_query($conn, $query);
-                $data = @mysqli_fetch_array($result);
-                $si = $data['student_id']; ?>
-                <div class="card-body px-4">
+                <div class="card-body text-center px-4">
                   <p class="mb-0"><strong class="pr-1">Student ID:</strong><?php echo $si; ?></p>
                   <p class="mb-0"><strong class="pr-1">Year Level:</strong><?php echo $data['year_level']; ?></p>
                   <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $data['section']; ?></p>
-                  <p class="mb-0"><strong class="pr-1">School Year:</strong>2022-2023</p>
+                  <p class="mb-0"><strong class="pr-1">School Year:</strong><?php $currentMonth=date("m"); 
+                                                                              if($currentMonth >="08") 
+                                                                                echo date("Y") .'-'. (date("Y")+1);
+                                                                              if($currentMonth < "08")
+                                                                                echo (date("Y")-1) .'-'. date("Y");  ?></p>
                   <!--<p class="mb-0"><strong class="pr-1">Academic Year:</strong></p>-->
                 </div>
               </div>
@@ -272,7 +277,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-5 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Organization:</label>
                     <select class="form-select" name="org_id" id="org_id" readonly>
@@ -306,11 +311,11 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
+                <div class="col-12 col-md-4 col-sm-3 mb-2 d-none">
                   <label class="form-label" for="email">Email:</label>
                   <input type="text" name="email" id="email" class="form-control" style="background-color: #fff;" pattern=".+@my.jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="college_dept">College:</label>
                     <select class="form-select" name="college_dept" id="college_dept" readonly>
@@ -325,7 +330,7 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
 
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
+                <div class="col-12 col-md-4 col-sm-3 mb-2 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="course">Course:</label>
                     <select class="form-select" style="width:100%;" name="course" id="course" readonly>
@@ -347,7 +352,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="user_type">User Type:</label>
                     <select class="form-select" name="user_type" id="user_type" readonly>
@@ -361,13 +366,13 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-4">
+                <div class="col-12 col-md-4 col-sm-3 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="section">Section:</label>
                     <input type="text" name="section" id="section" class="form-control" maxlength="4" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="year_level">Year Level:</label>
                     <select class="form-select" name="year_level" id="year_level" readonly>
@@ -381,19 +386,19 @@ if (isset($_SESSION['msg'])) {
                 <input type="hidden" name="profile_pic" id="profile_pic" class="form-control" />
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="birthdate">Birthdate:</label>
                     <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="age">Age:</label>
                     <input type="number" class="form-control age" name="age" id="age" maxlength="2" max="99" min="18" style="background-color: #fff;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" readonly />
                   </div>
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
+                <div class="col-12 col-md-4 col-sm-3 mb-2 d-none">
                   <label class="form-label" for="gender">Gender</label>
                   <select class="form-select" name="gender" id="gender" readonly>
                     <option value="Female">Female</option>
@@ -482,6 +487,7 @@ if (isset($_SESSION['msg'])) {
           $('#course').val(data.course);
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
+          $('#bio').val(data.bio);
           $('#profile_pic').val(data.profile_pic);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');

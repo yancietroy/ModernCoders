@@ -22,7 +22,7 @@
                     <?php
                     if($data_signatorytype == 1){
                     ?>
-                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span>Organization</span></a>
+                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span>Organizations</span></a>
                     <?php
                     }
                     elseif($data_signatorytype == 2){
@@ -32,25 +32,15 @@
                     }
                     elseif($data_signatorytype == 3){
                     ?>
+                    <a href="signatory-orgs.php"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$collName"; ?></span></a>
+                    <?php
+                    }elseif($data_signatorytype == 4){
+                    ?>
                     <a href="signatory-orgs-rso.php?id=<?= $data_orgid ?>"><i class="bi bi-diagram-3-fill"></i> <span><?php echo "$orgName"; ?></span></a>
                     <?php
                     }
                     ?>
                 </li>
-                <li <?= str_ends_with($nav_selected, "Officers") ? 'class="active"' : "" ?>>
-                    <a href="signatory-orgs-rso-officers.php"><i class="bi bi-file-earmark-person"></i> <span>Officers</span></a>
-                </li>
-                <li <?= str_ends_with($nav_selected, "Discussion Forum") ? 'class="active"' : "" ?>>
-                    <a href="forum-user.php"><i class="bi bi-clipboard-fill"></i> <span>Discussion Forum</span></a>
-                </li>
-
-                <li <?= str_starts_with($nav_selected, "Calendar") ? 'class="active"' : "" ?>>
-                    <a href="event-calendar.php"><i class="bi bi-calendar2-fill"></i> <span>Event Calendar</span></a>
-                </li>
-            </ul>
-        </li>
-        <li <?= str_starts_with($nav_selected, "Projects") ? 'class="active"' : "" ?>>
-            <a href="signatory-projects.php"><i class="bi bi-folder-fill"></i> <span>Projects</span></a>
         </li>
         <li class="d-lg-none">
             <!--  <a href="admin-msg.php"> <i class="bi bi-envelope-fill"></i> <span>Message</span></a>-->

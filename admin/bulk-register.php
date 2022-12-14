@@ -31,32 +31,47 @@ if(isset($_POST['importSubmit'])){
             // Skip the first line
             fgetcsv($csvFile);
 
+            $orgData = [];
+            $queryOrg = "SELECT ORG_ID,ORG FROM tb_orgs";
+            $resOrg = @mysqli_query($conn, $queryOrg);
+            while ($rowOrg = $resOrg->fetch_assoc()) {
+                $orgData[$rowOrg["ORG"]] = $rowOrg["ORG_ID"]; 
+            }
+
+            $collegeData = [];
+            $queryCollege = "SELECT college_id,college FROM tb_collegedept";
+            $resCollege = @mysqli_query($conn, $queryCollege);
+            while ($rowCollege = $resCollege->fetch_assoc()) {
+                $collegeData[$rowCollege["college"]] = $rowCollege["college_id"]; 
+            }
+
+
             // Parse data from CSV file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
                 // Get row data
-                $fn = $line[2];
-                $ln = $line[1];
-                $mn = $line[3];
-                $date =  $line[6];
-                $age = $line[7];
-                $g =  $line[8];
-                $si =  $line[0];
-                $yl =  $line[9];
-                $cd =  $line[11];
-                $course =  $line[12];
-                $morgid =  $line[13];
-                $section =  $line[10];
-                $e = $line[4];
-                $pass =  $line[5];
+                $fn = $line[2]  ?? NULL;
+                $ln = $line[1]  ?? NULL;
+                $mn = $line[3]  ?? NULL;
+                $date =  $line[6]  ?? NULL;
+                $age = $line[7]  ?? NULL;
+                $g =  $line[8]  ?? NULL;
+                $si =  $line[0]  ?? NULL;
+                $yl =  $line[9]  ?? NULL;
+                $cd =  $collegeData[$line[11]]  ?? NULL;
+                $course =  $line[12]  ?? NULL;
+                $morgid =  $orgData[$line[13]]  ?? NULL;
+                $section =  $line[10]  ?? NULL;
+                $e = $line[4]  ?? NULL;
+                $pass =  $line[5]  ?? NULL;
                 $pp = "avatar-default.png";
                 $ul = "1";
                 // Check whether member already exists in the database with the same email
-                $prevQuery = "SELECT USER_ID FROM tb_students WHERE EMAIL = '".$line[4]."'";
+                $prevQuery = "SELECT ID FROM tb_students WHERE EMAIL = '".$line[4]."'";
                 $prevResult = $conn->query($prevQuery);
 
                 if($prevResult->num_rows > 0){
                     // Update member data in the database
-                    $conn->query("UPDATE tb_students SET FIRST_NAME = '".$fn."', LAST_NAME = '".$ln."', EMAIL = '".$e."' WHERE EMAIL = '".$e."'");
+                    $conn->query("UPDATE tb_students SET FIRST_NAME = '".$fn."', MIDDLE_NAME = '".$mn."', LAST_NAME = '".$ln."', EMAIL = '".$e."', BIRTHDATE = '".$date."', AGE = '".$age."', GENDER = '".$g."', YEAR_LEVEL = '".$yl."', COLLEGE_DEPT = '".$cd."', COURSE = '".$course."', MORG_ID = '".$morgid."', SECTION = '".$section."' WHERE EMAIL = '".$e."'");
                 }else{
                     // Insert member data in the database
                     $conn->query("INSERT INTO tb_students(STUDENT_ID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, BIRTHDATE, AGE, GENDER, YEAR_LEVEL, COLLEGE_DEPT, COURSE, MORG_ID, SECTION, EMAIL, PASSWORD, ACCOUNT_CREATED, PROFILE_PIC, USER_TYPE)

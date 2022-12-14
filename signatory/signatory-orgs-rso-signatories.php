@@ -102,7 +102,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE org_id = '$orgid' OR signatorytype_id='1'";
+              $query = "SELECT tb_signatories.school_id, tb_signatories.first_name, tb_signatories.last_name, tb_signatories.email, tb_signatory_type.signatory FROM `tb_signatories` JOIN `tb_signatory_type` ON tb_signatory_type.signatory_id = tb_signatories.signatorytype_id WHERE signatorytype_id='1' OR (signatorytype_id='2' AND college_dept = '$data_collegeid') OR (signatorytype_id='3' AND college_dept = '$data_collegeid') OR (org_id = '$orgid' AND college_dept = '$data_collegeid' AND signatorytype_id='4')";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $si = " ";
@@ -211,12 +211,12 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="first_name">First name:</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control form-control-lg" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly />
+                    <input type="text" name="first_name" id="first_name" class="form-control form-control-lg" style="background-color: #fff;"readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4">
                   <label class="form-label" for="last_name">Last Name:</label>
-                  <input type="text" name="last_name" id="last_name" class="form-control form-control-lg" onkeypress="return /[a-z, ,-]/i.test(event.key)" pattern="^(?:[A-Za-z]+[ -])*[A-Za-z]+$" maxlength="20" readonly />
+                  <input type="text" name="last_name" id="last_name" class="form-control form-control-lg" style="background-color: #fff;"readonly />
                 </div>
               </div>
               <div class="row justify-content-between">
@@ -250,11 +250,11 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
+                <div class="col-12 col-md-6 col-sm-3 mb-2">
                   <label class="form-label" for="email">Email:</label>
-                  <input type="text" name="email" id="email" class="form-control" pattern=".+@jru\.edu" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
+                  <input type="text" name="email" id="email" class="form-control" pattern=".+@jru\.edu" style="background-color: #fff;" title="Please provide a Jose Rizal University e-mail address" maxlength="30" readonly />
                 </div>
-                <div class="col-12 col-md-4 col-sm-3 mb-2">
+                <div class="col-12 col-md-6 col-sm-3 mb-2">
                   <label class="form-label" id="asterisk">College Department</label>
                   <select class="form-select" style="width:100%;" name="college_id" id="college_id"readonly>
                     <?php
@@ -266,7 +266,7 @@ if (isset($_SESSION['msg'])) {
                     ?>
                   </select>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4 d-none">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Organization:</label>
                     <select class="form-select" name="org_id" id="org_id"readonly>
@@ -281,6 +281,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Signatory Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
             </div>
             <div class="modal-footer pt-2 pb-0">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -314,6 +322,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.usertype_id);
           $('#college_id').val(data.college_dept);
           $('#signatory_type').val(data.signatorytype_id);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }

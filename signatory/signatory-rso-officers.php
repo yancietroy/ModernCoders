@@ -16,7 +16,7 @@ if ($orgRes = @mysqli_query($conn, $query)) {
     $row = $orgRes->fetch_assoc();
     $orgName = $row['ORG'];
   } else {
-    header('location:admin-orgs.php');
+    header('location:signatory-orgs.php');
   }
 }
 
@@ -31,7 +31,7 @@ if ($collRes = @mysqli_query($conn, $query)) {
   if ($collRes->num_rows > 0) {
     $row = $collRes->fetch_assoc();
     $collName = $row['college'];
-  } 
+  }
 }
 $data_picture = getProfilePicture(3, $data_userid);
 $nav_selected = "Organizations / Organization";
@@ -105,7 +105,7 @@ if (isset($_SESSION['msg'])) {
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
-              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.middle_initial, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id  WHERE tb_officers.org_id = '$orgid'";
+              $query = "SELECT  tb_officers.officer_id, tb_officers.student_id, tb_officers.first_name, tb_officers.bio, tb_officers.last_name, tb_officers.email, tb_officers.course, tb_officers.section, tb_position.position, tb_orgs.ORG FROM tb_officers JOIN tb_position ON tb_officers.position_id = tb_position.POSITION_ID JOIN tb_orgs ON tb_orgs.ORG_ID = tb_officers.org_id  WHERE tb_officers.org_id = '$orgid'";
               $result = @mysqli_query($conn, $query);
               $i = 0;
               $oi = " ";
@@ -123,12 +123,12 @@ if (isset($_SESSION['msg'])) {
                               <th class='desktop'>Officer ID</th>
                               <th class='desktop'>Student ID</th>
                               <th class='desktop'>Position</th>
-                              <th class='none'>Organization</th>
+                              <th class='none'>Organization: </th>
                               <th class='desktop'>First Name</th>
-                              <th class='none'>Middle Name</th>
+                              <th class='none'>Officer History:</th><br>
                               <th class='desktop'>Last name</th>
-                              <th class='none'>Email</th>
-                              <th class='none'>Course</th>
+                              <th class='none'>Email: </th>
+                              <th class='none'>Course: </th>
                               <th class='desktop'>Actions</th>
                         </tr>
                       </thead>
@@ -142,7 +142,7 @@ if (isset($_SESSION['msg'])) {
                   $p = $row['position'];
                   $org = $row['ORG'];
                   $fn = $row['first_name'];
-                  $mn = $row['middle_initial'];
+                  $mn = $row['bio'];
                   $ln = $row['last_name'];
                   $e = $row['email'];
                   $c = $row['course'];
@@ -210,23 +210,23 @@ if (isset($_SESSION['msg'])) {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="admin-update-officer.php" method="POST">
+        <form action="" method="POST">
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row justify-content-between">
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="officer_id">Officer ID:</label>
                     <input type="text" name="officer_id" id="officer_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-2 col-sm-3 mb-4">
+                <div class="col-12 col-md-2 col-sm-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="student_id">Student ID:</label>
                     <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
-                <div class="col-4 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>
                     <input type="text" name="account_created" id="account_created" class="form-control" style="background-color: #fff;" readonly />
@@ -234,7 +234,7 @@ if (isset($_SESSION['msg'])) {
                 </div>
               </div>
               <div class="row justify-content-between">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Position:</label>
                     <select class="form-select" name="position_id" id="position_id"readonly>
@@ -248,7 +248,7 @@ if (isset($_SESSION['msg'])) {
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="org_id">Organization:</label>
                     <select class="form-select" name="org_id" id="org_id"readonly>
@@ -286,7 +286,7 @@ if (isset($_SESSION['msg'])) {
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="birthdate">Birthdate:</label>
-                    <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" readonly />
+                    <input id="birthdate" class="form-control birthdate" data-relmax="-18" min="1922-01-01" type="date" name="birthdate" onblur="getAge();" title="You should be over 18 years old" style="background-color: #fff;" readonly />
                   </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4">
@@ -372,6 +372,14 @@ if (isset($_SESSION['msg'])) {
                   </div>
                 </div>
               </div>
+              <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="MORG_ID">Officer Information:</label>
+                    <textarea class="form-control" name="bio" id="bio" rows="3"  style="background-color: #fff;" readonly></textarea>
+                  </div>
+                </div>
+                    </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -416,6 +424,7 @@ if (isset($_SESSION['msg'])) {
           $('#user_type').val(data.user_type);
           $('#account_created').val(data.account_created);
           $('#profile_pic').val(data.profile_pic);
+          $('#bio').val(data.bio);
           $('#viewmodal').modal('show');
           $('#modal-lg').css('max-width', '70%');
         }
@@ -566,7 +575,12 @@ if (isset($_SESSION['msg'])) {
               head.appendChild(style);
             }
           },
-        ]
+        ],
+        searchPanes: {
+            viewTotal: true,
+            columns: [2]
+        },
+        dom: 'Plfrtip'
       });
       myTable.columns.adjust().draw();
     });

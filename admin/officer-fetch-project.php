@@ -15,3 +15,4 @@ if (isset($_POST["project_id"])) {
      $row["budget_codes"] = $codes;
      echo json_encode($row);
 }
+?>

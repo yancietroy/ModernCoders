@@ -98,7 +98,7 @@ if(!empty($_GET['status'])){
         </div>
     <!-- Page content-->
         <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
-          <a class="btn btn-circle button px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
+        <a class="btn btn-success px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ if(!empty($_GET['status'])){
               <div class="col-12 col-md-6 col-sm-3 mb-4" id="importFrm" style="display: none;">
                   <label class="form-label mb-2" for="attachments" id="asterisk">Import CSV:</label>
                   <div class="d-flex">
-                  <input class="form-control mr-1" type="file" name="file" required>
+                  <input class="form-control mr-1" type="file" name="file" accept=".csv" required>
                   <input type="submit" class="btn btn-primary" name="importSubmit" value="Import">
                 </div>
                 <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
@@ -135,13 +135,13 @@ if(!empty($_GET['status'])){
                             <tr>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>First Name</th>
-                                <th class='desktop'>Middle Name</th>
+                               <th class='desktop'>Middle Name</th>
                                 <th class='desktop'>Last name</th>
                                 <th class='desktop'>Age</th>
                                 <th class='desktop'>Gender</th>
                                 <th class='desktop'>Actions</th>
-                                <th class='none'>Course</th>
-                                <th class='none'>Email</th>
+                                <th class='none'>Course: </th>
+                                <th class='none'>Email: </th>
                                 <th class='none'>Birthdate</th>
                                 <th class='none'>Year Level</th>
                                 <th class='none'>Section</th>
@@ -366,9 +366,9 @@ if(!empty($_GET['status'])){
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-6 mb-4">
                   <div class="form-outline">
-                    <label class="form-label" for="MORG_ID">Academic Organization:</label>
+                      <label class="form-label" for="MORG_ID"> Organization:</label>
                     <select class="form-select" name="MORG_ID" id="MORG_ID">
                       <?php
                       $query = "SELECT ORG_ID, ORG FROM tb_orgs";
@@ -380,12 +380,11 @@ if(!empty($_GET['status'])){
                     </select>
                   </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+              <!--  <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="ORG_IDS">Non-Academic Organization:</label>
-                    <select class="form-select" name="ORG_IDS" id="ORG_IDS">
+                    <select class="form-select" name="ORG_IDS" id="ORG_IDS" readonly>
                       <option class="greyclr" selected disabled value="" text-muted>------</option>
-                      <option class="greyclr" value="" text-muted>Clear</option>
                       <?php
                       $query = "SELECT ORG_ID, ORG FROM tb_orgs WHERE org_type_id = 2 AND NOT ORG_ID = 26";
                       $result = @mysqli_query($conn, $query);
@@ -395,7 +394,7 @@ if(!empty($_GET['status'])){
                       ?>
                     </select>
                   </div>
-                </div>
+                </div>-->
                 <div class="col-12 col-md-4 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="position_id">Officer position:</label>

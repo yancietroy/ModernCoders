@@ -168,11 +168,11 @@ if (isset($_SESSION['msg'])) {
         <?php
         if($data_orgid == NULL)
         {
-          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved' OR status='Done'");
+          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE status='Approved'");
         }
         else
         {
-          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$data_orgid' AND status='Approved' OR status='Done'");
+          $schedules = $conn->query("SELECT project_id,project_name,start_date, end_date  FROM `tb_projectmonitoring` WHERE org_id='$data_orgid' AND status='Approved'");
         }
         $sched_res = [];
         foreach ($schedules->fetch_all(MYSQLI_ASSOC) as $row) {

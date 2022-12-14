@@ -134,7 +134,7 @@ if (isset($_SESSION['msg'])) {
                         <select class="form-select" style="width:100%;" name="Signatory" id="Signatory">
                           <option class="greyclr" selected disabled value="">Select Adviser</option>
                           <?php
-                          $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=3";
+                          $query = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM tb_signatories WHERE signatorytype_id=4 AND org_id IS NULL";
                           $result = @mysqli_query($conn, $query);
                           while ($data = @mysqli_fetch_array($result)) {
                             echo '<option value="' . $data[0] . '">' . $data[0] . '</option>';

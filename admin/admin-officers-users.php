@@ -96,12 +96,12 @@ if (isset($_SESSION['msg'])) {
                                 <th class='desktop'>Officer ID</th>
                                 <th class='desktop'>Student ID</th>
                                 <th class='desktop'>Position</th>
-                                <th class='none'>Organization</th>
+                                <th class='none'>Organization: </th>
                                 <th class='desktop'>First Name</th>
-                                <th class='none'>Middle Name</th>
+                                <th class='none'>Officer History:</th><br>
                                 <th class='desktop'>Last name</th>
-                                <th class='none'>Email</th>
-                                <th class='none'>Course</th>
+                                <th class='none'>Email: </th>
+                                <th class='none'>Course: </th>
                                 <th class='desktop'>Actions</th>
                           </tr>
                         </thead>
@@ -200,6 +200,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="student_id" id="student_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                  
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>

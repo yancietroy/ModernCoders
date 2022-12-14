@@ -21,9 +21,9 @@ $nav_breadcrumbs = [
     ["Home", "officer-index.php", "bi-house-fill"],
     ["Organizations", "officer-orgs.php", "bi-people-fill"],
     [$_SESSION['USER-ORG-NAME'], "rso.php", ""],
-    ["Survey", "officer-survey.php", ""],
-    ["Survey List", "officer-survey-list.php", ""],
-    ["View Survey", "", ""],
+    ["Survey", "officer-survey.php", "bi bi-file-bar-graph-fill"],
+    ["Survey List", "officer-survey-list.php", "bi bi-clipboard-data-fill"],
+    ["View Survey", "", "bi bi-list-ul"],
 ];
 
 if (isset($_POST['edit-survey'])) {
@@ -72,22 +72,22 @@ if (isset($_POST['edit-survey'])) {
                 "text" => "Changes has been saved successfully.",
                 "icon" => "success", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         } else {
             $_SESSION["sweetalert"] = [
                 "title" => "Update Survey",
                 "text" => "Unexpected error while saving the survey questions. Please try again.",
                 "icon" => "error", //success,warning,error,info
                 "redirect" => null,
-                ];
+            ];
         }
     } else {
         $_SESSION["sweetalert"] = [
-                "title" => "Update Survey",
-                "text" => "Unexpected error while saving the survey details. Please try again.",
-                "icon" => "error", //success,warning,error,info
-                "redirect" => null,
-                ];
+            "title" => "Update Survey",
+            "text" => "Unexpected error while saving the survey details. Please try again.",
+            "icon" => "error", //success,warning,error,info
+            "redirect" => null,
+        ];
     }
 }
 
@@ -242,10 +242,12 @@ if (isset($_SESSION['msg'])) {
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
+                                                    <input type="text" name="entry-<?= $count ?>-<?= $row['type'] ?>-<?= $row['optional'] ?>" value="<?= $row['question'] ?><?= $row['choices'] != "" ? "::" . $row['choices'] : "" ?>" style="display: none;">
                                                     <?php
                                                     if ($row['type'] >= 4 && $row['type'] <= 6) {
-                                                        echo $row['question'] . "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
+                                                        echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
+                                                        echo  "<br><br><i>Choices:<br> - " . str_replace(";;", "<br> - ", $row['choices']) . "</i>";
                                                     } else if ($row['type'] == 7) {
                                                         $descs = explode(";;", $row['choices']);
                                                         $details = $row['question'] . "<br><br><i>Rating:";
@@ -257,6 +259,7 @@ if (isset($_SESSION['msg'])) {
                                                         echo $details . "</i>";
                                                     } else {
                                                         echo $row['question'];
+                                                        if ($row['optional'] == "0") echo "<span class='ml-1 text-danger'>*</span>";
                                                     }
                                                     ?>
                                                 </td>
@@ -680,7 +683,7 @@ if (isset($_SESSION['msg'])) {
         });
     </script>
     <?php
-        include('include/sweetalert.php');
+    include('include/sweetalert.php');
     ?>
 </body>
 

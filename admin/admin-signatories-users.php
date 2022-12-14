@@ -22,6 +22,26 @@ if (isset($_SESSION['msg'])) {
   print_r($_SESSION['msg']); #display message
   unset($_SESSION['msg']); #remove it from session array, so it doesn't get displayed twice
 }
+// Get status message
+if(!empty($_GET['status'])){
+    switch($_GET['status']){
+        case 'succ':
+            $statusType = 'alert-success';
+            $statusMsg = 'Members data has been imported successfully.';
+            break;
+        case 'err':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Some problem occurred, please try again.';
+            break;
+        case 'invalid_file':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Please upload a valid CSV file.';
+            break;
+        default:
+            $statusType = '';
+            $statusMsg = '';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,16 +85,41 @@ if (isset($_SESSION['msg'])) {
       <!-- breadcrumb -->
       <?php include("include/breadcrumb.php") ?>
 
+      <!-- Display status message -->
+      <?php if(!empty($statusMsg)){ ?>
+    <div class='col-xs-12' id='box'>
+          <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg; ?></div>
+      </div>
+      <?php } ?>
+
       <!-- Page content -->
       <div class="row ms-3 me-3 mt-2 mb-2">
         <div class="col-lg-6 col-7">
           <h4>Signatory Masterlist</h4>
+        </div>
+        <div class="col-lg-6 col-5 d-flex align-items-end justify-content-end">
+        <a class="btn btn-success px-3 ms-2" href="javascript:void(0);" onclick="formToggle('importFrm');" role="button"><i class="bi bi-archive-fill"></i> <span id="btntitle"> Bulk Register</span></a>
         </div>
 
       </div>
 
       <div class="card shadow card-registration mb-4 mt-3" style="border-radius: 15px;">
         <div class="card-body px-2 mx-3 py-3 pt-4 ">
+          <div class="row">
+            <form action="bulk-register-sig.php" method="post" enctype="multipart/form-data">
+              <div class="col-12 col-md-6 col-sm-3 mb-4" id="importFrm" style="display: none;">
+                  <label class="form-label mb-2" for="attachments" id="asterisk">Import CSV:</label>
+                  <div class="d-flex">
+                  <input class="form-control mr-1" type="file" name="file" accept=".csv" required>
+                  <input type="submit" class="btn btn-primary" name="importSubmit" value="Import">
+                </div>
+                <div class="col-12 col-md-6 col-sm-3 mb-4 pt-4">
+
+                </div>
+
+              </div>
+            </form>
+</div>
           <div class="row g-0 justify-content-center ">
             <div class="table-responsive ms-2">
               <?php
@@ -177,6 +222,7 @@ if (isset($_SESSION['msg'])) {
                     <input type="text" name="school_id" id="school_id" class="form-control" style="background-color: #fff;" readonly />
                   </div>
                 </div>
+                  
                 <div class="col-4 col-md-3 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="account_created">Account Created:</label>
@@ -298,7 +344,25 @@ if (isset($_SESSION['msg'])) {
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script>
+  function formToggle(ID){
+      var element = document.getElementById(ID);
+      if(element.style.display === "none"){
+          element.style.display = "block";
+      }else{
+          element.style.display = "none";
+      }
+  }
+  </script>
+  <script type="text/javascript">
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+      const box = document.getElementById('box');
 
+      if (!box.contains(event.target)) {
+        box.style.display = 'none';
+      }
+    });
+  </script>
   <script>
     $(document).on('click', '.viewbtn', function() {
       var school_id = $(this).attr("id");
