@@ -725,7 +725,7 @@ if (isset($_SESSION['msg'])) {
         keys: true,
         fixedheader: true,
         autoWidth: false, //set to false, so dataTables not ruin the idea
-        dom: 'Bfrtip',
+        dom: 'PBfrtip',
         "bFilter": true,
         "columns": [{
             "width": "60px"
@@ -856,8 +856,7 @@ if (isset($_SESSION['msg'])) {
         searchPanes: {
             viewTotal: true,
             columns: [3]
-        },
-        dom: 'Plfrtip'
+        }
       });
       myTable.columns.adjust().draw();
     });
